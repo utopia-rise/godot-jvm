@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -47,11 +46,10 @@ public open class GridContainer : Container() {
   }
 
   public final fun setColumns(columns: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setColumnsPtr, columns.toLong())
+    callPtrMethod_LONG(MethodBindings.setColumnsPtr, columns.toLong())
   }
 
-  public final fun getColumns(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColumnsPtr).toInt()
+  public final fun getColumns(): Int = callPtrMethod0_ret_LONG(MethodBindings.getColumnsPtr).toInt()
 
   public companion object {
     @JvmField

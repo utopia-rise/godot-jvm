@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -53,34 +52,34 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
    * Sets the number of settings.
    */
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSettingCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setSettingCountPtr, count.toLong())
   }
 
   /**
    * Returns the number of settings.
    */
   public final fun getSettingCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSettingCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSettingCountPtr).toInt()
 
   /**
    * Clears all settings.
    */
   public final fun clearSettings(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSettingsPtr)
+    callPtrMethod0(MethodBindings.clearSettingsPtr)
   }
 
   public final fun setMutableBoneAxes(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMutableBoneAxesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setMutableBoneAxesPtr, enabled)
   }
 
   public final fun areBoneAxesMutable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areBoneAxesMutablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.areBoneAxesMutablePtr)
 
   /**
    * Resets a state with respect to the current bone pose.
    */
   public final fun reset(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetPtr)
+    callPtrMethod0(MethodBindings.resetPtr)
   }
 
   public companion object {

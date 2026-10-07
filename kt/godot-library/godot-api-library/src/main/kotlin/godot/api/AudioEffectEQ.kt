@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG_DOUBLE
@@ -44,20 +43,20 @@ public open class AudioEffectEQ : AudioEffect() {
    * Sets band's gain at the specified index, in dB.
    */
   public final fun setBandGainDb(bandIdx: Int, volumeDb: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBandGainDbPtr, bandIdx.toLong(), volumeDb.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBandGainDbPtr, bandIdx.toLong(), volumeDb.toDouble())
   }
 
   /**
    * Returns the band's gain at the specified index, in dB.
    */
   public final fun getBandGainDb(bandIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBandGainDbPtr, bandIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getBandGainDbPtr, bandIdx.toLong()).toFloat()
 
   /**
    * Returns the number of bands of the equalizer.
    */
   public final fun getBandCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBandCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBandCountPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

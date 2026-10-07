@@ -1,28 +1,30 @@
 #include "jvm_manager.h"
 
 #include "engine/dynamic_library.h"
-#include "jvm/wrapper/bridge/callable_bridge.h"
-#include "jvm/wrapper/bridge/dictionary_bridge.h"
-#include "jvm/wrapper/bridge/godot_print_bridge.h"
-#include "jvm/wrapper/bridge/node_path_bridge.h"
-#include "jvm/wrapper/bridge/packed_byte_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_color_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_float_32_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_float_64_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_int_32_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_int_64_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_string_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_vector2_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_vector3_array_bridge.h"
-#include "jvm/wrapper/bridge/packed_vector4_array_bridge.h"
-#include "jvm/wrapper/bridge/string_name_bridge.h"
-#include "jvm/wrapper/bridge/variant_array_bridge.h"
-#include "jvm/wrapper/kotlin_callable_custom.h"
-#include "jvm/wrapper/memory/long_string_queue.h"
-#include "jvm/wrapper/memory/memory_manager.h"
-#include "jvm/wrapper/memory/transfer_context.h"
-#include "jvm/wrapper/memory/type_manager.h"
-#include "jvm/wrapper/registration/kt_object.h"
+#include "jvm/bridge/callable_bridge.h"
+#include "jvm/bridge/dictionary_bridge.h"
+#include "jvm/bridge/godot_print_bridge.h"
+#include "jvm/bridge/kotlin_callable_custom.h"
+#include "jvm/bridge/node_path_bridge.h"
+#include "jvm/bridge/packed_byte_array_bridge.h"
+#include "jvm/bridge/packed_color_array_bridge.h"
+#include "jvm/bridge/packed_float_32_array_bridge.h"
+#include "jvm/bridge/packed_float_64_array_bridge.h"
+#include "jvm/bridge/packed_int_32_array_bridge.h"
+#include "jvm/bridge/packed_int_64_array_bridge.h"
+#include "jvm/bridge/packed_string_array_bridge.h"
+#include "jvm/bridge/packed_vector2_array_bridge.h"
+#include "jvm/bridge/packed_vector3_array_bridge.h"
+#include "jvm/bridge/packed_vector4_array_bridge.h"
+#include "jvm/bridge/string_name_bridge.h"
+#include "jvm/bridge/variant_array_bridge.h"
+#include "jvm/memory/long_string_queue.h"
+#include "jvm/memory/memory_manager.h"
+#include "jvm/memory/type_manager.h"
+#include "jvm/memory/value_buffer.h"
+#include "jvm/memory/variant_buffer.h"
+#include "jvm/registration/kt_object.h"
+#include "jvm/registration/kt_process.h"
 #include "logging.h"
 
 #include <jni.h>
@@ -44,7 +46,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_utopiarise_godotjvm_GodotJvmPlugin_na
 CreateJavaVM get_create_jvm_function(void* lib_handle) {
 #ifdef DYNAMIC_JVM
     void* createJavaVMSymbolHandle;
-    if (godot_jvm_native::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle)
+    if (engine::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle)
         != godot::OK) {
         return nullptr;
     }
@@ -122,8 +124,10 @@ bool JvmManager::initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loa
             && KtRpcConfig::initialize(p_env, class_loader)
             && KtFunctionInfo::initialize(p_env, class_loader)
             && KtFunction::initialize(p_env, class_loader)
+            && KtProcess::initialize(p_env, class_loader)
             && KtClass::initialize(p_env, class_loader)
-            && TransferContext::initialize(p_env, class_loader)
+            && VariantBuffer::initialize(p_env, class_loader)
+            && ValueBuffer::initialize(p_env, class_loader)
             && TypeManager::initialize(p_env, class_loader)
             && LongStringQueue::initialize(p_env, class_loader)
             && MemoryManager::initialize(p_env, class_loader)
@@ -153,7 +157,8 @@ bool JvmManager::initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loa
 void JvmManager::finalize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loader) {
     jni::Env::set_exception_handler(nullptr);
 
-    TransferContext::finalize(p_env, class_loader);
+    VariantBuffer::finalize(p_env, class_loader);
+    ValueBuffer::finalize(p_env, class_loader);
     TypeManager::finalize(p_env, class_loader);
     LongStringQueue::finalize(p_env, class_loader);
     MemoryManager::finalize(p_env, class_loader);
@@ -182,6 +187,7 @@ void JvmManager::finalize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loade
     KtRpcConfig::finalize(p_env, class_loader);
     KtFunctionInfo::finalize(p_env, class_loader);
     KtFunction::finalize(p_env, class_loader);
+    KtProcess::finalize(p_env, class_loader);
     KtClass::finalize(p_env, class_loader);
 }
 

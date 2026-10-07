@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.callPtrMethod_LONG_ret_TRANSFORM3D
@@ -33,13 +32,13 @@ public open class OpenXRSpatialComponentMesh3DList : OpenXRSpatialComponentData(
    * Returns the transform for positioning our mesh for the entity at this [index].
    */
   public final fun getTransform(index: Long): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr, index)
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getTransformPtr, index)
 
   /**
    * Returns the mesh for the entity at this [index].
    */
   public final fun getMesh(index: Long): Mesh? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr, index) as Mesh?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getMeshPtr, index) as Mesh?)
 
   public companion object {
     @JvmField

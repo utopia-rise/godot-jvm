@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -59,27 +58,27 @@ public open class AudioEffectRecord : AudioEffect() {
    * previously recorded sample.
    */
   public final fun setRecordingActive(record: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingActivePtr, record)
+    callPtrMethod_BOOL(MethodBindings.setRecordingActivePtr, record)
   }
 
   /**
    * Returns whether the recording is active or not.
    */
   public final fun isRecordingActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingActivePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRecordingActivePtr)
 
   public final fun setFormat(format: AudioStreamWAV.Format): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, format.value)
+    callPtrMethod_LONG(MethodBindings.setFormatPtr, format.value)
   }
 
   public final fun getFormat(): AudioStreamWAV.Format =
-      AudioStreamWAV.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
+      AudioStreamWAV.Format.from(callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr))
 
   /**
    * Returns the recorded sample.
    */
   public final fun getRecording(): AudioStreamWAV? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRecordingPtr) as AudioStreamWAV?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getRecordingPtr) as AudioStreamWAV?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

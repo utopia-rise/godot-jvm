@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_RECT2
@@ -105,18 +104,17 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
   }
 
   public final fun setRect(rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRectPtr, rect)
+    callPtrMethod_RECT2(MethodBindings.setRectPtr, rect)
   }
 
-  public final fun getRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
+  public final fun getRect(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRectPtr)
 
   public final fun setShowRect(showRect: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowRectPtr, showRect)
+    callPtrMethod_BOOL(MethodBindings.setShowRectPtr, showRect)
   }
 
   public final fun isShowingRect(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingRectPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isShowingRectPtr)
 
   /**
    * If `true`, the bounding rectangle is on the screen.
@@ -125,8 +123,7 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
    * once added to the scene tree, so this method will always return `false` right after it is
    * instantiated, before the draw pass.
    */
-  public final fun isOnScreen(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnScreenPtr)
+  public final fun isOnScreen(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnScreenPtr)
 
   public companion object {
     @JvmField

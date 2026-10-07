@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_ANY_ret_OBJECT_REF
 import godot.callMethod_CALLABLE_ret_OBJECT_REF
@@ -58,7 +57,7 @@ public open class PropertyTweener : Tweener() {
    * ```
    */
   public final fun from(`value`: Any?): PropertyTweener =
-      (TransferContext.callMethod_ANY_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.fromPtr, value) as PropertyTweener)
+      (callMethod_ANY_ret_OBJECT_REF(MethodBindings.fromPtr, value) as PropertyTweener)
 
   /**
    * Makes the [PropertyTweener] use the current property value (i.e. at the time of creating this
@@ -78,7 +77,7 @@ public open class PropertyTweener : Tweener() {
    * ```
    */
   public final fun fromCurrent(): PropertyTweener =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.fromCurrentPtr) as PropertyTweener)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.fromCurrentPtr) as PropertyTweener)
 
   /**
    * When called, the final value will be used as a relative value instead.
@@ -98,21 +97,21 @@ public open class PropertyTweener : Tweener() {
    * ```
    */
   public final fun asRelative(): PropertyTweener =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.asRelativePtr) as PropertyTweener)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.asRelativePtr) as PropertyTweener)
 
   /**
    * Sets the type of used transition from [Tween.TransitionType]. If not set, the default
    * transition is used from the [Tween] that contains this Tweener.
    */
   public final fun setTrans(trans: Tween.TransitionType): PropertyTweener =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setTransPtr, trans.value) as PropertyTweener)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.setTransPtr, trans.value) as PropertyTweener)
 
   /**
    * Sets the type of used easing from [Tween.EaseType]. If not set, the default easing is used from
    * the [Tween] that contains this Tweener.
    */
   public final fun setEase(ease: Tween.EaseType): PropertyTweener =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setEasePtr, ease.value) as PropertyTweener)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.setEasePtr, ease.value) as PropertyTweener)
 
   /**
    * Allows interpolating the value with a custom easing function. The provided [interpolatorMethod]
@@ -156,14 +155,14 @@ public open class PropertyTweener : Tweener() {
    * ```
    */
   public final fun setCustomInterpolator(interpolatorMethod: Callable): PropertyTweener =
-      (TransferContext.callMethod_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setCustomInterpolatorPtr, interpolatorMethod) as PropertyTweener)
+      (callMethod_CALLABLE_ret_OBJECT_REF(MethodBindings.setCustomInterpolatorPtr, interpolatorMethod) as PropertyTweener)
 
   /**
    * Sets the time in seconds after which the [PropertyTweener] will start interpolating. By default
    * there's no delay.
    */
   public final fun setDelay(delay: Double): PropertyTweener =
-      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setDelayPtr, delay) as PropertyTweener)
+      (callPtrMethod_DOUBLE_ret_OBJECT_REF(MethodBindings.setDelayPtr, delay) as PropertyTweener)
 
   public companion object {
     @JvmField

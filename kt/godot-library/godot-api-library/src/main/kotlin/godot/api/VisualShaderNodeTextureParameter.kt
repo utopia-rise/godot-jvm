@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -88,39 +87,39 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
   }
 
   public final fun setTextureType(type: TextureType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureTypePtr, type.value)
+    callPtrMethod_LONG(MethodBindings.setTextureTypePtr, type.value)
   }
 
   public final fun getTextureType(): TextureType =
-      TextureType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureTypePtr))
+      TextureType.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureTypePtr))
 
   public final fun setColorDefault(color: ColorDefault): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setColorDefaultPtr, color.value)
+    callPtrMethod_LONG(MethodBindings.setColorDefaultPtr, color.value)
   }
 
   public final fun getColorDefault(): ColorDefault =
-      ColorDefault.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColorDefaultPtr))
+      ColorDefault.from(callPtrMethod0_ret_LONG(MethodBindings.getColorDefaultPtr))
 
   public final fun setTextureFilter(filter: TextureFilter): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureFilterPtr, filter.value)
+    callPtrMethod_LONG(MethodBindings.setTextureFilterPtr, filter.value)
   }
 
   public final fun getTextureFilter(): TextureFilter =
-      TextureFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureFilterPtr))
+      TextureFilter.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureFilterPtr))
 
   public final fun setTextureRepeat(repeat: TextureRepeat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureRepeatPtr, repeat.value)
+    callPtrMethod_LONG(MethodBindings.setTextureRepeatPtr, repeat.value)
   }
 
   public final fun getTextureRepeat(): TextureRepeat =
-      TextureRepeat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureRepeatPtr))
+      TextureRepeat.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureRepeatPtr))
 
   public final fun setTextureSource(source: TextureSource): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureSourcePtr, source.value)
+    callPtrMethod_LONG(MethodBindings.setTextureSourcePtr, source.value)
   }
 
   public final fun getTextureSource(): TextureSource =
-      TextureSource.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureSourcePtr))
+      TextureSource.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureSourcePtr))
 
   public enum class TextureType(
     public override val `value`: Long,

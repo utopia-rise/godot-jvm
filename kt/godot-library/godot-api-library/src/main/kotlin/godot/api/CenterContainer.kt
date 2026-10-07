@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -42,11 +41,11 @@ public open class CenterContainer : Container() {
   }
 
   public final fun setUseTopLeft(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseTopLeftPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseTopLeftPtr, enable)
   }
 
   public final fun isUsingTopLeft(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingTopLeftPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingTopLeftPtr)
 
   public companion object {
     @JvmField

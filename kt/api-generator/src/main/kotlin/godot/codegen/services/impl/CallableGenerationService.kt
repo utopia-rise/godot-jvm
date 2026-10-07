@@ -46,7 +46,7 @@ object CallableGenerationService : ICallableGenerationService {
         val methodFileSpec = FileSpec.builder(Core.callable.packageName, Core.methodCallable.simpleName + "s")
         val jvmFunctionFileSpec = FileSpec.builder(godotCorePackage, Core.jvmFunction(0).simpleName.dropLast(1) + "s")
 
-        for (argCount in 0..Constraints.MAX_FUNCTION_ARG_COUNT) {
+        for (argCount in 0..Constraints.MAX_ARGUMENT_COUNT) {
             callableFileSpec.generateCallables(argCount)
             jvmFunctionFileSpec.generateJvmLambdas(argCount)
             methodFileSpec.generateMethodStringName(argCount)

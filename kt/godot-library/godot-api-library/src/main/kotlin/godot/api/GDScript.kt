@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_VARARG_ret_ANY
 import godot.common.interop.VoidPtr
@@ -40,7 +39,7 @@ public open class GDScript : Script() {
    * ```
    */
   public final fun new(vararg args: Any?): Any? =
-      TransferContext.callMethod_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.newPtr, args)
+      callMethod_VARARG_ret_ANY(MethodBindings.newPtr, args)
 
   public companion object
 

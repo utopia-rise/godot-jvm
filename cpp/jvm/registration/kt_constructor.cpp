@@ -1,0 +1,16 @@
+#include "kt_constructor.h"
+
+#include "engine/godot_object.h"
+#include "jvm/memory/variant_buffer.h"
+
+KtConstructor::KtConstructor(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {}
+
+// Takes the raw engine pointer rather than the godot-cpp wrapper, because that pointer is exactly what has to reach
+// Kotlin: it stores whatever we pass as its "native pointer" and hands it straight back on every later self-call
+// (KtObject::icall), which decodes it as a real GodotObject*. A wrapper's address has nothing to do with the
+// engine object's. Nothing else here needs a wrapper either.
+jni::JObject KtConstructor::construct(jni::Env& p_env, godot::GodotObject* p_owner) {
+    uint64_t id = engine::RawObject(p_owner).get_instance_id();
+    jvalue args[2] = {jni::to_jni_arg(p_owner), jni::to_jni_arg(id)};
+    return wrapped.call_object_method(p_env, CONSTRUCT, args);
+}

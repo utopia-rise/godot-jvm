@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -45,11 +44,11 @@ public open class MultiMeshInstance3D : GeometryInstance3D() {
   }
 
   public final fun setMultimesh(multimesh: MultiMesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMultimeshPtr, multimesh)
+    callPtrMethod_OBJECT(MethodBindings.setMultimeshPtr, multimesh)
   }
 
   public final fun getMultimesh(): MultiMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMultimeshPtr) as MultiMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMultimeshPtr) as MultiMesh?)
 
   public companion object {
     @JvmField

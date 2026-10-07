@@ -12,17 +12,17 @@ Renders an increasing number of bunny sprites until a stable 60fps is hit.  This
 
 The GDScript and C# variants are line-for-line ports of the Kotlin sources: the same data holders, the same `RandomNumberGenerator` usage, the same call sequence. Nothing is tuned for one language.
 
-## Benchmark Run - Godot-JVM 1.0.0-rc1, September 18th, 2026
+## Benchmark Run - Godot-JVM 1.0.0-rc1, October 6th, 2026
 
-All numbers are bunnies rendered at a stable 60 fps from a release export of this project. "Old module" is the last measurement of the engine-module version of Godot Kotlin/JVM (Alpha 0.7.2 on Godot 4.1.2, October 17th, 2023, editor run); it is kept for reference and was not re-run.
+All numbers are bunnies rendered at a stable 60 fps from a release export of this project. The Kotlin column is the mean of three runs made on October 6th, 2026; the GDScript and C# columns date from September 18th, 2026 and were not re-run. "Old module" is the last measurement of the engine-module version of Godot Kotlin/JVM (Alpha 0.7.2 on Godot 4.1.2, October 17th, 2023, editor run); it is kept for reference and was not re-run.
 
 | Benchmark             | Old module (Alpha 0.7.2) | Typed GDScript | C#     | Kotlin (JVM) |
 |-----------------------|--------------------------|----------------|--------|--------------|
-| BunnymarkSceneTree    | 34300                    | 37600          | 48900  | 35800        |
-| BunnymarkSprites      | 47400                    | 33100          | 67100  | 54800        |
-| BunnymarkDrawTexture  | 82400                    | 50300          | 261489 | 198040       |
-| BunnymarkScripts      | 20300                    | 34800          | 52300  | 36600        |
-| BunnymarkComputation  | n/a                      | n/a            | n/a    | n/a          |
+| BunnymarkSceneTree    | 34300                    | 37600          | 48900  | 54744        |
+| BunnymarkSprites      | 47400                    | 33100          | 67100  | 64230        |
+| BunnymarkDrawTexture  | 82400                    | 50300          | 261489 | 230180       |
+| BunnymarkScripts      | 20300                    | 34800          | 52300  | 42620        |
+| BunnymarkComputation  | n/a                      | 25496          | n/a    | 138363       |
 
 ### BunnymarkScripts
 
@@ -49,8 +49,8 @@ give an offset, the offset becomes a distance and an angle, a third wave perturb
 position again. That is seven transcendental operations per bunny per frame, against none in the other benchmarks.
 
 Nothing crosses the engine boundary inside the loop, so this one says little about the binding and a lot about the
-language runtime's floating-point throughput. It was added after the table above was measured and has no published
-numbers yet.
+language runtime's floating-point throughput. It was added after the rest of the table was first measured, which is why it
+has no "Old module" or C# figure; its GDScript figure is the mean of three release runs.
 
 ### Hardware:
 
@@ -61,5 +61,5 @@ numbers yet.
 ### Build Info:
 * OS: Windows 10
 * Godot 4.7.2-stable, release export (`template_release`); the C# run uses the .NET build of the same version
-* Kotlin 2.3.20, embedded JRE built with jlink from JDK 17 (Azul Zulu 17.28)
+* Kotlin 2.3.20, embedded JRE built with jlink from JDK 25.0.4.1 (Eclipse Temurin)
 * C#: .NET SDK 8.0.425, `Godot.NET.Sdk/4.7.2`, `net8.0` target

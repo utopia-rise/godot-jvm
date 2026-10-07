@@ -7,11 +7,10 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_OBJECT
-import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.callPtrMethod_VECTOR2I
+import godot.callStaticPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.Vector2i
@@ -81,7 +80,7 @@ public open class ImageTexture : Texture2D() {
    * [update] instead for better performance.
    */
   public final fun setImage(image: Image?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setImagePtr, image)
+    callPtrMethod_OBJECT(MethodBindings.setImagePtr, image)
   }
 
   /**
@@ -95,14 +94,14 @@ public open class ImageTexture : Texture2D() {
    * than allocating additional memory for a new texture each time.
    */
   public final fun update(image: Image?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.updatePtr, image)
+    callPtrMethod_OBJECT(MethodBindings.updatePtr, image)
   }
 
   /**
    * Resizes the texture to the specified dimensions.
    */
   public final fun setSizeOverride(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizeOverridePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setSizeOverridePtr, size)
   }
 
   /**
@@ -142,7 +141,7 @@ public open class ImageTexture : Texture2D() {
      */
     @JvmStatic
     public final fun createFromImage(image: Image?): ImageTexture? =
-        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.createFromImagePtr, image) as ImageTexture?)
+        (callStaticPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.createFromImagePtr, image) as ImageTexture?)
   }
 
   public object MethodBindings {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_BOOL_ret_STRING
 import godot.callMethod_STRING_BOOL_ret_LONG
@@ -45,7 +44,7 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun save(path: String, publicOnly: Boolean = false): Error =
-      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, path, publicOnly))
+      Error.from(callMethod_STRING_BOOL_ret_LONG(MethodBindings.savePtr, path, publicOnly))
 
   /**
    * Loads a key from [path]. If [publicOnly] is `true`, only the public key will be loaded.
@@ -54,13 +53,12 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun load(path: String, publicOnly: Boolean = false): Error =
-      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path, publicOnly))
+      Error.from(callMethod_STRING_BOOL_ret_LONG(MethodBindings.loadPtr, path, publicOnly))
 
   /**
    * Returns `true` if this CryptoKey only has the public part, and not the private one.
    */
-  public final fun isPublicOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPublicOnlyPtr)
+  public final fun isPublicOnly(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPublicOnlyPtr)
 
   /**
    * Returns a string containing the key in PEM format. If [publicOnly] is `true`, only the public
@@ -68,7 +66,7 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun saveToString(publicOnly: Boolean = false): String =
-      TransferContext.callMethod_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.saveToStringPtr, publicOnly)
+      callMethod_BOOL_ret_STRING(MethodBindings.saveToStringPtr, publicOnly)
 
   /**
    * Loads a key from the given [stringKey]. If [publicOnly] is `true`, only the public key will be
@@ -76,7 +74,7 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun loadFromString(stringKey: String, publicOnly: Boolean = false): Error =
-      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.loadFromStringPtr, stringKey, publicOnly))
+      Error.from(callMethod_STRING_BOOL_ret_LONG(MethodBindings.loadFromStringPtr, stringKey, publicOnly))
 
   public companion object {
     @JvmField

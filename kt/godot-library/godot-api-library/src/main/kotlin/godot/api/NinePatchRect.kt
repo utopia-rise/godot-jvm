@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -193,52 +192,52 @@ public open class NinePatchRect : Control() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   /**
    * Sets the size of the margin on the specified [Side] to [value] pixels.
    */
   public final fun setPatchMargin(margin: Side, `value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setPatchMarginPtr, margin.value, value.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setPatchMarginPtr, margin.value, value.toLong())
   }
 
   /**
    * Returns the size of the margin on the specified [Side].
    */
   public final fun getPatchMargin(margin: Side): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPatchMarginPtr, margin.value).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getPatchMarginPtr, margin.value).toInt()
 
   public final fun setRegionRect(rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionRectPtr, rect)
+    callPtrMethod_RECT2(MethodBindings.setRegionRectPtr, rect)
   }
 
   public final fun getRegionRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionRectPtr)
+      callPtrMethod0_ret_RECT2(MethodBindings.getRegionRectPtr)
 
   public final fun setDrawCenter(drawCenter: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDrawCenterPtr, drawCenter)
+    callPtrMethod_BOOL(MethodBindings.setDrawCenterPtr, drawCenter)
   }
 
   public final fun isDrawCenterEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDrawCenterEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDrawCenterEnabledPtr)
 
   public final fun setHAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHAxisStretchModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setHAxisStretchModePtr, mode.value)
   }
 
   public final fun getHAxisStretchMode(): AxisStretchMode =
-      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHAxisStretchModePtr))
+      AxisStretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getHAxisStretchModePtr))
 
   public final fun setVAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVAxisStretchModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setVAxisStretchModePtr, mode.value)
   }
 
   public final fun getVAxisStretchMode(): AxisStretchMode =
-      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVAxisStretchModePtr))
+      AxisStretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getVAxisStretchModePtr))
 
   public enum class AxisStretchMode(
     public override val `value`: Long,

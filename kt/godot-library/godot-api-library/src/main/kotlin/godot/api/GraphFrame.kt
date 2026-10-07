@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -148,11 +147,10 @@ public open class GraphFrame : GraphElement() {
   }
 
   public final fun setTitle(title: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, title)
+    callMethod_STRING(MethodBindings.setTitlePtr, title)
   }
 
-  public final fun getTitle(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
+  public final fun getTitle(): String = callMethod0_ret_STRING(MethodBindings.getTitlePtr)
 
   /**
    * Returns the [HBoxContainer] used for the title bar, only containing a [Label] for displaying
@@ -161,42 +159,41 @@ public open class GraphFrame : GraphElement() {
    * This can be used to add custom controls to the title bar such as option or close buttons.
    */
   public final fun getTitlebarHbox(): HBoxContainer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTitlebarHboxPtr) as HBoxContainer?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getTitlebarHboxPtr) as HBoxContainer?)
 
   public final fun setAutoshrinkEnabled(shrink: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoshrinkEnabledPtr, shrink)
+    callPtrMethod_BOOL(MethodBindings.setAutoshrinkEnabledPtr, shrink)
   }
 
   public final fun isAutoshrinkEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoshrinkEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoshrinkEnabledPtr)
 
   public final fun setAutoshrinkMargin(autoshrinkMargin: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutoshrinkMarginPtr, autoshrinkMargin.toLong())
+    callPtrMethod_LONG(MethodBindings.setAutoshrinkMarginPtr, autoshrinkMargin.toLong())
   }
 
   public final fun getAutoshrinkMargin(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutoshrinkMarginPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getAutoshrinkMarginPtr).toInt()
 
   public final fun setDragMargin(dragMargin: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragMarginPtr, dragMargin.toLong())
+    callPtrMethod_LONG(MethodBindings.setDragMarginPtr, dragMargin.toLong())
   }
 
   public final fun getDragMargin(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragMarginPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDragMarginPtr).toInt()
 
   public final fun setTintColorEnabled(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTintColorEnabledPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setTintColorEnabledPtr, enable)
   }
 
   public final fun isTintColorEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTintColorEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTintColorEnabledPtr)
 
   public final fun setTintColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setTintColorPtr, color)
   }
 
-  public final fun getTintColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintColorPtr)
+  public final fun getTintColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getTintColorPtr)
 
   public companion object {
     @JvmField

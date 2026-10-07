@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -65,25 +64,25 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
   }
 
   public final fun setComparisonType(type: ComparisonType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setComparisonTypePtr, type.value)
+    callPtrMethod_LONG(MethodBindings.setComparisonTypePtr, type.value)
   }
 
   public final fun getComparisonType(): ComparisonType =
-      ComparisonType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getComparisonTypePtr))
+      ComparisonType.from(callPtrMethod0_ret_LONG(MethodBindings.getComparisonTypePtr))
 
   public final fun setFunction(func: Function): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFunctionPtr, func.value)
+    callPtrMethod_LONG(MethodBindings.setFunctionPtr, func.value)
   }
 
   public final fun getFunction(): Function =
-      Function.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFunctionPtr))
+      Function.from(callPtrMethod0_ret_LONG(MethodBindings.getFunctionPtr))
 
   public final fun setCondition(condition: Condition): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConditionPtr, condition.value)
+    callPtrMethod_LONG(MethodBindings.setConditionPtr, condition.value)
   }
 
   public final fun getCondition(): Condition =
-      Condition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConditionPtr))
+      Condition.from(callPtrMethod0_ret_LONG(MethodBindings.getConditionPtr))
 
   public enum class ComparisonType(
     public override val `value`: Long,

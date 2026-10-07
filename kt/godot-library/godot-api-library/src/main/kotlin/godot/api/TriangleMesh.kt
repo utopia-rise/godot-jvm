@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
 import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_BOOL
@@ -50,14 +49,14 @@ public open class TriangleMesh : RefCounted() {
    * Returns `true` if the tree is successfully built, `false` otherwise.
    */
   public final fun createFromFaces(faces: PackedVector3Array): Boolean =
-      TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.createFromFacesPtr, faces)
+      callPtrMethod_PACKED_VECTOR3_ARRAY_ret_BOOL(MethodBindings.createFromFacesPtr, faces)
 
   /**
    * Returns a copy of the geometry faces. Each 3 vertices of the array represent one triangle
    * (face).
    */
   public final fun getFaces(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getFacesPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getFacesPtr)
 
   /**
    * Tests for intersection with a segment going from [begin] to [end].
@@ -75,7 +74,7 @@ public open class TriangleMesh : RefCounted() {
    * See also [intersectRay], which is similar but uses an infinite-length ray.
    */
   public final fun intersectSegment(begin: Vector3, end: Vector3): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectSegmentPtr, begin, end) as Dictionary<Any?, Any?>)
+      (callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(MethodBindings.intersectSegmentPtr, begin, end) as Dictionary<Any?, Any?>)
 
   /**
    * Tests for intersection with a ray starting at [begin] and facing [dir] and extending toward
@@ -94,7 +93,7 @@ public open class TriangleMesh : RefCounted() {
    * See also [intersectSegment], which is similar but uses a finite-length segment.
    */
   public final fun intersectRay(begin: Vector3, dir: Vector3): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectRayPtr, begin, dir) as Dictionary<Any?, Any?>)
+      (callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(MethodBindings.intersectRayPtr, begin, dir) as Dictionary<Any?, Any?>)
 
   public companion object {
     @JvmField

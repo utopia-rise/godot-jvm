@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -159,46 +158,44 @@ public open class GPUParticlesCollisionSDF3D : GPUParticlesCollision3D() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   public final fun setResolution(resolution: Resolution): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setResolutionPtr, resolution.value)
+    callPtrMethod_LONG(MethodBindings.setResolutionPtr, resolution.value)
   }
 
   public final fun getResolution(): Resolution =
-      Resolution.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getResolutionPtr))
+      Resolution.from(callPtrMethod0_ret_LONG(MethodBindings.getResolutionPtr))
 
   public final fun setTexture(texture: Texture3D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture3D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture3D?)
 
   public final fun setThickness(thickness: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setThicknessPtr, thickness.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setThicknessPtr, thickness.toDouble())
   }
 
   public final fun getThickness(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThicknessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThicknessPtr).toFloat()
 
   public final fun setBakeMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBakeMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setBakeMaskPtr, mask)
   }
 
-  public final fun getBakeMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBakeMaskPtr)
+  public final fun getBakeMask(): Long = callPtrMethod0_ret_LONG(MethodBindings.getBakeMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [bakeMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setBakeMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setBakeMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setBakeMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -206,7 +203,7 @@ public open class GPUParticlesCollisionSDF3D : GPUParticlesCollision3D() {
    * between 1 and 32.
    */
   public final fun getBakeMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getBakeMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getBakeMaskValuePtr, layerNumber.toLong())
 
   public enum class Resolution(
     public override val `value`: Long,

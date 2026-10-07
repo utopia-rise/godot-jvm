@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -58,18 +57,18 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
   }
 
   public final fun setBillboardType(billboardType: BillboardType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBillboardTypePtr, billboardType.value)
+    callPtrMethod_LONG(MethodBindings.setBillboardTypePtr, billboardType.value)
   }
 
   public final fun getBillboardType(): BillboardType =
-      BillboardType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBillboardTypePtr))
+      BillboardType.from(callPtrMethod0_ret_LONG(MethodBindings.getBillboardTypePtr))
 
   public final fun setKeepScaleEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setKeepScaleEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setKeepScaleEnabledPtr, enabled)
   }
 
   public final fun isKeepScaleEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isKeepScaleEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isKeepScaleEnabledPtr)
 
   public enum class BillboardType(
     public override val `value`: Long,

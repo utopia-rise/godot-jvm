@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -138,60 +137,58 @@ public open class TubeTrailMesh : PrimitiveMesh() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setRadialSteps(radialSteps: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRadialStepsPtr, radialSteps.toLong())
+    callPtrMethod_LONG(MethodBindings.setRadialStepsPtr, radialSteps.toLong())
   }
 
   public final fun getRadialSteps(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRadialStepsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRadialStepsPtr).toInt()
 
   public final fun setSections(sections: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSectionsPtr, sections.toLong())
+    callPtrMethod_LONG(MethodBindings.setSectionsPtr, sections.toLong())
   }
 
   public final fun getSections(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSectionsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSectionsPtr).toInt()
 
   public final fun setSectionLength(sectionLength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSectionLengthPtr, sectionLength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSectionLengthPtr, sectionLength.toDouble())
   }
 
   public final fun getSectionLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSectionLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSectionLengthPtr).toFloat()
 
   public final fun setSectionRings(sectionRings: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSectionRingsPtr, sectionRings.toLong())
+    callPtrMethod_LONG(MethodBindings.setSectionRingsPtr, sectionRings.toLong())
   }
 
   public final fun getSectionRings(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSectionRingsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSectionRingsPtr).toInt()
 
   public final fun setCapTop(capTop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCapTopPtr, capTop)
+    callPtrMethod_BOOL(MethodBindings.setCapTopPtr, capTop)
   }
 
-  public final fun isCapTop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCapTopPtr)
+  public final fun isCapTop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCapTopPtr)
 
   public final fun setCapBottom(capBottom: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCapBottomPtr, capBottom)
+    callPtrMethod_BOOL(MethodBindings.setCapBottomPtr, capBottom)
   }
 
-  public final fun isCapBottom(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCapBottomPtr)
+  public final fun isCapBottom(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCapBottomPtr)
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurvePtr, curve)
   }
 
   public final fun getCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurvePtr) as Curve?)
 
   public companion object {
     @JvmField

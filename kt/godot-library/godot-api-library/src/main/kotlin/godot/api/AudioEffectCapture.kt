@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_DOUBLE
@@ -67,7 +66,7 @@ public open class AudioEffectCapture : AudioEffect() {
    * Returns `true` if at least [frames] samples are available to read in the internal ring buffer.
    */
   public final fun canGetBuffer(frames: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.canGetBufferPtr, frames.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.canGetBufferPtr, frames.toLong())
 
   /**
    * Gets the next [frames] samples from the internal ring buffer.
@@ -79,7 +78,7 @@ public open class AudioEffectCapture : AudioEffect() {
    * you want to use them as 8 or 16-bit integer samples. (`v = 0x7fff * samples[0].x`)
    */
   public final fun getBuffer(frames: Int): PackedVector2Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getBufferPtr, frames.toLong())
+      callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getBufferPtr, frames.toLong())
 
   /**
    * Clears the internal ring buffer.
@@ -88,39 +87,39 @@ public open class AudioEffectCapture : AudioEffect() {
    * the playback.
    */
   public final fun clearBuffer(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBufferPtr)
+    callPtrMethod0(MethodBindings.clearBufferPtr)
   }
 
   public final fun setBufferLength(bufferLengthSeconds: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBufferLengthPtr, bufferLengthSeconds.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBufferLengthPtr, bufferLengthSeconds.toDouble())
   }
 
   public final fun getBufferLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBufferLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBufferLengthPtr).toFloat()
 
   /**
    * Returns the number of samples available to read using [getBuffer].
    */
   public final fun getFramesAvailable(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramesAvailablePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFramesAvailablePtr).toInt()
 
   /**
    * Returns the number of samples discarded from the audio bus due to full buffer.
    */
   public final fun getDiscardedFrames(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDiscardedFramesPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getDiscardedFramesPtr)
 
   /**
    * Returns the total size of the internal ring buffer in number of samples.
    */
   public final fun getBufferLengthFrames(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBufferLengthFramesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBufferLengthFramesPtr).toInt()
 
   /**
    * Returns the number of samples inserted from the audio bus.
    */
   public final fun getPushedFrames(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPushedFramesPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getPushedFramesPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

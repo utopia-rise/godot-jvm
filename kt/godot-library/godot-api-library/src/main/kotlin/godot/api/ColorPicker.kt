@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -224,81 +223,79 @@ public open class ColorPicker : VBoxContainer() {
   }
 
   public final fun setPickColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setPickColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setPickColorPtr, color)
   }
 
-  public final fun getPickColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getPickColorPtr)
+  public final fun getPickColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getPickColorPtr)
 
   public final fun setDeferredMode(mode: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeferredModePtr, mode)
+    callPtrMethod_BOOL(MethodBindings.setDeferredModePtr, mode)
   }
 
   public final fun isDeferredMode(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDeferredModePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDeferredModePtr)
 
   public final fun setColorMode(colorMode: ColorModeType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setColorModePtr, colorMode.value)
+    callPtrMethod_LONG(MethodBindings.setColorModePtr, colorMode.value)
   }
 
   public final fun getColorMode(): ColorModeType =
-      ColorModeType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColorModePtr))
+      ColorModeType.from(callPtrMethod0_ret_LONG(MethodBindings.getColorModePtr))
 
   public final fun setEditAlpha(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditAlphaPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setEditAlphaPtr, show)
   }
 
   public final fun isEditingAlpha(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditingAlphaPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEditingAlphaPtr)
 
   public final fun setEditIntensity(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditIntensityPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setEditIntensityPtr, show)
   }
 
   public final fun isEditingIntensity(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditingIntensityPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEditingIntensityPtr)
 
   public final fun setCanAddSwatches(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCanAddSwatchesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCanAddSwatchesPtr, enabled)
   }
 
   public final fun areSwatchesEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areSwatchesEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.areSwatchesEnabledPtr)
 
   public final fun setPresetsVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPresetsVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setPresetsVisiblePtr, visible)
   }
 
   public final fun arePresetsVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.arePresetsVisiblePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.arePresetsVisiblePtr)
 
   public final fun setModesVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setModesVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setModesVisiblePtr, visible)
   }
 
   public final fun areModesVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areModesVisiblePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.areModesVisiblePtr)
 
   public final fun setSamplerVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSamplerVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setSamplerVisiblePtr, visible)
   }
 
   public final fun isSamplerVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSamplerVisiblePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSamplerVisiblePtr)
 
   public final fun setSlidersVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSlidersVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setSlidersVisiblePtr, visible)
   }
 
   public final fun areSlidersVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areSlidersVisiblePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.areSlidersVisiblePtr)
 
   public final fun setHexVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHexVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setHexVisiblePtr, visible)
   }
 
-  public final fun isHexVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHexVisiblePtr)
+  public final fun isHexVisible(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isHexVisiblePtr)
 
   /**
    * Adds the given color to a list of color presets. The presets are displayed in the color picker
@@ -307,21 +304,21 @@ public open class ColorPicker : VBoxContainer() {
    * **Note:** The presets list is only for *this* color picker.
    */
   public final fun addPreset(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.addPresetPtr, color)
+    callPtrMethod_COLOR(MethodBindings.addPresetPtr, color)
   }
 
   /**
    * Removes the given color from the list of color presets of this color picker.
    */
   public final fun erasePreset(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.erasePresetPtr, color)
+    callPtrMethod_COLOR(MethodBindings.erasePresetPtr, color)
   }
 
   /**
    * Returns the list of colors in the presets of the color picker.
    */
   public final fun getPresets(): PackedColorArray =
-      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getPresetsPtr)
+      callPtrMethod0_ret_PACKED_COLOR_ARRAY(MethodBindings.getPresetsPtr)
 
   /**
    * Adds the given color to a list of color recent presets so that it can be picked later. Recent
@@ -331,28 +328,28 @@ public open class ColorPicker : VBoxContainer() {
    * **Note:** The recent presets list is only for *this* color picker.
    */
   public final fun addRecentPreset(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.addRecentPresetPtr, color)
+    callPtrMethod_COLOR(MethodBindings.addRecentPresetPtr, color)
   }
 
   /**
    * Removes the given color from the list of color recent presets of this color picker.
    */
   public final fun eraseRecentPreset(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.eraseRecentPresetPtr, color)
+    callPtrMethod_COLOR(MethodBindings.eraseRecentPresetPtr, color)
   }
 
   /**
    * Returns the list of colors in the recent presets of the color picker.
    */
   public final fun getRecentPresets(): PackedColorArray =
-      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getRecentPresetsPtr)
+      callPtrMethod0_ret_PACKED_COLOR_ARRAY(MethodBindings.getRecentPresetsPtr)
 
   public final fun setPickerShape(shape: PickerShapeType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPickerShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setPickerShapePtr, shape.value)
   }
 
   public final fun getPickerShape(): PickerShapeType =
-      PickerShapeType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPickerShapePtr))
+      PickerShapeType.from(callPtrMethod0_ret_LONG(MethodBindings.getPickerShapePtr))
 
   public enum class ColorModeType(
     public override val `value`: Long,

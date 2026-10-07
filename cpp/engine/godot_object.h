@@ -31,7 +31,7 @@
 
 // Engine entry points the JVM hot path uses, resolved once by configure() into plain globals. Function-local statics
 // would cost a guard-variable check on every single call instead.
-namespace raw_godot {
+namespace engine {
     using namespace godot;
     inline GDExtensionMethodBindPtr init_ref_bind = nullptr;
     inline GDExtensionMethodBindPtr reference_bind = nullptr;
@@ -350,12 +350,12 @@ namespace raw_godot {
 
     static_assert(sizeof(RawObject) == sizeof(GodotObject*), "RawObject must stay pointer-sized.");
     static_assert(std::is_trivially_copyable_v<RawObject>, "RawObject must stay trivially copyable.");
-} // namespace raw_godot
+} // namespace engine
 
 // A RawObject is an engine object pointer, so it is what a Variant of type OBJECT holds. Declaring it to godot-cpp
 // lets the shared-buffer layer resolve its wire row from the type alone, as it does for every other Variant type.
 namespace godot {
-    MAKE_TYPE_INFO(raw_godot::RawObject, GDEXTENSION_VARIANT_TYPE_OBJECT)
+    MAKE_TYPE_INFO(engine::RawObject, GDEXTENSION_VARIANT_TYPE_OBJECT)
 } // namespace godot
 
 #endif // GODOT_JVM_GODOT_OBJECT_H

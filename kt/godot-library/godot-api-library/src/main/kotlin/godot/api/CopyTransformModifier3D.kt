@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_BOOL
 import godot.callPtrMethod_LONG_LONG
@@ -88,27 +87,27 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * If the rotation is valid for two axes, it discards the roll of the invalid axis.
    */
   public final fun setCopyFlags(index: Int, copyFlags: TransformFlag): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setCopyFlagsPtr, index.toLong(), copyFlags.flag)
+    callPtrMethod_LONG_LONG(MethodBindings.setCopyFlagsPtr, index.toLong(), copyFlags.flag)
   }
 
   /**
    * Returns the copy flags of the setting at [index].
    */
   public final fun getCopyFlags(index: Int): TransformFlag =
-      TransformFlag(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCopyFlagsPtr, index.toLong()))
+      TransformFlag(callPtrMethod_LONG_ret_LONG(MethodBindings.getCopyFlagsPtr, index.toLong()))
 
   /**
    * Sets the flags to copy axes. If the flag is valid, the axis is copied.
    */
   public final fun setAxisFlags(index: Int, axisFlags: AxisFlag): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setAxisFlagsPtr, index.toLong(), axisFlags.flag)
+    callPtrMethod_LONG_LONG(MethodBindings.setAxisFlagsPtr, index.toLong(), axisFlags.flag)
   }
 
   /**
    * Returns the axis flags of the setting at [index].
    */
   public final fun getAxisFlags(index: Int): AxisFlag =
-      AxisFlag(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getAxisFlagsPtr, index.toLong()))
+      AxisFlag(callPtrMethod_LONG_ret_LONG(MethodBindings.getAxisFlagsPtr, index.toLong()))
 
   /**
    * Sets the flags to inverte axes. If the flag is valid, the axis is copied.
@@ -122,20 +121,20 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * unflipped axes, due to the characteristics of the quaternion.
    */
   public final fun setInvertFlags(index: Int, axisFlags: AxisFlag): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setInvertFlagsPtr, index.toLong(), axisFlags.flag)
+    callPtrMethod_LONG_LONG(MethodBindings.setInvertFlagsPtr, index.toLong(), axisFlags.flag)
   }
 
   /**
    * Returns the invert flags of the setting at [index].
    */
   public final fun getInvertFlags(index: Int): AxisFlag =
-      AxisFlag(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getInvertFlagsPtr, index.toLong()))
+      AxisFlag(callPtrMethod_LONG_ret_LONG(MethodBindings.getInvertFlagsPtr, index.toLong()))
 
   /**
    * If sets [enabled] to `true`, the position will be copied.
    */
   public final fun setCopyPosition(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCopyPositionPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCopyPositionPtr, index.toLong(), enabled)
   }
 
   /**
@@ -143,13 +142,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setCopyFlags].
    */
   public final fun isPositionCopying(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isPositionCopyingPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isPositionCopyingPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the rotation will be copied.
    */
   public final fun setCopyRotation(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCopyRotationPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCopyRotationPtr, index.toLong(), enabled)
   }
 
   /**
@@ -157,13 +156,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setCopyFlags].
    */
   public final fun isRotationCopying(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isRotationCopyingPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isRotationCopyingPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the scale will be copied.
    */
   public final fun setCopyScale(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCopyScalePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCopyScalePtr, index.toLong(), enabled)
   }
 
   /**
@@ -171,13 +170,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * [setCopyFlags].
    */
   public final fun isScaleCopying(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isScaleCopyingPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isScaleCopyingPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the X-axis will be copied.
    */
   public final fun setAxisXEnabled(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisXEnabledPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisXEnabledPtr, index.toLong(), enabled)
   }
 
   /**
@@ -185,13 +184,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setAxisFlags].
    */
   public final fun isAxisXEnabled(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisXEnabledPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisXEnabledPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the Y-axis will be copied.
    */
   public final fun setAxisYEnabled(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisYEnabledPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisYEnabledPtr, index.toLong(), enabled)
   }
 
   /**
@@ -199,13 +198,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setAxisFlags].
    */
   public final fun isAxisYEnabled(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisYEnabledPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisYEnabledPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the Z-axis will be copied.
    */
   public final fun setAxisZEnabled(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisZEnabledPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisZEnabledPtr, index.toLong(), enabled)
   }
 
   /**
@@ -213,13 +212,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setAxisFlags].
    */
   public final fun isAxisZEnabled(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisZEnabledPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisZEnabledPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the X-axis will be inverted.
    */
   public final fun setAxisXInverted(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisXInvertedPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisXInvertedPtr, index.toLong(), enabled)
   }
 
   /**
@@ -227,13 +226,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setInvertFlags].
    */
   public final fun isAxisXInverted(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisXInvertedPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisXInvertedPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the Y-axis will be inverted.
    */
   public final fun setAxisYInverted(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisYInvertedPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisYInvertedPtr, index.toLong(), enabled)
   }
 
   /**
@@ -241,13 +240,13 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setInvertFlags].
    */
   public final fun isAxisYInverted(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisYInvertedPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisYInvertedPtr, index.toLong())
 
   /**
    * If sets [enabled] to `true`, the Z-axis will be inverted.
    */
   public final fun setAxisZInverted(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisZInvertedPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisZInvertedPtr, index.toLong(), enabled)
   }
 
   /**
@@ -255,7 +254,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * also [setInvertFlags].
    */
   public final fun isAxisZInverted(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAxisZInvertedPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAxisZInvertedPtr, index.toLong())
 
   /**
    * Sets relative option in the setting at [index] to [enabled].
@@ -265,14 +264,14 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * If sets [enabled] to `false`, the extracted transform is absolute.
    */
   public final fun setRelative(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setRelativePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setRelativePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the relative option is enabled in the setting at [index].
    */
   public final fun isRelative(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isRelativePtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isRelativePtr, index.toLong())
 
   /**
    * Sets additive option in the setting at [index] to [enabled]. This mainly affects the process of
@@ -285,14 +284,14 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    * transform. However, if set [setRelative] to `true`, the transform is relative to rest.
    */
   public final fun setAdditive(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAdditivePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAdditivePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the additive option is enabled in the setting at [index].
    */
   public final fun isAdditive(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAdditivePtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAdditivePtr, index.toLong())
 
   public class TransformFlag(
     flag: Long,

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -197,54 +196,51 @@ public open class GradientTexture2D : Texture2D() {
   }
 
   public final fun setGradient(gradient: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGradientPtr, gradient)
+    callPtrMethod_OBJECT(MethodBindings.setGradientPtr, gradient)
   }
 
   public final fun getGradient(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGradientPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getGradientPtr) as Gradient?)
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setHeight(height: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightPtr, height.toLong())
+    callPtrMethod_LONG(MethodBindings.setHeightPtr, height.toLong())
   }
 
   public final fun setUseHdr(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseHdrPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUseHdrPtr, enabled)
   }
 
-  public final fun isUsingHdr(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingHdrPtr)
+  public final fun isUsingHdr(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isUsingHdrPtr)
 
   public final fun setFill(fill: Fill): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFillPtr, fill.value)
+    callPtrMethod_LONG(MethodBindings.setFillPtr, fill.value)
   }
 
-  public final fun getFill(): Fill =
-      Fill.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFillPtr))
+  public final fun getFill(): Fill = Fill.from(callPtrMethod0_ret_LONG(MethodBindings.getFillPtr))
 
   public final fun setFillFrom(fillFrom: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setFillFromPtr, fillFrom)
+    callPtrMethod_VECTOR2(MethodBindings.setFillFromPtr, fillFrom)
   }
 
   public final fun getFillFrom(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFillFromPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getFillFromPtr)
 
   public final fun setFillTo(fillTo: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setFillToPtr, fillTo)
+    callPtrMethod_VECTOR2(MethodBindings.setFillToPtr, fillTo)
   }
 
-  public final fun getFillTo(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFillToPtr)
+  public final fun getFillTo(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getFillToPtr)
 
   public final fun setRepeat(repeat: Repeat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRepeatPtr, repeat.value)
+    callPtrMethod_LONG(MethodBindings.setRepeatPtr, repeat.value)
   }
 
   public final fun getRepeat(): Repeat =
-      Repeat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRepeatPtr))
+      Repeat.from(callPtrMethod0_ret_LONG(MethodBindings.getRepeatPtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

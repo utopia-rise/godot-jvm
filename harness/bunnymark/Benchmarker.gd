@@ -21,26 +21,25 @@ var benchmark_is_bunnymark := false
 var bunnymark_update_interval := 1.0
 var bunnymark_update_elapsed_time := 0.0
 
-## Bunnies each benchmark is expected to hold in the SLOWEST language, which is what the first spawn is sized
-## from. It has to stay under every language's real capacity: the ramp only ever adds, so a first spawn that
-## already sinks the frame rate would report itself as the answer. Everything above it the ramp finds on its own.
-var bunnymark_expected := {
-    "BunnymarkSceneTree": 37000,
-    "BunnymarkSprites": 33000,
-    "BunnymarkDrawTexture": 50000,
-    "BunnymarkScripts": 34000,
-    "BunnymarkComputation": 23000,
-}
+## Bunnies this benchmark is expected to hold at [member bunnymark_target] in this language. Set per scene under
+## `scenes/`, one of which exists for every benchmark and language pair, because the two differ by up to five times
+## on the same benchmark and a figure that suited both would suit neither.
+##
+## It only sizes the first wave, which is this times [member bunnymark_growth_factor]; the ramp finds the real
+## number from there and never reads it again. Being out of date therefore costs steps, not accuracy, which is why
+## these are the published figures rounded to two significant figures rather than exact measurements.
+@export var bunnymark_expected_score := 30000
 ## Set while the first spawn has not yet been shown to leave headroom.
 var seed_unconfirmed := false
 var seed_used := false
 ## Enough to reach the target from just under it, so a run always terminates.
 var bunnymark_minimum_spawn := 200
-## Ceiling on one step, so a single bad frame-rate reading cannot fling the count past the target.
-var bunnymark_max_growth := 3.0
-## Fraction of the estimated gap closed per step. Below one so the count arrives over several steps rather than one,
-## which gives the scripting runtime time to compile the hot loops before the frame rate is taken as final.
-var bunnymark_approach_rate := 0.7
+## How much of the gap to the estimate a single step closes, and equally what fraction of
+## [member bunnymark_expected_score] the first wave is. Below one so the count arrives over several steps rather
+## than one, which gives the scripting runtime time to compile the hot loops before the frame rate is taken as
+## final. Each step costs two update intervals, one to spawn and one for the frame rate to settle, so this is what
+## decides how long a run takes.
+@export_range(0.05, 1.0, 0.01) var bunnymark_growth_factor := 0.33
 ## Whether to run a warm-up at all. Only a language that compiles while it runs needs one, so this is forced off
 ## for any language outside [member bunnymark_warm_up_languages] whatever it is set to here. Overridable per run
 ## with `--warmup=true|false`.
@@ -61,9 +60,13 @@ var warmed_up := false
 ## manager releases them before anything is measured. The manager syncs at the end of every frame, so this is a
 ## few hundred syncs rather than one.
 var bunnymark_gc_wait_time := 5.0
-## How long the frame rate has to hold at or below the target before the run ends. A shorter dip does not count:
-## the scripting runtime may still be compiling, and the count usually climbs again afterwards.
-@export var bunnymark_stable_time := 5.0
+## How long the frame rate has to hold at or below the target before the run ends. A shorter dip does not count: the
+## scripting runtime may still be compiling, and the count usually climbs again afterwards.
+##
+## Raising this costs more than it looks. Near the ceiling the frame rate oscillates either side of the target on
+## noise alone, and a single reading above it both restarts this countdown and spawns again, so a long window keeps
+## the run creeping upward for as long as the noise lasts rather than simply confirming a number.
+@export var bunnymark_stable_time := 6.0
 var below_target_time := 0.0
 ## The frame that spawns a batch also pays for creating it, so its frame rate says nothing about the new count.
 var awaiting_settle := false
@@ -88,6 +91,15 @@ func _ready():
             bunnymark_target = float(arg.split("=")[1])
         elif arg.substr(0, arg_warm_up.length()) == arg_warm_up:
             warm_up_override = arg.split("=")[1]
+
+    # Every benchmark and language pair has its own scene under `scenes/`, and that scene is where the pair's
+    # expected score lives. A command line run starts at the project's main scene instead, and choosing the pair from
+    # the inspector on that scene would leave the same settings in place whatever was chosen, so hand over to the
+    # pair's own scene unless this already is it.
+    var pair_scene := "res://scenes/%s_%s.tscn" % [benchmark, language]
+    if get_tree().current_scene.scene_file_path != pair_scene and ResourceLoader.exists(pair_scene):
+        get_tree().change_scene_to_file.call_deferred(pair_scene)
+        return
 
     start_benchmark(benchmark, language)
 
@@ -185,7 +197,7 @@ func update_bunnymark(delta):
         if seed_used:
             spawn_bunnies(bunnymark_minimum_spawn)
         else:
-            spawn_bunnies(int(bunnymark_expected.get(benchmark, 10000)) / 2)
+            spawn_bunnies(int(bunnymark_expected_score * bunnymark_growth_factor))
             seed_used = true
             seed_unconfirmed = true
         return
@@ -250,16 +262,19 @@ func warm_up(delta):
 
 ## The count that would land exactly on the target frame rate.
 ##
-## Frame time grows close to linearly with the bunny count, so scaling the current count by the headroom the frame
-## rate still has lands on the count that would use all of it. The estimate is exact at the target and always short
-## of it while above, because part of every frame does not depend on the bunnies at all. The ramp therefore takes
-## large steps while far away, ever smaller ones as it closes in, and never overshoots into a frame rate it would
-## have to back out of. Bunnies are never removed.
+## Estimates the count that would land exactly on [member bunnymark_target] by scaling the current count by the
+## headroom the frame rate still has, then moves [member bunnymark_growth_factor] of the way there.
 ##
-## [member bunnymark_approach_rate] then spreads the move over several steps instead of taking it in one.
+## The estimate treats frame time as proportional to the count. Measured from half the expected score upwards that
+## holds closely -- the estimates across one DrawTexture run were 217844, 216524, 218723, 219975 and 222140 against
+## a final 216851 -- but it is not exact, and it errs high as often as low. What keeps the ramp underneath is the
+## factor, not the model: closing only part of the gap means an estimate that is a little optimistic still lands
+## short. Bunnies are never removed, because the frame rate after a removal says nothing about the count before it,
+## so a factor near one trades the whole safety margin for a couple of steps.
 func next_bunny_number(fps: float) -> int:
-    var estimate: float = bunny_number * min(fps / bunnymark_target, bunnymark_max_growth)
-    return int(bunny_number + (estimate - bunny_number) * bunnymark_approach_rate)
+    var estimate: float = bunny_number * (fps / bunnymark_target)
+    var delta: float = estimate - bunny_number
+    return bunny_number + int(delta * bunnymark_growth_factor)
 
 func spawn_bunnies(count: int):
     count = max(count, bunnymark_minimum_spawn)

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_VECTOR2
@@ -139,25 +138,25 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
   }
 
   public final fun setButtonMask(buttonMask: MouseButtonMask): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setButtonMaskPtr, buttonMask.flag)
+    callPtrMethod_LONG(MethodBindings.setButtonMaskPtr, buttonMask.flag)
   }
 
   public final fun getButtonMask(): MouseButtonMask =
-      MouseButtonMask(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getButtonMaskPtr))
+      MouseButtonMask(callPtrMethod0_ret_LONG(MethodBindings.getButtonMaskPtr))
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setPositionPtr, position)
   }
 
   public final fun getPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPositionPtr)
 
   public final fun setGlobalPosition(globalPosition: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setGlobalPositionPtr, globalPosition)
+    callPtrMethod_VECTOR2(MethodBindings.setGlobalPositionPtr, globalPosition)
   }
 
   public final fun getGlobalPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGlobalPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGlobalPositionPtr)
 
   public companion object {
     @JvmField

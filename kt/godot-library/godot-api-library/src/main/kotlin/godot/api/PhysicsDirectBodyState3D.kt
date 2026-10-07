@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BASIS
@@ -275,52 +274,52 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
   }
 
   public final fun getTotalGravity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getTotalGravityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getTotalGravityPtr)
 
   public final fun getTotalLinearDamp(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTotalLinearDampPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTotalLinearDampPtr).toFloat()
 
   public final fun getTotalAngularDamp(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTotalAngularDampPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTotalAngularDampPtr).toFloat()
 
   public final fun getCenterOfMass(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getCenterOfMassPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getCenterOfMassPtr)
 
   public final fun getCenterOfMassLocal(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getCenterOfMassLocalPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getCenterOfMassLocalPtr)
 
   public final fun getPrincipalInertiaAxes(): Basis =
-      TransferContext.callPtrMethod0_ret_BASIS(ptr, objectID.id, MethodBindings.getPrincipalInertiaAxesPtr)
+      callPtrMethod0_ret_BASIS(MethodBindings.getPrincipalInertiaAxesPtr)
 
   public final fun getInverseMass(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInverseMassPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInverseMassPtr).toFloat()
 
   public final fun getInverseInertia(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getInverseInertiaPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getInverseInertiaPtr)
 
   public final fun getInverseInertiaTensor(): Basis =
-      TransferContext.callPtrMethod0_ret_BASIS(ptr, objectID.id, MethodBindings.getInverseInertiaTensorPtr)
+      callPtrMethod0_ret_BASIS(MethodBindings.getInverseInertiaTensorPtr)
 
   public final fun setLinearVelocity(velocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setLinearVelocityPtr, velocity)
+    callPtrMethod_VECTOR3(MethodBindings.setLinearVelocityPtr, velocity)
   }
 
   public final fun getLinearVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getLinearVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getLinearVelocityPtr)
 
   public final fun setAngularVelocity(velocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setAngularVelocityPtr, velocity)
+    callPtrMethod_VECTOR3(MethodBindings.setAngularVelocityPtr, velocity)
   }
 
   public final fun getAngularVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getAngularVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getAngularVelocityPtr)
 
   public final fun setTransform(transform: Transform3D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setTransformPtr, transform)
+    callPtrMethod_TRANSFORM3D(MethodBindings.setTransformPtr, transform)
   }
 
   public final fun getTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getTransformPtr)
 
   /**
    * Returns the body's velocity at the given relative position.
@@ -328,7 +327,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * [localPosition] is the offset from the body origin in global coordinates.
    */
   public final fun getVelocityAtLocalPosition(localPosition: Vector3): Vector3 =
-      TransferContext.callPtrMethod_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.getVelocityAtLocalPositionPtr, localPosition)
+      callPtrMethod_VECTOR3_ret_VECTOR3(MethodBindings.getVelocityAtLocalPositionPtr, localPosition)
 
   /**
    * Applies a directional impulse without affecting rotation.
@@ -341,7 +340,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun applyCentralImpulse(impulse: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyCentralImpulsePtr, impulse)
+    callPtrMethod_VECTOR3(MethodBindings.applyCentralImpulsePtr, impulse)
   }
 
   /**
@@ -355,7 +354,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun applyImpulse(impulse: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3_VECTOR3(ptr, objectID.id, MethodBindings.applyImpulsePtr, impulse, position)
+    callPtrMethod_VECTOR3_VECTOR3(MethodBindings.applyImpulsePtr, impulse, position)
   }
 
   /**
@@ -369,7 +368,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * [CollisionShape3D] must be a child of the node, or you can manually set [inverseInertia].
    */
   public final fun applyTorqueImpulse(impulse: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyTorqueImpulsePtr, impulse)
+    callPtrMethod_VECTOR3(MethodBindings.applyTorqueImpulsePtr, impulse)
   }
 
   /**
@@ -380,7 +379,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun applyCentralForce(force: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyCentralForcePtr, force)
+    callPtrMethod_VECTOR3(MethodBindings.applyCentralForcePtr, force)
   }
 
   /**
@@ -391,7 +390,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun applyForce(force: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3_VECTOR3(ptr, objectID.id, MethodBindings.applyForcePtr, force, position)
+    callPtrMethod_VECTOR3_VECTOR3(MethodBindings.applyForcePtr, force, position)
   }
 
   /**
@@ -402,7 +401,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * [CollisionShape3D] must be a child of the node, or you can manually set [inverseInertia].
    */
   public final fun applyTorque(torque: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyTorquePtr, torque)
+    callPtrMethod_VECTOR3(MethodBindings.applyTorquePtr, torque)
   }
 
   /**
@@ -413,7 +412,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun addConstantCentralForce(force: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.addConstantCentralForcePtr, force)
+    callPtrMethod_VECTOR3(MethodBindings.addConstantCentralForcePtr, force)
   }
 
   /**
@@ -424,7 +423,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun addConstantForce(force: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR3_VECTOR3(ptr, objectID.id, MethodBindings.addConstantForcePtr, force, position)
+    callPtrMethod_VECTOR3_VECTOR3(MethodBindings.addConstantForcePtr, force, position)
   }
 
   /**
@@ -432,7 +431,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * until cleared with `constant_torque = Vector3(0, 0, 0)`.
    */
   public final fun addConstantTorque(torque: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.addConstantTorquePtr, torque)
+    callPtrMethod_VECTOR3(MethodBindings.addConstantTorquePtr, torque)
   }
 
   /**
@@ -441,7 +440,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * See [addConstantForce] and [addConstantCentralForce].
    */
   public final fun setConstantForce(force: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setConstantForcePtr, force)
+    callPtrMethod_VECTOR3(MethodBindings.setConstantForcePtr, force)
   }
 
   /**
@@ -450,7 +449,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * See [addConstantForce] and [addConstantCentralForce].
    */
   public final fun getConstantForce(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getConstantForcePtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getConstantForcePtr)
 
   /**
    * Sets the body's total constant rotational forces applied during each physics update.
@@ -458,7 +457,7 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * See [addConstantTorque].
    */
   public final fun setConstantTorque(torque: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setConstantTorquePtr, torque)
+    callPtrMethod_VECTOR3(MethodBindings.setConstantTorquePtr, torque)
   }
 
   /**
@@ -467,28 +466,27 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * See [addConstantTorque].
    */
   public final fun getConstantTorque(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getConstantTorquePtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getConstantTorquePtr)
 
   public final fun setSleepState(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSleepStatePtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setSleepStatePtr, enabled)
   }
 
-  public final fun isSleeping(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSleepingPtr)
+  public final fun isSleeping(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isSleepingPtr)
 
   public final fun setCollisionLayer(layer: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionLayerPtr, layer)
+    callPtrMethod_LONG(MethodBindings.setCollisionLayerPtr, layer)
   }
 
   public final fun getCollisionLayer(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionLayerPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionLayerPtr)
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, mask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   /**
    * Returns the number of contacts this body has with other bodies.
@@ -497,90 +495,89 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
    * [RigidBody3D.contactMonitor].
    */
   public final fun getContactCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContactCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getContactCountPtr).toInt()
 
   /**
    * Returns the position of the contact point on the body in the global coordinate system.
    */
   public final fun getContactLocalPosition(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactLocalPositionPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactLocalPositionPtr, contactIdx.toLong())
 
   /**
    * Returns the local normal at the contact point.
    */
   public final fun getContactLocalNormal(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactLocalNormalPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactLocalNormalPtr, contactIdx.toLong())
 
   /**
    * Impulse created by the contact.
    */
   public final fun getContactImpulse(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactImpulsePtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactImpulsePtr, contactIdx.toLong())
 
   /**
    * Returns the local shape index of the collision.
    */
   public final fun getContactLocalShape(contactIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getContactLocalShapePtr, contactIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getContactLocalShapePtr, contactIdx.toLong()).toInt()
 
   /**
    * Returns the linear velocity vector at the body's contact point.
    */
   public final fun getContactLocalVelocityAtPosition(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactLocalVelocityAtPositionPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactLocalVelocityAtPositionPtr, contactIdx.toLong())
 
   /**
    * Returns the collider's [RID].
    */
   public final fun getContactCollider(contactIdx: Int): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getContactColliderPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_RID(MethodBindings.getContactColliderPtr, contactIdx.toLong())
 
   /**
    * Returns the position of the contact point on the collider in the global coordinate system.
    */
   public final fun getContactColliderPosition(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactColliderPositionPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactColliderPositionPtr, contactIdx.toLong())
 
   /**
    * Returns the collider's object id.
    */
   public final fun getContactColliderId(contactIdx: Int): Long =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getContactColliderIdPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getContactColliderIdPtr, contactIdx.toLong())
 
   /**
    * Returns the collider object.
    */
   public final fun getContactColliderObject(contactIdx: Int): Object? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getContactColliderObjectPtr, contactIdx.toLong()) as Object?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.getContactColliderObjectPtr, contactIdx.toLong()) as Object?)
 
   /**
    * Returns the collider's shape index.
    */
   public final fun getContactColliderShape(contactIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getContactColliderShapePtr, contactIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getContactColliderShapePtr, contactIdx.toLong()).toInt()
 
   /**
    * Returns the linear velocity vector at the collider's contact point.
    */
   public final fun getContactColliderVelocityAtPosition(contactIdx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactColliderVelocityAtPositionPtr, contactIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getContactColliderVelocityAtPositionPtr, contactIdx.toLong())
 
-  public final fun getStep(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStepPtr).toFloat()
+  public final fun getStep(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getStepPtr).toFloat()
 
   /**
    * Updates the body's linear and angular velocity by applying gravity and damping for the
    * equivalent of one physics tick.
    */
   public final fun integrateForces(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.integrateForcesPtr)
+    callPtrMethod0(MethodBindings.integrateForcesPtr)
   }
 
   /**
    * Returns the current state of the space, useful for queries.
    */
   public final fun getSpaceState(): PhysicsDirectSpaceState3D =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getSpaceStatePtr) as PhysicsDirectSpaceState3D)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getSpaceStatePtr) as PhysicsDirectSpaceState3D)
 
   public companion object {
     @JvmField

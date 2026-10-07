@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -43,11 +42,11 @@ public open class VisualShaderNodeComment : VisualShaderNodeFrame() {
   }
 
   public final fun setDescription(description: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setDescriptionPtr, description)
+    callMethod_STRING(MethodBindings.setDescriptionPtr, description)
   }
 
   public final fun getDescription(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDescriptionPtr)
+      callMethod0_ret_STRING(MethodBindings.getDescriptionPtr)
 
   public companion object {
     @JvmField

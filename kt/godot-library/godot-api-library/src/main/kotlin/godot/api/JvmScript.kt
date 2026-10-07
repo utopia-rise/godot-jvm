@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.common.interop.VoidPtr
@@ -23,8 +22,7 @@ public open class JvmScript internal constructor() : Script() {
     createNativeObject(344, scriptPtr)
   }
 
-  public final fun new(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.newPtr)
+  public final fun new(): Any? = callMethod0_ret_ANY(MethodBindings.newPtr)
 
   public companion object {
     @JvmField

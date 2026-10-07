@@ -6,11 +6,14 @@ public partial class Bunny : Sprite2D
 
     private const float Gravity = 500f;
     private Vector2 _screenSize;
-    private readonly RandomNumberGenerator _randomNumberGenerator = new();
+    // One generator per bunny, which is deliberate: this benchmark exists to measure what many small scripts cost,
+    // and an object of its own per bunny is part of that. Seeded by the spawner rather than here, with a seed of its
+    // own per bunny, because a shared seed would have every bunny bounce in exactly the same way.
+    private readonly RandomNumberGenerator _bounceRandom = new();
 
-    public override void _Ready()
+    public void SeedBounce(ulong seed)
     {
-        _randomNumberGenerator.Randomize();
+        _bounceRandom.Seed = seed;
     }
 
     public override void _Process(double delta)
@@ -40,9 +43,9 @@ public partial class Bunny : Sprite2D
         if (pos.Y > _screenSize.Y)
         {
             pos.Y = _screenSize.Y;
-            if (_randomNumberGenerator.Randf() > 0.5f)
+            if (_bounceRandom.Randf() > 0.5f)
             {
-                sp.Y = -(_randomNumberGenerator.Randi() % 1100 + 50);
+                sp.Y = -(_bounceRandom.Randi() % 1100 + 50);
             }
             else
             {

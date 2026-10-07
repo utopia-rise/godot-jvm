@@ -28,7 +28,7 @@ object SignalGenerationService : ISignalGenerationService {
     override fun generate(outputDir: File) {
         val signalFileSpec = FileSpec.builder(Core.signal.packageName, Core.signalsFileName)
 
-        for (argCount in 0..Constraints.MAX_FUNCTION_ARG_COUNT) {
+        for (argCount in 0..Constraints.MAX_ARGUMENT_COUNT) {
             val signalClassName = Core.signal(argCount)
             val genericClassNameInfo = GenericClassNameInfo(signalClassName, argCount)
 

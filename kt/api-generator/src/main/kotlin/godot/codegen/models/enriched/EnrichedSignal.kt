@@ -18,7 +18,7 @@ class EnrichedSignal(model: Signal) : HasTypeGenerationTrait, DocumentedGenerati
     val name = model.name.convertToCamelCase()
 
     init {
-        if ((model.arguments?.size ?: 0) > Constraints.MAX_SIGNAL_ARG_COUNT) {
+        if ((model.arguments?.size ?: 0) > Constraints.MAX_ARGUMENT_COUNT) {
             throw TooManySignalArgument(model)
         }
     }

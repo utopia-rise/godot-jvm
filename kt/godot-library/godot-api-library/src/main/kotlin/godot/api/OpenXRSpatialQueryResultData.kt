@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG_ret_LONG
@@ -32,20 +31,19 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
   /**
    * Returns the number of entities that were retrieved.
    */
-  public final fun getCapacity(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCapacityPtr)
+  public final fun getCapacity(): Long = callPtrMethod0_ret_LONG(MethodBindings.getCapacityPtr)
 
   /**
    * Returns the entity id (`XrSpatialEntityIdEXT`) for the entity at this [index].
    */
   public final fun getEntityId(index: Long): Long =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEntityIdPtr, index)
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getEntityIdPtr, index)
 
   /**
    * Returns the entity state for the entity at this [index].
    */
   public final fun getEntityState(index: Long): OpenXRSpatialEntityTracker.EntityTrackingState =
-      OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEntityStatePtr, index))
+      OpenXRSpatialEntityTracker.EntityTrackingState.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getEntityStatePtr, index))
 
   public companion object {
     @JvmField

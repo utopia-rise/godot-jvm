@@ -7,29 +7,13 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ANY_BOOL_ret_BOOL
 import godot.callMethod_BOOL_ret_ANY
-import godot.callMethod_LONG_STRING_STRING_BOOL_ret_OBJECT_REF
 import godot.callMethod_PACKED_STRING_ARRAY_STRING_ret_BOOL
-import godot.callMethod_STRING_BOOL_ret_LONG
-import godot.callMethod_STRING_LONG_LONG_ret_OBJECT_REF
-import godot.callMethod_STRING_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_OBJECT_REF
-import godot.callMethod_STRING_LONG_STRING_ret_OBJECT_REF
-import godot.callMethod_STRING_LONG_ret_LONG
-import godot.callMethod_STRING_LONG_ret_OBJECT_REF
-import godot.callMethod_STRING_STRING_PACKED_BYTE_ARRAY_ret_LONG
-import godot.callMethod_STRING_STRING_STRING_ret_LONG
-import godot.callMethod_STRING_STRING_ret_LONG
-import godot.callMethod_STRING_STRING_ret_PACKED_BYTE_ARRAY
-import godot.callMethod_STRING_STRING_ret_STRING
 import godot.callMethod_STRING_ret_BOOL
-import godot.callMethod_STRING_ret_LONG
-import godot.callMethod_STRING_ret_PACKED_BYTE_ARRAY
 import godot.callMethod_STRING_ret_PACKED_STRING_ARRAY
-import godot.callMethod_STRING_ret_STRING
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -41,6 +25,24 @@ import godot.callPtrMethod_LONG_ret_BOOL
 import godot.callPtrMethod_LONG_ret_LONG
 import godot.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY
 import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_BOOL
+import godot.callStaticMethod_LONG_STRING_STRING_BOOL_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_BOOL_ret_LONG
+import godot.callStaticMethod_STRING_LONG_LONG_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_LONG_STRING_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_LONG_ret_LONG
+import godot.callStaticMethod_STRING_LONG_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_STRING_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callStaticMethod_STRING_STRING_STRING_ret_LONG
+import godot.callStaticMethod_STRING_STRING_ret_LONG
+import godot.callStaticMethod_STRING_STRING_ret_PACKED_BYTE_ARRAY
+import godot.callStaticMethod_STRING_STRING_ret_STRING
+import godot.callStaticMethod_STRING_ret_BOOL
+import godot.callStaticMethod_STRING_ret_LONG
+import godot.callStaticMethod_STRING_ret_PACKED_BYTE_ARRAY
+import godot.callStaticMethod_STRING_ret_PACKED_STRING_ARRAY
+import godot.callStaticMethod_STRING_ret_STRING
+import godot.callStaticPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.Error
@@ -161,7 +163,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * end file to the original length of the file is lost.
    */
   public final fun resize(length: Long): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.resizePtr, length))
+      Error.from(callPtrMethod_LONG_ret_LONG(MethodBindings.resizePtr, length))
 
   /**
    * Writes the file's buffer to disk. Flushing is automatically performed when the file is closed.
@@ -173,33 +175,31 @@ public open class FileAccess internal constructor() : RefCounted() {
    * due to constant disk writes.
    */
   public final fun flush(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.flushPtr)
+    callPtrMethod0(MethodBindings.flushPtr)
   }
 
   /**
    * Returns the path as a [String] for the current open file.
    */
-  public final fun getPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPathPtr)
+  public final fun getPath(): String = callMethod0_ret_STRING(MethodBindings.getPathPtr)
 
   /**
    * Returns the absolute path as a [String] for the current open file.
    */
   public final fun getPathAbsolute(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPathAbsolutePtr)
+      callMethod0_ret_STRING(MethodBindings.getPathAbsolutePtr)
 
   /**
    * Returns `true` if the file is currently opened.
    */
-  public final fun isOpen(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOpenPtr)
+  public final fun isOpen(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOpenPtr)
 
   /**
    * Sets the file cursor to the specified position in bytes, from the beginning of the file. This
    * changes the value returned by [getPosition].
    */
   public final fun seek(position: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.seekPtr, position)
+    callPtrMethod_LONG(MethodBindings.seekPtr, position)
   }
 
   /**
@@ -211,22 +211,20 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun seekEnd(position: Long = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.seekEndPtr, position)
+    callPtrMethod_LONG(MethodBindings.seekEndPtr, position)
   }
 
   /**
    * Returns the file cursor's position in bytes from the beginning of the file. This is the file
    * reading/writing cursor set by [seek] or [seekEnd] and advanced by read/write operations.
    */
-  public final fun getPosition(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPositionPtr)
+  public final fun getPosition(): Long = callPtrMethod0_ret_LONG(MethodBindings.getPositionPtr)
 
   /**
    * Returns the size of the file in bytes. For a pipe, returns the number of bytes available for
    * reading from the pipe.
    */
-  public final fun getLength(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLengthPtr)
+  public final fun getLength(): Long = callPtrMethod0_ret_LONG(MethodBindings.getLengthPtr)
 
   /**
    * Returns `true` if the file cursor has already read past the end of the file.
@@ -248,57 +246,50 @@ public open class FileAccess internal constructor() : RefCounted() {
    * }
    * ```
    */
-  public final fun eofReached(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.eofReachedPtr)
+  public final fun eofReached(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.eofReachedPtr)
 
   /**
    * Returns the next 8 bits from the file as an integer. This advances the file cursor by 1 byte.
    * See [store8] for details on what values can be stored and retrieved this way.
    */
-  public final fun get8(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.get8Ptr).toInt()
+  public final fun get8(): Int = callPtrMethod0_ret_LONG(MethodBindings.get8Ptr).toInt()
 
   /**
    * Returns the next 16 bits from the file as an integer. This advances the file cursor by 2 bytes.
    * See [store16] for details on what values can be stored and retrieved this way.
    */
-  public final fun get16(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.get16Ptr).toInt()
+  public final fun get16(): Int = callPtrMethod0_ret_LONG(MethodBindings.get16Ptr).toInt()
 
   /**
    * Returns the next 32 bits from the file as an integer. This advances the file cursor by 4 bytes.
    * See [store32] for details on what values can be stored and retrieved this way.
    */
-  public final fun get32(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.get32Ptr)
+  public final fun get32(): Long = callPtrMethod0_ret_LONG(MethodBindings.get32Ptr)
 
   /**
    * Returns the next 64 bits from the file as an integer. This advances the file cursor by 8 bytes.
    * See [store64] for details on what values can be stored and retrieved this way.
    */
-  public final fun get64(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.get64Ptr)
+  public final fun get64(): Long = callPtrMethod0_ret_LONG(MethodBindings.get64Ptr)
 
   /**
    * Returns the next 16 bits from the file as a half-precision floating-point number. This advances
    * the file cursor by 2 bytes.
    */
-  public final fun getHalf(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHalfPtr).toFloat()
+  public final fun getHalf(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getHalfPtr).toFloat()
 
   /**
    * Returns the next 32 bits from the file as a floating-point number. This advances the file
    * cursor by 4 bytes.
    */
   public final fun getFloat(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloatPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFloatPtr).toFloat()
 
   /**
    * Returns the next 64 bits from the file as a floating-point number. This advances the file
    * cursor by 8 bytes.
    */
-  public final fun getDouble(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDoublePtr)
+  public final fun getDouble(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getDoublePtr)
 
   /**
    * Returns the next bits from the file as a floating-point number. This advances the file cursor
@@ -308,15 +299,14 @@ public open class FileAccess internal constructor() : RefCounted() {
    * default), the number of read bits for that file is 32. Otherwise, if compiled with the
    * `precision=double` option, the number of read bits is 64.
    */
-  public final fun getReal(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRealPtr).toFloat()
+  public final fun getReal(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getRealPtr).toFloat()
 
   /**
    * Returns next [length] bytes of the file as a [PackedByteArray]. This advances the file cursor
    * by [length] bytes.
    */
   public final fun getBuffer(length: Long): PackedByteArray =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getBufferPtr, length)
+      callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(MethodBindings.getBufferPtr, length)
 
   /**
    * Returns the next line of the file as a [String]. The returned string doesn't include newline
@@ -325,8 +315,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    *
    * Text is interpreted as being UTF-8 encoded.
    */
-  public final fun getLine(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLinePtr)
+  public final fun getLine(): String = callMethod0_ret_STRING(MethodBindings.getLinePtr)
 
   /**
    * Returns the next value of the file in CSV (Comma-Separated Values) format. You can pass a
@@ -357,20 +346,18 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun getCsvLine(delim: String = ","): PackedStringArray =
-      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getCsvLinePtr, delim)
+      callMethod_STRING_ret_PACKED_STRING_ARRAY(MethodBindings.getCsvLinePtr, delim)
 
   /**
    * Returns the whole file as a [String]. Text is interpreted as being UTF-8 encoded. This ignores
    * the file cursor and does not affect it.
    */
-  public final fun getAsText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAsTextPtr)
+  public final fun getAsText(): String = callMethod0_ret_STRING(MethodBindings.getAsTextPtr)
 
-  public final fun isBigEndian(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBigEndianPtr)
+  public final fun isBigEndian(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isBigEndianPtr)
 
   public final fun setBigEndian(bigEndian: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBigEndianPtr, bigEndian)
+    callPtrMethod_BOOL(MethodBindings.setBigEndianPtr, bigEndian)
   }
 
   /**
@@ -378,7 +365,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * `ERR_FILE_*` constants from [Error].
    */
   public final fun getError(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getErrorPtr))
+      Error.from(callPtrMethod0_ret_LONG(MethodBindings.getErrorPtr))
 
   /**
    * Returns the next [Any] value from the file. If [allowObjects] is `true`, decoding objects is
@@ -394,7 +381,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun getVar(allowObjects: Boolean = false): Any? =
-      TransferContext.callMethod_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.getVarPtr, allowObjects)
+      callMethod_BOOL_ret_ANY(MethodBindings.getVarPtr, allowObjects)
 
   /**
    * Stores an integer as 8 bits in the file. This advances the file cursor by 1 byte. Returns
@@ -410,7 +397,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * example).
    */
   public final fun store8(`value`: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.store8Ptr, value.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.store8Ptr, value.toLong())
 
   /**
    * Stores an integer as 16 bits in the file. This advances the file cursor by 2 bytes. Returns
@@ -461,7 +448,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * ```
    */
   public final fun store16(`value`: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.store16Ptr, value.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.store16Ptr, value.toLong())
 
   /**
    * Stores an integer as 32 bits in the file. This advances the file cursor by 4 bytes. Returns
@@ -477,7 +464,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * example).
    */
   public final fun store32(`value`: Long): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.store32Ptr, value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.store32Ptr, value)
 
   /**
    * Stores an integer as 64 bits in the file. This advances the file cursor by 8 bytes. Returns
@@ -490,7 +477,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun store64(`value`: Long): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.store64Ptr, value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.store64Ptr, value)
 
   /**
    * Stores a half-precision floating-point number as 16 bits in the file. This advances the file
@@ -500,7 +487,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeHalf(`value`: Float): Boolean =
-      TransferContext.callPtrMethod_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.storeHalfPtr, value.toDouble())
+      callPtrMethod_DOUBLE_ret_BOOL(MethodBindings.storeHalfPtr, value.toDouble())
 
   /**
    * Stores a floating-point number as 32 bits in the file. This advances the file cursor by 4
@@ -510,7 +497,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeFloat(`value`: Float): Boolean =
-      TransferContext.callPtrMethod_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.storeFloatPtr, value.toDouble())
+      callPtrMethod_DOUBLE_ret_BOOL(MethodBindings.storeFloatPtr, value.toDouble())
 
   /**
    * Stores a floating-point number as 64 bits in the file. This advances the file cursor by 8
@@ -520,7 +507,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeDouble(`value`: Double): Boolean =
-      TransferContext.callPtrMethod_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.storeDoublePtr, value)
+      callPtrMethod_DOUBLE_ret_BOOL(MethodBindings.storeDoublePtr, value)
 
   /**
    * Stores a floating-point number in the file. This advances the file cursor by either 4 or 8
@@ -534,7 +521,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeReal(`value`: Float): Boolean =
-      TransferContext.callPtrMethod_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.storeRealPtr, value.toDouble())
+      callPtrMethod_DOUBLE_ret_BOOL(MethodBindings.storeRealPtr, value.toDouble())
 
   /**
    * Stores the given array of bytes in the file. This advances the file cursor by the number of
@@ -544,7 +531,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeBuffer(buffer: PackedByteArray): Boolean =
-      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.storeBufferPtr, buffer)
+      callPtrMethod_PACKED_BYTE_ARRAY_ret_BOOL(MethodBindings.storeBufferPtr, buffer)
 
   /**
    * Stores [line] in the file followed by a newline character (`\n`), encoding the text as UTF-8.
@@ -556,7 +543,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeLine(line: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.storeLinePtr, line)
+      callMethod_STRING_ret_BOOL(MethodBindings.storeLinePtr, line)
 
   /**
    * Stores the given [PackedStringArray] in the file as a line formatted in the CSV
@@ -570,7 +557,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun storeCsvLine(values: PackedStringArray, delim: String = ","): Boolean =
-      TransferContext.callMethod_PACKED_STRING_ARRAY_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.storeCsvLinePtr, values, delim)
+      callMethod_PACKED_STRING_ARRAY_STRING_ret_BOOL(MethodBindings.storeCsvLinePtr, values, delim)
 
   /**
    * Stores [string] in the file without a newline character (`\n`), encoding the text as UTF-8.
@@ -588,7 +575,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storeString(string: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.storeStringPtr, string)
+      callMethod_STRING_ret_BOOL(MethodBindings.storeStringPtr, string)
 
   /**
    * Stores any Variant value in the file. If [fullObjects] is `true`, encoding objects is allowed
@@ -610,7 +597,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun storeVar(`value`: Any?, fullObjects: Boolean = false): Boolean =
-      TransferContext.callMethod_ANY_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.storeVarPtr, value, fullObjects)
+      callMethod_ANY_BOOL_ret_BOOL(MethodBindings.storeVarPtr, value, fullObjects)
 
   /**
    * Stores the given [String] as a line in the file in Pascal format (i.e. also store the length of
@@ -622,7 +609,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * indeterminate.
    */
   public final fun storePascalString(string: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.storePascalStringPtr, string)
+      callMethod_STRING_ret_BOOL(MethodBindings.storePascalStringPtr, string)
 
   /**
    * Returns a [String] saved in Pascal format from the file, meaning that the length of the string
@@ -632,7 +619,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * Text is interpreted as being UTF-8 encoded.
    */
   public final fun getPascalString(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPascalStringPtr)
+      callMethod0_ret_STRING(MethodBindings.getPascalStringPtr)
 
   /**
    * Closes the currently opened file and prevents subsequent read/write operations. Use [flush] to
@@ -644,7 +631,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * directly.
    */
   public final fun close(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closePtr)
+    callPtrMethod0(MethodBindings.closePtr)
   }
 
   public enum class ModeFlags(
@@ -1087,7 +1074,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun `open`(path: String, flags: ModeFlags): FileAccess? =
-        (TransferContext.callMethod_STRING_LONG_ret_OBJECT_REF(0L, 0L, MethodBindings.openPtr, path, flags.value) as FileAccess?)
+        (callStaticMethod_STRING_LONG_ret_OBJECT_REF(MethodBindings.openPtr, path, flags.value) as FileAccess?)
 
     /**
      * Creates a new [FileAccess] object and opens an encrypted file in write or read mode. You need
@@ -1106,7 +1093,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       key: PackedByteArray,
       iv: PackedByteArray = PackedByteArray(),
     ): FileAccess? =
-        (TransferContext.callMethod_STRING_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_OBJECT_REF(0L, 0L, MethodBindings.openEncryptedPtr, path, modeFlags.value, key, iv) as FileAccess?)
+        (callStaticMethod_STRING_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_OBJECT_REF(MethodBindings.openEncryptedPtr, path, modeFlags.value, key, iv) as FileAccess?)
 
     /**
      * Creates a new [FileAccess] object and opens an encrypted file in write or read mode. You need
@@ -1121,7 +1108,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       modeFlags: ModeFlags,
       pass: String,
     ): FileAccess? =
-        (TransferContext.callMethod_STRING_LONG_STRING_ret_OBJECT_REF(0L, 0L, MethodBindings.openEncryptedWithPassPtr, path, modeFlags.value, pass) as FileAccess?)
+        (callStaticMethod_STRING_LONG_STRING_ret_OBJECT_REF(MethodBindings.openEncryptedWithPassPtr, path, modeFlags.value, pass) as FileAccess?)
 
     /**
      * Creates a new [FileAccess] object and opens a compressed file for reading or writing.
@@ -1140,14 +1127,14 @@ public open class FileAccess internal constructor() : RefCounted() {
       modeFlags: ModeFlags,
       compressionMode: CompressionMode = FileAccess.CompressionMode.FASTLZ,
     ): FileAccess? =
-        (TransferContext.callMethod_STRING_LONG_LONG_ret_OBJECT_REF(0L, 0L, MethodBindings.openCompressedPtr, path, modeFlags.value, compressionMode.value) as FileAccess?)
+        (callStaticMethod_STRING_LONG_LONG_ret_OBJECT_REF(MethodBindings.openCompressedPtr, path, modeFlags.value, compressionMode.value) as FileAccess?)
 
     /**
      * Returns the result of the last [open] call in the current thread.
      */
     @JvmStatic
     public final fun getOpenError(): Error =
-        Error.from(TransferContext.callPtrMethod0_ret_LONG(0L, 0L, MethodBindings.getOpenErrorPtr))
+        Error.from(callStaticPtrMethod0_ret_LONG(MethodBindings.getOpenErrorPtr))
 
     /**
      * Creates a temporary file. This file will be freed when the returned [FileAccess] is freed.
@@ -1169,7 +1156,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       extension: String = "",
       keep: Boolean = false,
     ): FileAccess? =
-        (TransferContext.callMethod_LONG_STRING_STRING_BOOL_ret_OBJECT_REF(0L, 0L, MethodBindings.createTempPtr, modeFlags.value, prefix, extension, keep) as FileAccess?)
+        (callStaticMethod_LONG_STRING_STRING_BOOL_ret_OBJECT_REF(MethodBindings.createTempPtr, modeFlags.value, prefix, extension, keep) as FileAccess?)
 
     /**
      * Returns the whole [path] file contents as a [PackedByteArray] without any decoding.
@@ -1179,7 +1166,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getFileAsBytes(path: String): PackedByteArray =
-        TransferContext.callMethod_STRING_ret_PACKED_BYTE_ARRAY(0L, 0L, MethodBindings.getFileAsBytesPtr, path)
+        callStaticMethod_STRING_ret_PACKED_BYTE_ARRAY(MethodBindings.getFileAsBytesPtr, path)
 
     /**
      * Returns the whole [path] file contents as a [String]. Text is interpreted as being UTF-8
@@ -1190,7 +1177,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getFileAsString(path: String): String =
-        TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.getFileAsStringPtr, path)
+        callStaticMethod_STRING_ret_STRING(MethodBindings.getFileAsStringPtr, path)
 
     /**
      * Returns an MD5 String representing the file at the given path or an empty [String] on
@@ -1198,7 +1185,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getMd5(path: String): String =
-        TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.getMd5Ptr, path)
+        callStaticMethod_STRING_ret_STRING(MethodBindings.getMd5Ptr, path)
 
     /**
      * Returns an SHA-256 [String] representing the file at the given path or an empty [String] on
@@ -1206,7 +1193,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getSha256(path: String): String =
-        TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.getSha256Ptr, path)
+        callStaticMethod_STRING_ret_STRING(MethodBindings.getSha256Ptr, path)
 
     /**
      * Returns `true` if the file exists in the given path.
@@ -1219,7 +1206,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun fileExists(path: String): Boolean =
-        TransferContext.callMethod_STRING_ret_BOOL(0L, 0L, MethodBindings.fileExistsPtr, path)
+        callStaticMethod_STRING_ret_BOOL(MethodBindings.fileExistsPtr, path)
 
     /**
      * Returns the last time the [file] was modified in Unix timestamp format, or `0` on error. This
@@ -1227,7 +1214,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getModifiedTime(`file`: String): Long =
-        TransferContext.callMethod_STRING_ret_LONG(0L, 0L, MethodBindings.getModifiedTimePtr, file)
+        callStaticMethod_STRING_ret_LONG(MethodBindings.getModifiedTimePtr, file)
 
     /**
      * Returns the last time the [file] was accessed in Unix timestamp format, or `0` on error. This
@@ -1235,14 +1222,14 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getAccessTime(`file`: String): Long =
-        TransferContext.callMethod_STRING_ret_LONG(0L, 0L, MethodBindings.getAccessTimePtr, file)
+        callStaticMethod_STRING_ret_LONG(MethodBindings.getAccessTimePtr, file)
 
     /**
      * Returns the size of the file at the given path, in bytes, or `-1` on error.
      */
     @JvmStatic
     public final fun getSize(`file`: String): Long =
-        TransferContext.callMethod_STRING_ret_LONG(0L, 0L, MethodBindings.getSizePtr, file)
+        callStaticMethod_STRING_ret_LONG(MethodBindings.getSizePtr, file)
 
     /**
      * Returns the UNIX permissions of the file at the given path.
@@ -1251,7 +1238,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getUnixPermissions(`file`: String): UnixPermissionFlags =
-        UnixPermissionFlags(TransferContext.callMethod_STRING_ret_LONG(0L, 0L, MethodBindings.getUnixPermissionsPtr, file))
+        UnixPermissionFlags(callStaticMethod_STRING_ret_LONG(MethodBindings.getUnixPermissionsPtr, file))
 
     /**
      * Sets file UNIX permissions.
@@ -1260,7 +1247,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun setUnixPermissions(`file`: String, permissions: UnixPermissionFlags): Error =
-        Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(0L, 0L, MethodBindings.setUnixPermissionsPtr, file, permissions.flag))
+        Error.from(callStaticMethod_STRING_LONG_ret_LONG(MethodBindings.setUnixPermissionsPtr, file, permissions.flag))
 
     /**
      * Returns `true` if the **hidden** attribute is set on the file at the given path.
@@ -1269,7 +1256,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getHiddenAttribute(`file`: String): Boolean =
-        TransferContext.callMethod_STRING_ret_BOOL(0L, 0L, MethodBindings.getHiddenAttributePtr, file)
+        callStaticMethod_STRING_ret_BOOL(MethodBindings.getHiddenAttributePtr, file)
 
     /**
      * Sets file **hidden** attribute.
@@ -1278,7 +1265,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun setHiddenAttribute(`file`: String, hidden: Boolean): Error =
-        Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(0L, 0L, MethodBindings.setHiddenAttributePtr, file, hidden))
+        Error.from(callStaticMethod_STRING_BOOL_ret_LONG(MethodBindings.setHiddenAttributePtr, file, hidden))
 
     /**
      * Sets file **read only** attribute.
@@ -1287,7 +1274,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun setReadOnlyAttribute(`file`: String, ro: Boolean): Error =
-        Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(0L, 0L, MethodBindings.setReadOnlyAttributePtr, file, ro))
+        Error.from(callStaticMethod_STRING_BOOL_ret_LONG(MethodBindings.setReadOnlyAttributePtr, file, ro))
 
     /**
      * Returns `true` if the **read only** attribute is set on the file at the given path.
@@ -1296,7 +1283,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getReadOnlyAttribute(`file`: String): Boolean =
-        TransferContext.callMethod_STRING_ret_BOOL(0L, 0L, MethodBindings.getReadOnlyAttributePtr, file)
+        callStaticMethod_STRING_ret_BOOL(MethodBindings.getReadOnlyAttributePtr, file)
 
     /**
      * Reads the file extended attribute with name [attributeName] as a byte array.
@@ -1313,7 +1300,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getExtendedAttribute(`file`: String, attributeName: String): PackedByteArray =
-        TransferContext.callMethod_STRING_STRING_ret_PACKED_BYTE_ARRAY(0L, 0L, MethodBindings.getExtendedAttributePtr, file, attributeName)
+        callStaticMethod_STRING_STRING_ret_PACKED_BYTE_ARRAY(MethodBindings.getExtendedAttributePtr, file, attributeName)
 
     /**
      * Reads the file extended attribute with name [attributeName] as a UTF-8 encoded string.
@@ -1330,7 +1317,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getExtendedAttributeString(`file`: String, attributeName: String): String =
-        TransferContext.callMethod_STRING_STRING_ret_STRING(0L, 0L, MethodBindings.getExtendedAttributeStringPtr, file, attributeName)
+        callStaticMethod_STRING_STRING_ret_STRING(MethodBindings.getExtendedAttributeStringPtr, file, attributeName)
 
     /**
      * Writes file extended attribute with name [attributeName] as a byte array.
@@ -1351,7 +1338,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       attributeName: String,
       `data`: PackedByteArray,
     ): Error =
-        Error.from(TransferContext.callMethod_STRING_STRING_PACKED_BYTE_ARRAY_ret_LONG(0L, 0L, MethodBindings.setExtendedAttributePtr, file, attributeName, data))
+        Error.from(callStaticMethod_STRING_STRING_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.setExtendedAttributePtr, file, attributeName, data))
 
     /**
      * Writes file extended attribute with name [attributeName] as a UTF-8 encoded string.
@@ -1372,7 +1359,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       attributeName: String,
       `data`: String,
     ): Error =
-        Error.from(TransferContext.callMethod_STRING_STRING_STRING_ret_LONG(0L, 0L, MethodBindings.setExtendedAttributeStringPtr, file, attributeName, data))
+        Error.from(callStaticMethod_STRING_STRING_STRING_ret_LONG(MethodBindings.setExtendedAttributeStringPtr, file, attributeName, data))
 
     /**
      * Removes file extended attribute with name [attributeName].
@@ -1389,7 +1376,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun removeExtendedAttribute(`file`: String, attributeName: String): Error =
-        Error.from(TransferContext.callMethod_STRING_STRING_ret_LONG(0L, 0L, MethodBindings.removeExtendedAttributePtr, file, attributeName))
+        Error.from(callStaticMethod_STRING_STRING_ret_LONG(MethodBindings.removeExtendedAttributePtr, file, attributeName))
 
     /**
      * Returns a list of file extended attributes.
@@ -1406,7 +1393,7 @@ public open class FileAccess internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getExtendedAttributesList(`file`: String): PackedStringArray =
-        TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.getExtendedAttributesListPtr, file)
+        callStaticMethod_STRING_ret_PACKED_STRING_ARRAY(MethodBindings.getExtendedAttributesListPtr, file)
   }
 
   public object MethodBindings {

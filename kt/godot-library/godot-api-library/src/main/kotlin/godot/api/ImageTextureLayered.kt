@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_ARRAY_ret_LONG
 import godot.callPtrMethod_OBJECT_LONG
@@ -76,7 +75,7 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * ```
    */
   public final fun createFromImages(images: VariantArray<Image>): Error =
-      Error.from(TransferContext.callPtrMethod_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.createFromImagesPtr, images))
+      Error.from(callPtrMethod_ARRAY_ret_LONG(MethodBindings.createFromImagesPtr, images))
 
   /**
    * Replaces the existing [Image] data at the given [layer] with this new image.
@@ -90,7 +89,7 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * The update is immediate: it's synchronized with drawing.
    */
   public final fun updateLayer(image: Image?, layer: Int): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.updateLayerPtr, image, layer.toLong())
+    callPtrMethod_OBJECT_LONG(MethodBindings.updateLayerPtr, image, layer.toLong())
   }
 
   /**

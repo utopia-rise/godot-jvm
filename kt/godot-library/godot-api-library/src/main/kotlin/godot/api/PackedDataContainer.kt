@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_ANY_ret_LONG
 import godot.callPtrMethod0_ret_LONG
@@ -74,13 +73,12 @@ public open class PackedDataContainer : Resource() {
    * **Note:** Subsequent calls to this method will overwrite the existing data.
    */
   public final fun pack(`value`: Any?): Error =
-      Error.from(TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.packPtr, value))
+      Error.from(callMethod_ANY_ret_LONG(MethodBindings.packPtr, value))
 
   /**
    * Returns the size of the packed container (see [Array.size] and [Dictionary.size]).
    */
-  public final fun size(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.sizePtr).toInt()
+  public final fun size(): Int = callPtrMethod0_ret_LONG(MethodBindings.sizePtr).toInt()
 
   public companion object {
     @JvmField

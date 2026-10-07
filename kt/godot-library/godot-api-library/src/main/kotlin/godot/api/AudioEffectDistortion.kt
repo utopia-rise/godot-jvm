@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -114,39 +113,38 @@ public open class AudioEffectDistortion : AudioEffect() {
   }
 
   public final fun setMode(mode: Mode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setModePtr, mode.value)
   }
 
-  public final fun getMode(): Mode =
-      Mode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModePtr))
+  public final fun getMode(): Mode = Mode.from(callPtrMethod0_ret_LONG(MethodBindings.getModePtr))
 
   public final fun setPreGain(preGain: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPreGainPtr, preGain.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPreGainPtr, preGain.toDouble())
   }
 
   public final fun getPreGain(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPreGainPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPreGainPtr).toFloat()
 
   public final fun setKeepHfHz(keepHfHz: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setKeepHfHzPtr, keepHfHz.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setKeepHfHzPtr, keepHfHz.toDouble())
   }
 
   public final fun getKeepHfHz(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getKeepHfHzPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getKeepHfHzPtr).toFloat()
 
   public final fun setDrive(drive: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDrivePtr, drive.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDrivePtr, drive.toDouble())
   }
 
   public final fun getDrive(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDrivePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDrivePtr).toFloat()
 
   public final fun setPostGain(postGain: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPostGainPtr, postGain.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPostGainPtr, postGain.toDouble())
   }
 
   public final fun getPostGain(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPostGainPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPostGainPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

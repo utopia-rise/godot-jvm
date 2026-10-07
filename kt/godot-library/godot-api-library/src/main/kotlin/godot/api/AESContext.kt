@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
@@ -120,7 +119,7 @@ public open class AESContext : RefCounted() {
     key: PackedByteArray,
     iv: PackedByteArray = PackedByteArray(),
   ): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, mode.value, key, iv))
+      Error.from(callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.startPtr, mode.value, key, iv))
 
   /**
    * Run the desired operation for this AES context. Will return a [PackedByteArray] containing the
@@ -129,7 +128,7 @@ public open class AESContext : RefCounted() {
    * **Note:** The size of [src] must be a multiple of 16. Apply some padding if needed.
    */
   public final fun update(src: PackedByteArray): PackedByteArray =
-      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.updatePtr, src)
+      callPtrMethod_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(MethodBindings.updatePtr, src)
 
   /**
    * Get the current IV state for this context (IV gets updated when calling [update]). You normally
@@ -139,13 +138,13 @@ public open class AESContext : RefCounted() {
    * [MODE_CBC_DECRYPT].
    */
   public final fun getIvState(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getIvStatePtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getIvStatePtr)
 
   /**
    * Close this AES context so it can be started again. See [start].
    */
   public final fun finish(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.finishPtr)
+    callPtrMethod0(MethodBindings.finishPtr)
   }
 
   public enum class Mode(

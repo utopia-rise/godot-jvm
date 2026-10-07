@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING
 import godot.callMethod_LONG_ret_STRING
@@ -52,53 +51,53 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Sets the apply amount of the setting at [index] to [amount].
    */
   public final fun setAmount(index: Int, amount: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setAmountPtr, index.toLong(), amount.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setAmountPtr, index.toLong(), amount.toDouble())
   }
 
   /**
    * Returns the apply amount of the setting at [index].
    */
   public final fun getAmount(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAmountPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getAmountPtr, index.toLong()).toFloat()
 
   /**
    * Sets the apply bone of the setting at [index] to [boneName]. This bone will be modified.
    */
   public final fun setApplyBoneName(index: Int, boneName: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setApplyBoneNamePtr, index.toLong(), boneName)
+    callMethod_LONG_STRING(MethodBindings.setApplyBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the apply bone name of the setting at [index]. This bone will be modified.
    */
   public final fun getApplyBoneName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getApplyBoneNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getApplyBoneNamePtr, index.toLong())
 
   /**
    * Sets the apply bone of the setting at [index] to [bone]. This bone will be modified.
    */
   public final fun setApplyBone(index: Int, bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setApplyBonePtr, index.toLong(), bone.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setApplyBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the apply bone of the setting at [index]. This bone will be modified.
    */
   public final fun getApplyBone(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getApplyBonePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getApplyBonePtr, index.toLong()).toInt()
 
   /**
    * Sets the reference target type of the setting at [index] to [type]. See also [ReferenceType].
    */
   public final fun setReferenceType(index: Int, type: ReferenceType): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setReferenceTypePtr, index.toLong(), type.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setReferenceTypePtr, index.toLong(), type.value)
   }
 
   /**
    * Returns the reference target type of the setting at [index]. See also [ReferenceType].
    */
   public final fun getReferenceType(index: Int): ReferenceType =
-      ReferenceType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceTypePtr, index.toLong()))
+      ReferenceType.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getReferenceTypePtr, index.toLong()))
 
   /**
    * Sets the reference bone of the setting at [index] to [boneName].
@@ -106,7 +105,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceBoneName(index: Int, boneName: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setReferenceBoneNamePtr, index.toLong(), boneName)
+    callMethod_LONG_STRING(MethodBindings.setReferenceBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
@@ -115,7 +114,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceBoneName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getReferenceBoneNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getReferenceBoneNamePtr, index.toLong())
 
   /**
    * Sets the reference bone of the setting at [index] to [bone].
@@ -123,7 +122,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceBone(index: Int, bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setReferenceBonePtr, index.toLong(), bone.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setReferenceBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
@@ -132,7 +131,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceBone(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceBonePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getReferenceBonePtr, index.toLong()).toInt()
 
   /**
    * Sets the reference node path of the setting at [index] to [node].
@@ -140,7 +139,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This node will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceNode(index: Int, node: NodePath): Unit {
-    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setReferenceNodePtr, index.toLong(), node)
+    callPtrMethod_LONG_NODE_PATH(MethodBindings.setReferenceNodePtr, index.toLong(), node)
   }
 
   /**
@@ -149,26 +148,26 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This node will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceNode(index: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getReferenceNodePtr, index.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getReferenceNodePtr, index.toLong())
 
   /**
    * Sets the number of settings in the modifier.
    */
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSettingCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setSettingCountPtr, count.toLong())
   }
 
   /**
    * Returns the number of settings in the modifier.
    */
   public final fun getSettingCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSettingCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSettingCountPtr).toInt()
 
   /**
    * Clear all settings.
    */
   public final fun clearSetting(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSettingPtr)
+    callPtrMethod0(MethodBindings.clearSettingPtr)
   }
 
   /**

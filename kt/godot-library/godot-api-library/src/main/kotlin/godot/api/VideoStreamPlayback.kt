@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_PACKED_FLOAT_32_ARRAY_LONG_ret_LONG
 import godot.common.interop.VoidPtr
@@ -138,7 +137,7 @@ public abstract class VideoStreamPlayback : Resource() {
     buffer: PackedFloat32Array = PackedFloat32Array(),
     offset: Int = 0,
   ): Int =
-      TransferContext.callPtrMethod_LONG_PACKED_FLOAT_32_ARRAY_LONG_ret_LONG(ptr, objectID.id, MethodBindings.mixAudioPtr, numFrames.toLong(), buffer, offset.toLong()).toInt()
+      callPtrMethod_LONG_PACKED_FLOAT_32_ARRAY_LONG_ret_LONG(MethodBindings.mixAudioPtr, numFrames.toLong(), buffer, offset.toLong()).toInt()
 
   public companion object {
     @JvmField

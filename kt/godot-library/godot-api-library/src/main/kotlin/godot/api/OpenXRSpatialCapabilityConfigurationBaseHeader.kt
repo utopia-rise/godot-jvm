@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -53,7 +52,7 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    * [OpenXRSpatialEntityExtension.createSpatialContext].
    */
   public final fun hasValidConfiguration(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasValidConfigurationPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasValidConfigurationPtr)
 
   /**
    * Gets a pointer to the `XrSpatialCapabilityConfigurationBaseHeaderEXT` struct.
@@ -61,7 +60,7 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    * **Note:** This method is intended to be used from GDExtensions.
    */
   public final fun getConfiguration(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConfigurationPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getConfigurationPtr)
 
   public companion object {
     @JvmField

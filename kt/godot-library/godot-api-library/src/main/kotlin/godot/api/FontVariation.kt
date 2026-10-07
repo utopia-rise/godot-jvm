@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DICTIONARY
 import godot.callPtrMethod0_ret_DOUBLE
@@ -276,70 +275,70 @@ public open class FontVariation : Font() {
   }
 
   public final fun setBaseFont(font: Font?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setBaseFontPtr, font)
+    callPtrMethod_OBJECT(MethodBindings.setBaseFontPtr, font)
   }
 
   public final fun getBaseFont(): Font? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBaseFontPtr) as Font?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getBaseFontPtr) as Font?)
 
   public final fun setVariationOpentype(coords: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setVariationOpentypePtr, coords)
+    callPtrMethod_DICTIONARY(MethodBindings.setVariationOpentypePtr, coords)
   }
 
   public final fun getVariationOpentype(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getVariationOpentypePtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getVariationOpentypePtr) as Dictionary<Any?, Any?>)
 
   public final fun setVariationEmbolden(strength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVariationEmboldenPtr, strength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVariationEmboldenPtr, strength.toDouble())
   }
 
   public final fun getVariationEmbolden(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVariationEmboldenPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVariationEmboldenPtr).toFloat()
 
   public final fun setVariationFaceIndex(faceIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVariationFaceIndexPtr, faceIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setVariationFaceIndexPtr, faceIndex.toLong())
   }
 
   public final fun getVariationFaceIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVariationFaceIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVariationFaceIndexPtr).toInt()
 
   public final fun setVariationTransform(transform: Transform2D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setVariationTransformPtr, transform)
+    callPtrMethod_TRANSFORM2D(MethodBindings.setVariationTransformPtr, transform)
   }
 
   public final fun getVariationTransform(): Transform2D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getVariationTransformPtr)
+      callPtrMethod0_ret_TRANSFORM2D(MethodBindings.getVariationTransformPtr)
 
   public final fun setOpentypeFeatures(features: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setOpentypeFeaturesPtr, features)
+    callPtrMethod_DICTIONARY(MethodBindings.setOpentypeFeaturesPtr, features)
   }
 
   /**
    * Sets the spacing for [spacing] to [value] in pixels (not relative to the font size).
    */
   public final fun setSpacing(spacing: TextServer.SpacingType, `value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setSpacingPtr, spacing.value, value.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setSpacingPtr, spacing.value, value.toLong())
   }
 
   public final fun setBaselineOffset(baselineOffset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBaselineOffsetPtr, baselineOffset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBaselineOffsetPtr, baselineOffset.toDouble())
   }
 
   public final fun getBaselineOffset(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBaselineOffsetPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBaselineOffsetPtr).toFloat()
 
   public final fun getPaletteIndex(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPaletteIndexPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getPaletteIndexPtr)
 
   public final fun setPaletteIndex(paletteIndex: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPaletteIndexPtr, paletteIndex)
+    callPtrMethod_LONG(MethodBindings.setPaletteIndexPtr, paletteIndex)
   }
 
   public final fun getPaletteCustomColors(): PackedColorArray =
-      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getPaletteCustomColorsPtr)
+      callPtrMethod0_ret_PACKED_COLOR_ARRAY(MethodBindings.getPaletteCustomColorsPtr)
 
   public final fun setPaletteCustomColors(colors: PackedColorArray): Unit {
-    TransferContext.callPtrMethod_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.setPaletteCustomColorsPtr, colors)
+    callPtrMethod_PACKED_COLOR_ARRAY(MethodBindings.setPaletteCustomColorsPtr, colors)
   }
 
   public companion object {

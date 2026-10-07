@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY
 import godot.callPtrMethod_PACKED_VECTOR2_ARRAY
@@ -117,11 +116,11 @@ public open class ConcavePolygonShape2D : Shape2D() {
   }
 
   public final fun setSegments(segments: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setSegmentsPtr, segments)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setSegmentsPtr, segments)
   }
 
   public final fun getSegments(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getSegmentsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getSegmentsPtr)
 
   public companion object {
     @JvmField

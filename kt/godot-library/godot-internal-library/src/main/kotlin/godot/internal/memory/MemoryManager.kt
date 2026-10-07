@@ -11,9 +11,8 @@ import godot.internal.memory.binding.Binding
 import godot.internal.memory.binding.NativeCoreBinding
 import godot.internal.memory.binding.RefCountedBinding
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.locks.ReentrantReadWriteLock
-import kotlin.concurrent.read
-import kotlin.concurrent.write
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -68,10 +67,10 @@ object MemoryManager {
     private const val CANDIDATE_COUNT_INDEX = 1
     private const val IDS_START_INDEX = 2
 
-    private val lock = ReentrantReadWriteLock()
+    private val lock = ReentrantLock()
 
     /** Pointers to Godot objects.*/
-    private val ObjectDB = HashMap<ObjectID, Binding>(BINDING_INITIAL_CAPACITY)
+    private val ObjectDB = ObjectIDMap()
 
     /** Pointers to Godot objects.*/
     private val refCountedLinks = HashMap<RefCountedBinding, NativeWrapper>(BINDING_INITIAL_CAPACITY)
@@ -102,28 +101,25 @@ object MemoryManager {
     /**
      * The Godot native object has just been created. We can directly add it to ObjectDB because we know the slot is free.
      */
-    fun registerNewNativeObject(nativeWrapper: NativeWrapper) = lock.write {
-        ObjectDB[nativeWrapper.objectID] = Binding.create(nativeWrapper)
+    fun registerNewNativeObject(nativeWrapper: NativeWrapper) = lock.withLock {
+        ObjectDB.put(Binding.create(nativeWrapper))
     }
 
     /**
      * Check if a native object already has a wrapper, if not, we create it.
      */
-    fun getInstanceOrCreate(id: ObjectID, constructor: () -> NativeWrapper) = lock.read {
-        // We first try to get a match.
-        ObjectDB[id]?.instance
-    } ?: lock.write {
-        // Fallback to creating the wrapper.
-        // We check a second time in a write lock in case it got created after the read lock by another thread
-        ObjectDB[id]?.instance ?: constructor().also { ObjectDB[id] = Binding.create(it) }
+    fun getInstanceOrCreate(id: ObjectID, constructor: () -> NativeWrapper) = ObjectDB[id]?.instance ?: lock.withLock {
+        // A lock-free read can miss while a writer works, so the lock decides: another thread may have created the
+        // wrapper in between, and a binding whose wrapper was collected is replaced here.
+        ObjectDB[id]?.instance ?: constructor().also { ObjectDB.put(Binding.create(it)) }
     }
 
     /**
      * Create a script on top of an existing native object. It's usually called when adding/removing scripts. If RefCounted, we need to link the old and new instance together
      */
-    fun registerExistingNativeObject(nativeWrapper: NativeWrapper) = lock.write {
+    fun registerExistingNativeObject(nativeWrapper: NativeWrapper) = lock.withLock {
         val objectId = nativeWrapper.objectID
-        val oldBinding = ObjectDB.put(objectId, Binding.create(nativeWrapper))
+        val oldBinding = ObjectDB.put(Binding.create(nativeWrapper))
 
         // If an old binding exist, it means that we added/removed a script and create a link between the 2 bindings.
         if (oldBinding != null && objectId.isReference) {
@@ -134,8 +130,8 @@ object MemoryManager {
     /**
      * Directly remove the object from the ObjectDB, the caller has now the responsibility of deleting the object itself.
      */
-    fun deleteObject(id: Long): Unit = lock.write {
-        ObjectDB.remove(ObjectID(id))
+    fun deleteObject(id: Long) {
+        lock.withLock { ObjectDB.remove(ObjectID(id)) }
     }
 
     fun isInstanceValid(ktObject: NativeWrapper) = checkInstance(ktObject.ptr, ktObject.objectID.id)
@@ -146,6 +142,7 @@ object MemoryManager {
     }
 
     private fun syncMemory(freedObjects: LongArray): LongArray {
+        ThreadContext.sweepDeadThreads()
         removeNativeCoreTypes()
         removeDeadObjects(freedObjects)
         return buildReleaseReport()
@@ -154,10 +151,9 @@ object MemoryManager {
     /**
      * Remove the now dead native Object from the JVM ObjectDB.
      */
-    private fun removeDeadObjects(freedObjects: LongArray) = lock.write {
+    private fun removeDeadObjects(freedObjects: LongArray) = lock.withLock {
         for (id in freedObjects) {
-            val objectID = ObjectID(id)
-            ObjectDB.remove(objectID)
+            ObjectDB.remove(ObjectID(id))
         }
     }
 
@@ -183,7 +179,7 @@ object MemoryManager {
         // Confirmed ids first, candidates right after; the two ObjectDB walks are the only part needing the lock.
         var confirmedCount = 0
         var candidateCount = 0
-        lock.write {
+        lock.withLock {
             confirmedCount = writeConfirmedIds(report, IDS_START_INDEX)
             candidateCount = writeCandidateIds(report, IDS_START_INDEX + confirmedCount, newCandidateMax)
         }
@@ -227,7 +223,7 @@ object MemoryManager {
         var written = 0
         for (binding in processed) {
             val objectID = binding.objectID
-            if (ObjectDB.remove(objectID, binding)) {
+            if (ObjectDB.remove(binding)) {
                 report[firstIndex + written++] = objectID.id
             } else {
                 refCountedLinks.remove(binding)
@@ -270,9 +266,7 @@ object MemoryManager {
         cleanupCallbacks = cleanupCallbacks.filter { it.first }.toMutableList() // One shot are not kept to avoid keeping dead classes after reloading.
 
         // Get through all remaining [Objects] instances and remove their bindings
-        for (objectID in ObjectDB.keys) {
-            releaseBinding(objectID.id)
-        }
+        ObjectDB.forEach { releaseBinding(it.objectID.id) }
         ObjectDB.clear()
         refCountedLinks.clear()
 
@@ -300,6 +294,9 @@ object MemoryManager {
 
     external fun checkInstance(ptr: VoidPtr, instanceId: Long): Boolean
     external fun releaseBinding(instanceId: Long)
+    /** The engine class of an object the JVM has no wrapper for yet, as an index into TypeManager's engine type
+     * constructors. Creates the native binding for it at the same time, so the delivery path does not have to. */
+    external fun bindObject(ptr: VoidPtr): Int
     external fun unrefNativeCoreTypes(pointerArray: LongArray, variantTypeArray: IntArray)
     external fun querySync()
 }

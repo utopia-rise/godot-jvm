@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -70,25 +69,25 @@ public open class CameraTexture : Texture2D() {
   }
 
   public final fun setCameraFeedId(feedId: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCameraFeedIdPtr, feedId.toLong())
+    callPtrMethod_LONG(MethodBindings.setCameraFeedIdPtr, feedId.toLong())
   }
 
   public final fun getCameraFeedId(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCameraFeedIdPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCameraFeedIdPtr).toInt()
 
   public final fun setWhichFeed(whichFeed: CameraServer.FeedImage): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWhichFeedPtr, whichFeed.value)
+    callPtrMethod_LONG(MethodBindings.setWhichFeedPtr, whichFeed.value)
   }
 
   public final fun getWhichFeed(): CameraServer.FeedImage =
-      CameraServer.FeedImage.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWhichFeedPtr))
+      CameraServer.FeedImage.from(callPtrMethod0_ret_LONG(MethodBindings.getWhichFeedPtr))
 
   public final fun setCameraActive(active: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCameraActivePtr, active)
+    callPtrMethod_BOOL(MethodBindings.setCameraActivePtr, active)
   }
 
   public final fun getCameraActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCameraActivePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getCameraActivePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

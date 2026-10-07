@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -76,11 +75,10 @@ public open class SceneTreeTimer internal constructor() : RefCounted() {
   }
 
   public final fun setTimeLeft(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimeLeftPtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setTimeLeftPtr, time)
   }
 
-  public final fun getTimeLeft(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeLeftPtr)
+  public final fun getTimeLeft(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeLeftPtr)
 
   public companion object {
     @JvmField

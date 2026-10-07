@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -65,25 +64,25 @@ public open class PacketPeerStream : PacketPeer() {
   }
 
   public final fun setStreamPeer(peer: StreamPeer?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setStreamPeerPtr, peer)
+    callPtrMethod_OBJECT(MethodBindings.setStreamPeerPtr, peer)
   }
 
   public final fun getStreamPeer(): StreamPeer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPeerPtr) as StreamPeer?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getStreamPeerPtr) as StreamPeer?)
 
   public final fun setInputBufferMaxSize(maxSizeBytes: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInputBufferMaxSizePtr, maxSizeBytes.toLong())
+    callPtrMethod_LONG(MethodBindings.setInputBufferMaxSizePtr, maxSizeBytes.toLong())
   }
 
   public final fun setOutputBufferMaxSize(maxSizeBytes: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOutputBufferMaxSizePtr, maxSizeBytes.toLong())
+    callPtrMethod_LONG(MethodBindings.setOutputBufferMaxSizePtr, maxSizeBytes.toLong())
   }
 
   public final fun getInputBufferMaxSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputBufferMaxSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInputBufferMaxSizePtr).toInt()
 
   public final fun getOutputBufferMaxSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutputBufferMaxSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutputBufferMaxSizePtr).toInt()
 
   public companion object {
     @JvmField

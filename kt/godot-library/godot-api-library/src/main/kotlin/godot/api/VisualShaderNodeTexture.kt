@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -67,25 +66,25 @@ public open class VisualShaderNodeTexture : VisualShaderNode() {
   }
 
   public final fun setSource(`value`: Source): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSourcePtr, value.value)
+    callPtrMethod_LONG(MethodBindings.setSourcePtr, value.value)
   }
 
   public final fun getSource(): Source =
-      Source.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSourcePtr))
+      Source.from(callPtrMethod0_ret_LONG(MethodBindings.getSourcePtr))
 
   public final fun setTexture(`value`: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, value)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, value)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setTextureType(`value`: TextureType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureTypePtr, value.value)
+    callPtrMethod_LONG(MethodBindings.setTextureTypePtr, value.value)
   }
 
   public final fun getTextureType(): TextureType =
-      TextureType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureTypePtr))
+      TextureType.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureTypePtr))
 
   public enum class Source(
     public override val `value`: Long,

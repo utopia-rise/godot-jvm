@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -374,109 +373,106 @@ public open class Label : Control() {
   }
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalAlignmentPtr, alignment.value)
+    callPtrMethod_LONG(MethodBindings.setHorizontalAlignmentPtr, alignment.value)
   }
 
   public final fun getHorizontalAlignment(): HorizontalAlignment =
-      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalAlignmentPtr))
+      HorizontalAlignment.from(callPtrMethod0_ret_LONG(MethodBindings.getHorizontalAlignmentPtr))
 
   public final fun setVerticalAlignment(alignment: VerticalAlignment): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVerticalAlignmentPtr, alignment.value)
+    callPtrMethod_LONG(MethodBindings.setVerticalAlignmentPtr, alignment.value)
   }
 
   public final fun getVerticalAlignment(): VerticalAlignment =
-      VerticalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVerticalAlignmentPtr))
+      VerticalAlignment.from(callPtrMethod0_ret_LONG(MethodBindings.getVerticalAlignmentPtr))
 
   public final fun setText(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTextPtr, text)
+    callMethod_STRING(MethodBindings.setTextPtr, text)
   }
 
-  public final fun getText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTextPtr)
+  public final fun getText(): String = callMethod0_ret_STRING(MethodBindings.getTextPtr)
 
   public final fun setLabelSettings(settings: LabelSettings?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setLabelSettingsPtr, settings)
+    callPtrMethod_OBJECT(MethodBindings.setLabelSettingsPtr, settings)
   }
 
   public final fun getLabelSettings(): LabelSettings? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getLabelSettingsPtr) as LabelSettings?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getLabelSettingsPtr) as LabelSettings?)
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setTextDirectionPtr, direction.value)
   }
 
   public final fun getTextDirection(): Control.TextDirection =
-      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextDirectionPtr))
+      Control.TextDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getTextDirectionPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
+    callMethod_STRING(MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
+  public final fun getLanguage(): String = callMethod0_ret_STRING(MethodBindings.getLanguagePtr)
 
   public final fun setParagraphSeparator(paragraphSeparator: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setParagraphSeparatorPtr, paragraphSeparator)
+    callMethod_STRING(MethodBindings.setParagraphSeparatorPtr, paragraphSeparator)
   }
 
   public final fun getParagraphSeparator(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getParagraphSeparatorPtr)
+      callMethod0_ret_STRING(MethodBindings.getParagraphSeparatorPtr)
 
   public final fun setAutowrapMode(autowrapMode: TextServer.AutowrapMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutowrapModePtr, autowrapMode.value)
+    callPtrMethod_LONG(MethodBindings.setAutowrapModePtr, autowrapMode.value)
   }
 
   public final fun getAutowrapMode(): TextServer.AutowrapMode =
-      TextServer.AutowrapMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutowrapModePtr))
+      TextServer.AutowrapMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAutowrapModePtr))
 
   public final fun setAutowrapTrimFlags(autowrapTrimFlags: TextServer.LineBreakFlag): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutowrapTrimFlagsPtr, autowrapTrimFlags.flag)
+    callPtrMethod_LONG(MethodBindings.setAutowrapTrimFlagsPtr, autowrapTrimFlags.flag)
   }
 
   public final fun getAutowrapTrimFlags(): TextServer.LineBreakFlag =
-      TextServer.LineBreakFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutowrapTrimFlagsPtr))
+      TextServer.LineBreakFlag(callPtrMethod0_ret_LONG(MethodBindings.getAutowrapTrimFlagsPtr))
 
   public final fun setJustificationFlags(justificationFlags: TextServer.JustificationFlag): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJustificationFlagsPtr, justificationFlags.flag)
+    callPtrMethod_LONG(MethodBindings.setJustificationFlagsPtr, justificationFlags.flag)
   }
 
   public final fun getJustificationFlags(): TextServer.JustificationFlag =
-      TextServer.JustificationFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJustificationFlagsPtr))
+      TextServer.JustificationFlag(callPtrMethod0_ret_LONG(MethodBindings.getJustificationFlagsPtr))
 
   public final fun setClipText(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setClipTextPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setClipTextPtr, enable)
   }
 
   public final fun isClippingText(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isClippingTextPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isClippingTextPtr)
 
   public final fun setTabStops(tabStops: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setTabStopsPtr, tabStops)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY(MethodBindings.setTabStopsPtr, tabStops)
   }
 
   public final fun getTabStops(): PackedFloat32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getTabStopsPtr)
+      callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.getTabStopsPtr)
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
+    callPtrMethod_LONG(MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
-      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
+      TextServer.OverrunBehavior.from(callPtrMethod0_ret_LONG(MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setEllipsisChar(char: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEllipsisCharPtr, char)
+    callMethod_STRING(MethodBindings.setEllipsisCharPtr, char)
   }
 
   public final fun getEllipsisChar(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEllipsisCharPtr)
+      callMethod0_ret_STRING(MethodBindings.getEllipsisCharPtr)
 
   public final fun setUppercase(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUppercasePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUppercasePtr, enable)
   }
 
-  public final fun isUppercase(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUppercasePtr)
+  public final fun isUppercase(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isUppercasePtr)
 
   /**
    * Returns the height of the line [line].
@@ -487,76 +483,76 @@ public open class Label : Control() {
    */
   @JvmOverloads
   public final fun getLineHeight(line: Int = -1): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getLineHeightPtr, line.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getLineHeightPtr, line.toLong()).toInt()
 
   /**
    * Returns the number of lines of text the Label has.
    */
   public final fun getLineCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLineCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLineCountPtr).toInt()
 
   /**
    * Returns the number of lines shown. Useful if the [Label]'s height cannot currently display all
    * lines.
    */
   public final fun getVisibleLineCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleLineCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVisibleLineCountPtr).toInt()
 
   /**
    * Returns the total number of printable characters in the text (excluding spaces and newlines).
    */
   public final fun getTotalCharacterCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTotalCharacterCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getTotalCharacterCountPtr).toInt()
 
   public final fun setVisibleCharacters(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibleCharactersPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setVisibleCharactersPtr, amount.toLong())
   }
 
   public final fun getVisibleCharacters(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleCharactersPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVisibleCharactersPtr).toInt()
 
   public final fun getVisibleCharactersBehavior(): TextServer.VisibleCharactersBehavior =
-      TextServer.VisibleCharactersBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleCharactersBehaviorPtr))
+      TextServer.VisibleCharactersBehavior.from(callPtrMethod0_ret_LONG(MethodBindings.getVisibleCharactersBehaviorPtr))
 
   public final fun setVisibleCharactersBehavior(behavior: TextServer.VisibleCharactersBehavior):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibleCharactersBehaviorPtr, behavior.value)
+    callPtrMethod_LONG(MethodBindings.setVisibleCharactersBehaviorPtr, behavior.value)
   }
 
   public final fun setVisibleRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibleRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVisibleRatioPtr, ratio.toDouble())
   }
 
   public final fun getVisibleRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibleRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVisibleRatioPtr).toFloat()
 
   public final fun setLinesSkipped(linesSkipped: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLinesSkippedPtr, linesSkipped.toLong())
+    callPtrMethod_LONG(MethodBindings.setLinesSkippedPtr, linesSkipped.toLong())
   }
 
   public final fun getLinesSkipped(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLinesSkippedPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLinesSkippedPtr).toInt()
 
   public final fun setMaxLinesVisible(linesVisible: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxLinesVisiblePtr, linesVisible.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxLinesVisiblePtr, linesVisible.toLong())
   }
 
   public final fun getMaxLinesVisible(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxLinesVisiblePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxLinesVisiblePtr).toInt()
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
+    callPtrMethod_LONG(MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
   }
 
   public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser =
-      TextServer.StructuredTextParser.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverridePtr))
+      TextServer.StructuredTextParser.from(callPtrMethod0_ret_LONG(MethodBindings.getStructuredTextBidiOverridePtr))
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
+    callPtrMethod_ARRAY(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
   }
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
 
   /**
    * Returns the bounding rectangle of the character at position [pos] in the label's local
@@ -565,7 +561,7 @@ public open class Label : Control() {
    * rectangle of the whole grapheme is returned.
    */
   public final fun getCharacterBounds(pos: Int): Rect2 =
-      TransferContext.callPtrMethod_LONG_ret_RECT2(ptr, objectID.id, MethodBindings.getCharacterBoundsPtr, pos.toLong())
+      callPtrMethod_LONG_ret_RECT2(MethodBindings.getCharacterBoundsPtr, pos.toLong())
 
   public companion object {
     @JvmField

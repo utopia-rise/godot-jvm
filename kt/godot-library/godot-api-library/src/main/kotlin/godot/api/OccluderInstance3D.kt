@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -133,18 +132,17 @@ public open class OccluderInstance3D : VisualInstance3D() {
   }
 
   public final fun setBakeMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBakeMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setBakeMaskPtr, mask)
   }
 
-  public final fun getBakeMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBakeMaskPtr)
+  public final fun getBakeMask(): Long = callPtrMethod0_ret_LONG(MethodBindings.getBakeMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [bakeMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setBakeMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setBakeMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setBakeMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -152,21 +150,21 @@ public open class OccluderInstance3D : VisualInstance3D() {
    * between 1 and 32.
    */
   public final fun getBakeMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getBakeMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getBakeMaskValuePtr, layerNumber.toLong())
 
   public final fun setBakeSimplificationDistance(simplificationDistance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBakeSimplificationDistancePtr, simplificationDistance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBakeSimplificationDistancePtr, simplificationDistance.toDouble())
   }
 
   public final fun getBakeSimplificationDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBakeSimplificationDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBakeSimplificationDistancePtr).toFloat()
 
   public final fun setOccluder(occluder: Occluder3D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOccluderPtr, occluder)
+    callPtrMethod_OBJECT(MethodBindings.setOccluderPtr, occluder)
   }
 
   public final fun getOccluder(): Occluder3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOccluderPtr) as Occluder3D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOccluderPtr) as Occluder3D?)
 
   public companion object {
     @JvmField

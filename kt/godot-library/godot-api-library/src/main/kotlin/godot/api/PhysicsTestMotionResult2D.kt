@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -37,83 +36,80 @@ public open class PhysicsTestMotionResult2D : RefCounted() {
   /**
    * Returns the moving object's travel before collision.
    */
-  public final fun getTravel(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTravelPtr)
+  public final fun getTravel(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getTravelPtr)
 
   /**
    * Returns the moving object's remaining movement vector.
    */
   public final fun getRemainder(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getRemainderPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getRemainderPtr)
 
   /**
    * Returns the point of collision in global coordinates, if a collision occurred.
    */
   public final fun getCollisionPoint(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionPointPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCollisionPointPtr)
 
   /**
    * Returns the colliding body's shape's normal at the point of collision, if a collision occurred.
    */
   public final fun getCollisionNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionNormalPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCollisionNormalPtr)
 
   /**
    * Returns the colliding body's velocity, if a collision occurred.
    */
   public final fun getColliderVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getColliderVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getColliderVelocityPtr)
 
   /**
    * Returns the unique instance ID of the colliding body's attached [Object], if a collision
    * occurred. See [Object.getInstanceId].
    */
-  public final fun getColliderId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColliderIdPtr)
+  public final fun getColliderId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getColliderIdPtr)
 
   /**
    * Returns the colliding body's [RID] used by the [PhysicsServer2D], if a collision occurred.
    */
-  public final fun getColliderRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getColliderRidPtr)
+  public final fun getColliderRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getColliderRidPtr)
 
   /**
    * Returns the colliding body's attached [Object], if a collision occurred.
    */
   public final fun getCollider(): Object? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderPtr) as Object?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getColliderPtr) as Object?)
 
   /**
    * Returns the colliding body's shape index, if a collision occurred. See [CollisionObject2D].
    */
   public final fun getColliderShape(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColliderShapePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getColliderShapePtr).toInt()
 
   /**
    * Returns the moving object's colliding shape, if a collision occurred.
    */
   public final fun getCollisionLocalShape(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionLocalShapePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionLocalShapePtr).toInt()
 
   /**
    * Returns the length of overlap along the collision normal, if a collision occurred.
    */
   public final fun getCollisionDepth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCollisionDepthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCollisionDepthPtr).toFloat()
 
   /**
    * Returns the maximum fraction of the motion that can occur without a collision, between `0` and
    * `1`.
    */
   public final fun getCollisionSafeFraction(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCollisionSafeFractionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCollisionSafeFractionPtr).toFloat()
 
   /**
    * Returns the minimum fraction of the motion needed to collide, if a collision occurred, between
    * `0` and `1`.
    */
   public final fun getCollisionUnsafeFraction(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCollisionUnsafeFractionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCollisionUnsafeFractionPtr).toFloat()
 
   public companion object {
     @JvmField

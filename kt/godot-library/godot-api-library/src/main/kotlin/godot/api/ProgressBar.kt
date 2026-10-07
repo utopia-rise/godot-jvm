@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -82,32 +81,32 @@ public open class ProgressBar : Range() {
   }
 
   public final fun setFillMode(mode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFillModePtr, mode.toLong())
+    callPtrMethod_LONG(MethodBindings.setFillModePtr, mode.toLong())
   }
 
   public final fun getFillMode(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFillModePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFillModePtr).toInt()
 
   public final fun setShowPercentage(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowPercentagePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setShowPercentagePtr, visible)
   }
 
   public final fun isPercentageShown(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPercentageShownPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPercentageShownPtr)
 
   public final fun setIndeterminate(indeterminate: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIndeterminatePtr, indeterminate)
+    callPtrMethod_BOOL(MethodBindings.setIndeterminatePtr, indeterminate)
   }
 
   public final fun isIndeterminate(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIndeterminatePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isIndeterminatePtr)
 
   public final fun setEditorPreviewIndeterminate(previewIndeterminate: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditorPreviewIndeterminatePtr, previewIndeterminate)
+    callPtrMethod_BOOL(MethodBindings.setEditorPreviewIndeterminatePtr, previewIndeterminate)
   }
 
   public final fun isEditorPreviewIndeterminateEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditorPreviewIndeterminateEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEditorPreviewIndeterminateEnabledPtr)
 
   public enum class FillMode(
     public override val `value`: Long,

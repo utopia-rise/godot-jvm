@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_STRING
@@ -120,123 +119,120 @@ public open class MenuBar : Control() {
   }
 
   public final fun setSwitchOnHover(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSwitchOnHoverPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setSwitchOnHoverPtr, enable)
   }
 
   public final fun isSwitchOnHover(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSwitchOnHoverPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSwitchOnHoverPtr)
 
   /**
    * If `true`, shortcuts are disabled and cannot be used to trigger the button.
    */
   public final fun setDisableShortcuts(disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisableShortcutsPtr, disabled)
+    callPtrMethod_BOOL(MethodBindings.setDisableShortcutsPtr, disabled)
   }
 
   public final fun setPreferGlobalMenu(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPreferGlobalMenuPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setPreferGlobalMenuPtr, enabled)
   }
 
   public final fun isPreferGlobalMenu(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPreferGlobalMenuPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPreferGlobalMenuPtr)
 
   /**
    * Returns `true` if the current system's global menu is supported and used by this [MenuBar].
    */
-  public final fun isNativeMenu(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNativeMenuPtr)
+  public final fun isNativeMenu(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isNativeMenuPtr)
 
   /**
    * Returns number of menu items.
    */
   public final fun getMenuCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMenuCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMenuCountPtr).toInt()
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setTextDirectionPtr, direction.value)
   }
 
   public final fun getTextDirection(): Control.TextDirection =
-      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextDirectionPtr))
+      Control.TextDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getTextDirectionPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
+    callMethod_STRING(MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
+  public final fun getLanguage(): String = callMethod0_ret_STRING(MethodBindings.getLanguagePtr)
 
   public final fun setFlat(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlatPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFlatPtr, enabled)
   }
 
-  public final fun isFlat(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFlatPtr)
+  public final fun isFlat(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isFlatPtr)
 
   public final fun setStartIndex(enabled: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStartIndexPtr, enabled.toLong())
+    callPtrMethod_LONG(MethodBindings.setStartIndexPtr, enabled.toLong())
   }
 
   public final fun getStartIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStartIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getStartIndexPtr).toInt()
 
   /**
    * Sets menu item title.
    */
   public final fun setMenuTitle(menu: Int, title: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setMenuTitlePtr, menu.toLong(), title)
+    callMethod_LONG_STRING(MethodBindings.setMenuTitlePtr, menu.toLong(), title)
   }
 
   /**
    * Returns menu item title.
    */
   public final fun getMenuTitle(menu: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getMenuTitlePtr, menu.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getMenuTitlePtr, menu.toLong())
 
   /**
    * Sets menu item tooltip.
    */
   public final fun setMenuTooltip(menu: Int, tooltip: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setMenuTooltipPtr, menu.toLong(), tooltip)
+    callMethod_LONG_STRING(MethodBindings.setMenuTooltipPtr, menu.toLong(), tooltip)
   }
 
   /**
    * Returns menu item tooltip.
    */
   public final fun getMenuTooltip(menu: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getMenuTooltipPtr, menu.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getMenuTooltipPtr, menu.toLong())
 
   /**
    * If `true`, menu item is disabled.
    */
   public final fun setMenuDisabled(menu: Int, disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setMenuDisabledPtr, menu.toLong(), disabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setMenuDisabledPtr, menu.toLong(), disabled)
   }
 
   /**
    * Returns `true` if the menu item is disabled.
    */
   public final fun isMenuDisabled(menu: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isMenuDisabledPtr, menu.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isMenuDisabledPtr, menu.toLong())
 
   /**
    * If `true`, menu item is hidden.
    */
   public final fun setMenuHidden(menu: Int, hidden: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setMenuHiddenPtr, menu.toLong(), hidden)
+    callPtrMethod_LONG_BOOL(MethodBindings.setMenuHiddenPtr, menu.toLong(), hidden)
   }
 
   /**
    * Returns `true` if the menu item is hidden.
    */
   public final fun isMenuHidden(menu: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isMenuHiddenPtr, menu.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isMenuHiddenPtr, menu.toLong())
 
   /**
    * Returns [PopupMenu] associated with menu item.
    */
   public final fun getMenuPopup(menu: Int): PopupMenu? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getMenuPopupPtr, menu.toLong()) as PopupMenu?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.getMenuPopupPtr, menu.toLong()) as PopupMenu?)
 
   public companion object {
     @JvmField

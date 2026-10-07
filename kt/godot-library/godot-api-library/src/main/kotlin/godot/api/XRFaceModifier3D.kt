@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_NODE_PATH
 import godot.callPtrMethod0_ret_STRING_NAME
@@ -67,18 +66,17 @@ public open class XRFaceModifier3D : Node3D() {
   }
 
   public final fun setFaceTracker(trackerName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setFaceTrackerPtr, trackerName)
+    callPtrMethod_STRING_NAME(MethodBindings.setFaceTrackerPtr, trackerName)
   }
 
   public final fun getFaceTracker(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getFaceTrackerPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getFaceTrackerPtr)
 
   public final fun setTarget(target: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetPtr, target)
+    callPtrMethod_NODE_PATH(MethodBindings.setTargetPtr, target)
   }
 
-  public final fun getTarget(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetPtr)
+  public final fun getTarget(): NodePath = callPtrMethod0_ret_NODE_PATH(MethodBindings.getTargetPtr)
 
   public final fun setFaceTracker(trackerName: String) =
       setFaceTracker(trackerName.asCachedStringName())

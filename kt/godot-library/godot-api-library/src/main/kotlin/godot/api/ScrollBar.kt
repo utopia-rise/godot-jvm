@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -49,11 +48,11 @@ public open class ScrollBar internal constructor() : Range() {
   }
 
   public final fun setCustomStep(step: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomStepPtr, step.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCustomStepPtr, step.toDouble())
   }
 
   public final fun getCustomStep(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomStepPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCustomStepPtr).toFloat()
 
   public companion object {
     @JvmField

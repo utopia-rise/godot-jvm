@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING_ret_LONG
@@ -64,10 +63,9 @@ public open class CompressedTexture2D : Texture2D() {
    * Loads the texture from the specified [path].
    */
   public final fun load(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.loadPtr, path))
 
-  public final fun getLoadPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLoadPathPtr)
+  public final fun getLoadPath(): String = callMethod0_ret_STRING(MethodBindings.getLoadPathPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

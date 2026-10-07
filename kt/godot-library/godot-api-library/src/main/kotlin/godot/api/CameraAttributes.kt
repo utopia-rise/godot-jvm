@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -111,39 +110,39 @@ public open class CameraAttributes : Resource() {
   }
 
   public final fun setExposureMultiplier(multiplier: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setExposureMultiplierPtr, multiplier.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setExposureMultiplierPtr, multiplier.toDouble())
   }
 
   public final fun getExposureMultiplier(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getExposureMultiplierPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getExposureMultiplierPtr).toFloat()
 
   public final fun setExposureSensitivity(sensitivity: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setExposureSensitivityPtr, sensitivity.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setExposureSensitivityPtr, sensitivity.toDouble())
   }
 
   public final fun getExposureSensitivity(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getExposureSensitivityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getExposureSensitivityPtr).toFloat()
 
   public final fun setAutoExposureEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoExposureEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAutoExposureEnabledPtr, enabled)
   }
 
   public final fun isAutoExposureEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoExposureEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoExposureEnabledPtr)
 
   public final fun setAutoExposureSpeed(exposureSpeed: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureSpeedPtr, exposureSpeed.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureSpeedPtr, exposureSpeed.toDouble())
   }
 
   public final fun getAutoExposureSpeed(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureSpeedPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureSpeedPtr).toFloat()
 
   public final fun setAutoExposureScale(exposureGrey: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureScalePtr, exposureGrey.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureScalePtr, exposureGrey.toDouble())
   }
 
   public final fun getAutoExposureScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureScalePtr).toFloat()
 
   public companion object {
     @JvmField

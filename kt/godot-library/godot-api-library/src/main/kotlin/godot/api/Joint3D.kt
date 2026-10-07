@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -96,38 +95,35 @@ public open class Joint3D internal constructor() : Node3D() {
   }
 
   public final fun setNodeA(node: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setNodeAPtr, node)
+    callPtrMethod_NODE_PATH(MethodBindings.setNodeAPtr, node)
   }
 
-  public final fun getNodeA(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodeAPtr)
+  public final fun getNodeA(): NodePath = callPtrMethod0_ret_NODE_PATH(MethodBindings.getNodeAPtr)
 
   public final fun setNodeB(node: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setNodeBPtr, node)
+    callPtrMethod_NODE_PATH(MethodBindings.setNodeBPtr, node)
   }
 
-  public final fun getNodeB(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodeBPtr)
+  public final fun getNodeB(): NodePath = callPtrMethod0_ret_NODE_PATH(MethodBindings.getNodeBPtr)
 
   public final fun setSolverPriority(priority: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSolverPriorityPtr, priority.toLong())
+    callPtrMethod_LONG(MethodBindings.setSolverPriorityPtr, priority.toLong())
   }
 
   public final fun getSolverPriority(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSolverPriorityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSolverPriorityPtr).toInt()
 
   public final fun setExcludeNodesFromCollision(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExcludeNodesFromCollisionPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setExcludeNodesFromCollisionPtr, enable)
   }
 
   public final fun getExcludeNodesFromCollision(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getExcludeNodesFromCollisionPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getExcludeNodesFromCollisionPtr)
 
   /**
    * Returns the joint's internal [RID] from the [PhysicsServer3D].
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   public final fun setNodeA(node: String) = setNodeA(node.asCachedNodePath())
 

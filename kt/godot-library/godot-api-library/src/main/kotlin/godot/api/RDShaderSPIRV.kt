@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING
 import godot.callMethod_LONG_ret_STRING
@@ -733,7 +732,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageBytecode(stage: RenderingDevice.ShaderStage, bytecode: PackedByteArray):
       Unit {
-    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setStageBytecodePtr, stage.value, bytecode)
+    callPtrMethod_LONG_PACKED_BYTE_ARRAY(MethodBindings.setStageBytecodePtr, stage.value, bytecode)
   }
 
   /**
@@ -741,7 +740,7 @@ public open class RDShaderSPIRV : Resource() {
    * [bytecodeTesselationControl], [bytecodeTesselationEvaluation], [bytecodeVertex].
    */
   public final fun getStageBytecode(stage: RenderingDevice.ShaderStage): PackedByteArray =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getStageBytecodePtr, stage.value)
+      callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(MethodBindings.getStageBytecodePtr, stage.value)
 
   /**
    * Sets the compilation error message for the given shader [stage] to [compileError]. Equivalent
@@ -750,7 +749,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageCompileError(stage: RenderingDevice.ShaderStage, compileError: String):
       Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setStageCompileErrorPtr, stage.value, compileError)
+    callMethod_LONG_STRING(MethodBindings.setStageCompileErrorPtr, stage.value, compileError)
   }
 
   /**
@@ -759,7 +758,7 @@ public open class RDShaderSPIRV : Resource() {
    * [compileErrorTesselationEvaluation], [compileErrorVertex].
    */
   public final fun getStageCompileError(stage: RenderingDevice.ShaderStage): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getStageCompileErrorPtr, stage.value)
+      callMethod_LONG_ret_STRING(MethodBindings.getStageCompileErrorPtr, stage.value)
 
   public companion object {
     @JvmField

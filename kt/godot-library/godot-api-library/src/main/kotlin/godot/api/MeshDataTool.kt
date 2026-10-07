@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_ANY
 import godot.callMethod_LONG_ret_ANY
@@ -114,7 +113,7 @@ public open class MeshDataTool : RefCounted() {
    * Clears all data currently in MeshDataTool.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
@@ -123,66 +122,65 @@ public open class MeshDataTool : RefCounted() {
    * Requires [Mesh] with primitive type [Mesh.PRIMITIVE_TRIANGLES].
    */
   public final fun createFromSurface(mesh: ArrayMesh?, surface: Int): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createFromSurfacePtr, mesh, surface.toLong()))
+      Error.from(callPtrMethod_OBJECT_LONG_ret_LONG(MethodBindings.createFromSurfacePtr, mesh, surface.toLong()))
 
   /**
    * Adds a new surface to specified [Mesh] with edited data.
    */
   @JvmOverloads
   public final fun commitToSurface(mesh: ArrayMesh?, compressionFlags: Long = 0): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_LONG_ret_LONG(ptr, objectID.id, MethodBindings.commitToSurfacePtr, mesh, compressionFlags))
+      Error.from(callPtrMethod_OBJECT_LONG_ret_LONG(MethodBindings.commitToSurfacePtr, mesh, compressionFlags))
 
   /**
    * Returns the [Mesh]'s format as a combination of the [Mesh.ArrayFormat] flags. For example, a
    * mesh containing both vertices and normals would return a format of `3` because
    * [Mesh.ARRAY_FORMAT_VERTEX] is `1` and [Mesh.ARRAY_FORMAT_NORMAL] is `2`.
    */
-  public final fun getFormat(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr)
+  public final fun getFormat(): Long = callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr)
 
   /**
    * Returns the total number of vertices in [Mesh].
    */
   public final fun getVertexCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVertexCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVertexCountPtr).toInt()
 
   /**
    * Returns the number of edges in this [Mesh].
    */
   public final fun getEdgeCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEdgeCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getEdgeCountPtr).toInt()
 
   /**
    * Returns the number of faces in this [Mesh].
    */
   public final fun getFaceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFaceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFaceCountPtr).toInt()
 
   /**
    * Sets the position of the given vertex.
    */
   public final fun setVertex(idx: Int, vertex: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setVertexPtr, idx.toLong(), vertex)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.setVertexPtr, idx.toLong(), vertex)
   }
 
   /**
    * Returns the position of the given vertex.
    */
   public final fun getVertex(idx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getVertexPtr, idx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getVertexPtr, idx.toLong())
 
   /**
    * Sets the normal of the given vertex.
    */
   public final fun setVertexNormal(idx: Int, normal: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setVertexNormalPtr, idx.toLong(), normal)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.setVertexNormalPtr, idx.toLong(), normal)
   }
 
   /**
    * Returns the normal of the given vertex.
    */
   public final fun getVertexNormal(idx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getVertexNormalPtr, idx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getVertexNormalPtr, idx.toLong())
 
   /**
    * Sets the tangent of the given vertex.
@@ -192,104 +190,104 @@ public open class MeshDataTool : RefCounted() {
    * either `-1` or `1`. See also [Mesh.ARRAY_TANGENT].
    */
   public final fun setVertexTangent(idx: Int, tangent: Plane): Unit {
-    TransferContext.callPtrMethod_LONG_PLANE(ptr, objectID.id, MethodBindings.setVertexTangentPtr, idx.toLong(), tangent)
+    callPtrMethod_LONG_PLANE(MethodBindings.setVertexTangentPtr, idx.toLong(), tangent)
   }
 
   /**
    * Returns the tangent of the given vertex.
    */
   public final fun getVertexTangent(idx: Int): Plane =
-      TransferContext.callPtrMethod_LONG_ret_PLANE(ptr, objectID.id, MethodBindings.getVertexTangentPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PLANE(MethodBindings.getVertexTangentPtr, idx.toLong())
 
   /**
    * Sets the UV of the given vertex.
    */
   public final fun setVertexUv(idx: Int, uv: Vector2): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setVertexUvPtr, idx.toLong(), uv)
+    callPtrMethod_LONG_VECTOR2(MethodBindings.setVertexUvPtr, idx.toLong(), uv)
   }
 
   /**
    * Returns the UV of the given vertex.
    */
   public final fun getVertexUv(idx: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVertexUvPtr, idx.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getVertexUvPtr, idx.toLong())
 
   /**
    * Sets the UV2 of the given vertex.
    */
   public final fun setVertexUv2(idx: Int, uv2: Vector2): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setVertexUv2Ptr, idx.toLong(), uv2)
+    callPtrMethod_LONG_VECTOR2(MethodBindings.setVertexUv2Ptr, idx.toLong(), uv2)
   }
 
   /**
    * Returns the UV2 of the given vertex.
    */
   public final fun getVertexUv2(idx: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVertexUv2Ptr, idx.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getVertexUv2Ptr, idx.toLong())
 
   /**
    * Sets the color of the given vertex.
    */
   public final fun setVertexColor(idx: Int, color: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setVertexColorPtr, idx.toLong(), color)
+    callPtrMethod_LONG_COLOR(MethodBindings.setVertexColorPtr, idx.toLong(), color)
   }
 
   /**
    * Returns the color of the given vertex.
    */
   public final fun getVertexColor(idx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getVertexColorPtr, idx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getVertexColorPtr, idx.toLong())
 
   /**
    * Sets the bones of the given vertex.
    */
   public final fun setVertexBones(idx: Int, bones: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_LONG_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setVertexBonesPtr, idx.toLong(), bones)
+    callPtrMethod_LONG_PACKED_INT_32_ARRAY(MethodBindings.setVertexBonesPtr, idx.toLong(), bones)
   }
 
   /**
    * Returns the bones of the given vertex.
    */
   public final fun getVertexBones(idx: Int): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getVertexBonesPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getVertexBonesPtr, idx.toLong())
 
   /**
    * Sets the bone weights of the given vertex.
    */
   public final fun setVertexWeights(idx: Int, weights: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_LONG_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setVertexWeightsPtr, idx.toLong(), weights)
+    callPtrMethod_LONG_PACKED_FLOAT_32_ARRAY(MethodBindings.setVertexWeightsPtr, idx.toLong(), weights)
   }
 
   /**
    * Returns bone weights of the given vertex.
    */
   public final fun getVertexWeights(idx: Int): PackedFloat32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getVertexWeightsPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.getVertexWeightsPtr, idx.toLong())
 
   /**
    * Sets the metadata associated with the given vertex.
    */
   public final fun setVertexMeta(idx: Int, meta: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setVertexMetaPtr, idx.toLong(), meta)
+    callMethod_LONG_ANY(MethodBindings.setVertexMetaPtr, idx.toLong(), meta)
   }
 
   /**
    * Returns the metadata associated with the given vertex.
    */
   public final fun getVertexMeta(idx: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getVertexMetaPtr, idx.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getVertexMetaPtr, idx.toLong())
 
   /**
    * Returns an array of edges that share the given vertex.
    */
   public final fun getVertexEdges(idx: Int): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getVertexEdgesPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getVertexEdgesPtr, idx.toLong())
 
   /**
    * Returns an array of faces that share the given vertex.
    */
   public final fun getVertexFaces(idx: Int): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getVertexFacesPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getVertexFacesPtr, idx.toLong())
 
   /**
    * Returns the index of the specified [vertex] connected to the edge at index [idx].
@@ -297,26 +295,26 @@ public open class MeshDataTool : RefCounted() {
    * [vertex] can only be `0` or `1`, as edges are composed of two vertices.
    */
   public final fun getEdgeVertex(idx: Int, vertex: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEdgeVertexPtr, idx.toLong(), vertex.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getEdgeVertexPtr, idx.toLong(), vertex.toLong()).toInt()
 
   /**
    * Returns array of faces that touch given edge.
    */
   public final fun getEdgeFaces(idx: Int): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getEdgeFacesPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getEdgeFacesPtr, idx.toLong())
 
   /**
    * Sets the metadata of the given edge.
    */
   public final fun setEdgeMeta(idx: Int, meta: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setEdgeMetaPtr, idx.toLong(), meta)
+    callMethod_LONG_ANY(MethodBindings.setEdgeMetaPtr, idx.toLong(), meta)
   }
 
   /**
    * Returns meta information assigned to given edge.
    */
   public final fun getEdgeMeta(idx: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getEdgeMetaPtr, idx.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getEdgeMetaPtr, idx.toLong())
 
   /**
    * Returns the specified vertex index of the given face.
@@ -340,7 +338,7 @@ public open class MeshDataTool : RefCounted() {
    * ```
    */
   public final fun getFaceVertex(idx: Int, vertex: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getFaceVertexPtr, idx.toLong(), vertex.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getFaceVertexPtr, idx.toLong(), vertex.toLong()).toInt()
 
   /**
    * Returns the edge associated with the face at index [idx].
@@ -348,39 +346,39 @@ public open class MeshDataTool : RefCounted() {
    * [edge] argument must be either `0`, `1`, or `2` because a face only has three edges.
    */
   public final fun getFaceEdge(idx: Int, edge: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getFaceEdgePtr, idx.toLong(), edge.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getFaceEdgePtr, idx.toLong(), edge.toLong()).toInt()
 
   /**
    * Sets the metadata of the given face.
    */
   public final fun setFaceMeta(idx: Int, meta: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setFaceMetaPtr, idx.toLong(), meta)
+    callMethod_LONG_ANY(MethodBindings.setFaceMetaPtr, idx.toLong(), meta)
   }
 
   /**
    * Returns the metadata associated with the given face.
    */
   public final fun getFaceMeta(idx: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getFaceMetaPtr, idx.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getFaceMetaPtr, idx.toLong())
 
   /**
    * Calculates and returns the face normal of the given face.
    */
   public final fun getFaceNormal(idx: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getFaceNormalPtr, idx.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getFaceNormalPtr, idx.toLong())
 
   /**
    * Sets the material to be used by newly-constructed [Mesh].
    */
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   /**
    * Returns the material assigned to the [Mesh].
    */
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public companion object {
     @JvmField

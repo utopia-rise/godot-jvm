@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_NODE_PATH
@@ -95,59 +94,59 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
   }
 
   public final fun setTargetNode(targetNodepath: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, targetNodepath)
+    callPtrMethod_NODE_PATH(MethodBindings.setTargetNodePtr, targetNodepath)
   }
 
   public final fun getTargetNode(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getTargetNodePtr)
 
   public final fun setTipNode(tipNodepath: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTipNodePtr, tipNodepath)
+    callPtrMethod_NODE_PATH(MethodBindings.setTipNodePtr, tipNodepath)
   }
 
   public final fun getTipNode(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTipNodePtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getTipNodePtr)
 
   public final fun setCcdikDataChainLength(length: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCcdikDataChainLengthPtr, length.toLong())
+    callPtrMethod_LONG(MethodBindings.setCcdikDataChainLengthPtr, length.toLong())
   }
 
   public final fun getCcdikDataChainLength(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCcdikDataChainLengthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCcdikDataChainLengthPtr).toInt()
 
   /**
    * Sets the [Bone2D] node assigned to the CCDIK joint at [jointIdx].
    */
   public final fun setCcdikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit {
-    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setCcdikJointBone2dNodePtr, jointIdx.toLong(), bone2dNodepath)
+    callPtrMethod_LONG_NODE_PATH(MethodBindings.setCcdikJointBone2dNodePtr, jointIdx.toLong(), bone2dNodepath)
   }
 
   /**
    * Returns the [Bone2D] node assigned to the CCDIK joint at [jointIdx].
    */
   public final fun getCcdikJointBone2dNode(jointIdx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getCcdikJointBone2dNodePtr, jointIdx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getCcdikJointBone2dNodePtr, jointIdx.toLong())
 
   /**
    * Sets the bone index, [boneIdx], of the CCDIK joint at [jointIdx]. When possible, this will also
    * update the `bone2d_node` of the CCDIK joint based on data provided by the linked skeleton.
    */
   public final fun setCcdikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setCcdikJointBoneIndexPtr, jointIdx.toLong(), boneIdx.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setCcdikJointBoneIndexPtr, jointIdx.toLong(), boneIdx.toLong())
   }
 
   /**
    * Returns the index of the [Bone2D] node assigned to the CCDIK joint at [jointIdx].
    */
   public final fun getCcdikJointBoneIndex(jointIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCcdikJointBoneIndexPtr, jointIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getCcdikJointBoneIndexPtr, jointIdx.toLong()).toInt()
 
   /**
    * Sets whether the joint at [jointIdx] is set to rotate from the joint, `true`, or to rotate from
    * the tip, `false`.
    */
   public final fun setCcdikJointRotateFromJoint(jointIdx: Int, rotateFromJoint: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCcdikJointRotateFromJointPtr, jointIdx.toLong(), rotateFromJoint)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCcdikJointRotateFromJointPtr, jointIdx.toLong(), rotateFromJoint)
   }
 
   /**
@@ -155,47 +154,47 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
    * from the tip, `false`. The default is to rotate from the tip.
    */
   public final fun getCcdikJointRotateFromJoint(jointIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCcdikJointRotateFromJointPtr, jointIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCcdikJointRotateFromJointPtr, jointIdx.toLong())
 
   /**
    * Determines whether angle constraints on the CCDIK joint at [jointIdx] are enabled. When `true`,
    * constraints will be enabled and taken into account when solving.
    */
   public final fun setCcdikJointEnableConstraint(jointIdx: Int, enableConstraint: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCcdikJointEnableConstraintPtr, jointIdx.toLong(), enableConstraint)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCcdikJointEnableConstraintPtr, jointIdx.toLong(), enableConstraint)
   }
 
   /**
    * Returns whether angle constraints on the CCDIK joint at [jointIdx] are enabled.
    */
   public final fun getCcdikJointEnableConstraint(jointIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCcdikJointEnableConstraintPtr, jointIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCcdikJointEnableConstraintPtr, jointIdx.toLong())
 
   /**
    * Sets the minimum angle constraint for the joint at [jointIdx].
    */
   public final fun setCcdikJointConstraintAngleMin(jointIdx: Int, angleMin: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setCcdikJointConstraintAngleMinPtr, jointIdx.toLong(), angleMin.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setCcdikJointConstraintAngleMinPtr, jointIdx.toLong(), angleMin.toDouble())
   }
 
   /**
    * Returns the minimum angle constraint for the joint at [jointIdx].
    */
   public final fun getCcdikJointConstraintAngleMin(jointIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCcdikJointConstraintAngleMinPtr, jointIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getCcdikJointConstraintAngleMinPtr, jointIdx.toLong()).toFloat()
 
   /**
    * Sets the maximum angle constraint for the joint at [jointIdx].
    */
   public final fun setCcdikJointConstraintAngleMax(jointIdx: Int, angleMax: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setCcdikJointConstraintAngleMaxPtr, jointIdx.toLong(), angleMax.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setCcdikJointConstraintAngleMaxPtr, jointIdx.toLong(), angleMax.toDouble())
   }
 
   /**
    * Returns the maximum angle constraint for the joint at [jointIdx].
    */
   public final fun getCcdikJointConstraintAngleMax(jointIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCcdikJointConstraintAngleMaxPtr, jointIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getCcdikJointConstraintAngleMaxPtr, jointIdx.toLong()).toFloat()
 
   /**
    * Sets whether the CCDIK joint at [jointIdx] uses an inverted joint constraint.
@@ -205,7 +204,7 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
    * constraint, as it constraints the joint to the outside of the inputted values.
    */
   public final fun setCcdikJointConstraintAngleInvert(jointIdx: Int, invert: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCcdikJointConstraintAngleInvertPtr, jointIdx.toLong(), invert)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCcdikJointConstraintAngleInvertPtr, jointIdx.toLong(), invert)
   }
 
   /**
@@ -213,7 +212,7 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
    * [setCcdikJointConstraintAngleInvert] for details.
    */
   public final fun getCcdikJointConstraintAngleInvert(jointIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCcdikJointConstraintAngleInvertPtr, jointIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCcdikJointConstraintAngleInvertPtr, jointIdx.toLong())
 
   public final fun setTargetNode(targetNodepath: String) =
       setTargetNode(targetNodepath.asCachedNodePath())

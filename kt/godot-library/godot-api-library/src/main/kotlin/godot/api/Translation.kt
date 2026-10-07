@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -96,11 +95,10 @@ public open class Translation : Resource() {
   }
 
   public final fun setLocale(locale: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLocalePtr, locale)
+    callMethod_STRING(MethodBindings.setLocalePtr, locale)
   }
 
-  public final fun getLocale(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocalePtr)
+  public final fun getLocale(): String = callMethod0_ret_STRING(MethodBindings.getLocalePtr)
 
   /**
    * Adds a message if nonexistent, followed by its translation.
@@ -113,7 +111,7 @@ public open class Translation : Resource() {
     xlatedMessage: StringName,
     context: StringName = StringName(""),
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.addMessagePtr, srcMessage, xlatedMessage, context)
+    callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME(MethodBindings.addMessagePtr, srcMessage, xlatedMessage, context)
   }
 
   /**
@@ -127,7 +125,7 @@ public open class Translation : Resource() {
     xlatedMessages: PackedStringArray,
     context: StringName = StringName(""),
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME(ptr, objectID.id, MethodBindings.addPluralMessagePtr, srcMessage, xlatedMessages, context)
+    callPtrMethod_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME(MethodBindings.addPluralMessagePtr, srcMessage, xlatedMessages, context)
   }
 
   /**
@@ -135,7 +133,7 @@ public open class Translation : Resource() {
    */
   public final fun getMessage(srcMessage: StringName, context: StringName = StringName("")):
       StringName =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getMessagePtr, srcMessage, context)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(MethodBindings.getMessagePtr, srcMessage, context)
 
   /**
    * Returns a message's translation involving plurals.
@@ -153,14 +151,14 @@ public open class Translation : Resource() {
     n: Int,
     context: StringName = StringName(""),
   ): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getPluralMessagePtr, srcMessage, srcPluralMessage, n.toLong(), context)
+      callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME(MethodBindings.getPluralMessagePtr, srcMessage, srcPluralMessage, n.toLong(), context)
 
   /**
    * Erases a message.
    */
   public final fun eraseMessage(srcMessage: StringName, context: StringName = StringName("")):
       Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.eraseMessagePtr, srcMessage, context)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.eraseMessagePtr, srcMessage, context)
   }
 
   /**
@@ -184,26 +182,26 @@ public open class Translation : Resource() {
    * ```
    */
   public final fun getMessageList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getMessageListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getMessageListPtr)
 
   /**
    * Returns all the translated strings.
    */
   public final fun getTranslatedMessageList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getTranslatedMessageListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getTranslatedMessageListPtr)
 
   /**
    * Returns the number of existing messages.
    */
   public final fun getMessageCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMessageCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMessageCountPtr).toInt()
 
   public final fun setPluralRulesOverride(rules: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPluralRulesOverridePtr, rules)
+    callMethod_STRING(MethodBindings.setPluralRulesOverridePtr, rules)
   }
 
   public final fun getPluralRulesOverride(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPluralRulesOverridePtr)
+      callMethod0_ret_STRING(MethodBindings.getPluralRulesOverridePtr)
 
   /**
    * Adds a message if nonexistent, followed by its translation.

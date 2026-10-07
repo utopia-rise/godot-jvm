@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -344,129 +343,127 @@ public open class CharacterBody2D : PhysicsBody2D() {
    *
    * Returns `true` if the body collided, otherwise, returns `false`.
    */
-  public final fun moveAndSlide(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.moveAndSlidePtr)
+  public final fun moveAndSlide(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.moveAndSlidePtr)
 
   /**
    * Allows to manually apply a snap to the floor regardless of the body's velocity. This function
    * does nothing when [isOnFloor] returns `true`.
    */
   public final fun applyFloorSnap(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.applyFloorSnapPtr)
+    callPtrMethod0(MethodBindings.applyFloorSnapPtr)
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setVelocityPtr, velocity)
+    callPtrMethod_VECTOR2(MethodBindings.setVelocityPtr, velocity)
   }
 
   public final fun getVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getVelocityPtr)
 
   public final fun setSafeMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSafeMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSafeMarginPtr, margin.toDouble())
   }
 
   public final fun getSafeMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSafeMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSafeMarginPtr).toFloat()
 
   public final fun isFloorStopOnSlopeEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFloorStopOnSlopeEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFloorStopOnSlopeEnabledPtr)
 
   public final fun setFloorStopOnSlopeEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFloorStopOnSlopeEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFloorStopOnSlopeEnabledPtr, enabled)
   }
 
   public final fun setFloorConstantSpeedEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFloorConstantSpeedEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFloorConstantSpeedEnabledPtr, enabled)
   }
 
   public final fun isFloorConstantSpeedEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFloorConstantSpeedEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFloorConstantSpeedEnabledPtr)
 
   public final fun setFloorBlockOnWallEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFloorBlockOnWallEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFloorBlockOnWallEnabledPtr, enabled)
   }
 
   public final fun isFloorBlockOnWallEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFloorBlockOnWallEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFloorBlockOnWallEnabledPtr)
 
   public final fun setSlideOnCeilingEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSlideOnCeilingEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setSlideOnCeilingEnabledPtr, enabled)
   }
 
   public final fun isSlideOnCeilingEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSlideOnCeilingEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSlideOnCeilingEnabledPtr)
 
   public final fun setPlatformFloorLayers(excludeLayer: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlatformFloorLayersPtr, excludeLayer)
+    callPtrMethod_LONG(MethodBindings.setPlatformFloorLayersPtr, excludeLayer)
   }
 
   public final fun getPlatformFloorLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlatformFloorLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getPlatformFloorLayersPtr)
 
   public final fun setPlatformWallLayers(excludeLayer: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlatformWallLayersPtr, excludeLayer)
+    callPtrMethod_LONG(MethodBindings.setPlatformWallLayersPtr, excludeLayer)
   }
 
   public final fun getPlatformWallLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlatformWallLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getPlatformWallLayersPtr)
 
   public final fun getMaxSlides(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxSlidesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxSlidesPtr).toInt()
 
   public final fun setMaxSlides(maxSlides: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxSlidesPtr, maxSlides.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxSlidesPtr, maxSlides.toLong())
   }
 
   public final fun getFloorMaxAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloorMaxAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFloorMaxAnglePtr).toFloat()
 
   public final fun setFloorMaxAngle(radians: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFloorMaxAnglePtr, radians.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFloorMaxAnglePtr, radians.toDouble())
   }
 
   public final fun getFloorSnapLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloorSnapLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFloorSnapLengthPtr).toFloat()
 
   public final fun setFloorSnapLength(floorSnapLength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFloorSnapLengthPtr, floorSnapLength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFloorSnapLengthPtr, floorSnapLength.toDouble())
   }
 
   public final fun getWallMinSlideAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWallMinSlideAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getWallMinSlideAnglePtr).toFloat()
 
   public final fun setWallMinSlideAngle(radians: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWallMinSlideAnglePtr, radians.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setWallMinSlideAnglePtr, radians.toDouble())
   }
 
   public final fun getUpDirection(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getUpDirectionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getUpDirectionPtr)
 
   public final fun setUpDirection(upDirection: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setUpDirectionPtr, upDirection)
+    callPtrMethod_VECTOR2(MethodBindings.setUpDirectionPtr, upDirection)
   }
 
   public final fun setMotionMode(mode: MotionMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMotionModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setMotionModePtr, mode.value)
   }
 
   public final fun getMotionMode(): MotionMode =
-      MotionMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMotionModePtr))
+      MotionMode.from(callPtrMethod0_ret_LONG(MethodBindings.getMotionModePtr))
 
   public final fun setPlatformOnLeave(onLeaveApplyVelocity: PlatformOnLeave): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlatformOnLeavePtr, onLeaveApplyVelocity.value)
+    callPtrMethod_LONG(MethodBindings.setPlatformOnLeavePtr, onLeaveApplyVelocity.value)
   }
 
   public final fun getPlatformOnLeave(): PlatformOnLeave =
-      PlatformOnLeave.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlatformOnLeavePtr))
+      PlatformOnLeave.from(callPtrMethod0_ret_LONG(MethodBindings.getPlatformOnLeavePtr))
 
   /**
    * Returns `true` if the body collided with the floor on the last call of [moveAndSlide].
    * Otherwise, returns `false`. The [upDirection] and [floorMaxAngle] are used to determine whether a
    * surface is "floor" or not.
    */
-  public final fun isOnFloor(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnFloorPtr)
+  public final fun isOnFloor(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnFloorPtr)
 
   /**
    * Returns `true` if the body collided only with the floor on the last call of [moveAndSlide].
@@ -474,15 +471,14 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * surface is "floor" or not.
    */
   public final fun isOnFloorOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnFloorOnlyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isOnFloorOnlyPtr)
 
   /**
    * Returns `true` if the body collided with the ceiling on the last call of [moveAndSlide].
    * Otherwise, returns `false`. The [upDirection] and [floorMaxAngle] are used to determine whether a
    * surface is "ceiling" or not.
    */
-  public final fun isOnCeiling(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnCeilingPtr)
+  public final fun isOnCeiling(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnCeilingPtr)
 
   /**
    * Returns `true` if the body collided only with the ceiling on the last call of [moveAndSlide].
@@ -490,23 +486,21 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * surface is "ceiling" or not.
    */
   public final fun isOnCeilingOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnCeilingOnlyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isOnCeilingOnlyPtr)
 
   /**
    * Returns `true` if the body collided with a wall on the last call of [moveAndSlide]. Otherwise,
    * returns `false`. The [upDirection] and [floorMaxAngle] are used to determine whether a surface is
    * "wall" or not.
    */
-  public final fun isOnWall(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnWallPtr)
+  public final fun isOnWall(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnWallPtr)
 
   /**
    * Returns `true` if the body collided only with a wall on the last call of [moveAndSlide].
    * Otherwise, returns `false`. The [upDirection] and [floorMaxAngle] are used to determine whether a
    * surface is "wall" or not.
    */
-  public final fun isOnWallOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnWallOnlyPtr)
+  public final fun isOnWallOnly(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnWallOnlyPtr)
 
   /**
    * Returns the collision normal of the floor at the last collision point. Only valid after calling
@@ -515,7 +509,7 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * **Warning:** The collision normal is not always the same as the surface normal.
    */
   public final fun getFloorNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFloorNormalPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getFloorNormalPtr)
 
   /**
    * Returns the collision normal of the wall at the last collision point. Only valid after calling
@@ -524,7 +518,7 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * **Warning:** The collision normal is not always the same as the surface normal.
    */
   public final fun getWallNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getWallNormalPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getWallNormalPtr)
 
   /**
    * Returns the last motion applied to the [CharacterBody2D] during the last call to
@@ -532,13 +526,13 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * method return the last one, which is useful to retrieve the current direction of the movement.
    */
   public final fun getLastMotion(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLastMotionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getLastMotionPtr)
 
   /**
    * Returns the travel (position delta) that occurred during the last call to [moveAndSlide].
    */
   public final fun getPositionDelta(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionDeltaPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPositionDeltaPtr)
 
   /**
    * Returns the current real velocity since the last call to [moveAndSlide]. For example, when you
@@ -546,7 +540,7 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * returns the diagonal movement, as opposed to [velocity] which returns the requested velocity.
    */
   public final fun getRealVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getRealVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getRealVelocityPtr)
 
   /**
    * Returns the floor's collision angle at the last collision point according to [upDirection],
@@ -555,21 +549,21 @@ public open class CharacterBody2D : PhysicsBody2D() {
    */
   @JvmOverloads
   public final fun getFloorAngle(upDirection: Vector2 = Vector2(0, -1)): Float =
-      TransferContext.callPtrMethod_VECTOR2_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloorAnglePtr, upDirection).toFloat()
+      callPtrMethod_VECTOR2_ret_DOUBLE(MethodBindings.getFloorAnglePtr, upDirection).toFloat()
 
   /**
    * Returns the linear velocity of the platform at the last collision point. Only valid after
    * calling [moveAndSlide].
    */
   public final fun getPlatformVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPlatformVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPlatformVelocityPtr)
 
   /**
    * Returns the number of times the body collided and changed direction during the last call to
    * [moveAndSlide].
    */
   public final fun getSlideCollisionCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSlideCollisionCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSlideCollisionCountPtr).toInt()
 
   /**
    * Returns a [KinematicCollision2D], which contains information about a collision that occurred
@@ -596,7 +590,7 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * ```
    */
   public final fun getSlideCollision(slideIdx: Int): KinematicCollision2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSlideCollisionPtr, slideIdx.toLong()) as KinematicCollision2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSlideCollisionPtr, slideIdx.toLong()) as KinematicCollision2D?)
 
   /**
    * Returns a [KinematicCollision2D] if a collision occurred. The returned value contains
@@ -604,7 +598,7 @@ public open class CharacterBody2D : PhysicsBody2D() {
    * Returns `null` if no collision occurred. See also [getSlideCollision].
    */
   public final fun getLastSlideCollision(): KinematicCollision2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getLastSlideCollisionPtr) as KinematicCollision2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getLastSlideCollisionPtr) as KinematicCollision2D?)
 
   public enum class MotionMode(
     public override val `value`: Long,

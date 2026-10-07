@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
 import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
@@ -34,13 +33,13 @@ public open class Occluder3D internal constructor() : Resource() {
    * Returns the occluder shape's vertex positions.
    */
   public final fun getVertices(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getVerticesPtr)
 
   /**
    * Returns the occluder shape's vertex indices.
    */
   public final fun getIndices(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getIndicesPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getIndicesPtr)
 
   public companion object {
     @JvmField

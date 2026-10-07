@@ -5,11 +5,11 @@
 #include "api/resource_format/java_archive.h"
 #endif
 #include "engine/godot_object.h"
+#include "jvm/lifecycle/bootstrap.h"
 #include "jvm/lifecycle/class_loader.h"
 #include "jvm/lifecycle/jvm_manager.h"
 #include "jvm/lifecycle/jvm_options.h"
 #include "jvm/lifecycle/jvm_user_configuration.h"
-#include "jvm/wrapper/bootstrap.h"
 
 #include <variant/string.hpp>
 
@@ -46,7 +46,7 @@ namespace godot {
                                      // resource to be in cache to reload.
 #endif
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
-        raw_godot::RawObject callable_middleman;
+        engine::RawObject callable_middleman;
 
         void fetch_user_configuration();
         void set_jvm_options();
@@ -97,7 +97,7 @@ namespace godot {
 #endif
 
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
-        raw_godot::RawObject get_callable_middleman() const;
+        engine::RawObject get_callable_middleman() const;
     };
 } // namespace godot
 #endif // GODOT_JVM_GODOT_JVM_H

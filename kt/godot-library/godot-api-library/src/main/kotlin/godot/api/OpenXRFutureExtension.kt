@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_CALLABLE_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
@@ -40,8 +39,7 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    * Returns `true` if futures are available in the OpenXR runtime used. This function will only
    * return a usable result after OpenXR has been initialized.
    */
-  public final fun isActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
+  public final fun isActive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isActivePtr)
 
   /**
    * Register an OpenXR Future object so we monitor for completion. [future] must be an
@@ -64,14 +62,14 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
   @JvmOverloads
   public final fun registerFuture(future: Long, onSuccess: Callable = VariantCallable()):
       OpenXRFutureResult? =
-      (TransferContext.callMethod_LONG_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.registerFuturePtr, future, onSuccess) as OpenXRFutureResult?)
+      (callMethod_LONG_CALLABLE_ret_OBJECT_REF(MethodBindings.registerFuturePtr, future, onSuccess) as OpenXRFutureResult?)
 
   /**
    * Cancels an in-progress future. [future] must be an `XrFutureEXT` value previously returned by
    * an API that started an asynchronous function.
    */
   public final fun cancelFuture(future: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.cancelFuturePtr, future)
+    callPtrMethod_LONG(MethodBindings.cancelFuturePtr, future)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
@@ -43,7 +42,7 @@ public open class CallbackTweener : Tweener() {
    * ```
    */
   public final fun setDelay(delay: Double): CallbackTweener =
-      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setDelayPtr, delay) as CallbackTweener)
+      (callPtrMethod_DOUBLE_ret_OBJECT_REF(MethodBindings.setDelayPtr, delay) as CallbackTweener)
 
   public companion object {
     @JvmField

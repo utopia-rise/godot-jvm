@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0_ret_ARRAY
@@ -107,30 +106,29 @@ public open class Shortcut : Resource() {
   }
 
   public final fun setEvents(events: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setEventsPtr, events)
+    callPtrMethod_ARRAY(MethodBindings.setEventsPtr, events)
   }
 
   public final fun getEvents(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getEventsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getEventsPtr) as VariantArray<Any?>)
 
   /**
    * Returns whether [events] contains an [InputEvent] which is valid.
    */
   public final fun hasValidEvent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasValidEventPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasValidEventPtr)
 
   /**
    * Returns whether any [InputEvent] in [events] equals [event]. This uses [InputEvent.isMatch] to
    * compare events.
    */
   public final fun matchesEvent(event: InputEvent?): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.matchesEventPtr, event)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.matchesEventPtr, event)
 
   /**
    * Returns the shortcut's first valid [InputEvent] as a [String].
    */
-  public final fun getAsText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAsTextPtr)
+  public final fun getAsText(): String = callMethod0_ret_STRING(MethodBindings.getAsTextPtr)
 
   public companion object {
     @JvmField

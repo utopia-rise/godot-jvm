@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -74,22 +73,21 @@ public open class GradientTexture1D : Texture2D() {
   }
 
   public final fun setGradient(gradient: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGradientPtr, gradient)
+    callPtrMethod_OBJECT(MethodBindings.setGradientPtr, gradient)
   }
 
   public final fun getGradient(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGradientPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getGradientPtr) as Gradient?)
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setUseHdr(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseHdrPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUseHdrPtr, enabled)
   }
 
-  public final fun isUsingHdr(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingHdrPtr)
+  public final fun isUsingHdr(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isUsingHdrPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -121,46 +120,46 @@ public open class CanvasItemMaterial : Material() {
   }
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlendModePtr, blendMode.value)
+    callPtrMethod_LONG(MethodBindings.setBlendModePtr, blendMode.value)
   }
 
   public final fun getBlendMode(): BlendMode =
-      BlendMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendModePtr))
+      BlendMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBlendModePtr))
 
   public final fun setLightMode(lightMode: LightMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLightModePtr, lightMode.value)
+    callPtrMethod_LONG(MethodBindings.setLightModePtr, lightMode.value)
   }
 
   public final fun getLightMode(): LightMode =
-      LightMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLightModePtr))
+      LightMode.from(callPtrMethod0_ret_LONG(MethodBindings.getLightModePtr))
 
   public final fun setParticlesAnimation(particlesAnim: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setParticlesAnimationPtr, particlesAnim)
+    callPtrMethod_BOOL(MethodBindings.setParticlesAnimationPtr, particlesAnim)
   }
 
   public final fun getParticlesAnimation(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getParticlesAnimationPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getParticlesAnimationPtr)
 
   public final fun setParticlesAnimHFrames(frames: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setParticlesAnimHFramesPtr, frames.toLong())
+    callPtrMethod_LONG(MethodBindings.setParticlesAnimHFramesPtr, frames.toLong())
   }
 
   public final fun getParticlesAnimHFrames(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParticlesAnimHFramesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getParticlesAnimHFramesPtr).toInt()
 
   public final fun setParticlesAnimVFrames(frames: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setParticlesAnimVFramesPtr, frames.toLong())
+    callPtrMethod_LONG(MethodBindings.setParticlesAnimVFramesPtr, frames.toLong())
   }
 
   public final fun getParticlesAnimVFrames(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParticlesAnimVFramesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getParticlesAnimVFramesPtr).toInt()
 
   public final fun setParticlesAnimLoop(loop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setParticlesAnimLoopPtr, loop)
+    callPtrMethod_BOOL(MethodBindings.setParticlesAnimLoopPtr, loop)
   }
 
   public final fun getParticlesAnimLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getParticlesAnimLoopPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getParticlesAnimLoopPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -66,21 +65,21 @@ public open class InputEventJoypadButton : InputEvent() {
   }
 
   public final fun setButtonIndex(buttonIndex: JoyButton): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setButtonIndexPtr, buttonIndex.value)
+    callPtrMethod_LONG(MethodBindings.setButtonIndexPtr, buttonIndex.value)
   }
 
   public final fun getButtonIndex(): JoyButton =
-      JoyButton.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getButtonIndexPtr))
+      JoyButton.from(callPtrMethod0_ret_LONG(MethodBindings.getButtonIndexPtr))
 
   public final fun setPressure(pressure: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPressurePtr, pressure.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPressurePtr, pressure.toDouble())
   }
 
   public final fun getPressure(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPressurePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPressurePtr).toFloat()
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setPressedPtr, pressed)
   }
 
   public companion object {

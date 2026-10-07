@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -57,21 +56,21 @@ public open class ButtonGroup : Resource() {
    * Returns the current pressed button.
    */
   public final fun getPressedButton(): BaseButton? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPressedButtonPtr) as BaseButton?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getPressedButtonPtr) as BaseButton?)
 
   /**
    * Returns an [VariantArray] of [Button]s who have this as their [ButtonGroup] (see
    * [BaseButton.buttonGroup]).
    */
   public final fun getButtons(): VariantArray<BaseButton> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getButtonsPtr) as VariantArray<BaseButton>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getButtonsPtr) as VariantArray<BaseButton>)
 
   public final fun setAllowUnpress(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowUnpressPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAllowUnpressPtr, enabled)
   }
 
   public final fun isAllowUnpress(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllowUnpressPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAllowUnpressPtr)
 
   public companion object {
     @JvmField

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -114,25 +113,25 @@ public open class StaticBody2D : PhysicsBody2D() {
   }
 
   public final fun setConstantLinearVelocity(vel: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setConstantLinearVelocityPtr, vel)
+    callPtrMethod_VECTOR2(MethodBindings.setConstantLinearVelocityPtr, vel)
   }
 
   public final fun setConstantAngularVelocity(vel: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setConstantAngularVelocityPtr, vel.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setConstantAngularVelocityPtr, vel.toDouble())
   }
 
   public final fun getConstantLinearVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getConstantLinearVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getConstantLinearVelocityPtr)
 
   public final fun getConstantAngularVelocity(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getConstantAngularVelocityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getConstantAngularVelocityPtr).toFloat()
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPhysicsMaterialOverridePtr, physicsMaterialOverride)
+    callPtrMethod_OBJECT(MethodBindings.setPhysicsMaterialOverridePtr, physicsMaterialOverride)
   }
 
   public final fun getPhysicsMaterialOverride(): PhysicsMaterial? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPhysicsMaterialOverridePtr) as PhysicsMaterial?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPhysicsMaterialOverridePtr) as PhysicsMaterial?)
 
   public companion object {
     @JvmField

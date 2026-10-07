@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
 import godot.callPtrMethod_LONG_DOUBLE
@@ -107,20 +106,20 @@ public open class XRFaceTracker : XRTracker() {
    * Returns the requested face blend shape weight.
    */
   public final fun getBlendShape(blendShape: BlendShapeEntry): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBlendShapePtr, blendShape.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getBlendShapePtr, blendShape.value).toFloat()
 
   /**
    * Sets a face blend shape weight.
    */
   public final fun setBlendShape(blendShape: BlendShapeEntry, weight: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBlendShapePtr, blendShape.value, weight.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBlendShapePtr, blendShape.value, weight.toDouble())
   }
 
   public final fun getBlendShapes(): PackedFloat32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getBlendShapesPtr)
+      callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.getBlendShapesPtr)
 
   public final fun setBlendShapes(weights: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setBlendShapesPtr, weights)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY(MethodBindings.setBlendShapesPtr, weights)
   }
 
   public enum class BlendShapeEntry(

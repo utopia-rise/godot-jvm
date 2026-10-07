@@ -3,7 +3,7 @@
 package godot.core
 
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
@@ -27,7 +27,7 @@ class PackedVector2Array : PackedArray<PackedVector2Array, Vector2> {
      * Constructs a [PackedVector2Array] as a copy of the given [PackedVector2Array].
      */
     constructor(from: PackedVector2Array) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.PACKED_VECTOR2_ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_packed_array()
@@ -38,7 +38,7 @@ class PackedVector2Array : PackedArray<PackedVector2Array, Vector2> {
      * Constructs a new [PackedVector2Array] by converting a [VariantArray]<[Vector2]>.
      */
     constructor(from: VariantArray<Vector2>) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_array()

@@ -15,7 +15,7 @@ ClassLoader::ClassLoader(jni::Env& p_env, jni::JObject p_wrapped) {
 }
 
 ClassLoader::~ClassLoader() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     wrapped.delete_global_ref(env);
 }
 

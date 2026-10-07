@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -57,39 +56,38 @@ public open class RDUniform : RefCounted() {
   }
 
   public final fun setUniformType(pMember: RenderingDevice.UniformType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUniformTypePtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setUniformTypePtr, pMember.value)
   }
 
   public final fun getUniformType(): RenderingDevice.UniformType =
-      RenderingDevice.UniformType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUniformTypePtr))
+      RenderingDevice.UniformType.from(callPtrMethod0_ret_LONG(MethodBindings.getUniformTypePtr))
 
   public final fun setBinding(pMember: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBindingPtr, pMember.toLong())
+    callPtrMethod_LONG(MethodBindings.setBindingPtr, pMember.toLong())
   }
 
-  public final fun getBinding(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindingPtr).toInt()
+  public final fun getBinding(): Int = callPtrMethod0_ret_LONG(MethodBindings.getBindingPtr).toInt()
 
   /**
    * Binds the given id to the uniform. The data associated with the id is then used when the
    * uniform is passed to a shader.
    */
   public final fun addId(id: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addIdPtr, id)
+    callPtrMethod_RID(MethodBindings.addIdPtr, id)
   }
 
   /**
    * Unbinds all ids currently bound to the uniform.
    */
   public final fun clearIds(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearIdsPtr)
+    callPtrMethod0(MethodBindings.clearIdsPtr)
   }
 
   /**
    * Returns an array of all ids currently bound to the uniform.
    */
   public final fun getIds(): VariantArray<RID> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getIdsPtr) as VariantArray<RID>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getIdsPtr) as VariantArray<RID>)
 
   public companion object {
     @JvmField

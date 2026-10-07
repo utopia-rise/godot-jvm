@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_DOUBLE
@@ -106,28 +105,28 @@ public open class SpringArm3D : Node3D() {
    * Returns the spring arm's current length.
    */
   public final fun getHitLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHitLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHitLengthPtr).toFloat()
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLengthPtr, length.toDouble())
   }
 
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   public final fun setShape(shape: Shape3D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShapePtr, shape)
+    callPtrMethod_OBJECT(MethodBindings.setShapePtr, shape)
   }
 
   public final fun getShape(): Shape3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShapePtr) as Shape3D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getShapePtr) as Shape3D?)
 
   /**
    * Adds the [PhysicsBody3D] object with the given [RID] to the list of [PhysicsBody3D] objects
    * excluded from the collision check.
    */
   public final fun addExcludedObject(RID: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addExcludedObjectPtr, RID)
+    callPtrMethod_RID(MethodBindings.addExcludedObjectPtr, RID)
   }
 
   /**
@@ -135,28 +134,28 @@ public open class SpringArm3D : Node3D() {
    * check.
    */
   public final fun removeExcludedObject(RID: RID): Boolean =
-      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.removeExcludedObjectPtr, RID)
+      callPtrMethod_RID_ret_BOOL(MethodBindings.removeExcludedObjectPtr, RID)
 
   /**
    * Clears the list of [PhysicsBody3D] objects excluded from the collision check.
    */
   public final fun clearExcludedObjects(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearExcludedObjectsPtr)
+    callPtrMethod0(MethodBindings.clearExcludedObjectsPtr)
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, mask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMarginPtr, margin.toDouble())
   }
 
   public final fun getMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMarginPtr).toFloat()
 
   public companion object {
     @JvmField

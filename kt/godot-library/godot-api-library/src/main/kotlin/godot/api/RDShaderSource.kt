@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING
 import godot.callMethod_LONG_ret_STRING
@@ -166,7 +165,7 @@ public open class RDShaderSource : RefCounted() {
    * remove the Godot-specific hint `#[compute]`.
    */
   public final fun setStageSource(stage: RenderingDevice.ShaderStage, source: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setStageSourcePtr, stage.value, source)
+    callMethod_LONG_STRING(MethodBindings.setStageSourcePtr, stage.value, source)
   }
 
   /**
@@ -175,14 +174,14 @@ public open class RDShaderSource : RefCounted() {
    * [sourceVertex].
    */
   public final fun getStageSource(stage: RenderingDevice.ShaderStage): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getStageSourcePtr, stage.value)
+      callMethod_LONG_ret_STRING(MethodBindings.getStageSourcePtr, stage.value)
 
   public final fun setLanguage(language: RenderingDevice.ShaderLanguage): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLanguagePtr, language.value)
+    callPtrMethod_LONG(MethodBindings.setLanguagePtr, language.value)
   }
 
   public final fun getLanguage(): RenderingDevice.ShaderLanguage =
-      RenderingDevice.ShaderLanguage.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLanguagePtr))
+      RenderingDevice.ShaderLanguage.from(callPtrMethod0_ret_LONG(MethodBindings.getLanguagePtr))
 
   public companion object {
     @JvmField

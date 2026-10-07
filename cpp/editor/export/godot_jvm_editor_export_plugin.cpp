@@ -27,7 +27,8 @@ static constexpr const char* jmx_port_option = "godot_jvm/debug/jmx_port";
 static constexpr const char* memory_options_prefix = "godot_jvm/memory/";
 static constexpr const char* memory_override_option = "godot_jvm/memory/override";
 static constexpr const char* max_string_size_option = "godot_jvm/memory/max_string_size";
-static constexpr const char* disable_gc_option = "godot_jvm/memory/disable_gc";
+static constexpr const char* value_buffer_size_factor_option = "godot_jvm/memory/value_buffer_size_factor";
+static constexpr const char* disable_memory_management_option = "godot_jvm/memory/disable_memory_management";
 static constexpr const char* custom_arguments_option = "godot_jvm/custom_arguments/override_custom_args";
 
 enum Runtime {
@@ -58,7 +59,8 @@ static constexpr ConfigurationOption configuration_options[] = {
     {CATEGORY_DEBUG, WAIT_FOR_DEBUGGER_JSON_IDENTIFIER, wait_for_debugger_option, nullptr},
     {CATEGORY_DEBUG, JMX_PORT_JSON_IDENTIFIER, jmx_port_option, "-1,65535,1"},
     {CATEGORY_MEMORY, MAX_STRING_SIZE_JSON_IDENTIFIER, max_string_size_option, "-1,65535,1"},
-    {CATEGORY_MEMORY, DISABLE_GC_JSON_IDENTIFIER, disable_gc_option, nullptr},
+    {CATEGORY_MEMORY, VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER, value_buffer_size_factor_option, "0,1024,1"},
+    {CATEGORY_MEMORY, DISABLE_MEMORY_MANAGEMENT_JSON_IDENTIFIER, disable_memory_management_option, nullptr},
 };
 
 static Dictionary export_option(

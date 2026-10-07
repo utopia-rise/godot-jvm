@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -157,32 +156,30 @@ public open class AnimatedSprite3D : SpriteBase3D() {
   }
 
   public final fun setSpriteFrames(spriteFrames: SpriteFrames?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSpriteFramesPtr, spriteFrames)
+    callPtrMethod_OBJECT(MethodBindings.setSpriteFramesPtr, spriteFrames)
   }
 
   public final fun getSpriteFrames(): SpriteFrames? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSpriteFramesPtr) as SpriteFrames?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSpriteFramesPtr) as SpriteFrames?)
 
   public final fun setAnimation(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setAnimationPtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.setAnimationPtr, name)
   }
 
   public final fun getAnimation(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getAnimationPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getAnimationPtr)
 
   public final fun setAutoplay(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAutoplayPtr, name)
+    callMethod_STRING(MethodBindings.setAutoplayPtr, name)
   }
 
-  public final fun getAutoplay(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAutoplayPtr)
+  public final fun getAutoplay(): String = callMethod0_ret_STRING(MethodBindings.getAutoplayPtr)
 
   /**
    * Returns `true` if an animation is currently playing (even if [speedScale] and/or `custom_speed`
    * are `0`).
    */
-  public final fun isPlaying(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
+  public final fun isPlaying(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPlayingPtr)
 
   /**
    * Plays the animation with key [name]. If [customSpeed] is negative and [fromEnd] is `true`, the
@@ -197,7 +194,7 @@ public open class AnimatedSprite3D : SpriteBase3D() {
     customSpeed: Float = 1.0f,
     fromEnd: Boolean = false,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.playPtr, name, customSpeed.toDouble(), fromEnd)
+    callPtrMethod_STRING_NAME_DOUBLE_BOOL(MethodBindings.playPtr, name, customSpeed.toDouble(), fromEnd)
   }
 
   /**
@@ -207,7 +204,7 @@ public open class AnimatedSprite3D : SpriteBase3D() {
    * its description for more information.
    */
   public final fun playBackwards(name: StringName = StringName("")): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.playBackwardsPtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.playBackwardsPtr, name)
   }
 
   /**
@@ -218,7 +215,7 @@ public open class AnimatedSprite3D : SpriteBase3D() {
    * See also [stop].
    */
   public final fun pause(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pausePtr)
+    callPtrMethod0(MethodBindings.pausePtr)
   }
 
   /**
@@ -226,22 +223,21 @@ public open class AnimatedSprite3D : SpriteBase3D() {
    * `custom_speed` is reset to `1.0`. See also [pause].
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFramePtr, frame.toLong())
+    callPtrMethod_LONG(MethodBindings.setFramePtr, frame.toLong())
   }
 
-  public final fun getFrame(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramePtr).toInt()
+  public final fun getFrame(): Int = callPtrMethod0_ret_LONG(MethodBindings.getFramePtr).toInt()
 
   public final fun setFrameProgress(progress: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrameProgressPtr, progress.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFrameProgressPtr, progress.toDouble())
   }
 
   public final fun getFrameProgress(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrameProgressPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFrameProgressPtr).toFloat()
 
   /**
    * Sets [frame] and [frameProgress] to the given values. Unlike setting [frame], this method does
@@ -258,15 +254,15 @@ public open class AnimatedSprite3D : SpriteBase3D() {
    * ```
    */
   public final fun setFrameAndProgress(frame: Int, progress: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setFrameAndProgressPtr, frame.toLong(), progress.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setFrameAndProgressPtr, frame.toLong(), progress.toDouble())
   }
 
   public final fun setSpeedScale(speedScale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpeedScalePtr, speedScale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSpeedScalePtr, speedScale.toDouble())
   }
 
   public final fun getSpeedScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpeedScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpeedScalePtr).toFloat()
 
   /**
    * Returns the actual playing speed of current animation or `0` if not playing. This speed is the
@@ -276,7 +272,7 @@ public open class AnimatedSprite3D : SpriteBase3D() {
    * Returns a negative value if the current animation is playing backwards.
    */
   public final fun getPlayingSpeed(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPlayingSpeedPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPlayingSpeedPtr).toFloat()
 
   public final fun setAnimation(name: String) = setAnimation(name.asCachedStringName())
 

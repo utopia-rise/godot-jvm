@@ -17,7 +17,7 @@ namespace godot {
     class JvmPlaceHolderInstance {
     public:
         struct JvmPlaceHolderInstanceData {
-            raw_godot::RawObject owner;
+            engine::RawObject owner;
             List<PropertyInfo> properties;
             HashMap<StringName, Variant> values;
             HashMap<StringName, Variant> constants;

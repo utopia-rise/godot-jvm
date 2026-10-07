@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_COLOR
 import godot.callPtrMethod0_ret_DOUBLE
@@ -167,53 +166,53 @@ public open class CanvasTexture : Texture2D() {
   }
 
   public final fun setDiffuseTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setDiffuseTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setDiffuseTexturePtr, texture)
   }
 
   public final fun getDiffuseTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDiffuseTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getDiffuseTexturePtr) as Texture2D?)
 
   public final fun setNormalTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setNormalTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setNormalTexturePtr, texture)
   }
 
   public final fun getNormalTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNormalTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNormalTexturePtr) as Texture2D?)
 
   public final fun setSpecularTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSpecularTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setSpecularTexturePtr, texture)
   }
 
   public final fun getSpecularTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSpecularTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSpecularTexturePtr) as Texture2D?)
 
   public final fun setSpecularColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSpecularColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setSpecularColorPtr, color)
   }
 
   public final fun getSpecularColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSpecularColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSpecularColorPtr)
 
   public final fun setSpecularShininess(shininess: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpecularShininessPtr, shininess.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSpecularShininessPtr, shininess.toDouble())
   }
 
   public final fun getSpecularShininess(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpecularShininessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpecularShininessPtr).toFloat()
 
   public final fun setTextureFilter(filter: CanvasItem.TextureFilter): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureFilterPtr, filter.value)
+    callPtrMethod_LONG(MethodBindings.setTextureFilterPtr, filter.value)
   }
 
   public final fun getTextureFilter(): CanvasItem.TextureFilter =
-      CanvasItem.TextureFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureFilterPtr))
+      CanvasItem.TextureFilter.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureFilterPtr))
 
   public final fun setTextureRepeat(repeat: CanvasItem.TextureRepeat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureRepeatPtr, repeat.value)
+    callPtrMethod_LONG(MethodBindings.setTextureRepeatPtr, repeat.value)
   }
 
   public final fun getTextureRepeat(): CanvasItem.TextureRepeat =
-      CanvasItem.TextureRepeat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureRepeatPtr))
+      CanvasItem.TextureRepeat.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureRepeatPtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

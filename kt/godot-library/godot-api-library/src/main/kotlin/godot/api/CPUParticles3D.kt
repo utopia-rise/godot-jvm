@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_AABB
 import godot.callPtrMethod0_ret_BOOL
@@ -1242,123 +1241,118 @@ public open class CPUParticles3D : GeometryInstance3D() {
   }
 
   public final fun setEmitting(emitting: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEmittingPtr, emitting)
+    callPtrMethod_BOOL(MethodBindings.setEmittingPtr, emitting)
   }
 
   public final fun setAmount(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAmountPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setAmountPtr, amount.toLong())
   }
 
   public final fun setLifetime(secs: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLifetimePtr, secs)
+    callPtrMethod_DOUBLE(MethodBindings.setLifetimePtr, secs)
   }
 
   public final fun setOneShot(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOneShotPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setOneShotPtr, enable)
   }
 
   public final fun setPreProcessTime(secs: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPreProcessTimePtr, secs)
+    callPtrMethod_DOUBLE(MethodBindings.setPreProcessTimePtr, secs)
   }
 
   public final fun setExplosivenessRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setExplosivenessRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setExplosivenessRatioPtr, ratio.toDouble())
   }
 
   public final fun setRandomnessRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRandomnessRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRandomnessRatioPtr, ratio.toDouble())
   }
 
   public final fun setVisibilityAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setVisibilityAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setVisibilityAabbPtr, aabb)
   }
 
   public final fun setLifetimeRandomness(random: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLifetimeRandomnessPtr, random)
+    callPtrMethod_DOUBLE(MethodBindings.setLifetimeRandomnessPtr, random)
   }
 
   public final fun setUseLocalCoordinates(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseLocalCoordinatesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseLocalCoordinatesPtr, enable)
   }
 
   public final fun setFixedFps(fps: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFixedFpsPtr, fps.toLong())
+    callPtrMethod_LONG(MethodBindings.setFixedFpsPtr, fps.toLong())
   }
 
   public final fun setFractionalDelta(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFractionalDeltaPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFractionalDeltaPtr, enable)
   }
 
   public final fun setSpeedScale(scale: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpeedScalePtr, scale)
+    callPtrMethod_DOUBLE(MethodBindings.setSpeedScalePtr, scale)
   }
 
-  public final fun isEmitting(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmittingPtr)
+  public final fun isEmitting(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEmittingPtr)
 
-  public final fun getAmount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAmountPtr).toInt()
+  public final fun getAmount(): Int = callPtrMethod0_ret_LONG(MethodBindings.getAmountPtr).toInt()
 
-  public final fun getLifetime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLifetimePtr)
+  public final fun getLifetime(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getLifetimePtr)
 
-  public final fun getOneShot(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getOneShotPtr)
+  public final fun getOneShot(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getOneShotPtr)
 
   public final fun getPreProcessTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPreProcessTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPreProcessTimePtr)
 
   public final fun getExplosivenessRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getExplosivenessRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getExplosivenessRatioPtr).toFloat()
 
   public final fun getRandomnessRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRandomnessRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRandomnessRatioPtr).toFloat()
 
   public final fun getVisibilityAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getVisibilityAabbPtr)
+      callPtrMethod0_ret_AABB(MethodBindings.getVisibilityAabbPtr)
 
   public final fun getLifetimeRandomness(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLifetimeRandomnessPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLifetimeRandomnessPtr)
 
   public final fun getUseLocalCoordinates(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseLocalCoordinatesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUseLocalCoordinatesPtr)
 
   public final fun getFixedFps(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFixedFpsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFixedFpsPtr).toInt()
 
   public final fun getFractionalDelta(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFractionalDeltaPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getFractionalDeltaPtr)
 
   public final fun getSpeedScale(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpeedScalePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpeedScalePtr)
 
   public final fun setDrawOrder(order: DrawOrder): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDrawOrderPtr, order.value)
+    callPtrMethod_LONG(MethodBindings.setDrawOrderPtr, order.value)
   }
 
   public final fun getDrawOrder(): DrawOrder =
-      DrawOrder.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDrawOrderPtr))
+      DrawOrder.from(callPtrMethod0_ret_LONG(MethodBindings.getDrawOrderPtr))
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setUseFixedSeed(useFixedSeed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseFixedSeedPtr, useFixedSeed)
+    callPtrMethod_BOOL(MethodBindings.setUseFixedSeedPtr, useFixedSeed)
   }
 
   public final fun getUseFixedSeed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseFixedSeedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUseFixedSeedPtr)
 
   public final fun setSeed(seed: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSeedPtr, seed)
+    callPtrMethod_LONG(MethodBindings.setSeedPtr, seed)
   }
 
-  public final fun getSeed(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSeedPtr)
+  public final fun getSeed(): Long = callPtrMethod0_ret_LONG(MethodBindings.getSeedPtr)
 
   /**
    * Restarts the particle emitter.
@@ -1368,7 +1362,7 @@ public open class CPUParticles3D : GeometryInstance3D() {
    */
   @JvmOverloads
   public final fun restart(keepSeed: Boolean = false): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.restartPtr, keepSeed)
+    callPtrMethod_BOOL(MethodBindings.restartPtr, keepSeed)
   }
 
   /**
@@ -1382,220 +1376,217 @@ public open class CPUParticles3D : GeometryInstance3D() {
   @JvmOverloads
   public final fun requestParticlesProcess(processTime: Float, processTimeResidual: Float = 0.0f):
       Unit {
-    TransferContext.callPtrMethod_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.requestParticlesProcessPtr, processTime.toDouble(), processTimeResidual.toDouble())
+    callPtrMethod_DOUBLE_DOUBLE(MethodBindings.requestParticlesProcessPtr, processTime.toDouble(), processTimeResidual.toDouble())
   }
 
   /**
    * Returns the axis-aligned bounding box that contains all the particles that are active in the
    * current frame.
    */
-  public final fun captureAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.captureAabbPtr)
+  public final fun captureAabb(): AABB = callPtrMethod0_ret_AABB(MethodBindings.captureAabbPtr)
 
   public final fun setDirection(direction: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setDirectionPtr, direction)
+    callPtrMethod_VECTOR3(MethodBindings.setDirectionPtr, direction)
   }
 
   public final fun getDirection(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getDirectionPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getDirectionPtr)
 
   public final fun setSpread(degrees: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpreadPtr, degrees.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSpreadPtr, degrees.toDouble())
   }
 
   public final fun getSpread(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpreadPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpreadPtr).toFloat()
 
   public final fun setFlatness(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFlatnessPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFlatnessPtr, amount.toDouble())
   }
 
   public final fun getFlatness(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFlatnessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFlatnessPtr).toFloat()
 
   /**
    * Sets the minimum value for the given parameter.
    */
   public final fun setParamMin(`param`: Parameter, `value`: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setParamMinPtr, param.value, value.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setParamMinPtr, param.value, value.toDouble())
   }
 
   /**
    * Returns the minimum value range for the given parameter.
    */
   public final fun getParamMin(`param`: Parameter): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParamMinPtr, param.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getParamMinPtr, param.value).toFloat()
 
   /**
    * Sets the maximum value for the given parameter.
    */
   public final fun setParamMax(`param`: Parameter, `value`: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setParamMaxPtr, param.value, value.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setParamMaxPtr, param.value, value.toDouble())
   }
 
   /**
    * Returns the maximum value range for the given parameter.
    */
   public final fun getParamMax(`param`: Parameter): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParamMaxPtr, param.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getParamMaxPtr, param.value).toFloat()
 
   /**
    * Sets the [Curve] of the parameter specified by [Parameter]. Should be a unit [Curve].
    */
   public final fun setParamCurve(`param`: Parameter, curve: Curve?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setParamCurvePtr, param.value, curve)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setParamCurvePtr, param.value, curve)
   }
 
   /**
    * Returns the [Curve] of the parameter specified by [Parameter].
    */
   public final fun getParamCurve(`param`: Parameter): Curve? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getParamCurvePtr, param.value) as Curve?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getParamCurvePtr, param.value) as Curve?)
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setColorPtr, color)
   }
 
-  public final fun getColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
+  public final fun getColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getColorPtr)
 
   public final fun setColorRamp(ramp: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setColorRampPtr, ramp)
+    callPtrMethod_OBJECT(MethodBindings.setColorRampPtr, ramp)
   }
 
   public final fun getColorRamp(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getColorRampPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getColorRampPtr) as Gradient?)
 
   public final fun setColorInitialRamp(ramp: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setColorInitialRampPtr, ramp)
+    callPtrMethod_OBJECT(MethodBindings.setColorInitialRampPtr, ramp)
   }
 
   public final fun getColorInitialRamp(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getColorInitialRampPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getColorInitialRampPtr) as Gradient?)
 
   /**
    * Enables or disables the given particle flag.
    */
   public final fun setParticleFlag(particleFlag: ParticleFlags, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setParticleFlagPtr, particleFlag.value, enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setParticleFlagPtr, particleFlag.value, enable)
   }
 
   /**
    * Returns the enabled state of the given particle flag.
    */
   public final fun getParticleFlag(particleFlag: ParticleFlags): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getParticleFlagPtr, particleFlag.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getParticleFlagPtr, particleFlag.value)
 
   public final fun setEmissionShape(shape: EmissionShape): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEmissionShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setEmissionShapePtr, shape.value)
   }
 
   public final fun getEmissionShape(): EmissionShape =
-      EmissionShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEmissionShapePtr))
+      EmissionShape.from(callPtrMethod0_ret_LONG(MethodBindings.getEmissionShapePtr))
 
   public final fun setEmissionSphereRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionSphereRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionSphereRadiusPtr, radius.toDouble())
   }
 
   public final fun getEmissionSphereRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionSphereRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionSphereRadiusPtr).toFloat()
 
   public final fun setEmissionBoxExtents(extents: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setEmissionBoxExtentsPtr, extents)
+    callPtrMethod_VECTOR3(MethodBindings.setEmissionBoxExtentsPtr, extents)
   }
 
   public final fun getEmissionBoxExtents(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getEmissionBoxExtentsPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getEmissionBoxExtentsPtr)
 
   public final fun setEmissionPoints(array: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setEmissionPointsPtr, array)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setEmissionPointsPtr, array)
   }
 
   public final fun getEmissionPoints(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getEmissionPointsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getEmissionPointsPtr)
 
   public final fun setEmissionNormals(array: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setEmissionNormalsPtr, array)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setEmissionNormalsPtr, array)
   }
 
   public final fun getEmissionNormals(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getEmissionNormalsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getEmissionNormalsPtr)
 
   public final fun setEmissionColors(array: PackedColorArray): Unit {
-    TransferContext.callPtrMethod_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.setEmissionColorsPtr, array)
+    callPtrMethod_PACKED_COLOR_ARRAY(MethodBindings.setEmissionColorsPtr, array)
   }
 
   public final fun getEmissionColors(): PackedColorArray =
-      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getEmissionColorsPtr)
+      callPtrMethod0_ret_PACKED_COLOR_ARRAY(MethodBindings.getEmissionColorsPtr)
 
   public final fun setEmissionRingAxis(axis: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setEmissionRingAxisPtr, axis)
+    callPtrMethod_VECTOR3(MethodBindings.setEmissionRingAxisPtr, axis)
   }
 
   public final fun getEmissionRingAxis(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getEmissionRingAxisPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getEmissionRingAxisPtr)
 
   public final fun setEmissionRingHeight(height: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionRingHeightPtr, height.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionRingHeightPtr, height.toDouble())
   }
 
   public final fun getEmissionRingHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionRingHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionRingHeightPtr).toFloat()
 
   public final fun setEmissionRingRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionRingRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionRingRadiusPtr, radius.toDouble())
   }
 
   public final fun getEmissionRingRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionRingRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionRingRadiusPtr).toFloat()
 
   public final fun setEmissionRingInnerRadius(innerRadius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionRingInnerRadiusPtr, innerRadius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionRingInnerRadiusPtr, innerRadius.toDouble())
   }
 
   public final fun getEmissionRingInnerRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionRingInnerRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionRingInnerRadiusPtr).toFloat()
 
   public final fun setEmissionRingConeAngle(coneAngle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionRingConeAnglePtr, coneAngle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionRingConeAnglePtr, coneAngle.toDouble())
   }
 
   public final fun getEmissionRingConeAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionRingConeAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionRingConeAnglePtr).toFloat()
 
-  public final fun getGravity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPtr)
+  public final fun getGravity(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getGravityPtr)
 
   public final fun setGravity(accelVec: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setGravityPtr, accelVec)
+    callPtrMethod_VECTOR3(MethodBindings.setGravityPtr, accelVec)
   }
 
   public final fun getSplitScale(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSplitScalePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSplitScalePtr)
 
   public final fun setSplitScale(splitScale: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSplitScalePtr, splitScale)
+    callPtrMethod_BOOL(MethodBindings.setSplitScalePtr, splitScale)
   }
 
   public final fun getScaleCurveX(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getScaleCurveXPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getScaleCurveXPtr) as Curve?)
 
   public final fun setScaleCurveX(scaleCurve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setScaleCurveXPtr, scaleCurve)
+    callPtrMethod_OBJECT(MethodBindings.setScaleCurveXPtr, scaleCurve)
   }
 
   public final fun getScaleCurveY(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getScaleCurveYPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getScaleCurveYPtr) as Curve?)
 
   public final fun setScaleCurveY(scaleCurve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setScaleCurveYPtr, scaleCurve)
+    callPtrMethod_OBJECT(MethodBindings.setScaleCurveYPtr, scaleCurve)
   }
 
   public final fun getScaleCurveZ(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getScaleCurveZPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getScaleCurveZPtr) as Curve?)
 
   public final fun setScaleCurveZ(scaleCurve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setScaleCurveZPtr, scaleCurve)
+    callPtrMethod_OBJECT(MethodBindings.setScaleCurveZPtr, scaleCurve)
   }
 
   /**
@@ -1603,7 +1594,7 @@ public open class CPUParticles3D : GeometryInstance3D() {
    * [ParticleProcessMaterial].
    */
   public final fun convertFromParticles(particles: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.convertFromParticlesPtr, particles)
+    callPtrMethod_OBJECT(MethodBindings.convertFromParticlesPtr, particles)
   }
 
   public enum class DrawOrder(

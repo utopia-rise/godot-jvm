@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -41,11 +40,11 @@ public open class VisualShaderNodeFloatConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setConstantPtr, constant.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setConstantPtr, constant.toDouble())
   }
 
   public final fun getConstant(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getConstantPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getConstantPtr).toFloat()
 
   public companion object {
     @JvmField

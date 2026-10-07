@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -47,11 +46,10 @@ public open class AudioEffectPanner : AudioEffect() {
   }
 
   public final fun setPan(cpanume: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPanPtr, cpanume.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPanPtr, cpanume.toDouble())
   }
 
-  public final fun getPan(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPanPtr).toFloat()
+  public final fun getPan(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getPanPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -132,15 +131,13 @@ public abstract class AudioStream : Resource() {
    * [AudioStreamRandomizer], returns the length of the last played stream. If this stream has an
    * indefinite length (such as for [AudioStreamGenerator] and [AudioStreamMicrophone]), returns `0.0`.
    */
-  public final fun getLength(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr)
+  public final fun getLength(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr)
 
   /**
    * Returns `true` if this audio stream only supports one channel (*monophony*), or `false` if the
    * audio stream supports two or more channels (*polyphony*).
    */
-  public final fun isMonophonic(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonophonicPtr)
+  public final fun isMonophonic(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isMonophonicPtr)
 
   /**
    * Returns a newly created [AudioStreamPlayback] intended to play this audio stream. Useful for
@@ -149,26 +146,24 @@ public abstract class AudioStream : Resource() {
    * `AudioStreamRandomPitch::instantiate_playback`.
    */
   public final fun instantiatePlayback(): AudioStreamPlayback? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.instantiatePlaybackPtr) as AudioStreamPlayback?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.instantiatePlaybackPtr) as AudioStreamPlayback?)
 
   /**
    * Returns if the current [AudioStream] can be used as a sample. Only static streams can be
    * sampled.
    */
-  public final fun canBeSampled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canBeSampledPtr)
+  public final fun canBeSampled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.canBeSampledPtr)
 
   /**
    * Generates an [AudioSample] based on the current stream.
    */
   public final fun generateSample(): AudioSample? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateSamplePtr) as AudioSample?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.generateSamplePtr) as AudioSample?)
 
   /**
    * Returns `true` if the stream is a collection of other streams, `false` otherwise.
    */
-  public final fun isMetaStream(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMetaStreamPtr)
+  public final fun isMetaStream(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isMetaStreamPtr)
 
   public companion object {
     @JvmField

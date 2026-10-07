@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_VECTOR2
@@ -109,34 +108,34 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
     node: AnimationNode?,
     position: Vector2 = Vector2(0, 0),
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT_VECTOR2(ptr, objectID.id, MethodBindings.addNodePtr, name, node, position)
+    callPtrMethod_STRING_NAME_OBJECT_VECTOR2(MethodBindings.addNodePtr, name, node, position)
   }
 
   /**
    * Returns the sub animation node with the specified [name].
    */
   public final fun getNode(name: StringName): AnimationNode? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNodePtr, name) as AnimationNode?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT_REF(MethodBindings.getNodePtr, name) as AnimationNode?)
 
   /**
    * Removes a sub animation node.
    */
   public final fun removeNode(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeNodePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeNodePtr, name)
   }
 
   /**
    * Changes the name of a sub animation node.
    */
   public final fun renameNode(name: StringName, newName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameNodePtr, name, newName)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.renameNodePtr, name, newName)
   }
 
   /**
    * Returns `true` if a sub animation node with specified [name] exists.
    */
   public final fun hasNode(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasNodePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasNodePtr, name)
 
   /**
    * Connects the output of an [AnimationNode] as input for another [AnimationNode], at the input
@@ -147,41 +146,41 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
     inputIndex: Int,
     outputNode: StringName,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.connectNodePtr, inputNode, inputIndex.toLong(), outputNode)
+    callPtrMethod_STRING_NAME_LONG_STRING_NAME(MethodBindings.connectNodePtr, inputNode, inputIndex.toLong(), outputNode)
   }
 
   /**
    * Disconnects the animation node connected to the specified input.
    */
   public final fun disconnectNode(inputNode: StringName, inputIndex: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.disconnectNodePtr, inputNode, inputIndex.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.disconnectNodePtr, inputNode, inputIndex.toLong())
   }
 
   /**
    * Returns a list containing the names of all sub animation nodes in this blend tree.
    */
   public final fun getNodeList(): VariantArray<StringName> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodeListPtr) as VariantArray<StringName>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getNodeListPtr) as VariantArray<StringName>)
 
   /**
    * Modifies the position of a sub animation node.
    */
   public final fun setNodePosition(name: StringName, position: Vector2): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_VECTOR2(ptr, objectID.id, MethodBindings.setNodePositionPtr, name, position)
+    callPtrMethod_STRING_NAME_VECTOR2(MethodBindings.setNodePositionPtr, name, position)
   }
 
   /**
    * Returns the position of the sub animation node with the specified [name].
    */
   public final fun getNodePosition(name: StringName): Vector2 =
-      TransferContext.callPtrMethod_STRING_NAME_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNodePositionPtr, name)
+      callPtrMethod_STRING_NAME_ret_VECTOR2(MethodBindings.getNodePositionPtr, name)
 
   public final fun setGraphOffset(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setGraphOffsetPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setGraphOffsetPtr, offset)
   }
 
   public final fun getGraphOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGraphOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGraphOffsetPtr)
 
   /**
    * Adds an [AnimationNode] at the given [position]. The [name] is used to identify the created sub

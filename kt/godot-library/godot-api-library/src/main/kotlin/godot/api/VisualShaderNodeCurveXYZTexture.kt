@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -40,11 +39,11 @@ public open class VisualShaderNodeCurveXYZTexture : VisualShaderNodeResizableBas
   }
 
   public final fun setTexture(texture: CurveXYZTexture?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): CurveXYZTexture? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as CurveXYZTexture?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as CurveXYZTexture?)
 
   public companion object {
     @JvmField

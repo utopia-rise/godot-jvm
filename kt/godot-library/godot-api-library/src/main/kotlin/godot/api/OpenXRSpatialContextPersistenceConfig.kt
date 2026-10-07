@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod_RID
@@ -38,21 +37,21 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * [OpenXRSpatialAnchorCapability.createPersistenceContext].
    */
   public final fun addPersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addPersistenceContextPtr, persistenceContext)
+    callPtrMethod_RID(MethodBindings.addPersistenceContextPtr, persistenceContext)
   }
 
   /**
    * Removes a persistence context.
    */
   public final fun removePersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.removePersistenceContextPtr, persistenceContext)
+    callPtrMethod_RID(MethodBindings.removePersistenceContextPtr, persistenceContext)
   }
 
   /**
    * Gets the persistence context(s) (as [RID]s) received by [addPersistenceContext].
    */
   public final fun getPersistenceContexts(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPersistenceContextsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getPersistenceContextsPtr) as VariantArray<Any?>)
 
   public companion object {
     @JvmField

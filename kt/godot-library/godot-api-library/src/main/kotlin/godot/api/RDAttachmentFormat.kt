@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -63,25 +62,24 @@ public open class RDAttachmentFormat : RefCounted() {
   }
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setFormatPtr, pMember.value)
   }
 
   public final fun getFormat(): RenderingDevice.DataFormat =
-      RenderingDevice.DataFormat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
+      RenderingDevice.DataFormat.from(callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr))
 
   public final fun setSamples(pMember: RenderingDevice.TextureSamples): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplesPtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setSamplesPtr, pMember.value)
   }
 
   public final fun getSamples(): RenderingDevice.TextureSamples =
-      RenderingDevice.TextureSamples.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplesPtr))
+      RenderingDevice.TextureSamples.from(callPtrMethod0_ret_LONG(MethodBindings.getSamplesPtr))
 
   public final fun setUsageFlags(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUsageFlagsPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setUsageFlagsPtr, pMember)
   }
 
-  public final fun getUsageFlags(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUsageFlagsPtr)
+  public final fun getUsageFlags(): Long = callPtrMethod0_ret_LONG(MethodBindings.getUsageFlagsPtr)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -115,49 +114,49 @@ public open class PhysicalBone2D : RigidBody2D() {
    * it easier to get the [Joint2D] that the [PhysicalBone2D] is autoconfiguring.
    */
   public final fun getJoint(): Joint2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getJointPtr) as Joint2D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getJointPtr) as Joint2D?)
 
   public final fun getAutoConfigureJoint(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAutoConfigureJointPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAutoConfigureJointPtr)
 
   public final fun setAutoConfigureJoint(autoConfigureJoint: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoConfigureJointPtr, autoConfigureJoint)
+    callPtrMethod_BOOL(MethodBindings.setAutoConfigureJointPtr, autoConfigureJoint)
   }
 
   public final fun setSimulatePhysics(simulatePhysics: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSimulatePhysicsPtr, simulatePhysics)
+    callPtrMethod_BOOL(MethodBindings.setSimulatePhysicsPtr, simulatePhysics)
   }
 
   public final fun getSimulatePhysics(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSimulatePhysicsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSimulatePhysicsPtr)
 
   /**
    * Returns a boolean that indicates whether the [PhysicalBone2D] is running and simulating using
    * the Godot 2D physics engine. When `true`, the PhysicalBone2D node is using physics.
    */
   public final fun isSimulatingPhysics(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSimulatingPhysicsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSimulatingPhysicsPtr)
 
   public final fun setBone2dNodepath(nodepath: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setBone2dNodepathPtr, nodepath)
+    callPtrMethod_NODE_PATH(MethodBindings.setBone2dNodepathPtr, nodepath)
   }
 
   public final fun getBone2dNodepath(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getBone2dNodepathPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getBone2dNodepathPtr)
 
   public final fun setBone2dIndex(boneIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBone2dIndexPtr, boneIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setBone2dIndexPtr, boneIndex.toLong())
   }
 
   public final fun getBone2dIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBone2dIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBone2dIndexPtr).toInt()
 
   public final fun setFollowBoneWhenSimulating(followBone: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFollowBoneWhenSimulatingPtr, followBone)
+    callPtrMethod_BOOL(MethodBindings.setFollowBoneWhenSimulatingPtr, followBone)
   }
 
   public final fun getFollowBoneWhenSimulating(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFollowBoneWhenSimulatingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getFollowBoneWhenSimulatingPtr)
 
   public final fun setBone2dNodepath(nodepath: String) =
       setBone2dNodepath(nodepath.asCachedNodePath())

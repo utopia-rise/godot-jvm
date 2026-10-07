@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -160,39 +159,38 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   public final fun setResolution(resolution: Resolution): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setResolutionPtr, resolution.value)
+    callPtrMethod_LONG(MethodBindings.setResolutionPtr, resolution.value)
   }
 
   public final fun getResolution(): Resolution =
-      Resolution.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getResolutionPtr))
+      Resolution.from(callPtrMethod0_ret_LONG(MethodBindings.getResolutionPtr))
 
   public final fun setUpdateMode(updateMode: UpdateMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUpdateModePtr, updateMode.value)
+    callPtrMethod_LONG(MethodBindings.setUpdateModePtr, updateMode.value)
   }
 
   public final fun getUpdateMode(): UpdateMode =
-      UpdateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUpdateModePtr))
+      UpdateMode.from(callPtrMethod0_ret_LONG(MethodBindings.getUpdateModePtr))
 
   public final fun setHeightfieldMask(heightfieldMask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightfieldMaskPtr, heightfieldMask)
+    callPtrMethod_LONG(MethodBindings.setHeightfieldMaskPtr, heightfieldMask)
   }
 
   public final fun getHeightfieldMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightfieldMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getHeightfieldMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [heightfieldMask], given a
    * [layerNumber] between `1` and `20`, inclusive.
    */
   public final fun setHeightfieldMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setHeightfieldMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setHeightfieldMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -200,14 +198,14 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
    * [layerNumber] between `1` and `20`, inclusive.
    */
   public final fun getHeightfieldMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getHeightfieldMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getHeightfieldMaskValuePtr, layerNumber.toLong())
 
   public final fun setFollowCameraEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFollowCameraEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFollowCameraEnabledPtr, enabled)
   }
 
   public final fun isFollowCameraEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFollowCameraEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFollowCameraEnabledPtr)
 
   public enum class Resolution(
     public override val `value`: Long,

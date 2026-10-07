@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -44,14 +43,14 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * in GDScript.
    */
   public final fun pushFrame(frame: Vector2): Boolean =
-      TransferContext.callPtrMethod_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.pushFramePtr, frame)
+      callPtrMethod_VECTOR2_ret_BOOL(MethodBindings.pushFramePtr, frame)
 
   /**
    * Returns `true` if a buffer of the size [amount] can be pushed to the audio sample data buffer
    * without overflowing it, `false` otherwise.
    */
   public final fun canPushBuffer(amount: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.canPushBufferPtr, amount.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.canPushBufferPtr, amount.toLong())
 
   /**
    * Pushes several audio data frames to the buffer. This is usually more efficient than [pushFrame]
@@ -59,27 +58,26 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * GDScript.
    */
   public final fun pushBuffer(frames: PackedVector2Array): Boolean =
-      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.pushBufferPtr, frames)
+      callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL(MethodBindings.pushBufferPtr, frames)
 
   /**
    * Returns the number of frames that can be pushed to the audio sample data buffer without
    * overflowing it. If the result is `0`, the buffer is full.
    */
   public final fun getFramesAvailable(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramesAvailablePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFramesAvailablePtr).toInt()
 
   /**
    * Returns the number of times the playback skipped due to a buffer underrun in the audio sample
    * data. This value is reset at the start of the playback.
    */
-  public final fun getSkips(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkipsPtr).toInt()
+  public final fun getSkips(): Int = callPtrMethod0_ret_LONG(MethodBindings.getSkipsPtr).toInt()
 
   /**
    * Clears the audio sample data buffer.
    */
   public final fun clearBuffer(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBufferPtr)
+    callPtrMethod0(MethodBindings.clearBufferPtr)
   }
 
   /**

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
@@ -292,7 +291,7 @@ public open class VisualShaderNodeCustom : VisualShaderNode() {
    * function to define the specific behavior in the [_getCode] or [_getGlobalCode].
    */
   public final fun getOptionIndex(option: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOptionIndexPtr, option.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getOptionIndexPtr, option.toLong()).toInt()
 
   public companion object {
     @JvmField

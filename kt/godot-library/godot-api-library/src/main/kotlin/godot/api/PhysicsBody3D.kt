@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_VECTOR3
@@ -140,7 +139,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
   ): KinematicCollision3D? =
-      (TransferContext.callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.moveAndCollidePtr, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong()) as KinematicCollision3D?)
+      (callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF(MethodBindings.moveAndCollidePtr, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong()) as KinematicCollision3D?)
 
   /**
    * Checks for collisions without moving the body. In order to be frame rate independent in
@@ -170,46 +169,45 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
   ): Boolean =
-      TransferContext.callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.testMovePtr, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
+      callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL(MethodBindings.testMovePtr, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
 
   /**
    * Returns the gravity vector computed from all sources that can affect the body, including all
    * gravity overrides from [Area3D] nodes and the global world gravity.
    */
-  public final fun getGravity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPtr)
+  public final fun getGravity(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getGravityPtr)
 
   /**
    * Locks or unlocks the specified linear or rotational [axis] depending on the value of [lock].
    */
   public final fun setAxisLock(axis: PhysicsServer3D.BodyAxis, lock: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisLockPtr, axis.value, lock)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAxisLockPtr, axis.value, lock)
   }
 
   /**
    * Returns `true` if the specified linear or rotational [axis] is locked.
    */
   public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAxisLockPtr, axis.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getAxisLockPtr, axis.value)
 
   /**
    * Returns an array of nodes that were added as collision exceptions for this body.
    */
   public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
 
   /**
    * Adds a body to the list of bodies that this body can't collide with.
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addCollisionExceptionWithPtr, body)
+    callPtrMethod_OBJECT(MethodBindings.addCollisionExceptionWithPtr, body)
   }
 
   /**
    * Removes a body from the list of bodies that this body can't collide with.
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeCollisionExceptionWithPtr, body)
+    callPtrMethod_OBJECT(MethodBindings.removeCollisionExceptionWithPtr, body)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -80,32 +79,32 @@ public open class DampedSpringJoint2D : Joint2D() {
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLengthPtr, length.toDouble())
   }
 
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   public final fun setRestLength(restLength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRestLengthPtr, restLength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRestLengthPtr, restLength.toDouble())
   }
 
   public final fun getRestLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRestLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRestLengthPtr).toFloat()
 
   public final fun setStiffness(stiffness: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStiffnessPtr, stiffness.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setStiffnessPtr, stiffness.toDouble())
   }
 
   public final fun getStiffness(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStiffnessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStiffnessPtr).toFloat()
 
   public final fun setDamping(damping: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingPtr, damping.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDampingPtr, damping.toDouble())
   }
 
   public final fun getDamping(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDampingPtr).toFloat()
 
   public companion object {
     @JvmField

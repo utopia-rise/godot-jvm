@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
@@ -126,7 +125,7 @@ public open class ConcavePolygonShape3D : Shape3D() {
    * composed of triples such that each triple of vertices defines a triangle.
    */
   public final fun setFaces(faces: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setFacesPtr, faces)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setFacesPtr, faces)
   }
 
   /**
@@ -134,14 +133,14 @@ public open class ConcavePolygonShape3D : Shape3D() {
    * by three) is naturally divided into triples; each triple of vertices defines a triangle.
    */
   public final fun getFaces(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getFacesPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getFacesPtr)
 
   public final fun setBackfaceCollisionEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBackfaceCollisionEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setBackfaceCollisionEnabledPtr, enabled)
   }
 
   public final fun isBackfaceCollisionEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBackfaceCollisionEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isBackfaceCollisionEnabledPtr)
 
   public companion object {
     @JvmField

@@ -19,6 +19,12 @@ public class JavaTestClass extends Node {
     @Visible
     public boolean notificationTriggered = false;
 
+    @Visible
+    public double processDelta = 0.0;
+
+    @Visible
+    public double physicsProcessDelta = 0.0;
+
     @Register
     public String greeting() {
         return "Hello from java";
@@ -28,6 +34,18 @@ public class JavaTestClass extends Node {
     @Override
     public void _enterTree() {
         enteredTree = true;
+    }
+
+    @Register
+    @Override
+    public void _process(double delta) {
+        processDelta += delta;
+    }
+
+    @Register
+    @Override
+    public void _physicsProcess(double delta) {
+        physicsProcessDelta += delta;
     }
 
     @Notification(0)

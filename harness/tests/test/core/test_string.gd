@@ -2,12 +2,12 @@ extends GdUnitTestSuite
 
 var short_str: String = "Short String"
 
-#A string of 511 character a so we obtain a 512 long string, the maximun size of the buffer.
+#A string of 127 character a so we obtain a 128 long string, the maximun size of the buffer.
 #Change this value with the default value in LongStringQueue.kt and long_string_queue.cpp
-var longest_short_str: String = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+var longest_short_str: String = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 # Length of the previous string + 1
-var shortest_long_str: String = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+var shortest_long_str: String = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 var long_str: String = """I'll pivot the lazy YAML middleware, that should abstraction the DAG virtual DOM!
 
@@ -84,7 +84,7 @@ func test_short_supplementary_character() -> void:
 func test_long_supplementary_character() -> void:
     var script: Object = StringTest.new()
     var expected: String = shortest_long_str + supplementary
-    assert_that(expected.to_utf8_buffer().size()).override_failure_message("This string must exceed the inline limit to exercise the JNI string queue.").is_greater(512)
+    assert_that(expected.to_utf8_buffer().size()).override_failure_message("This string must exceed the inline limit to exercise the JNI string queue.").is_greater(128)
     assert_that(script.get_long_supplementary()).override_failure_message("A supplementary character should survive the JVM to Godot crossing in a long string.").is_equal(expected)
     assert_that(script.identity(expected)).override_failure_message("A supplementary character should survive a round trip through the JVM in a long string.").is_equal(expected)
     assert_that(script.get_length(expected)).override_failure_message("The JVM should see the character as one surrogate pair, so one more UTF-16 unit than Godot counts code points.").is_equal(expected.length() + 1)

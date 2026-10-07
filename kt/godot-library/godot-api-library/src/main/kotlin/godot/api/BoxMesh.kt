@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_VECTOR3
@@ -114,32 +113,31 @@ public open class BoxMesh : PrimitiveMesh() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   public final fun setSubdivideWidth(subdivide: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideWidthPtr, subdivide.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideWidthPtr, subdivide.toLong())
   }
 
   public final fun getSubdivideWidth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideWidthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideWidthPtr).toInt()
 
   public final fun setSubdivideHeight(divisions: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideHeightPtr, divisions.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideHeightPtr, divisions.toLong())
   }
 
   public final fun getSubdivideHeight(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideHeightPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideHeightPtr).toInt()
 
   public final fun setSubdivideDepth(divisions: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideDepthPtr, divisions.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideDepthPtr, divisions.toLong())
   }
 
   public final fun getSubdivideDepth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideDepthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideDepthPtr).toInt()
 
   public companion object {
     @JvmField

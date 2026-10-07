@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -75,22 +74,22 @@ public open class CurveTexture : Texture2D() {
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurvePtr, curve)
   }
 
   public final fun getCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurvePtr) as Curve?)
 
   public final fun setTextureMode(textureMode: TextureMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureModePtr, textureMode.value)
+    callPtrMethod_LONG(MethodBindings.setTextureModePtr, textureMode.value)
   }
 
   public final fun getTextureMode(): TextureMode =
-      TextureMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureModePtr))
+      TextureMode.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

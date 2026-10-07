@@ -301,7 +301,9 @@ object Generator {
 
 
 object Internal {
-    val transferContext = ClassName(godotMemoryPackage, "TransferContext")
+    val checkArgumentCount = MemberName(ClassName("godot.common.constants", "Constraints"), "checkArgumentCount")
+    val variantBuffer = ClassName(godotMemoryPackage, "VariantBuffer")
+    val valueBuffer = ClassName(godotMemoryPackage, "ValueBuffer")
     val memoryManager = ClassName(godotMemoryPackage, "MemoryManager")
     val typeManager = ClassName(godotReflectionPackage, "TypeManager")
     val objectId = ClassName(godotInteropPackage, "ObjectID")

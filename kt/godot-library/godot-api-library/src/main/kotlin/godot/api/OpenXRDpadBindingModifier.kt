@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -153,67 +152,65 @@ public open class OpenXRDpadBindingModifier : OpenXRIPBindingModifier() {
   }
 
   public final fun setActionSet(actionSet: OpenXRActionSet?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setActionSetPtr, actionSet)
+    callPtrMethod_OBJECT(MethodBindings.setActionSetPtr, actionSet)
   }
 
   public final fun getActionSet(): OpenXRActionSet? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getActionSetPtr) as OpenXRActionSet?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getActionSetPtr) as OpenXRActionSet?)
 
   public final fun setInputPath(inputPath: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setInputPathPtr, inputPath)
+    callMethod_STRING(MethodBindings.setInputPathPtr, inputPath)
   }
 
-  public final fun getInputPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInputPathPtr)
+  public final fun getInputPath(): String = callMethod0_ret_STRING(MethodBindings.getInputPathPtr)
 
   public final fun setThreshold(threshold: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setThresholdPtr, threshold.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setThresholdPtr, threshold.toDouble())
   }
 
   public final fun getThreshold(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThresholdPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThresholdPtr).toFloat()
 
   public final fun setThresholdReleased(thresholdReleased: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setThresholdReleasedPtr, thresholdReleased.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setThresholdReleasedPtr, thresholdReleased.toDouble())
   }
 
   public final fun getThresholdReleased(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThresholdReleasedPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThresholdReleasedPtr).toFloat()
 
   public final fun setCenterRegion(centerRegion: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCenterRegionPtr, centerRegion.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCenterRegionPtr, centerRegion.toDouble())
   }
 
   public final fun getCenterRegion(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCenterRegionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCenterRegionPtr).toFloat()
 
   public final fun setWedgeAngle(wedgeAngle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWedgeAnglePtr, wedgeAngle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setWedgeAnglePtr, wedgeAngle.toDouble())
   }
 
   public final fun getWedgeAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWedgeAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getWedgeAnglePtr).toFloat()
 
   public final fun setIsSticky(isSticky: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsStickyPtr, isSticky)
+    callPtrMethod_BOOL(MethodBindings.setIsStickyPtr, isSticky)
   }
 
-  public final fun getIsSticky(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsStickyPtr)
+  public final fun getIsSticky(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getIsStickyPtr)
 
   public final fun setOnHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOnHapticPtr, haptic)
+    callPtrMethod_OBJECT(MethodBindings.setOnHapticPtr, haptic)
   }
 
   public final fun getOnHaptic(): OpenXRHapticBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOnHapticPtr) as OpenXRHapticBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOnHapticPtr) as OpenXRHapticBase?)
 
   public final fun setOffHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOffHapticPtr, haptic)
+    callPtrMethod_OBJECT(MethodBindings.setOffHapticPtr, haptic)
   }
 
   public final fun getOffHaptic(): OpenXRHapticBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOffHapticPtr) as OpenXRHapticBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOffHapticPtr) as OpenXRHapticBase?)
 
   public companion object {
     @JvmField

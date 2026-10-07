@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -81,32 +80,32 @@ public open class AspectRatioContainer : Container() {
   }
 
   public final fun setRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRatioPtr, ratio.toDouble())
   }
 
   public final fun getRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRatioPtr).toFloat()
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStretchModePtr, stretchMode.value)
+    callPtrMethod_LONG(MethodBindings.setStretchModePtr, stretchMode.value)
   }
 
   public final fun getStretchMode(): StretchMode =
-      StretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStretchModePtr))
+      StretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getStretchModePtr))
 
   public final fun setAlignmentHorizontal(alignmentHorizontal: AlignmentMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentHorizontalPtr, alignmentHorizontal.value)
+    callPtrMethod_LONG(MethodBindings.setAlignmentHorizontalPtr, alignmentHorizontal.value)
   }
 
   public final fun getAlignmentHorizontal(): AlignmentMode =
-      AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentHorizontalPtr))
+      AlignmentMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAlignmentHorizontalPtr))
 
   public final fun setAlignmentVertical(alignmentVertical: AlignmentMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentVerticalPtr, alignmentVertical.value)
+    callPtrMethod_LONG(MethodBindings.setAlignmentVerticalPtr, alignmentVertical.value)
   }
 
   public final fun getAlignmentVertical(): AlignmentMode =
-      AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentVerticalPtr))
+      AlignmentMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAlignmentVerticalPtr))
 
   public enum class StretchMode(
     public override val `value`: Long,

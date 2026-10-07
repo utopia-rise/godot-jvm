@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -52,15 +51,13 @@ public open class OpenXRAnchorTracker : OpenXRSpatialEntityTracker() {
   /**
    * Returns `true` if a non-zero UUID is set.
    */
-  public final fun hasUuid(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasUuidPtr)
+  public final fun hasUuid(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasUuidPtr)
 
   public final fun setUuid(uuid: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setUuidPtr, uuid)
+    callMethod_STRING(MethodBindings.setUuidPtr, uuid)
   }
 
-  public final fun getUuid(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUuidPtr)
+  public final fun getUuid(): String = callMethod0_ret_STRING(MethodBindings.getUuidPtr)
 
   public companion object {
     @JvmField

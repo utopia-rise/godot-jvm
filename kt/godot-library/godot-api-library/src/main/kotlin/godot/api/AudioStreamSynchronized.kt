@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -51,37 +50,37 @@ public open class AudioStreamSynchronized : AudioStream() {
   }
 
   public final fun setStreamCount(streamCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStreamCountPtr, streamCount.toLong())
+    callPtrMethod_LONG(MethodBindings.setStreamCountPtr, streamCount.toLong())
   }
 
   public final fun getStreamCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStreamCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getStreamCountPtr).toInt()
 
   /**
    * Set one of the synchronized streams, by index.
    */
   public final fun setSyncStream(streamIndex: Int, audioStream: AudioStream?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setSyncStreamPtr, streamIndex.toLong(), audioStream)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setSyncStreamPtr, streamIndex.toLong(), audioStream)
   }
 
   /**
    * Get one of the synchronized streams, by index.
    */
   public final fun getSyncStream(streamIndex: Int): AudioStream? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSyncStreamPtr, streamIndex.toLong()) as AudioStream?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSyncStreamPtr, streamIndex.toLong()) as AudioStream?)
 
   /**
    * Set the volume of one of the synchronized streams, by index.
    */
   public final fun setSyncStreamVolume(streamIndex: Int, volumeDb: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setSyncStreamVolumePtr, streamIndex.toLong(), volumeDb.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setSyncStreamVolumePtr, streamIndex.toLong(), volumeDb.toDouble())
   }
 
   /**
    * Get the volume of one of the synchronized streams, by index.
    */
   public final fun getSyncStreamVolume(streamIndex: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSyncStreamVolumePtr, streamIndex.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getSyncStreamVolumePtr, streamIndex.toLong()).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

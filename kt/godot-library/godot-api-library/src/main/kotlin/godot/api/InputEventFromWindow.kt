@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -42,11 +41,10 @@ public open class InputEventFromWindow internal constructor() : InputEvent() {
   }
 
   public final fun setWindowId(id: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWindowIdPtr, id)
+    callPtrMethod_LONG(MethodBindings.setWindowIdPtr, id)
   }
 
-  public final fun getWindowId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWindowIdPtr)
+  public final fun getWindowId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getWindowIdPtr)
 
   public companion object {
     @JvmField

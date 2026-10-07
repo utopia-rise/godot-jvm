@@ -7,9 +7,8 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callPtrMethod_ARRAY_ARRAY_LONG_ret_RID
+import godot.callStaticPtrMethod_ARRAY_ARRAY_LONG_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.RID
@@ -50,7 +49,7 @@ public open class FramebufferCacheRD : Object() {
       passes: VariantArray<RDFramebufferPass>,
       views: Long,
     ): RID =
-        TransferContext.callPtrMethod_ARRAY_ARRAY_LONG_ret_RID(0L, 0L, MethodBindings.getCacheMultipassPtr, textures, passes, views)
+        callStaticPtrMethod_ARRAY_ARRAY_LONG_ret_RID(MethodBindings.getCacheMultipassPtr, textures, passes, views)
   }
 
   public object MethodBindings {

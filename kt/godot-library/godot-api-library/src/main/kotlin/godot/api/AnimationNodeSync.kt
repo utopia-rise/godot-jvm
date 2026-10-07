@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -44,11 +43,10 @@ public open class AnimationNodeSync : AnimationNode() {
   }
 
   public final fun setUseSync(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseSyncPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseSyncPtr, enable)
   }
 
-  public final fun isUsingSync(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingSyncPtr)
+  public final fun isUsingSync(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isUsingSyncPtr)
 
   public companion object {
     @JvmField

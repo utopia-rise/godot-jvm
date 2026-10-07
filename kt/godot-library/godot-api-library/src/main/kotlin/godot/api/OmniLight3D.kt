@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -91,11 +90,11 @@ public open class OmniLight3D : Light3D() {
   }
 
   public final fun setShadowMode(mode: ShadowMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShadowModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setShadowModePtr, mode.value)
   }
 
   public final fun getShadowMode(): ShadowMode =
-      ShadowMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShadowModePtr))
+      ShadowMode.from(callPtrMethod0_ret_LONG(MethodBindings.getShadowModePtr))
 
   public enum class ShadowMode(
     public override val `value`: Long,

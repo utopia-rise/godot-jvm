@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_NODE_PATH
@@ -104,39 +103,38 @@ public open class OpenXRHand : Node3D() {
   }
 
   public final fun setHand(hand: Hands): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHandPtr, hand.value)
+    callPtrMethod_LONG(MethodBindings.setHandPtr, hand.value)
   }
 
-  public final fun getHand(): Hands =
-      Hands.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHandPtr))
+  public final fun getHand(): Hands = Hands.from(callPtrMethod0_ret_LONG(MethodBindings.getHandPtr))
 
   public final fun setHandSkeleton(handSkeleton: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setHandSkeletonPtr, handSkeleton)
+    callPtrMethod_NODE_PATH(MethodBindings.setHandSkeletonPtr, handSkeleton)
   }
 
   public final fun getHandSkeleton(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getHandSkeletonPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getHandSkeletonPtr)
 
   public final fun setMotionRange(motionRange: MotionRange): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMotionRangePtr, motionRange.value)
+    callPtrMethod_LONG(MethodBindings.setMotionRangePtr, motionRange.value)
   }
 
   public final fun getMotionRange(): MotionRange =
-      MotionRange.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMotionRangePtr))
+      MotionRange.from(callPtrMethod0_ret_LONG(MethodBindings.getMotionRangePtr))
 
   public final fun setSkeletonRig(skeletonRig: SkeletonRig): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkeletonRigPtr, skeletonRig.value)
+    callPtrMethod_LONG(MethodBindings.setSkeletonRigPtr, skeletonRig.value)
   }
 
   public final fun getSkeletonRig(): SkeletonRig =
-      SkeletonRig.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkeletonRigPtr))
+      SkeletonRig.from(callPtrMethod0_ret_LONG(MethodBindings.getSkeletonRigPtr))
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBoneUpdatePtr, boneUpdate.value)
+    callPtrMethod_LONG(MethodBindings.setBoneUpdatePtr, boneUpdate.value)
   }
 
   public final fun getBoneUpdate(): BoneUpdate =
-      BoneUpdate.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneUpdatePtr))
+      BoneUpdate.from(callPtrMethod0_ret_LONG(MethodBindings.getBoneUpdatePtr))
 
   public final fun setHandSkeleton(handSkeleton: String) =
       setHandSkeleton(handSkeleton.asCachedNodePath())

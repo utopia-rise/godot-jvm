@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -67,25 +66,25 @@ public open class VisualShaderNodeCubemap : VisualShaderNode() {
   }
 
   public final fun setSource(`value`: Source): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSourcePtr, value.value)
+    callPtrMethod_LONG(MethodBindings.setSourcePtr, value.value)
   }
 
   public final fun getSource(): Source =
-      Source.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSourcePtr))
+      Source.from(callPtrMethod0_ret_LONG(MethodBindings.getSourcePtr))
 
   public final fun setCubeMap(`value`: TextureLayered?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCubeMapPtr, value)
+    callPtrMethod_OBJECT(MethodBindings.setCubeMapPtr, value)
   }
 
   public final fun getCubeMap(): TextureLayered? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCubeMapPtr) as TextureLayered?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCubeMapPtr) as TextureLayered?)
 
   public final fun setTextureType(`value`: TextureType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureTypePtr, value.value)
+    callPtrMethod_LONG(MethodBindings.setTextureTypePtr, value.value)
   }
 
   public final fun getTextureType(): TextureType =
-      TextureType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureTypePtr))
+      TextureType.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureTypePtr))
 
   public enum class Source(
     public override val `value`: Long,

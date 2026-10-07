@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -112,46 +111,45 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
   }
 
   public final fun setSize(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSizePtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSizePtr, size.toDouble())
   }
 
-  public final fun getSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSizePtr).toFloat()
+  public final fun getSize(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getSizePtr).toFloat()
 
   public final fun setSections(sections: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSectionsPtr, sections.toLong())
+    callPtrMethod_LONG(MethodBindings.setSectionsPtr, sections.toLong())
   }
 
   public final fun getSections(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSectionsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSectionsPtr).toInt()
 
   public final fun setSectionLength(sectionLength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSectionLengthPtr, sectionLength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSectionLengthPtr, sectionLength.toDouble())
   }
 
   public final fun getSectionLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSectionLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSectionLengthPtr).toFloat()
 
   public final fun setSectionSegments(sectionSegments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSectionSegmentsPtr, sectionSegments.toLong())
+    callPtrMethod_LONG(MethodBindings.setSectionSegmentsPtr, sectionSegments.toLong())
   }
 
   public final fun getSectionSegments(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSectionSegmentsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSectionSegmentsPtr).toInt()
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurvePtr, curve)
   }
 
   public final fun getCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurvePtr) as Curve?)
 
   public final fun setShape(shape: Shape): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setShapePtr, shape.value)
   }
 
   public final fun getShape(): Shape =
-      Shape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShapePtr))
+      Shape.from(callPtrMethod0_ret_LONG(MethodBindings.getShapePtr))
 
   public enum class Shape(
     public override val `value`: Long,

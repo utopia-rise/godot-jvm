@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -90,7 +89,7 @@ public open class Container : Control() {
    * upon request.
    */
   public final fun queueSort(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.queueSortPtr)
+    callPtrMethod0(MethodBindings.queueSortPtr)
   }
 
   /**
@@ -98,15 +97,15 @@ public open class Container : Control() {
    * classes.
    */
   public final fun fitChildInRect(child: Control, rect: Rect2): Unit {
-    TransferContext.callPtrMethod_OBJECT_RECT2(ptr, objectID.id, MethodBindings.fitChildInRectPtr, child, rect)
+    callPtrMethod_OBJECT_RECT2(MethodBindings.fitChildInRectPtr, child, rect)
   }
 
   public final fun setAccessibilityRegion(region: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAccessibilityRegionPtr, region)
+    callPtrMethod_BOOL(MethodBindings.setAccessibilityRegionPtr, region)
   }
 
   public final fun isAccessibilityRegion(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAccessibilityRegionPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAccessibilityRegionPtr)
 
   public companion object {
     @JvmField

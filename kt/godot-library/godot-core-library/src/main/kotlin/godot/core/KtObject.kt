@@ -3,10 +3,10 @@ package godot.core
 import godot.common.interop.NativeWrapper
 import godot.common.interop.ObjectID
 import godot.common.interop.VoidPtr
-import godot.common.interop.nullObjectID
 import godot.common.interop.nullptr
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.InitConfiguration
+import godot.internal.memory.VariantBuffer
 import godot.internal.reflection.TypeManager
 import kotlin.contracts.ExperimentalContracts
 
@@ -14,23 +14,11 @@ import kotlin.contracts.ExperimentalContracts
 @Suppress("LeakingThis", "FunctionName")
 abstract class KtObject : GodotObject {
 
-    /** Used to prevent the new method to be executed when called from instantiateWith
-     * Instead we use the values set in that class  */
-    internal class InitConfiguration {
-        var ptr: VoidPtr = nullptr
-        var objectID: ObjectID = nullObjectID
-
-        fun reset() {
-            ptr = nullptr
-            objectID = nullObjectID
-        }
-    }
-
     final override val ptr: VoidPtr
     final override val objectID: ObjectID
 
     init {
-        val config = initConfig.get()
+        val config = InitConfiguration.current
 
         if (config.ptr != nullptr) {
             // Native object already exists, so we know the id and ptr without going back to the other side.
@@ -42,7 +30,7 @@ abstract class KtObject : GodotObject {
             // Branch used when created directly from user code. The native object is going to be created here.
             // If the class is a script, the ScriptInstance is going to be created at the same time.
             new(TypeManager.userClassToScriptPtr[this::class] ?: nullptr)
-            TransferContext.unsafeRead { buffer ->
+            VariantBuffer.transfer.unsafeRead { buffer ->
                 ptr = buffer.getLong()
                 objectID = ObjectID(buffer.getLong())
             }
@@ -83,8 +71,27 @@ abstract class KtObject : GodotObject {
     private external fun freeObject(rawPtr: VoidPtr)
 
     companion object {
-        private val initConfig = ThreadLocal.withInitial { InitConfiguration() }
-        private fun <T> withConfig(ptr: VoidPtr, id: ObjectID, block: () -> T) = initConfig.get().let {
+        @JvmStatic
+        external fun icall(methodPtr: VoidPtr)
+
+        @JvmStatic
+        external fun icallPtr(methodPtr: VoidPtr, base: Long, returnType: Int, frameOffset: Int)
+
+        // Three shapes the generator picks instead of icallPtr when it can, each doing only what that shape needs.
+        /** No arguments, no return. */
+        @JvmStatic
+        external fun icallPtrSimple(methodPtr: VoidPtr, base: Long, frameOffset: Int)
+
+        /** One argument of [argumentType], no return. The argument carries no type tag. */
+        @JvmStatic
+        external fun icallPtrSetter(methodPtr: VoidPtr, base: Long, frameOffset: Int, argumentType: Int)
+
+        /** No arguments, one return of [returnType]. The engine writes it untagged. */
+        @JvmStatic
+        external fun icallPtrGetter(methodPtr: VoidPtr, base: Long, frameOffset: Int, returnType: Int)
+
+        private fun <T> withConfig(ptr: VoidPtr, id: ObjectID, block: () -> T) =
+            InitConfiguration.current.let {
             it.ptr = ptr
             it.objectID = id
             block()
@@ -98,10 +105,12 @@ abstract class KtObject : GodotObject {
         }
 
         /** When using this constructor, the newly created instances doesn't register itself to the MemoryManager, the caller must do it.*/
-        fun getOrCreate(rawPtr: VoidPtr, id: ObjectID, constructorIndex: Int): KtObject {
+        fun getOrCreate(rawPtr: VoidPtr, id: ObjectID): KtObject {
             return MemoryManager.getInstanceOrCreate(id) {
                 withConfig(rawPtr, id) {
-                    TypeManager.engineTypesConstructors[constructorIndex]!!()
+                    // Only reached when this object has no wrapper yet, so asking the native side for its engine class
+                    // happens once in the object's life.
+                    TypeManager.engineTypesConstructors[MemoryManager.bindObject(rawPtr)]!!()
                 }
             } as KtObject
         }

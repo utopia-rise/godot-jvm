@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.common.interop.VoidPtr
@@ -58,14 +57,14 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    * [_getRecognizedExtensions].
    */
   public final fun addFormatLoader(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.addFormatLoaderPtr)
+    callPtrMethod0(MethodBindings.addFormatLoaderPtr)
   }
 
   /**
    * Remove this format loader from the engine.
    */
   public final fun removeFormatLoader(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.removeFormatLoaderPtr)
+    callPtrMethod0(MethodBindings.removeFormatLoaderPtr)
   }
 
   public companion object {

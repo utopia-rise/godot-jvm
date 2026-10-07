@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -15,7 +14,7 @@ import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_DOUBLE
 import godot.callPtrMethod_LONG
-import godot.callPtrMethod_TRANSFORM3D_LONG_ret_TRANSFORM3D
+import godot.callStaticPtrMethod_TRANSFORM3D_LONG_ret_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -166,67 +165,66 @@ public open class PathFollow3D : Node3D() {
   }
 
   public final fun setProgress(progress: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setProgressPtr, progress.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setProgressPtr, progress.toDouble())
   }
 
   public final fun getProgress(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProgressPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getProgressPtr).toFloat()
 
   public final fun setHOffset(hOffset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHOffsetPtr, hOffset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHOffsetPtr, hOffset.toDouble())
   }
 
   public final fun getHOffset(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHOffsetPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHOffsetPtr).toFloat()
 
   public final fun setVOffset(vOffset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVOffsetPtr, vOffset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVOffsetPtr, vOffset.toDouble())
   }
 
   public final fun getVOffset(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVOffsetPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVOffsetPtr).toFloat()
 
   public final fun setProgressRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setProgressRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setProgressRatioPtr, ratio.toDouble())
   }
 
   public final fun getProgressRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProgressRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getProgressRatioPtr).toFloat()
 
   public final fun setRotationMode(rotationMode: RotationMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRotationModePtr, rotationMode.value)
+    callPtrMethod_LONG(MethodBindings.setRotationModePtr, rotationMode.value)
   }
 
   public final fun getRotationMode(): RotationMode =
-      RotationMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRotationModePtr))
+      RotationMode.from(callPtrMethod0_ret_LONG(MethodBindings.getRotationModePtr))
 
   public final fun setCubicInterpolation(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCubicInterpolationPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCubicInterpolationPtr, enabled)
   }
 
   public final fun getCubicInterpolation(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCubicInterpolationPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getCubicInterpolationPtr)
 
   public final fun setUseModelFront(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseModelFrontPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUseModelFrontPtr, enabled)
   }
 
   public final fun isUsingModelFront(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingModelFrontPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingModelFrontPtr)
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, loop)
+    callPtrMethod_BOOL(MethodBindings.setLoopPtr, loop)
   }
 
-  public final fun hasLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasLoopPtr)
+  public final fun hasLoop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasLoopPtr)
 
   public final fun setTiltEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTiltEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setTiltEnabledPtr, enabled)
   }
 
   public final fun isTiltEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTiltEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTiltEnabledPtr)
 
   public enum class RotationMode(
     public override val `value`: Long,
@@ -344,7 +342,7 @@ public open class PathFollow3D : Node3D() {
     @JvmStatic
     public final fun correctPosture(transform: Transform3D, rotationMode: RotationMode): Transform3D
         =
-        TransferContext.callPtrMethod_TRANSFORM3D_LONG_ret_TRANSFORM3D(0L, 0L, MethodBindings.correctPosturePtr, transform, rotationMode.value)
+        callStaticPtrMethod_TRANSFORM3D_LONG_ret_TRANSFORM3D(MethodBindings.correctPosturePtr, transform, rotationMode.value)
   }
 
   public object MethodBindings {

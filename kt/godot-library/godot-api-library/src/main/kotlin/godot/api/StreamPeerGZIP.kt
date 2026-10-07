@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -48,7 +47,7 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   @JvmOverloads
   public final fun startCompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error =
-      Error.from(TransferContext.callPtrMethod_BOOL_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startCompressionPtr, useDeflate, bufferSize.toLong()))
+      Error.from(callPtrMethod_BOOL_LONG_ret_LONG(MethodBindings.startCompressionPtr, useDeflate, bufferSize.toLong()))
 
   /**
    * Start the stream in decompression mode with the given [bufferSize], if [useDeflate] is `true`
@@ -56,21 +55,20 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   @JvmOverloads
   public final fun startDecompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error =
-      Error.from(TransferContext.callPtrMethod_BOOL_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startDecompressionPtr, useDeflate, bufferSize.toLong()))
+      Error.from(callPtrMethod_BOOL_LONG_ret_LONG(MethodBindings.startDecompressionPtr, useDeflate, bufferSize.toLong()))
 
   /**
    * Finalizes the stream, compressing any buffered chunk left.
    *
    * You must call it only when you are compressing.
    */
-  public final fun finish(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.finishPtr))
+  public final fun finish(): Error = Error.from(callPtrMethod0_ret_LONG(MethodBindings.finishPtr))
 
   /**
    * Clears this stream, resetting the internal state.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   public companion object {

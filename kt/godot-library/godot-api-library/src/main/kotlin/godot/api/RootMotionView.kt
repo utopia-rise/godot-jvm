@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -134,39 +133,37 @@ public open class RootMotionView : VisualInstance3D() {
   }
 
   public final fun setAnimationPath(path: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setAnimationPathPtr, path)
+    callPtrMethod_NODE_PATH(MethodBindings.setAnimationPathPtr, path)
   }
 
   public final fun getAnimationPath(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getAnimationPathPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getAnimationPathPtr)
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setColorPtr, color)
   }
 
-  public final fun getColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
+  public final fun getColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getColorPtr)
 
   public final fun setCellSize(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCellSizePtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCellSizePtr, size.toDouble())
   }
 
   public final fun getCellSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCellSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCellSizePtr).toFloat()
 
   public final fun setRadius(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, size.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setZeroY(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setZeroYPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setZeroYPtr, enable)
   }
 
-  public final fun getZeroY(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getZeroYPtr)
+  public final fun getZeroY(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getZeroYPtr)
 
   public final fun setAnimationPath(path: String) = setAnimationPath(path.asCachedNodePath())
 

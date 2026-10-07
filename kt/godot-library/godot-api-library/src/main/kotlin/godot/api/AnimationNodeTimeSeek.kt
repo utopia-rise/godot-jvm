@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -69,11 +68,11 @@ public open class AnimationNodeTimeSeek : AnimationNode() {
   }
 
   public final fun setExplicitElapse(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExplicitElapsePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setExplicitElapsePtr, enable)
   }
 
   public final fun isExplicitElapse(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isExplicitElapsePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isExplicitElapsePtr)
 
   public companion object {
     @JvmField

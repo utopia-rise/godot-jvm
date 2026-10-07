@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -93,39 +92,38 @@ public open class SphereMesh : PrimitiveMesh() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHeightPtr, height.toDouble())
   }
 
   public final fun getHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHeightPtr).toFloat()
 
   public final fun setRadialSegments(radialSegments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRadialSegmentsPtr, radialSegments.toLong())
+    callPtrMethod_LONG(MethodBindings.setRadialSegmentsPtr, radialSegments.toLong())
   }
 
   public final fun getRadialSegments(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRadialSegmentsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRadialSegmentsPtr).toInt()
 
   public final fun setRings(rings: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRingsPtr, rings.toLong())
+    callPtrMethod_LONG(MethodBindings.setRingsPtr, rings.toLong())
   }
 
-  public final fun getRings(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRingsPtr).toInt()
+  public final fun getRings(): Int = callPtrMethod0_ret_LONG(MethodBindings.getRingsPtr).toInt()
 
   public final fun setIsHemisphere(isHemisphere: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsHemispherePtr, isHemisphere)
+    callPtrMethod_BOOL(MethodBindings.setIsHemispherePtr, isHemisphere)
   }
 
   public final fun getIsHemisphere(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsHemispherePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getIsHemispherePtr)
 
   public companion object {
     @JvmField

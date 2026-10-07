@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -47,11 +46,11 @@ public open class InputEventMagnifyGesture : InputEventGesture() {
   }
 
   public final fun setFactor(factor: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFactorPtr, factor.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFactorPtr, factor.toDouble())
   }
 
   public final fun getFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFactorPtr).toFloat()
 
   public companion object {
     @JvmField

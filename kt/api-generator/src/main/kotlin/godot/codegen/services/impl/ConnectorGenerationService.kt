@@ -36,7 +36,7 @@ object ConnectorGenerationService : IConnectorGenerationService {
     override fun generate(extensionDir: File) {
         val connectorFileSpec = FileSpec.builder(godotExtensionPackage, Core.signalConnectorsFileName)
 
-        for (argCount in 0..Constraints.MAX_FUNCTION_ARG_COUNT) {
+        for (argCount in 0..Constraints.MAX_ARGUMENT_COUNT) {
             val signalClassName = Core.signal(argCount)
             val lambdaCallableClassName = Core.lambdaCallable(argCount)
             val jvmActionClassName = Core.jvmAction(argCount)

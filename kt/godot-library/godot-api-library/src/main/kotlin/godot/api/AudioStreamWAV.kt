@@ -9,9 +9,7 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callMethod_STRING_DICTIONARY_ret_OBJECT_REF
 import godot.callMethod_STRING_ret_LONG
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DICTIONARY
@@ -21,7 +19,8 @@ import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_DICTIONARY
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_PACKED_BYTE_ARRAY
-import godot.callPtrMethod_PACKED_BYTE_ARRAY_DICTIONARY_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_DICTIONARY_ret_OBJECT_REF
+import godot.callStaticPtrMethod_PACKED_BYTE_ARRAY_DICTIONARY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -226,60 +225,57 @@ public open class AudioStreamWAV : AudioStream() {
   }
 
   public final fun setData(`data`: PackedByteArray): Unit {
-    TransferContext.callPtrMethod_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setDataPtr, data)
+    callPtrMethod_PACKED_BYTE_ARRAY(MethodBindings.setDataPtr, data)
   }
 
   public final fun getData(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getDataPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getDataPtr)
 
   public final fun setFormat(format: Format): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, format.value)
+    callPtrMethod_LONG(MethodBindings.setFormatPtr, format.value)
   }
 
   public final fun getFormat(): Format =
-      Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
+      Format.from(callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr))
 
   public final fun setLoopMode(loopMode: LoopMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLoopModePtr, loopMode.value)
+    callPtrMethod_LONG(MethodBindings.setLoopModePtr, loopMode.value)
   }
 
   public final fun getLoopMode(): LoopMode =
-      LoopMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopModePtr))
+      LoopMode.from(callPtrMethod0_ret_LONG(MethodBindings.getLoopModePtr))
 
   public final fun setLoopBegin(loopBegin: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLoopBeginPtr, loopBegin.toLong())
+    callPtrMethod_LONG(MethodBindings.setLoopBeginPtr, loopBegin.toLong())
   }
 
   public final fun getLoopBegin(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopBeginPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLoopBeginPtr).toInt()
 
   public final fun setLoopEnd(loopEnd: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLoopEndPtr, loopEnd.toLong())
+    callPtrMethod_LONG(MethodBindings.setLoopEndPtr, loopEnd.toLong())
   }
 
-  public final fun getLoopEnd(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopEndPtr).toInt()
+  public final fun getLoopEnd(): Int = callPtrMethod0_ret_LONG(MethodBindings.getLoopEndPtr).toInt()
 
   public final fun setMixRate(mixRate: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMixRatePtr, mixRate.toLong())
+    callPtrMethod_LONG(MethodBindings.setMixRatePtr, mixRate.toLong())
   }
 
-  public final fun getMixRate(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMixRatePtr).toInt()
+  public final fun getMixRate(): Int = callPtrMethod0_ret_LONG(MethodBindings.getMixRatePtr).toInt()
 
   public final fun setStereo(stereo: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setStereoPtr, stereo)
+    callPtrMethod_BOOL(MethodBindings.setStereoPtr, stereo)
   }
 
-  public final fun isStereo(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStereoPtr)
+  public final fun isStereo(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isStereoPtr)
 
   public final fun setTags(tags: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setTagsPtr, tags)
+    callPtrMethod_DICTIONARY(MethodBindings.setTagsPtr, tags)
   }
 
   public final fun getTags(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTagsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getTagsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Saves the AudioStreamWAV as a WAV file to [path]. Samples with IMA ADPCM or Quite OK Audio
@@ -288,7 +284,7 @@ public open class AudioStreamWAV : AudioStream() {
    * **Note:** A `.wav` extension is automatically appended to [path] if it is missing.
    */
   public final fun saveToWav(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.saveToWavPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.saveToWavPtr, path))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.
@@ -440,7 +436,7 @@ public open class AudioStreamWAV : AudioStream() {
     @JvmStatic
     public final fun loadFromBuffer(streamData: PackedByteArray, options: Dictionary<Any?, Any?> =
         Dictionary()): AudioStreamWAV? =
-        (TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromBufferPtr, streamData, options) as AudioStreamWAV?)
+        (callStaticPtrMethod_PACKED_BYTE_ARRAY_DICTIONARY_ret_OBJECT_REF(MethodBindings.loadFromBufferPtr, streamData, options) as AudioStreamWAV?)
 
     /**
      * Creates a new [AudioStreamWAV] instance from the given file path. The file must be in WAV
@@ -469,7 +465,7 @@ public open class AudioStreamWAV : AudioStream() {
     @JvmStatic
     public final fun loadFromFile(path: String, options: Dictionary<Any?, Any?> = Dictionary()):
         AudioStreamWAV? =
-        (TransferContext.callMethod_STRING_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromFilePtr, path, options) as AudioStreamWAV?)
+        (callStaticMethod_STRING_DICTIONARY_ret_OBJECT_REF(MethodBindings.loadFromFilePtr, path, options) as AudioStreamWAV?)
   }
 
   public object MethodBindings {

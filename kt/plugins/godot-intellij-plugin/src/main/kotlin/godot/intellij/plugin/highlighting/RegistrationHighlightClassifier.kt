@@ -146,7 +146,7 @@ object RegistrationHighlightClassifier {
     private fun PsiMethod.canRegister(): Boolean =
         hasModifierProperty(PsiModifier.PUBLIC) &&
             typeParameters.isEmpty() &&
-            parameterList.parametersCount <= Constraints.MAX_FUNCTION_ARG_COUNT &&
+            parameterList.parametersCount <= Constraints.MAX_ARGUMENT_COUNT &&
             parameterList.parameters.all { parameter -> parameter.type.isMappable() } &&
             (returnType?.isMappable() ?: true)
 

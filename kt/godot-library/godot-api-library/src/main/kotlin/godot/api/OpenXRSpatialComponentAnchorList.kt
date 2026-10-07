@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_TRANSFORM3D
 import godot.common.interop.VoidPtr
@@ -32,7 +31,7 @@ public open class OpenXRSpatialComponentAnchorList : OpenXRSpatialComponentData(
    * Returns the transform for the entity at this [index].
    */
   public final fun getEntityPose(index: Long): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getEntityPosePtr, index)
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getEntityPosePtr, index)
 
   public companion object {
     @JvmField

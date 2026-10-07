@@ -92,6 +92,21 @@ namespace godot {
             if constexpr (thread_safe) { spin_lock.unlock(); }
         }
 
+        // Addition to the upstream file. Returns slots whose destructor the caller has already run, so that a caller
+        // freeing many values at once can keep them out of the critical section: a ~T() of a shared-data type calls
+        // into the engine and may release the value's backing storage, which is an unbounded amount of work to hold a
+        // spin lock across, while the bookkeeping here is two stores per slot and no calls at all.
+        void release_slots(T* const* p_slots, uint32_t p_count) {
+            if (p_count == 0) { return; }
+
+            if constexpr (thread_safe) { spin_lock.lock(); }
+            for (uint32_t i = 0; i < p_count; i++) {
+                available_pool[allocs_available >> page_shift][allocs_available & page_mask] = p_slots[i];
+                allocs_available++;
+            }
+            if constexpr (thread_safe) { spin_lock.unlock(); }
+        }
+
         template<typename... Args>
         T* new_allocation(Args&&... p_args) {
             return alloc(p_args...);

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2
 import godot.common.interop.VoidPtr
@@ -47,7 +46,7 @@ public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : A
     toHz: Float,
     mode: MagnitudeMode = AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.MAX,
   ): Vector2 =
-      TransferContext.callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMagnitudeForFrequencyRangePtr, fromHz.toDouble(), toHz.toDouble(), mode.value)
+      callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2(MethodBindings.getMagnitudeForFrequencyRangePtr, fromHz.toDouble(), toHz.toDouble(), mode.value)
 
   public enum class MagnitudeMode(
     public override val `value`: Long,

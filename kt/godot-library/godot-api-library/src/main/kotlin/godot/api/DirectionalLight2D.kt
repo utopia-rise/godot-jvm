@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -66,11 +65,11 @@ public open class DirectionalLight2D : Light2D() {
   }
 
   public final fun setMaxDistance(pixels: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxDistancePtr, pixels.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMaxDistancePtr, pixels.toDouble())
   }
 
   public final fun getMaxDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMaxDistancePtr).toFloat()
 
   public companion object {
     @JvmField

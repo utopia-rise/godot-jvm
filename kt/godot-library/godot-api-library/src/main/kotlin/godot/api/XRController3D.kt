@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_NAME_ret_ANY
 import godot.callPtrMethod0_ret_LONG
@@ -85,7 +84,7 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun isButtonPressed(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.isButtonPressedPtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.isButtonPressedPtr, name)
 
   /**
    * Returns a [Any] for the input with the given [name]. This works for any input type, the variant
@@ -95,7 +94,7 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getInput(name: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getInputPtr, name)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.getInputPtr, name)
 
   /**
    * Returns a numeric value for the input with the given [name]. This is used for triggers and grip
@@ -105,7 +104,7 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getFloat(name: StringName): Float =
-      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloatPtr, name).toFloat()
+      callPtrMethod_STRING_NAME_ret_DOUBLE(MethodBindings.getFloatPtr, name).toFloat()
 
   /**
    * Returns a [Vector2] for the input with the given [name]. This is used for thumbsticks and
@@ -115,13 +114,13 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getVector2(name: StringName): Vector2 =
-      TransferContext.callPtrMethod_STRING_NAME_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVector2Ptr, name)
+      callPtrMethod_STRING_NAME_ret_VECTOR2(MethodBindings.getVector2Ptr, name)
 
   /**
    * Returns the hand holding this controller, if known.
    */
   public final fun getTrackerHand(): XRPositionalTracker.TrackerHand =
-      XRPositionalTracker.TrackerHand.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerHandPtr))
+      XRPositionalTracker.TrackerHand.from(callPtrMethod0_ret_LONG(MethodBindings.getTrackerHandPtr))
 
   /**
    * Returns `true` if the button with the given [name] is pressed.

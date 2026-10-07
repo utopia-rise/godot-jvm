@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -67,25 +66,25 @@ public open class AudioEffectStereoEnhance : AudioEffect() {
   }
 
   public final fun setPanPullout(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPanPulloutPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPanPulloutPtr, amount.toDouble())
   }
 
   public final fun getPanPullout(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPanPulloutPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPanPulloutPtr).toFloat()
 
   public final fun setTimePullout(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimePulloutPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTimePulloutPtr, amount.toDouble())
   }
 
   public final fun getTimePullout(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimePulloutPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimePulloutPtr).toFloat()
 
   public final fun setSurround(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSurroundPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSurroundPtr, amount.toDouble())
   }
 
   public final fun getSurround(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSurroundPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSurroundPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

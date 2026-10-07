@@ -7,9 +7,8 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callPtrMethod_OBJECT
+import godot.callStaticPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
@@ -150,7 +149,7 @@ public abstract class MovieWriter : Object() {
      */
     @JvmStatic
     public final fun addWriter(writer: MovieWriter?): Unit {
-      TransferContext.callPtrMethod_OBJECT(0L, 0L, MethodBindings.addWriterPtr, writer)
+      callStaticPtrMethod_OBJECT(MethodBindings.addWriterPtr, writer)
     }
   }
 

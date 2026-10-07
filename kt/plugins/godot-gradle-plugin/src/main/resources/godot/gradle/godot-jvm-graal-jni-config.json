@@ -50,15 +50,22 @@
     "methods":[{"name":"intValue","parameterTypes":[] }]
   },
   {
-    "name" : "godot.internal.memory.TransferContext",
+    "name" : "godot.internal.memory.VariantBuffer",
     "fields" : [
       { "name" : "INSTANCE" }
     ],
     "methods" : [
-      { "name" : "icall", "parameterTypes" : ["long"] },
-      { "name" : "icallPtr", "parameterTypes" : ["long", "int"] },
       { "name" : "getBuffer", "parameterTypes" : [] }
-
+    ]
+  },
+  {
+    "name" : "godot.internal.memory.ValueBuffer",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "setSizeFactor", "parameterTypes" : ["int"] },
+      { "name" : "bufferAddress", "parameterTypes" : ["java.nio.ByteBuffer"] }
     ]
   },
   {
@@ -78,7 +85,8 @@
     ],
     "methods" : [
       { "name" : "queueString", "parameterTypes" : ["java.lang.String"] },
-      { "name" : "setStringMaxSize", "parameterTypes" : ["int"] }
+      { "name" : "setStringMaxSize", "parameterTypes" : ["int"] },
+      { "name" : "sendStringToCPP", "parameterTypes" : ["java.lang.String"] }
     ]
   },
   {
@@ -91,7 +99,8 @@
       { "name" : "checkInstance", "parameterTypes" : ["long", "long"] },
       { "name" : "releaseBinding", "parameterTypes" : ["long"] },
       { "name" : "unrefNativeCoreTypes", "parameterTypes" : ["long[]", "int[]"] },
-      { "name" : "querySync", "parameterTypes" : [] }
+      { "name" : "querySync", "parameterTypes" : [] },
+      { "name" : "bindObject", "parameterTypes" : ["long"] }
     ]
   },
   {
@@ -212,8 +221,9 @@
     ],
     "methods" : [
       { "name" : "engine_call_constructor", "parameterTypes" : [] },
-
+      { "name" : "engine_call_constructor_typed", "parameterTypes" : [] },
       { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
       { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
       { "name" : "engine_call_duplicate_deep", "parameterTypes" : ["long"] },
       { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
@@ -734,6 +744,8 @@
       {"name":"getSourceFileName","parameterTypes":[] },
       {"name":"getConstructor","parameterTypes":[] },
       {"name":"getFunctions","parameterTypes":[] },
+      {"name":"getProcess","parameterTypes":[] },
+      {"name":"getPhysicsProcess","parameterTypes":[] },
       {"name":"getProperties","parameterTypes":[] },
       {"name":"getRegisteredName","parameterTypes":[] },
       {"name":"getSignalInfos","parameterTypes":[] },
@@ -755,6 +767,13 @@
       {"name":"getFunctionInfo","parameterTypes":[] },
       {"name":"invoke","parameterTypes":["godot.core.KtObject"] },
       {"name":"invokeWithReturn","parameterTypes":["godot.core.KtObject"] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtProcess",
+    "methods":[
+      {"name":"getName","parameterTypes":[] },
+      {"name":"invoke","parameterTypes":["godot.core.KtObject","double"] }
     ]
   },
   {
@@ -804,6 +823,11 @@
   {
     "name":"godot.core.KtObject",
     "methods":[
+      { "name" : "icall", "parameterTypes" : ["long"] },
+      { "name" : "icallPtr", "parameterTypes" : ["long", "long", "int", "int"] },
+      { "name" : "icallPtrSimple", "parameterTypes" : ["long", "long", "int"] },
+      { "name" : "icallPtrSetter", "parameterTypes" : ["long", "long", "int", "int"] },
+      { "name" : "icallPtrGetter", "parameterTypes" : ["long", "long", "int", "int"] },
       {"name":"_onDestroy","parameterTypes":[] },
       {"name" : "createNativeObject", "parameterTypes" : ["int", "long"] },
       {"name" : "getSingleton", "parameterTypes" : ["int"] },

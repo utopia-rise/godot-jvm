@@ -84,7 +84,6 @@ private var ByteBuffer.stringName: StringName
 
 private var ByteBuffer.obj: GodotObject?
     get() {
-        val constructorIndex = int
         val ptr = long
         val id = long
 
@@ -92,16 +91,20 @@ private var ByteBuffer.obj: GodotObject?
             return null
         }
 
-        return KtObject.getOrCreate(ptr, ObjectID(id), constructorIndex)
+        return KtObject.getOrCreate(ptr, ObjectID(id))
     }
     set(value) {
         putLong(value?.ptr ?: nullptr)
     }
 
 private var ByteBuffer.variantType: Int
-    get() = int
+    get() {
+        position((position() + 7) and 7.inv())
+        return long.toInt()
+    }
     set(value) {
-        putInt(value)
+        position((position() + 7) and 7.inv())
+        putLong(value.toLong())
     }
 
 /**
@@ -133,6 +136,14 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             buffer.variantType = id
             buffer.bool = value
         }
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun readUnsafe(buffer: ByteBuffer): Boolean = buffer.bool
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun writeUnsafe(buffer: ByteBuffer, value: Boolean) {
+            buffer.bool = value
+        }
     }
     data object LONG : VariantParser<Long>(2) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.long
@@ -150,6 +161,14 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             buffer.variantType = id
             buffer.putLong(value)
         }
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun readUnsafe(buffer: ByteBuffer): Long = buffer.long
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun writeUnsafe(buffer: ByteBuffer, value: Long) {
+            buffer.putLong(value)
+        }
     }
     data object DOUBLE : VariantParser<Double>(3) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.double
@@ -165,6 +184,14 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
 
         fun write(buffer: ByteBuffer, value: Double) {
             buffer.variantType = id
+            buffer.putDouble(value)
+        }
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun readUnsafe(buffer: ByteBuffer): Double = buffer.double
+
+        /** Without the type tag, for a call whose signature both sides already know. Typed, so nothing is boxed. */
+        fun writeUnsafe(buffer: ByteBuffer, value: Double) {
             buffer.putDouble(value)
         }
     }

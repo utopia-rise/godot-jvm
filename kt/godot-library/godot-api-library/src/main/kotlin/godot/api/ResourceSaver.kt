@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_OBJECT_STRING_LONG_ret_LONG
 import godot.callMethod_STRING_BOOL_ret_LONG
@@ -95,7 +94,7 @@ public object ResourceSaver : Object() {
     path: String = "",
     flags: SaverFlags = ResourceSaver.SaverFlags.FLAG_NONE,
   ): Error =
-      Error.from(TransferContext.callMethod_OBJECT_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, resource, path, flags.flag))
+      Error.from(callMethod_OBJECT_STRING_LONG_ret_LONG(MethodBindings.savePtr, resource, path, flags.flag))
 
   /**
    * Sets the UID of the given [resource] path to [uid]. You can generate a new UID using
@@ -106,14 +105,14 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun setUid(resource: String, uid: Long): Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.setUidPtr, resource, uid))
+      Error.from(callMethod_STRING_LONG_ret_LONG(MethodBindings.setUidPtr, resource, uid))
 
   /**
    * Returns the list of extensions available for saving a resource of a given type.
    */
   @JvmStatic
   public final fun getRecognizedExtensions(type: Resource): PackedStringArray =
-      TransferContext.callPtrMethod_OBJECT_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getRecognizedExtensionsPtr, type)
+      callPtrMethod_OBJECT_ret_PACKED_STRING_ARRAY(MethodBindings.getRecognizedExtensionsPtr, type)
 
   /**
    * Registers a new [ResourceFormatSaver]. The ResourceSaver will use the ResourceFormatSaver as
@@ -126,7 +125,7 @@ public object ResourceSaver : Object() {
   @JvmStatic
   public final fun addResourceFormatSaver(formatSaver: ResourceFormatSaver, atFront: Boolean =
       false): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.addResourceFormatSaverPtr, formatSaver, atFront)
+    callPtrMethod_OBJECT_BOOL(MethodBindings.addResourceFormatSaverPtr, formatSaver, atFront)
   }
 
   /**
@@ -134,7 +133,7 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun removeResourceFormatSaver(formatSaver: ResourceFormatSaver): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeResourceFormatSaverPtr, formatSaver)
+    callPtrMethod_OBJECT(MethodBindings.removeResourceFormatSaverPtr, formatSaver)
   }
 
   /**
@@ -145,7 +144,7 @@ public object ResourceSaver : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getResourceIdForPath(path: String, generate: Boolean = false): Long =
-      TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getResourceIdForPathPtr, path, generate)
+      callMethod_STRING_BOOL_ret_LONG(MethodBindings.getResourceIdForPathPtr, path, generate)
 
   public class SaverFlags(
     flag: Long,

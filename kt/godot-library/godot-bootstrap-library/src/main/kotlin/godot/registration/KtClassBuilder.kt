@@ -19,6 +19,8 @@ class KtClassBuilder<T : KtObject>(
     private var constructorField: KtConstructor<T>? = null
 
     private val functions = mutableMapOf<String, KtFunction<T, *>>()
+    private var process: KtProcess<T>? = null
+    private var physicsProcess: KtProcess<T>? = null
     private val notifications = mutableListOf<KtNotification<T>>()
 
     @PublishedApi
@@ -320,6 +322,16 @@ class KtClassBuilder<T : KtObject>(
         functions[function.functionInfo.name] = function
     }
 
+    fun process(body: ProcessBody<T>) {
+        require(process == null) { "_process is already registered." }
+        process = KtProcess("_process", body)
+    }
+
+    fun physicsProcess(body: ProcessBody<T>) {
+        require(physicsProcess == null) { "_physics_process is already registered." }
+        physicsProcess = KtProcess("_physics_process", body)
+    }
+
     fun signal(name: String, vararg parameters: KtPropertyInfo) {
         val signalInfo = KtSignalInfo(
             name.convertToSnakeCase(),
@@ -344,6 +356,8 @@ class KtClassBuilder<T : KtObject>(
             constructor = constructorField,
             properties = properties.toTypedArray(),
             functions = functions.values.toTypedArray(),
+            process = process,
+            physicsProcess = physicsProcess,
             _notifications = notifications,
             signalInfos = signals.values.toTypedArray(),
             handledNotifications = notifications

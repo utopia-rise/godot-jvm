@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -232,80 +231,79 @@ public open class VehicleWheel3D : Node3D() {
   }
 
   public final fun setRadius(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, length.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setSuspensionRestLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSuspensionRestLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSuspensionRestLengthPtr, length.toDouble())
   }
 
   public final fun getSuspensionRestLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSuspensionRestLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSuspensionRestLengthPtr).toFloat()
 
   public final fun setSuspensionTravel(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSuspensionTravelPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSuspensionTravelPtr, length.toDouble())
   }
 
   public final fun getSuspensionTravel(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSuspensionTravelPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSuspensionTravelPtr).toFloat()
 
   public final fun setSuspensionStiffness(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSuspensionStiffnessPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSuspensionStiffnessPtr, length.toDouble())
   }
 
   public final fun getSuspensionStiffness(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSuspensionStiffnessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSuspensionStiffnessPtr).toFloat()
 
   public final fun setSuspensionMaxForce(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSuspensionMaxForcePtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSuspensionMaxForcePtr, length.toDouble())
   }
 
   public final fun getSuspensionMaxForce(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSuspensionMaxForcePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSuspensionMaxForcePtr).toFloat()
 
   public final fun setDampingCompression(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingCompressionPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDampingCompressionPtr, length.toDouble())
   }
 
   public final fun getDampingCompression(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingCompressionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDampingCompressionPtr).toFloat()
 
   public final fun setDampingRelaxation(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingRelaxationPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDampingRelaxationPtr, length.toDouble())
   }
 
   public final fun getDampingRelaxation(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingRelaxationPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDampingRelaxationPtr).toFloat()
 
   public final fun setUseAsTraction(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAsTractionPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseAsTractionPtr, enable)
   }
 
   public final fun isUsedAsTraction(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsedAsTractionPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsedAsTractionPtr)
 
   public final fun setUseAsSteering(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAsSteeringPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseAsSteeringPtr, enable)
   }
 
   public final fun isUsedAsSteering(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsedAsSteeringPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsedAsSteeringPtr)
 
   public final fun setFrictionSlip(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrictionSlipPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFrictionSlipPtr, length.toDouble())
   }
 
   public final fun getFrictionSlip(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrictionSlipPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFrictionSlipPtr).toFloat()
 
   /**
    * Returns `true` if this wheel is in contact with a surface.
    */
-  public final fun isInContact(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInContactPtr)
+  public final fun isInContact(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isInContactPtr)
 
   /**
    * Returns the contacting body node if valid in the tree, as [Node3D]. At the moment, [GridMap] is
@@ -315,7 +313,7 @@ public open class VehicleWheel3D : Node3D() {
    * [PhysicsBody3D].
    */
   public final fun getContactBody(): Node3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getContactBodyPtr) as Node3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getContactBodyPtr) as Node3D?)
 
   /**
    * Returns the point of the suspension's collision in world space if the wheel is in contact. If
@@ -323,7 +321,7 @@ public open class VehicleWheel3D : Node3D() {
    * world space, which is defined by `wheel_rest_length + wheel_radius`.
    */
   public final fun getContactPoint(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactPointPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getContactPointPtr)
 
   /**
    * Returns the normal of the suspension's collision in world space if the wheel is in contact. If
@@ -331,14 +329,14 @@ public open class VehicleWheel3D : Node3D() {
    * axis toward the vehicle in world space.
    */
   public final fun getContactNormal(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getContactNormalPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getContactNormalPtr)
 
   public final fun setRollInfluence(rollInfluence: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRollInfluencePtr, rollInfluence.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRollInfluencePtr, rollInfluence.toDouble())
   }
 
   public final fun getRollInfluence(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRollInfluencePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRollInfluencePtr).toFloat()
 
   /**
    * Returns a value between 0.0 and 1.0 that indicates whether this wheel is skidding. 0.0 is
@@ -346,34 +344,33 @@ public open class VehicleWheel3D : Node3D() {
    * grip, e.g. dry asphalt road).
    */
   public final fun getSkidinfo(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSkidinfoPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSkidinfoPtr).toFloat()
 
   /**
    * Returns the rotational speed of the wheel in revolutions per minute.
    */
-  public final fun getRpm(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRpmPtr).toFloat()
+  public final fun getRpm(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getRpmPtr).toFloat()
 
   public final fun setEngineForce(engineForce: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEngineForcePtr, engineForce.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEngineForcePtr, engineForce.toDouble())
   }
 
   public final fun getEngineForce(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEngineForcePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEngineForcePtr).toFloat()
 
   public final fun setBrake(brake: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBrakePtr, brake.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBrakePtr, brake.toDouble())
   }
 
   public final fun getBrake(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBrakePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBrakePtr).toFloat()
 
   public final fun setSteering(steering: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSteeringPtr, steering.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSteeringPtr, steering.toDouble())
   }
 
   public final fun getSteering(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSteeringPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSteeringPtr).toFloat()
 
   public companion object {
     @JvmField

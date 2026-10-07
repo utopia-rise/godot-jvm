@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -119,39 +118,36 @@ public open class AnimatedTexture : Texture2D() {
   }
 
   public final fun setFrames(frames: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFramesPtr, frames.toLong())
+    callPtrMethod_LONG(MethodBindings.setFramesPtr, frames.toLong())
   }
 
-  public final fun getFrames(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramesPtr).toInt()
+  public final fun getFrames(): Int = callPtrMethod0_ret_LONG(MethodBindings.getFramesPtr).toInt()
 
   public final fun setCurrentFrame(frame: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCurrentFramePtr, frame.toLong())
+    callPtrMethod_LONG(MethodBindings.setCurrentFramePtr, frame.toLong())
   }
 
   public final fun getCurrentFrame(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentFramePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCurrentFramePtr).toInt()
 
   public final fun setPause(pause: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPausePtr, pause)
+    callPtrMethod_BOOL(MethodBindings.setPausePtr, pause)
   }
 
-  public final fun getPause(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPausePtr)
+  public final fun getPause(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getPausePtr)
 
   public final fun setOneShot(oneShot: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOneShotPtr, oneShot)
+    callPtrMethod_BOOL(MethodBindings.setOneShotPtr, oneShot)
   }
 
-  public final fun getOneShot(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getOneShotPtr)
+  public final fun getOneShot(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getOneShotPtr)
 
   public final fun setSpeedScale(scale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpeedScalePtr, scale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSpeedScalePtr, scale.toDouble())
   }
 
   public final fun getSpeedScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpeedScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpeedScalePtr).toFloat()
 
   /**
    * Assigns a [Texture2D] to the given frame. Frame IDs start at 0, so the first frame has ID 0,
@@ -161,28 +157,28 @@ public open class AnimatedTexture : Texture2D() {
    * from 0 to [frames] - 1 will be part of the animation.
    */
   public final fun setFrameTexture(frame: Int, texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setFrameTexturePtr, frame.toLong(), texture)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setFrameTexturePtr, frame.toLong(), texture)
   }
 
   /**
    * Returns the given frame's [Texture2D].
    */
   public final fun getFrameTexture(frame: Int): Texture2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFrameTexturePtr, frame.toLong()) as Texture2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getFrameTexturePtr, frame.toLong()) as Texture2D?)
 
   /**
    * Sets the duration of any given [frame]. The final duration is affected by the [speedScale]. If
    * set to `0`, the frame is skipped during playback.
    */
   public final fun setFrameDuration(frame: Int, duration: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setFrameDurationPtr, frame.toLong(), duration.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setFrameDurationPtr, frame.toLong(), duration.toDouble())
   }
 
   /**
    * Returns the given [frame]'s duration, in seconds.
    */
   public final fun getFrameDuration(frame: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrameDurationPtr, frame.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getFrameDurationPtr, frame.toLong()).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

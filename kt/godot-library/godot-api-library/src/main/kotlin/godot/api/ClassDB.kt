@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_OBJECT_STRING_NAME_ANY_ret_LONG
 import godot.callMethod_OBJECT_STRING_NAME_ret_ANY
@@ -204,35 +203,35 @@ public object ClassDB : Object() {
    */
   @JvmStatic
   public final fun getClassList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getClassListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getClassListPtr)
 
   /**
    * Returns the names of all engine classes that directly or indirectly inherit from [class].
    */
   @JvmStatic
   public final fun getInheritersFromClass(`class`: StringName): PackedStringArray =
-      TransferContext.callPtrMethod_STRING_NAME_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getInheritersFromClassPtr, `class`)
+      callPtrMethod_STRING_NAME_ret_PACKED_STRING_ARRAY(MethodBindings.getInheritersFromClassPtr, `class`)
 
   /**
    * Returns the parent class of [class].
    */
   @JvmStatic
   public final fun getParentClass(`class`: StringName): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getParentClassPtr, `class`)
+      callPtrMethod_STRING_NAME_ret_STRING_NAME(MethodBindings.getParentClassPtr, `class`)
 
   /**
    * Returns whether the specified [class] is available or not.
    */
   @JvmStatic
   public final fun classExists(`class`: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.classExistsPtr, `class`)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.classExistsPtr, `class`)
 
   /**
    * Returns whether [inherits] is an ancestor of [class] or not.
    */
   @JvmStatic
   public final fun isParentClass(`class`: StringName, inherits: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.isParentClassPtr, `class`, inherits)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.isParentClassPtr, `class`, inherits)
 
   /**
    * Returns `true` if objects can be instantiated from the specified [class], otherwise returns
@@ -240,28 +239,28 @@ public object ClassDB : Object() {
    */
   @JvmStatic
   public final fun canInstantiate(`class`: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.canInstantiatePtr, `class`)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.canInstantiatePtr, `class`)
 
   /**
    * Creates an instance of [class].
    */
   @JvmStatic
   public final fun instantiate(`class`: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.instantiatePtr, `class`)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.instantiatePtr, `class`)
 
   /**
    * Returns the API type of the specified [class].
    */
   @JvmStatic
   public final fun classGetApiType(`class`: StringName): APIType =
-      APIType.from(TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.classGetApiTypePtr, `class`))
+      APIType.from(callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.classGetApiTypePtr, `class`))
 
   /**
    * Returns whether [class] or its ancestry has a signal called [signal] or not.
    */
   @JvmStatic
   public final fun classHasSignal(`class`: StringName, signal: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.classHasSignalPtr, `class`, signal)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.classHasSignalPtr, `class`, signal)
 
   /**
    * Returns the [signal] data of [class] or its ancestry. The returned value is a [Dictionary] with
@@ -270,7 +269,7 @@ public object ClassDB : Object() {
    */
   @JvmStatic
   public final fun classGetSignal(`class`: StringName, signal: StringName): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_DICTIONARY(ptr, objectID.id, MethodBindings.classGetSignalPtr, `class`, signal) as Dictionary<Any?, Any?>)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_DICTIONARY(MethodBindings.classGetSignalPtr, `class`, signal) as Dictionary<Any?, Any?>)
 
   /**
    * Returns an array with all the signals of [class] or its ancestry if [noInheritance] is `false`.
@@ -280,7 +279,7 @@ public object ClassDB : Object() {
   @JvmStatic
   public final fun classGetSignalList(`class`: StringName, noInheritance: Boolean = false):
       VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.classGetSignalListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(MethodBindings.classGetSignalListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns an array with all the properties of [class] or its ancestry if [noInheritance] is
@@ -290,28 +289,28 @@ public object ClassDB : Object() {
   @JvmStatic
   public final fun classGetPropertyList(`class`: StringName, noInheritance: Boolean = false):
       VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.classGetPropertyListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(MethodBindings.classGetPropertyListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns the getter method name of [property] of [class].
    */
   @JvmStatic
   public final fun classGetPropertyGetter(`class`: StringName, `property`: StringName): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.classGetPropertyGetterPtr, `class`, property)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(MethodBindings.classGetPropertyGetterPtr, `class`, property)
 
   /**
    * Returns the setter method name of [property] of [class].
    */
   @JvmStatic
   public final fun classGetPropertySetter(`class`: StringName, `property`: StringName): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.classGetPropertySetterPtr, `class`, property)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(MethodBindings.classGetPropertySetterPtr, `class`, property)
 
   /**
    * Returns the value of [property] of [object] or its ancestry.
    */
   @JvmStatic
   public final fun classGetProperty(`object`: Object, `property`: StringName): Any? =
-      TransferContext.callMethod_OBJECT_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.classGetPropertyPtr, `object`, property)
+      callMethod_OBJECT_STRING_NAME_ret_ANY(MethodBindings.classGetPropertyPtr, `object`, property)
 
   /**
    * Sets [property] value of [object] to [value].
@@ -322,14 +321,14 @@ public object ClassDB : Object() {
     `property`: StringName,
     `value`: Any?,
   ): Error =
-      Error.from(TransferContext.callMethod_OBJECT_STRING_NAME_ANY_ret_LONG(ptr, objectID.id, MethodBindings.classSetPropertyPtr, `object`, property, value))
+      Error.from(callMethod_OBJECT_STRING_NAME_ANY_ret_LONG(MethodBindings.classSetPropertyPtr, `object`, property, value))
 
   /**
    * Returns the default value of [property] of [class] or its ancestor classes.
    */
   @JvmStatic
   public final fun classGetPropertyDefaultValue(`class`: StringName, `property`: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.classGetPropertyDefaultValuePtr, `class`, property)
+      callMethod_STRING_NAME_STRING_NAME_ret_ANY(MethodBindings.classGetPropertyDefaultValuePtr, `class`, property)
 
   /**
    * Returns whether [class] (or its ancestry if [noInheritance] is `false`) has a method called
@@ -342,7 +341,7 @@ public object ClassDB : Object() {
     method: StringName,
     noInheritance: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.classHasMethodPtr, `class`, method, noInheritance)
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(MethodBindings.classHasMethodPtr, `class`, method, noInheritance)
 
   /**
    * Returns the number of arguments of the method [method] of [class] or its ancestry if
@@ -355,7 +354,7 @@ public object ClassDB : Object() {
     method: StringName,
     noInheritance: Boolean = false,
   ): Int =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.classGetMethodArgumentCountPtr, `class`, method, noInheritance).toInt()
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_LONG(MethodBindings.classGetMethodArgumentCountPtr, `class`, method, noInheritance).toInt()
 
   /**
    * Returns an array with all the methods of [class] or its ancestry if [noInheritance] is `false`.
@@ -369,7 +368,7 @@ public object ClassDB : Object() {
   @JvmStatic
   public final fun classGetMethodList(`class`: StringName, noInheritance: Boolean = false):
       VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.classGetMethodListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_STRING_NAME_BOOL_ret_ARRAY(MethodBindings.classGetMethodListPtr, `class`, noInheritance) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Calls a static method on a class.
@@ -380,7 +379,7 @@ public object ClassDB : Object() {
     method: StringName,
     vararg args: Any?,
   ): Any? =
-      TransferContext.callMethod_STRING_NAME_STRING_NAME_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.classCallStaticPtr, `class`, method, args)
+      callMethod_STRING_NAME_STRING_NAME_VARARG_ret_ANY(MethodBindings.classCallStaticPtr, `class`, method, args)
 
   /**
    * Returns an array with the names all the integer constants of [class] or its ancestry.
@@ -389,14 +388,14 @@ public object ClassDB : Object() {
   @JvmStatic
   public final fun classGetIntegerConstantList(`class`: StringName, noInheritance: Boolean = false):
       PackedStringArray =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.classGetIntegerConstantListPtr, `class`, noInheritance)
+      callPtrMethod_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(MethodBindings.classGetIntegerConstantListPtr, `class`, noInheritance)
 
   /**
    * Returns whether [class] or its ancestry has an integer constant called [name] or not.
    */
   @JvmStatic
   public final fun classHasIntegerConstant(`class`: StringName, name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.classHasIntegerConstantPtr, `class`, name)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.classHasIntegerConstantPtr, `class`, name)
 
   /**
    * Returns the value of the integer constant [name] of [class] or its ancestry. Always returns 0
@@ -404,7 +403,7 @@ public object ClassDB : Object() {
    */
   @JvmStatic
   public final fun classGetIntegerConstant(`class`: StringName, name: StringName): Long =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.classGetIntegerConstantPtr, `class`, name)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(MethodBindings.classGetIntegerConstantPtr, `class`, name)
 
   /**
    * Returns whether [class] or its ancestry has an enum called [name] or not.
@@ -416,7 +415,7 @@ public object ClassDB : Object() {
     name: StringName,
     noInheritance: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.classHasEnumPtr, `class`, name, noInheritance)
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(MethodBindings.classHasEnumPtr, `class`, name, noInheritance)
 
   /**
    * Returns an array with all the enums of [class] or its ancestry.
@@ -425,7 +424,7 @@ public object ClassDB : Object() {
   @JvmStatic
   public final fun classGetEnumList(`class`: StringName, noInheritance: Boolean = false):
       PackedStringArray =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.classGetEnumListPtr, `class`, noInheritance)
+      callPtrMethod_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(MethodBindings.classGetEnumListPtr, `class`, noInheritance)
 
   /**
    * Returns an array with all the keys in [enum] of [class] or its ancestry.
@@ -437,7 +436,7 @@ public object ClassDB : Object() {
     `enum`: StringName,
     noInheritance: Boolean = false,
   ): PackedStringArray =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.classGetEnumConstantsPtr, `class`, `enum`, noInheritance)
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_PACKED_STRING_ARRAY(MethodBindings.classGetEnumConstantsPtr, `class`, `enum`, noInheritance)
 
   /**
    * Returns which enum the integer constant [name] of [class] or its ancestry belongs to.
@@ -449,7 +448,7 @@ public object ClassDB : Object() {
     name: StringName,
     noInheritance: Boolean = false,
   ): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_STRING_NAME(ptr, objectID.id, MethodBindings.classGetIntegerConstantEnumPtr, `class`, name, noInheritance)
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_STRING_NAME(MethodBindings.classGetIntegerConstantEnumPtr, `class`, name, noInheritance)
 
   /**
    * Returns whether [class] (or its ancestor classes if [noInheritance] is `false`) has an enum
@@ -462,14 +461,14 @@ public object ClassDB : Object() {
     `enum`: StringName,
     noInheritance: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isClassEnumBitfieldPtr, `class`, `enum`, noInheritance)
+      callPtrMethod_STRING_NAME_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isClassEnumBitfieldPtr, `class`, `enum`, noInheritance)
 
   /**
    * Returns whether this [class] is enabled or not.
    */
   @JvmStatic
   public final fun isClassEnabled(`class`: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.isClassEnabledPtr, `class`)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.isClassEnabledPtr, `class`)
 
   /**
    * Returns the names of all engine classes that directly or indirectly inherit from [class].

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -43,11 +42,10 @@ public open class VisualShaderNodeParticleEmitter internal constructor() : Visua
   }
 
   public final fun setMode2d(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMode2dPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setMode2dPtr, enabled)
   }
 
-  public final fun isMode2d(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMode2dPtr)
+  public final fun isMode2d(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isMode2dPtr)
 
   public companion object {
     @JvmField

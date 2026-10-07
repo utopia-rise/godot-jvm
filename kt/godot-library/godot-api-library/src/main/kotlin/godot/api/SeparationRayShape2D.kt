@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -61,18 +60,18 @@ public open class SeparationRayShape2D : Shape2D() {
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLengthPtr, length.toDouble())
   }
 
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   public final fun setSlideOnSlope(active: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSlideOnSlopePtr, active)
+    callPtrMethod_BOOL(MethodBindings.setSlideOnSlopePtr, active)
   }
 
   public final fun getSlideOnSlope(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSlideOnSlopePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSlideOnSlopePtr)
 
   public companion object {
     @JvmField

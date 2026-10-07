@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -79,44 +78,44 @@ public open class XRBodyTracker : XRPositionalTracker() {
   }
 
   public final fun setHasTrackingData(hasData: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHasTrackingDataPtr, hasData)
+    callPtrMethod_BOOL(MethodBindings.setHasTrackingDataPtr, hasData)
   }
 
   public final fun getHasTrackingData(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getHasTrackingDataPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getHasTrackingDataPtr)
 
   public final fun setBodyFlags(flags: BodyFlags): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBodyFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setBodyFlagsPtr, flags.flag)
   }
 
   public final fun getBodyFlags(): BodyFlags =
-      BodyFlags(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBodyFlagsPtr))
+      BodyFlags(callPtrMethod0_ret_LONG(MethodBindings.getBodyFlagsPtr))
 
   /**
    * Sets flags about the validity of the tracking data for the given body joint.
    */
   public final fun setJointFlags(joint: Joint, flags: JointFlags): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setJointFlagsPtr, joint.value, flags.flag)
+    callPtrMethod_LONG_LONG(MethodBindings.setJointFlagsPtr, joint.value, flags.flag)
   }
 
   /**
    * Returns flags about the validity of the tracking data for the given body joint.
    */
   public final fun getJointFlags(joint: Joint): JointFlags =
-      JointFlags(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getJointFlagsPtr, joint.value))
+      JointFlags(callPtrMethod_LONG_ret_LONG(MethodBindings.getJointFlagsPtr, joint.value))
 
   /**
    * Sets the transform for the given body joint.
    */
   public final fun setJointTransform(joint: Joint, transform: Transform3D): Unit {
-    TransferContext.callPtrMethod_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.setJointTransformPtr, joint.value, transform)
+    callPtrMethod_LONG_TRANSFORM3D(MethodBindings.setJointTransformPtr, joint.value, transform)
   }
 
   /**
    * Returns the transform for the given body joint.
    */
   public final fun getJointTransform(joint: Joint): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getJointTransformPtr, joint.value)
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getJointTransformPtr, joint.value)
 
   public class BodyFlags(
     flag: Long,

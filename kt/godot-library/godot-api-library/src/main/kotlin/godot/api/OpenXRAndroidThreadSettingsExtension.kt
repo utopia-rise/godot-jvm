@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_LONG_ret_BOOL
 import godot.common.interop.VoidPtr
@@ -43,7 +42,7 @@ public open class OpenXRAndroidThreadSettingsExtension : OpenXRExtensionWrapper(
    */
   @JvmOverloads
   public final fun setApplicationThreadType(threadType: ThreadType, threadId: Long = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.setApplicationThreadTypePtr, threadType.value, threadId)
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.setApplicationThreadTypePtr, threadType.value, threadId)
 
   public enum class ThreadType(
     public override val `value`: Long,

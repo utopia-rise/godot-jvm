@@ -6,3 +6,7 @@ insert_final_newline = true
 [*.{kt, kts, h, cpp}]
 indent_size = 4
 indent_style = space
+
+[*.{h,cpp,mm}]
+# CLAUDE.md: file-local helpers are `static` free functions, never anonymous namespaces.
+resharper_cpp_entity_can_have_internal_linkage_highlighting = do_not_show

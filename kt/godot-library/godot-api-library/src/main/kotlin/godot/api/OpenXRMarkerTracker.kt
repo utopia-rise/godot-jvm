@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod_ANY
@@ -102,25 +101,24 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
   }
 
   public final fun setBoundsSize(boundsSize: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBoundsSizePtr, boundsSize)
+    callPtrMethod_VECTOR2(MethodBindings.setBoundsSizePtr, boundsSize)
   }
 
   public final fun getBoundsSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBoundsSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getBoundsSizePtr)
 
   public final fun setMarkerType(markerType: OpenXRSpatialComponentMarkerList.MarkerType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMarkerTypePtr, markerType.value)
+    callPtrMethod_LONG(MethodBindings.setMarkerTypePtr, markerType.value)
   }
 
   public final fun getMarkerType(): OpenXRSpatialComponentMarkerList.MarkerType =
-      OpenXRSpatialComponentMarkerList.MarkerType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerTypePtr))
+      OpenXRSpatialComponentMarkerList.MarkerType.from(callPtrMethod0_ret_LONG(MethodBindings.getMarkerTypePtr))
 
   public final fun setMarkerId(markerId: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMarkerIdPtr, markerId)
+    callPtrMethod_LONG(MethodBindings.setMarkerIdPtr, markerId)
   }
 
-  public final fun getMarkerId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerIdPtr)
+  public final fun getMarkerId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getMarkerIdPtr)
 
   /**
    * Sets the marker data for this marker.
@@ -128,15 +126,14 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
    * **Note:** This should only be set by marker discovery logic.
    */
   public final fun setMarkerData(markerData: Any?): Unit {
-    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setMarkerDataPtr, markerData)
+    callMethod_ANY(MethodBindings.setMarkerDataPtr, markerData)
   }
 
   /**
    * Returns the marker data for this marker. This can return a [String] or [PackedByteArray]. Only
    * applicable to QR Code based markers.
    */
-  public final fun getMarkerData(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getMarkerDataPtr)
+  public final fun getMarkerData(): Any? = callMethod0_ret_ANY(MethodBindings.getMarkerDataPtr)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -352,7 +351,7 @@ public open class OpenXRExtensionWrapper : Object() {
    * Returns the created [OpenXRAPIExtension], which can be used to access the OpenXR API.
    */
   public final fun getOpenxrApi(): OpenXRAPIExtension? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOpenxrApiPtr) as OpenXRAPIExtension?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOpenxrApiPtr) as OpenXRAPIExtension?)
 
   /**
    * Registers the extension. This should happen at core module initialization level.
@@ -360,7 +359,7 @@ public open class OpenXRExtensionWrapper : Object() {
    * **Note:** This cannot be called once OpenXR has been initialized.
    */
   public final fun registerExtensionWrapper(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.registerExtensionWrapperPtr)
+    callPtrMethod0(MethodBindings.registerExtensionWrapperPtr)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -82,44 +81,40 @@ public abstract class TextureLayered : Texture() {
    * Returns the current format being used by this texture.
    */
   public final fun getFormat(): Image.Format =
-      Image.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
+      Image.Format.from(callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr))
 
   /**
    * Returns the [TextureLayered]'s type. The type determines how the data is accessed, with
    * cubemaps having special types.
    */
   public final fun getLayeredType(): LayeredType =
-      LayeredType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayeredTypePtr))
+      LayeredType.from(callPtrMethod0_ret_LONG(MethodBindings.getLayeredTypePtr))
 
   /**
    * Returns the width of the texture in pixels. Width is typically represented by the X axis.
    */
-  public final fun getWidth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr).toInt()
+  public final fun getWidth(): Int = callPtrMethod0_ret_LONG(MethodBindings.getWidthPtr).toInt()
 
   /**
    * Returns the height of the texture in pixels. Height is typically represented by the Y axis.
    */
-  public final fun getHeight(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
+  public final fun getHeight(): Int = callPtrMethod0_ret_LONG(MethodBindings.getHeightPtr).toInt()
 
   /**
    * Returns the number of referenced [Image]s.
    */
-  public final fun getLayers(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayersPtr).toInt()
+  public final fun getLayers(): Int = callPtrMethod0_ret_LONG(MethodBindings.getLayersPtr).toInt()
 
   /**
    * Returns `true` if the layers have generated mipmaps.
    */
-  public final fun hasMipmaps(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMipmapsPtr)
+  public final fun hasMipmaps(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasMipmapsPtr)
 
   /**
    * Returns an [Image] resource with the data from specified [layer].
    */
   public final fun getLayerData(layer: Int): Image? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getLayerDataPtr, layer.toLong()) as Image?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getLayerDataPtr, layer.toLong()) as Image?)
 
   public enum class LayeredType(
     public override val `value`: Long,

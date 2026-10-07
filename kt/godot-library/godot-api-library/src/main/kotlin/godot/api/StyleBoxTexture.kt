@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -294,86 +293,85 @@ public open class StyleBoxTexture : StyleBox() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   /**
    * Sets the margin to [size] pixels for the specified [Side].
    */
   public final fun setTextureMargin(margin: Side, size: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setTextureMarginPtr, margin.value, size.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setTextureMarginPtr, margin.value, size.toDouble())
   }
 
   /**
    * Sets the margin to [size] pixels for all sides.
    */
   public final fun setTextureMarginAll(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTextureMarginAllPtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTextureMarginAllPtr, size.toDouble())
   }
 
   /**
    * Returns the margin size of the specified [Side].
    */
   public final fun getTextureMargin(margin: Side): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTextureMarginPtr, margin.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getTextureMarginPtr, margin.value).toFloat()
 
   /**
    * Sets the expand margin to [size] pixels for the specified [Side].
    */
   public final fun setExpandMargin(margin: Side, size: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setExpandMarginPtr, margin.value, size.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setExpandMarginPtr, margin.value, size.toDouble())
   }
 
   /**
    * Sets the expand margin to [size] pixels for all sides.
    */
   public final fun setExpandMarginAll(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setExpandMarginAllPtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setExpandMarginAllPtr, size.toDouble())
   }
 
   /**
    * Returns the expand margin size of the specified [Side].
    */
   public final fun getExpandMargin(margin: Side): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getExpandMarginPtr, margin.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getExpandMarginPtr, margin.value).toFloat()
 
   public final fun setRegionRect(region: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionRectPtr, region)
+    callPtrMethod_RECT2(MethodBindings.setRegionRectPtr, region)
   }
 
   public final fun getRegionRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionRectPtr)
+      callPtrMethod0_ret_RECT2(MethodBindings.getRegionRectPtr)
 
   public final fun setDrawCenter(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDrawCenterPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setDrawCenterPtr, enable)
   }
 
   public final fun isDrawCenterEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDrawCenterEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDrawCenterEnabledPtr)
 
   public final fun setModulate(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setModulatePtr, color)
+    callPtrMethod_COLOR(MethodBindings.setModulatePtr, color)
   }
 
-  public final fun getModulate(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getModulatePtr)
+  public final fun getModulate(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getModulatePtr)
 
   public final fun setHAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHAxisStretchModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setHAxisStretchModePtr, mode.value)
   }
 
   public final fun getHAxisStretchMode(): AxisStretchMode =
-      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHAxisStretchModePtr))
+      AxisStretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getHAxisStretchModePtr))
 
   public final fun setVAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVAxisStretchModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setVAxisStretchModePtr, mode.value)
   }
 
   public final fun getVAxisStretchMode(): AxisStretchMode =
-      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVAxisStretchModePtr))
+      AxisStretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getVAxisStretchModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

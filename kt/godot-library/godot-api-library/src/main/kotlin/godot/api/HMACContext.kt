@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
 import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_ret_LONG
@@ -83,20 +82,20 @@ public open class HMACContext : RefCounted() {
    * [finish] has been called.
    */
   public final fun start(hashType: HashingContext.HashType, key: PackedByteArray): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, hashType.value, key))
+      Error.from(callPtrMethod_LONG_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.startPtr, hashType.value, key))
 
   /**
    * Updates the message to be HMACed. This can be called multiple times before [finish] is called
    * to append [data] to the message, but cannot be called until [start] has been called.
    */
   public final fun update(`data`: PackedByteArray): Error =
-      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.updatePtr, data))
+      Error.from(callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.updatePtr, data))
 
   /**
    * Returns the resulting HMAC. If the HMAC failed, an empty [PackedByteArray] is returned.
    */
   public final fun finish(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.finishPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.finishPtr)
 
   public companion object {
     @JvmField

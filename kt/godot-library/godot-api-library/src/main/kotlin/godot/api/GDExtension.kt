@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -39,14 +38,14 @@ public open class GDExtension : Resource() {
    * Returns `true` if this extension's library has been opened.
    */
   public final fun isLibraryOpen(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLibraryOpenPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isLibraryOpenPtr)
 
   /**
    * Returns the lowest level required for this extension to be properly initialized (see the
    * [InitializationLevel] enum).
    */
   public final fun getMinimumLibraryInitializationLevel(): InitializationLevel =
-      InitializationLevel.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinimumLibraryInitializationLevelPtr))
+      InitializationLevel.from(callPtrMethod0_ret_LONG(MethodBindings.getMinimumLibraryInitializationLevelPtr))
 
   public enum class InitializationLevel(
     public override val `value`: Long,

@@ -2,7 +2,7 @@
 #define GODOT_JVM_JVM_SCRIPT_H
 
 #include "engine/godot_object.h"
-#include "jvm/wrapper/registration/kt_class.h"
+#include "jvm/registration/kt_class.h"
 #include "jvm_placeholder_instance.h"
 
 #include <classes/script_extension.hpp>
@@ -25,7 +25,7 @@ namespace godot {
         KtClass* kotlin_class;
         mutable String source;
 
-        raw_godot::RawObject _object_create() const;
+        engine::RawObject _object_create() const;
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif

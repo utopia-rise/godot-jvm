@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_COLOR
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -100,18 +99,18 @@ public open class Path3D : Node3D() {
   }
 
   public final fun setCurve(curve: Curve3D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurvePtr, curve)
   }
 
   public final fun getCurve(): Curve3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve3D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurvePtr) as Curve3D?)
 
   public final fun setDebugCustomColor(debugCustomColor: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDebugCustomColorPtr, debugCustomColor)
+    callPtrMethod_COLOR(MethodBindings.setDebugCustomColorPtr, debugCustomColor)
   }
 
   public final fun getDebugCustomColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDebugCustomColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getDebugCustomColorPtr)
 
   public companion object {
     @JvmField

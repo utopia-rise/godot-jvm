@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_ret_STRING
 import godot.callMethod_STRING
@@ -491,7 +490,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isAnythingPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAnythingPressedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAnythingPressedPtr)
 
   /**
    * Returns `true` if you are pressing the Latin key in the current keyboard layout. You can pass a
@@ -532,7 +531,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isKeyPressed(keycode: Key): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isKeyPressedPtr, keycode.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isKeyPressedPtr, keycode.value)
 
   /**
    * Returns `true` if you are pressing the key in the physical location on the 101/102-key US
@@ -574,7 +573,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isPhysicalKeyPressed(keycode: Key): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicalKeyPressedPtr, keycode.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isPhysicalKeyPressedPtr, keycode.value)
 
   /**
    * Returns `true` if you are pressing the key with the [keycode] printed on it. You can pass a
@@ -605,7 +604,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isKeyLabelPressed(keycode: Key): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isKeyLabelPressedPtr, keycode.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isKeyLabelPressedPtr, keycode.value)
 
   /**
    * Returns `true` if you are pressing the mouse button specified with [MouseButton].
@@ -635,7 +634,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isMouseButtonPressed(button: MouseButton): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isMouseButtonPressedPtr, button.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isMouseButtonPressedPtr, button.value)
 
   /**
    * Returns `true` if you are pressing the joypad button at index [button].
@@ -665,7 +664,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyButtonPressed(device: Int, button: JoyButton): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyButtonPressedPtr, device.toLong(), button.value)
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.isJoyButtonPressedPtr, device.toLong(), button.value)
 
   /**
    * Returns `true` if you are pressing the action event.
@@ -681,7 +680,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun isActionPressed(action: StringName, exactMatch: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionPressedPtr, action, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isActionPressedPtr, action, exactMatch)
 
   /**
    * Returns `true` when the user has *started* pressing the action event in the current frame or
@@ -708,7 +707,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun isActionJustPressed(action: StringName, exactMatch: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionJustPressedPtr, action, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isActionJustPressedPtr, action, exactMatch)
 
   /**
    * Returns `true` when the user *stops* pressing the action event in the current frame or physics
@@ -726,7 +725,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun isActionJustReleased(action: StringName, exactMatch: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionJustReleasedPtr, action, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isActionJustReleasedPtr, action, exactMatch)
 
   /**
    * Returns `true` when the user has *started* pressing the action event in the current frame or
@@ -755,7 +754,7 @@ public object Input : Object() {
     event: InputEvent,
     exactMatch: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_OBJECT_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionJustPressedByEventPtr, action, event, exactMatch)
+      callPtrMethod_STRING_NAME_OBJECT_BOOL_ret_BOOL(MethodBindings.isActionJustPressedByEventPtr, action, event, exactMatch)
 
   /**
    * Returns `true` when the user *stops* pressing the action event in the current frame or physics
@@ -777,7 +776,7 @@ public object Input : Object() {
     event: InputEvent,
     exactMatch: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_OBJECT_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionJustReleasedByEventPtr, action, event, exactMatch)
+      callPtrMethod_STRING_NAME_OBJECT_BOOL_ret_BOOL(MethodBindings.isActionJustReleasedByEventPtr, action, event, exactMatch)
 
   /**
    * Returns a value between 0 and 1 representing the intensity of the given action. In a joypad,
@@ -791,7 +790,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getActionStrength(action: StringName, exactMatch: Boolean = false): Float =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.getActionStrengthPtr, action, exactMatch).toFloat()
+      callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(MethodBindings.getActionStrengthPtr, action, exactMatch).toFloat()
 
   /**
    * Returns a value between 0 and 1 representing the raw intensity of the given action, ignoring
@@ -803,7 +802,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getActionRawStrength(action: StringName, exactMatch: Boolean = false): Float =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.getActionRawStrengthPtr, action, exactMatch).toFloat()
+      callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(MethodBindings.getActionRawStrengthPtr, action, exactMatch).toFloat()
 
   /**
    * Get axis input by specifying two actions, one negative and one positive.
@@ -813,7 +812,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getAxis(negativeAction: StringName, positiveAction: StringName): Float =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAxisPtr, negativeAction, positiveAction).toFloat()
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_DOUBLE(MethodBindings.getAxisPtr, negativeAction, positiveAction).toFloat()
 
   /**
    * Gets an input vector by specifying four actions for the positive and negative X and Y axes.
@@ -834,7 +833,7 @@ public object Input : Object() {
     positiveY: StringName,
     deadzone: Float = -1.0f,
   ): Vector2 =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME_STRING_NAME_DOUBLE_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVectorPtr, negativeX, positiveX, negativeY, positiveY, deadzone.toDouble())
+      callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME_STRING_NAME_DOUBLE_ret_VECTOR2(MethodBindings.getVectorPtr, negativeX, positiveX, negativeY, positiveY, deadzone.toDouble())
 
   /**
    * Adds a new mapping entry (in SDL2 format) to the mapping database. Optionally update already
@@ -843,7 +842,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun addJoyMapping(mapping: String, updateExisting: Boolean = false): Unit {
-    TransferContext.callMethod_STRING_BOOL(ptr, objectID.id, MethodBindings.addJoyMappingPtr, mapping, updateExisting)
+    callMethod_STRING_BOOL(MethodBindings.addJoyMappingPtr, mapping, updateExisting)
   }
 
   /**
@@ -854,7 +853,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun removeJoyMapping(guid: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removeJoyMappingPtr, guid)
+    callMethod_STRING(MethodBindings.removeJoyMappingPtr, guid)
   }
 
   /**
@@ -864,14 +863,14 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyKnown(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyKnownPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isJoyKnownPtr, device.toLong())
 
   /**
    * Returns the current value of the joypad axis at index [axis].
    */
   @JvmStatic
   public final fun getJoyAxis(device: Int, axis: JoyAxis): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoyAxisPtr, device.toLong(), axis.value).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getJoyAxisPtr, device.toLong(), axis.value).toFloat()
 
   /**
    * Returns the name of the joypad at the specified device index, e.g. `PS4 Controller`. Godot uses
@@ -880,7 +879,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyName(device: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getJoyNamePtr, device.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getJoyNamePtr, device.toLong())
 
   /**
    * Returns an SDL-compatible device GUID on platforms that use gamepad remapping, e.g.
@@ -893,7 +892,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyGuid(device: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getJoyGuidPtr, device.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getJoyGuidPtr, device.toLong())
 
   /**
    * Returns a dictionary with extra platform-specific information about the device, e.g. the raw
@@ -923,7 +922,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyInfo(device: Int): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getJoyInfoPtr, device.toLong()) as Dictionary<Any?, Any?>)
+      (callPtrMethod_LONG_ret_DICTIONARY(MethodBindings.getJoyInfoPtr, device.toLong()) as Dictionary<Any?, Any?>)
 
   /**
    * Queries whether an input device should be ignored or not. Devices can be ignored by setting the
@@ -936,7 +935,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun shouldIgnoreDevice(vendorId: Int, productId: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.shouldIgnoreDevicePtr, vendorId.toLong(), productId.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.shouldIgnoreDevicePtr, vendorId.toLong(), productId.toLong())
 
   /**
    * Returns an [VariantArray] containing the device IDs of all currently connected joypads.
@@ -947,7 +946,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getConnectedJoypads(): VariantArray<Long> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getConnectedJoypadsPtr) as VariantArray<Long>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getConnectedJoypadsPtr) as VariantArray<Long>)
 
   /**
    * Returns the strength of the joypad vibration: x is the strength of the weak motor, and y is the
@@ -961,7 +960,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyVibrationStrength(device: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getJoyVibrationStrengthPtr, device.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getJoyVibrationStrengthPtr, device.toLong())
 
   /**
    * Returns the duration of the current vibration effect in seconds.
@@ -974,14 +973,14 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyVibrationDuration(device: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoyVibrationDurationPtr, device.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getJoyVibrationDurationPtr, device.toLong()).toFloat()
 
   /**
    * Returns the remaining duration of the current vibration effect in seconds.
    */
   @JvmStatic
   public final fun getJoyVibrationRemainingDuration(device: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoyVibrationRemainingDurationPtr, device.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getJoyVibrationRemainingDurationPtr, device.toLong()).toFloat()
 
   /**
    * Returns `true` if the joypad is still vibrating after a call to [startJoyVibration].
@@ -991,7 +990,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyVibrating(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyVibratingPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isJoyVibratingPtr, device.toLong())
 
   /**
    * Returns `true` if the joypad supports vibration. See also [startJoyVibration].
@@ -1002,7 +1001,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun hasJoyVibration(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasJoyVibrationPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.hasJoyVibrationPtr, device.toLong())
 
   /**
    * Starts to vibrate the joypad. See also [hasJoyVibration] and [isJoyVibrating].
@@ -1032,7 +1031,7 @@ public object Input : Object() {
     strongMagnitude: Float,
     duration: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.startJoyVibrationPtr, device.toLong(), weakMagnitude.toDouble(), strongMagnitude.toDouble(), duration.toDouble())
+    callPtrMethod_LONG_DOUBLE_DOUBLE_DOUBLE(MethodBindings.startJoyVibrationPtr, device.toLong(), weakMagnitude.toDouble(), strongMagnitude.toDouble(), duration.toDouble())
   }
 
   /**
@@ -1040,7 +1039,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun stopJoyVibration(device: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.stopJoyVibrationPtr, device.toLong())
+    callPtrMethod_LONG(MethodBindings.stopJoyVibrationPtr, device.toLong())
   }
 
   /**
@@ -1068,17 +1067,17 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun vibrateHandheld(durationMs: Int = 500, amplitude: Float = -1.0f): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.vibrateHandheldPtr, durationMs.toLong(), amplitude.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.vibrateHandheldPtr, durationMs.toLong(), amplitude.toDouble())
   }
 
   @JvmStatic
   public final fun setIgnoreJoypadOnUnfocusedApplication(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreJoypadOnUnfocusedApplicationPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setIgnoreJoypadOnUnfocusedApplicationPtr, enable)
   }
 
   @JvmStatic
   public final fun isIgnoringJoypadOnUnfocusedApplication(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIgnoringJoypadOnUnfocusedApplicationPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isIgnoringJoypadOnUnfocusedApplicationPtr)
 
   /**
    * Returns the gravity in m/s² of the device's accelerometer sensor, if the device has one.
@@ -1090,8 +1089,7 @@ public object Input : Object() {
    * **Note:** For Android, [ProjectSettings.inputDevices/sensors/enableGravity] must be enabled.
    */
   @JvmStatic
-  public final fun getGravity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPtr)
+  public final fun getGravity(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getGravityPtr)
 
   /**
    * Returns the acceleration in m/s² of the device's accelerometer sensor, if the device has one.
@@ -1109,7 +1107,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getAccelerometer(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getAccelerometerPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getAccelerometerPtr)
 
   /**
    * Returns the magnetic field strength in micro-Tesla for all axes of the device's magnetometer
@@ -1123,7 +1121,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getMagnetometer(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getMagnetometerPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getMagnetometerPtr)
 
   /**
    * Returns the rotation rate in rad/s around a device's X, Y, and Z axes of the gyroscope sensor,
@@ -1136,7 +1134,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getGyroscope(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGyroscopePtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getGyroscopePtr)
 
   /**
    * Returns the acceleration, including the force of gravity, in m/s² of the joypad's accelerometer
@@ -1159,7 +1157,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyAccelerometer(device: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getJoyAccelerometerPtr, device.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getJoyAccelerometerPtr, device.toLong())
 
   /**
    * Returns the gravity in m/s² of the joypad's accelerometer sensor, if the joypad has one and
@@ -1182,7 +1180,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyGravity(device: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getJoyGravityPtr, device.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getJoyGravityPtr, device.toLong())
 
   /**
    * Returns the rotation rate in rad/s around a joypad's X, Y, and Z axes of the gyroscope sensor,
@@ -1206,7 +1204,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyGyroscope(device: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getJoyGyroscopePtr, device.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getJoyGyroscopePtr, device.toLong())
 
   /**
    * Returns the joypad's motion sensor rate in Hz, if the joypad has motion sensors and they're
@@ -1216,7 +1214,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyMotionSensorsRate(device: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoyMotionSensorsRatePtr, device.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getJoyMotionSensorsRatePtr, device.toLong()).toFloat()
 
   /**
    * Returns `true` if the requested joypad has motion sensors (accelerometer and gyroscope) and
@@ -1229,7 +1227,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyMotionSensorsEnabled(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyMotionSensorsEnabledPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isJoyMotionSensorsEnabledPtr, device.toLong())
 
   /**
    * Enables or disables the motion sensors (accelerometer and gyroscope), if available, on the
@@ -1245,7 +1243,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setJoyMotionSensorsEnabled(device: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setJoyMotionSensorsEnabledPtr, device.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setJoyMotionSensorsEnabledPtr, device.toLong(), enable)
   }
 
   /**
@@ -1257,7 +1255,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun hasJoyMotionSensors(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasJoyMotionSensorsPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.hasJoyMotionSensorsPtr, device.toLong())
 
   /**
    * Starts the process of calibrating the specified joypad's gyroscope, if it has one.
@@ -1379,7 +1377,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun startJoyMotionSensorsCalibration(device: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.startJoyMotionSensorsCalibrationPtr, device.toLong())
+    callPtrMethod_LONG(MethodBindings.startJoyMotionSensorsCalibrationPtr, device.toLong())
   }
 
   /**
@@ -1392,7 +1390,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun stopJoyMotionSensorsCalibration(device: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.stopJoyMotionSensorsCalibrationPtr, device.toLong())
+    callPtrMethod_LONG(MethodBindings.stopJoyMotionSensorsCalibrationPtr, device.toLong())
   }
 
   /**
@@ -1406,7 +1404,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun clearJoyMotionSensorsCalibration(device: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.clearJoyMotionSensorsCalibrationPtr, device.toLong())
+    callPtrMethod_LONG(MethodBindings.clearJoyMotionSensorsCalibrationPtr, device.toLong())
   }
 
   /**
@@ -1425,7 +1423,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getJoyMotionSensorsCalibration(device: Int): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getJoyMotionSensorsCalibrationPtr, device.toLong()) as Dictionary<Any?, Any?>)
+      (callPtrMethod_LONG_ret_DICTIONARY(MethodBindings.getJoyMotionSensorsCalibrationPtr, device.toLong()) as Dictionary<Any?, Any?>)
 
   /**
    * Sets the specified joypad's calibration information. See also [getJoyMotionSensorsCalibration].
@@ -1438,7 +1436,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setJoyMotionSensorsCalibration(device: Int,
       calibrationInfo: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_LONG_DICTIONARY(ptr, objectID.id, MethodBindings.setJoyMotionSensorsCalibrationPtr, device.toLong(), calibrationInfo)
+    callPtrMethod_LONG_DICTIONARY(MethodBindings.setJoyMotionSensorsCalibrationPtr, device.toLong(), calibrationInfo)
   }
 
   /**
@@ -1451,7 +1449,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyMotionSensorsCalibrated(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyMotionSensorsCalibratedPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isJoyMotionSensorsCalibratedPtr, device.toLong())
 
   /**
    * Returns `true` if the joypad's motion sensors are currently being calibrated.
@@ -1463,7 +1461,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun isJoyMotionSensorsCalibrating(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isJoyMotionSensorsCalibratingPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isJoyMotionSensorsCalibratingPtr, device.toLong())
 
   /**
    * Sets the gravity value of the accelerometer sensor. Can be used for debugging on devices
@@ -1474,7 +1472,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setGravity(`value`: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setGravityPtr, value)
+    callPtrMethod_VECTOR3(MethodBindings.setGravityPtr, value)
   }
 
   /**
@@ -1486,7 +1484,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setAccelerometer(`value`: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setAccelerometerPtr, value)
+    callPtrMethod_VECTOR3(MethodBindings.setAccelerometerPtr, value)
   }
 
   /**
@@ -1498,7 +1496,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setMagnetometer(`value`: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setMagnetometerPtr, value)
+    callPtrMethod_VECTOR3(MethodBindings.setMagnetometerPtr, value)
   }
 
   /**
@@ -1510,7 +1508,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setGyroscope(`value`: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setGyroscopePtr, value)
+    callPtrMethod_VECTOR3(MethodBindings.setGyroscopePtr, value)
   }
 
   /**
@@ -1523,7 +1521,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun setJoyLight(device: Int, color: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setJoyLightPtr, device.toLong(), color)
+    callPtrMethod_LONG_COLOR(MethodBindings.setJoyLightPtr, device.toLong(), color)
   }
 
   /**
@@ -1534,7 +1532,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun hasJoyLight(device: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasJoyLightPtr, device.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.hasJoyLightPtr, device.toLong())
 
   /**
    * Returns the last mouse velocity. To provide a precise and jitter-free velocity, mouse velocity
@@ -1542,7 +1540,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getLastMouseVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLastMouseVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getLastMouseVelocityPtr)
 
   /**
    * Returns the last mouse velocity in screen coordinates. To provide a precise and jitter-free
@@ -1551,7 +1549,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getLastMouseScreenVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLastMouseScreenVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getLastMouseScreenVelocityPtr)
 
   /**
    * Returns mouse buttons as a bitmask. If multiple mouse buttons are pressed at the same time, the
@@ -1559,16 +1557,16 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getMouseButtonMask(): MouseButtonMask =
-      MouseButtonMask(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMouseButtonMaskPtr))
+      MouseButtonMask(callPtrMethod0_ret_LONG(MethodBindings.getMouseButtonMaskPtr))
 
   @JvmStatic
   public final fun setMouseMode(mode: MouseMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMouseModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setMouseModePtr, mode.value)
   }
 
   @JvmStatic
   public final fun getMouseMode(): MouseMode =
-      MouseMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMouseModePtr))
+      MouseMode.from(callPtrMethod0_ret_LONG(MethodBindings.getMouseModePtr))
 
   /**
    * Sets the mouse position to the specified vector, provided in pixels and relative to an origin
@@ -1582,7 +1580,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun warpMouse(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.warpMousePtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.warpMousePtr, position)
   }
 
   /**
@@ -1598,7 +1596,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun actionPress(action: StringName, strength: Float = 1.0f): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.actionPressPtr, action, strength.toDouble())
+    callPtrMethod_STRING_NAME_DOUBLE(MethodBindings.actionPressPtr, action, strength.toDouble())
   }
 
   /**
@@ -1606,7 +1604,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun actionRelease(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.actionReleasePtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.actionReleasePtr, action)
   }
 
   /**
@@ -1620,7 +1618,7 @@ public object Input : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun setDefaultCursorShape(shape: CursorShape = Input.CursorShape.ARROW): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultCursorShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setDefaultCursorShapePtr, shape.value)
   }
 
   /**
@@ -1628,7 +1626,7 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun getCurrentCursorShape(): CursorShape =
-      CursorShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentCursorShapePtr))
+      CursorShape.from(callPtrMethod0_ret_LONG(MethodBindings.getCurrentCursorShapePtr))
 
   /**
    * Sets a custom mouse cursor image, which is only visible inside the game window, for the given
@@ -1658,7 +1656,7 @@ public object Input : Object() {
     shape: CursorShape = Input.CursorShape.ARROW,
     hotspot: Vector2 = Vector2(0, 0),
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setCustomMouseCursorPtr, image, shape.value, hotspot)
+    callPtrMethod_OBJECT_LONG_VECTOR2(MethodBindings.setCustomMouseCursorPtr, image, shape.value, hotspot)
   }
 
   /**
@@ -1688,17 +1686,17 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun parseInputEvent(event: InputEvent): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.parseInputEventPtr, event)
+    callPtrMethod_OBJECT(MethodBindings.parseInputEventPtr, event)
   }
 
   @JvmStatic
   public final fun setUseAccumulatedInput(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAccumulatedInputPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseAccumulatedInputPtr, enable)
   }
 
   @JvmStatic
   public final fun isUsingAccumulatedInput(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingAccumulatedInputPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingAccumulatedInputPtr)
 
   /**
    * Sends all input events which are in the current buffer to the game loop. These events may have
@@ -1711,26 +1709,26 @@ public object Input : Object() {
    */
   @JvmStatic
   public final fun flushBufferedEvents(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.flushBufferedEventsPtr)
+    callPtrMethod0(MethodBindings.flushBufferedEventsPtr)
   }
 
   @JvmStatic
   public final fun setEmulateMouseFromTouch(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEmulateMouseFromTouchPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEmulateMouseFromTouchPtr, enable)
   }
 
   @JvmStatic
   public final fun isEmulatingMouseFromTouch(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmulatingMouseFromTouchPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEmulatingMouseFromTouchPtr)
 
   @JvmStatic
   public final fun setEmulateTouchFromMouse(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEmulateTouchFromMousePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEmulateTouchFromMousePtr, enable)
   }
 
   @JvmStatic
   public final fun isEmulatingTouchFromMouse(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmulatingTouchFromMousePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEmulatingTouchFromMousePtr)
 
   /**
    * Returns `true` if you are pressing the action event.

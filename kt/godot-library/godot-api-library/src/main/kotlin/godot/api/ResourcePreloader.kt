@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.callPtrMethod_STRING_NAME
@@ -48,40 +47,40 @@ public open class ResourcePreloader : Node() {
    * starting from 2.
    */
   public final fun addResource(name: StringName, resource: Resource?): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addResourcePtr, name, resource)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addResourcePtr, name, resource)
   }
 
   /**
    * Removes the resource associated to [name] from the preloader.
    */
   public final fun removeResource(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeResourcePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeResourcePtr, name)
   }
 
   /**
    * Renames a resource inside the preloader from [name] to [newname].
    */
   public final fun renameResource(name: StringName, newname: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameResourcePtr, name, newname)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.renameResourcePtr, name, newname)
   }
 
   /**
    * Returns `true` if the preloader contains a resource associated to [name].
    */
   public final fun hasResource(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasResourcePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasResourcePtr, name)
 
   /**
    * Returns the resource associated to [name].
    */
   public final fun getResource(name: StringName): Resource? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getResourcePtr, name) as Resource?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT_REF(MethodBindings.getResourcePtr, name) as Resource?)
 
   /**
    * Returns the list of resources inside the preloader.
    */
   public final fun getResourceList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getResourceListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getResourceListPtr)
 
   /**
    * Adds a resource to the preloader with the given [name]. If a resource with the given [name]

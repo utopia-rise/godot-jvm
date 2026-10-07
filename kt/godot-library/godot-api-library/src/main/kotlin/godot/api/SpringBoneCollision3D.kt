@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -155,35 +154,33 @@ public open class SpringBoneCollision3D : Node3D() {
    * Get parent [Skeleton3D] node of the parent [SpringBoneSimulator3D] if found.
    */
   public final fun getSkeleton(): Skeleton3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getSkeletonPtr) as Skeleton3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getSkeletonPtr) as Skeleton3D?)
 
   public final fun setBoneName(boneName: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneName)
+    callMethod_STRING(MethodBindings.setBoneNamePtr, boneName)
   }
 
-  public final fun getBoneName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBoneNamePtr)
+  public final fun getBoneName(): String = callMethod0_ret_STRING(MethodBindings.getBoneNamePtr)
 
   public final fun setBone(bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBonePtr, bone.toLong())
+    callPtrMethod_LONG(MethodBindings.setBonePtr, bone.toLong())
   }
 
-  public final fun getBone(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBonePtr).toInt()
+  public final fun getBone(): Int = callPtrMethod0_ret_LONG(MethodBindings.getBonePtr).toInt()
 
   public final fun setPositionOffset(offset: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setPositionOffsetPtr, offset)
+    callPtrMethod_VECTOR3(MethodBindings.setPositionOffsetPtr, offset)
   }
 
   public final fun getPositionOffset(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPositionOffsetPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getPositionOffsetPtr)
 
   public final fun setRotationOffset(offset: Quaternion): Unit {
-    TransferContext.callPtrMethod_QUATERNION(ptr, objectID.id, MethodBindings.setRotationOffsetPtr, offset)
+    callPtrMethod_QUATERNION(MethodBindings.setRotationOffsetPtr, offset)
   }
 
   public final fun getRotationOffset(): Quaternion =
-      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getRotationOffsetPtr)
+      callPtrMethod0_ret_QUATERNION(MethodBindings.getRotationOffsetPtr)
 
   public companion object {
     @JvmField

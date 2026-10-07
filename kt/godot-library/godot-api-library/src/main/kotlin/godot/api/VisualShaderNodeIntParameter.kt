@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -171,53 +170,49 @@ public open class VisualShaderNodeIntParameter : VisualShaderNodeParameter() {
   }
 
   public final fun setHint(hint: Hint): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHintPtr, hint.value)
+    callPtrMethod_LONG(MethodBindings.setHintPtr, hint.value)
   }
 
-  public final fun getHint(): Hint =
-      Hint.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHintPtr))
+  public final fun getHint(): Hint = Hint.from(callPtrMethod0_ret_LONG(MethodBindings.getHintPtr))
 
   public final fun setMin(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinPtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setMinPtr, value.toLong())
   }
 
-  public final fun getMin(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinPtr).toInt()
+  public final fun getMin(): Int = callPtrMethod0_ret_LONG(MethodBindings.getMinPtr).toInt()
 
   public final fun setMax(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxPtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxPtr, value.toLong())
   }
 
-  public final fun getMax(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPtr).toInt()
+  public final fun getMax(): Int = callPtrMethod0_ret_LONG(MethodBindings.getMaxPtr).toInt()
 
   public final fun setStep(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStepPtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setStepPtr, value.toLong())
   }
 
-  public final fun getStep(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStepPtr).toInt()
+  public final fun getStep(): Int = callPtrMethod0_ret_LONG(MethodBindings.getStepPtr).toInt()
 
   public final fun setEnumNames(names: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setEnumNamesPtr, names)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setEnumNamesPtr, names)
   }
 
   public final fun getEnumNames(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getEnumNamesPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getEnumNamesPtr)
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
   public final fun isDefaultValueEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setDefaultValuePtr, value.toLong())
   }
 
   public final fun getDefaultValue(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultValuePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDefaultValuePtr).toInt()
 
   public enum class Hint(
     public override val `value`: Long,

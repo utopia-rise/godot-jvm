@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_STRING_NAME_ret_BOOL
@@ -40,13 +39,13 @@ public open class JavaObject : RefCounted() {
    * Returns the [JavaClass] that this object is an instance of.
    */
   public final fun getJavaClass(): JavaClass? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getJavaClassPtr) as JavaClass?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getJavaClassPtr) as JavaClass?)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasJavaMethodPtr, method)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasJavaMethodPtr, method)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.

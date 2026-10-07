@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -49,11 +48,10 @@ public open class CSGPrimitive3D internal constructor() : CSGShape3D() {
   }
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipFacesPtr, flipFaces)
+    callPtrMethod_BOOL(MethodBindings.setFlipFacesPtr, flipFaces)
   }
 
-  public final fun getFlipFaces(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFlipFacesPtr)
+  public final fun getFlipFaces(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getFlipFacesPtr)
 
   public companion object {
     @JvmField

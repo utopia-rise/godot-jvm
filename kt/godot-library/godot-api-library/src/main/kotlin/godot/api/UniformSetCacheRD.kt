@@ -7,9 +7,8 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callPtrMethod_RID_LONG_ARRAY_ret_RID
+import godot.callStaticPtrMethod_RID_LONG_ARRAY_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.RID
@@ -46,7 +45,7 @@ public open class UniformSetCacheRD : Object() {
       `set`: Long,
       uniforms: VariantArray<RDUniform>,
     ): RID =
-        TransferContext.callPtrMethod_RID_LONG_ARRAY_ret_RID(0L, 0L, MethodBindings.getCachePtr, shader, set, uniforms)
+        callStaticPtrMethod_RID_LONG_ARRAY_ret_RID(MethodBindings.getCachePtr, shader, set, uniforms)
   }
 
   public object MethodBindings {

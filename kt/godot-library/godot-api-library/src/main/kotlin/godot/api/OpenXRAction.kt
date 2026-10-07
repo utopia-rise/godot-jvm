@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -133,25 +132,25 @@ public open class OpenXRAction : Resource() {
   }
 
   public final fun setLocalizedName(localizedName: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLocalizedNamePtr, localizedName)
+    callMethod_STRING(MethodBindings.setLocalizedNamePtr, localizedName)
   }
 
   public final fun getLocalizedName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocalizedNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getLocalizedNamePtr)
 
   public final fun setActionType(actionType: ActionType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setActionTypePtr, actionType.value)
+    callPtrMethod_LONG(MethodBindings.setActionTypePtr, actionType.value)
   }
 
   public final fun getActionType(): ActionType =
-      ActionType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getActionTypePtr))
+      ActionType.from(callPtrMethod0_ret_LONG(MethodBindings.getActionTypePtr))
 
   public final fun setToplevelPaths(toplevelPaths: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setToplevelPathsPtr, toplevelPaths)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setToplevelPathsPtr, toplevelPaths)
   }
 
   public final fun getToplevelPaths(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getToplevelPathsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getToplevelPathsPtr)
 
   public enum class ActionType(
     public override val `value`: Long,

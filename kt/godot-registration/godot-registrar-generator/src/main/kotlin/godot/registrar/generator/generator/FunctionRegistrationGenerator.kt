@@ -15,6 +15,7 @@ import godot.registrar.generator.ext.toGodotClassName
 import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registration.model.RegisteredFunction
 import godot.registration.model.types.ScriptClass
+import godot.registration.model.types.Type
 
 fun FunSpec.Builder.addNotificationRegistrations(
     registeredClass: ScriptClass,
@@ -51,12 +52,27 @@ fun FunSpec.Builder.addFunctionRegistrations(
     registeredClass.effectiveFunctions(context)
         .filter { registeredFunction -> registeredFunction.notification == null }
         .forEach { registeredFunction ->
-            addStatement(
-                getFunctionTemplateString(registeredFunction),
-                *getTemplateArgs(registeredFunction, context, className).toTypedArray()
-            )
+            if (registeredFunction.isProcessVirtual()) {
+                addStatement(
+                    "%N(%T { instance, delta -> instance.%N(delta) })",
+                    if (registeredFunction.name == "_process") "process" else "physicsProcess",
+                    ClassName("godot.registration", "ProcessBody"),
+                    registeredFunction.name,
+                )
+            } else {
+                addStatement(
+                    getFunctionTemplateString(registeredFunction),
+                    *getTemplateArgs(registeredFunction, context, className).toTypedArray()
+                )
+            }
         }
 }
+
+/** `_process` and `_physics_process` with the engine's own signature, which get their own registration. */
+private fun RegisteredFunction.isProcessVirtual(): Boolean =
+    (name == "_process" || name == "_physicsProcess")
+        && returnType == Type.nilType
+        && parameters.singleOrNull()?.type?.let { it == Type.doubleType && !it.isNullable } == true
 
 private fun getFunctionTemplateString(registeredFunction: RegisteredFunction) = buildString {
     append("function(%L, rpc(%M, %L, %M, %L), returns(%L, %S)")

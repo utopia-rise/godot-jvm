@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
@@ -80,7 +79,7 @@ public open class PlaceholderTexture2D : Texture2D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setSizePtr, size)
   }
 
   /**

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -111,46 +110,44 @@ public open class CSGCylinder3D : CSGPrimitive3D() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHeightPtr, height.toDouble())
   }
 
   public final fun getHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHeightPtr).toFloat()
 
   public final fun setSides(sides: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSidesPtr, sides.toLong())
+    callPtrMethod_LONG(MethodBindings.setSidesPtr, sides.toLong())
   }
 
-  public final fun getSides(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSidesPtr).toInt()
+  public final fun getSides(): Int = callPtrMethod0_ret_LONG(MethodBindings.getSidesPtr).toInt()
 
   public final fun setCone(cone: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setConePtr, cone)
+    callPtrMethod_BOOL(MethodBindings.setConePtr, cone)
   }
 
-  public final fun isCone(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isConePtr)
+  public final fun isCone(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isConePtr)
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public final fun setSmoothFaces(smoothFaces: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSmoothFacesPtr, smoothFaces)
+    callPtrMethod_BOOL(MethodBindings.setSmoothFacesPtr, smoothFaces)
   }
 
   public final fun getSmoothFaces(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSmoothFacesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSmoothFacesPtr)
 
   public companion object {
     @JvmField

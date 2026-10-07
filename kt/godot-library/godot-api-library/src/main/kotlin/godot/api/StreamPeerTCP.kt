@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_STRING_ret_LONG
@@ -50,32 +49,32 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    */
   @JvmOverloads
   public final fun bind(port: Int, host: String = "*"): Error =
-      Error.from(TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.bindPtr, port.toLong(), host))
+      Error.from(callMethod_LONG_STRING_ret_LONG(MethodBindings.bindPtr, port.toLong(), host))
 
   /**
    * Connects to the specified `host:port` pair. A hostname will be resolved if valid. Returns [OK]
    * on success.
    */
   public final fun connectToHost(host: String, port: Int): Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, host, port.toLong()))
+      Error.from(callMethod_STRING_LONG_ret_LONG(MethodBindings.connectToHostPtr, host, port.toLong()))
 
   /**
    * Returns the IP of this peer.
    */
   public final fun getConnectedHost(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConnectedHostPtr)
+      callMethod0_ret_STRING(MethodBindings.getConnectedHostPtr)
 
   /**
    * Returns the port of this peer.
    */
   public final fun getConnectedPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConnectedPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getConnectedPortPtr).toInt()
 
   /**
    * Returns the local port to which this peer is bound.
    */
   public final fun getLocalPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * If [enabled] is `true`, packets will be sent immediately. If [enabled] is `false` (the
@@ -86,7 +85,7 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    * need to transfer a lot of data, as enabling this can decrease the total available bandwidth.
    */
   public final fun setNoDelay(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNoDelayPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setNoDelayPtr, enabled)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_OBJECT_ret_LONG
 import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
@@ -181,7 +180,7 @@ public open class DTLSServer : RefCounted() {
    * Setup the DTLS server to use the given [serverOptions]. See [TLSOptions.server].
    */
   public final fun setup(serverOptions: TLSOptions?): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.setupPtr, serverOptions))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.setupPtr, serverOptions))
 
   /**
    * Try to initiate the DTLS handshake with the given [udpPeer] which must be already connected
@@ -192,7 +191,7 @@ public open class DTLSServer : RefCounted() {
    * invalid due to cookie exchange.
    */
   public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? =
-      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr, udpPeer) as PacketPeerDTLS?)
+      (callPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.takeConnectionPtr, udpPeer) as PacketPeerDTLS?)
 
   public companion object {
     @JvmField

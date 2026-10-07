@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -43,11 +42,10 @@ public open class VisualShaderNodeBooleanConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setConstantPtr, constant)
+    callPtrMethod_BOOL(MethodBindings.setConstantPtr, constant)
   }
 
-  public final fun getConstant(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getConstantPtr)
+  public final fun getConstant(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getConstantPtr)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_LONG_ret_ANY
@@ -48,37 +47,36 @@ public open class ScriptBacktrace : RefCounted() {
    * Returns the name of the script language that this backtrace was captured from.
    */
   public final fun getLanguageName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguageNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getLanguageNamePtr)
 
   /**
    * Returns `true` if the backtrace has no stack frames.
    */
-  public final fun isEmpty(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmptyPtr)
+  public final fun isEmpty(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEmptyPtr)
 
   /**
    * Returns the number of stack frames in the backtrace.
    */
   public final fun getFrameCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrameCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFrameCountPtr).toInt()
 
   /**
    * Returns the name of the function called at the stack frame at the specified index.
    */
   public final fun getFrameFunction(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getFrameFunctionPtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getFrameFunctionPtr, index.toLong())
 
   /**
    * Returns the file name of the call site represented by the stack frame at the specified index.
    */
   public final fun getFrameFile(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getFrameFilePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getFrameFilePtr, index.toLong())
 
   /**
    * Returns the line number of the call site represented by the stack frame at the specified index.
    */
   public final fun getFrameLine(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getFrameLinePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getFrameLinePtr, index.toLong()).toInt()
 
   /**
    * Returns the number of global variables (e.g. autoload singletons) in the backtrace.
@@ -87,13 +85,13 @@ public open class ScriptBacktrace : RefCounted() {
    * capturing the backtrace with [Engine.captureScriptBacktraces].
    */
   public final fun getGlobalVariableCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGlobalVariableCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getGlobalVariableCountPtr).toInt()
 
   /**
    * Returns the name of the global variable at the specified index.
    */
   public final fun getGlobalVariableName(variableIndex: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getGlobalVariableNamePtr, variableIndex.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getGlobalVariableNamePtr, variableIndex.toLong())
 
   /**
    * Returns the value of the global variable at the specified index.
@@ -103,7 +101,7 @@ public open class ScriptBacktrace : RefCounted() {
    * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getGlobalVariableValue(variableIndex: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getGlobalVariableValuePtr, variableIndex.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getGlobalVariableValuePtr, variableIndex.toLong())
 
   /**
    * Returns the number of local variables in the stack frame at the specified index.
@@ -112,14 +110,14 @@ public open class ScriptBacktrace : RefCounted() {
    * capturing the backtrace with [Engine.captureScriptBacktraces].
    */
   public final fun getLocalVariableCount(frameIndex: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getLocalVariableCountPtr, frameIndex.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getLocalVariableCountPtr, frameIndex.toLong()).toInt()
 
   /**
    * Returns the name of the local variable at the specified [variableIndex] in the stack frame at
    * the specified [frameIndex].
    */
   public final fun getLocalVariableName(frameIndex: Int, variableIndex: Int): String =
-      TransferContext.callMethod_LONG_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getLocalVariableNamePtr, frameIndex.toLong(), variableIndex.toLong())
+      callMethod_LONG_LONG_ret_STRING(MethodBindings.getLocalVariableNamePtr, frameIndex.toLong(), variableIndex.toLong())
 
   /**
    * Returns the value of the local variable at the specified [variableIndex] in the stack frame at
@@ -130,7 +128,7 @@ public open class ScriptBacktrace : RefCounted() {
    * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getLocalVariableValue(frameIndex: Int, variableIndex: Int): Any? =
-      TransferContext.callMethod_LONG_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getLocalVariableValuePtr, frameIndex.toLong(), variableIndex.toLong())
+      callMethod_LONG_LONG_ret_ANY(MethodBindings.getLocalVariableValuePtr, frameIndex.toLong(), variableIndex.toLong())
 
   /**
    * Returns the number of member variables in the stack frame at the specified index.
@@ -139,14 +137,14 @@ public open class ScriptBacktrace : RefCounted() {
    * capturing the backtrace with [Engine.captureScriptBacktraces].
    */
   public final fun getMemberVariableCount(frameIndex: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMemberVariableCountPtr, frameIndex.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getMemberVariableCountPtr, frameIndex.toLong()).toInt()
 
   /**
    * Returns the name of the member variable at the specified [variableIndex] in the stack frame at
    * the specified [frameIndex].
    */
   public final fun getMemberVariableName(frameIndex: Int, variableIndex: Int): String =
-      TransferContext.callMethod_LONG_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getMemberVariableNamePtr, frameIndex.toLong(), variableIndex.toLong())
+      callMethod_LONG_LONG_ret_STRING(MethodBindings.getMemberVariableNamePtr, frameIndex.toLong(), variableIndex.toLong())
 
   /**
    * Returns the value of the member variable at the specified [variableIndex] in the stack frame at
@@ -157,7 +155,7 @@ public open class ScriptBacktrace : RefCounted() {
    * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getMemberVariableValue(frameIndex: Int, variableIndex: Int): Any? =
-      TransferContext.callMethod_LONG_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getMemberVariableValuePtr, frameIndex.toLong(), variableIndex.toLong())
+      callMethod_LONG_LONG_ret_ANY(MethodBindings.getMemberVariableValuePtr, frameIndex.toLong(), variableIndex.toLong())
 
   /**
    * Converts the backtrace to a [String], where the entire string will be indented by [indentAll]
@@ -169,7 +167,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   @JvmOverloads
   public final fun format(indentAll: Int = 0, indentFrames: Int = 4): String =
-      TransferContext.callMethod_LONG_LONG_ret_STRING(ptr, objectID.id, MethodBindings.formatPtr, indentAll.toLong(), indentFrames.toLong())
+      callMethod_LONG_LONG_ret_STRING(MethodBindings.formatPtr, indentAll.toLong(), indentFrames.toLong())
 
   public companion object {
     @JvmField

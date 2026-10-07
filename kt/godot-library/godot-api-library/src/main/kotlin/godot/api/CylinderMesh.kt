@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -128,53 +127,50 @@ public open class CylinderMesh : PrimitiveMesh() {
   }
 
   public final fun setTopRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTopRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTopRadiusPtr, radius.toDouble())
   }
 
   public final fun getTopRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTopRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTopRadiusPtr).toFloat()
 
   public final fun setBottomRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBottomRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBottomRadiusPtr, radius.toDouble())
   }
 
   public final fun getBottomRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBottomRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBottomRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHeightPtr, height.toDouble())
   }
 
   public final fun getHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHeightPtr).toFloat()
 
   public final fun setRadialSegments(segments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRadialSegmentsPtr, segments.toLong())
+    callPtrMethod_LONG(MethodBindings.setRadialSegmentsPtr, segments.toLong())
   }
 
   public final fun getRadialSegments(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRadialSegmentsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRadialSegmentsPtr).toInt()
 
   public final fun setRings(rings: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRingsPtr, rings.toLong())
+    callPtrMethod_LONG(MethodBindings.setRingsPtr, rings.toLong())
   }
 
-  public final fun getRings(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRingsPtr).toInt()
+  public final fun getRings(): Int = callPtrMethod0_ret_LONG(MethodBindings.getRingsPtr).toInt()
 
   public final fun setCapTop(capTop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCapTopPtr, capTop)
+    callPtrMethod_BOOL(MethodBindings.setCapTopPtr, capTop)
   }
 
-  public final fun isCapTop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCapTopPtr)
+  public final fun isCapTop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCapTopPtr)
 
   public final fun setCapBottom(capBottom: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCapBottomPtr, capBottom)
+    callPtrMethod_BOOL(MethodBindings.setCapBottomPtr, capBottom)
   }
 
-  public final fun isCapBottom(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCapBottomPtr)
+  public final fun isCapBottom(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCapBottomPtr)
 
   public companion object {
     @JvmField

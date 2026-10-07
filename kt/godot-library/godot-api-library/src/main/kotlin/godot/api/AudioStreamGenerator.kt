@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -154,25 +153,25 @@ public open class AudioStreamGenerator : AudioStream() {
   }
 
   public final fun setMixRate(hz: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMixRatePtr, hz.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMixRatePtr, hz.toDouble())
   }
 
   public final fun getMixRate(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMixRatePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMixRatePtr).toFloat()
 
   public final fun setMixRateMode(mode: AudioStreamGeneratorMixRate): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMixRateModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setMixRateModePtr, mode.value)
   }
 
   public final fun getMixRateMode(): AudioStreamGeneratorMixRate =
-      AudioStreamGeneratorMixRate.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMixRateModePtr))
+      AudioStreamGeneratorMixRate.from(callPtrMethod0_ret_LONG(MethodBindings.getMixRateModePtr))
 
   public final fun setBufferLength(seconds: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBufferLengthPtr, seconds.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBufferLengthPtr, seconds.toDouble())
   }
 
   public final fun getBufferLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBufferLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBufferLengthPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

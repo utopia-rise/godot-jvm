@@ -9,10 +9,8 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
-import godot.callMethod_CALLABLE
 import godot.callMethod_LONG_STRING
 import godot.callMethod_LONG_ret_STRING
 import godot.callMethod_STRING
@@ -33,6 +31,9 @@ import godot.callPtrMethod_LONG_ret_BOOL
 import godot.callPtrMethod_LONG_ret_LONG
 import godot.callPtrMethod_LONG_ret_PACKED_STRING_ARRAY
 import godot.callPtrMethod_PACKED_STRING_ARRAY
+import godot.callStaticMethod_CALLABLE
+import godot.callStaticPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callStaticPtrMethod_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Dictionary
@@ -432,7 +433,7 @@ public open class FileDialog : ConfirmationDialog() {
    * Clear all the added filters in the dialog.
    */
   public final fun clearFilters(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearFiltersPtr)
+    callPtrMethod0(MethodBindings.clearFiltersPtr)
   }
 
   /**
@@ -454,75 +455,75 @@ public open class FileDialog : ConfirmationDialog() {
     description: String = "",
     mimeType: String = "",
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_STRING(ptr, objectID.id, MethodBindings.addFilterPtr, filter, description, mimeType)
+    callMethod_STRING_STRING_STRING(MethodBindings.addFilterPtr, filter, description, mimeType)
   }
 
   public final fun setFilters(filters: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setFiltersPtr, filters)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setFiltersPtr, filters)
   }
 
   public final fun getFilters(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getFiltersPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getFiltersPtr)
 
   /**
    * Clear the filter for file names.
    */
   public final fun clearFilenameFilter(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearFilenameFilterPtr)
+    callPtrMethod0(MethodBindings.clearFilenameFilterPtr)
   }
 
   public final fun setFilenameFilter(filter: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setFilenameFilterPtr, filter)
+    callMethod_STRING(MethodBindings.setFilenameFilterPtr, filter)
   }
 
   public final fun getFilenameFilter(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getFilenameFilterPtr)
+      callMethod0_ret_STRING(MethodBindings.getFilenameFilterPtr)
 
   /**
    * Returns the name of the [OptionButton] or [CheckBox] with index [option].
    */
   public final fun getOptionName(option: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getOptionNamePtr, option.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getOptionNamePtr, option.toLong())
 
   /**
    * Returns an array of values of the [OptionButton] with index [option].
    */
   public final fun getOptionValues(option: Int): PackedStringArray =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getOptionValuesPtr, option.toLong())
+      callPtrMethod_LONG_ret_PACKED_STRING_ARRAY(MethodBindings.getOptionValuesPtr, option.toLong())
 
   /**
    * Returns the default value index of the [OptionButton] or [CheckBox] with index [option].
    */
   public final fun getOptionDefault(option: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOptionDefaultPtr, option.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getOptionDefaultPtr, option.toLong()).toInt()
 
   /**
    * Sets the name of the [OptionButton] or [CheckBox] with index [option].
    */
   public final fun setOptionName(option: Int, name: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setOptionNamePtr, option.toLong(), name)
+    callMethod_LONG_STRING(MethodBindings.setOptionNamePtr, option.toLong(), name)
   }
 
   /**
    * Sets the option values of the [OptionButton] with index [option].
    */
   public final fun setOptionValues(option: Int, values: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_LONG_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setOptionValuesPtr, option.toLong(), values)
+    callPtrMethod_LONG_PACKED_STRING_ARRAY(MethodBindings.setOptionValuesPtr, option.toLong(), values)
   }
 
   /**
    * Sets the default value index of the [OptionButton] or [CheckBox] with index [option].
    */
   public final fun setOptionDefault(option: Int, defaultValueIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setOptionDefaultPtr, option.toLong(), defaultValueIndex.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setOptionDefaultPtr, option.toLong(), defaultValueIndex.toLong())
   }
 
   public final fun setOptionCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOptionCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setOptionCountPtr, count.toLong())
   }
 
   public final fun getOptionCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOptionCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOptionCountPtr).toInt()
 
   /**
    * Adds an additional [OptionButton] to the file dialog. If [values] is empty, a [CheckBox] is
@@ -536,7 +537,7 @@ public open class FileDialog : ConfirmationDialog() {
     values: PackedStringArray,
     defaultValueIndex: Int,
   ): Unit {
-    TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_LONG(ptr, objectID.id, MethodBindings.addOptionPtr, name, values, defaultValueIndex.toLong())
+    callMethod_STRING_PACKED_STRING_ARRAY_LONG(MethodBindings.addOptionPtr, name, values, defaultValueIndex.toLong())
   }
 
   /**
@@ -544,49 +545,48 @@ public open class FileDialog : ConfirmationDialog() {
    * [CheckBox]es. [Dictionary] keys are names and values are selected value indices.
    */
   public final fun getSelectedOptions(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getSelectedOptionsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getSelectedOptionsPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getCurrentDir(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCurrentDirPtr)
+  public final fun getCurrentDir(): String = callMethod0_ret_STRING(MethodBindings.getCurrentDirPtr)
 
   public final fun getCurrentFile(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCurrentFilePtr)
+      callMethod0_ret_STRING(MethodBindings.getCurrentFilePtr)
 
   public final fun getCurrentPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCurrentPathPtr)
+      callMethod0_ret_STRING(MethodBindings.getCurrentPathPtr)
 
   public final fun setCurrentDir(dir: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCurrentDirPtr, dir)
+    callMethod_STRING(MethodBindings.setCurrentDirPtr, dir)
   }
 
   public final fun setCurrentFile(`file`: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCurrentFilePtr, file)
+    callMethod_STRING(MethodBindings.setCurrentFilePtr, file)
   }
 
   public final fun setCurrentPath(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCurrentPathPtr, path)
+    callMethod_STRING(MethodBindings.setCurrentPathPtr, path)
   }
 
   public final fun setModeOverridesTitle(`override`: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setModeOverridesTitlePtr, override)
+    callPtrMethod_BOOL(MethodBindings.setModeOverridesTitlePtr, override)
   }
 
   public final fun isModeOverridingTitle(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isModeOverridingTitlePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isModeOverridingTitlePtr)
 
   public final fun setFileMode(mode: FileMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFileModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setFileModePtr, mode.value)
   }
 
   public final fun getFileMode(): FileMode =
-      FileMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFileModePtr))
+      FileMode.from(callPtrMethod0_ret_LONG(MethodBindings.getFileModePtr))
 
   public final fun setDisplayMode(mode: DisplayMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDisplayModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setDisplayModePtr, mode.value)
   }
 
   public final fun getDisplayMode(): DisplayMode =
-      DisplayMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDisplayModePtr))
+      DisplayMode.from(callPtrMethod0_ret_LONG(MethodBindings.getDisplayModePtr))
 
   /**
    * Returns the vertical box container of the dialog, custom controls can be added to it.
@@ -598,7 +598,7 @@ public open class FileDialog : ConfirmationDialog() {
    * custom elements to the dialog instead.
    */
   public final fun getVbox(): VBoxContainer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getVboxPtr) as VBoxContainer?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getVboxPtr) as VBoxContainer?)
 
   /**
    * Returns the LineEdit for the selected file.
@@ -607,55 +607,55 @@ public open class FileDialog : ConfirmationDialog() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getLineEdit(): LineEdit? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLineEditPtr) as LineEdit?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLineEditPtr) as LineEdit?)
 
   public final fun setAccess(access: Access): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAccessPtr, access.value)
+    callPtrMethod_LONG(MethodBindings.setAccessPtr, access.value)
   }
 
   public final fun getAccess(): Access =
-      Access.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAccessPtr))
+      Access.from(callPtrMethod0_ret_LONG(MethodBindings.getAccessPtr))
 
   public final fun setRootSubfolder(dir: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setRootSubfolderPtr, dir)
+    callMethod_STRING(MethodBindings.setRootSubfolderPtr, dir)
   }
 
   public final fun getRootSubfolder(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getRootSubfolderPtr)
+      callMethod0_ret_STRING(MethodBindings.getRootSubfolderPtr)
 
   public final fun setShowHiddenFiles(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowHiddenFilesPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setShowHiddenFilesPtr, show)
   }
 
   public final fun isShowingHiddenFiles(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingHiddenFilesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isShowingHiddenFilesPtr)
 
   public final fun setUseNativeDialog(native: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseNativeDialogPtr, native)
+    callPtrMethod_BOOL(MethodBindings.setUseNativeDialogPtr, native)
   }
 
   public final fun getUseNativeDialog(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseNativeDialogPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUseNativeDialogPtr)
 
   /**
    * Sets the specified customization [flag], allowing to customize the features available in this
    * [FileDialog].
    */
   public final fun setCustomizationFlagEnabled(flag: Customization, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCustomizationFlagEnabledPtr, flag.value, enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCustomizationFlagEnabledPtr, flag.value, enabled)
   }
 
   /**
    * Returns `true` if the provided [flag] is enabled.
    */
   public final fun isCustomizationFlagEnabled(flag: Customization): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isCustomizationFlagEnabledPtr, flag.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isCustomizationFlagEnabledPtr, flag.value)
 
   /**
    * Clear all currently selected items in the dialog.
    */
   public final fun deselectAll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.deselectAllPtr)
+    callPtrMethod0(MethodBindings.deselectAllPtr)
   }
 
   /**
@@ -663,7 +663,7 @@ public open class FileDialog : ConfirmationDialog() {
    * file name if there is a current file.
    */
   public final fun popupFileDialog(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.popupFileDialogPtr)
+    callPtrMethod0(MethodBindings.popupFileDialogPtr)
   }
 
   /**
@@ -672,7 +672,7 @@ public open class FileDialog : ConfirmationDialog() {
    * **Note:** This method does nothing on native file dialogs.
    */
   public final fun invalidate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.invalidatePtr)
+    callPtrMethod0(MethodBindings.invalidatePtr)
   }
 
   public enum class FileMode(
@@ -1026,7 +1026,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun setFavoriteList(favorites: PackedStringArray): Unit {
-      TransferContext.callPtrMethod_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.setFavoriteListPtr, favorites)
+      callStaticPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setFavoriteListPtr, favorites)
     }
 
     /**
@@ -1036,7 +1036,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun getFavoriteList(): PackedStringArray =
-        TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.getFavoriteListPtr)
+        callStaticPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getFavoriteListPtr)
 
     /**
      * Sets the list of recent directories, which is shared by all [FileDialog] nodes. Useful to
@@ -1048,7 +1048,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun setRecentList(recents: PackedStringArray): Unit {
-      TransferContext.callPtrMethod_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.setRecentListPtr, recents)
+      callStaticPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setRecentListPtr, recents)
     }
 
     /**
@@ -1058,7 +1058,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun getRecentList(): PackedStringArray =
-        TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.getRecentListPtr)
+        callStaticPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getRecentListPtr)
 
     /**
      * Sets the callback used by the [FileDialog] nodes to get a file icon, when [DISPLAY_LIST] mode
@@ -1067,7 +1067,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun setGetIconCallback(callback: Callable): Unit {
-      TransferContext.callMethod_CALLABLE(0L, 0L, MethodBindings.setGetIconCallbackPtr, callback)
+      callStaticMethod_CALLABLE(MethodBindings.setGetIconCallbackPtr, callback)
     }
 
     /**
@@ -1096,7 +1096,7 @@ public open class FileDialog : ConfirmationDialog() {
      */
     @JvmStatic
     public final fun setGetThumbnailCallback(callback: Callable): Unit {
-      TransferContext.callMethod_CALLABLE(0L, 0L, MethodBindings.setGetThumbnailCallbackPtr, callback)
+      callStaticMethod_CALLABLE(MethodBindings.setGetThumbnailCallbackPtr, callback)
     }
   }
 

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -79,25 +78,25 @@ public open class PanoramaSkyMaterial : Material() {
   }
 
   public final fun setPanorama(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPanoramaPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setPanoramaPtr, texture)
   }
 
   public final fun getPanorama(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPanoramaPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPanoramaPtr) as Texture2D?)
 
   public final fun setFilteringEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFilteringEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFilteringEnabledPtr, enabled)
   }
 
   public final fun isFilteringEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFilteringEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFilteringEnabledPtr)
 
   public final fun setEnergyMultiplier(multiplier: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEnergyMultiplierPtr, multiplier.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEnergyMultiplierPtr, multiplier.toDouble())
   }
 
   public final fun getEnergyMultiplier(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEnergyMultiplierPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEnergyMultiplierPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -176,39 +175,37 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
   }
 
   public final fun setTitle(title: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, title)
+    callMethod_STRING(MethodBindings.setTitlePtr, title)
   }
 
-  public final fun getTitle(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
+  public final fun getTitle(): String = callMethod0_ret_STRING(MethodBindings.getTitlePtr)
 
   public final fun setTintColorEnabled(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTintColorEnabledPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setTintColorEnabledPtr, enable)
   }
 
   public final fun isTintColorEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTintColorEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTintColorEnabledPtr)
 
   public final fun setTintColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setTintColorPtr, color)
   }
 
-  public final fun getTintColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintColorPtr)
+  public final fun getTintColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getTintColorPtr)
 
   public final fun setAutoshrinkEnabled(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoshrinkEnabledPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoshrinkEnabledPtr, enable)
   }
 
   public final fun isAutoshrinkEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoshrinkEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoshrinkEnabledPtr)
 
   /**
    * Adds a node to the list of nodes attached to the frame. Should not be called directly, use the
    * [VisualShader.attachNodeToFrame] method instead.
    */
   public final fun addAttachedNode(node: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addAttachedNodePtr, node.toLong())
+    callPtrMethod_LONG(MethodBindings.addAttachedNodePtr, node.toLong())
   }
 
   /**
@@ -216,15 +213,15 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
    * the [VisualShader.detachNodeFromFrame] method instead.
    */
   public final fun removeAttachedNode(node: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeAttachedNodePtr, node.toLong())
+    callPtrMethod_LONG(MethodBindings.removeAttachedNodePtr, node.toLong())
   }
 
   public final fun setAttachedNodes(attachedNodes: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setAttachedNodesPtr, attachedNodes)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setAttachedNodesPtr, attachedNodes)
   }
 
   public final fun getAttachedNodes(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getAttachedNodesPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getAttachedNodesPtr)
 
   public companion object {
     @JvmField

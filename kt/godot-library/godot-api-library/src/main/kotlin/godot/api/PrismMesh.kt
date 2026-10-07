@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -121,39 +120,38 @@ public open class PrismMesh : PrimitiveMesh() {
   }
 
   public final fun setLeftToRight(leftToRight: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLeftToRightPtr, leftToRight.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLeftToRightPtr, leftToRight.toDouble())
   }
 
   public final fun getLeftToRight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLeftToRightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLeftToRightPtr).toFloat()
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   public final fun setSubdivideWidth(segments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideWidthPtr, segments.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideWidthPtr, segments.toLong())
   }
 
   public final fun getSubdivideWidth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideWidthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideWidthPtr).toInt()
 
   public final fun setSubdivideHeight(segments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideHeightPtr, segments.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideHeightPtr, segments.toLong())
   }
 
   public final fun getSubdivideHeight(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideHeightPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideHeightPtr).toInt()
 
   public final fun setSubdivideDepth(segments: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideDepthPtr, segments.toLong())
+    callPtrMethod_LONG(MethodBindings.setSubdivideDepthPtr, segments.toLong())
   }
 
   public final fun getSubdivideDepth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideDepthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSubdivideDepthPtr).toInt()
 
   public companion object {
     @JvmField

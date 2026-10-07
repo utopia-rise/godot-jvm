@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -129,39 +128,37 @@ public open class StyleBoxLine : StyleBox() {
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setColorPtr, color)
   }
 
-  public final fun getColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
+  public final fun getColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getColorPtr)
 
   public final fun setThickness(thickness: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setThicknessPtr, thickness.toLong())
+    callPtrMethod_LONG(MethodBindings.setThicknessPtr, thickness.toLong())
   }
 
   public final fun getThickness(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getThicknessPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getThicknessPtr).toInt()
 
   public final fun setGrowBegin(offset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGrowBeginPtr, offset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGrowBeginPtr, offset.toDouble())
   }
 
   public final fun getGrowBegin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGrowBeginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGrowBeginPtr).toFloat()
 
   public final fun setGrowEnd(offset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGrowEndPtr, offset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGrowEndPtr, offset.toDouble())
   }
 
   public final fun getGrowEnd(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGrowEndPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGrowEndPtr).toFloat()
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVerticalPtr, vertical)
+    callPtrMethod_BOOL(MethodBindings.setVerticalPtr, vertical)
   }
 
-  public final fun isVertical(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVerticalPtr)
+  public final fun isVertical(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isVerticalPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

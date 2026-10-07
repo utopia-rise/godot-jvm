@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -71,25 +70,25 @@ public open class LightOccluder2D : Node2D() {
   }
 
   public final fun setOccluderPolygon(polygon: OccluderPolygon2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOccluderPolygonPtr, polygon)
+    callPtrMethod_OBJECT(MethodBindings.setOccluderPolygonPtr, polygon)
   }
 
   public final fun getOccluderPolygon(): OccluderPolygon2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOccluderPolygonPtr) as OccluderPolygon2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOccluderPolygonPtr) as OccluderPolygon2D?)
 
   public final fun setOccluderLightMask(mask: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOccluderLightMaskPtr, mask.toLong())
+    callPtrMethod_LONG(MethodBindings.setOccluderLightMaskPtr, mask.toLong())
   }
 
   public final fun getOccluderLightMask(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOccluderLightMaskPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOccluderLightMaskPtr).toInt()
 
   public final fun setAsSdfCollision(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAsSdfCollisionPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAsSdfCollisionPtr, enable)
   }
 
   public final fun isSetAsSdfCollision(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSetAsSdfCollisionPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSetAsSdfCollisionPtr)
 
   public companion object {
     @JvmField

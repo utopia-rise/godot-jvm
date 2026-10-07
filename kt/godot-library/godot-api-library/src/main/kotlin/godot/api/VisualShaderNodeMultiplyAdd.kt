@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -42,11 +41,11 @@ public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
   }
 
   public final fun setOpType(type: OpType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOpTypePtr, type.value)
+    callPtrMethod_LONG(MethodBindings.setOpTypePtr, type.value)
   }
 
   public final fun getOpType(): OpType =
-      OpType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOpTypePtr))
+      OpType.from(callPtrMethod0_ret_LONG(MethodBindings.getOpTypePtr))
 
   public enum class OpType(
     public override val `value`: Long,

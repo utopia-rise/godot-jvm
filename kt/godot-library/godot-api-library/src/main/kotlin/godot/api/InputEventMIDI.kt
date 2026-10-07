@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -223,60 +222,58 @@ public open class InputEventMIDI : InputEvent() {
   }
 
   public final fun setChannel(channel: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setChannelPtr, channel.toLong())
+    callPtrMethod_LONG(MethodBindings.setChannelPtr, channel.toLong())
   }
 
-  public final fun getChannel(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getChannelPtr).toInt()
+  public final fun getChannel(): Int = callPtrMethod0_ret_LONG(MethodBindings.getChannelPtr).toInt()
 
   public final fun setMessage(message: MIDIMessage): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMessagePtr, message.value)
+    callPtrMethod_LONG(MethodBindings.setMessagePtr, message.value)
   }
 
   public final fun getMessage(): MIDIMessage =
-      MIDIMessage.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMessagePtr))
+      MIDIMessage.from(callPtrMethod0_ret_LONG(MethodBindings.getMessagePtr))
 
   public final fun setPitch(pitch: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPitchPtr, pitch.toLong())
+    callPtrMethod_LONG(MethodBindings.setPitchPtr, pitch.toLong())
   }
 
-  public final fun getPitch(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPitchPtr).toInt()
+  public final fun getPitch(): Int = callPtrMethod0_ret_LONG(MethodBindings.getPitchPtr).toInt()
 
   public final fun setVelocity(velocity: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVelocityPtr, velocity.toLong())
+    callPtrMethod_LONG(MethodBindings.setVelocityPtr, velocity.toLong())
   }
 
   public final fun getVelocity(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVelocityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVelocityPtr).toInt()
 
   public final fun setInstrument(instrument: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInstrumentPtr, instrument.toLong())
+    callPtrMethod_LONG(MethodBindings.setInstrumentPtr, instrument.toLong())
   }
 
   public final fun getInstrument(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInstrumentPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInstrumentPtr).toInt()
 
   public final fun setPressure(pressure: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPressurePtr, pressure.toLong())
+    callPtrMethod_LONG(MethodBindings.setPressurePtr, pressure.toLong())
   }
 
   public final fun getPressure(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPressurePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPressurePtr).toInt()
 
   public final fun setControllerNumber(controllerNumber: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setControllerNumberPtr, controllerNumber.toLong())
+    callPtrMethod_LONG(MethodBindings.setControllerNumberPtr, controllerNumber.toLong())
   }
 
   public final fun getControllerNumber(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getControllerNumberPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getControllerNumberPtr).toInt()
 
   public final fun setControllerValue(controllerValue: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setControllerValuePtr, controllerValue.toLong())
+    callPtrMethod_LONG(MethodBindings.setControllerValuePtr, controllerValue.toLong())
   }
 
   public final fun getControllerValue(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getControllerValuePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getControllerValuePtr).toInt()
 
   public companion object {
     @JvmField

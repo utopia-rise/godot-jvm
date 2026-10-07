@@ -9,9 +9,7 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callMethod_STRING_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -20,7 +18,8 @@ import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_DOUBLE
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_PACKED_BYTE_ARRAY
-import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_ret_OBJECT_REF
+import godot.callStaticPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -240,46 +239,44 @@ public open class AudioStreamMP3 : AudioStream() {
   }
 
   public final fun setData(`data`: PackedByteArray): Unit {
-    TransferContext.callPtrMethod_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setDataPtr, data)
+    callPtrMethod_PACKED_BYTE_ARRAY(MethodBindings.setDataPtr, data)
   }
 
   public final fun getData(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getDataPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getDataPtr)
 
   public final fun setLoop(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setLoopPtr, enable)
   }
 
-  public final fun hasLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasLoopPtr)
+  public final fun hasLoop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasLoopPtr)
 
   public final fun setLoopOffset(seconds: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLoopOffsetPtr, seconds)
+    callPtrMethod_DOUBLE(MethodBindings.setLoopOffsetPtr, seconds)
   }
 
   public final fun getLoopOffset(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLoopOffsetPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLoopOffsetPtr)
 
   public final fun setBpm(bpm: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBpmPtr, bpm)
+    callPtrMethod_DOUBLE(MethodBindings.setBpmPtr, bpm)
   }
 
-  public final fun getBpm(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBpmPtr)
+  public final fun getBpm(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getBpmPtr)
 
   public final fun setBeatCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBeatCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setBeatCountPtr, count.toLong())
   }
 
   public final fun getBeatCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBeatCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBeatCountPtr).toInt()
 
   public final fun setBarBeats(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBarBeatsPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setBarBeatsPtr, count.toLong())
   }
 
   public final fun getBarBeats(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBarBeatsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBarBeatsPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.
@@ -352,7 +349,7 @@ public open class AudioStreamMP3 : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromBuffer(streamData: PackedByteArray): AudioStreamMP3? =
-        (TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromBufferPtr, streamData) as AudioStreamMP3?)
+        (callStaticPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF(MethodBindings.loadFromBufferPtr, streamData) as AudioStreamMP3?)
 
     /**
      * Creates a new [AudioStreamMP3] instance from the given file path. The file must be in MP3
@@ -360,7 +357,7 @@ public open class AudioStreamMP3 : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromFile(path: String): AudioStreamMP3? =
-        (TransferContext.callMethod_STRING_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromFilePtr, path) as AudioStreamMP3?)
+        (callStaticMethod_STRING_ret_OBJECT_REF(MethodBindings.loadFromFilePtr, path) as AudioStreamMP3?)
   }
 
   public object MethodBindings {

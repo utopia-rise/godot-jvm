@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -180,60 +179,57 @@ public open class SpinBox : Range() {
   }
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalAlignmentPtr, alignment.value)
+    callPtrMethod_LONG(MethodBindings.setHorizontalAlignmentPtr, alignment.value)
   }
 
   public final fun getHorizontalAlignment(): HorizontalAlignment =
-      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalAlignmentPtr))
+      HorizontalAlignment.from(callPtrMethod0_ret_LONG(MethodBindings.getHorizontalAlignmentPtr))
 
   public final fun setSuffix(suffix: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSuffixPtr, suffix)
+    callMethod_STRING(MethodBindings.setSuffixPtr, suffix)
   }
 
-  public final fun getSuffix(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSuffixPtr)
+  public final fun getSuffix(): String = callMethod0_ret_STRING(MethodBindings.getSuffixPtr)
 
   public final fun setPrefix(prefix: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPrefixPtr, prefix)
+    callMethod_STRING(MethodBindings.setPrefixPtr, prefix)
   }
 
-  public final fun getPrefix(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPrefixPtr)
+  public final fun getPrefix(): String = callMethod0_ret_STRING(MethodBindings.getPrefixPtr)
 
   public final fun setEditable(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditablePtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEditablePtr, enabled)
   }
 
   public final fun setCustomArrowStep(arrowStep: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomArrowStepPtr, arrowStep)
+    callPtrMethod_DOUBLE(MethodBindings.setCustomArrowStepPtr, arrowStep)
   }
 
   public final fun getCustomArrowStep(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomArrowStepPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCustomArrowStepPtr)
 
   public final fun setCustomArrowRound(round: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCustomArrowRoundPtr, round)
+    callPtrMethod_BOOL(MethodBindings.setCustomArrowRoundPtr, round)
   }
 
   public final fun isCustomArrowRounding(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCustomArrowRoundingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCustomArrowRoundingPtr)
 
-  public final fun isEditable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditablePtr)
+  public final fun isEditable(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEditablePtr)
 
   public final fun setUpdateOnTextChanged(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUpdateOnTextChangedPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUpdateOnTextChangedPtr, enabled)
   }
 
   public final fun getUpdateOnTextChanged(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUpdateOnTextChangedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUpdateOnTextChangedPtr)
 
   public final fun setSelectAllOnFocus(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSelectAllOnFocusPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setSelectAllOnFocusPtr, enabled)
   }
 
   public final fun isSelectAllOnFocus(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSelectAllOnFocusPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSelectAllOnFocusPtr)
 
   /**
    * Applies the current value of this [SpinBox]. This is equivalent to pressing [kbd]Enter[/kbd]
@@ -241,7 +237,7 @@ public open class SpinBox : Range() {
    * LineEdit.text_submitted] to be emitted and its currently contained expression to be evaluated.
    */
   public final fun apply(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.applyPtr)
+    callPtrMethod0(MethodBindings.applyPtr)
   }
 
   /**
@@ -252,7 +248,7 @@ public open class SpinBox : Range() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getLineEdit(): LineEdit? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLineEditPtr) as LineEdit?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLineEditPtr) as LineEdit?)
 
   public companion object {
     @JvmField

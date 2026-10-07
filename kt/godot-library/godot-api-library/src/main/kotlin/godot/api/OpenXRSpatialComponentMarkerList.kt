@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_RID_LONG_ret_ANY
 import godot.callPtrMethod_LONG_ret_LONG
@@ -37,21 +36,21 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    * Returns the marker type for the marker at this [index].
    */
   public final fun getMarkerType(index: Long): MarkerType =
-      MarkerType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerTypePtr, index))
+      MarkerType.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getMarkerTypePtr, index))
 
   /**
    * Returns the marker ID for the marker at this [index]. Only applicable for Aruco or April Tag
    * markers.
    */
   public final fun getMarkerId(index: Long): Long =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerIdPtr, index)
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getMarkerIdPtr, index)
 
   /**
    * Returns either a [String] or a [PackedByteArray] buffer with data for the marker at this
    * [index]. Only applicable for QR code markers.
    */
   public final fun getMarkerData(snapshot: RID, index: Long): Any? =
-      TransferContext.callMethod_RID_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getMarkerDataPtr, snapshot, index)
+      callMethod_RID_LONG_ret_ANY(MethodBindings.getMarkerDataPtr, snapshot, index)
 
   public enum class MarkerType(
     public override val `value`: Long,

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -58,30 +57,27 @@ public open class RefCounted : Object() {
    *
    * Returns whether the initialization was successful.
    */
-  public final fun initRef(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.initRefPtr)
+  public final fun initRef(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.initRefPtr)
 
   /**
    * Increments the internal reference counter. Use this only if you really know what you are doing.
    *
    * Returns `true` if the increment was successful, `false` otherwise.
    */
-  public final fun reference(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.referencePtr)
+  public final fun reference(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.referencePtr)
 
   /**
    * Decrements the internal reference counter. Use this only if you really know what you are doing.
    *
    * Returns `true` if the object should be freed after the decrement, `false` otherwise.
    */
-  public final fun unreference(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.unreferencePtr)
+  public final fun unreference(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.unreferencePtr)
 
   /**
    * Returns the current reference count.
    */
   public final fun getReferenceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getReferenceCountPtr).toInt()
 
   public companion object {
     @JvmField

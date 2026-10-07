@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING_ret_LONG
@@ -38,26 +37,25 @@ public open class X509Certificate : Resource() {
    * Saves a certificate to the given [path] (should be a "*.crt" file).
    */
   public final fun save(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.savePtr, path))
 
   /**
    * Loads a certificate from [path] ("*.crt" file).
    */
   public final fun load(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.loadPtr, path))
 
   /**
    * Returns a string representation of the certificate, or an empty string if the certificate is
    * invalid.
    */
-  public final fun saveToString(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.saveToStringPtr)
+  public final fun saveToString(): String = callMethod0_ret_STRING(MethodBindings.saveToStringPtr)
 
   /**
    * Loads a certificate from the given [string].
    */
   public final fun loadFromString(string: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadFromStringPtr, string))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.loadFromStringPtr, string))
 
   public companion object {
     @JvmField

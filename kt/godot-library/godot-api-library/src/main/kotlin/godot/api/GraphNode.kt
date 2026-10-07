@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_ANY
@@ -141,11 +140,10 @@ public open class GraphNode : GraphElement() {
   }
 
   public final fun setTitle(title: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, title)
+    callMethod_STRING(MethodBindings.setTitlePtr, title)
   }
 
-  public final fun getTitle(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
+  public final fun getTitle(): String = callMethod0_ret_STRING(MethodBindings.getTitlePtr)
 
   /**
    * Returns the [HBoxContainer] used for the title bar, only containing a [Label] for displaying
@@ -153,7 +151,7 @@ public open class GraphNode : GraphElement() {
    * close buttons.
    */
   public final fun getTitlebarHbox(): HBoxContainer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTitlebarHboxPtr) as HBoxContainer?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getTitlebarHboxPtr) as HBoxContainer?)
 
   /**
    * Sets properties of the slot with the given [slotIndex].
@@ -192,7 +190,7 @@ public open class GraphNode : GraphElement() {
     customIconRight: Texture2D? = null,
     drawStylebox: Boolean = true,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL_LONG_COLOR_BOOL_LONG_COLOR_OBJECT_OBJECT_BOOL(ptr, objectID.id, MethodBindings.setSlotPtr, slotIndex.toLong(), enableLeftPort, typeLeft.toLong(), colorLeft, enableRightPort, typeRight.toLong(), colorRight, customIconLeft, customIconRight, drawStylebox)
+    callPtrMethod_LONG_BOOL_LONG_COLOR_BOOL_LONG_COLOR_OBJECT_OBJECT_BOOL(MethodBindings.setSlotPtr, slotIndex.toLong(), enableLeftPort, typeLeft.toLong(), colorLeft, enableRightPort, typeRight.toLong(), colorRight, customIconLeft, customIconRight, drawStylebox)
   }
 
   /**
@@ -200,7 +198,7 @@ public open class GraphNode : GraphElement() {
    * output port from the GraphNode.
    */
   public final fun clearSlot(slotIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.clearSlotPtr, slotIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.clearSlotPtr, slotIndex.toLong())
   }
 
   /**
@@ -208,21 +206,21 @@ public open class GraphNode : GraphElement() {
    * GraphNode.
    */
   public final fun clearAllSlots(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearAllSlotsPtr)
+    callPtrMethod0(MethodBindings.clearAllSlotsPtr)
   }
 
   /**
    * Returns `true` if left (input) side of the slot with the given [slotIndex] is enabled.
    */
   public final fun isSlotEnabledLeft(slotIndex: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isSlotEnabledLeftPtr, slotIndex.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isSlotEnabledLeftPtr, slotIndex.toLong())
 
   /**
    * Toggles the left (input) side of the slot with the given [slotIndex]. If [enable] is `true`, a
    * port will appear on the left side and the slot will be able to be connected from this side.
    */
   public final fun setSlotEnabledLeft(slotIndex: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setSlotEnabledLeftPtr, slotIndex.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setSlotEnabledLeftPtr, slotIndex.toLong(), enable)
   }
 
   /**
@@ -230,68 +228,68 @@ public open class GraphNode : GraphElement() {
    * negative, all connections will be disallowed to be created via user inputs.
    */
   public final fun setSlotTypeLeft(slotIndex: Int, type: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setSlotTypeLeftPtr, slotIndex.toLong(), type.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setSlotTypeLeftPtr, slotIndex.toLong(), type.toLong())
   }
 
   /**
    * Returns the left (input) type of the slot with the given [slotIndex].
    */
   public final fun getSlotTypeLeft(slotIndex: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getSlotTypeLeftPtr, slotIndex.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getSlotTypeLeftPtr, slotIndex.toLong()).toInt()
 
   /**
    * Sets the [Color] of the left (input) side of the slot with the given [slotIndex] to [color].
    */
   public final fun setSlotColorLeft(slotIndex: Int, color: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setSlotColorLeftPtr, slotIndex.toLong(), color)
+    callPtrMethod_LONG_COLOR(MethodBindings.setSlotColorLeftPtr, slotIndex.toLong(), color)
   }
 
   /**
    * Returns the left (input) [Color] of the slot with the given [slotIndex].
    */
   public final fun getSlotColorLeft(slotIndex: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getSlotColorLeftPtr, slotIndex.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getSlotColorLeftPtr, slotIndex.toLong())
 
   /**
    * Sets the custom [Texture2D] of the left (input) side of the slot with the given [slotIndex] to
    * [customIcon].
    */
   public final fun setSlotCustomIconLeft(slotIndex: Int, customIcon: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setSlotCustomIconLeftPtr, slotIndex.toLong(), customIcon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setSlotCustomIconLeftPtr, slotIndex.toLong(), customIcon)
   }
 
   /**
    * Returns the left (input) custom [Texture2D] of the slot with the given [slotIndex].
    */
   public final fun getSlotCustomIconLeft(slotIndex: Int): Texture2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSlotCustomIconLeftPtr, slotIndex.toLong()) as Texture2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSlotCustomIconLeftPtr, slotIndex.toLong()) as Texture2D?)
 
   /**
    * Sets the custom metadata for the left (input) side of the slot with the given [slotIndex] to
    * [value].
    */
   public final fun setSlotMetadataLeft(slotIndex: Int, `value`: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setSlotMetadataLeftPtr, slotIndex.toLong(), value)
+    callMethod_LONG_ANY(MethodBindings.setSlotMetadataLeftPtr, slotIndex.toLong(), value)
   }
 
   /**
    * Returns the left (input) metadata of the slot with the given [slotIndex].
    */
   public final fun getSlotMetadataLeft(slotIndex: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getSlotMetadataLeftPtr, slotIndex.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getSlotMetadataLeftPtr, slotIndex.toLong())
 
   /**
    * Returns `true` if right (output) side of the slot with the given [slotIndex] is enabled.
    */
   public final fun isSlotEnabledRight(slotIndex: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isSlotEnabledRightPtr, slotIndex.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isSlotEnabledRightPtr, slotIndex.toLong())
 
   /**
    * Toggles the right (output) side of the slot with the given [slotIndex]. If [enable] is `true`,
    * a port will appear on the right side and the slot will be able to be connected from this side.
    */
   public final fun setSlotEnabledRight(slotIndex: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setSlotEnabledRightPtr, slotIndex.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setSlotEnabledRightPtr, slotIndex.toLong(), enable)
   }
 
   /**
@@ -299,142 +297,142 @@ public open class GraphNode : GraphElement() {
    * negative, all connections will be disallowed to be created via user inputs.
    */
   public final fun setSlotTypeRight(slotIndex: Int, type: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setSlotTypeRightPtr, slotIndex.toLong(), type.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setSlotTypeRightPtr, slotIndex.toLong(), type.toLong())
   }
 
   /**
    * Returns the right (output) type of the slot with the given [slotIndex].
    */
   public final fun getSlotTypeRight(slotIndex: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getSlotTypeRightPtr, slotIndex.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getSlotTypeRightPtr, slotIndex.toLong()).toInt()
 
   /**
    * Sets the [Color] of the right (output) side of the slot with the given [slotIndex] to [color].
    */
   public final fun setSlotColorRight(slotIndex: Int, color: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setSlotColorRightPtr, slotIndex.toLong(), color)
+    callPtrMethod_LONG_COLOR(MethodBindings.setSlotColorRightPtr, slotIndex.toLong(), color)
   }
 
   /**
    * Returns the right (output) [Color] of the slot with the given [slotIndex].
    */
   public final fun getSlotColorRight(slotIndex: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getSlotColorRightPtr, slotIndex.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getSlotColorRightPtr, slotIndex.toLong())
 
   /**
    * Sets the custom [Texture2D] of the right (output) side of the slot with the given [slotIndex]
    * to [customIcon].
    */
   public final fun setSlotCustomIconRight(slotIndex: Int, customIcon: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setSlotCustomIconRightPtr, slotIndex.toLong(), customIcon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setSlotCustomIconRightPtr, slotIndex.toLong(), customIcon)
   }
 
   /**
    * Returns the right (output) custom [Texture2D] of the slot with the given [slotIndex].
    */
   public final fun getSlotCustomIconRight(slotIndex: Int): Texture2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSlotCustomIconRightPtr, slotIndex.toLong()) as Texture2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSlotCustomIconRightPtr, slotIndex.toLong()) as Texture2D?)
 
   /**
    * Sets the custom metadata for the right (output) side of the slot with the given [slotIndex] to
    * [value].
    */
   public final fun setSlotMetadataRight(slotIndex: Int, `value`: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setSlotMetadataRightPtr, slotIndex.toLong(), value)
+    callMethod_LONG_ANY(MethodBindings.setSlotMetadataRightPtr, slotIndex.toLong(), value)
   }
 
   /**
    * Returns the right (output) metadata of the slot with the given [slotIndex].
    */
   public final fun getSlotMetadataRight(slotIndex: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getSlotMetadataRightPtr, slotIndex.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getSlotMetadataRightPtr, slotIndex.toLong())
 
   /**
    * Returns `true` if the background [StyleBox] of the slot with the given [slotIndex] is drawn.
    */
   public final fun isSlotDrawStylebox(slotIndex: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isSlotDrawStyleboxPtr, slotIndex.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isSlotDrawStyleboxPtr, slotIndex.toLong())
 
   /**
    * Toggles the background [StyleBox] of the slot with the given [slotIndex].
    */
   public final fun setSlotDrawStylebox(slotIndex: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setSlotDrawStyleboxPtr, slotIndex.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setSlotDrawStyleboxPtr, slotIndex.toLong(), enable)
   }
 
   public final fun setIgnoreInvalidConnectionType(ignore: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreInvalidConnectionTypePtr, ignore)
+    callPtrMethod_BOOL(MethodBindings.setIgnoreInvalidConnectionTypePtr, ignore)
   }
 
   public final fun isIgnoringValidConnectionType(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIgnoringValidConnectionTypePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isIgnoringValidConnectionTypePtr)
 
   public final fun setSlotsFocusMode(focusMode: Control.FocusMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSlotsFocusModePtr, focusMode.value)
+    callPtrMethod_LONG(MethodBindings.setSlotsFocusModePtr, focusMode.value)
   }
 
   public final fun getSlotsFocusMode(): Control.FocusMode =
-      Control.FocusMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSlotsFocusModePtr))
+      Control.FocusMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSlotsFocusModePtr))
 
   /**
    * Returns the number of slots with an enabled input port.
    */
   public final fun getInputPortCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputPortCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInputPortCountPtr).toInt()
 
   /**
    * Returns the position of the input port with the given [portIdx].
    */
   public final fun getInputPortPosition(portIdx: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getInputPortPositionPtr, portIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getInputPortPositionPtr, portIdx.toLong())
 
   /**
    * Returns the type of the input port with the given [portIdx].
    */
   public final fun getInputPortType(portIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getInputPortTypePtr, portIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getInputPortTypePtr, portIdx.toLong()).toInt()
 
   /**
    * Returns the [Color] of the input port with the given [portIdx].
    */
   public final fun getInputPortColor(portIdx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getInputPortColorPtr, portIdx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getInputPortColorPtr, portIdx.toLong())
 
   /**
    * Returns the corresponding slot index of the input port with the given [portIdx].
    */
   public final fun getInputPortSlot(portIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getInputPortSlotPtr, portIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getInputPortSlotPtr, portIdx.toLong()).toInt()
 
   /**
    * Returns the number of slots with an enabled output port.
    */
   public final fun getOutputPortCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutputPortCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutputPortCountPtr).toInt()
 
   /**
    * Returns the position of the output port with the given [portIdx].
    */
   public final fun getOutputPortPosition(portIdx: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOutputPortPositionPtr, portIdx.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getOutputPortPositionPtr, portIdx.toLong())
 
   /**
    * Returns the type of the output port with the given [portIdx].
    */
   public final fun getOutputPortType(portIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOutputPortTypePtr, portIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getOutputPortTypePtr, portIdx.toLong()).toInt()
 
   /**
    * Returns the [Color] of the output port with the given [portIdx].
    */
   public final fun getOutputPortColor(portIdx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getOutputPortColorPtr, portIdx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getOutputPortColorPtr, portIdx.toLong())
 
   /**
    * Returns the corresponding slot index of the output port with the given [portIdx].
    */
   public final fun getOutputPortSlot(portIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOutputPortSlotPtr, portIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getOutputPortSlotPtr, portIdx.toLong()).toInt()
 
   public companion object {
     @JvmField

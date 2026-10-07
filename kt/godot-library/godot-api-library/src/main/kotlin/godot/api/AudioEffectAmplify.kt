@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -58,18 +57,18 @@ public open class AudioEffectAmplify : AudioEffect() {
   }
 
   public final fun setVolumeDb(volume: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeDbPtr, volume.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVolumeDbPtr, volume.toDouble())
   }
 
   public final fun getVolumeDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVolumeDbPtr).toFloat()
 
   public final fun setVolumeLinear(volume: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeLinearPtr, volume.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVolumeLinearPtr, volume.toDouble())
   }
 
   public final fun getVolumeLinear(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeLinearPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVolumeLinearPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

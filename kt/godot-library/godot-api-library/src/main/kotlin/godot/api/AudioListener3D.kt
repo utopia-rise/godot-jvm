@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -58,14 +57,14 @@ public open class AudioListener3D : Node3D() {
    * Enables the listener. This will override the current camera's listener.
    */
   public final fun makeCurrent(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.makeCurrentPtr)
+    callPtrMethod0(MethodBindings.makeCurrentPtr)
   }
 
   /**
    * Disables the listener to use the current camera's listener instead.
    */
   public final fun clearCurrent(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearCurrentPtr)
+    callPtrMethod0(MethodBindings.clearCurrentPtr)
   }
 
   /**
@@ -74,21 +73,20 @@ public open class AudioListener3D : Node3D() {
    * **Note:** There may be more than one AudioListener3D marked as "current" in the scene tree, but
    * only the one that was made current last will be used.
    */
-  public final fun isCurrent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCurrentPtr)
+  public final fun isCurrent(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCurrentPtr)
 
   /**
    * Returns the listener's global orthonormalized [Transform3D].
    */
   public final fun getListenerTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getListenerTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getListenerTransformPtr)
 
   public final fun setDopplerTracking(mode: DopplerTracking): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDopplerTrackingPtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setDopplerTrackingPtr, mode.value)
   }
 
   public final fun getDopplerTracking(): DopplerTracking =
-      DopplerTracking.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDopplerTrackingPtr))
+      DopplerTracking.from(callPtrMethod0_ret_LONG(MethodBindings.getDopplerTrackingPtr))
 
   public enum class DopplerTracking(
     public override val `value`: Long,

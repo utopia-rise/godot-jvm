@@ -22,6 +22,7 @@ dependencies {
     // added here as a transitive dependency so the user can use reflection
     // we need to add it here so reflection is available where the code is loaded (Bootstrap.kt) otherwise it will not work
     api("com.utopia-rise:common:$fullBuildVersion")
+    testImplementation("junit", "junit", "4.12")
 }
 
 val targetSuffix = if (isRelease) "release" else "debug"

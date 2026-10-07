@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_RECT2
 import godot.callPtrMethod_LONG_DOUBLE
@@ -65,17 +64,17 @@ public open class PolygonPathFinder : Resource() {
    * ```
    */
   public final fun setup(points: PackedVector2Array, connections: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setupPtr, points, connections)
+    callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(MethodBindings.setupPtr, points, connections)
   }
 
   public final fun findPath(from: Vector2, to: Vector2): PackedVector2Array =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.findPathPtr, from, to)
+      callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(MethodBindings.findPathPtr, from, to)
 
   public final fun getIntersections(from: Vector2, to: Vector2): PackedVector2Array =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getIntersectionsPtr, from, to)
+      callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getIntersectionsPtr, from, to)
 
   public final fun getClosestPoint(point: Vector2): Vector2 =
-      TransferContext.callPtrMethod_VECTOR2_ret_VECTOR2(ptr, objectID.id, MethodBindings.getClosestPointPtr, point)
+      callPtrMethod_VECTOR2_ret_VECTOR2(MethodBindings.getClosestPointPtr, point)
 
   /**
    * Returns `true` if [point] falls inside the polygon area.
@@ -106,17 +105,16 @@ public open class PolygonPathFinder : Resource() {
    * ```
    */
   public final fun isPointInside(point: Vector2): Boolean =
-      TransferContext.callPtrMethod_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.isPointInsidePtr, point)
+      callPtrMethod_VECTOR2_ret_BOOL(MethodBindings.isPointInsidePtr, point)
 
   public final fun setPointPenalty(idx: Int, penalty: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setPointPenaltyPtr, idx.toLong(), penalty.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setPointPenaltyPtr, idx.toLong(), penalty.toDouble())
   }
 
   public final fun getPointPenalty(idx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPointPenaltyPtr, idx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getPointPenaltyPtr, idx.toLong()).toFloat()
 
-  public final fun getBounds(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getBoundsPtr)
+  public final fun getBounds(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getBoundsPtr)
 
   public companion object {
     @JvmField

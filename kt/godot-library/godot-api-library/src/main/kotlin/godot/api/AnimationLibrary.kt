@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_LONG
@@ -70,46 +69,46 @@ public open class AnimationLibrary : Resource() {
    * Adds the [animation] to the library, accessible by the key [name].
    */
   public final fun addAnimation(name: StringName, animation: Animation?): Error =
-      Error.from(TransferContext.callPtrMethod_STRING_NAME_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.addAnimationPtr, name, animation))
+      Error.from(callPtrMethod_STRING_NAME_OBJECT_ret_LONG(MethodBindings.addAnimationPtr, name, animation))
 
   /**
    * Removes the [Animation] with the key [name].
    */
   public final fun removeAnimation(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeAnimationPtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeAnimationPtr, name)
   }
 
   /**
    * Changes the key of the [Animation] associated with the key [name] to [newname].
    */
   public final fun renameAnimation(name: StringName, newname: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameAnimationPtr, name, newname)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.renameAnimationPtr, name, newname)
   }
 
   /**
    * Returns `true` if the library stores an [Animation] with [name] as the key.
    */
   public final fun hasAnimation(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationPtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasAnimationPtr, name)
 
   /**
    * Returns the [Animation] with the key [name]. If the animation does not exist, `null` is
    * returned and an error is logged.
    */
   public final fun getAnimation(name: StringName): Animation? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAnimationPtr, name) as Animation?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT_REF(MethodBindings.getAnimationPtr, name) as Animation?)
 
   /**
    * Returns the keys for the [Animation]s stored in the library.
    */
   public final fun getAnimationList(): VariantArray<StringName> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAnimationListPtr) as VariantArray<StringName>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAnimationListPtr) as VariantArray<StringName>)
 
   /**
    * Returns the key count for the [Animation]s stored in the library.
    */
   public final fun getAnimationListSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAnimationListSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getAnimationListSizePtr).toInt()
 
   /**
    * Adds the [animation] to the library, accessible by the key [name].

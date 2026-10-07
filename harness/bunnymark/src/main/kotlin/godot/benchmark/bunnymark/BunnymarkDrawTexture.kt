@@ -8,6 +8,9 @@ import godot.annotation.Script
 import godot.annotation.Register
 import godot.annotation.Emit
 import godot.core.Vector2
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 import godot.core.signal1
 
 @Script("BunnymarkDrawTexture")
@@ -21,13 +24,18 @@ class BunnymarkDrawTexture : Node2D() {
 	private val bunnies = mutableListOf<Bunny>()
 	private val gravity = 500
 	private val bunnyTexture = ResourceLoader.load("res://images/godot_bunny.png") as Texture2D
-	private val randomNumberGenerator = RandomNumberGenerator()
+	private val spawnRandom = RandomNumberGenerator()
 
 	private lateinit var screenSize: Vector2
 
 	@Register
 	override fun _ready() {
-		randomNumberGenerator.randomize()
+		// Fixed seeds rather than randomize(): every run then spawns the same population and bounces it the same
+		// way, so a difference in the score is a difference in the code. Spawning and bouncing draw from separate
+		// generators so that the bounce sequence does not shift when the ramp happens to spawn a different number
+		// of bunnies, which it does whenever the machine is a little faster or slower.
+		spawnRandom.seed = 20260921
+		bounceRandom.seed = 20260922
 	}
 
 	@Register
@@ -62,8 +70,8 @@ class BunnymarkDrawTexture : Node2D() {
 
 			if (pos.y > screenSize.y) {
 				pos.y = screenSize.y
-				if (randomNumberGenerator.randf() > 0.5) {
-					speed.y = -(randomNumberGenerator.randi() % 1100 + 50).toDouble()
+				if (bounceRandom.randf() > 0.5) {
+					speed.y = -(bounceRandom.randi() % 1100 + 50).toDouble()
 				} else {
 					speed.y *= -0.85
 				}
@@ -82,10 +90,14 @@ class BunnymarkDrawTexture : Node2D() {
 
 	@Register
 	fun addBunny() {
+			// A ninety degree arc centred straight down -- +Y is down in 2D, so PI / 2 points at the floor.
+			// Angle and speed are drawn separately, so every direction gets the same range of speeds.
+			val angle = spawnRandom.randfRange((PI * 0.25).toFloat(), (PI * 0.75).toFloat()).toDouble()
+			val speed = spawnRandom.randfRange(50f, 250f).toDouble()
 		bunnies.add(
 			Bunny(
 				Vector2(screenSize.x / 2, screenSize.y / 2),
-				Vector2(randomNumberGenerator.randi() % 200 + 50, randomNumberGenerator.randi() % 200 + 50)
+				Vector2(cos(angle) * speed, sin(angle) * speed)
 			)
 		)
 	}
@@ -100,6 +112,10 @@ class BunnymarkDrawTexture : Node2D() {
 	fun finish() {
         benchmarkFinished.emit(bunnies.size)
 	}
+
+	private companion object {
+		// One generator for every bounce in the run, kept apart from the spawn generator so that the bounce
+		// sequence does not shift when the ramp happens to spawn a different number of bunnies.
+		val bounceRandom = RandomNumberGenerator()
+	}
 }
-
-

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_RECT2I
@@ -103,24 +102,24 @@ public open class XRVRS : Object() {
   }
 
   public final fun getVrsMinRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsMinRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVrsMinRadiusPtr).toFloat()
 
   public final fun setVrsMinRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsMinRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVrsMinRadiusPtr, radius.toDouble())
   }
 
   public final fun getVrsStrength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsStrengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVrsStrengthPtr).toFloat()
 
   public final fun setVrsStrength(strength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsStrengthPtr, strength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVrsStrengthPtr, strength.toDouble())
   }
 
   public final fun getVrsRenderRegion(): Rect2i =
-      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getVrsRenderRegionPtr)
+      callPtrMethod0_ret_RECT2I(MethodBindings.getVrsRenderRegionPtr)
 
   public final fun setVrsRenderRegion(renderRegion: Rect2i): Unit {
-    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.setVrsRenderRegionPtr, renderRegion)
+    callPtrMethod_RECT2I(MethodBindings.setVrsRenderRegionPtr, renderRegion)
   }
 
   /**
@@ -131,7 +130,7 @@ public open class XRVRS : Object() {
    * return the cached RID.
    */
   public final fun makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID =
-      TransferContext.callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.makeVrsTexturePtr, targetSize, eyeFoci)
+      callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_RID(MethodBindings.makeVrsTexturePtr, targetSize, eyeFoci)
 
   public companion object {
     @JvmField

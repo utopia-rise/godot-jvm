@@ -7,14 +7,13 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
-import godot.callMethod_OBJECT_STRING_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
-import godot.callPtrMethod_OBJECT_OBJECT_ret_OBJECT_REF
-import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
+import godot.callStaticMethod_OBJECT_STRING_ret_OBJECT_REF
+import godot.callStaticPtrMethod_OBJECT_OBJECT_ret_OBJECT_REF
+import godot.callStaticPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -55,40 +54,39 @@ public open class TLSOptions internal constructor() : RefCounted() {
   /**
    * Returns `true` if created with [TLSOptions.server], `false` otherwise.
    */
-  public final fun isServer(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isServerPtr)
+  public final fun isServer(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isServerPtr)
 
   /**
    * Returns `true` if created with [TLSOptions.clientUnsafe], `false` otherwise.
    */
   public final fun isUnsafeClient(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUnsafeClientPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUnsafeClientPtr)
 
   /**
    * Returns the common name (domain name) override specified when creating with
    * [TLSOptions.client].
    */
   public final fun getCommonNameOverride(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCommonNameOverridePtr)
+      callMethod0_ret_STRING(MethodBindings.getCommonNameOverridePtr)
 
   /**
    * Returns the CA [X509Certificate] chain specified when creating with [TLSOptions.client] or
    * [TLSOptions.clientUnsafe].
    */
   public final fun getTrustedCaChain(): X509Certificate? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTrustedCaChainPtr) as X509Certificate?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTrustedCaChainPtr) as X509Certificate?)
 
   /**
    * Returns the [CryptoKey] specified when creating with [TLSOptions.server].
    */
   public final fun getPrivateKey(): CryptoKey? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPrivateKeyPtr) as CryptoKey?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPrivateKeyPtr) as CryptoKey?)
 
   /**
    * Returns the [X509Certificate] specified when creating with [TLSOptions.server].
    */
   public final fun getOwnCertificate(): X509Certificate? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOwnCertificatePtr) as X509Certificate?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOwnCertificatePtr) as X509Certificate?)
 
   public companion object {
     @JvmField
@@ -142,7 +140,7 @@ public open class TLSOptions internal constructor() : RefCounted() {
     @JvmStatic
     public final fun client(trustedChain: X509Certificate? = null, commonNameOverride: String = ""):
         TLSOptions? =
-        (TransferContext.callMethod_OBJECT_STRING_ret_OBJECT_REF(0L, 0L, MethodBindings.clientPtr, trustedChain, commonNameOverride) as TLSOptions?)
+        (callStaticMethod_OBJECT_STRING_ret_OBJECT_REF(MethodBindings.clientPtr, trustedChain, commonNameOverride) as TLSOptions?)
 
     /**
      * Creates an **unsafe** TLS client configuration where certificate validation is optional. You
@@ -156,7 +154,7 @@ public open class TLSOptions internal constructor() : RefCounted() {
     @JvmOverloads
     @JvmStatic
     public final fun clientUnsafe(trustedChain: X509Certificate? = null): TLSOptions? =
-        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.clientUnsafePtr, trustedChain) as TLSOptions?)
+        (callStaticPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.clientUnsafePtr, trustedChain) as TLSOptions?)
 
     /**
      * Creates a TLS server configuration using the provided [key] and [certificate].
@@ -166,7 +164,7 @@ public open class TLSOptions internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun server(key: CryptoKey?, certificate: X509Certificate?): TLSOptions? =
-        (TransferContext.callPtrMethod_OBJECT_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.serverPtr, key, certificate) as TLSOptions?)
+        (callStaticPtrMethod_OBJECT_OBJECT_ret_OBJECT_REF(MethodBindings.serverPtr, key, certificate) as TLSOptions?)
   }
 
   public object MethodBindings {

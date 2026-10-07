@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -103,32 +102,31 @@ public open class GPUParticlesAttractor3D internal constructor() : VisualInstanc
   }
 
   public final fun setCullMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCullMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCullMaskPtr, mask)
   }
 
-  public final fun getCullMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCullMaskPtr)
+  public final fun getCullMask(): Long = callPtrMethod0_ret_LONG(MethodBindings.getCullMaskPtr)
 
   public final fun setStrength(strength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStrengthPtr, strength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setStrengthPtr, strength.toDouble())
   }
 
   public final fun getStrength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStrengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStrengthPtr).toFloat()
 
   public final fun setAttenuation(attenuation: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAttenuationPtr, attenuation.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAttenuationPtr, attenuation.toDouble())
   }
 
   public final fun getAttenuation(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAttenuationPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAttenuationPtr).toFloat()
 
   public final fun setDirectionality(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDirectionalityPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDirectionalityPtr, amount.toDouble())
   }
 
   public final fun getDirectionality(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDirectionalityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDirectionalityPtr).toFloat()
 
   public companion object {
     @JvmField

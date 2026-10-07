@@ -7,11 +7,10 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callMethod_STRING_ret_BOOL
-import godot.callMethod_STRING_ret_STRING
-import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callStaticMethod_STRING_ret_BOOL
+import godot.callStaticMethod_STRING_ret_STRING
+import godot.callStaticPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -52,14 +51,14 @@ public open class ShaderIncludeDB : Object() {
      */
     @JvmStatic
     public final fun listBuiltInIncludeFiles(): PackedStringArray =
-        TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.listBuiltInIncludeFilesPtr)
+        callStaticPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.listBuiltInIncludeFilesPtr)
 
     /**
      * Returns `true` if an include file with this name exists.
      */
     @JvmStatic
     public final fun hasBuiltInIncludeFile(filename: String): Boolean =
-        TransferContext.callMethod_STRING_ret_BOOL(0L, 0L, MethodBindings.hasBuiltInIncludeFilePtr, filename)
+        callStaticMethod_STRING_ret_BOOL(MethodBindings.hasBuiltInIncludeFilePtr, filename)
 
     /**
      * Returns the code for the built-in shader fragment. You can also access this in your shader
@@ -67,7 +66,7 @@ public open class ShaderIncludeDB : Object() {
      */
     @JvmStatic
     public final fun getBuiltInIncludeFile(filename: String): String =
-        TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.getBuiltInIncludeFilePtr, filename)
+        callStaticMethod_STRING_ret_STRING(MethodBindings.getBuiltInIncludeFilePtr, filename)
   }
 
   public object MethodBindings {

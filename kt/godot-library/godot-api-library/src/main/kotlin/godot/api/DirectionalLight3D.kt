@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -160,25 +159,25 @@ public open class DirectionalLight3D : Light3D() {
   }
 
   public final fun setShadowMode(mode: ShadowMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShadowModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setShadowModePtr, mode.value)
   }
 
   public final fun getShadowMode(): ShadowMode =
-      ShadowMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShadowModePtr))
+      ShadowMode.from(callPtrMethod0_ret_LONG(MethodBindings.getShadowModePtr))
 
   public final fun setBlendSplits(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBlendSplitsPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setBlendSplitsPtr, enabled)
   }
 
   public final fun isBlendSplitsEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBlendSplitsEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isBlendSplitsEnabledPtr)
 
   public final fun setSkyMode(mode: SkyMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkyModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setSkyModePtr, mode.value)
   }
 
   public final fun getSkyMode(): SkyMode =
-      SkyMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkyModePtr))
+      SkyMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSkyModePtr))
 
   public enum class ShadowMode(
     public override val `value`: Long,

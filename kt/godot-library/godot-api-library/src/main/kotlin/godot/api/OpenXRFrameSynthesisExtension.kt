@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -62,21 +61,19 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * Returns `true` if frame synthesis is enabled in the project settings and the current XR runtime
    * supports frame synthesis. The value returned will only be valid once OpenXR has been initialized.
    */
-  public final fun isAvailable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAvailablePtr)
+  public final fun isAvailable(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isAvailablePtr)
 
-  public final fun isEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEnabledPtr)
+  public final fun isEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEnabledPtr)
 
   public final fun setEnabled(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enable)
   }
 
   public final fun getRelaxFrameInterval(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getRelaxFrameIntervalPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getRelaxFrameIntervalPtr)
 
   public final fun setRelaxFrameInterval(relaxFrameInterval: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRelaxFrameIntervalPtr, relaxFrameInterval)
+    callPtrMethod_BOOL(MethodBindings.setRelaxFrameIntervalPtr, relaxFrameInterval)
   }
 
   /**
@@ -85,7 +82,7 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * reprojection results due to this movement.
    */
   public final fun skipNextFrame(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.skipNextFramePtr)
+    callPtrMethod0(MethodBindings.skipNextFramePtr)
   }
 
   public companion object {

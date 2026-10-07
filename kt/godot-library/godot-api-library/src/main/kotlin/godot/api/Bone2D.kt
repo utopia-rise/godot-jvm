@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -91,17 +90,17 @@ public open class Bone2D : Node2D() {
   }
 
   public final fun setRest(rest: Transform2D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setRestPtr, rest)
+    callPtrMethod_TRANSFORM2D(MethodBindings.setRestPtr, rest)
   }
 
   public final fun getRest(): Transform2D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getRestPtr)
+      callPtrMethod0_ret_TRANSFORM2D(MethodBindings.getRestPtr)
 
   /**
    * Resets the bone to the rest pose. This is equivalent to setting [Node2D.transform] to [rest].
    */
   public final fun applyRest(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.applyRestPtr)
+    callPtrMethod0(MethodBindings.applyRestPtr)
   }
 
   /**
@@ -109,13 +108,13 @@ public open class Bone2D : Node2D() {
    * to its parent.
    */
   public final fun getSkeletonRest(): Transform2D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getSkeletonRestPtr)
+      callPtrMethod0_ret_TRANSFORM2D(MethodBindings.getSkeletonRestPtr)
 
   /**
    * Returns the node's index as part of the entire skeleton. See [Skeleton2D].
    */
   public final fun getIndexInSkeleton(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIndexInSkeletonPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getIndexInSkeletonPtr).toInt()
 
   /**
    * When set to `true`, the [Bone2D] node will attempt to automatically calculate the bone angle
@@ -123,7 +122,7 @@ public open class Bone2D : Node2D() {
    * automatically calculate these values and will print a warning.
    */
   public final fun setAutocalculateLengthAndAngle(autoCalculate: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutocalculateLengthAndAnglePtr, autoCalculate)
+    callPtrMethod_BOOL(MethodBindings.setAutocalculateLengthAndAnglePtr, autoCalculate)
   }
 
   /**
@@ -132,20 +131,20 @@ public open class Bone2D : Node2D() {
    * autocalculate these values and will print a warning.
    */
   public final fun getAutocalculateLengthAndAngle(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAutocalculateLengthAndAnglePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAutocalculateLengthAndAnglePtr)
 
   /**
    * Sets the length of the bone in the [Bone2D].
    */
   public final fun setLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLengthPtr, length.toDouble())
   }
 
   /**
    * Returns the length of the bone in the [Bone2D] node.
    */
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   /**
    * Sets the bone angle for the [Bone2D]. This is typically set to the rotation from the [Bone2D]
@@ -155,7 +154,7 @@ public open class Bone2D : Node2D() {
    * the bone shown by the gizmo, which is unaffected by the [Bone2D]'s [Node2D.transform].
    */
   public final fun setBoneAngle(angle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBoneAnglePtr, angle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBoneAnglePtr, angle.toDouble())
   }
 
   /**
@@ -165,7 +164,7 @@ public open class Bone2D : Node2D() {
    * the bone shown by the gizmo, which is unaffected by the [Bone2D]'s [Node2D.transform].
    */
   public final fun getBoneAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBoneAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBoneAnglePtr).toFloat()
 
   public companion object {
     @JvmField

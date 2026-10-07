@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -87,32 +86,30 @@ public open class PhysicsMaterial : Resource() {
   }
 
   public final fun setFriction(friction: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrictionPtr, friction.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFrictionPtr, friction.toDouble())
   }
 
   public final fun getFriction(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrictionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFrictionPtr).toFloat()
 
   public final fun setRough(rough: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRoughPtr, rough)
+    callPtrMethod_BOOL(MethodBindings.setRoughPtr, rough)
   }
 
-  public final fun isRough(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRoughPtr)
+  public final fun isRough(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isRoughPtr)
 
   public final fun setBounce(bounce: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBouncePtr, bounce.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBouncePtr, bounce.toDouble())
   }
 
   public final fun getBounce(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBouncePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBouncePtr).toFloat()
 
   public final fun setAbsorbent(absorbent: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAbsorbentPtr, absorbent)
+    callPtrMethod_BOOL(MethodBindings.setAbsorbentPtr, absorbent)
   }
 
-  public final fun isAbsorbent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAbsorbentPtr)
+  public final fun isAbsorbent(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isAbsorbentPtr)
 
   public companion object {
     @JvmField

@@ -3,9 +3,10 @@
 #include "godot_jvm.h"
 #include "jvm/jni/env.h"
 #include "jvm/lifecycle/jvm_manager.h"
-#include "jvm/wrapper/memory/long_string_queue.h"
-#include "jvm/wrapper/memory/memory_manager.h"
-#include "jvm/wrapper/memory/type_manager.h"
+#include "jvm/memory/long_string_queue.h"
+#include "jvm/memory/memory_manager.h"
+#include "jvm/memory/type_manager.h"
+#include "jvm/memory/value_buffer.h"
 #include "logging.h"
 #include "paths.h"
 #include "version.h"
@@ -105,7 +106,7 @@ bool GodotJvm::load_dynamic_lib() {
             JVM_DEV_ASSERT(false, "Tried to load a VM that's neither the JVM nor Graal Native Image");
     }
 
-    if (godot_jvm_native::open_dynamic_library(path_to_jvm_lib, jvm_dynamic_library_handle) != OK) {
+    if (engine::open_dynamic_library(path_to_jvm_lib, jvm_dynamic_library_handle) != OK) {
         JVM_WARN_FAIL_V_MSG(
             false,
             "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
@@ -207,7 +208,7 @@ String GodotJvm::get_path_to_native_image() {
 #endif
 
 void GodotJvm::unload_dynamic_lib() {
-    if (godot_jvm_native::close_dynamic_library(jvm_dynamic_library_handle) != OK) {
+    if (engine::close_dynamic_library(jvm_dynamic_library_handle) != OK) {
         JVM_ERR_FAIL_MSG("Failed to close the jvm dynamic library!");
     }
 }
@@ -342,7 +343,7 @@ void GodotJvm::copy_dependency_jars_to_user_dir() {
 #endif
 
 bool GodotJvm::load_bootstrap() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     if (user_configuration.vm_type != jni::JvmType::GRAAL_NATIVE_IMAGE) { // Bootstrap already part of the image
 #ifdef TOOLS_ENABLED
         String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
@@ -406,8 +407,8 @@ bool GodotJvm::load_bootstrap() {
 }
 
 bool GodotJvm::initialize_core_library() {
-    callable_middleman = raw_godot::RawObject::instantiate(SNAME("Object"));
-    jni::Env env = jni::Jvm::current_env();
+    callable_middleman = engine::RawObject::instantiate(SNAME("Object"));
+    jni::Env& env = jni::Jvm::current_env();
 
     if (!JvmManager::initialize_jvm_wrappers(env, bootstrap_class_loader)) {
         JVM_WARN_FAIL_V_MSG(
@@ -422,11 +423,15 @@ bool GodotJvm::initialize_core_library() {
         LongStringQueue::get_instance().set_string_max_size(env, user_configuration.max_string_size);
     }
 
+    if (user_configuration.value_buffer_size_factor != 0) {
+        ValueBuffer::get_instance().set_size_factor(env, user_configuration.value_buffer_size_factor);
+    }
+
     return true;
 }
 
 bool GodotJvm::load_user_code() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     if (user_configuration.vm_type == jni::JvmType::GRAAL_NATIVE_IMAGE) {
         bootstrap->init_native_image(env);
         return true;
@@ -477,7 +482,7 @@ bool GodotJvm::load_user_code() {
 }
 
 void GodotJvm::unload_user_code() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     // Graal native images include bootstrap directly, so no bootstrap classloader is created.
     if (bootstrap_class_loader != nullptr) { bootstrap_class_loader->set_as_context_loader(env); }
@@ -489,7 +494,7 @@ void GodotJvm::unload_user_code() {
 }
 
 void GodotJvm::finalize_core_library() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     MemoryManager::get_instance().clean_up(env);
 
@@ -497,17 +502,17 @@ void GodotJvm::finalize_core_library() {
     JvmManager::finalize_jvm_wrappers(env, bootstrap_class_loader);
 
     if (callable_middleman) { callable_middleman.destroy(); }
-    callable_middleman = raw_godot::RawObject();
+    callable_middleman = engine::RawObject();
 }
 
 bool GodotJvm::initialize_engine_types() const {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     bootstrap->initialize_engine_types(env);
     return true;
 }
 
 void GodotJvm::unload_boostrap() {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     Bootstrap::finalize(env, bootstrap_class_loader);
     delete bootstrap;
     bootstrap = nullptr;
@@ -584,7 +589,7 @@ void GodotJvm::reload_user_code() {
 }
 #endif
 
-raw_godot::RawObject GodotJvm::get_callable_middleman() const {
+engine::RawObject GodotJvm::get_callable_middleman() const {
     return callable_middleman;
 }
 

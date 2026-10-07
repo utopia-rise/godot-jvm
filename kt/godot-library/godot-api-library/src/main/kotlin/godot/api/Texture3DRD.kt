@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_RID
 import godot.callPtrMethod_RID
@@ -49,11 +48,11 @@ public open class Texture3DRD : Texture3D() {
   }
 
   public final fun setTextureRdRid(textureRdRid: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setTextureRdRidPtr, textureRdRid)
+    callPtrMethod_RID(MethodBindings.setTextureRdRidPtr, textureRdRid)
   }
 
   public final fun getTextureRdRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getTextureRdRidPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getTextureRdRidPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

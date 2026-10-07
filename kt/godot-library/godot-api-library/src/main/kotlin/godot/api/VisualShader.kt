@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING
 import godot.callMethod_STRING_LONG_LONG
@@ -109,7 +108,7 @@ public open class VisualShader : Shader() {
    * Sets the mode of this shader.
    */
   public final fun setMode(mode: Shader.Mode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setModePtr, mode.value)
   }
 
   /**
@@ -121,14 +120,14 @@ public open class VisualShader : Shader() {
     position: Vector2,
     id: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT_VECTOR2_LONG(ptr, objectID.id, MethodBindings.addNodePtr, type.value, node, position, id.toLong())
+    callPtrMethod_LONG_OBJECT_VECTOR2_LONG(MethodBindings.addNodePtr, type.value, node, position, id.toLong())
   }
 
   /**
    * Returns the shader node instance with specified [type] and [id].
    */
   public final fun getNode(type: Type, id: Int): VisualShaderNode? =
-      (TransferContext.callPtrMethod_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNodePtr, type.value, id.toLong()) as VisualShaderNode?)
+      (callPtrMethod_LONG_LONG_ret_OBJECT_REF(MethodBindings.getNodePtr, type.value, id.toLong()) as VisualShaderNode?)
 
   /**
    * Sets the position of the specified node.
@@ -138,32 +137,32 @@ public open class VisualShader : Shader() {
     id: Int,
     position: Vector2,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setNodePositionPtr, type.value, id.toLong(), position)
+    callPtrMethod_LONG_LONG_VECTOR2(MethodBindings.setNodePositionPtr, type.value, id.toLong(), position)
   }
 
   /**
    * Returns the position of the specified node within the shader graph.
    */
   public final fun getNodePosition(type: Type, id: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNodePositionPtr, type.value, id.toLong())
+      callPtrMethod_LONG_LONG_ret_VECTOR2(MethodBindings.getNodePositionPtr, type.value, id.toLong())
 
   /**
    * Returns the list of all nodes in the shader with the specified type.
    */
   public final fun getNodeList(type: Type): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getNodeListPtr, type.value)
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getNodeListPtr, type.value)
 
   /**
    * Returns next valid node ID that can be added to the shader graph.
    */
   public final fun getValidNodeId(type: Type): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getValidNodeIdPtr, type.value).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getValidNodeIdPtr, type.value).toInt()
 
   /**
    * Removes the specified node from the shader.
    */
   public final fun removeNode(type: Type, id: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.removeNodePtr, type.value, id.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.removeNodePtr, type.value, id.toLong())
   }
 
   /**
@@ -174,7 +173,7 @@ public open class VisualShader : Shader() {
     id: Int,
     newClass: StringName,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.replaceNodePtr, type.value, id.toLong(), newClass)
+    callPtrMethod_LONG_LONG_STRING_NAME(MethodBindings.replaceNodePtr, type.value, id.toLong(), newClass)
   }
 
   /**
@@ -187,7 +186,7 @@ public open class VisualShader : Shader() {
     toNode: Int,
     toPort: Int,
   ): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isNodeConnectionPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
+      callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_BOOL(MethodBindings.isNodeConnectionPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
 
   /**
    * Returns `true` if the specified nodes and ports can be connected together.
@@ -199,7 +198,7 @@ public open class VisualShader : Shader() {
     toNode: Int,
     toPort: Int,
   ): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.canConnectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
+      callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_BOOL(MethodBindings.canConnectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
 
   /**
    * Connects the specified nodes and ports.
@@ -211,7 +210,7 @@ public open class VisualShader : Shader() {
     toNode: Int,
     toPort: Int,
   ): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.connectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong()))
+      Error.from(callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_LONG(MethodBindings.connectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong()))
 
   /**
    * Connects the specified nodes and ports.
@@ -223,7 +222,7 @@ public open class VisualShader : Shader() {
     toNode: Int,
     toPort: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.disconnectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
+    callPtrMethod_LONG_LONG_LONG_LONG_LONG(MethodBindings.disconnectNodesPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
   }
 
   /**
@@ -237,14 +236,14 @@ public open class VisualShader : Shader() {
     toNode: Int,
     toPort: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.connectNodesForcedPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
+    callPtrMethod_LONG_LONG_LONG_LONG_LONG(MethodBindings.connectNodesForcedPtr, type.value, fromNode.toLong(), fromPort.toLong(), toNode.toLong(), toPort.toLong())
   }
 
   /**
    * Returns the list of connected nodes with the specified type.
    */
   public final fun getNodeConnections(type: Type): VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodeConnectionsPtr, type.value) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_LONG_ret_ARRAY(MethodBindings.getNodeConnectionsPtr, type.value) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Attaches the given node to the given frame.
@@ -254,14 +253,14 @@ public open class VisualShader : Shader() {
     id: Int,
     frame: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.attachNodeToFramePtr, type.value, id.toLong(), frame.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.attachNodeToFramePtr, type.value, id.toLong(), frame.toLong())
   }
 
   /**
    * Detaches the given node from the frame it is attached to.
    */
   public final fun detachNodeFromFrame(type: Type, id: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.detachNodeFromFramePtr, type.value, id.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.detachNodeFromFramePtr, type.value, id.toLong())
   }
 
   /**
@@ -272,7 +271,7 @@ public open class VisualShader : Shader() {
     mode: VaryingMode,
     type: VaryingType,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.addVaryingPtr, name, mode.value, type.value)
+    callMethod_STRING_LONG_LONG(MethodBindings.addVaryingPtr, name, mode.value, type.value)
   }
 
   /**
@@ -280,21 +279,21 @@ public open class VisualShader : Shader() {
    * not found.
    */
   public final fun removeVarying(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removeVaryingPtr, name)
+    callMethod_STRING(MethodBindings.removeVaryingPtr, name)
   }
 
   /**
    * Returns `true` if the shader has a varying with the given [name].
    */
   public final fun hasVarying(name: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasVaryingPtr, name)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasVaryingPtr, name)
 
   public final fun setGraphOffset(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setGraphOffsetPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setGraphOffsetPtr, offset)
   }
 
   public final fun getGraphOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGraphOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGraphOffsetPtr)
 
   /**
    * Replaces the specified node with a node of new class type.

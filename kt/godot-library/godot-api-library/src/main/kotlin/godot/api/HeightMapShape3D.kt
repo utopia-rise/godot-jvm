@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -153,37 +152,37 @@ public open class HeightMapShape3D : Shape3D() {
   }
 
   public final fun setMapWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMapWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setMapWidthPtr, width.toLong())
   }
 
   public final fun getMapWidth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMapWidthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMapWidthPtr).toInt()
 
   public final fun setMapDepth(height: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMapDepthPtr, height.toLong())
+    callPtrMethod_LONG(MethodBindings.setMapDepthPtr, height.toLong())
   }
 
   public final fun getMapDepth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMapDepthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMapDepthPtr).toInt()
 
   public final fun setMapData(`data`: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setMapDataPtr, data)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY(MethodBindings.setMapDataPtr, data)
   }
 
   public final fun getMapData(): PackedFloat32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getMapDataPtr)
+      callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.getMapDataPtr)
 
   /**
    * Returns the smallest height value found in [mapData]. Recalculates only when [mapData] changes.
    */
   public final fun getMinHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMinHeightPtr).toFloat()
 
   /**
    * Returns the largest height value found in [mapData]. Recalculates only when [mapData] changes.
    */
   public final fun getMaxHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMaxHeightPtr).toFloat()
 
   /**
    * Updates [mapData] with data read from an [Image] reference. Automatically resizes heightmap
@@ -205,7 +204,7 @@ public open class HeightMapShape3D : Shape3D() {
     heightMin: Float,
     heightMax: Float,
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.updateMapDataFromImagePtr, image, heightMin.toDouble(), heightMax.toDouble())
+    callPtrMethod_OBJECT_DOUBLE_DOUBLE(MethodBindings.updateMapDataFromImagePtr, image, heightMin.toDouble(), heightMax.toDouble())
   }
 
   public companion object {

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -102,24 +101,24 @@ public open class ReferenceRect : Control() {
   }
 
   public final fun getBorderColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getBorderColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getBorderColorPtr)
 
   public final fun setBorderColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setBorderColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setBorderColorPtr, color)
   }
 
   public final fun getBorderWidth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBorderWidthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBorderWidthPtr).toFloat()
 
   public final fun setBorderWidth(width: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBorderWidthPtr, width.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBorderWidthPtr, width.toDouble())
   }
 
   public final fun getEditorOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEditorOnlyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEditorOnlyPtr)
 
   public final fun setEditorOnly(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditorOnlyPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEditorOnlyPtr, enabled)
   }
 
   public companion object {

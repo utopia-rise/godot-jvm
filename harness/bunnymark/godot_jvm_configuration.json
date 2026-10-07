@@ -1,10 +1,11 @@
 {
     "debug_address": "*",
     "debug_port": 5005,
-    "disable_gc": false,
+    "disable_memory_management": false,
     "jmx_port": -1,
     "custom_jvm_args": [],
     "max_string_size": -1,
+    "value_buffer_size_factor": 0,
     "use_debug": false,
     "version": "3.0",
     "useNativeImage": false,

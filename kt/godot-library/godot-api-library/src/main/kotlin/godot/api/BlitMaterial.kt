@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -44,11 +43,11 @@ public open class BlitMaterial : Material() {
   }
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlendModePtr, blendMode.value)
+    callPtrMethod_LONG(MethodBindings.setBlendModePtr, blendMode.value)
   }
 
   public final fun getBlendMode(): BlendMode =
-      BlendMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendModePtr))
+      BlendMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBlendModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -78,32 +77,32 @@ public open class OpenXRCompositionLayerCylinder : OpenXRCompositionLayer() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setAspectRatio(aspectRatio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAspectRatioPtr, aspectRatio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAspectRatioPtr, aspectRatio.toDouble())
   }
 
   public final fun getAspectRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAspectRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAspectRatioPtr).toFloat()
 
   public final fun setCentralAngle(angle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCentralAnglePtr, angle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCentralAnglePtr, angle.toDouble())
   }
 
   public final fun getCentralAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCentralAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCentralAnglePtr).toFloat()
 
   public final fun setFallbackSegments(segments: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFallbackSegmentsPtr, segments)
+    callPtrMethod_LONG(MethodBindings.setFallbackSegmentsPtr, segments)
   }
 
   public final fun getFallbackSegments(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFallbackSegmentsPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getFallbackSegmentsPtr)
 
   public companion object {
     @JvmField

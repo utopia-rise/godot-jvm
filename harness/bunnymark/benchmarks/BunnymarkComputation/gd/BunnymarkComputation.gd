@@ -16,12 +16,14 @@ class BunnyData:
 
 var bunnies: Array[BunnyData] = []
 var bunny_texture: Texture2D = load("res://images/godot_bunny.png") as Texture2D
-var random_number_generator: RandomNumberGenerator = RandomNumberGenerator.new()
+var spawn_random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var screen_size: Vector2
 
 func _ready() -> void:
-	random_number_generator.randomize()
+	# Fixed seed rather than randomize(): every run then lays out the same orbits, so a difference in the score is a
+	# difference in the code. This benchmark never bounces, so it needs no second generator.
+	spawn_random.seed = 20260921
 
 func _draw() -> void:
 	for bunny: BunnyData in bunnies:
@@ -37,7 +39,7 @@ func _process(delta: float) -> void:
 		var offset_x: float = sin(phase) * bunny.radius.x
 		var offset_y: float = cos(phase * 1.7) * bunny.radius.y
 		var distance: float = sqrt(offset_x * offset_x + offset_y * offset_y)
-		var angle: float = atan2(offset_y, offset_x) + sin(phase * 0.5) * 0.75
+		var angle: float = _fast_atan2(offset_y, offset_x) + sin(phase * 0.5) * 0.75
 
 		var pos: Vector2 = bunny.position
 		pos.x = bunny.center.x + cos(angle) * distance
@@ -45,18 +47,37 @@ func _process(delta: float) -> void:
 		bunny.position = pos
 	queue_redraw()
 
+# atan2 is the one function here that HotSpot does not intrinsify on the JVM, so the Kotlin benchmark would otherwise
+# run a software implementation while this one reaches native libm. The same polynomial runs in all three languages so
+# every runtime does the same arithmetic. Max error 1.1e-5 rad, about a hundredth of a pixel at a 1000 px radius.
+func _atan_unit(z: float) -> float:
+	var z2: float = z * z
+	return z * (0.9998660 + z2 * (-0.3302995 + z2 * (0.1801410 + z2 * (-0.0851330 + z2 * 0.0208351))))
+
+func _fast_atan2(y: float, x: float) -> float:
+	var ax: float = absf(x)
+	var ay: float = absf(y)
+	var a: float
+	if ax >= ay:
+		a = _atan_unit(0.0 if ax == 0.0 else ay / ax)
+	else:
+		a = PI * 0.5 - _atan_unit(ax / ay)
+	if x < 0.0:
+		a = PI - a
+	return -a if y < 0.0 else a
+
 func add_bunny() -> void:
 	bunnies.append(BunnyData.new(
 		Vector2(0, 0),
 		Vector2(
-			random_number_generator.randf() * screen_size.x,
-			random_number_generator.randf() * screen_size.y
+			spawn_random.randf() * screen_size.x,
+			spawn_random.randf() * screen_size.y
 		),
-		random_number_generator.randf() * 6.283185307179586,
-		random_number_generator.randf() * 2.0 + 0.5,
+		spawn_random.randf() * 6.283185307179586,
+		spawn_random.randf() * 2.0 + 0.5,
 		Vector2(
-			random_number_generator.randf() * screen_size.x / 8,
-			random_number_generator.randf() * screen_size.y / 8
+			spawn_random.randf() * screen_size.x / 8,
+			spawn_random.randf() * screen_size.y / 8
 		)
 	))
 

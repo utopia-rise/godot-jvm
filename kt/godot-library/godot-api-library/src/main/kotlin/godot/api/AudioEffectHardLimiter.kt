@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -75,25 +74,25 @@ public open class AudioEffectHardLimiter : AudioEffect() {
   }
 
   public final fun setCeilingDb(ceiling: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCeilingDbPtr, ceiling.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCeilingDbPtr, ceiling.toDouble())
   }
 
   public final fun getCeilingDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCeilingDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCeilingDbPtr).toFloat()
 
   public final fun setPreGainDb(preGain: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPreGainDbPtr, preGain.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPreGainDbPtr, preGain.toDouble())
   }
 
   public final fun getPreGainDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPreGainDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPreGainDbPtr).toFloat()
 
   public final fun setRelease(release: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setReleasePtr, release.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setReleasePtr, release.toDouble())
   }
 
   public final fun getRelease(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReleasePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getReleasePtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

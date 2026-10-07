@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_AABB
 import godot.callPtrMethod_LONG_VECTOR3
@@ -53,21 +52,21 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the position for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setVertex(vertexId: Int, vertex: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setVertexPtr, vertexId.toLong(), vertex)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.setVertexPtr, vertexId.toLong(), vertex)
   }
 
   /**
    * Sets the normal for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setNormal(vertexId: Int, normal: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setNormalPtr, vertexId.toLong(), normal)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.setNormalPtr, vertexId.toLong(), normal)
   }
 
   /**
    * Sets the bounding box for the [SoftBody3D].
    */
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setAabbPtr, aabb)
   }
 
   public companion object {

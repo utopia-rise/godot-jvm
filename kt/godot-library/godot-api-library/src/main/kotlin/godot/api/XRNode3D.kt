@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_DOUBLE_DOUBLE_DOUBLE_DOUBLE
 import godot.callPtrMethod0_ret_BOOL
@@ -89,44 +88,43 @@ public open class XRNode3D : Node3D() {
   }
 
   public final fun setTracker(trackerName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setTrackerPtr, trackerName)
+    callPtrMethod_STRING_NAME(MethodBindings.setTrackerPtr, trackerName)
   }
 
   public final fun getTracker(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getTrackerPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getTrackerPtr)
 
   public final fun setPoseName(pose: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setPoseNamePtr, pose)
+    callPtrMethod_STRING_NAME(MethodBindings.setPoseNamePtr, pose)
   }
 
   public final fun getPoseName(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getPoseNamePtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getPoseNamePtr)
 
   public final fun setShowWhenTracked(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowWhenTrackedPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setShowWhenTrackedPtr, show)
   }
 
   public final fun getShowWhenTracked(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getShowWhenTrackedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getShowWhenTrackedPtr)
 
   /**
    * Returns `true` if the [tracker] has been registered and the [pose] is being tracked.
    */
-  public final fun getIsActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsActivePtr)
+  public final fun getIsActive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getIsActivePtr)
 
   /**
    * Returns `true` if the [tracker] has current tracking data for the [pose] being tracked.
    */
   public final fun getHasTrackingData(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getHasTrackingDataPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getHasTrackingDataPtr)
 
   /**
    * Returns the [XRPose] containing the current state of the pose being tracked. This gives access
    * to additional properties of this pose.
    */
   public final fun getPose(): XRPose? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPosePtr) as XRPose?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPosePtr) as XRPose?)
 
   /**
    * Triggers a haptic pulse on a device associated with this interface.
@@ -149,7 +147,7 @@ public open class XRNode3D : Node3D() {
     durationSec: Double,
     delaySec: Double,
   ): Unit {
-    TransferContext.callMethod_STRING_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.triggerHapticPulsePtr, actionName, frequency, amplitude, durationSec, delaySec)
+    callMethod_STRING_DOUBLE_DOUBLE_DOUBLE_DOUBLE(MethodBindings.triggerHapticPulsePtr, actionName, frequency, amplitude, durationSec, delaySec)
   }
 
   public final fun setTracker(trackerName: String) = setTracker(trackerName.asCachedStringName())

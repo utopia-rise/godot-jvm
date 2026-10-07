@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -54,11 +53,11 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
   }
 
   public final fun setPhysicalBoneChainLength(length: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPhysicalBoneChainLengthPtr, length.toLong())
+    callPtrMethod_LONG(MethodBindings.setPhysicalBoneChainLengthPtr, length.toLong())
   }
 
   public final fun getPhysicalBoneChainLength(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicalBoneChainLengthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPhysicalBoneChainLengthPtr).toInt()
 
   /**
    * Sets the [PhysicalBone2D] node at [jointIdx].
@@ -67,21 +66,21 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
    * [Skeleton2D].
    */
   public final fun setPhysicalBoneNode(jointIdx: Int, physicalbone2dNode: NodePath): Unit {
-    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setPhysicalBoneNodePtr, jointIdx.toLong(), physicalbone2dNode)
+    callPtrMethod_LONG_NODE_PATH(MethodBindings.setPhysicalBoneNodePtr, jointIdx.toLong(), physicalbone2dNode)
   }
 
   /**
    * Returns the [PhysicalBone2D] node at [jointIdx].
    */
   public final fun getPhysicalBoneNode(jointIdx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getPhysicalBoneNodePtr, jointIdx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getPhysicalBoneNodePtr, jointIdx.toLong())
 
   /**
    * Empties the list of [PhysicalBone2D] nodes and populates it with all [PhysicalBone2D] nodes
    * that are children of the [Skeleton2D].
    */
   public final fun fetchPhysicalBones(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.fetchPhysicalBonesPtr)
+    callPtrMethod0(MethodBindings.fetchPhysicalBonesPtr)
   }
 
   /**
@@ -93,7 +92,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
   @JvmOverloads
   public final fun startSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.startSimulationPtr, bones)
+    callPtrMethod_ARRAY(MethodBindings.startSimulationPtr, bones)
   }
 
   /**
@@ -105,7 +104,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
   @JvmOverloads
   public final fun stopSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.stopSimulationPtr, bones)
+    callPtrMethod_ARRAY(MethodBindings.stopSimulationPtr, bones)
   }
 
   /**

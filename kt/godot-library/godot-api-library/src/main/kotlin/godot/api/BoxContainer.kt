@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -65,21 +64,20 @@ public open class BoxContainer : Container() {
    * [Control] node in front of all other children.
    */
   public final fun addSpacer(begin: Boolean): Control? =
-      (TransferContext.callPtrMethod_BOOL_ret_OBJECT(ptr, objectID.id, MethodBindings.addSpacerPtr, begin) as Control?)
+      (callPtrMethod_BOOL_ret_OBJECT(MethodBindings.addSpacerPtr, begin) as Control?)
 
   public final fun setAlignment(alignment: AlignmentMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentPtr, alignment.value)
+    callPtrMethod_LONG(MethodBindings.setAlignmentPtr, alignment.value)
   }
 
   public final fun getAlignment(): AlignmentMode =
-      AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentPtr))
+      AlignmentMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAlignmentPtr))
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVerticalPtr, vertical)
+    callPtrMethod_BOOL(MethodBindings.setVerticalPtr, vertical)
   }
 
-  public final fun isVertical(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVerticalPtr)
+  public final fun isVertical(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isVerticalPtr)
 
   public enum class AlignmentMode(
     public override val `value`: Long,

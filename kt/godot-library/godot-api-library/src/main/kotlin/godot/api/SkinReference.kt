@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_RID
@@ -43,8 +42,7 @@ public open class SkinReference internal constructor() : RefCounted() {
   /**
    * Returns the [RID] owned by this SkinReference, as returned by [RenderingServer.skeletonCreate].
    */
-  public final fun getSkeleton(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSkeletonPtr)
+  public final fun getSkeleton(): RID = callPtrMethod0_ret_RID(MethodBindings.getSkeletonPtr)
 
   /**
    * Returns the [Skin] connected to this SkinReference. In the case of [MeshInstance3D] with no
@@ -55,7 +53,7 @@ public open class SkinReference internal constructor() : RefCounted() {
    * by meshes across multiple [Skeleton3D] nodes.
    */
   public final fun getSkin(): Skin? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkinPtr) as Skin?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSkinPtr) as Skin?)
 
   public companion object {
     @JvmField

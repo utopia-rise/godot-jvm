@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_DOUBLE
@@ -120,31 +119,31 @@ public open class OggPacketSequence : Resource() {
   }
 
   public final fun setPacketData(packetData: VariantArray<VariantArray<Any?>>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setPacketDataPtr, packetData)
+    callPtrMethod_ARRAY(MethodBindings.setPacketDataPtr, packetData)
   }
 
   public final fun getPacketData(): VariantArray<VariantArray<Any?>> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPacketDataPtr) as VariantArray<VariantArray<Any?>>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getPacketDataPtr) as VariantArray<VariantArray<Any?>>)
 
   public final fun setPacketGranulePositions(granulePositions: PackedInt64Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.setPacketGranulePositionsPtr, granulePositions)
+    callPtrMethod_PACKED_INT_64_ARRAY(MethodBindings.setPacketGranulePositionsPtr, granulePositions)
   }
 
   public final fun getPacketGranulePositions(): PackedInt64Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getPacketGranulePositionsPtr)
+      callPtrMethod0_ret_PACKED_INT_64_ARRAY(MethodBindings.getPacketGranulePositionsPtr)
 
   public final fun setSamplingRate(samplingRate: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSamplingRatePtr, samplingRate.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSamplingRatePtr, samplingRate.toDouble())
   }
 
   public final fun getSamplingRate(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSamplingRatePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSamplingRatePtr).toFloat()
 
   /**
    * The length of this stream, in seconds.
    */
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   public companion object {
     @JvmField

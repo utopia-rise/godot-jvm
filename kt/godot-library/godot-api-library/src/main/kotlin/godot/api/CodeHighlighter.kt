@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING
 import godot.callMethod_STRING_COLOR
@@ -244,41 +243,41 @@ public open class CodeHighlighter : SyntaxHighlighter() {
    * The keyword cannot contain any symbols except '_'.
    */
   public final fun addKeywordColor(keyword: String, color: Color): Unit {
-    TransferContext.callMethod_STRING_COLOR(ptr, objectID.id, MethodBindings.addKeywordColorPtr, keyword, color)
+    callMethod_STRING_COLOR(MethodBindings.addKeywordColorPtr, keyword, color)
   }
 
   /**
    * Removes the keyword.
    */
   public final fun removeKeywordColor(keyword: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removeKeywordColorPtr, keyword)
+    callMethod_STRING(MethodBindings.removeKeywordColorPtr, keyword)
   }
 
   /**
    * Returns `true` if the keyword exists, else `false`.
    */
   public final fun hasKeywordColor(keyword: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasKeywordColorPtr, keyword)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasKeywordColorPtr, keyword)
 
   /**
    * Returns the color for a keyword.
    */
   public final fun getKeywordColor(keyword: String): Color =
-      TransferContext.callMethod_STRING_ret_COLOR(ptr, objectID.id, MethodBindings.getKeywordColorPtr, keyword)
+      callMethod_STRING_ret_COLOR(MethodBindings.getKeywordColorPtr, keyword)
 
   public final fun setKeywordColors(keywords: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setKeywordColorsPtr, keywords)
+    callPtrMethod_DICTIONARY(MethodBindings.setKeywordColorsPtr, keywords)
   }
 
   /**
    * Removes all keywords.
    */
   public final fun clearKeywordColors(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearKeywordColorsPtr)
+    callPtrMethod0(MethodBindings.clearKeywordColorsPtr)
   }
 
   public final fun getKeywordColors(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getKeywordColorsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getKeywordColorsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Sets the color for a member keyword.
@@ -288,41 +287,41 @@ public open class CodeHighlighter : SyntaxHighlighter() {
    * It will not be highlighted if preceded by a '.'.
    */
   public final fun addMemberKeywordColor(memberKeyword: String, color: Color): Unit {
-    TransferContext.callMethod_STRING_COLOR(ptr, objectID.id, MethodBindings.addMemberKeywordColorPtr, memberKeyword, color)
+    callMethod_STRING_COLOR(MethodBindings.addMemberKeywordColorPtr, memberKeyword, color)
   }
 
   /**
    * Removes the member keyword.
    */
   public final fun removeMemberKeywordColor(memberKeyword: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removeMemberKeywordColorPtr, memberKeyword)
+    callMethod_STRING(MethodBindings.removeMemberKeywordColorPtr, memberKeyword)
   }
 
   /**
    * Returns `true` if the member keyword exists, else `false`.
    */
   public final fun hasMemberKeywordColor(memberKeyword: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasMemberKeywordColorPtr, memberKeyword)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasMemberKeywordColorPtr, memberKeyword)
 
   /**
    * Returns the color for a member keyword.
    */
   public final fun getMemberKeywordColor(memberKeyword: String): Color =
-      TransferContext.callMethod_STRING_ret_COLOR(ptr, objectID.id, MethodBindings.getMemberKeywordColorPtr, memberKeyword)
+      callMethod_STRING_ret_COLOR(MethodBindings.getMemberKeywordColorPtr, memberKeyword)
 
   public final fun setMemberKeywordColors(memberKeyword: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setMemberKeywordColorsPtr, memberKeyword)
+    callPtrMethod_DICTIONARY(MethodBindings.setMemberKeywordColorsPtr, memberKeyword)
   }
 
   /**
    * Removes all member keywords.
    */
   public final fun clearMemberKeywordColors(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearMemberKeywordColorsPtr)
+    callPtrMethod0(MethodBindings.clearMemberKeywordColorsPtr)
   }
 
   public final fun getMemberKeywordColors(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getMemberKeywordColorsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getMemberKeywordColorsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Adds a color region (such as for comments or strings) from [startKey] to [endKey]. Both keys
@@ -338,63 +337,63 @@ public open class CodeHighlighter : SyntaxHighlighter() {
     color: Color,
     lineOnly: Boolean = false,
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_COLOR_BOOL(ptr, objectID.id, MethodBindings.addColorRegionPtr, startKey, endKey, color, lineOnly)
+    callMethod_STRING_STRING_COLOR_BOOL(MethodBindings.addColorRegionPtr, startKey, endKey, color, lineOnly)
   }
 
   /**
    * Removes the color region that uses that start key.
    */
   public final fun removeColorRegion(startKey: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removeColorRegionPtr, startKey)
+    callMethod_STRING(MethodBindings.removeColorRegionPtr, startKey)
   }
 
   /**
    * Returns `true` if the start key exists, else `false`.
    */
   public final fun hasColorRegion(startKey: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasColorRegionPtr, startKey)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasColorRegionPtr, startKey)
 
   public final fun setColorRegions(colorRegions: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setColorRegionsPtr, colorRegions)
+    callPtrMethod_DICTIONARY(MethodBindings.setColorRegionsPtr, colorRegions)
   }
 
   /**
    * Removes all color regions.
    */
   public final fun clearColorRegions(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearColorRegionsPtr)
+    callPtrMethod0(MethodBindings.clearColorRegionsPtr)
   }
 
   public final fun getColorRegions(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getColorRegionsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getColorRegionsPtr) as Dictionary<Any?, Any?>)
 
   public final fun setFunctionColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setFunctionColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setFunctionColorPtr, color)
   }
 
   public final fun getFunctionColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getFunctionColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getFunctionColorPtr)
 
   public final fun setNumberColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setNumberColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setNumberColorPtr, color)
   }
 
   public final fun getNumberColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getNumberColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getNumberColorPtr)
 
   public final fun setSymbolColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSymbolColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setSymbolColorPtr, color)
   }
 
   public final fun getSymbolColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSymbolColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSymbolColorPtr)
 
   public final fun setMemberVariableColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setMemberVariableColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setMemberVariableColorPtr, color)
   }
 
   public final fun getMemberVariableColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getMemberVariableColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getMemberVariableColorPtr)
 
   public companion object {
     @JvmField

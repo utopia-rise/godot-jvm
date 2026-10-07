@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -69,24 +68,24 @@ public open class Shape3D internal constructor() : Resource() {
   }
 
   public final fun setCustomSolverBias(bias: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
   }
 
   public final fun getCustomSolverBias(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomSolverBiasPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCustomSolverBiasPtr).toFloat()
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMarginPtr, margin.toDouble())
   }
 
   public final fun getMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMarginPtr).toFloat()
 
   /**
    * Returns the [ArrayMesh] used to draw the debug collision for this [Shape3D].
    */
   public final fun getDebugMesh(): ArrayMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDebugMeshPtr) as ArrayMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getDebugMeshPtr) as ArrayMesh?)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_NODE_PATH
 import godot.callPtrMethod_NODE_PATH
@@ -75,11 +74,11 @@ public open class ViewportTexture : Texture2D() {
   }
 
   public final fun setViewportPathInScene(path: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setViewportPathInScenePtr, path)
+    callPtrMethod_NODE_PATH(MethodBindings.setViewportPathInScenePtr, path)
   }
 
   public final fun getViewportPathInScene(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getViewportPathInScenePtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getViewportPathInScenePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

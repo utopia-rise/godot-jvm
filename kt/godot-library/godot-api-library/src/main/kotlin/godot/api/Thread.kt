@@ -7,13 +7,13 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod0_ret_STRING
 import godot.callMethod_CALLABLE_LONG_ret_LONG
 import godot.callPtrMethod0_ret_BOOL
-import godot.callPtrMethod_BOOL
+import godot.callStaticPtrMethod0_ret_BOOL
+import godot.callStaticPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Error
@@ -61,22 +61,20 @@ public open class Thread : RefCounted() {
    */
   @JvmOverloads
   public final fun start(callable: Callable, priority: Priority = Thread.Priority.NORMAL): Error =
-      Error.from(TransferContext.callMethod_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, callable, priority.value))
+      Error.from(callMethod_CALLABLE_LONG_ret_LONG(MethodBindings.startPtr, callable, priority.value))
 
   /**
    * Returns the current [Thread]'s ID, uniquely identifying it among all threads. If the [Thread]
    * has not started running or if [waitToFinish] has been called, this returns an empty string.
    */
-  public final fun getId(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getIdPtr)
+  public final fun getId(): String = callMethod0_ret_STRING(MethodBindings.getIdPtr)
 
   /**
    * Returns `true` if this [Thread] has been started. Once started, this will return `true` until
    * it is joined using [waitToFinish]. For checking if a [Thread] is still executing its task, use
    * [isAlive].
    */
-  public final fun isStarted(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStartedPtr)
+  public final fun isStarted(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isStartedPtr)
 
   /**
    * Returns `true` if this [Thread] is currently running the provided function. This is useful for
@@ -84,8 +82,7 @@ public open class Thread : RefCounted() {
    *
    * To check if a [Thread] is joinable, use [isStarted].
    */
-  public final fun isAlive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAlivePtr)
+  public final fun isAlive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isAlivePtr)
 
   /**
    * Joins the [Thread] and waits for it to finish. Returns the output of the [Callable] passed to
@@ -97,8 +94,7 @@ public open class Thread : RefCounted() {
    * To determine if this can be called without blocking the calling thread, check if [isAlive] is
    * `false`.
    */
-  public final fun waitToFinish(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.waitToFinishPtr)
+  public final fun waitToFinish(): Any? = callMethod0_ret_ANY(MethodBindings.waitToFinishPtr)
 
   public enum class Priority(
     public override val `value`: Long,
@@ -178,7 +174,7 @@ public open class Thread : RefCounted() {
      */
     @JvmStatic
     public final fun setThreadSafetyChecksEnabled(enabled: Boolean): Unit {
-      TransferContext.callPtrMethod_BOOL(0L, 0L, MethodBindings.setThreadSafetyChecksEnabledPtr, enabled)
+      callStaticPtrMethod_BOOL(MethodBindings.setThreadSafetyChecksEnabledPtr, enabled)
     }
 
     /**
@@ -188,7 +184,7 @@ public open class Thread : RefCounted() {
      */
     @JvmStatic
     public final fun isMainThread(): Boolean =
-        TransferContext.callPtrMethod0_ret_BOOL(0L, 0L, MethodBindings.isMainThreadPtr)
+        callStaticPtrMethod0_ret_BOOL(MethodBindings.isMainThreadPtr)
   }
 
   public object MethodBindings {

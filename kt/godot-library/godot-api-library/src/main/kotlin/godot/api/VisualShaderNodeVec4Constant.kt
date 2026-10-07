@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_QUATERNION
 import godot.callPtrMethod_QUATERNION
@@ -70,11 +69,11 @@ public open class VisualShaderNodeVec4Constant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Quaternion): Unit {
-    TransferContext.callPtrMethod_QUATERNION(ptr, objectID.id, MethodBindings.setConstantPtr, constant)
+    callPtrMethod_QUATERNION(MethodBindings.setConstantPtr, constant)
   }
 
   public final fun getConstant(): Quaternion =
-      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getConstantPtr)
+      callPtrMethod0_ret_QUATERNION(MethodBindings.getConstantPtr)
 
   public companion object {
     @JvmField

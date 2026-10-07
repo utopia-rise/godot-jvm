@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
@@ -39,25 +38,25 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
    * Returns `true` if QR code marker tracking is supported by the current device.
    */
   public final fun isQrcodeSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isQrcodeSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isQrcodeSupportedPtr)
 
   /**
    * Returns `true` if micro QR code marker tracking is supported by the current device.
    */
   public final fun isMicroQrcodeSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMicroQrcodeSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMicroQrcodeSupportedPtr)
 
   /**
    * Returns `true` if Aruco marker tracking is supported by the current device.
    */
   public final fun isArucoSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isArucoSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isArucoSupportedPtr)
 
   /**
    * Returns `true` if April tag marker tracking is supported by the current device.
    */
   public final fun isAprilTagSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAprilTagSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAprilTagSupportedPtr)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.discoverSpatialEntities] and
@@ -89,7 +88,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? =
-      (TransferContext.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
+      (callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.updateSpatialEntities] and
@@ -111,7 +110,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
     nextSnapshotCreate: OpenXRStructureBase? = null,
     nextSnapshotQuery: OpenXRStructureBase? = null,
   ): Unit {
-    TransferContext.callPtrMethod_RID_ARRAY_OBJECT_OBJECT(ptr, objectID.id, MethodBindings.doEntityUpdatePtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
+    callPtrMethod_RID_ARRAY_OBJECT_OBJECT(MethodBindings.doEntityUpdatePtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
   }
 
   public companion object {

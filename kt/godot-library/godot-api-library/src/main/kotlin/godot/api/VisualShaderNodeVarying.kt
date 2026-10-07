@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -55,18 +54,18 @@ public open class VisualShaderNodeVarying internal constructor() : VisualShaderN
   }
 
   public final fun setVaryingName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setVaryingNamePtr, name)
+    callMethod_STRING(MethodBindings.setVaryingNamePtr, name)
   }
 
   public final fun getVaryingName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getVaryingNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getVaryingNamePtr)
 
   public final fun setVaryingType(type: VisualShader.VaryingType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVaryingTypePtr, type.value)
+    callPtrMethod_LONG(MethodBindings.setVaryingTypePtr, type.value)
   }
 
   public final fun getVaryingType(): VisualShader.VaryingType =
-      VisualShader.VaryingType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVaryingTypePtr))
+      VisualShader.VaryingType.from(callPtrMethod0_ret_LONG(MethodBindings.getVaryingTypePtr))
 
   public companion object {
     @JvmField

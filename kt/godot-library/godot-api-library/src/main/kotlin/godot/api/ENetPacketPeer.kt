@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0
@@ -56,7 +55,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    */
   @JvmOverloads
   public final fun peerDisconnect(`data`: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.peerDisconnectPtr, data.toLong())
+    callPtrMethod_LONG(MethodBindings.peerDisconnectPtr, data.toLong())
   }
 
   /**
@@ -66,7 +65,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    */
   @JvmOverloads
   public final fun peerDisconnectLater(`data`: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.peerDisconnectLaterPtr, data.toLong())
+    callPtrMethod_LONG(MethodBindings.peerDisconnectLaterPtr, data.toLong())
   }
 
   /**
@@ -76,7 +75,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    */
   @JvmOverloads
   public final fun peerDisconnectNow(`data`: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.peerDisconnectNowPtr, data.toLong())
+    callPtrMethod_LONG(MethodBindings.peerDisconnectNowPtr, data.toLong())
   }
 
   /**
@@ -84,7 +83,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    * intervals, however, this function may be called to ensure more frequent ping requests.
    */
   public final fun ping(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pingPtr)
+    callPtrMethod0(MethodBindings.pingPtr)
   }
 
   /**
@@ -94,7 +93,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    * The default ping interval is `500` milliseconds.
    */
   public final fun pingInterval(pingInterval: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pingIntervalPtr, pingInterval.toLong())
+    callPtrMethod_LONG(MethodBindings.pingIntervalPtr, pingInterval.toLong())
   }
 
   /**
@@ -102,7 +101,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    * disconnection and will timeout on its connection to the local host.
    */
   public final fun reset(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetPtr)
+    callPtrMethod0(MethodBindings.resetPtr)
   }
 
   /**
@@ -114,7 +113,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     packet: PackedByteArray,
     flags: Int,
   ): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_ret_LONG(ptr, objectID.id, MethodBindings.sendPtr, channel.toLong(), packet, flags.toLong()))
+      Error.from(callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_ret_LONG(MethodBindings.sendPtr, channel.toLong(), packet, flags.toLong()))
 
   /**
    * Configures throttle parameter for a peer.
@@ -142,7 +141,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     acceleration: Int,
     deceleration: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.throttleConfigurePtr, interval.toLong(), acceleration.toLong(), deceleration.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.throttleConfigurePtr, interval.toLong(), acceleration.toLong(), deceleration.toLong())
   }
 
   /**
@@ -161,7 +160,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     timeoutMin: Int,
     timeoutMax: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.setTimeoutPtr, timeout.toLong(), timeoutMin.toLong(), timeoutMax.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.setTimeoutPtr, timeout.toLong(), timeoutMin.toLong(), timeoutMax.toLong())
   }
 
   /**
@@ -170,44 +169,43 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
    * receiving peer.
    */
   public final fun getPacketFlags(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketFlagsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPacketFlagsPtr).toInt()
 
   /**
    * Returns the IP address of this peer.
    */
   public final fun getRemoteAddress(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getRemoteAddressPtr)
+      callMethod0_ret_STRING(MethodBindings.getRemoteAddressPtr)
 
   /**
    * Returns the remote port of this peer.
    */
   public final fun getRemotePort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRemotePortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRemotePortPtr).toInt()
 
   /**
    * Returns the requested [statistic] for this peer.
    */
   public final fun getStatistic(statistic: PeerStatistic): Double =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStatisticPtr, statistic.value)
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getStatisticPtr, statistic.value)
 
   /**
    * Returns the current peer state.
    */
   public final fun getState(): PeerState =
-      PeerState.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatePtr))
+      PeerState.from(callPtrMethod0_ret_LONG(MethodBindings.getStatePtr))
 
   /**
    * Returns the number of channels allocated for communication with peer.
    */
   public final fun getChannels(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getChannelsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getChannelsPtr).toInt()
 
   /**
    * Returns `true` if the peer is currently active (i.e. the associated [ENetConnection] is still
    * valid).
    */
-  public final fun isActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
+  public final fun isActive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isActivePtr)
 
   public enum class PeerState(
     public override val `value`: Long,

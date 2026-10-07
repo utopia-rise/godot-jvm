@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -158,81 +157,77 @@ public open class RDTextureFormat : RefCounted() {
   }
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setFormatPtr, pMember.value)
   }
 
   public final fun getFormat(): RenderingDevice.DataFormat =
-      RenderingDevice.DataFormat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
+      RenderingDevice.DataFormat.from(callPtrMethod0_ret_LONG(MethodBindings.getFormatPtr))
 
   public final fun setWidth(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, pMember)
   }
 
-  public final fun getWidth(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr)
+  public final fun getWidth(): Long = callPtrMethod0_ret_LONG(MethodBindings.getWidthPtr)
 
   public final fun setHeight(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setHeightPtr, pMember)
   }
 
-  public final fun getHeight(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr)
+  public final fun getHeight(): Long = callPtrMethod0_ret_LONG(MethodBindings.getHeightPtr)
 
   public final fun setDepth(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDepthPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setDepthPtr, pMember)
   }
 
-  public final fun getDepth(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDepthPtr)
+  public final fun getDepth(): Long = callPtrMethod0_ret_LONG(MethodBindings.getDepthPtr)
 
   public final fun setArrayLayers(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setArrayLayersPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setArrayLayersPtr, pMember)
   }
 
   public final fun getArrayLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getArrayLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getArrayLayersPtr)
 
   public final fun setMipmaps(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMipmapsPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setMipmapsPtr, pMember)
   }
 
-  public final fun getMipmaps(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMipmapsPtr)
+  public final fun getMipmaps(): Long = callPtrMethod0_ret_LONG(MethodBindings.getMipmapsPtr)
 
   public final fun setTextureType(pMember: RenderingDevice.TextureType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureTypePtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setTextureTypePtr, pMember.value)
   }
 
   public final fun getTextureType(): RenderingDevice.TextureType =
-      RenderingDevice.TextureType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureTypePtr))
+      RenderingDevice.TextureType.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureTypePtr))
 
   public final fun setSamples(pMember: RenderingDevice.TextureSamples): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplesPtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setSamplesPtr, pMember.value)
   }
 
   public final fun getSamples(): RenderingDevice.TextureSamples =
-      RenderingDevice.TextureSamples.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplesPtr))
+      RenderingDevice.TextureSamples.from(callPtrMethod0_ret_LONG(MethodBindings.getSamplesPtr))
 
   public final fun setUsageBits(pMember: RenderingDevice.TextureUsageBits): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUsageBitsPtr, pMember.flag)
+    callPtrMethod_LONG(MethodBindings.setUsageBitsPtr, pMember.flag)
   }
 
   public final fun getUsageBits(): RenderingDevice.TextureUsageBits =
-      RenderingDevice.TextureUsageBits(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUsageBitsPtr))
+      RenderingDevice.TextureUsageBits(callPtrMethod0_ret_LONG(MethodBindings.getUsageBitsPtr))
 
   public final fun setIsResolveBuffer(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsResolveBufferPtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setIsResolveBufferPtr, pMember)
   }
 
   public final fun getIsResolveBuffer(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsResolveBufferPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getIsResolveBufferPtr)
 
   public final fun setIsDiscardable(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsDiscardablePtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setIsDiscardablePtr, pMember)
   }
 
   public final fun getIsDiscardable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsDiscardablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getIsDiscardablePtr)
 
   /**
    * Adds [format] as a valid format for the corresponding [RDTextureView]'s
@@ -240,7 +235,7 @@ public open class RDTextureFormat : RefCounted() {
    * [format] must also be added.
    */
   public final fun addShareableFormat(format: RenderingDevice.DataFormat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addShareableFormatPtr, format.value)
+    callPtrMethod_LONG(MethodBindings.addShareableFormatPtr, format.value)
   }
 
   /**
@@ -248,7 +243,7 @@ public open class RDTextureFormat : RefCounted() {
    * [RDTextureView.formatOverride] property can be set to.
    */
   public final fun removeShareableFormat(format: RenderingDevice.DataFormat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeShareableFormatPtr, format.value)
+    callPtrMethod_LONG(MethodBindings.removeShareableFormatPtr, format.value)
   }
 
   public companion object {

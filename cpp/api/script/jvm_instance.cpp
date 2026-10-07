@@ -1,11 +1,11 @@
 #include "jvm_instance.h"
 
-#include "core/jvm_binding_manager.h"
 #include "engine/godot_object.h"
 #include "engine/internal.h"
-#include "jvm/wrapper/jvm_singleton_wrapper.h"
-#include "jvm/wrapper/memory/memory_manager.h"
-#include "jvm/wrapper/registration/kt_object.h"
+#include "jvm/jvm_singleton_wrapper.h"
+#include "jvm/memory/memory_manager.h"
+#include "jvm/memory/type_manager.h"
+#include "jvm/registration/kt_object.h"
 #include "logging.h"
 
 #include <atomic>
@@ -22,7 +22,7 @@ GDExtensionBool JvmInstance::set(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     Variant value = Variant(p_value);
 
     if (KtProperty* ktProperty = kt_class->get_property(*reinterpret_cast<const StringName*>(p_name))) {
@@ -54,7 +54,7 @@ GDExtensionBool JvmInstance::get(
     const StringName& parameter_name = *reinterpret_cast<const StringName*>(p_name);
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = kt_class->get_property(parameter_name);
     if (ktProperty) {
@@ -64,7 +64,7 @@ GDExtensionBool JvmInstance::get(
 
     KtSignalInfo* kt_signal = kt_class->get_signal(parameter_name);
     if (kt_signal) {
-        r_return = raw_godot::RawObject(owner).to_signal(parameter_name);
+        r_return = engine::RawObject(owner).to_signal(parameter_name);
         return true;
     }
 
@@ -90,7 +90,7 @@ const GDExtensionPropertyInfo* JvmInstance::get_property_list(
     // The property-list bridge owns this freshly allocated list and frees it later.
     List<PropertyInfo>* properties = memnew(List<PropertyInfo>);
     kt_class->get_property_list(properties);
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_get_property_list"))) {
         Variant ret_var;
@@ -128,7 +128,7 @@ GDExtensionBool JvmInstance::property_can_revert(
     KtObject* kt_object = &instance_data->kt_object;
     const StringName& property_name = *reinterpret_cast<const StringName*>(p_name);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_property_can_revert"))) {
         const int arg_count = 1;
@@ -152,7 +152,7 @@ GDExtensionBool JvmInstance::property_get_revert(
     KtObject* kt_object = &instance_data->kt_object;
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_property_get_revert"))) {
         const int arg_count = 1;
@@ -199,7 +199,7 @@ const GDExtensionMethodInfo* JvmInstance::get_method_list(
     // The method-list bridge owns this freshly allocated list and frees it later.
     List<MethodInfo>* methods = memnew(List<MethodInfo>);
     instance_data->kt_class->get_method_list(methods);
-    return internal::create_c_method_list(methods, r_count);
+    return engine::create_c_method_list(methods, r_count);
 }
 
 void JvmInstance::free_method_list(
@@ -207,7 +207,7 @@ void JvmInstance::free_method_list(
     const GDExtensionMethodInfo* p_list,
     uint32_t p_count
 ) {
-    internal::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
+    engine::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
 }
 
 GDExtensionVariantType JvmInstance::get_property_type(
@@ -236,7 +236,7 @@ GDExtensionBool JvmInstance::validate_property(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_validate_property"))) {
         Variant ret_var;
@@ -251,7 +251,7 @@ GDExtensionBool JvmInstance::validate_property(
         const int arg_count = 1;
         const Variant* args[arg_count] = {&property_arg};
         function->invoke(env, kt_object, args, arg_count, ret_var);
-        internal::convert_property_to_c(PropertyInfo::from_dict(property_arg), p_property);
+        engine::convert_property_to_c(PropertyInfo::from_dict(property_arg), p_property);
         return true;
     }
 
@@ -265,7 +265,7 @@ GDExtensionBool JvmInstance::has_method(
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
 
-    return kt_class->get_method(*reinterpret_cast<const StringName*>(p_name)) != nullptr;
+    return kt_class->has_method(*reinterpret_cast<const StringName*>(p_name));
 }
 
 GDExtensionInt JvmInstance::get_method_argument_count(
@@ -276,13 +276,9 @@ GDExtensionInt JvmInstance::get_method_argument_count(
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
 
-    if (KtFunction* method = kt_class->get_method(*reinterpret_cast<const StringName*>(p_name))) {
-        *r_is_valid = true;
-        return method->get_parameter_count();
-    }
-
-    *r_is_valid = false;
-    return -1;
+    int count = kt_class->get_method_argument_count(*reinterpret_cast<const StringName*>(p_name));
+    *r_is_valid = count >= 0;
+    return count;
 }
 
 void JvmInstance::call(
@@ -297,17 +293,17 @@ void JvmInstance::call(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
-    if (KtFunction* function = kt_class->get_method(*reinterpret_cast<const StringName*>(p_method))) {
-        auto* arguments = reinterpret_cast<const Variant* const*>(p_args);
-        Variant& r_ret = *reinterpret_cast<Variant*>(r_return);
-        function
-            ->invoke(env, kt_object, const_cast<const Variant**>(arguments), static_cast<int>(p_argument_count), r_ret);
-        r_error->error = GDExtensionCallErrorType::GDEXTENSION_CALL_OK;
-    } else {
-        r_error->error = GDExtensionCallErrorType::GDEXTENSION_CALL_ERROR_INVALID_METHOD;
-    }
+    kt_class->call(
+        env,
+        kt_object,
+        *reinterpret_cast<const StringName*>(p_method),
+        reinterpret_cast<const Variant**>(const_cast<GDExtensionConstVariantPtr*>(p_args)),
+        static_cast<int>(p_argument_count),
+        *reinterpret_cast<Variant*>(r_return),
+        *r_error
+    );
 }
 
 void JvmInstance::notification(
@@ -319,8 +315,9 @@ void JvmInstance::notification(
     KtClass* kt_class = instance_data->kt_class;
 
     if (p_what == Object::NOTIFICATION_PREDELETE) { instance_data->delete_flag = false; }
+    if (!kt_class->handles_notification(p_what)) { return; }
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     kt_class->do_notification(env, &instance_data->kt_object, p_what, p_reversed);
 }
 
@@ -333,7 +330,7 @@ void JvmInstance::to_string(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_to_string"))) {
         const int arg_count = 0;
@@ -351,7 +348,7 @@ void JvmInstance::refcount_incremented(GDExtensionScriptInstanceDataPtr p_instan
     KtObject* kt_object = &instance_data->kt_object;
 
     // This function should only ever be called for a RefCounted, so the count can be read straight off the raw pointer.
-    int refcount = raw_godot::RawObject(instance_data->owner).get_reference_count();
+    int refcount = engine::RawObject(instance_data->owner).get_reference_count();
 
     instance_data->demotion_deferred.clear();
 
@@ -372,7 +369,7 @@ GDExtensionBool JvmInstance::refcount_decremented(GDExtensionScriptInstanceDataP
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
 
     // This function should only ever be called for a RefCounted, so the count can be read straight off the raw pointer.
-    int refcount = raw_godot::RawObject(instance_data->owner).get_reference_count();
+    int refcount = engine::RawObject(instance_data->owner).get_reference_count();
 
     if (refcount == 1) {
         // The JVM holds a reference to that object already, if the counter is equal to 1, it means the JVM is the only
@@ -419,9 +416,13 @@ void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     if (instance_data->delete_flag && !kt_object->is_collected(env)) {
-        kt_object->script_instance_removed(env, JvmBindingManager::bind(instance_data->owner)->get_constructor_id());
+        const StringName class_name = engine::RawObject(instance_data->owner).get_class_name();
+        kt_object->script_instance_removed(
+            env,
+            TypeManager::get_instance().get_java_engine_type_constructor_index(class_name)
+        );
     }
     if (instance_data->to_demote_flag.is_set()) { MemoryManager::get_instance().cancel_demotion(instance_data); }
     memdelete(instance_data);
@@ -431,7 +432,7 @@ void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data)
     KtObject* kt_object = &instance_data->kt_object;
 
     if (kt_object->is_ref_weak()) {
-        jni::Env env = jni::Jvm::current_env();
+        jni::Env& env = jni::Jvm::current_env();
         if (!kt_object->swap_to_strong_unsafe(env)) {
             JVM_DEV_VERBOSE(
                 "Godot referenced a RefCounted whose JVM instance is already collected; it stays weak until released."
@@ -450,11 +451,11 @@ bool JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     }
     instance_data->demotion_deferred.set_to(false);
 
-    raw_godot::RawObject owner(instance_data->owner);
+    engine::RawObject owner(instance_data->owner);
     KtObject* kt_object = &instance_data->kt_object;
 
     if (owner.get_reference_count() == 1 && !kt_object->is_ref_weak()) {
-        jni::Env env = jni::Jvm::current_env();
+        jni::Env& env = jni::Jvm::current_env();
         // The re-check inside the swap catches a reference() from another thread that landed between the two counter
         // reads. Without it, a count of 2 could end up with a weak reference and the JVM instance could be collected
         // while native code still holds it.
@@ -477,7 +478,7 @@ GDExtensionScriptInstancePtr JvmInstance::create_script_instance(
     const JvmScript* p_script
 ) {
     JvmInstanceData* instance_data = memnew(JvmInstanceData(p_owner, std::move(p_kt_object), p_script));
-    return raw_godot::RawObject::create_script_instance(&jvm_script_instance_info, instance_data);
+    return engine::RawObject::create_script_instance(&jvm_script_instance_info, instance_data);
 }
 
 #ifdef TOOLS_ENABLED
@@ -486,7 +487,7 @@ bool JvmInstance::get_or_default(
     const StringName& p_name,
     Variant& r_ret
 ) {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = instance_data->kt_class->get_property(p_name);
     if (ktProperty) {

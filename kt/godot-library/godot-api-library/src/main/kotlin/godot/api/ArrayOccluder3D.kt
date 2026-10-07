@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_PACKED_INT_32_ARRAY
 import godot.callPtrMethod_PACKED_VECTOR3_ARRAY
@@ -182,15 +181,15 @@ public open class ArrayOccluder3D : Occluder3D() {
    * are set.
    */
   public final fun setArrays(vertices: PackedVector3Array, indices: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setArraysPtr, vertices, indices)
+    callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(MethodBindings.setArraysPtr, vertices, indices)
   }
 
   public final fun setVertices(vertices: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setVerticesPtr, vertices)
   }
 
   public final fun setIndices(indices: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setIndicesPtr, indices)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setIndicesPtr, indices)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -117,77 +116,76 @@ public open class ImporterMeshInstance3D : Node3D() {
   }
 
   public final fun setMesh(mesh: ImporterMesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): ImporterMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as ImporterMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as ImporterMesh?)
 
   public final fun setSkin(skin: Skin?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSkinPtr, skin)
+    callPtrMethod_OBJECT(MethodBindings.setSkinPtr, skin)
   }
 
   public final fun getSkin(): Skin? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkinPtr) as Skin?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSkinPtr) as Skin?)
 
   public final fun setSkeletonPath(skeletonPath: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setSkeletonPathPtr, skeletonPath)
+    callPtrMethod_NODE_PATH(MethodBindings.setSkeletonPathPtr, skeletonPath)
   }
 
   public final fun getSkeletonPath(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getSkeletonPathPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getSkeletonPathPtr)
 
   public final fun setLayerMask(layerMask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLayerMaskPtr, layerMask)
+    callPtrMethod_LONG(MethodBindings.setLayerMaskPtr, layerMask)
   }
 
-  public final fun getLayerMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayerMaskPtr)
+  public final fun getLayerMask(): Long = callPtrMethod0_ret_LONG(MethodBindings.getLayerMaskPtr)
 
   public final
       fun setCastShadowsSetting(shadowCastingSetting: GeometryInstance3D.ShadowCastingSetting):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCastShadowsSettingPtr, shadowCastingSetting.value)
+    callPtrMethod_LONG(MethodBindings.setCastShadowsSettingPtr, shadowCastingSetting.value)
   }
 
   public final fun getCastShadowsSetting(): GeometryInstance3D.ShadowCastingSetting =
-      GeometryInstance3D.ShadowCastingSetting.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCastShadowsSettingPtr))
+      GeometryInstance3D.ShadowCastingSetting.from(callPtrMethod0_ret_LONG(MethodBindings.getCastShadowsSettingPtr))
 
   public final fun setVisibilityRangeEndMargin(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibilityRangeEndMarginPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVisibilityRangeEndMarginPtr, distance.toDouble())
   }
 
   public final fun getVisibilityRangeEndMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibilityRangeEndMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVisibilityRangeEndMarginPtr).toFloat()
 
   public final fun setVisibilityRangeEnd(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibilityRangeEndPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVisibilityRangeEndPtr, distance.toDouble())
   }
 
   public final fun getVisibilityRangeEnd(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibilityRangeEndPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVisibilityRangeEndPtr).toFloat()
 
   public final fun setVisibilityRangeBeginMargin(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibilityRangeBeginMarginPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVisibilityRangeBeginMarginPtr, distance.toDouble())
   }
 
   public final fun getVisibilityRangeBeginMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibilityRangeBeginMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVisibilityRangeBeginMarginPtr).toFloat()
 
   public final fun setVisibilityRangeBegin(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibilityRangeBeginPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVisibilityRangeBeginPtr, distance.toDouble())
   }
 
   public final fun getVisibilityRangeBegin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibilityRangeBeginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVisibilityRangeBeginPtr).toFloat()
 
   public final fun setVisibilityRangeFadeMode(mode: GeometryInstance3D.VisibilityRangeFadeMode):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibilityRangeFadeModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setVisibilityRangeFadeModePtr, mode.value)
   }
 
   public final fun getVisibilityRangeFadeMode(): GeometryInstance3D.VisibilityRangeFadeMode =
-      GeometryInstance3D.VisibilityRangeFadeMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibilityRangeFadeModePtr))
+      GeometryInstance3D.VisibilityRangeFadeMode.from(callPtrMethod0_ret_LONG(MethodBindings.getVisibilityRangeFadeModePtr))
 
   public final fun setSkeletonPath(skeletonPath: String) =
       setSkeletonPath(skeletonPath.asCachedNodePath())

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -96,29 +95,29 @@ public open class InputEventAction : InputEvent() {
   }
 
   public final fun setAction(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionPtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.setActionPtr, action)
   }
 
   public final fun getAction(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getActionPtr)
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setPressedPtr, pressed)
   }
 
   public final fun setStrength(strength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStrengthPtr, strength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setStrengthPtr, strength.toDouble())
   }
 
   public final fun getStrength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStrengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStrengthPtr).toFloat()
 
   public final fun setEventIndex(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEventIndexPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.setEventIndexPtr, index.toLong())
   }
 
   public final fun getEventIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEventIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getEventIndexPtr).toInt()
 
   public final fun setAction(action: String) = setAction(action.asCachedStringName())
 

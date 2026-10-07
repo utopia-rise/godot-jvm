@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_STRING
 import godot.callMethod_STRING_STRING_STRING
@@ -38,7 +37,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
    * older action maps.
    */
   public final fun registerProfileRename(oldName: String, newName: String): Unit {
-    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.registerProfileRenamePtr, oldName, newName)
+    callMethod_STRING_STRING(MethodBindings.registerProfileRenamePtr, oldName, newName)
   }
 
   /**
@@ -46,7 +45,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
    * action maps.
    */
   public final fun registerPathRename(oldName: String, newName: String): Unit {
-    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.registerPathRenamePtr, oldName, newName)
+    callMethod_STRING_STRING(MethodBindings.registerPathRenamePtr, oldName, newName)
   }
 
   /**
@@ -66,7 +65,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrPath: String,
     openxrExtensionNames: String,
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_STRING(ptr, objectID.id, MethodBindings.registerTopLevelPathPtr, displayName, openxrPath, openxrExtensionNames)
+    callMethod_STRING_STRING_STRING(MethodBindings.registerTopLevelPathPtr, displayName, openxrPath, openxrExtensionNames)
   }
 
   /**
@@ -84,7 +83,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrPath: String,
     openxrExtensionNames: String,
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_STRING(ptr, objectID.id, MethodBindings.registerInteractionProfilePtr, displayName, openxrPath, openxrExtensionNames)
+    callMethod_STRING_STRING_STRING(MethodBindings.registerInteractionProfilePtr, displayName, openxrPath, openxrExtensionNames)
   }
 
   /**
@@ -106,7 +105,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrExtensionNames: String,
     actionType: OpenXRAction.ActionType,
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_STRING_STRING_STRING_LONG(ptr, objectID.id, MethodBindings.registerIoPathPtr, interactionProfile, displayName, toplevelPath, openxrPath, openxrExtensionNames, actionType.value)
+    callMethod_STRING_STRING_STRING_STRING_STRING_LONG(MethodBindings.registerIoPathPtr, interactionProfile, displayName, toplevelPath, openxrPath, openxrExtensionNames, actionType.value)
   }
 
   public companion object {

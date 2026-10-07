@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -63,10 +62,10 @@ public open class BoneMap : Resource() {
   }
 
   public final fun getProfile(): SkeletonProfile? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProfilePtr) as SkeletonProfile?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getProfilePtr) as SkeletonProfile?)
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setProfilePtr, profile)
+    callPtrMethod_OBJECT(MethodBindings.setProfilePtr, profile)
   }
 
   /**
@@ -75,7 +74,7 @@ public open class BoneMap : Resource() {
    * In the retargeting process, the returned bone name is the bone name of the source skeleton.
    */
   public final fun getSkeletonBoneName(profileBoneName: StringName): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getSkeletonBoneNamePtr, profileBoneName)
+      callPtrMethod_STRING_NAME_ret_STRING_NAME(MethodBindings.getSkeletonBoneNamePtr, profileBoneName)
 
   /**
    * Maps a skeleton bone name to [profileBoneName].
@@ -84,7 +83,7 @@ public open class BoneMap : Resource() {
    */
   public final fun setSkeletonBoneName(profileBoneName: StringName, skeletonBoneName: StringName):
       Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.setSkeletonBoneNamePtr, profileBoneName, skeletonBoneName)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.setSkeletonBoneNamePtr, profileBoneName, skeletonBoneName)
   }
 
   /**
@@ -94,7 +93,7 @@ public open class BoneMap : Resource() {
    * In the retargeting process, the returned bone name is the bone name of the target skeleton.
    */
   public final fun findProfileBoneName(skeletonBoneName: StringName): StringName =
-      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.findProfileBoneNamePtr, skeletonBoneName)
+      callPtrMethod_STRING_NAME_ret_STRING_NAME(MethodBindings.findProfileBoneNamePtr, skeletonBoneName)
 
   /**
    * Returns a skeleton bone name is mapped to [profileBoneName].

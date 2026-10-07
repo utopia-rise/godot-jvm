@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -167,25 +166,25 @@ public open class AreaLight3D : Light3D() {
   }
 
   public final fun setAreaTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setAreaTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setAreaTexturePtr, texture)
   }
 
   public final fun getAreaTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAreaTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getAreaTexturePtr) as Texture2D?)
 
   public final fun setAreaSize(areaSize: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setAreaSizePtr, areaSize)
+    callPtrMethod_VECTOR2(MethodBindings.setAreaSizePtr, areaSize)
   }
 
   public final fun getAreaSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getAreaSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getAreaSizePtr)
 
   public final fun setAreaNormalizeEnergy(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAreaNormalizeEnergyPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAreaNormalizeEnergyPtr, enable)
   }
 
   public final fun isAreaNormalizingEnergy(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAreaNormalizingEnergyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAreaNormalizingEnergyPtr)
 
   public companion object {
     @JvmField

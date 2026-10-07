@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -77,32 +76,31 @@ public open class TorusMesh : PrimitiveMesh() {
   }
 
   public final fun setInnerRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInnerRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setInnerRadiusPtr, radius.toDouble())
   }
 
   public final fun getInnerRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInnerRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInnerRadiusPtr).toFloat()
 
   public final fun setOuterRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOuterRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOuterRadiusPtr, radius.toDouble())
   }
 
   public final fun getOuterRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOuterRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOuterRadiusPtr).toFloat()
 
   public final fun setRings(rings: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRingsPtr, rings.toLong())
+    callPtrMethod_LONG(MethodBindings.setRingsPtr, rings.toLong())
   }
 
-  public final fun getRings(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRingsPtr).toInt()
+  public final fun getRings(): Int = callPtrMethod0_ret_LONG(MethodBindings.getRingsPtr).toInt()
 
   public final fun setRingSegments(rings: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRingSegmentsPtr, rings.toLong())
+    callPtrMethod_LONG(MethodBindings.setRingSegmentsPtr, rings.toLong())
   }
 
   public final fun getRingSegments(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRingSegmentsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRingSegmentsPtr).toInt()
 
   public companion object {
     @JvmField

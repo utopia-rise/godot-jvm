@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_LONG
@@ -83,29 +82,29 @@ public open class CurveXYZTexture : Texture2D() {
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setCurveX(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveXPtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurveXPtr, curve)
   }
 
   public final fun getCurveX(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveXPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurveXPtr) as Curve?)
 
   public final fun setCurveY(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveYPtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurveYPtr, curve)
   }
 
   public final fun getCurveY(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveYPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurveYPtr) as Curve?)
 
   public final fun setCurveZ(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveZPtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurveZPtr, curve)
   }
 
   public final fun getCurveZ(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveZPtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurveZPtr) as Curve?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

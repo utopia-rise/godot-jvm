@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR3
 import godot.callPtrMethod_VECTOR3
@@ -70,11 +69,11 @@ public open class VisualShaderNodeVec3Constant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setConstantPtr, constant)
+    callPtrMethod_VECTOR3(MethodBindings.setConstantPtr, constant)
   }
 
   public final fun getConstant(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getConstantPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getConstantPtr)
 
   public companion object {
     @JvmField

@@ -78,7 +78,7 @@ flowchart LR
    debug and release artifacts are kept apart.
 2. **[Memory management](memory-management.md)**: how Godot's object bindings and the JVM garbage
    collector are reconciled, and why `RefCounted` script instances need a weak JNI reference.
-3. **[The JNI shared buffer](shared-buffer.md)**: the per-thread buffer used to exchange call arguments and return values, and its memory layout.
+3. **[The JNI shared buffers](shared-buffer.md)**: the two per-thread buffers used to exchange call arguments and return values, why one is rewound and the other stacked, and how values are encoded.
 4. **[Registration pipeline](registration-pipeline.md)**: how annotated Kotlin, Java, and Scala
    code becomes classes and members Godot knows about.
 5. **[Registrar generation](registrar-generation.md)**: how the bytecode processor and the

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
@@ -35,7 +34,7 @@ public open class AwaitTweener : Tweener() {
    * signals that may never be emitted. If not specified, the tweener will wait indefinitely.
    */
   public final fun setTimeout(timeout: Double): AwaitTweener? =
-      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setTimeoutPtr, timeout) as AwaitTweener?)
+      (callPtrMethod_DOUBLE_ret_OBJECT_REF(MethodBindings.setTimeoutPtr, timeout) as AwaitTweener?)
 
   public companion object {
     @JvmField

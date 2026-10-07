@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
@@ -54,14 +53,14 @@ public open class OpenXRSpatialCapabilityConfigurationAprilTag :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
+      callPtrMethod0_ret_PACKED_INT_64_ARRAY(MethodBindings.getEnabledComponentsPtr)
 
   public final fun setAprilDict(aprilDict: AprilTagDict): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAprilDictPtr, aprilDict.value)
+    callPtrMethod_LONG(MethodBindings.setAprilDictPtr, aprilDict.value)
   }
 
   public final fun getAprilDict(): AprilTagDict =
-      AprilTagDict.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAprilDictPtr))
+      AprilTagDict.from(callPtrMethod0_ret_LONG(MethodBindings.getAprilDictPtr))
 
   public enum class AprilTagDict(
     public override val `value`: Long,

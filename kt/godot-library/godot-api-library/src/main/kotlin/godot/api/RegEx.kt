@@ -7,11 +7,9 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING_BOOL_ret_LONG
-import godot.callMethod_STRING_BOOL_ret_OBJECT_REF
 import godot.callMethod_STRING_LONG_LONG_ret_ARRAY
 import godot.callMethod_STRING_LONG_LONG_ret_OBJECT_REF
 import godot.callMethod_STRING_STRING_BOOL_LONG_LONG_ret_STRING
@@ -19,6 +17,7 @@ import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callStaticMethod_STRING_BOOL_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -120,7 +119,7 @@ public open class RegEx : RefCounted() {
    * the regular expression of this object.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
@@ -130,7 +129,7 @@ public open class RegEx : RefCounted() {
    */
   @JvmOverloads
   public final fun compile(pattern: String, showError: Boolean = true): Error =
-      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.compilePtr, pattern, showError))
+      Error.from(callMethod_STRING_BOOL_ret_LONG(MethodBindings.compilePtr, pattern, showError))
 
   /**
    * Searches the text for the compiled pattern. Returns a [RegExMatch] container of the first
@@ -148,7 +147,7 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): RegExMatch? =
-      (TransferContext.callMethod_STRING_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.searchPtr, subject, offset.toLong(), end.toLong()) as RegExMatch?)
+      (callMethod_STRING_LONG_LONG_ret_OBJECT_REF(MethodBindings.searchPtr, subject, offset.toLong(), end.toLong()) as RegExMatch?)
 
   /**
    * Searches the text for the compiled pattern. Returns an array of [RegExMatch] containers for
@@ -166,7 +165,7 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): VariantArray<RegExMatch> =
-      (TransferContext.callMethod_STRING_LONG_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.searchAllPtr, subject, offset.toLong(), end.toLong()) as VariantArray<RegExMatch>)
+      (callMethod_STRING_LONG_LONG_ret_ARRAY(MethodBindings.searchAllPtr, subject, offset.toLong(), end.toLong()) as VariantArray<RegExMatch>)
 
   /**
    * Searches the text for the compiled pattern and replaces it with the specified string. Escapes
@@ -187,32 +186,30 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): String =
-      TransferContext.callMethod_STRING_STRING_BOOL_LONG_LONG_ret_STRING(ptr, objectID.id, MethodBindings.subPtr, subject, replacement, all, offset.toLong(), end.toLong())
+      callMethod_STRING_STRING_BOOL_LONG_LONG_ret_STRING(MethodBindings.subPtr, subject, replacement, all, offset.toLong(), end.toLong())
 
   /**
    * Returns whether this object has a valid search pattern assigned.
    */
-  public final fun isValid(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isValidPtr)
+  public final fun isValid(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isValidPtr)
 
   /**
    * Returns the original search pattern that was compiled.
    */
-  public final fun getPattern(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPatternPtr)
+  public final fun getPattern(): String = callMethod0_ret_STRING(MethodBindings.getPatternPtr)
 
   /**
    * Returns the number of capturing groups in compiled pattern.
    */
   public final fun getGroupCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGroupCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getGroupCountPtr).toInt()
 
   /**
    * Returns an array of names of named capturing groups in the compiled pattern. They are ordered
    * by appearance.
    */
   public final fun getNames(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getNamesPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getNamesPtr)
 
   public companion object {
     @JvmField
@@ -260,7 +257,7 @@ public open class RegEx : RefCounted() {
     @JvmOverloads
     @JvmStatic
     public final fun createFromString(pattern: String, showError: Boolean = true): RegEx? =
-        (TransferContext.callMethod_STRING_BOOL_ret_OBJECT_REF(0L, 0L, MethodBindings.createFromStringPtr, pattern, showError) as RegEx?)
+        (callStaticMethod_STRING_BOOL_ret_OBJECT_REF(MethodBindings.createFromStringPtr, pattern, showError) as RegEx?)
   }
 
   public object MethodBindings {

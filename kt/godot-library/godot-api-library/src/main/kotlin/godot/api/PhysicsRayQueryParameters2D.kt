@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -19,7 +18,7 @@ import godot.callPtrMethod_ARRAY
 import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_VECTOR2
-import godot.callPtrMethod_VECTOR2_VECTOR2_LONG_ARRAY_ret_OBJECT_REF
+import godot.callStaticPtrMethod_VECTOR2_VECTOR2_LONG_ARRAY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -187,53 +186,51 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
   }
 
   public final fun setFrom(from: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setFromPtr, from)
+    callPtrMethod_VECTOR2(MethodBindings.setFromPtr, from)
   }
 
-  public final fun getFrom(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFromPtr)
+  public final fun getFrom(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getFromPtr)
 
   public final fun setTo(to: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setToPtr, to)
+    callPtrMethod_VECTOR2(MethodBindings.setToPtr, to)
   }
 
-  public final fun getTo(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getToPtr)
+  public final fun getTo(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getToPtr)
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, collisionMask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, collisionMask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   public final fun setExclude(exclude: VariantArray<RID>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setExcludePtr, exclude)
+    callPtrMethod_ARRAY(MethodBindings.setExcludePtr, exclude)
   }
 
   public final fun getExclude(): VariantArray<RID> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getExcludePtr) as VariantArray<RID>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getExcludePtr) as VariantArray<RID>)
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithBodiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithBodiesPtr, enable)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithBodiesEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithBodiesEnabledPtr)
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithAreasPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithAreasPtr, enable)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithAreasEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithAreasEnabledPtr)
 
   public final fun setHitFromInside(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHitFromInsidePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setHitFromInsidePtr, enable)
   }
 
   public final fun isHitFromInsideEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHitFromInsideEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isHitFromInsideEnabledPtr)
 
   public companion object {
     @JvmField
@@ -321,7 +318,7 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       collisionMask: Long = 4294967295,
       exclude: VariantArray<RID> = godot.core.variantArrayOf(),
     ): PhysicsRayQueryParameters2D? =
-        (TransferContext.callPtrMethod_VECTOR2_VECTOR2_LONG_ARRAY_ret_OBJECT_REF(0L, 0L, MethodBindings.createPtr, from, to, collisionMask, exclude) as PhysicsRayQueryParameters2D?)
+        (callStaticPtrMethod_VECTOR2_VECTOR2_LONG_ARRAY_ret_OBJECT_REF(MethodBindings.createPtr, from, to, collisionMask, exclude) as PhysicsRayQueryParameters2D?)
   }
 
   public object MethodBindings {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
 import godot.common.interop.VoidPtr
@@ -35,7 +34,7 @@ public open class OpenXRSpatialCapabilityConfigurationAnchor :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
+      callPtrMethod0_ret_PACKED_INT_64_ARRAY(MethodBindings.getEnabledComponentsPtr)
 
   public companion object {
     @JvmField

@@ -2,8 +2,8 @@
 
 #include "api/script/language/gdj_script.h"
 #include "godot_jvm.h"
-#include "jvm/wrapper/bridge/godot_print_bridge.h"
-#include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/bridge/godot_print_bridge.h"
+#include "jvm/memory/memory_manager.h"
 #include "names.h"
 
 using namespace godot;
@@ -35,11 +35,14 @@ void GdjLanguage::_init() {
 #endif
 }
 
+// Everything the binding does per frame to keep the two sides' memory in step: demoting references the JVM alone
+// still holds, dropping objects the engine has freed, returning variant slots to their pools and releasing what
+// terminated threads owned. Turning it off stops all of it, not only the reference counting.
 void GdjLanguage::_frame() {
     if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::CORE_LIBRARY_INITIALIZED)) { return; }
-    if (unlikely(GodotJvm::get_instance().user_configuration.disable_gc)) { return; }
+    if (unlikely(GodotJvm::get_instance().user_configuration.disable_memory_management)) { return; }
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     MemoryManager::get_instance().sync_memory(env);
 }
 
@@ -68,7 +71,7 @@ TypedArray<Dictionary> GdjLanguage::_debug_get_current_stack_info() {
     if (is_capturing_stacktrace) { return TypedArray<Dictionary>(); }
 
     is_capturing_stacktrace = true;
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     String stacktrace = bridges::GodotPrintBridge::get_instance().get_jvm_stacktrace(env);
     is_capturing_stacktrace = false;
 

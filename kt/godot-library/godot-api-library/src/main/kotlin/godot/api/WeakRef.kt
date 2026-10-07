@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.common.interop.VoidPtr
@@ -36,8 +35,7 @@ public open class WeakRef : RefCounted() {
    * Returns the [Object] this weakref is referring to. Returns `null` if that object no longer
    * exists.
    */
-  public final fun getRef(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getRefPtr)
+  public final fun getRef(): Any? = callMethod0_ret_ANY(MethodBindings.getRefPtr)
 
   public companion object {
     @JvmField

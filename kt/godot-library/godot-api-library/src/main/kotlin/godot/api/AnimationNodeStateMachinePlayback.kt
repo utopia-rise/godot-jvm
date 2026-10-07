@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -79,7 +78,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   @JvmOverloads
   public final fun travel(toNode: StringName, resetOnTeleport: Boolean = true): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.travelPtr, toNode, resetOnTeleport)
+    callPtrMethod_STRING_NAME_BOOL(MethodBindings.travelPtr, toNode, resetOnTeleport)
   }
 
   /**
@@ -89,7 +88,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   @JvmOverloads
   public final fun start(node: StringName, reset: Boolean = true): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.startPtr, node, reset)
+    callPtrMethod_STRING_NAME_BOOL(MethodBindings.startPtr, node, reset)
   }
 
   /**
@@ -97,21 +96,20 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * state to the next state.
    */
   public final fun next(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.nextPtr)
+    callPtrMethod0(MethodBindings.nextPtr)
   }
 
   /**
    * Stops the currently playing animation.
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   /**
    * Returns `true` if an animation is playing.
    */
-  public final fun isPlaying(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
+  public final fun isPlaying(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPlayingPtr)
 
   /**
    * Returns the currently playing animation state.
@@ -120,13 +118,13 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * after the cross-fade begins.
    */
   public final fun getCurrentNode(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getCurrentNodePtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getCurrentNodePtr)
 
   /**
    * Returns the playback position within the current animation state.
    */
   public final fun getCurrentPlayPosition(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCurrentPlayPositionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCurrentPlayPositionPtr).toFloat()
 
   /**
    * Returns the current state length.
@@ -137,47 +135,47 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * remaining length at that point will be returned.
    */
   public final fun getCurrentLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCurrentLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCurrentLengthPtr).toFloat()
 
   /**
    * Returns the starting state of currently fading animation.
    */
   public final fun getFadingFromNode(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getFadingFromNodePtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getFadingFromNodePtr)
 
   /**
    * Returns the playback position of the node from [getFadingFromNode]. Returns `0` if no animation
    * fade is occurring.
    */
   public final fun getFadingFromPlayPosition(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingFromPlayPositionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadingFromPlayPositionPtr).toFloat()
 
   /**
    * Returns the playback state length of the node from [getFadingFromNode]. Returns `0` if no
    * animation fade is occurring.
    */
   public final fun getFadingFromLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingFromLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadingFromLengthPtr).toFloat()
 
   /**
    * Returns the playback position of the current fade animation. Returns `0` if no animation fade
    * is occurring.
    */
   public final fun getFadingPosition(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingPositionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadingPositionPtr).toFloat()
 
   /**
    * Returns the length of the current fade animation. Returns `0` if no animation fade is
    * occurring.
    */
   public final fun getFadingLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadingLengthPtr).toFloat()
 
   /**
    * Returns the current travel path as computed internally by the A* algorithm.
    */
   public final fun getTravelPath(): VariantArray<StringName> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTravelPathPtr) as VariantArray<StringName>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getTravelPathPtr) as VariantArray<StringName>)
 
   /**
    * Transitions from the current state to another one, following the shortest path.

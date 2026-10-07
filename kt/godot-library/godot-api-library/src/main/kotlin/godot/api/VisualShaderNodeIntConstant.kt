@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -41,11 +40,11 @@ public open class VisualShaderNodeIntConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConstantPtr, constant.toLong())
+    callPtrMethod_LONG(MethodBindings.setConstantPtr, constant.toLong())
   }
 
   public final fun getConstant(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConstantPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getConstantPtr).toInt()
 
   public companion object {
     @JvmField

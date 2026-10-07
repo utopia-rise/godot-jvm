@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0_ret_RID
@@ -60,13 +59,12 @@ public open class OpenXRRenderModel : Node3D() {
    * Returns the top level path related to this render model.
    */
   public final fun getTopLevelPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTopLevelPathPtr)
+      callMethod0_ret_STRING(MethodBindings.getTopLevelPathPtr)
 
-  public final fun getRenderModel(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRenderModelPtr)
+  public final fun getRenderModel(): RID = callPtrMethod0_ret_RID(MethodBindings.getRenderModelPtr)
 
   public final fun setRenderModel(renderModel: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setRenderModelPtr, renderModel)
+    callPtrMethod_RID(MethodBindings.setRenderModelPtr, renderModel)
   }
 
   public companion object {

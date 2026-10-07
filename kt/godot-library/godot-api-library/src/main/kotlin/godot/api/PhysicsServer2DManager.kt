@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_CALLABLE
 import godot.callMethod_STRING_LONG
@@ -48,7 +47,7 @@ public object PhysicsServer2DManager : Object() {
    */
   @JvmStatic
   public final fun registerServer(name: String, createCallback: Callable): Unit {
-    TransferContext.callMethod_STRING_CALLABLE(ptr, objectID.id, MethodBindings.registerServerPtr, name, createCallback)
+    callMethod_STRING_CALLABLE(MethodBindings.registerServerPtr, name, createCallback)
   }
 
   /**
@@ -57,7 +56,7 @@ public object PhysicsServer2DManager : Object() {
    */
   @JvmStatic
   public final fun setDefaultServer(name: String, priority: Int): Unit {
-    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setDefaultServerPtr, name, priority.toLong())
+    callMethod_STRING_LONG(MethodBindings.setDefaultServerPtr, name, priority.toLong())
   }
 
   public object MethodBindings {

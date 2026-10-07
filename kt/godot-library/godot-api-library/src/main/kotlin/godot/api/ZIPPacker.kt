@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_LONG_LONG_ret_LONG
 import godot.callMethod_STRING_LONG_ret_LONG
@@ -76,14 +75,14 @@ public open class ZIPPacker : RefCounted() {
   @JvmOverloads
   public final fun `open`(path: String, append: ZipAppend = ZIPPacker.ZipAppend.APPEND_CREATE):
       Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.openPtr, path, append.value))
+      Error.from(callMethod_STRING_LONG_ret_LONG(MethodBindings.openPtr, path, append.value))
 
   public final fun setCompressionLevel(compressionLevel: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCompressionLevelPtr, compressionLevel.toLong())
+    callPtrMethod_LONG(MethodBindings.setCompressionLevelPtr, compressionLevel.toLong())
   }
 
   public final fun getCompressionLevel(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCompressionLevelPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCompressionLevelPtr).toInt()
 
   /**
    * Adds directory to the archive. If [modifiedTime] is set to `0`, current system time is used.
@@ -97,7 +96,7 @@ public open class ZIPPacker : RefCounted() {
     permissions: FileAccess.UnixPermissionFlags = FileAccess.UnixPermissionFlags(493),
     modifiedTime: Long = 0,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.addDirectoryPtr, path, permissions.flag, modifiedTime))
+      Error.from(callMethod_STRING_LONG_LONG_ret_LONG(MethodBindings.addDirectoryPtr, path, permissions.flag, modifiedTime))
 
   /**
    * Starts writing to a file within the archive. Only one file can be written at the same time. If
@@ -111,7 +110,7 @@ public open class ZIPPacker : RefCounted() {
     permissions: FileAccess.UnixPermissionFlags = FileAccess.UnixPermissionFlags(420),
     modifiedTime: Long = 0,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startFilePtr, path, permissions.flag, modifiedTime))
+      Error.from(callMethod_STRING_LONG_LONG_ret_LONG(MethodBindings.startFilePtr, path, permissions.flag, modifiedTime))
 
   /**
    * Write the given [data] to the file.
@@ -119,7 +118,7 @@ public open class ZIPPacker : RefCounted() {
    * Needs to be called after [startFile].
    */
   public final fun writeFile(`data`: PackedByteArray): Error =
-      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.writeFilePtr, data))
+      Error.from(callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.writeFilePtr, data))
 
   /**
    * Stops writing to a file within the archive.
@@ -127,13 +126,12 @@ public open class ZIPPacker : RefCounted() {
    * It will fail if there is no open file.
    */
   public final fun closeFile(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.closeFilePtr))
+      Error.from(callPtrMethod0_ret_LONG(MethodBindings.closeFilePtr))
 
   /**
    * Closes the underlying resources used by this instance.
    */
-  public final fun close(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.closePtr))
+  public final fun close(): Error = Error.from(callPtrMethod0_ret_LONG(MethodBindings.closePtr))
 
   public enum class ZipAppend(
     public override val `value`: Long,

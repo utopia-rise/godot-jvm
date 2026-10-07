@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -43,11 +42,11 @@ public open class InputEventShortcut : InputEvent() {
   }
 
   public final fun setShortcut(shortcut: Shortcut?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShortcutPtr, shortcut)
+    callPtrMethod_OBJECT(MethodBindings.setShortcutPtr, shortcut)
   }
 
   public final fun getShortcut(): Shortcut? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShortcutPtr) as Shortcut?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getShortcutPtr) as Shortcut?)
 
   public companion object {
     @JvmField
