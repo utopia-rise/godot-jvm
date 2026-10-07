@@ -51,6 +51,12 @@ class MemberRule : GodotApiRule<EnrichedClassTask>() {
             if (property.getterMethod == null && property.setterMethod == null) {
                 continue
             }
+            if (property.hasGetter && property.hasSetter && !property.hasCompatibleSetter) {
+                println(
+                    "Warning: property ${clazz.identifier}.${property.name} is generated read-only: its setter " +
+                        "${property.setterName} doesn't take the type its getter ${property.getterName} returns."
+                )
+            }
             task.enrichedProperties.add(EnrichedPropertyTask(property))
         }
 

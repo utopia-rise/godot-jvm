@@ -66,7 +66,7 @@ fun Project.customApiJarTask(): TaskProvider<Jar> {
         task.archiveClassifier.set("")
         task.dependsOn(compilation.compileTaskProvider)
         task.from(compilation.output.allOutputs) { spec ->
-            spec.include("godot/api/**", "godot/RegisterEngineTypes*", "META-INF/**")
+            spec.include("godot/api/**", "godot/RegisterEngineTypes*", "godot/MethodCalls*", "META-INF/**")
         }
     }.also { customApiJar ->
         configurations.named("bootstrap") { configuration ->

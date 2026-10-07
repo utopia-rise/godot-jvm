@@ -22,6 +22,7 @@ import godot.codegen.models.enriched.EnrichedClass
 import godot.codegen.models.enriched.EnrichedMethod
 import godot.codegen.models.enriched.EnrichedNativeStructure
 import godot.codegen.models.enriched.EnrichedProperty
+import godot.codegen.models.enriched.EnumScope
 import godot.codegen.models.enriched.toEnriched
 import godot.codegen.models.traits.GenerationType
     import godot.codegen.models.traits.bitfieldPrefix
@@ -60,11 +61,8 @@ class UseConnectFlagRule : GodotApiRule<ApiTask>() {
 
 class EnrichedCoreRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
-        val coreTypes = context.api.builtinClasses.associate {
-            it.name to (it.enums?.toEnriched(GenerationType(it.name)) ?: listOf())
-        }
-        val globalEnumList = context.api.globalEnums.toEnriched()
-        val globalEnumMap = globalEnumList.associateBy { it.identifier }
+        val globalEnums = context.api.globalEnums.toEnriched(EnumScope.GLOBAL)
+        val builtinEnums = context.api.builtinClasses.flatMap { it.enums?.toEnriched(EnumScope.BUILTIN, it.name) ?: listOf() }
         val nativeStructureMap = mutableMapOf<String, EnrichedNativeStructure>()
         context.api.nativeStructures.toEnriched().forEach {
             nativeStructureMap[it.identifier] = it
@@ -86,9 +84,8 @@ class EnrichedCoreRule : GodotApiRule<ApiTask>() {
             )
         )
 
-        context.coreTypeMap += coreTypes
-        context.globalEnumMap += globalEnumMap
-        context.globalEnumList += globalEnumList
+        context.globalEnums += globalEnums
+        context.enumMap += (globalEnums + builtinEnums).associateBy { it.identifier }
         context.nativeStructureMap += nativeStructureMap
     }
 }
@@ -96,7 +93,7 @@ class EnrichedCoreRule : GodotApiRule<ApiTask>() {
 class EnrichedClassRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
         val classes = context.api.classes
-        var classList = classes.toEnriched().filter { it.apiType == ApiType.CORE }
+        var classList = classes.toEnriched().filter { it.apiType == ApiType.CORE || it.apiType == ApiType.EXTENSION }
         var classMap = classList.associateBy { it.identifier }
 
         classes.forEach {
@@ -121,6 +118,9 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
 
         context.classMap += classMap
         context.classList += classList
+        for (clazz in classList) {
+            context.enumMap += clazz.enums.associateBy { it.identifier }
+        }
 
         initializeProperties(context)
     }
@@ -176,9 +176,38 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
     }
 }
 
+/**
+ * A GDExtension can reference an enum the api doesn't declare under that name, as godot-fmod does by binding a C enum's
+ * constants inside a class. Such a type is generated as a Long.
+ */
+class SanitizeTypesRule : GodotApiRule<ApiTask>() {
+    override fun apply(task: ApiTask, context: GenerationContext) {
+        for (clazz in context.classList) {
+            for (method in clazz.methods) {
+                method.type = method.type.sanitized(context, clazz, method.name)
+                for (argument in method.arguments) {
+                    argument.type = argument.type.sanitized(context, clazz, method.name)
+                }
+            }
+            for (property in clazz.properties) {
+                property.originalType = property.originalType.sanitized(context, clazz, property.name)
+            }
+            for (signal in clazz.signals) {
+                signal.argumentTypes = signal.argumentTypes.map { it.sanitized(context, clazz, signal.name) }
+            }
+        }
+    }
+
+    private fun GenerationType.sanitized(context: GenerationContext, clazz: EnrichedClass, member: String): GenerationType {
+        if (!isEnum() && !isBitField() || identifier in context.enumMap) return this
+        println("Warning: ${clazz.identifier}.$member uses the undeclared enum $identifier, generated as Long.")
+        return GenerationType(TypeIdentifier.INT.name)
+    }
+}
+
 class CoreRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
-        for (enum in context.globalEnumList) {
+        for (enum in context.globalEnums) {
             task.coreFiles += FileTask(enum)
         }
     }

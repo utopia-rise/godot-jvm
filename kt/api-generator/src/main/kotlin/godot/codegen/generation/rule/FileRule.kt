@@ -135,7 +135,7 @@ class DocumentationRule : GodotApiRule<ApiTask>() {
 
     override fun apply(task: ApiTask, context: GenerationContext) {
         val enumValues = context
-            .globalEnumList
+            .globalEnums
             .flatMap { it.values }
 
         val classes = context.classList

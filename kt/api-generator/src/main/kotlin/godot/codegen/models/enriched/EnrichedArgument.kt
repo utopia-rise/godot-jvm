@@ -12,7 +12,7 @@ import godot.common.extensions.escapeKotlinReservedNames
 
 class EnrichedArgument(model: Argument) : MetaGenerationTrait, WithDefaultValueTrait {
     val name = model.name.convertToCamelCase().escapeKotlinReservedNames()
-    override val type = GenerationType(model.type.sanitizeApiType())
+    override var type = GenerationType(model.type.sanitizeApiType())
     override val genericParameters = emptyList<ClassName>()
     override val defaultValue = model.defaultValue
     override val meta: String? = model.meta
