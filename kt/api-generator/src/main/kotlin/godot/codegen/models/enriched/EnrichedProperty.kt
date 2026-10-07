@@ -17,7 +17,7 @@ class EnrichedProperty(model: Property) : MetaGenerationTrait, DocumentedGenerat
         get() = getterMethod?.meta
     override var description = model.description
 
-    private val originalType = GenerationType(model.type.sanitizeApiType())
+    var originalType = GenerationType(model.type.sanitizeApiType())
     val name = model.name.convertToCamelCase()
     val getterName = model.getter.convertToCamelCase()
     val setterName = model.setter?.convertToCamelCase()
@@ -32,6 +32,12 @@ class EnrichedProperty(model: Property) : MetaGenerationTrait, DocumentedGenerat
         get() = getterMethod != null
     val hasSetter: Boolean
         get() = setterMethod != null
+
+    val hasCompatibleSetter: Boolean
+        get() {
+            val setterArgument = setterMethod?.arguments?.get(if (isIndexed) 1 else 0) ?: return false
+            return getterMethod?.getCastedType() == setterArgument.getCastedType()
+        }
 
     fun setGetter(method: EnrichedMethod) {
         getterMethod = method

@@ -22,6 +22,7 @@ import godot.codegen.generation.rule.ObjectRule
 import godot.codegen.generation.rule.OverLoadRule
 import godot.codegen.generation.rule.PropertyRule
 import godot.codegen.generation.rule.RegistrationRule
+import godot.codegen.generation.rule.SanitizeTypesRule
 import godot.codegen.generation.rule.SignalRule
 import godot.codegen.generation.rule.StaticRule
 import godot.codegen.generation.rule.StringOnlyRule
@@ -56,6 +57,7 @@ class ApiGenerationService(
             rule(::UseConnectFlagRule)
             rule(::EnrichedCoreRule)
             rule(::EnrichedClassRule)
+            rule(::SanitizeTypesRule)
             if (includeCore) {
                 rule(::CoreRule)
             }

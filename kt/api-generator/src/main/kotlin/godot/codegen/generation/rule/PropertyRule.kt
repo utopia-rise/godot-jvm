@@ -67,22 +67,8 @@ class PropertyRule : GodotApiRule<EnrichedPropertyTask>() {
             )
         }
 
-        val getterType = property
-            .getterMethod
-            ?.getCastedType()
-
-        val argumentIndex = if (property.isIndexed) 1 else 0
-        val setterType = property
-            .setterMethod
-            ?.arguments
-            ?.get(argumentIndex)
-            ?.getCastedType()
-
-        val getterAndSetterAreCompatible = getterType == setterType
-
-
         // We don't generate the setter if its type doesn't match the getter.
-        if (property.hasSetter && getterAndSetterAreCompatible) {
+        if (property.hasCompatibleSetter) {
             val methodName = property.setterName!!
 
             mutable().setter(
@@ -124,7 +110,7 @@ class LocalCopyHelperRule : GodotApiRule<EnrichedClassTask>() {
         val clazz = task.clazz
         for (propertyTask in task.enrichedProperties) {
             val property = propertyTask.property
-            if (!property.hasSetter || !property.type.isLocalCopyCoreTypes()) continue
+            if (!property.hasCompatibleSetter || !property.type.isLocalCopyCoreTypes()) continue
 
             propertyTask.builder.addAnnotation(
                 AnnotationSpec.builder(Annotations.CORE_TYPE_LOCAL_COPY).build()
