@@ -184,7 +184,22 @@ void GodotJvmEditor::_notification(int notification) {
                 "Build Graal Native Image Release",
                 GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_RELEASE
             );
+#ifdef MACOS_ENABLED
+            tool_bar_gradle_task_choice->add_item(
+                "Generate JRE (arm64)",
+                GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM_ARM64
+            );
+            tool_bar_gradle_task_choice->add_item(
+                "Generate JRE (x86_64)",
+                GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM_AMD64
+            );
+            tool_bar_gradle_task_choice->add_item(
+                "Generate JRE (universal)",
+                GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM_UNIVERSAL
+            );
+#else
             tool_bar_gradle_task_choice->add_item("Generate JRE", GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM);
+#endif
             tool_bar_gradle_task_choice->select(GradleTaskRunner::Task::BUILD_DEBUG);
             tool_bar_gradle_task_choice->set_fit_to_longest_item(false);
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_choice);

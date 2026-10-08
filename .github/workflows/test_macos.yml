@@ -151,7 +151,6 @@ jobs:
         run: |
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-arm64-macos
-          mkdir jvm/jre-amd64-macos # The export requires this directory; tests run on arm64.
 
       - name: Export JVM tests
         if: matrix.variant == 'export'

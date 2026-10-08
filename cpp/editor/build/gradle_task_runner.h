@@ -20,7 +20,10 @@ namespace godot {
             BUILD_GRAAL_NATIVE_IMAGE_RELEASE,
             BUILD_IOS_DEBUG,
             BUILD_IOS_RELEASE,
-            GENERATE_EMBEDDED_JVM
+            GENERATE_EMBEDDED_JVM,
+            GENERATE_EMBEDDED_JVM_ARM64,
+            GENERATE_EMBEDDED_JVM_AMD64,
+            GENERATE_EMBEDDED_JVM_UNIVERSAL
         };
 
     private:

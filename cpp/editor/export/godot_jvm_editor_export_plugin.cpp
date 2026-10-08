@@ -441,14 +441,31 @@ void GodotJvmEditorExportPlugin::_export_begin(
                     String(RES_DIRECTORY) + export_directory.trim_prefix("./")
                 );
             }
-            for (const String& jre_directory : embedded_jre_directories(*desktop_files, arm64, x86_64)) {
-                if (!DirAccess::dir_exists_absolute(jre_directory)) {
-                    report_export_error(vformat(
-                        "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
-                        jre_directory
-                    ));
-                    return;
-                }
+            PackedStringArray jre_directories = embedded_jre_directories(*desktop_files, arm64, x86_64);
+            PackedStringArray missing_jres;
+            for (const String& jre_directory : jre_directories) {
+                if (!DirAccess::dir_exists_absolute(jre_directory)) { missing_jres.push_back(jre_directory); }
+            }
+            if (missing_jres.size() == jre_directories.size()) {
+                report_export_error(vformat(
+                    "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
+                    String(", ").join(missing_jres)
+                ));
+                return;
+            }
+            if (!missing_jres.is_empty()) {
+                get_export_platform()->add_message(
+                    EditorExportPlatform::EXPORT_MESSAGE_WARNING,
+                    "Godot-JVM",
+                    vformat(
+                        "No embedded JRE at %s. The exported game will only start on the architecture of the "
+                        "bundled JRE. Run the \"Generate JRE (universal)\" Gradle task to bundle both.",
+                        String(", ").join(missing_jres)
+                    )
+                );
+            }
+            for (const String& jre_directory : jre_directories) {
+                if (missing_jres.has(jre_directory)) { continue; }
                 if (os_name == "macOS") {
                     // on macos the embedded jre needs to be added as a plugin file
                     add_macos_plugin_file(jre_directory);

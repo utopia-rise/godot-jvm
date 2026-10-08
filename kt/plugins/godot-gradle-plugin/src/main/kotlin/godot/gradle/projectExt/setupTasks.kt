@@ -80,9 +80,17 @@ private data class CopyTasks(
 )
 
 fun Project.setupTasks() {
-    tasks.register("generateEmbeddedJre", GenerateEmbeddedJreTask::class.java) { task ->
+    tasks.register("generateEmbeddedJre", GenerateEmbeddedJreTask::class.java, GenerateEmbeddedJreTask.hostArch()).configure { task ->
         task.group = "godot-jvm"
-        task.description = "Generates an embedded jre using jlink"
+        task.description = "Generates an embedded jre for the host architecture using jlink"
+    }
+    if (GenerateEmbeddedJreTask.hostOs() == "macos") {
+        for (arch in listOf("arm64", "amd64")) {
+            tasks.register("generateEmbeddedJre${arch.replaceFirstChar(Char::uppercase)}", GenerateEmbeddedJreTask::class.java, arch).configure { task ->
+                task.group = "godot-jvm"
+                task.description = "Generates an embedded $arch macOS jre using jlink"
+            }
+        }
     }
     registerUserFacingBuildTasks()
 

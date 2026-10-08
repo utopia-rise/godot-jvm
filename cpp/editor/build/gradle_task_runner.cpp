@@ -64,6 +64,16 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
         case Task::GENERATE_EMBEDDED_JVM:
             args.push_back("generateEmbeddedJre");
             break;
+        case Task::GENERATE_EMBEDDED_JVM_ARM64:
+            args.push_back("generateEmbeddedJreArm64");
+            break;
+        case Task::GENERATE_EMBEDDED_JVM_AMD64:
+            args.push_back("generateEmbeddedJreAmd64");
+            break;
+        case Task::GENERATE_EMBEDDED_JVM_UNIVERSAL:
+            args.push_back("generateEmbeddedJreArm64");
+            args.push_back("generateEmbeddedJreAmd64");
+            break;
         default:
             return Error::ERR_INVALID_PARAMETER;
     }
@@ -84,7 +94,7 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
 
     Dictionary info = OS::get_singleton()->execute_with_pipe(gradlew_path, args, /*blocking=*/false);
     if (info.is_empty()) { JVM_ERR_FAIL_V_MSG(Error::ERR_CANT_CREATE, "Failed to start process"); }
-    log = vformat("Running gradle task: %s", args.get(0));
+    log = vformat("Running gradle task: %s", String(" ").join(args));
     stdio = info["stdio"];
     stderr_io = info["stderr"];
     pid = info["pid"];
