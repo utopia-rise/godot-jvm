@@ -23,11 +23,11 @@ Path to the `d8` executable used for dex generation, as a string.
 
 Default:
 
-- the `d8` executable of the highest-named `build-tools` directory under `$ANDROID_SDK_ROOT`, when one is found
+- the `d8` executable of the highest-named `build-tools` directory under `$ANDROID_HOME`, when one is found
 
 ```kotlin
 godot {
-    android.d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
+    android.d8ToolPath.set("${System.getenv("ANDROID_HOME")}/build-tools/36.0.0/d8")
 }
 ```
 
@@ -37,11 +37,11 @@ Path to the Android platform directory used for compilation, as a string.
 
 Default:
 
-- the highest-named directory under `$ANDROID_SDK_ROOT/platforms` that contains an `android.jar`, when one is found
+- the highest-named directory under `$ANDROID_HOME/platforms` that contains an `android.jar`, when one is found
 
 ```kotlin
 godot {
-    android.compileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
+    android.compileSdkDirectory.set("${System.getenv("ANDROID_HOME")}/platforms/android-36")
 }
 ```
 

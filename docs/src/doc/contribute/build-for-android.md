@@ -6,12 +6,7 @@ description: Building the Godot-JVM native library for every Android ABI and pac
 
 Android uses a Godot Android v2 plugin AAR because a GDExtension cannot access Godot's engine-internal JNI helpers. The Java plugin loads the native library and passes Android's existing `JavaVM` to the extension.
 
-Install the Android SDK and NDK. Set the paths used by each build system:
-
-- SCons reads the SDK from `ANDROID_HOME`, falling back to `ANDROID_SDK_ROOT`. It finds the NDK at `ANDROID_HOME/ndk/<ndk_version>` or through `ANDROID_NDK_ROOT`.
-- Gradle's Android export tasks read `ANDROID_SDK_ROOT` to locate `d8` and the compile SDK.
-
-When using both build systems, point `ANDROID_HOME` and `ANDROID_SDK_ROOT` to the same SDK and `ANDROID_NDK_ROOT` to the NDK.
+Install the Android SDK and NDK, and point `ANDROID_HOME` to the SDK. SCons reads it to find the NDK at `ANDROID_HOME/ndk/<ndk_version>`, unless `ANDROID_NDK_ROOT` points to another NDK. Gradle's Android export tasks read it to locate `d8` and the compile SDK.
 
 Build both targets for every supported ABI:
 
