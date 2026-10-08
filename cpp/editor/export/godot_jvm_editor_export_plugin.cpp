@@ -467,8 +467,9 @@ void GodotJvmEditorExportPlugin::_export_begin(
             for (const String& jre_directory : jre_directories) {
                 if (missing_jres.has(jre_directory)) { continue; }
                 if (os_name == "macOS") {
-                    // on macos the embedded jre needs to be added as a plugin file
-                    add_macos_plugin_file(jre_directory);
+                    // Under Contents/Resources the JRE is sealed as data. In Contents/PlugIns Godot's signer would
+                    // expect a bundle with its own executable and abort signing the whole app.
+                    add_shared_object(jre_directory, PackedStringArray(), "Contents/Resources");
                 } else {
                     // on windows and linux the embedded jre is copied next to the exported executable
                     String target_directory = export_directory.path_join(jre_directory.trim_prefix(RES_DIRECTORY));
