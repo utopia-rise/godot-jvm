@@ -63,3 +63,27 @@ has no "Old module" or C# figure; its GDScript figure is the mean of three relea
 * Godot 4.7.2-stable, release export (`template_release`); the C# run uses the .NET build of the same version
 * Kotlin 2.3.20, embedded JRE built with jlink from JDK 25.0.4.1 (Eclipse Temurin)
 * C#: .NET SDK 8.0.425, `Godot.NET.Sdk/4.7.2`, `net8.0` target
+
+## Benchmark Run - Apple M4 Pro, October 8th, 2026
+
+A second machine, measured the same way, from a release export with an embedded JRE, with the C# column from an export made with the .NET build of the same Godot version. Every number is the median of its runs, three per pair and five where a run diverged by more than 10%.
+
+| Benchmark             | Typed GDScript | C#     | Kotlin (JVM) |
+|-----------------------|----------------|--------|--------------|
+| BunnymarkSceneTree    | 48228          | 53326  | 55113        |
+| BunnymarkSprites      | 45701          | 67823  | 66354        |
+| BunnymarkDrawTexture  | 88632          | 446841 | 378301       |
+| BunnymarkScripts      | 50297          | 51987  | 48874        |
+| BunnymarkComputation  | 33276          | 203491 | 194794       |
+
+### Hardware:
+
+* CPU: Apple M4 Pro, 20 cores
+* GPU: Apple M4 Pro, integrated
+* RAM: 48GB
+
+### Build Info:
+* OS: macOS 26.6.2
+* Godot 4.7.2-stable, release export (`template_release`, universal macOS export); the C# run uses the .NET build of the same version
+* Kotlin 2.3.20, embedded JRE built with jlink from JDK 21.0.10 (Amazon Corretto)
+* C#: .NET SDK 8.0.425, `Godot.NET.Sdk/4.7.2`, `net8.0` target
