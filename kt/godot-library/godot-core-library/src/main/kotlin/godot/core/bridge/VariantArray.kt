@@ -65,7 +65,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
             VariantBuffer.transfer.writeArgs(3) {
                 VariantParser.LONG.write(variantConverter.id.toLong())
                 VariantParser.LONG.write(((TypeManager.engineTypeToId[parameterClazz] ?: -1)).toLong())
-                VariantParser.LONG.write((TypeManager.userClassToScriptPtr[parameterClazz] ?: nullptr))
+                VariantParser.LONG.write((TypeManager.classToScriptPtr[parameterClazz] ?: nullptr))
             }
             Bridge.engine_call_constructor_typed()
         } else {

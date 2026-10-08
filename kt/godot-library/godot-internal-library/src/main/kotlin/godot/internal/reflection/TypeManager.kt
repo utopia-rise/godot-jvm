@@ -2,13 +2,14 @@ package godot.internal.reflection
 
 import godot.common.interop.NativeWrapper
 import godot.common.interop.VoidPtr
+import godot.common.interop.nullptr
 import kotlin.reflect.KClass
 
 object TypeManager {
     val engineTypeToId = mutableMapOf<KClass<out NativeWrapper>, Int>()
 
     private val scriptClassCache = mutableListOf<KClass<out NativeWrapper>>()
-    val userClassToScriptPtr = mutableMapOf<KClass<out NativeWrapper>, VoidPtr>()
+    val classToScriptPtr = mutableMapOf<KClass<out NativeWrapper>, VoidPtr>()
 
     val userTypes = LinkedHashSet<String>()
     val engineTypeNames = LinkedHashSet<String>()
@@ -26,6 +27,7 @@ object TypeManager {
         engineTypesConstructors.add(invoke)
         engineTypeNames.add(className)
         engineTypeToId[clazz] = engineTypeNames.size - 1
+        classToScriptPtr[clazz] = nullptr
     }
 
     fun registerSingleton(singletonName: String, invocator: () -> NativeWrapper) {
@@ -35,7 +37,7 @@ object TypeManager {
 
     fun clearUserTypes() {
         scriptClassCache.clear()
-        userClassToScriptPtr.clear()
+        classToScriptPtr.keys.removeAll { it !in engineTypeToId }
         userTypes.clear()
     }
 
@@ -44,7 +46,7 @@ object TypeManager {
     }
 
     fun assignScriptToClass(index: Int, scriptPtr: VoidPtr) {
-        userClassToScriptPtr[scriptClassCache[index]] = scriptPtr
+        classToScriptPtr[scriptClassCache[index]] = scriptPtr
     }
 
     external fun getMethodBindPtr(className: String, methodName: String, hash: Long): VoidPtr

@@ -6,8 +6,10 @@ import godot.common.interop.VoidPtr
 import godot.common.interop.nullptr
 import godot.internal.memory.MemoryManager
 import godot.internal.memory.InitConfiguration
+import godot.internal.logging.GodotPrint
 import godot.internal.memory.VariantBuffer
 import godot.internal.reflection.TypeManager
+import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.contracts.ExperimentalContracts
 
 @OptIn(ExperimentalContracts::class)
@@ -29,7 +31,15 @@ abstract class KtObject : GodotObject {
         } else {
             // Branch used when created directly from user code. The native object is going to be created here.
             // If the class is a script, the ScriptInstance is going to be created at the same time.
-            new(TypeManager.userClassToScriptPtr[this::class] ?: nullptr)
+            val scriptPtr = TypeManager.classToScriptPtr[this::class]
+            if (GodotJvmBuildConfig.DEBUG) {
+                if (scriptPtr == null) {
+                    GodotPrint.pushWarning(
+                        "${this::class.qualifiedName} is not a registered script, its overrides and registered members are ignored. Annotate it with @Script."
+                    )
+                }
+            }
+            new(scriptPtr ?: nullptr)
             VariantBuffer.transfer.unsafeRead { buffer ->
                 ptr = buffer.getLong()
                 objectID = ObjectID(buffer.getLong())
