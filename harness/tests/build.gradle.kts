@@ -21,11 +21,11 @@ godot {
     isGodotCoroutinesEnabled.set(true)
 
 
-    val androidSdkRoot = System.getenv("ANDROID_SDK_ROOT")
+    val androidHome = System.getenv("ANDROID_HOME")
     val d8Executable = if (HostManager.hostIsMingw) "d8.bat" else "d8"
     android {
-        d8ToolPath.set(System.getenv("ANDROID_D8") ?: "$androidSdkRoot/build-tools/37.0.0/$d8Executable")
-        compileSdkDirectory.set(System.getenv("ANDROID_COMPILE_SDK_DIRECTORY") ?: "$androidSdkRoot/platforms/android-36.1/")
+        d8ToolPath.set(System.getenv("ANDROID_D8") ?: "$androidHome/build-tools/37.0.0/$d8Executable")
+        compileSdkDirectory.set(System.getenv("ANDROID_COMPILE_SDK_DIRECTORY") ?: "$androidHome/platforms/android-36.1/")
     }
 
     graal {

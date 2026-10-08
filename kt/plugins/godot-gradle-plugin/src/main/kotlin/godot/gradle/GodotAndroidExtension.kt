@@ -15,8 +15,8 @@ open class GodotAndroidExtension @Inject constructor(objects: ObjectFactory) {
     val minApiLevel: Property<Int> = objects.property(Int::class.java)
 
     internal fun configureDefaults() {
-        val androidSdkRoot = environmentVariable("ANDROID_SDK_ROOT")?.let(::File)?.existingDirectoryOrNull()
-        val d8Tool = androidSdkRoot
+        val androidHome = environmentVariable("ANDROID_HOME")?.let(::File)?.existingDirectoryOrNull()
+        val d8Tool = androidHome
             ?.resolve("build-tools")
             ?.takeIf(File::isDirectory)
             ?.listFiles()
@@ -24,7 +24,7 @@ open class GodotAndroidExtension @Inject constructor(objects: ObjectFactory) {
             ?.maxByOrNull(File::getName)
             ?.resolve("d8")
             ?.executableFileOrNull()
-        val compileSdk = androidSdkRoot
+        val compileSdk = androidHome
             ?.resolve("platforms")
             ?.takeIf(File::isDirectory)
             ?.listFiles()

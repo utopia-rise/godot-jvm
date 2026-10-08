@@ -326,8 +326,8 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
         private const val DEFAULT_PROJECT_NAME = "MyGameProject"
         private const val GENERAL_FIELD_COLUMNS = 28
         private const val PATH_FIELD_COLUMNS = 26
-        private const val DEFAULT_D8_TOOL_PATH = "\${System.getenv(\"ANDROID_SDK_ROOT\")}/build-tools/36.0.0/d8"
-        private const val DEFAULT_ANDROID_COMPILE_SDK_DIR = "\${System.getenv(\"ANDROID_SDK_ROOT\")}/platforms/android-36"
+        private const val DEFAULT_D8_TOOL_PATH = "\${System.getenv(\"ANDROID_HOME\")}/build-tools/36.0.0/d8"
+        private const val DEFAULT_ANDROID_COMPILE_SDK_DIR = "\${System.getenv(\"ANDROID_HOME\")}/platforms/android-36"
         private const val DEFAULT_GRAAL_VM_DIRECTORY = "\${System.getenv(\"GRAALVM_HOME\")}"
         private const val DEFAULT_WINDOWS_DEVELOPER_VC_VARS_PATH = "\${System.getenv(\"VC_VARS_PATH\")}"
     }
