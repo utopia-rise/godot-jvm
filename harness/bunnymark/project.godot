@@ -22,3 +22,4 @@ window/vsync/vsync_mode=false
 [rendering]
 
 environment/defaults/default_environment="res://default_env.tres"
+textures/vram_compression/import_etc2_astc=true
