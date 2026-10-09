@@ -1,6 +1,6 @@
 package godot.tests.registration
 
-import godot.annotation.{Category, ColorNoAlpha, Dir, DoubleRange, ExpEasing, Export, File, FloatRange, Group, IntFlag, IntRange, LongRange, MultilineText, PlaceHolderText, Script, Subgroup, Visible}
+import godot.annotation.{Category, ColorNoAlpha, Dir, DoubleRange, ExpEasing, Export, File, FloatRange, Group, IntFlag, IntRange, LongRange, MultilineText, PlaceHolderText, Script, Storage, Subgroup, Visible}
 import godot.api.{Button, NavigationMesh, Node}
 import godot.tests.ScalaEnum
 import godot.core.{AABB, Basis, BitField, Color, Dictionary, NodePath, PackedByteArray, PackedColorArray, PackedFloat32Array, PackedFloat64Array, PackedInt32Array, PackedInt64Array, PackedStringArray, PackedVector2Array, PackedVector3Array, PackedVector4Array, Plane, Projection, Quaternion, RID, Rect2, Rect2i, StringName, Transform2D, Transform3D, VariantArray, Vector2, Vector2i, Vector3, Vector3i, Vector4, Vector4i}
@@ -60,6 +60,10 @@ class ScalaExport extends Node {
   @Visible
   @IntFlag(names = Array("Player", "Enemy", "Npc"))
   var intFlagValue: Int = 0x3
+
+  @Storage
+  @Visible
+  var storageValue: Int = 7
 
   @Export
   @Visible

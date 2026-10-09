@@ -399,7 +399,7 @@ class RegistrationMapper(
                         isLateinit = property.isLateinit,
                         isOverridee = listOfNotNull(property.getter, property.setter)
                             .any { methodInfo -> methodInfo.methodSignature in superMethodSignaturesOf(owner) },
-                        isExported = policy.isPropertyExported(property),
+                        exposure = policy.propertyExposure(property),
                         hints = collectPropertyHints(
                             rawDescriptor = property.rawDescriptor(),
                             typeArguments = property.typeArguments(),

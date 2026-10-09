@@ -151,6 +151,10 @@ class VisibleProblemFixtureInferred : Node() {
     // Expected no issue: `@Export` registers the property in this mode.
     @Export
     var exportWithoutVisible = 1
+
+    // Expected no issue: `@Storage` registers the property in this mode.
+    @Storage
+    var storageWithoutVisible = 1
 }
 
 // Property hint checks.

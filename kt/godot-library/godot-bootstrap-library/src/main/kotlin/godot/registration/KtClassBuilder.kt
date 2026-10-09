@@ -234,11 +234,9 @@ class KtClassBuilder<T : KtObject>(
 
     @PublishedApi
     internal fun propertyUsage(usage: PropertyUsageFlags, isMutable: Boolean, variantType: VariantConverter<*>): Long {
-        // Site-specific usage stays as provided; we only OR in flags inferred from the variant type.
-        var flags = if (isMutable) usage.flag else usage.flag or PropertyUsageFlags.READ_ONLY
-        if (variantType === VariantCaster.ANY) {
-            flags = flags or PropertyUsageFlags.NIL_IS_VARIANT
-        }
+        var flags = usage.flag
+        if (!isMutable) flags = flags or PropertyUsageFlags.READ_ONLY
+        if (variantType === VariantCaster.ANY) flags = flags or PropertyUsageFlags.NIL_IS_VARIANT
         return flags
     }
 

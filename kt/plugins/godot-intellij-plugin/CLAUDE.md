@@ -135,7 +135,8 @@ Compatible declarations are selected without registration annotations:
 - Godot subclasses are registered
 - compatible properties and methods are registered
 - logical signals are registered
-- properties are exported by default
+- properties are exported by default, unless `@Visible` or `@Storage` is
+  written, which replaces the default with that lower exposure
 
 Annotations can still configure behavior. For example, RPC configuration and
 property hints remain meaningful.
@@ -212,7 +213,7 @@ The Kotlin fixture also covers Kotlin-specific PSI and K2 rules:
 - `lateinit` Godot core properties
 - unsupported registered property types
 - `VariantArray<Enum>`
-- `@Export` without direct `@Visible` in Explicit mode
+- `@Export` and `@Storage` without direct `@Visible` in Explicit mode
 - property hints without registration in Explicit mode
 - wrong property types for every supported hint family
 - bitfields with more than 32 enum entries

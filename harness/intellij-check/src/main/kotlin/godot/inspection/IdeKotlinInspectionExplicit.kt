@@ -153,6 +153,10 @@ class VisibleProblemFixtureExplicit : Node() {
     // Expected red: `@Export` without `@Visible` is incomplete.
     @Export
     var exportWithoutVisible = 1
+
+    // Expected red: `@Storage` without `@Visible` is incomplete.
+    @Storage
+    var storageWithoutVisible = 1
 }
 
 // Property hint checks.

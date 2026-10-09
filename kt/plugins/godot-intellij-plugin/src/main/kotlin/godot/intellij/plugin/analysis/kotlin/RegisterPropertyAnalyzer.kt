@@ -4,6 +4,7 @@ import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiEnumConstant
 import godot.annotation.Export
+import godot.annotation.Storage
 import godot.core.VariantArray
 import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
@@ -28,7 +29,9 @@ import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
 
 object VisibleAnalyzer {
     private const val MAX_ENUM_ENTRIES_FOR_BIT_FLAG = 32
-    private val notRegisteredQuickFixes = arrayOf(PropertyNotRegisteredQuickFix(), PropertyRemoveExportAnnotationQuickFix())
+    private val registerQuickFix = PropertyNotRegisteredQuickFix()
+    private val exportNotRegisteredQuickFixes = arrayOf(registerQuickFix, PropertyRemoveExportAnnotationQuickFix())
+    private val storageNotRegisteredQuickFixes = arrayOf(registerQuickFix)
 
     fun analyze(property: KtProperty): List<GodotProblem> = buildList {
         val nameAnchor = property.nameIdentifier ?: property.navigationElement
@@ -37,7 +40,10 @@ object VisibleAnalyzer {
 
         val isRegistered = RegistrationPolicy.registersProperty(property)
         if (property.hasEffectiveAnnotation(Export::class) && !isRegistered) {
-            add(GodotProblem(GodotPluginBundle.message("problem.property.export.notRegistered"), nameAnchor, notRegisteredQuickFixes))
+            add(GodotProblem(GodotPluginBundle.message("problem.property.export.notRegistered"), nameAnchor, exportNotRegisteredQuickFixes))
+        }
+        if (property.hasEffectiveAnnotation(Storage::class) && !isRegistered) {
+            add(GodotProblem(GodotPluginBundle.message("problem.property.storage.notRegistered"), nameAnchor, storageNotRegisteredQuickFixes))
         }
         if (!isRegistered) return@buildList
 

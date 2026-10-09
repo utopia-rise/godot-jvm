@@ -10,6 +10,7 @@ import godot.registrar.generator.ext.effectiveProperties
 import godot.registrar.generator.ext.toGodotClassName
 import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registrar.generator.generator.hint.PropertyHintProvider
+import godot.registration.model.PropertyExposure
 import godot.registration.model.RegisteredProperty
 import godot.registration.model.RegisteredPropertyBindingKind
 import godot.registration.model.PropertyGroupKind
@@ -207,17 +208,12 @@ private fun memberReference(className: ClassName, memberName: String): CodeBlock
     }
 
 private fun getPropertyUsage(registeredProperty: RegisteredProperty): CodeBlock {
-    val baseUsage = if (registeredProperty.isExported) {
-        CodeBlock.of("%T.DEFAULT", PropertyUsageFlags::class)
-    } else {
-        CodeBlock.of("%T.NONE", PropertyUsageFlags::class)
+    val flags = PropertyUsageFlags::class
+    return when (registeredProperty.exposure) {
+        PropertyExposure.VISIBLE -> CodeBlock.of("%T.SCRIPT_VARIABLE", flags)
+        PropertyExposure.STORAGE -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE", flags, flags)
+        PropertyExposure.EXPORT -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE or %T.EDITOR", flags, flags, flags)
     }
-
-    if (registeredProperty.isMutable) {
-        return baseUsage
-    }
-
-    return CodeBlock.of("%L or %T.READ_ONLY", baseUsage, PropertyUsageFlags::class)
 }
 
 private fun String.isPlainKotlinIdentifier(): Boolean {

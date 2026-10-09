@@ -30,6 +30,7 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
             error(GodotPluginBundle.message("problem.property.export.notRegistered")),
+            error(GodotPluginBundle.message("problem.property.storage.notRegistered")),
             error(GodotPluginBundle.message("problem.property.hint.notRegistered"), 11),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!)),

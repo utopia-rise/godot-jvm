@@ -155,7 +155,8 @@ object RegistrationPolicy {
     fun exportsProperty(property: KtProperty): Boolean = when (property.mode) {
         RegistrationMode.Explicit -> property.hasDirectAnnotation(Export::class)
         RegistrationMode.Inferred -> property.hasEffectiveAnnotation(Export::class)
-        RegistrationMode.Automatic -> registersProperty(property)
+        RegistrationMode.Automatic -> registersProperty(property) &&
+            (!property.hasEffectiveAnnotation(Visible::class) || property.hasEffectiveAnnotation(Export::class))
     }
 
     fun KtAnnotated.hasEffectiveAnnotation(annotation: KClass<out Annotation>): Boolean =
