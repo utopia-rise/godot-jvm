@@ -5,8 +5,9 @@ package godot.inspection.inferred
 // Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation._
+import godot.api.InputEvent
 import godot.api.Node
-import godot.core.{Signal0, StringNames}
+import godot.core.{Callable0, Signal0, Signal1, StringNames}
 
 class ScalaUnsupportedType
 
@@ -64,6 +65,19 @@ class IdeScalaInspectionInferred extends Node {
   override def _ready(): Unit = {
   }
 
+  // Expected no issue: Godot virtual function overrides are registered without `@Register` in this mode.
+  override def _shortcutInput(event: InputEvent): Unit = {
+  }
+
+  // Expected red: a `@Notification` function cannot have parameters.
+  @Notification(1)
+  def notificationWithParameter(value: Int): Unit = {
+  }
+
+  // Expected red: a `@Notification` function must return Unit.
+  @Notification(2)
+  def notificationWithReturnValue(): Int = 0
+
   // Expected red: generic functions cannot be registered.
   @Register
   def genericRegisteredFunction[T](value: T): Unit = {
@@ -100,6 +114,14 @@ class IdeScalaInspectionInferred extends Node {
 
   @Register
   def unsupportedReturnType(): ScalaUnsupportedType = new ScalaUnsupportedType
+
+  // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+  @Register
+  def typedSignalParameter(signal: Signal1[Integer]): Unit = {
+  }
+
+  @Register
+  def typedCallableReturn(): Callable0[Integer] = null
 }
 
 

@@ -12,6 +12,11 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
@@ -19,14 +24,16 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.function.overriddenAbstractFunctionNotRegistered")),
+            error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered"), 2),
+            error(GodotPluginBundle.message("problem.function.overriddenAbstractFunctionNotRegistered"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType"), 2),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.property.lateinit.coreType")),
             error(GodotPluginBundle.message("problem.property.nullable")),
+            warning(GodotPluginBundle.message("problem.class.notPublic")),
+            warning(GodotPluginBundle.message("problem.property.notPublic")),
             error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
             error(GodotPluginBundle.message("problem.property.export.notRegistered")),
@@ -62,10 +69,7 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             KotlinInspection()
         )
 
-        assertProblems(
-            problems,
-            error(GodotPluginBundle.message("problem.general.calledFunctionNotRegistered"))
-        )
+        assertProblems(problems)
     }
 
     fun testCoreTypeCopyFixture() {
@@ -89,19 +93,26 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
             error(GodotPluginBundle.message("problem.class.notRegistered.functions")),
             error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.overriddenAbstractFunctionNotRegistered")),
+            error(GodotPluginBundle.message("problem.function.overriddenAbstractFunctionNotRegistered"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType"), 2),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.property.lateinit.coreType")),
             error(GodotPluginBundle.message("problem.property.nullable")),
+            warning(GodotPluginBundle.message("problem.class.notPublic")),
+            warning(GodotPluginBundle.message("problem.property.notPublic")),
             error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
@@ -137,14 +148,22 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "UnsupportedExportedType"), 2),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.signal.unsupportedArgumentType", "UnsupportedExportedType")),
             error(GodotPluginBundle.message("problem.property.lateinit.coreType")),
             error(GodotPluginBundle.message("problem.property.nullable")),
+            warning(GodotPluginBundle.message("problem.class.notPublic")),
+            warning(GodotPluginBundle.message("problem.property.notPublic")),
+            error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!)),

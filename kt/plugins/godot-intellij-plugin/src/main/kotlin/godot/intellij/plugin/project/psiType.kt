@@ -1,6 +1,5 @@
 package godot.intellij.plugin.project
 
-import com.intellij.psi.PsiArrayType
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMethod
@@ -8,10 +7,11 @@ import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiType
 import com.intellij.psi.PsiTypes
 import com.intellij.psi.PsiWildcardType
-import godot.core.BitFieldBase
+import godot.core.Callable
 import godot.core.CoreType
 import godot.core.Dictionary
 import godot.core.KtObject
+import godot.core.Signal
 import godot.core.VariantArray
 import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.name.ClassId
@@ -25,7 +25,7 @@ private val boxedPrimitiveNames = setOf(
 )
 private val variantNames = setOf("java.lang.Object", "kotlin.Any")
 private val godotContainerNames = setOf(VariantArray::class.qualifiedName, Dictionary::class.qualifiedName)
-private val jvmCollectionIds = listOf("java.util.Collection", "java.util.Map").map { ClassId.topLevel(FqName(it)) }
+private val storableGodotClassIds = listOf("godot.api.Node", "godot.api.Resource").map { ClassId.topLevel(FqName(it)) }
 
 fun KtDeclaration.jvmType(): PsiType? = toLightElements().firstNotNullOfOrNull { element ->
     (element as? PsiMethod)?.takeIf { it.parameterList.isEmpty }?.returnType ?: (element as? PsiField)?.type
@@ -42,28 +42,34 @@ fun PsiType.isGodotPrimitive(): Boolean =
 
 fun PsiType.isCoreType(): Boolean = inherits(CoreType::class.classId)
 
-fun PsiType.isBitField(): Boolean = inherits(BitFieldBase::class.classId)
+fun PsiType.isBitField(): Boolean = className() == "godot.core.BitField"
 
 fun PsiType.isMappableArgument(): Boolean = when (this) {
     is PsiWildcardType -> bound?.isMappableArgument() != false
-    is PsiClassType -> {
-        val psiClass = resolve()
-        psiClass != null &&
-            (
-                className() in variantNames || isGodotPrimitive() || isCoreType() || isBitField() ||
-                    psiClass.isEnum || psiClass.isInterface || inherits(KtObject::class.classId)
-                ) &&
-            (className() !in godotContainerNames || typeArguments.all { it.isMappableArgument() })
-    }
+    is PsiClassType -> resolve() != null &&
+        (
+            className() in variantNames || isGodotPrimitive() || isCoreType() && typedCallbackBase() == null || isBitField() || isEnum() ||
+                inherits(KtObject::class.classId)
+            ) &&
+        (className() !in godotContainerNames || typeArguments.all { it.isMappableArgument() })
 
     else -> isGodotPrimitive()
 }
 
+/** The base type a typed callable or signal must be declared as in a registered signature, or null for any other type. */
+fun PsiType.typedCallbackBase(): String? = listOf(Callable::class, Signal::class)
+    .firstOrNull { base -> inherits(base.classId) && className() != base.qualifiedName }
+    ?.qualifiedName
+
 fun PsiType.isMappableReturnType(): Boolean = this == PsiTypes.voidType() || isMappableArgument()
 
-fun PsiType.isMappableProperty(): Boolean = when (this) {
-    is PsiArrayType -> componentType.isMappableProperty()
-    else -> isMappableArgument() || jvmCollectionIds.any(::inherits)
-}
+fun PsiType.isMappableProperty(): Boolean =
+    if (inherits(KtObject::class.classId)) {
+        storableGodotClassIds.any(::inherits)
+    } else {
+        isMappableArgument() || typedCallbackBase() != null || className() == "java.util.List" && typeArguments.firstOrNull()?.isEnum() == true
+    }
 
-private fun PsiType.className(): String? = (this as? PsiClassType)?.resolve()?.qualifiedName
+private fun PsiType.isEnum(): Boolean = ((if (this is PsiWildcardType) bound else this) as? PsiClassType)?.resolve()?.isEnum == true
+
+fun PsiType.className(): String? = (this as? PsiClassType)?.resolve()?.qualifiedName

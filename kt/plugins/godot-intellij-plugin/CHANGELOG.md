@@ -9,7 +9,14 @@
 ### Added
 
 - `@Storage` without `@Visible` is reported in Explicit mode, like `@Export`.
+- Automatic mode matches the build: unannotated members register only when public and compatible, and an annotated incompatible member is reported.
+- Interface types are reported as parameter, return and signal argument types, and property types follow the build's rules.
 - Registered functions and signals report parameter, return and argument types Godot cannot represent.
+- A `@Notification` function that declares parameters or returns a value is reported, like the build does.
+- Every override of a Godot virtual function counts as a lifecycle override, like in the build, instead of a fixed list of eight names.
+- Kotlin functions registered through a meta-annotation such as `@Rpc` or `@Notification` are now checked in Inferred mode.
+- Typed callables and signals such as `Signal1` or `Callable0` are reported as parameter, return and signal argument types, with a quick fix declaring the base `Callable` or `Signal`, since Godot only ever hands back the base type.
+- Functions passed to `lambdaCallable` no longer have to be registered, since the JVM calls them directly. Only `methodCallable` targets do.
 - Added a `Godot` run configuration type. It runs the editor or the game of the current Godot project with a JDK picked from the ones the IDE knows or
   detects, so the JVM used by Godot no longer depends on machine wide settings. The selected JDK is passed with `--jvm-path`, which takes priority over an
   embedded JRE and over the environment.

@@ -9,9 +9,10 @@ import godot.intellij.plugin.project.inherits
 import godot.intellij.plugin.project.isMappableArgument
 import godot.intellij.plugin.project.jvmType
 import godot.intellij.plugin.project.typeArguments
+import godot.intellij.plugin.project.typedCallbackBase
+import godot.intellij.plugin.quickfix.UseBaseCallbackTypeQuickFix
 import godot.intellij.plugin.quickfix.EmitMutabilityQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
-import godot.intellij.plugin.registration.RegistrationPolicy.hasEffectiveAnnotation
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
@@ -21,10 +22,8 @@ object EmitAnalyzer {
     private val mutabilityQuickFix = EmitMutabilityQuickFix()
 
     fun analyze(property: KtProperty): List<GodotProblem> {
-        if (
-            !RegistrationPolicy.registersSignal(property) &&
-            !property.hasEffectiveAnnotation(Emit::class)
-        ) {
+        val policy = property.registrationPolicy
+        if (!policy.hasAnnotation(property, Emit::class) && !policy.registersSignal(property)) {
             return emptyList()
         }
 
@@ -48,7 +47,10 @@ object EmitAnalyzer {
             }
             type.typeArguments.filterNot { it.isMappableArgument() }.forEach { argumentType ->
                 val message = GodotPluginBundle.message("problem.signal.unsupportedArgumentType", argumentType.presentableText)
-                add(GodotProblem(message, typeAnchor))
+                val quickFixes = argumentType.typedCallbackBase()
+                    ?.let { base -> arrayOf(UseBaseCallbackTypeQuickFix(argumentType.presentableText.substringBefore('<'), base)) }
+                    ?: emptyArray()
+                add(GodotProblem(message, typeAnchor, quickFixes))
             }
         }
     }

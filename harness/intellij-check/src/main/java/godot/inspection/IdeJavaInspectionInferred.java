@@ -5,76 +5,101 @@ package godot.inspection.inferred;
 // Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*;
+import godot.api.InputEvent;
 import godot.api.Node;
+import godot.core.Callable0;
 import godot.core.Signal0;
+import godot.core.Signal1;
 import godot.core.StringNames;
 
 class JvmUnsupportedType {
 }
 
-// Class-level registration checks.
-
-// Expected no issue: `@Tool` carries `@Script`, so the class is registered.
-@Tool
-class JvmNotRegisteredButToolFixtureInferred extends Node {
-}
-
-// Expected red on the class: it is not `@Script`, but it contains
-// registered properties, signals, and functions.
-class JvmNotRegisteredButMembersFixtureInferred extends Node {
-    // Expected red via the containing class: registered property inside a
-    // non-registered class.
-    @Export
-    @Visible
-    public int propertyShouldStayRed = 1;
-
-    // Expected red via the containing class: registered signal inside a
-    // non-registered class.
-    @Emit
-    public Signal0 signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"));
-
-    // Expected red via the containing class: registered function inside a
-    // non-registered class.
-    @Register
-    public int functionShouldStayRed() {
-        return propertyShouldStayRed;
-    }
-}
-
-// Expected red: `@Script` is present, but the class does not inherit a
-// Godot object type.
+// Expected warning: registration ignores a class that is not public.
 @Script
-class JvmGodotScriptWithoutGodotBaseFixtureInferred {
+class JvmPackagePrivateScriptFixtureInferred extends Node {
 }
 
-// Expected no issue: the IDE does not check constructors.
-@Script
-class JvmGodotScriptWithoutDefaultConstructorFixtureInferred extends Node {
-    public JvmGodotScriptWithoutDefaultConstructorFixtureInferred(int number) {
-    }
-}
-
-// Expected red on both duplicate declarations: they register the same custom
-// Godot class name.
-@Script(className = "DuplicateJvmInspectionNameInferred")
-class JvmDuplicateRegisteredNameFixtureOneInferred extends Node {
-}
-
-@Script(className = "DuplicateJvmInspectionNameInferred")
-class JvmDuplicateRegisteredNameFixtureTwoInferred extends Node {
-}
-
-// Expected red: generic classes cannot be registered.
-@Script
-class JvmGenericRegisteredClassFixtureInferred<T> extends Node {
-}
-
-// Method registration checks.
 @Script
 public class IdeJavaInspectionInferred extends Node {
+    // Class-level registration checks.
+
+    // Expected no issue: `@Tool` carries `@Script`, so the class is registered.
+    @Tool
+    public static class JvmNotRegisteredButToolFixtureInferred extends Node {
+    }
+
+    // Expected red on the class: it is not `@Script`, but it contains
+    // registered properties, signals, and functions.
+    public static class JvmNotRegisteredButMembersFixtureInferred extends Node {
+        // Expected red via the containing class: registered property inside a
+        // non-registered class.
+        @Export
+        @Visible
+        public int propertyShouldStayRed = 1;
+
+        // Expected red via the containing class: registered signal inside a
+        // non-registered class.
+        @Emit
+        public Signal0 signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"));
+
+        // Expected red via the containing class: registered function inside a
+        // non-registered class.
+        @Register
+        public int functionShouldStayRed() {
+            return propertyShouldStayRed;
+        }
+    }
+
+    // Expected red: `@Script` is present, but the class does not inherit a
+    // Godot object type.
+    @Script
+    public static class JvmGodotScriptWithoutGodotBaseFixtureInferred {
+    }
+
+    // Expected no issue: the IDE does not check constructors.
+    @Script
+    public static class JvmGodotScriptWithoutDefaultConstructorFixtureInferred extends Node {
+        public JvmGodotScriptWithoutDefaultConstructorFixtureInferred(int number) {
+        }
+    }
+
+    // Expected red on both duplicate declarations: they register the same custom
+    // Godot class name.
+    @Script(className = "DuplicateJvmInspectionNameInferred")
+    public static class JvmDuplicateRegisteredNameFixtureOneInferred extends Node {
+    }
+
+    @Script(className = "DuplicateJvmInspectionNameInferred")
+    public static class JvmDuplicateRegisteredNameFixtureTwoInferred extends Node {
+    }
+
+    // Expected red: generic classes cannot be registered.
+    @Script
+    public static class JvmGenericRegisteredClassFixtureInferred<T> extends Node {
+    }
+
+    // Method registration checks.
+
     // Expected no issue: lifecycle overrides are registered without `@Register` in this mode.
     @Override
     public void _ready() {
+    }
+
+    // Expected no issue: Godot virtual function overrides are registered without `@Register` in this mode.
+    @Override
+    public void _shortcutInput(InputEvent event) {
+    }
+
+    // Expected red: a `@Notification` function cannot have parameters.
+    @Notification(1)
+    public void notificationWithParameter(int value) {
+    }
+
+    // Expected red: a `@Notification` function must return void.
+    @Notification(2)
+    public int notificationWithReturnValue() {
+        return 0;
     }
 
     // Expected red: generic functions cannot be registered.
@@ -114,6 +139,16 @@ public class IdeJavaInspectionInferred extends Node {
     @Register
     public JvmUnsupportedType unsupportedReturnType() {
         return new JvmUnsupportedType();
+    }
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Register
+    public void typedSignalParameter(Signal1<Integer> signal) {
+    }
+
+    @Register
+    public Callable0<Integer> typedCallableReturn() {
+        return null;
     }
 }
 
