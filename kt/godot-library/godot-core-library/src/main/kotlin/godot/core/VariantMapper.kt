@@ -123,7 +123,11 @@ fun addVariantMapping(clazz: KClass<*>, parser: VariantConverter<*>) {
 
 inline fun <reified T> getVariantConverter() = getVariantConverter(T::class.java)
 
-fun getVariantConverter(clazz: Class<*>): VariantConverter<*>? = variantMapper[clazz]
+fun getVariantConverter(clazz: Class<*>): VariantConverter<*>? =
+    variantMapper[clazz] ?: if (clazz.isEnum) enumConverter(clazz) else null
+
+@Suppress("UNCHECKED_CAST")
+private fun <E : Enum<E>> enumConverter(clazz: Class<*>) = VariantCaster.ENUM(clazz.enumConstants as Array<E>)
 
 inline fun <reified T> hasInvalidNullability(): Boolean =
     isNullable<T>() && T::class.java != Any::class.java && !KtObject::class.java.isAssignableFrom(T::class.java)

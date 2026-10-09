@@ -626,12 +626,12 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
         }
 
         override fun toGodot(buffer: ByteBuffer, any: Any?) {
-            if (any === null) {
-                VariantParser.NIL.toGodot(buffer, null)
-            } else {
-                val type = variantMapper[any.javaClass]
-                    ?: throw UnsupportedOperationException("Can't convert type ${any::class} to Variant")
-                type.toGodot(buffer, any)
+            val converter = if (any != null) variantMapper[any.javaClass] else null
+            when {
+                converter != null -> converter.toGodot(buffer, any)
+                any is Enum<*> -> VariantParser.LONG.toGodot(buffer, any.godotValue)
+                any == null -> VariantParser.NIL.toGodot(buffer, null)
+                else -> throw UnsupportedOperationException("Can't convert type ${any::class} to Variant")
             }
         }
     }
