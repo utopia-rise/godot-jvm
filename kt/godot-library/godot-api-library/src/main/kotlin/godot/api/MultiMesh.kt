@@ -451,7 +451,7 @@ public open class MultiMesh : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TransformFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TransformFormat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -472,7 +472,7 @@ public open class MultiMesh : Resource() {
 
     public companion object {
       public fun from(`value`: Long): PhysicsInterpolationQuality =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

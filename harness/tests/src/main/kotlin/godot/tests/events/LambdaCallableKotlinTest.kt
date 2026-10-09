@@ -154,5 +154,13 @@ class LambdaCallableKotlinTest : Node() {
             callableStillWorksAfterTreeExit = true
         }.call()
     }
-}
 
+    @Register
+    fun callPrimitiveReturnCallable(): Int = lambdaCallable0<Int> { 7 }.call()
+
+    @Register
+    fun callVoidReturnCallable(): Boolean {
+        lambdaCallable0<Unit> { markCallableNoParamTriggered() }.call()
+        return callableNoParamTriggered
+    }
+}

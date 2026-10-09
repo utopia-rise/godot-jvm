@@ -243,7 +243,7 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
     ;
 
     public companion object {
-      public fun from(`value`: Long): Resolution = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Resolution = entries.first { it.`value` == `value` }
     }
   }
 
@@ -266,7 +266,7 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
     ;
 
     public companion object {
-      public fun from(`value`: Long): UpdateMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UpdateMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -244,7 +244,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RPCMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RPCMode = entries.first { it.`value` == `value` }
     }
   }
 

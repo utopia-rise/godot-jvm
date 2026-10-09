@@ -73,31 +73,31 @@ class KtBitFieldProperty<T : KtObject, P : BitFieldBase<*>>(
     ktPropertyInfo: KtPropertyInfo,
     getter: (T) -> P,
     setter: ((T, P) -> Unit)?,
-    val getValueConverter: (P?) -> Int,
-    val setValueConverter: (Int) -> P
+    val getValueConverter: (P?) -> Long,
+    val setValueConverter: (Long) -> P
 ) : KtProperty<T, P>(
     ktPropertyInfo,
     getter,
     setter,
-    VariantCaster.INT
+    VariantParser.LONG
 ) {
     override fun callGet(instance: T) {
-        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), VariantCaster.INT)
+        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), VariantParser.LONG)
     }
 
     override fun callSet(instance: T) {
-        val arg = extractSetterArgument<Int>()
+        val arg = extractSetterArgument<Long>()
         setter?.invoke(instance, setValueConverter(arg))
     }
 }
 
-class KtEnumListProperty<T : KtObject, P : Enum<P>, L : Collection<P>>(
+class KtEnumListProperty<T : KtObject, P : Enum<P>>(
     ktPropertyInfo: KtPropertyInfo,
-    getter: (T) -> L,
-    setter: ((T, L) -> Unit)?,
-    val getValueConverter: (L?) -> VariantArray<Long>,
-    val setValueConverter: (VariantArray<Long>) -> L
-) : KtProperty<T, L>(
+    getter: (T) -> List<P>,
+    setter: ((T, List<P>) -> Unit)?,
+    val getValueConverter: (List<P>?) -> VariantArray<Long>,
+    val setValueConverter: (VariantArray<Long>) -> List<P>
+) : KtProperty<T, List<P>>(
     ktPropertyInfo,
     getter,
     setter,

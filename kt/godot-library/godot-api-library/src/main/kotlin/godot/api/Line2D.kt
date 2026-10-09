@@ -470,7 +470,7 @@ public open class Line2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LineJointMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LineJointMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -492,7 +492,7 @@ public open class Line2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LineCapMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LineCapMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -517,7 +517,7 @@ public open class Line2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LineTextureMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LineTextureMode = entries.first { it.`value` == `value` }
     }
   }
 

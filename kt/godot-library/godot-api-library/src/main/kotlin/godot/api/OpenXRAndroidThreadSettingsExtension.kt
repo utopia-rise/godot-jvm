@@ -66,7 +66,7 @@ public open class OpenXRAndroidThreadSettingsExtension : OpenXRExtensionWrapper(
     ;
 
     public companion object {
-      public fun from(`value`: Long): ThreadType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ThreadType = entries.first { it.`value` == `value` }
     }
   }
 

@@ -561,7 +561,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Filter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Filter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -585,7 +585,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MipmapMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MipmapMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -617,7 +617,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Wrap = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Wrap = entries.first { it.`value` == `value` }
     }
   }
 
@@ -651,7 +651,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Swizzle = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Swizzle = entries.first { it.`value` == `value` }
     }
   }
 
@@ -673,7 +673,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EyeVisibility = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EyeVisibility = entries.first { it.`value` == `value` }
     }
   }
 

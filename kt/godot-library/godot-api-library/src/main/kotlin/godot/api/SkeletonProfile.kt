@@ -368,7 +368,7 @@ public open class SkeletonProfile : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TailDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TailDirection = entries.first { it.`value` == `value` }
     }
   }
 

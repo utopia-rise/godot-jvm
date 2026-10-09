@@ -149,7 +149,7 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -175,7 +175,7 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
     ;
 
     public companion object {
-      public fun from(`value`: Long): ColorDefault = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ColorDefault = entries.first { it.`value` == `value` }
     }
   }
 
@@ -251,7 +251,7 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -277,7 +277,7 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureRepeat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureRepeat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -307,7 +307,7 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureSource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureSource = entries.first { it.`value` == `value` }
     }
   }
 

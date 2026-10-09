@@ -18,7 +18,7 @@ import godot.intellij.plugin.project.fqName
 import godot.intellij.plugin.project.withType
 import godot.intellij.plugin.quickfix.PropertyNotExportedQuickFix
 import godot.intellij.plugin.quickfix.PropertyNotRegisteredQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.idea.util.findAnnotation
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
@@ -183,8 +183,9 @@ object PropertyHintAnalyzer {
     }
 
     private fun checkForRegistrationAnnotations(property: KtProperty): List<GodotProblem> {
+        val policy = property.registrationPolicy
         return buildList {
-            if (!RegistrationPolicy.registersProperty(property)) {
+            if (!policy.registersProperty(property)) {
                 add(
                     GodotProblem(
                         GodotPluginBundle.message("problem.property.hint.notRegistered"),
@@ -192,7 +193,7 @@ object PropertyHintAnalyzer {
                         arrayOf(propertyNotRegisteredQuickFix)
                     )
                 )
-            } else if (!RegistrationPolicy.exportsProperty(property)) {
+            } else if (!policy.exportsProperty(property)) {
                 add(
                     GodotProblem(
                         GodotPluginBundle.message("problem.property.hint.notExported"),

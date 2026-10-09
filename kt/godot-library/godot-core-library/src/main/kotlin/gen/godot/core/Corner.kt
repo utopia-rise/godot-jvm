@@ -31,6 +31,6 @@ public enum class Corner(
   ;
 
   public companion object {
-    public fun from(`value`: Long): Corner = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): Corner = entries.first { it.`value` == `value` }
   }
 }

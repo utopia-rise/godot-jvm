@@ -410,7 +410,7 @@ public open class XRInterface internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Capabilities = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Capabilities = entries.first { it.`value` == `value` }
     }
   }
 
@@ -442,7 +442,7 @@ public open class XRInterface internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TrackingStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TrackingStatus = entries.first { it.`value` == `value` }
     }
   }
 
@@ -479,7 +479,7 @@ public open class XRInterface internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PlayAreaMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PlayAreaMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -504,8 +504,7 @@ public open class XRInterface internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EnvironmentBlendMode =
-          entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EnvironmentBlendMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -529,7 +528,7 @@ public open class XRInterface internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VRSTextureFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VRSTextureFormat = entries.first { it.`value` == `value` }
     }
   }
 

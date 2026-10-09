@@ -885,7 +885,7 @@ public open class TileSet : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TileShape = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TileShape = entries.first { it.`value` == `value` }
     }
   }
 
@@ -924,7 +924,7 @@ public open class TileSet : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TileLayout = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TileLayout = entries.first { it.`value` == `value` }
     }
   }
 
@@ -942,7 +942,7 @@ public open class TileSet : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TileOffsetAxis = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TileOffsetAxis = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1016,7 +1016,7 @@ public open class TileSet : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CellNeighbor = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CellNeighbor = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1038,7 +1038,7 @@ public open class TileSet : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TerrainMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TerrainMode = entries.first { it.`value` == `value` }
     }
   }
 

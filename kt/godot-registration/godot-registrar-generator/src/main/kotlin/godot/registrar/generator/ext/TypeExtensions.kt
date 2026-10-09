@@ -22,6 +22,7 @@ import godot.registration.model.types.Type.Companion.aabbType
 import godot.registration.model.types.Type.Companion.basisType
 import godot.registration.model.types.Type.Companion.booleanType
 import godot.registration.model.types.Type.Companion.byteType
+import godot.registration.model.types.Type.Companion.charType
 import godot.registration.model.types.Type.Companion.callableType
 import godot.registration.model.types.Type.Companion.colorType
 import godot.registration.model.types.Type.Companion.doubleType
@@ -152,7 +153,8 @@ private object TypeMetadataRegistry {
         nilType to singleton(VariantParser.NIL, GODOT_NIL, ""),
         booleanType to singleton(VariantParser.BOOL, GODOT_BOOL),
         byteType to singleton(VariantCaster.BYTE, GODOT_INT),
-        shortType to singleton(VariantParser.LONG, GODOT_INT),
+        shortType to singleton(VariantCaster.SHORT, GODOT_INT),
+        charType to singleton(VariantCaster.CHAR, GODOT_INT),
         intType to singleton(VariantCaster.INT, GODOT_INT),
         naturalType to singleton(VariantParser.LONG, GODOT_INT),
         longType to singleton(VariantParser.LONG, GODOT_INT),
@@ -199,13 +201,11 @@ private object TypeMetadataRegistry {
     }.getOrDefault(false)
 
     private fun canonicalKey(type: Type): Type? = when (type.kind) {
-        TypeKind.PRIMITIVE,
-        TypeKind.CORE_TYPE,
-            -> when {
-            type.fqName == callableType.fqName || isAssignableTo(type, Callable::class.java) -> callableType
-            type.fqName == signalType.fqName || isAssignableTo(type, Signal::class.java) -> signalType
-            type.kind == TypeKind.PRIMITIVE -> Type.findPrimitiveType(type.fqName)
-            else -> Type.findCoreType(type.fqName)
+        TypeKind.PRIMITIVE -> Type.findPrimitiveType(type.fqName)
+        TypeKind.CORE_TYPE -> Type.findCoreType(type.fqName) ?: when {
+            isAssignableTo(type, Callable::class.java) -> callableType
+            isAssignableTo(type, Signal::class.java) -> signalType
+            else -> null
         }
 
         TypeKind.OTHER -> when (type.fqName) {
@@ -224,7 +224,7 @@ private object TypeMetadataRegistry {
         metadata(type.genericArguments.getOrNull(index) ?: Type.anyType).converter
 
     fun metadata(type: Type): TypeMetadata = when {
-        type.isCompatibleList() || type.kind == TypeKind.COLLECTION -> instantiated(
+        type.isCompatibleList() || type.kind == TypeKind.LIST -> instantiated(
             "TYPED_ARRAY",
             VariantParser.ARRAY,
             GODOT_ARRAY,
@@ -253,7 +253,7 @@ private object TypeMetadataRegistry {
                 CodeBlock.of("%T.entries.toTypedArray()", type.toTypeName()),
             )
 
-            TypeKind.BITFIELD -> singleton(VariantParser.LONG, GODOT_INT)
+            TypeKind.BITFIELD -> singleton(VariantCaster.BITFIELD, GODOT_INT)
 
             TypeKind.GODOT_CLASS,
             TypeKind.INTERFACE,
@@ -263,7 +263,7 @@ private object TypeMetadataRegistry {
                 if (type.fqName == Any::class.qualifiedName) "" else null,
             )
 
-            TypeKind.COLLECTION -> error("unreachable, handled above")
+            TypeKind.LIST -> error("unreachable, handled above")
         }
     }
 }

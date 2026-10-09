@@ -402,7 +402,7 @@ public open class StyleBoxTexture : StyleBox() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AxisStretchMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AxisStretchMode = entries.first { it.`value` == `value` }
     }
   }
 

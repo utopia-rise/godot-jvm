@@ -30,7 +30,7 @@ public open class ScriptLanguage internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScriptNameCasing = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScriptNameCasing = entries.first { it.`value` == `value` }
     }
   }
 

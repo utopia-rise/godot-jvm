@@ -2,11 +2,13 @@ package godot.registration.model.ext
 
 import godot.common.util.NaturalT
 import godot.common.util.RealT
+import godot.core.BitField
 import godot.core.Dictionary
 import godot.core.VariantArray
 import godot.registration.model.types.GodotClass
 import godot.registration.model.types.TYPE_BOOLEAN
 import godot.registration.model.types.TYPE_BYTE
+import godot.registration.model.types.TYPE_CHAR
 import godot.registration.model.types.TYPE_DOUBLE
 import godot.registration.model.types.TYPE_FLOAT
 import godot.registration.model.types.TYPE_INT
@@ -20,13 +22,16 @@ import godot.registration.model.types.TypeKind
 
 fun Type.isCoreType(): Boolean = kind == TypeKind.CORE_TYPE
 
+/** A `Signal` or `Callable` subtype: Godot only ever hands back the base type, so it cannot be received in a signature. */
+fun Type.isTypedCallback(): Boolean = isCoreType() && Type.findCoreType(fqName) == null
+
 fun Type.isNodeType(): Boolean {
     return (this as? GodotClass)?.isOrInherits(godot.api.Node::class.java.name) == true
 }
 
 fun Type.isEnum(): Boolean = kind == TypeKind.ENUM
 
-fun Type.isBitField(): Boolean = kind == TypeKind.BITFIELD
+fun Type.isBitField(): Boolean = kind == TypeKind.BITFIELD && fqName == BitField::class.qualifiedName
 
 fun Type.isResource(): Boolean =
     (this as? GodotClass)?.isOrInherits(godot.api.Resource::class.java.name) == true
@@ -52,6 +57,7 @@ fun Type.isGodotPrimitive(): Boolean = when (fqName) {
     TYPE_BOOLEAN,
     TYPE_BYTE,
     TYPE_SHORT,
+    TYPE_CHAR,
     TYPE_KOTLIN_STRING -> true
 
     else -> false
@@ -63,17 +69,15 @@ fun Type.isNil(): Boolean = this == Type.nilType
 
 fun Type.isVariant(): Boolean = fqName == TYPE_KOTLIN_ANY || fqName == TYPE_JAVA_OBJECT
 
-fun Type.isCollection(): Boolean = kind == TypeKind.COLLECTION
+fun Type.isList(): Boolean = kind == TypeKind.LIST
 
-fun Type.isEnumRelated(includeCollection: Boolean): Boolean = isEnum()
-    || isBitField()
-    || (includeCollection && isCollection() && genericArguments.firstOrNull()?.isEnum() == true)
+fun Type.isEnumRelated(): Boolean = isEnum() || isBitField()
 
 fun Type.isMappableArgument(): Boolean = isVariant()
     || isGodotPrimitive()
-    || isCoreType()
+    || isCoreType() && !isTypedCallback()
     || isGodotClass()
-    || isEnumRelated(includeCollection = false)
+    || isEnumRelated()
 
 fun Type.isMappableReturnType(): Boolean = isNil() || isMappableArgument()
 
@@ -82,9 +86,10 @@ fun Type.isMappableProperty(): Boolean = isVariant()
     || isCoreType()
     || isNodeType()
     || isResource()
-    || isEnumRelated(includeCollection = true)
+    || isEnumRelated()
+    || isList() && genericArguments.firstOrNull()?.isEnum() == true
 
-fun Type.carriesGodotVisibleGenericArguments(): Boolean = isCollection()
+fun Type.carriesGodotVisibleGenericArguments(): Boolean = isList()
     || fqName == VariantArray::class.qualifiedName
     || fqName == Dictionary::class.qualifiedName
 

@@ -200,7 +200,7 @@ public open class LightmapGIData : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShadowmaskMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShadowmaskMode = entries.first { it.`value` == `value` }
     }
   }
 

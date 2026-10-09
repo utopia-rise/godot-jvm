@@ -5406,7 +5406,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Feature = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Feature = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5612,7 +5612,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityRole = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityRole = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5639,7 +5639,7 @@ public object DisplayServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityPopupType =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -5690,7 +5690,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5802,7 +5802,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityAction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5827,7 +5827,7 @@ public object DisplayServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityLiveMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -5846,7 +5846,7 @@ public object DisplayServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityScrollUnit =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -5882,7 +5882,7 @@ public object DisplayServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityScrollHint =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -5920,7 +5920,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MouseMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MouseMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5958,7 +5958,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScreenOrientation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScreenOrientation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6004,7 +6004,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VirtualKeyboardType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VirtualKeyboardType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6109,7 +6109,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CursorShape = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CursorShape = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6140,7 +6140,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FileDialogMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FileDialogMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6210,7 +6210,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): WindowMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): WindowMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6249,7 +6249,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProgressState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProgressState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6367,7 +6367,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): WindowFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): WindowFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6432,7 +6432,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): WindowEvent = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): WindowEvent = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6478,7 +6478,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): WindowResizeEdge = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): WindowResizeEdge = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6517,7 +6517,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VSyncMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VSyncMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6606,7 +6606,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): HandleType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): HandleType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -6632,7 +6632,7 @@ public object DisplayServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TTSUtteranceEvent = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TTSUtteranceEvent = entries.first { it.`value` == `value` }
     }
   }
 

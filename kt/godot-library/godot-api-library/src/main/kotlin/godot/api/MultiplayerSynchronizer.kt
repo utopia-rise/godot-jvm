@@ -262,8 +262,7 @@ public open class MultiplayerSynchronizer : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VisibilityUpdateMode =
-          entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VisibilityUpdateMode = entries.first { it.`value` == `value` }
     }
   }
 

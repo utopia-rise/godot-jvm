@@ -525,7 +525,7 @@ public open class Decal : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DecalTexture = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DecalTexture = entries.first { it.`value` == `value` }
     }
   }
 

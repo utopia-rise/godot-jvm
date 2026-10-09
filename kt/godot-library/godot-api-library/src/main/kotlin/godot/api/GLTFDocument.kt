@@ -327,7 +327,7 @@ public open class GLTFDocument : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RootNodeMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RootNodeMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -349,7 +349,7 @@ public open class GLTFDocument : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureMapMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureMapMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -377,7 +377,7 @@ public open class GLTFDocument : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VisibilityMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VisibilityMode = entries.first { it.`value` == `value` }
     }
   }
 

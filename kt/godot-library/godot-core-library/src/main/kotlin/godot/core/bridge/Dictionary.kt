@@ -13,8 +13,6 @@ import godot.common.util.isNullable
 import godot.core.bridge.DeepDuplicateMode
 import godot.internal.reflection.TypeManager
 import kotlincompile.definitions.GodotJvmBuildConfig
-import kotlin.jvm.internal.Reflection
-import kotlin.reflect.KClass
 
 class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
@@ -31,8 +29,6 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         ptr = handle
         MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
     }
-
-    constructor(keyClass: Class<*>, valueClass: Class<*>) : this(Reflection.getOrCreateKotlinClass(keyClass), Reflection.getOrCreateKotlinClass(valueClass))
 
     constructor(keyConverter: VariantConverter<K>, valueConverter: VariantConverter<V>) {
         keyVariantConverter = keyConverter
@@ -53,8 +49,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
     }
 
-    @PublishedApi
-    internal constructor(keyClass: KClass<*>, valueClass: KClass<*>) {
+    constructor(keyClass: Class<*>, valueClass: Class<*>) {
         val keyVariantConverter = getVariantConverter(keyClass)
         val valueVariantConverter = getVariantConverter(valueClass)
 
@@ -473,7 +468,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
                     error("Can't create a Dictionary with generic value ${V::class} as nullable.")
                 }
             }
-            return Dictionary<K, V>(K::class, V::class)
+            return Dictionary<K, V>(K::class.java, V::class.java)
         }
     }
 }

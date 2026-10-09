@@ -110,7 +110,7 @@ public open class VisualShaderNodeDerivativeFunc : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): OpType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): OpType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -136,7 +136,7 @@ public open class VisualShaderNodeDerivativeFunc : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Function = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Function = entries.first { it.`value` == `value` }
     }
   }
 
@@ -169,7 +169,7 @@ public open class VisualShaderNodeDerivativeFunc : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Precision = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Precision = entries.first { it.`value` == `value` }
     }
   }
 

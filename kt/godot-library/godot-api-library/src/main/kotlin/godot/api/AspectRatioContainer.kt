@@ -135,7 +135,7 @@ public open class AspectRatioContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StretchMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StretchMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -157,7 +157,7 @@ public open class AspectRatioContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlignmentMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlignmentMode = entries.first { it.`value` == `value` }
     }
   }
 

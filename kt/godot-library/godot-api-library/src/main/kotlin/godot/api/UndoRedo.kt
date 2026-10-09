@@ -404,7 +404,7 @@ public open class UndoRedo : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MergeMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MergeMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -831,7 +831,7 @@ public open class GPUParticles3D : GeometryInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DrawOrder = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DrawOrder = entries.first { it.`value` == `value` }
     }
   }
 
@@ -862,7 +862,7 @@ public open class GPUParticles3D : GeometryInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EmitFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EmitFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -892,7 +892,7 @@ public open class GPUParticles3D : GeometryInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TransformAlign = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TransformAlign = entries.first { it.`value` == `value` }
     }
   }
 

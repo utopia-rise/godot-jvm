@@ -235,7 +235,7 @@ public open class LinkButton : BaseButton() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): UnderlineMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UnderlineMode = entries.first { it.`value` == `value` }
     }
   }
 

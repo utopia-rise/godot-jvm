@@ -69,7 +69,7 @@ public open class VisualShaderNodeUVFunc : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Function = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Function = entries.first { it.`value` == `value` }
     }
   }
 

@@ -215,7 +215,7 @@ public object IP : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ResolverStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ResolverStatus = entries.first { it.`value` == `value` }
     }
   }
 
@@ -241,7 +241,7 @@ public object IP : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Type = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Type = entries.first { it.`value` == `value` }
     }
   }
 

@@ -1270,7 +1270,7 @@ public object AccessibilityServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityRole = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityRole = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1297,7 +1297,7 @@ public object AccessibilityServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityPopupType =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -1348,7 +1348,7 @@ public object AccessibilityServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1460,7 +1460,7 @@ public object AccessibilityServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AccessibilityAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AccessibilityAction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1485,7 +1485,7 @@ public object AccessibilityServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityLiveMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -1504,7 +1504,7 @@ public object AccessibilityServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityScrollUnit =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -1540,7 +1540,7 @@ public object AccessibilityServer : Object() {
 
     public companion object {
       public fun from(`value`: Long): AccessibilityScrollHint =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

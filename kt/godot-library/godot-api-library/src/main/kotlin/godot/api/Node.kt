@@ -2613,7 +2613,7 @@ public open class Node : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProcessMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProcessMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2638,7 +2638,7 @@ public open class Node : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProcessThreadGroup = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProcessThreadGroup = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2693,7 +2693,7 @@ public open class Node : Object() {
 
     public companion object {
       public fun from(`value`: Long): PhysicsInterpolationMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -2736,7 +2736,7 @@ public open class Node : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DuplicateFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DuplicateFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2759,7 +2759,7 @@ public open class Node : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): InternalMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): InternalMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2786,7 +2786,7 @@ public open class Node : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AutoTranslateMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AutoTranslateMode = entries.first { it.`value` == `value` }
     }
   }
 

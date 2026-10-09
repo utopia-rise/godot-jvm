@@ -59,7 +59,7 @@ public open class OpenXRSpatialComponentPlaneSemanticLabelList : OpenXRSpatialCo
     ;
 
     public companion object {
-      public fun from(`value`: Long): PlaneSemanticLabel = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PlaneSemanticLabel = entries.first { it.`value` == `value` }
     }
   }
 

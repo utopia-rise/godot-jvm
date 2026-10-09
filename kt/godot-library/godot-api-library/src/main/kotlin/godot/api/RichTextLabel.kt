@@ -1663,7 +1663,7 @@ public open class RichTextLabel : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ListType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ListType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1685,7 +1685,7 @@ public open class RichTextLabel : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MenuItems = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MenuItems = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1708,7 +1708,7 @@ public open class RichTextLabel : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MetaUnderline = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MetaUnderline = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1786,7 +1786,7 @@ public open class RichTextLabel : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ImageUnit = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ImageUnit = entries.first { it.`value` == `value` }
     }
   }
 

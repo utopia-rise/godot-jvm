@@ -49,6 +49,11 @@ func test_kotlin_lambda_callable() -> void:
     get_tree().root.remove_child(script)
     script.verify_callable_after_tree_exit()
     assert_bool(script.callable_still_works_after_tree_exit).override_failure_message("Callable execution should remain valid after ordinary scene-tree removal").is_true()
+
+    assert_that(script.call_primitive_return_callable()).override_failure_message("A callable created with a primitive return class should return its value").is_equal(7)
+    script.callable_no_param_triggered = false
+    assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
+
     script.free()
 
 
@@ -72,6 +77,10 @@ func test_java_lambda_callable() -> void:
     await get_tree().create_timer(1).timeout
     assert_bool(script.callable_with_param_triggered).is_true()
 
+    assert_that(script.call_primitive_return_callable()).override_failure_message("A callable created with a primitive return class should return its value").is_equal(7)
+    script.callable_no_param_triggered = false
+    assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
+
     script.free()
 
 
@@ -94,5 +103,9 @@ func test_scala_lambda_callable() -> void:
     script.call_callable_with_param_deferred()
     await get_tree().create_timer(1).timeout
     assert_bool(script.callable_with_param_triggered).is_true()
+
+    assert_that(script.call_primitive_return_callable()).override_failure_message("A callable created with a primitive return class should return its value").is_equal(7)
+    script.callable_no_param_triggered = false
+    assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
 
     script.free()

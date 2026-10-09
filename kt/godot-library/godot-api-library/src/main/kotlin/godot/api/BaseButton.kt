@@ -327,7 +327,7 @@ public open class BaseButton : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DrawMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DrawMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -345,7 +345,7 @@ public open class BaseButton : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ActionMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ActionMode = entries.first { it.`value` == `value` }
     }
   }
 

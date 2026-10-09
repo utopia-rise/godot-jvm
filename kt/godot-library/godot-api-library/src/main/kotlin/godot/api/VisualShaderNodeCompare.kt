@@ -126,7 +126,7 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ComparisonType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ComparisonType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -168,7 +168,7 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Function = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Function = entries.first { it.`value` == `value` }
     }
   }
 
@@ -190,7 +190,7 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Condition = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Condition = entries.first { it.`value` == `value` }
     }
   }
 

@@ -871,7 +871,7 @@ public open class Tree : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SelectMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SelectMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -903,7 +903,7 @@ public open class Tree : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DropModeFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DropModeFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -929,7 +929,7 @@ public open class Tree : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScrollHintMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScrollHintMode = entries.first { it.`value` == `value` }
     }
   }
 

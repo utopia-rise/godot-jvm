@@ -13,6 +13,7 @@ import godot.annotation.LongRange
 import godot.annotation.MultilineText
 import godot.annotation.PlaceHolderText
 import godot.annotation.Script
+import godot.annotation.Storage
 import godot.annotation.Visible
 import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
@@ -216,6 +217,10 @@ class KotlinExport : Node() {
     @Visible
     @IntFlag("Player", "Enemy", "Npc")
     var intFlagValue = 0b011
+
+    @Storage
+    @Visible
+    var storageValue = 7
 
     @Export
     @Visible

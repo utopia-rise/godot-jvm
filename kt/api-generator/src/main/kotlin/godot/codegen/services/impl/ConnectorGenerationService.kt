@@ -235,7 +235,7 @@ object ConnectorGenerationService : IConnectorGenerationService {
                                 append("%T(%M,·arrayOf(")
                                 genericParameters.forEachIndexed { index, _ ->
                                     if (index != 0) append(",·")
-                                    append("%M(%T::class)!!")
+                                    append("%M<%T>()!!")
                                 }
                                 append("),·${Generator.methodParameterName}).setAsCancellable(this,·${Generator.cancelParameterName})")
                             },

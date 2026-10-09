@@ -2,78 +2,106 @@ package godot.inspection.explicit;
 
 // Manual review mode: Explicit.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*;
+import godot.api.InputEvent;
 import godot.api.Node;
+import godot.core.Callable0;
 import godot.core.Signal0;
+import godot.core.Signal1;
 import godot.core.StringNames;
 
-// Class-level registration checks.
-
-// Expected red: `@Tool` requires the class itself to be registered.
-@Tool
-class JvmNotRegisteredButToolFixtureExplicit extends Node {
+class JvmUnsupportedType {
 }
 
-// Expected red on the class: it is not `@Script`, but it contains
-// registered properties, signals, and functions.
-class JvmNotRegisteredButMembersFixtureExplicit extends Node {
-    // Expected red via the containing class: registered property inside a
-    // non-registered class.
-    @Export
-    @Visible
-    public int propertyShouldStayRed = 1;
-
-    // Expected red via the containing class: registered signal inside a
-    // non-registered class.
-    @Emit
-    public Signal0 signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"));
-
-    // Expected red via the containing class: registered function inside a
-    // non-registered class.
-    @Register
-    public int functionShouldStayRed() {
-        return propertyShouldStayRed;
-    }
-}
-
-// Expected red: `@Script` is present, but the class does not inherit a
-// Godot object type.
+// Expected warning: registration ignores a class that is not public.
 @Script
-class JvmGodotScriptWithoutGodotBaseFixtureExplicit {
+class JvmPackagePrivateScriptFixtureExplicit extends Node {
 }
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
-@Script
-class JvmGodotScriptWithoutDefaultConstructorFixtureExplicit extends Node {
-    public JvmGodotScriptWithoutDefaultConstructorFixtureExplicit(int number) {
-    }
-}
-
-// Expected red on both duplicate declarations: they register the same custom
-// Godot class name.
-@Script(className = "DuplicateJvmInspectionNameExplicit")
-class JvmDuplicateRegisteredNameFixtureOneExplicit extends Node {
-}
-
-@Script(className = "DuplicateJvmInspectionNameExplicit")
-class JvmDuplicateRegisteredNameFixtureTwoExplicit extends Node {
-}
-
-// Expected red: generic classes cannot be registered.
-@Script
-class JvmGenericRegisteredClassFixtureExplicit<T> extends Node {
-}
-
-// Method registration checks.
 @Script
 public class IdeJavaInspectionExplicit extends Node {
+    // Class-level registration checks.
+
+    // Expected red: `@Tool` requires the class itself to be registered.
+    @Tool
+    public static class JvmNotRegisteredButToolFixtureExplicit extends Node {
+    }
+
+    // Expected red on the class: it is not `@Script`, but it contains
+    // registered properties, signals, and functions.
+    public static class JvmNotRegisteredButMembersFixtureExplicit extends Node {
+        // Expected red via the containing class: registered property inside a
+        // non-registered class.
+        @Export
+        @Visible
+        public int propertyShouldStayRed = 1;
+
+        // Expected red via the containing class: registered signal inside a
+        // non-registered class.
+        @Emit
+        public Signal0 signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"));
+
+        // Expected red via the containing class: registered function inside a
+        // non-registered class.
+        @Register
+        public int functionShouldStayRed() {
+            return propertyShouldStayRed;
+        }
+    }
+
+    // Expected red: `@Script` is present, but the class does not inherit a
+    // Godot object type.
+    @Script
+    public static class JvmGodotScriptWithoutGodotBaseFixtureExplicit {
+    }
+
+    // Expected no issue: the IDE does not check constructors.
+    @Script
+    public static class JvmGodotScriptWithoutDefaultConstructorFixtureExplicit extends Node {
+        public JvmGodotScriptWithoutDefaultConstructorFixtureExplicit(int number) {
+        }
+    }
+
+    // Expected red on both duplicate declarations: they register the same custom
+    // Godot class name.
+    @Script(className = "DuplicateJvmInspectionNameExplicit")
+    public static class JvmDuplicateRegisteredNameFixtureOneExplicit extends Node {
+    }
+
+    @Script(className = "DuplicateJvmInspectionNameExplicit")
+    public static class JvmDuplicateRegisteredNameFixtureTwoExplicit extends Node {
+    }
+
+    // Expected red: generic classes cannot be registered.
+    @Script
+    public static class JvmGenericRegisteredClassFixtureExplicit<T> extends Node {
+    }
+
+    // Method registration checks.
+
     // Expected red: notification callbacks like `_ready` must also carry
     // `@Register` inside a registered class.
     @Override
     public void _ready() {
+    }
+
+    // Expected red: `_shortcutInput` is a Godot virtual function too, so it must also carry
+    // `@Register` inside a registered class.
+    @Override
+    public void _shortcutInput(InputEvent event) {
+    }
+
+    // Expected red: a `@Notification` function cannot have parameters.
+    @Notification(1)
+    public void notificationWithParameter(int value) {
+    }
+
+    // Expected red: a `@Notification` function must return void.
+    @Notification(2)
+    public int notificationWithReturnValue() {
+        return 0;
     }
 
     // Expected red: generic functions cannot be registered.
@@ -103,6 +131,26 @@ public class IdeJavaInspectionExplicit extends Node {
             int p16,
             int p17
     ) {
+    }
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    public void unsupportedParameterType(JvmUnsupportedType value) {
+    }
+
+    @Register
+    public JvmUnsupportedType unsupportedReturnType() {
+        return new JvmUnsupportedType();
+    }
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Register
+    public void typedSignalParameter(Signal1<Integer> signal) {
+    }
+
+    @Register
+    public Callable0<Integer> typedCallableReturn() {
+        return null;
     }
 }
 

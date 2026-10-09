@@ -504,7 +504,7 @@ public object XRServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TrackerType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TrackerType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -528,7 +528,7 @@ public object XRServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RotationMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RotationMode = entries.first { it.`value` == `value` }
     }
   }
 

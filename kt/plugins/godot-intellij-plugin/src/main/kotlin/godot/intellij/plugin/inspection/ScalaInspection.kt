@@ -15,8 +15,12 @@ class ScalaInspection : GodotInspection() {
     override fun checkElement(element: PsiElement, holder: ProblemsHolder, isOnTheFly: Boolean) {
         when (element) {
             is PsiClass -> holder.registerProblems(GodotScriptAnalyzer.analyze(element).withPhysicalAnchor(element))
-            is PsiMethod -> holder.registerProblems(RegisterMethodAnalyzer.analyze(element).withPhysicalAnchor(element))
+            is PsiMethod -> holder.registerProblems(RegisterMethodAnalyzer.analyze(element.javaView()).withPhysicalAnchor(element))
         }
     }
-}
 
+    // Scala function PSI reports `Object` as its Java return type; the class's Java-view wrapper carries the real one.
+    private fun PsiMethod.javaView(): PsiMethod = containingClass?.methods?.firstOrNull { method ->
+        method !== this && method.name == name && method.parameterList.parametersCount == parameterList.parametersCount
+    } ?: this
+}

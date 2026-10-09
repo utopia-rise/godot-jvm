@@ -1,123 +1,89 @@
 package godot.intellij.plugin.analysis.kotlin
 
+import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.psi.PsiClassType
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiEnumConstant
 import godot.annotation.Export
+import godot.annotation.Storage
+import godot.annotation.Visible
 import godot.core.KtObject
 import godot.core.VariantArray
 import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.analysis.jvm.GenericRegistrationAnalyzer
+import godot.intellij.plugin.project.inherits
 import godot.intellij.plugin.project.isBitField
 import godot.intellij.plugin.project.isCoreType
 import godot.intellij.plugin.project.isGodotPrimitive
+import godot.intellij.plugin.project.isMappableProperty
 import godot.intellij.plugin.project.isNullable
-import godot.intellij.plugin.project.isOrInheritsType
-import godot.intellij.plugin.project.isSupportedJvmType
-import godot.intellij.plugin.project.withType
+import godot.intellij.plugin.project.jvmType
+import godot.intellij.plugin.project.typeArguments
+import godot.intellij.plugin.quickfix.PropertyMakePublicQuickFix
 import godot.intellij.plugin.quickfix.PropertyNotRegisteredQuickFix
 import godot.intellij.plugin.quickfix.PropertyRemoveExportAnnotationQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
-import godot.intellij.plugin.registration.RegistrationPolicy.hasEffectiveAnnotation
-import org.jetbrains.kotlin.analysis.api.KaExperimentalApi
-import org.jetbrains.kotlin.analysis.api.types.KaClassType
-import org.jetbrains.kotlin.analysis.api.types.symbol
+import godot.intellij.plugin.project.isRegistrableOnJvm
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightElements
-import org.jetbrains.kotlin.idea.codeinsight.utils.isEnum
-import org.jetbrains.kotlin.psi.KtClass
-import org.jetbrains.kotlin.psi.KtEnumEntry
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
 import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
 
 object VisibleAnalyzer {
     private const val MAX_ENUM_ENTRIES_FOR_BIT_FLAG = 32
-    private val propertyNotRegisteredQuickFix = PropertyNotRegisteredQuickFix()
-    private val propertyRemoveExportAnnotationQuickFix = PropertyRemoveExportAnnotationQuickFix()
+    private val registerQuickFix = PropertyNotRegisteredQuickFix()
+    private val exportNotRegisteredQuickFixes = arrayOf(registerQuickFix, PropertyRemoveExportAnnotationQuickFix())
+    private val storageNotRegisteredQuickFixes = arrayOf(registerQuickFix)
+    private val makePublicQuickFixes = arrayOf(PropertyMakePublicQuickFix())
 
-    fun analyze(property: KtProperty): List<GodotProblem> {
-        return buildList {
-            val isRegistered = RegistrationPolicy.registersProperty(property)
-            if (property.hasEffectiveAnnotation(Export::class) && !isRegistered) {
+    fun analyze(property: KtProperty): List<GodotProblem> = buildList {
+        val policy = property.registrationPolicy
+        val nameAnchor = property.nameIdentifier ?: property.navigationElement
+        val valueAnchor = property.initializer?.psiOrParent ?: nameAnchor
+        fun report(key: String, anchor: PsiElement = nameAnchor) = add(GodotProblem(GodotPluginBundle.message(key), anchor))
+
+        if (!property.isRegistrableOnJvm()) {
+            if (policy.hasAnnotation(property, Visible::class)) {
                 add(
                     GodotProblem(
-                        GodotPluginBundle.message("problem.property.export.notRegistered"),
-                        property.nameIdentifier ?: property.navigationElement,
-                        arrayOf(propertyNotRegisteredQuickFix, propertyRemoveExportAnnotationQuickFix)
+                        GodotPluginBundle.message("problem.property.notPublic"),
+                        nameAnchor,
+                        makePublicQuickFixes,
+                        ProblemHighlightType.WARNING
                     )
                 )
             }
-
-            if (isRegistered) {
-                addAll(GenericRegistrationAnalyzer.analyze(property.toLightElements().firstIsInstance()))
-                addAll(checkRegisteredType(property))
-                if (property.hasModifier(org.jetbrains.kotlin.lexer.KtTokens.LATEINIT_KEYWORD) && (property.isCoreType() || property.isGodotPrimitive())) {
-                    add(
-                        GodotProblem(
-                            GodotPluginBundle.message("problem.property.lateinit.coreType"),
-                            property.nameIdentifier ?: property.navigationElement
-                        )
-                    )
-                }
-                if (property.isNullable() && (property.isCoreType() == true || property.isGodotPrimitive() == true)) {
-                    add(
-                        GodotProblem(
-                            GodotPluginBundle.message("problem.property.nullable"),
-                            property.nameIdentifier ?: property.navigationElement
-                        )
-                    )
-                }
-            }
-        }
-    }
-
-    @OptIn(KaExperimentalApi::class)
-    private fun checkRegisteredType(property: KtProperty): List<GodotProblem> {
-        val problems = mutableListOf<GodotProblem>()
-
-        val isEnumVariantArray = property.withType { propertyType ->
-            propertyType.symbol?.classId?.asFqNameString()?.startsWith(VariantArray::class.qualifiedName!!) == true
-                && (propertyType as? KaClassType)
-                ?.typeArguments
-                ?.firstOrNull()
-                ?.type
-                ?.isEnum() == true
-        }
-        if (isEnumVariantArray) {
-            problems += GodotProblem(
-                GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray"),
-                property.initializer?.psiOrParent ?: property.nameIdentifier ?: property.navigationElement
-            )
+            return@buildList
         }
 
-        val isInheritingObject = property.isOrInheritsType(KtObject::class.classId)
-        if (!isInheritingObject && !property.isCoreType() && !property.isSupportedJvmType()) {
-            problems += GodotProblem(
-                GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType"),
-                property.nameIdentifier ?: property.navigationElement
-            )
+        val isRegistered = policy.registersProperty(property)
+        if (policy.hasAnnotation(property, Export::class) && !isRegistered) {
+            add(GodotProblem(GodotPluginBundle.message("problem.property.export.notRegistered"), nameAnchor, exportNotRegisteredQuickFixes))
         }
-
-        if (property.isBitField()) {
-            val enumEntryCount = property.withType { propertyType ->
-                (propertyType as? KaClassType)
-                    ?.typeArguments
-                    ?.firstOrNull()
-                    ?.type
-                    ?.symbol
-                    ?.psi
-                    ?.let { it as? KtClass }
-                    ?.declarations
-                    ?.filterIsInstance<KtEnumEntry>()
-                    ?.size ?: 0
-            }
-            if (enumEntryCount > MAX_ENUM_ENTRIES_FOR_BIT_FLAG) {
-                problems += GodotProblem(
-                    GodotPluginBundle.message("problem.property.hint.toManyEnumEntries"),
-                    property.initializer?.psiOrParent ?: property.nameIdentifier ?: property.navigationElement
-                )
-            }
+        if (policy.hasAnnotation(property, Storage::class) && !isRegistered) {
+            add(GodotProblem(GodotPluginBundle.message("problem.property.storage.notRegistered"), nameAnchor, storageNotRegisteredQuickFixes))
         }
+        if (!isRegistered) return@buildList
 
-        return problems
+        addAll(GenericRegistrationAnalyzer.analyze(property.toLightElements().firstIsInstance()))
+        val type = property.jvmType() ?: return@buildList
+        val elementClass = (type.typeArguments.firstOrNull() as? PsiClassType)?.resolve()
+        if (type.inherits(VariantArray::class.classId) && elementClass?.isEnum == true) {
+            report("problem.property.registeredEnumListWithVariantArray", valueAnchor)
+        }
+        if (!type.isMappableProperty()) {
+            report("problem.property.export.triedToExportUnsupportedType")
+        }
+        if (type.isBitField() && elementClass?.fields.orEmpty().count { it is PsiEnumConstant } > MAX_ENUM_ENTRIES_FOR_BIT_FLAG) {
+            report("problem.property.hint.toManyEnumEntries", valueAnchor)
+        }
+        if ((type.isCoreType() || type.isGodotPrimitive()) && property.hasModifier(KtTokens.LATEINIT_KEYWORD)) {
+            report("problem.property.lateinit.coreType")
+        }
+        if (property.isNullable() && !type.inherits(KtObject::class.classId) && !type.equalsToText("java.lang.Object")) {
+            report("problem.property.nullable")
+        }
     }
 }
-

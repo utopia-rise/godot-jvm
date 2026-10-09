@@ -366,7 +366,7 @@ public open class SpriteFrames : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LoopMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LoopMode = entries.first { it.`value` == `value` }
     }
   }
 

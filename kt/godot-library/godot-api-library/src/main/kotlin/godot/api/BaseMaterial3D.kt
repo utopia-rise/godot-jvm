@@ -2703,7 +2703,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureParam = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureParam = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2761,7 +2761,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2779,7 +2779,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DetailUV = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DetailUV = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2820,7 +2820,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Transparency = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Transparency = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2848,7 +2848,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShadingMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShadingMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2914,7 +2914,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Feature = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Feature = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2949,7 +2949,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2973,7 +2973,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlphaAntiAliasing = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlphaAntiAliasing = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3001,7 +3001,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DepthDrawMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DepthDrawMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3020,7 +3020,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DepthTest = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DepthTest = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3046,7 +3046,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CullMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CullMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3174,7 +3174,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Flags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Flags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3200,7 +3200,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DiffuseMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DiffuseMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3230,7 +3230,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SpecularMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SpecularMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3260,7 +3260,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BillboardMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BillboardMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3291,7 +3291,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureChannel = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureChannel = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3309,7 +3309,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EmissionOperator = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EmissionOperator = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3341,7 +3341,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DistanceFadeMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DistanceFadeMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3377,7 +3377,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StencilMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StencilMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3402,7 +3402,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StencilFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StencilFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3442,7 +3442,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StencilCompare = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StencilCompare = entries.first { it.`value` == `value` }
     }
   }
 

@@ -51,6 +51,6 @@ public enum class EulerOrder(
   ;
 
   public companion object {
-    public fun from(`value`: Long): EulerOrder = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): EulerOrder = entries.first { it.`value` == `value` }
   }
 }

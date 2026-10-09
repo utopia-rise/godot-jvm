@@ -77,6 +77,6 @@ public enum class InlineAlignment(
   ;
 
   public companion object {
-    public fun from(`value`: Long): InlineAlignment = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): InlineAlignment = entries.first { it.`value` == `value` }
   }
 }

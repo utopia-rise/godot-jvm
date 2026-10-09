@@ -573,7 +573,7 @@ public open class PhysicalBone3D : PhysicsBody3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DampMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DampMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -607,7 +607,7 @@ public open class PhysicalBone3D : PhysicsBody3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): JointType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): JointType = entries.first { it.`value` == `value` }
     }
   }
 

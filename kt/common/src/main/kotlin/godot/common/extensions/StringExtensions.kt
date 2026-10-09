@@ -48,6 +48,33 @@ fun String.convertToSnakeCase(): String =
         else accumulator.append(character)
     }.toString()
 
+fun String.convertToTitleCase(): String = buildString(length + 4) {
+    val source = this@convertToTitleCase
+    var newWord = true
+    for (i in source.indices) {
+        val current = source[i]
+        if (current == '_' || current == '-' || current == ' ') {
+            newWord = true
+            continue
+        }
+        val previous = source.getOrElse(i - 1) { ' ' }
+        val previousIsDigit = previous in '0'..'9'
+        val nextIsLower = source.getOrElse(i + 1) { ' ' }.isLowerCase()
+        if (newWord ||
+            previous.isLowerCase() && current.isUpperCase() ||
+            (previous.isUpperCase() || previousIsDigit) && current.isUpperCase() && nextIsLower ||
+            previousIsDigit && current.isLowerCase() && nextIsLower ||
+            (previous.isUpperCase() || previous.isLowerCase()) && current in '0'..'9'
+        ) {
+            if (isNotEmpty()) append(' ')
+            append(current.uppercaseChar())
+        } else {
+            append(current.lowercaseChar())
+        }
+        newWord = false
+    }
+}
+
 fun String.toUpperSnakeCase(): String {
     if (this.isEmpty()) return this
     val originalString = this

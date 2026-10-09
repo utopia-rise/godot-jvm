@@ -3,6 +3,12 @@ package godot.registration.model
 import godot.registration.model.hint.property.PropertyHint
 import godot.registration.model.types.Type
 
+enum class PropertyExposure {
+    VISIBLE,
+    STORAGE,
+    EXPORT,
+}
+
 enum class RegisteredPropertyBindingKind {
     PROPERTY_REFERENCE,
     ACCESSOR_METHODS,
@@ -19,7 +25,7 @@ data class RegisteredProperty(
     val isMutable: Boolean = true,
     val isLateinit: Boolean = false,
     val isOverridee: Boolean = false,
-    val isExported: Boolean = false,
+    val exposure: PropertyExposure = PropertyExposure.VISIBLE,
     val hints: List<PropertyHint> = emptyList(),
     val groups: List<PropertyGroup> = emptyList(),
 ) {

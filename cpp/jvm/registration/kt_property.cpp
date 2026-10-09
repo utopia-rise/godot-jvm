@@ -34,12 +34,6 @@ godot::PropertyInfo KtPropertyInfo::toPropertyInfo() const {
     info.hint = hint;
     info.hint_string = hint_string;
     info.usage = usage;
-    if (!(usage
-          & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP
-             | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
-             | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
-        info.usage = usage | godot::PropertyUsageFlags::PROPERTY_USAGE_SCRIPT_VARIABLE;
-    }
     return info;
 }
 

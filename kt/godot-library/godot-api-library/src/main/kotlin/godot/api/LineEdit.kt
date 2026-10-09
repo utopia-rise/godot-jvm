@@ -1226,7 +1226,7 @@ public open class LineEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MenuItems = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MenuItems = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1272,7 +1272,7 @@ public open class LineEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VirtualKeyboardType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VirtualKeyboardType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1294,7 +1294,7 @@ public open class LineEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ExpandMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ExpandMode = entries.first { it.`value` == `value` }
     }
   }
 

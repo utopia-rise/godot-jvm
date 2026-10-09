@@ -131,7 +131,7 @@ public open class Sky : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RadianceSize = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RadianceSize = entries.first { it.`value` == `value` }
     }
   }
 
@@ -174,7 +174,7 @@ public open class Sky : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProcessMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProcessMode = entries.first { it.`value` == `value` }
     }
   }
 

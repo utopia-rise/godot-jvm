@@ -142,7 +142,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): WriteMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): WriteMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -169,7 +169,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ChannelState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ChannelState = entries.first { it.`value` == `value` }
     }
   }
 

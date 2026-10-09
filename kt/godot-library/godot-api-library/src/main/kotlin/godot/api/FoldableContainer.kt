@@ -245,7 +245,7 @@ public open class FoldableContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TitlePosition = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TitlePosition = entries.first { it.`value` == `value` }
     }
   }
 

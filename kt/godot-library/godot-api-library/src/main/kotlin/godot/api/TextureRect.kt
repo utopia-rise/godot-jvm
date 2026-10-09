@@ -158,7 +158,7 @@ public open class TextureRect : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ExpandMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ExpandMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -202,7 +202,7 @@ public open class TextureRect : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StretchMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StretchMode = entries.first { it.`value` == `value` }
     }
   }
 

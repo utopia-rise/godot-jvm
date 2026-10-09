@@ -51,11 +51,10 @@ class ContainerRegistrationFixture : Node() {
 
     @Register
     override fun _ready() {
-        // Expected red on the callable reference: the converter-taking factory
-        // still requires its target to be a registered function.
+        // Expected no issue: a lambda callable runs the function on the JVM, so it needs no registration.
         lambdaCallable1(VariantCaster.INT, VariantCaster.TYPED_ARRAY(VariantCaster.INT), this::sumNotRegistered).call(intArray)
     }
 
-    // Expected red when referenced from `lambdaCallable1`: missing `@Register`.
+    // Expected no issue: the lambda callable target does not need `@Register`.
     fun sumNotRegistered(values: VariantArray<Int>): Int = values.sum()
 }

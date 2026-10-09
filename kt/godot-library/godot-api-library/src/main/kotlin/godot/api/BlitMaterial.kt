@@ -89,7 +89,7 @@ public open class BlitMaterial : Material() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendMode = entries.first { it.`value` == `value` }
     }
   }
 

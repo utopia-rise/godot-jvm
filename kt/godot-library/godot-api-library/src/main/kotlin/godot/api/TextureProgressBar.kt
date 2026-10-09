@@ -542,7 +542,7 @@ public open class TextureProgressBar : Range() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FillMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FillMode = entries.first { it.`value` == `value` }
     }
   }
 

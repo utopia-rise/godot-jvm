@@ -50,5 +50,14 @@ class LambdaCallableScalaTest extends Node {
   def callCallableWithParamDeferred(): Unit = {
     LambdaCallable1.create(classOf[Boolean], (flag: Boolean) => markCallableWithParamTriggered(flag)).callDeferred(true)
   }
-}
 
+  @Register
+  // ART's verifier rejects the primitive-returning lambda Scala emits for classOf[Int], so the boxed class is used.
+  def callPrimitiveReturnCallable(): Int = LambdaCallable0.create(classOf[Integer], () => Integer.valueOf(7)).call()
+
+  @Register
+  def callVoidReturnCallable(): Boolean = {
+    LambdaCallable0.create(classOf[Unit], () => markCallableNoParamTriggered()).call()
+    callableNoParamTriggered
+  }
+}

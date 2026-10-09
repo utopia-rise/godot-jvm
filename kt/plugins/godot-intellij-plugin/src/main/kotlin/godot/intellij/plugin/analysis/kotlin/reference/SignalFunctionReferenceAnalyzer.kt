@@ -6,7 +6,7 @@ import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.project.isOrInheritsType
 import godot.intellij.plugin.quickfix.TargetFunctionNotRegisteredQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.idea.references.KtSimpleNameReference
 import org.jetbrains.kotlin.idea.references.mainReference
 import org.jetbrains.kotlin.psi.KtCallableReferenceExpression
@@ -34,7 +34,7 @@ object SignalFunctionReferenceAnalyzer {
                 .mainReference
                 .resolve() as? KtNamedFunction
 
-            if (targetFunction != null && !RegistrationPolicy.registersFunction(targetFunction)) {
+            if (targetFunction != null && !targetFunction.registrationPolicy.registersFunction(targetFunction)) {
                 return listOf(
                     GodotProblem(
                         GodotPluginBundle.message("problem.signal.connection.connectedFunctionNotRegistered"),

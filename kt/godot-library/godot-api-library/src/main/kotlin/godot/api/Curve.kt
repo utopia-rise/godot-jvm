@@ -332,7 +332,7 @@ public open class Curve : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TangentMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TangentMode = entries.first { it.`value` == `value` }
     }
   }
 

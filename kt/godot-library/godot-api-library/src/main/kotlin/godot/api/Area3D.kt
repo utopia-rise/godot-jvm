@@ -764,7 +764,7 @@ public open class Area3D : CollisionObject3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SpaceOverride = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SpaceOverride = entries.first { it.`value` == `value` }
     }
   }
 

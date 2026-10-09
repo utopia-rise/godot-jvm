@@ -161,6 +161,9 @@ abstract class CodeInsightFixtureTestBase : BasePlatformTestCase() {
     protected fun error(message: String, count: Int = 1): ExpectedProblem =
         ExpectedProblem("ERROR", message, count)
 
+    protected fun warning(message: String, count: Int = 1): ExpectedProblem =
+        ExpectedProblem("WARNING", message, count)
+
     protected fun weakWarning(message: String, count: Int = 1): ExpectedProblem =
         ExpectedProblem("WEAK WARNING", message, count)
 }

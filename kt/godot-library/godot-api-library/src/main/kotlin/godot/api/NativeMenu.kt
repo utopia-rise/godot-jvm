@@ -1382,7 +1382,7 @@ public object NativeMenu : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Feature = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Feature = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1418,7 +1418,7 @@ public object NativeMenu : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SystemMenus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SystemMenus = entries.first { it.`value` == `value` }
     }
   }
 

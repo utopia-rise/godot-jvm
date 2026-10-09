@@ -307,7 +307,7 @@ public open class AnimationNodeOneShot : AnimationNodeSync() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): OneShotRequest = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): OneShotRequest = entries.first { it.`value` == `value` }
     }
   }
 
@@ -325,7 +325,7 @@ public open class AnimationNodeOneShot : AnimationNodeSync() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MixMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MixMode = entries.first { it.`value` == `value` }
     }
   }
 

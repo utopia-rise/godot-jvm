@@ -231,7 +231,7 @@ public open class UPNPDevice : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): IGDStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): IGDStatus = entries.first { it.`value` == `value` }
     }
   }
 

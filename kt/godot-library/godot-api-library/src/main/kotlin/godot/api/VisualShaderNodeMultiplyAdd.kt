@@ -73,7 +73,7 @@ public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): OpType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): OpType = entries.first { it.`value` == `value` }
     }
   }
 

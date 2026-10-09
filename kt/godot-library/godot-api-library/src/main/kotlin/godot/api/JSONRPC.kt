@@ -160,7 +160,7 @@ public open class JSONRPC : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ErrorCode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ErrorCode = entries.first { it.`value` == `value` }
     }
   }
 

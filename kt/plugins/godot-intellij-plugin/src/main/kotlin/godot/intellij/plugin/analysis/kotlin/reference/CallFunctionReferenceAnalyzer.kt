@@ -6,7 +6,7 @@ import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.project.isOrInheritsType
 import godot.intellij.plugin.quickfix.TargetFunctionNotRegisteredQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
+import godot.intellij.plugin.registration.registrationPolicy
 import godot.tools.common.constants.godotApiPackage
 import godot.tools.common.constants.objectCallableFunctions
 import org.jetbrains.kotlin.idea.references.mainReference
@@ -23,10 +23,8 @@ import org.jetbrains.kotlin.scripting.resolve.classId
 object CallFunctionReferenceAnalyzer {
     fun analyze(element: KtCallableReferenceExpression): List<GodotProblem> {
         val parentCalls = element.parents.filterIsInstance<KtCallExpression>().toList()
-        val isCallableFactoryArgument = parentCalls.any { call ->
-            val name = (call.calleeExpression as? KtNameReferenceExpression)?.text.orEmpty()
-            name.startsWith("lambdaCallable") || name.startsWith("methodCallable")
-        }
+        val isMethodCallableArgument = (parentCalls.firstOrNull()?.calleeExpression as? KtNameReferenceExpression)
+            ?.text.orEmpty().startsWith("methodCallable")
         val relevantParent = parentCalls
             .firstOrNull { call ->
                 val name = (call.calleeExpression as? KtNameReferenceExpression)?.text
@@ -35,7 +33,7 @@ object CallFunctionReferenceAnalyzer {
         val callReference = relevantParent?.calleeExpression as? KtNameReferenceExpression
         val containingClass = (callReference?.mainReference?.resolve() as? KtNamedFunction)?.containingClass()
         if (
-            isCallableFactoryArgument ||
+            isMethodCallableArgument ||
             (
                 relevantParent != null &&
                     objectCallableFunctions.any { it == callReference?.text } &&
@@ -47,7 +45,7 @@ object CallFunctionReferenceAnalyzer {
                 .mainReference
                 .resolve() as? KtNamedFunction
 
-            if (targetFunction != null && !RegistrationPolicy.registersFunction(targetFunction)) {
+            if (targetFunction != null && !targetFunction.registrationPolicy.registersFunction(targetFunction)) {
                 return listOf(
                     GodotProblem(
                         GodotPluginBundle.message("problem.general.calledFunctionNotRegistered"),

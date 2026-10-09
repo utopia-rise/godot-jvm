@@ -306,7 +306,8 @@ is computed.
 ### Property metadata
 
 - `@Export` marks a property for the Inspector in Explicit or Inferred mode.
-- Automatic properties are exported by default.
+- Automatic properties are exported by default; a written `@Visible` or
+  `@Storage` replaces that default.
 - property-hint annotations configure controls such as numeric ranges, file
   pickers, multiline text, colors, enums, and flags.
 
@@ -379,7 +380,7 @@ supported Godot-facing type, including:
 - supported primitives and strings
 - Godot core types
 - Godot `Node` and `Resource` types
-- supported Kotlin and Java collections
+- `java.util.List` of enums
 - enums
 - `BitField<Enum>`
 

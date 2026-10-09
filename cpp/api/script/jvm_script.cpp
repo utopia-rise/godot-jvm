@@ -355,7 +355,8 @@ void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) co
     );
     for (const PropertyInfo& property_info : all_properties) {
         if (property_info.usage
-            & (PropertyUsageFlags::PROPERTY_USAGE_EDITOR
+            & (PropertyUsageFlags::PROPERTY_USAGE_STORAGE
+               | PropertyUsageFlags::PROPERTY_USAGE_EDITOR
                | PropertyUsageFlags::PROPERTY_USAGE_GROUP
                | PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
                | PropertyUsageFlags::PROPERTY_USAGE_CATEGORY)) {

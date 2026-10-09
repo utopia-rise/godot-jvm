@@ -266,7 +266,7 @@ public open class AnimationNodeStateMachineTransition : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SwitchMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SwitchMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -289,7 +289,7 @@ public open class AnimationNodeStateMachineTransition : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AdvanceMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AdvanceMode = entries.first { it.`value` == `value` }
     }
   }
 

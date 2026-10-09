@@ -1253,7 +1253,7 @@ public open class Node3D : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RotationEditMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RotationEditMode = entries.first { it.`value` == `value` }
     }
   }
 

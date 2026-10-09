@@ -563,7 +563,7 @@ public open class AudioStreamPlayer3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AttenuationModel = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AttenuationModel = entries.first { it.`value` == `value` }
     }
   }
 
@@ -586,7 +586,7 @@ public open class AudioStreamPlayer3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DopplerTracking = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DopplerTracking = entries.first { it.`value` == `value` }
     }
   }
 

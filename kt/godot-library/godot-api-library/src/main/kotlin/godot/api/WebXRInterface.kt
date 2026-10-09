@@ -509,7 +509,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TargetRayMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TargetRayMode = entries.first { it.`value` == `value` }
     }
   }
 

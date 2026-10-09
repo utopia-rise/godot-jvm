@@ -17,7 +17,7 @@ import godot.annotation.processor.classgraph.extensions.directSuperInterfaces
 import godot.annotation.processor.classgraph.extensions.enumEntryCount
 import godot.annotation.processor.classgraph.extensions.isGodotCompatibleClass
 import godot.annotation.processor.classgraph.extensions.isProcessorBitField
-import godot.annotation.processor.classgraph.extensions.isProcessorCollection
+import godot.annotation.processor.classgraph.extensions.isProcessorList
 import godot.annotation.processor.classgraph.extensions.isProcessorCoreType
 import godot.annotation.processor.classgraph.extensions.methodSignature
 import godot.annotation.processor.classgraph.extensions.rawDescriptor
@@ -61,7 +61,6 @@ import io.github.classgraph.MethodInfo
 import io.github.classgraph.MethodParameterInfo
 import io.github.classgraph.ScanResult
 import io.github.classgraph.TypeArgument
-import org.jetbrains.annotations.NotNull
 
 class RegistrationMapper(
     scanResult: ScanResult,
@@ -144,6 +143,7 @@ class RegistrationMapper(
                         ),
                         isRegistered = classInfo.name in selectedClassNames,
                         isAbstract = classInfo.isAbstract,
+                        isGeneric = classInfo.typeSignature?.typeParameters?.isNotEmpty() == true,
                     )
                 } as ScriptClass
 
@@ -254,28 +254,6 @@ class RegistrationMapper(
                 typeArguments = parameterInfo.typeArguments(),
             )
 
-            fun mapPropertyType(
-                rawDescriptor: String,
-                typeArguments: List<TypeArgument>,
-                isLateinit: Boolean,
-                isNotNullAnnotated: Boolean,
-            ): Type {
-                val base = mapRaw(rawDescriptor, typeArguments)
-                if (base.kind == TypeKind.GODOT_CLASS || base.kind == TypeKind.INTERFACE) {
-                    return base
-                }
-
-                val propertyNullable = Type.findPrimitiveType(rawDescriptor) == null &&
-                    base.kind != TypeKind.CORE_TYPE &&
-                    !isLateinit &&
-                    !isNotNullAnnotated
-
-                return base.with(
-                    isNullable = propertyNullable,
-                    genericArguments = base.genericArguments,
-                )
-            }
-
             fun mapClass(classInfo: ClassInfo): Type =
                 when {
                     classInfo.hasAnnotation(GodotBaseType::class.java.name) -> classFamilies.getOrCreateBaseClass(classInfo)
@@ -295,29 +273,24 @@ class RegistrationMapper(
                 Type.findPrimitiveType(rawType, genericArguments = mappedTypeArguments)?.let { return it }
                 Type.findCoreType(rawType, genericArguments = mappedTypeArguments)?.let { return it }
 
-                val classInfo = requireNotNull(context.getClassInfoOrNull(rawType)) {
-                    "Could not resolve class info for descriptor: $rawDescriptor"
-                }
+                val classInfo = context.getClassInfoOrNull(rawType) ?: return otherType(rawType, mappedTypeArguments)
 
                 return context.getOrPutMappedType(classInfo, typeArguments) {
                     val fqName = classInfo.registrationFqName
                     when {
-                        classInfo.isProcessorCoreType -> Type.getCoreType(fqName, genericArguments = mappedTypeArguments)
+                        classInfo.isProcessorCoreType -> Type(fqName = fqName, kind = TypeKind.CORE_TYPE, isNullable = false, genericArguments = mappedTypeArguments)
                         classInfo.isEnum -> Type.getEnum(fqName, genericArguments = mappedTypeArguments)
                         classInfo.isProcessorBitField -> Type.getBitField(fqName, genericArguments = mappedTypeArguments)
-                        classInfo.isProcessorCollection ->
-                            Type.getCollection(fqName, genericArguments = mappedTypeArguments)
+                        classInfo.isProcessorList -> Type.getList(fqName, genericArguments = mappedTypeArguments)
 
                         classInfo.isStandardClass -> mapClass(classInfo)
-                        else -> Type(
-                            fqName = fqName,
-                            kind = TypeKind.OTHER,
-                            isNullable = false,
-                            genericArguments = mappedTypeArguments,
-                        )
+                        else -> otherType(fqName, mappedTypeArguments)
                     }
                 }
             }
+
+            private fun otherType(fqName: String, genericArguments: List<Type>): Type =
+                Type(fqName = fqName, kind = TypeKind.OTHER, isNullable = false, genericArguments = genericArguments)
         }
 
         private inner class Members {
@@ -385,7 +358,7 @@ class RegistrationMapper(
                     val bindingKind = language.propertyBindingFor(property)
                     RegisteredProperty(
                         fqName = "${owner.registrationFqName}.${property.name}",
-                        type = mapPropertyType(property),
+                        type = typeMapper.mapRaw(property.rawDescriptor(), property.typeArguments()),
                         bindingKind = bindingKind,
                         getterFqName = property.getter?.registrationFqName
                             ?.takeIf { bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS },
@@ -399,7 +372,7 @@ class RegistrationMapper(
                         isLateinit = property.isLateinit,
                         isOverridee = listOfNotNull(property.getter, property.setter)
                             .any { methodInfo -> methodInfo.methodSignature in superMethodSignaturesOf(owner) },
-                        isExported = policy.isPropertyExported(property),
+                        exposure = policy.propertyExposure(property),
                         hints = collectPropertyHints(
                             rawDescriptor = property.rawDescriptor(),
                             typeArguments = property.typeArguments(),
@@ -426,14 +399,6 @@ class RegistrationMapper(
                     isOverridee = signal.getter?.methodSignature in superMethodSignaturesOf(owner),
                 )
             }
-
-            private fun mapPropertyType(property: LogicalProperty): Type =
-                typeMapper.mapPropertyType(
-                    rawDescriptor = property.rawDescriptor(),
-                    typeArguments = property.typeArguments(),
-                    isLateinit = property.isLateinit,
-                    isNotNullAnnotated = property.annotations.any { annotation -> annotation.name == NotNull::class.java.name },
-                )
 
             private fun collectPropertyHints(
                 rawDescriptor: String,
@@ -468,7 +433,7 @@ class RegistrationMapper(
                         )
                     }
 
-                    rawDescriptor.startsWith("kotlin.collections") || rawDescriptor.startsWith("java.util.") ->
+                    typeClassInfo.isProcessorList ->
                         containedEnum()?.let { enum ->
                             EnumListHintStringHint(
                                 enumType = typeMapper.mapRaw(enum.name, emptyList()),

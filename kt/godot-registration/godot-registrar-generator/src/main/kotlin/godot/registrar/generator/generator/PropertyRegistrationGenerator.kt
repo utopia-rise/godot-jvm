@@ -10,6 +10,7 @@ import godot.registrar.generator.ext.effectiveProperties
 import godot.registrar.generator.ext.toGodotClassName
 import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registrar.generator.generator.hint.PropertyHintProvider
+import godot.registration.model.PropertyExposure
 import godot.registration.model.RegisteredProperty
 import godot.registration.model.RegisteredPropertyBindingKind
 import godot.registration.model.PropertyGroupKind
@@ -70,21 +71,15 @@ private fun FunSpec.Builder.registerProperty(
             "Property ${registeredProperty.name} should have a getter when using accessor binding"
         }
         addStatement(
-            if (setterFqName == null) {
-                "property(%S, %L, %L, %S, %M, %L, %L)"
-            } else {
-                "property(%S, %L, %L, %L, %S, %M, %L, %L)"
-            },
+            "property(%S, %L, %L, %L, %S, %M, %L, %L)",
             registeredProperty.name.convertToSnakeCase(),
             getGetterReference(registeredProperty, className),
-            *listOfNotNull(
-                setterFqName?.let { getSetterReference(registeredProperty, className) },
-                variantConverter,
-                typeGodotName,
-                propertyHint.typeHint,
-                propertyHint.hintString,
-                getPropertyUsage(registeredProperty),
-            ).toTypedArray(),
+            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
+            variantConverter,
+            typeGodotName,
+            propertyHint.typeHint,
+            propertyHint.hintString,
+            getPropertyUsage(registeredProperty),
         )
         return
     }
@@ -114,18 +109,12 @@ private fun FunSpec.Builder.registerEnumListProperty(
         }
 
         addStatement(
-            if (setterFqName == null) {
-                "enumListProperty(%S, %L, %L, %L)"
-            } else {
-                "enumListProperty(%S, %L, %L, %L, %L)"
-            },
+            "enumListProperty(%S, %L, %L, %L, %L)",
             registeredProperty.name.convertToSnakeCase(),
             getGetterReference(registeredProperty, className),
-            *listOfNotNull(
-                setterFqName?.let { getSetterReference(registeredProperty, className) },
-                getPropertyUsage(registeredProperty),
-                propertyHint.hintString,
-            ).toTypedArray(),
+            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
+            getPropertyUsage(registeredProperty),
+            propertyHint.hintString,
         )
         return
     }
@@ -152,18 +141,12 @@ private fun FunSpec.Builder.registerBitFieldProperty(
         }
 
         addStatement(
-            if (setterFqName == null) {
-                "bitFieldProperty(%S, %L, %L, %L)"
-            } else {
-                "bitFieldProperty(%S, %L, %L, %L, %L)"
-            },
+            "bitFieldProperty(%S, %L, %L, %L, %L)",
             registeredProperty.name.convertToSnakeCase(),
             getGetterReference(registeredProperty, className),
-            *listOfNotNull(
-                setterFqName?.let { getSetterReference(registeredProperty, className) },
-                getPropertyUsage(registeredProperty),
-                propertyHint.hintString,
-            ).toTypedArray(),
+            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
+            getPropertyUsage(registeredProperty),
+            propertyHint.hintString,
         )
         return
     }
@@ -207,17 +190,12 @@ private fun memberReference(className: ClassName, memberName: String): CodeBlock
     }
 
 private fun getPropertyUsage(registeredProperty: RegisteredProperty): CodeBlock {
-    val baseUsage = if (registeredProperty.isExported) {
-        CodeBlock.of("%T.DEFAULT", PropertyUsageFlags::class)
-    } else {
-        CodeBlock.of("%T.NONE", PropertyUsageFlags::class)
+    val flags = PropertyUsageFlags::class
+    return when (registeredProperty.exposure) {
+        PropertyExposure.VISIBLE -> CodeBlock.of("%T.SCRIPT_VARIABLE", flags)
+        PropertyExposure.STORAGE -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE", flags, flags)
+        PropertyExposure.EXPORT -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE or %T.EDITOR", flags, flags, flags)
     }
-
-    if (registeredProperty.isMutable) {
-        return baseUsage
-    }
-
-    return CodeBlock.of("%L or %T.READ_ONLY", baseUsage, PropertyUsageFlags::class)
 }
 
 private fun String.isPlainKotlinIdentifier(): Boolean {

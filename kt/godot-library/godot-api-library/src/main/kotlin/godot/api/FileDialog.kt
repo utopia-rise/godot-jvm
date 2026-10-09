@@ -701,7 +701,7 @@ public open class FileDialog : ConfirmationDialog() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FileMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FileMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -723,7 +723,7 @@ public open class FileDialog : ConfirmationDialog() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Access = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Access = entries.first { it.`value` == `value` }
     }
   }
 
@@ -742,7 +742,7 @@ public open class FileDialog : ConfirmationDialog() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DisplayMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DisplayMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -810,7 +810,7 @@ public open class FileDialog : ConfirmationDialog() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Customization = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Customization = entries.first { it.`value` == `value` }
     }
   }
 

@@ -51,5 +51,18 @@ public class LambdaCallableJavaTest extends Node {
     public void callCallableWithParamDeferred() {
         LambdaCallable1.create(Boolean.class, this::markCallableWithParamTriggered).callDeferred(true);
     }
-}
 
+    @Register
+    public int callPrimitiveReturnCallable() {
+        return LambdaCallable0.create(int.class, () -> 7).call();
+    }
+
+    @Register
+    public boolean callVoidReturnCallable() {
+        LambdaCallable0.create(void.class, () -> {
+            markCallableNoParamTriggered();
+            return null;
+        }).call();
+        return callableNoParamTriggered;
+    }
+}

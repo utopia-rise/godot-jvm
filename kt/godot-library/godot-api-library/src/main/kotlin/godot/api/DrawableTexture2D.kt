@@ -164,7 +164,7 @@ public open class DrawableTexture2D : Texture2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DrawableFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DrawableFormat = entries.first { it.`value` == `value` }
     }
   }
 

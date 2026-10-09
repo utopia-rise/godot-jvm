@@ -39,7 +39,7 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
         assertEmpty(highlightSource("DisabledHighlightFixture.kt", kotlinSource, RegistrationMode.Inferred, false))
 
     fun testJavaHighlightingCanBeDisabled() =
-        assertEmpty(highlightSource("DisabledHighlightFixture.java", javaSource, RegistrationMode.Inferred, false))
+        assertEmpty(highlightSource("HighlightFixture.java", javaSource, RegistrationMode.Inferred, false))
 
     fun testScalaHighlightingCanBeDisabled() =
         assertEmpty(highlightSource("DisabledHighlightFixture.scala", scalaSource, RegistrationMode.Inferred, false))
@@ -200,36 +200,38 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
             import godot.annotation.Visible;
             import godot.api.Node;
 
-            class Plain {
-                public int ignored = 1;
-                public void ignored() {}
-            }
+            public class HighlightFixture {
+                public static class Plain {
+                    public int ignored = 1;
+                    public void ignored() {}
+                }
 
-            class Candidate extends Node {
-                public int eligible = 1;
-                public Plain ineligible = new Plain();
-                public void eligibleFunction(int value) {}
-                public void ineligibleFunction(Plain value) {}
-            }
+                public static class Candidate extends Node {
+                    public int eligible = 1;
+                    public Plain ineligible = new Plain();
+                    public void eligibleFunction(int value) {}
+                    public void ineligibleFunction(Plain value) {}
+                }
 
-            @Tool
-            class MetaRegistered extends Node {
-                @Export
-                public int metaProperty = 1;
+                @Tool
+                public static class MetaRegistered extends Node {
+                    @Export
+                    public int metaProperty = 1;
 
-                @Rpc
-                public void metaFunction() {}
-            }
+                    @Rpc
+                    public void metaFunction() {}
+                }
 
-            @Script
-            class DirectRegistered extends Node {
-                @Visible
-                public int selected = 1;
-                public int unselected = 1;
+                @Script
+                public static class DirectRegistered extends Node {
+                    @Visible
+                    public int selected = 1;
+                    public int unselected = 1;
 
-                @Register
-                public void selectedFunction() {}
-                public void unselectedFunction() {}
+                    @Register
+                    public void selectedFunction() {}
+                    public void unselectedFunction() {}
+                }
             }
         """.trimIndent()
 

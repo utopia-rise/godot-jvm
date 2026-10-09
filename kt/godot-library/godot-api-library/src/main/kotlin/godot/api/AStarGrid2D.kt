@@ -604,7 +604,7 @@ public open class AStarGrid2D : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Heuristic = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Heuristic = entries.first { it.`value` == `value` }
     }
   }
 
@@ -637,7 +637,7 @@ public open class AStarGrid2D : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DiagonalMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DiagonalMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -665,7 +665,7 @@ public open class AStarGrid2D : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CellShape = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CellShape = entries.first { it.`value` == `value` }
     }
   }
 

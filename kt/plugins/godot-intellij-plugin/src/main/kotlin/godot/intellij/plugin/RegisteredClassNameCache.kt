@@ -5,7 +5,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiRecursiveElementWalkingVisitor
 import godot.intellij.plugin.project.getRegisteredClassName
-import godot.intellij.plugin.registration.RegistrationPolicy
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.psi.KtClass
 
 class RegisteredClassNameCache {
@@ -24,21 +24,15 @@ class RegisteredClassNameCache {
 
     fun psiFileChanged(psiFile: PsiFile) {
         removeFileEntries(psiFile)
+        val policy = psiFile.registrationPolicy
         psiFile.accept(
             object : PsiRecursiveElementWalkingVisitor() {
                 override fun visitElement(element: PsiElement) {
                     super.visitElement(element)
 
                     val registeredClass = when (element) {
-                        is KtClass -> element.takeIf(RegistrationPolicy::registersClass)?.getRegisteredClassName()
-                            ?.let { (fqName, registeredName) ->
-                                Triple(fqName, registeredName, element.containingFile.virtualFile)
-                            }
-
-                        is PsiClass -> element.takeIf(RegistrationPolicy::registersClass)?.getRegisteredClassName()
-                            ?.let { (fqName, registeredName) ->
-                                Triple(fqName, registeredName, element.containingFile.virtualFile)
-                            }
+                        is KtClass -> element.takeIf(policy::registersClass)?.getRegisteredClassName()
+                        is PsiClass -> element.takeIf(policy::registersClass)?.getRegisteredClassName()
 
                         else -> return
                     }
@@ -51,12 +45,8 @@ class RegisteredClassNameCache {
                         return
                     }
 
-                    val (fqName, registeredName, vFile) = registeredClass
-                    fqNameToRegisteredName[fqName] = RegisteredClassDataContainer(
-                        fqName,
-                        registeredName,
-                        vFile
-                    )
+                    val (fqName, registeredName) = registeredClass
+                    fqNameToRegisteredName[fqName] = RegisteredClassDataContainer(fqName, registeredName, psiFile.virtualFile)
                 }
             }
         )

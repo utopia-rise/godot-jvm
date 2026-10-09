@@ -207,7 +207,7 @@ public open class PlaneMesh : PrimitiveMesh() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Orientation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Orientation = entries.first { it.`value` == `value` }
     }
   }
 

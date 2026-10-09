@@ -12,6 +12,10 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
@@ -19,8 +23,10 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered"), 2),
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
     }
 
@@ -33,13 +39,19 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
             error(GodotPluginBundle.message("problem.class.notRegistered.functions")),
             error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
     }
 
@@ -52,9 +64,15 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
 
         assertProblems(
             problems,
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
+            error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
     }
 }

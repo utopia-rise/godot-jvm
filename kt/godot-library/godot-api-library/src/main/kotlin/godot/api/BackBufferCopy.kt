@@ -123,7 +123,7 @@ public open class BackBufferCopy : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CopyMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CopyMode = entries.first { it.`value` == `value` }
     }
   }
 

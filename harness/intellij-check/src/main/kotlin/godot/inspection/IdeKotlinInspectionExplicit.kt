@@ -2,11 +2,12 @@ package godot.inspection.explicit
 
 // Manual review mode: Explicit.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*
 import godot.annotation.IntRange
 import godot.annotation.LongRange
+import godot.api.InputEvent
 import godot.api.Node
 import godot.core.*
 import godot.extension.connectMethod
@@ -25,6 +26,11 @@ enum class LargeEnum {
 }
 
 // Class-level registration checks.
+
+// Expected warning: registration ignores a class that is not public.
+@Script
+private class PrivateScriptFixtureExplicit : Node()
+
 // Expected red: `@Tool` requires the class itself to be registered.
 @Tool
 class NotRegisteredButToolFixtureExplicit : Node()
@@ -54,8 +60,7 @@ class NotRegisteredButMembersFixtureExplicit : Node() {
 @Script
 class GodotScriptWithoutGodotBaseFixtureExplicit
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class GodotScriptWithoutDefaultConstructorFixtureExplicit(val number: Int) : Node()
 
@@ -78,19 +83,42 @@ class NotificationFunctionWithoutRegisterFixtureExplicit : Node() {
     // `@Register` inside a registered class.
     override fun _ready() {
     }
+
+    // Expected red: `_shortcutInput` is a Godot virtual function too, so it must also carry
+    // `@Register` inside a registered class.
+    override fun _shortcutInput(event: InputEvent) {
+    }
+
+    // Expected red: a `@Notification` function cannot have parameters.
+    @Notification(1)
+    fun notificationWithParameter(value: Int) {
+    }
+
+    // Expected red: a `@Notification` function must return Unit.
+    @Notification(2)
+    fun notificationWithReturnValue(): Int = 0
 }
 
 @Script
 abstract class RegisteredAbstractBaseFixtureExplicit : Node() {
     @Register
     abstract fun mustStayRegistered()
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    abstract fun mustStayRegisteredWithUnsupportedType(value: UnsupportedExportedType)
 }
 
 @Script
 class OverriddenRegisteredFunctionMissingAnnotationFixtureExplicit : RegisteredAbstractBaseFixtureExplicit() {
-    // Expected weak warning: this overrides an abstract registered function,
-    // but the override itself is missing `@Register`.
+    // Expected red: this overrides an abstract registered function, but the override itself is
+    // missing `@Register`.
     override fun mustStayRegistered() {
+    }
+
+    // Expected red: the override is missing `@Register`; its parameter type is not checked because
+    // the function is not registered.
+    override fun mustStayRegisteredWithUnsupportedType(value: UnsupportedExportedType) {
     }
 }
 
@@ -110,6 +138,26 @@ class RegisterProblemFixtureExplicit : Node() {
         p13: Int, p14: Int, p15: Int, p16: Int, p17: Int,
     ) {
     }
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    fun unsupportedParameterType(value: UnsupportedExportedType) {
+    }
+
+    @Register
+    fun unsupportedReturnType(): UnsupportedExportedType = UnsupportedExportedType()
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Register
+    fun typedSignalParameter(signal: Signal1<Int>) {
+    }
+
+    @Register
+    fun typedCallableReturn(): Callable0<Int> = lambdaCallable0 { 0 }
+
+    // Expected no issue: Godot sees an enum as an int.
+    @Register
+    fun enumParameter(value: SmallEnum): SmallEnum = value
 }
 
 // Property registration checks.
@@ -142,6 +190,14 @@ class VisibleProblemFixtureExplicit : Node() {
     // Expected red: `@Export` without `@Visible` is incomplete.
     @Export
     var exportWithoutVisible = 1
+
+    // Expected red: `@Storage` without `@Visible` is incomplete.
+    @Storage
+    var storageWithoutVisible = 1
+
+    // Expected warning: registration ignores a property that is not public.
+    @Visible
+    private var privateRegisteredProperty = 1
 }
 
 // Property hint checks.
@@ -203,13 +259,25 @@ class PropertyHintProblemFixtureExplicit : Node() {
 // Signal registration checks.
 @Script
 class EmitProblemFixtureExplicit : Node() {
-    // Expected warning: registered signals should be immutable `val`.
+    // Expected red: registered signals have to be immutable `val`.
     @Emit
     var mutableSignal = Signal0("mutableSignal")
 
     // Expected red: a registered signal must actually have signal type.
     @Emit
     val signalWrongType = 1
+
+    // Expected red: signal arguments must be representable by Godot.
+    @Emit
+    val signalUnsupportedArgument by signal1<UnsupportedExportedType>()
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Emit
+    val signalTypedCallableArgument by signal1<Callable0<Int>>()
+
+    // Expected no issue: Godot sees an enum as an int.
+    @Emit
+    val signalEnumArgument by signal1<SmallEnum>()
 }
 
 // RPC annotation checks.
@@ -236,7 +304,9 @@ class CallableReferenceProblemFixtureExplicit : Node() {
         localSignal.connectMethod(this, CallableReferenceProblemFixtureExplicit::signalTargetNotRegistered)
         // Expected red on the callable reference: Godot callable targets must
         // be registered functions.
-        lambdaCallable0(this::callTargetNotRegistered).call()
+        methodCallable0(this, CallableReferenceProblemFixtureExplicit::callTargetNotRegistered).call()
+        // Expected no issue: a lambda callable runs the function on the JVM, so it needs no registration.
+        lambdaCallable0(this::lambdaTarget).call()
         // Expected red on the callable reference: RPC targets must be
         // registered functions.
         rpc(::rpcTargetNotRegistered)
@@ -253,8 +323,11 @@ class CallableReferenceProblemFixtureExplicit : Node() {
     fun signalTargetNotRegistered() {
     }
 
-    // Expected red when referenced from `call()`: missing `@Register`.
+    // Expected red when referenced from `methodCallable0`: missing `@Register`.
     fun callTargetNotRegistered() {
+    }
+
+    private fun lambdaTarget() {
     }
 
     // Expected red when referenced from `rpc()`: missing `@Register`.

@@ -407,7 +407,7 @@ public open class Light2D internal constructor() : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShadowFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShadowFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -432,7 +432,7 @@ public open class Light2D internal constructor() : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendMode = entries.first { it.`value` == `value` }
     }
   }
 

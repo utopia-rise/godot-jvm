@@ -110,7 +110,7 @@ public open class OpenXRRenderModelManager : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RenderModelTracker = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RenderModelTracker = entries.first { it.`value` == `value` }
     }
   }
 

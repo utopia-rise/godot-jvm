@@ -106,7 +106,7 @@ public open class VisualShaderNodeCubemap : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Source = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Source = entries.first { it.`value` == `value` }
     }
   }
 
@@ -134,7 +134,7 @@ public open class VisualShaderNodeCubemap : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureType = entries.first { it.`value` == `value` }
     }
   }
 

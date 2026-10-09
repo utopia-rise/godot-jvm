@@ -1,6 +1,7 @@
 package godot.intellij.plugin.analysis.jvm
 
 import com.intellij.psi.PsiClass
+import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import godot.annotation.Emit
@@ -15,9 +16,10 @@ import godot.intellij.plugin.project.isAbstract
 import godot.intellij.plugin.project.isOrInheritsType
 import godot.intellij.plugin.project.registeredClassNameCache
 import godot.intellij.plugin.quickfix.ClassAlreadyRegisteredQuickFix
+import godot.intellij.plugin.quickfix.ClassMakePublicQuickFix
 import godot.intellij.plugin.quickfix.ClassNotRegisteredQuickFix
-import godot.intellij.plugin.registration.RegistrationPolicy
-import godot.intellij.plugin.registration.RegistrationPolicy.hasEffectiveAnnotation
+import godot.intellij.plugin.project.isPublicOnJvm
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.idea.base.util.module
 import org.jetbrains.kotlin.idea.util.findAnnotation
 import org.jetbrains.kotlin.psi.KtClass
@@ -27,12 +29,27 @@ import org.jetbrains.kotlin.scripting.resolve.classId
 
 object GodotScriptAnalyzer {
     private val classNotRegisteredQuickFix = ClassNotRegisteredQuickFix()
+    private val makePublicQuickFixes = arrayOf(ClassMakePublicQuickFix())
+
+    private fun notPublicProblem(location: PsiElement): GodotProblem = GodotProblem(
+        GodotPluginBundle.message("problem.class.notPublic"),
+        location,
+        makePublicQuickFixes,
+        ProblemHighlightType.WARNING
+    )
 
     fun analyze(ktClass: KtClass): List<GodotProblem> {
+        val policy = ktClass.registrationPolicy
         return buildList {
-            val isRegistered = RegistrationPolicy.registersClass(ktClass)
-            if (!isRegistered && RegistrationPolicy.requiresClassAnnotation(ktClass)) {
+            if (!ktClass.isPublicOnJvm() && policy.hasAnnotation(ktClass, Script::class)) {
+                add(notPublicProblem(ktClass.nameIdentifier ?: ktClass.navigationElement))
+                return@buildList
+            }
+            val isRegistered = policy.registersClass(ktClass)
+            if (policy.reportsMissingRegistration && !isRegistered) {
                 val errorLocation = ktClass.nameIdentifier ?: ktClass.navigationElement
+                val properties = ktClass.getProperties()
+                val isConcrete = !ktClass.isAbstract()
                 if (ktClass.findAnnotation(Tool::class.classId) != null) {
                     add(
                         GodotProblem(
@@ -42,7 +59,7 @@ object GodotScriptAnalyzer {
                         )
                     )
                 }
-                if (!ktClass.isAbstract() && ktClass.getProperties().any(RegistrationPolicy::registersProperty)) {
+                if (isConcrete && properties.any(policy::registersProperty)) {
                     add(
                         GodotProblem(
                             GodotPluginBundle.message("problem.class.notRegistered.properties"),
@@ -51,7 +68,7 @@ object GodotScriptAnalyzer {
                         )
                     )
                 }
-                if (!ktClass.isAbstract() && ktClass.getProperties().any(RegistrationPolicy::registersSignal)) {
+                if (isConcrete && properties.any { policy.hasAnnotation(it, Emit::class) }) {
                     add(
                         GodotProblem(
                             GodotPluginBundle.message("problem.class.notRegistered.signals"),
@@ -60,7 +77,7 @@ object GodotScriptAnalyzer {
                         )
                     )
                 }
-                if (!ktClass.isAbstract() && ktClass.declarations.filterIsInstance<KtNamedFunction>().any(RegistrationPolicy::registersFunction)) {
+                if (isConcrete && ktClass.declarations.filterIsInstance<KtNamedFunction>().any(policy::registersFunction)) {
                     add(
                         GodotProblem(
                             GodotPluginBundle.message("problem.class.notRegistered.functions"),
@@ -97,10 +114,18 @@ object GodotScriptAnalyzer {
     }
 
     fun analyze(psiClass: PsiClass): List<GodotProblem> {
+        val policy = psiClass.registrationPolicy
         return buildList {
-            val isRegistered = RegistrationPolicy.registersClass(psiClass)
-            if (!isRegistered && RegistrationPolicy.requiresClassAnnotation(psiClass)) {
+            if (!psiClass.isPublicOnJvm() && policy.hasAnnotation(psiClass, Script::class)) {
+                add(notPublicProblem(psiClass.nameIdentifier ?: psiClass.navigationElement))
+                return@buildList
+            }
+            val isRegistered = policy.registersClass(psiClass)
+            if (policy.reportsMissingRegistration && !isRegistered) {
                 val errorLocation = psiClass.nameIdentifier ?: psiClass.navigationElement
+                val isConcrete = !psiClass.isAbstract
+                val fields = psiClass.fields
+                val methods = psiClass.methods
                 if (psiClass.getAnnotation(Tool::class.qualifiedName!!) != null) {
                     add(
                         GodotProblem(
@@ -111,10 +136,10 @@ object GodotScriptAnalyzer {
                     )
                 }
                 if (
-                    !psiClass.isAbstract &&
+                    isConcrete &&
                     (
-                        psiClass.fields.any(RegistrationPolicy::registersProperty) ||
-                            psiClass.methods.any { method -> method.hasEffectiveAnnotation(Visible::class) }
+                        fields.any { field -> policy.hasAnnotation(field, Visible::class) } ||
+                            methods.any { method -> policy.hasAnnotation(method, Visible::class) }
                         )
                 ) {
                     add(
@@ -126,10 +151,10 @@ object GodotScriptAnalyzer {
                     )
                 }
                 if (
-                    !psiClass.isAbstract &&
+                    isConcrete &&
                     (
-                        psiClass.fields.any(RegistrationPolicy::registersSignal) ||
-                            psiClass.methods.any { method -> method.hasEffectiveAnnotation(Emit::class) }
+                        fields.any { field -> policy.hasAnnotation(field, Emit::class) } ||
+                            methods.any { method -> policy.hasAnnotation(method, Emit::class) }
                         )
                 ) {
                     add(
@@ -140,7 +165,7 @@ object GodotScriptAnalyzer {
                         )
                     )
                 }
-                if (!psiClass.isAbstract && psiClass.methods.any(RegistrationPolicy::registersFunction)) {
+                if (isConcrete && methods.any(policy::registersFunction)) {
                     add(
                         GodotProblem(
                             GodotPluginBundle.message("problem.class.notRegistered.functions"),
@@ -233,6 +258,7 @@ object GodotScriptAnalyzer {
 
     private fun PsiElement.registeredFqNamesInContainingFile(registeredName: String): Set<String> {
         val file = containingFile ?: return emptySet()
+        val policy = registrationPolicy
         val classes = PsiTreeUtil.findChildrenOfType(file, KtClass::class.java) +
             PsiTreeUtil.findChildrenOfType(file, PsiClass::class.java)
 
@@ -240,11 +266,11 @@ object GodotScriptAnalyzer {
             .mapNotNull { psiClass ->
                 when (psiClass) {
                     is KtClass -> psiClass
-                        .takeIf(RegistrationPolicy::registersClass)
+                        .takeIf(policy::registersClass)
                         ?.getRegisteredClassName()
 
                     is PsiClass -> psiClass
-                        .takeIf(RegistrationPolicy::registersClass)
+                        .takeIf(policy::registersClass)
                         ?.getRegisteredClassName()
 
                     else -> null

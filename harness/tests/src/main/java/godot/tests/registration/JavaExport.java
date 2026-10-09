@@ -13,6 +13,7 @@ import godot.annotation.LongRange;
 import godot.annotation.MultilineText;
 import godot.annotation.PlaceHolderText;
 import godot.annotation.Script;
+import godot.annotation.Storage;
 import godot.annotation.Visible;
 import godot.annotation.ColorNoAlpha;
 import godot.annotation.Dir;
@@ -113,6 +114,10 @@ public class JavaExport extends Node {
     @Visible
     @IntFlag(names = {"Player", "Enemy", "Npc"})
     public int intFlagValue = 0b011;
+
+    @Storage
+    @Visible
+    public int storageValue = 7;
 
     @Export
     @Visible

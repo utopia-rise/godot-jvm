@@ -382,6 +382,6 @@ public enum class PropertyHint(
   ;
 
   public companion object {
-    public fun from(`value`: Long): PropertyHint = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): PropertyHint = entries.first { it.`value` == `value` }
   }
 }

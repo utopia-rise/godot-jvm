@@ -541,7 +541,7 @@ public open class TileSetAtlasSource : TileSetSource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TileAnimationMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TileAnimationMode = entries.first { it.`value` == `value` }
     }
   }
 

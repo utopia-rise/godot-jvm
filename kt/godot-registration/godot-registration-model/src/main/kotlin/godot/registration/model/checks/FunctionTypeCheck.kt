@@ -41,7 +41,7 @@ class FunctionTypeCheck(logger: Logger, registeredClasses: List<ScriptClass>) :
                             "Parameter ${parameter.name} of registered function ${registeredFunction.fqName} is of " +
                                 "type ${parameter.type.fqName}, which Godot cannot represent. A registered function " +
                                 "parameter can only be Any, a primitive, a core type, a Godot class, an enum or a " +
-                                "bitfield. A collection of enums is only supported on a property.",
+                                "bitfield. A List of enums is only supported on a property.",
                             registeredFunction
                         )
                     } else {

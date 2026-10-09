@@ -141,7 +141,7 @@ public open class FlowContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlignmentMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlignmentMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -172,7 +172,7 @@ public open class FlowContainer : Container() {
 
     public companion object {
       public fun from(`value`: Long): LastWrapAlignmentMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

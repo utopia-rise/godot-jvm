@@ -161,7 +161,7 @@ public open class AudioEffectFilter : AudioEffect() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FilterDB = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FilterDB = entries.first { it.`value` == `value` }
     }
   }
 

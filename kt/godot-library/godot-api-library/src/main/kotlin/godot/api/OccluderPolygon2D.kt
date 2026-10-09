@@ -156,7 +156,7 @@ public open class OccluderPolygon2D : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CullMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CullMode = entries.first { it.`value` == `value` }
     }
   }
 

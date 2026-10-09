@@ -33,6 +33,4 @@ const val godotCoroutinePackage = "godot.coroutines"
 const val kotlinCoroutinePackage = "kotlin.coroutines"
 const val kotlinxCoroutinePackage = "kotlinx.coroutines"
 
-
 fun String.isFromPackage(packageName: String) = this.startsWith(packageName)
-fun isCollectionsType(fqName: String) = fqName.contains(kotlinCollectionsPackage)

@@ -13,8 +13,6 @@ import godot.common.util.isNullable
 import godot.core.bridge.DeepDuplicateMode
 import godot.internal.reflection.TypeManager
 import kotlincompile.definitions.GodotJvmBuildConfig
-import kotlin.jvm.internal.Reflection
-import kotlin.reflect.KClass
 
 
 @Suppress("unused", "UNCHECKED_CAST")
@@ -32,9 +30,6 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
-    constructor(parameterClazz: Class<*>) : this(Reflection.getOrCreateKotlinClass(parameterClazz))
-
-
     constructor(converter: VariantConverter<T>) {
         variantConverter = converter
         ptr = if (converter != VariantCaster.ANY) {
@@ -50,8 +45,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
-    @PublishedApi
-    internal constructor(parameterClazz: KClass<*>) {
+    constructor(parameterClazz: Class<*>) {
         val variantConverter = getVariantConverter(parameterClazz)
 
         if (GodotJvmBuildConfig.DEBUG) {
@@ -724,7 +718,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
                     error("Can't create a VariantArray with generic ${T::class} as nullable.")
                 }
             }
-            return VariantArray(T::class)
+            return VariantArray(T::class.java)
         }
     }
 }

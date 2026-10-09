@@ -446,7 +446,7 @@ public open class UPNP : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): UPNPResult = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UPNPResult = entries.first { it.`value` == `value` }
     }
   }
 

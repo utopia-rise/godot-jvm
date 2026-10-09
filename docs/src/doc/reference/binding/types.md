@@ -8,18 +8,18 @@ description: Variant mappings, supported registered signatures, primitive and ge
 
 | Value family | Property | Function parameter / return |
 |---|---|---|
-| Boolean, Byte, Short, Int, Long, Float, Double, String | Supported | Supported |
+| Boolean, Byte, Short, Char, Int, Long, Float, Double, String | Supported | Supported |
 | Dynamic Variant (`Any` / `Object`) | Supported | Supported |
 | Core Godot types | Supported | Supported |
 | `Node` or `Resource` subclass | Supported | Supported |
 | Other `godot.api.Object` subclasses | Not a supported property type | Supported |
 | JVM enum | Supported | Supported |
 | `BitField<E>` | Supported when `E` is an enum | Supported |
-| JVM collection of enums | Supported as an enum-list property | Not supported |
+| `List` of enums | Supported as an enum-list property | Not supported |
 | No result (`Unit` / `void`) | Not a property value | Return only |
 | Arbitrary JVM classes, JVM arrays, generic type parameters | Not supported | Not supported |
 
-Container element types must also be representable. `Any`/`Object` does not make an arbitrary JVM instance serializable to a Godot Variant. Primitive, string, and core-type properties must not be nullable; Node and Resource references may be null.
+Container element types must also be representable. `Any`/`Object` does not make an arbitrary JVM instance serializable to a Godot Variant. Primitive, string, and core-type properties must not be nullable; Node and Resource references may be null. Java and Scala carry no reliable nullability information, so the build cannot check this for them: a `null` reaching a primitive, string, core-type or enum property, parameter or return value fails at runtime instead.
 
 ## Type names
 
@@ -30,7 +30,7 @@ These are accepted JVM representations, including narrower numeric types; they d
 | Godot | Kotlin |
 |---|---|
 | bool | `Boolean` |
-| int (signed 64-bit) | `Byte, Short, Int, Long` |
+| int (signed 64-bit) | `Byte, Short, Char, Int, Long` |
 | float (64-bit) | `Float, Double` |
 | String | `String` |
 | Variant / dynamic value | `Any?` |
@@ -46,7 +46,7 @@ These are accepted JVM representations, including narrower numeric types; they d
 | Godot | Java |
 |---|---|
 | bool | `boolean / Boolean` |
-| int (signed 64-bit) | `byte, short, int, long / boxed equivalents` |
+| int (signed 64-bit) | `byte, short, char, int, long / boxed equivalents` |
 | float (64-bit) | `float, double / boxed equivalents` |
 | String | `String` |
 | Variant / dynamic value | `java.lang.Object` |
@@ -64,7 +64,7 @@ Use boxed primitives in generic arguments, such as `VariantArray<Integer>`. `god
 | Godot | Scala |
 |---|---|
 | bool | `Boolean` |
-| int (signed 64-bit) | `Byte, Short, Int, Long` |
+| int (signed 64-bit) | `Byte, Short, Char, Int, Long` |
 | float (64-bit) | `Float, Double` |
 | String | `String` |
 | Variant / dynamic value | `Any` |
@@ -77,7 +77,7 @@ Use boxed types such as `Integer` and `java.lang.Boolean` in generic arguments w
 
 ///
 
-Narrower numeric types can lose range or precision when receiving Godot values. `Char` is not a registered primitive; use a string or integer instead.
+Narrower numeric types can lose range or precision when receiving Godot values. A `Char` is its code point to Godot, not a one-character string.
 
 ### Core types
 
@@ -86,7 +86,7 @@ Use the same class names from `godot.core` in each language:
 - Math: `Vector2`, `Vector2i`, `Vector3`, `Vector3i`, `Vector4`, `Vector4i`, `Rect2`, `Rect2i`, `Transform2D`, `Transform3D`, `Plane`, `Quaternion`, `AABB`, `Basis`, `Projection`, `Color`.
 - Names and handles: `StringName`, `NodePath`, `RID`.
 - Containers: `VariantArray`, `Dictionary`, `PackedByteArray`, `PackedInt32Array`, `PackedInt64Array`, `PackedFloat32Array`, `PackedFloat64Array`, `PackedStringArray`, `PackedVector2Array`, `PackedVector3Array`, `PackedVector4Array`, `PackedColorArray`.
-- Callbacks: `Signal` and `Callable` families.
+- Callbacks: `Signal` and `Callable`. A value coming from Godot is always the base type, so a registered parameter, return or signal argument must be declared as `Callable` or `Signal`, never as a typed variant such as `Signal1` or `Callable0`.
 
 ## Copies and shared storage
 
@@ -188,9 +188,9 @@ val method = StringNames.toGodotName("takeDamage")
 !!! warning "Scala enums"
     Plain Scala 3 `enum` types are not recognized for registration. Extend `java.lang.Enum[YourEnum]`.
 
-A registered enum property automatically receives an Inspector dropdown. Ordinary JVM enums use their ordinal as the numeric value. `GodotEnum` permits custom values; the numeric accessor is `value` in Kotlin and `getValue()` in Java/Scala.
+A registered enum property automatically receives an Inspector dropdown. Its labels are the entry names capitalized the way GDScript does, so `FIRE_BALL` reads `Fire Ball`. Ordinary JVM enums use their ordinal as the numeric value. `GodotEnum` permits custom values; the numeric accessor is `value` in Kotlin and `getValue()` in Java/Scala.
 
-A `BitField<E>` holds a flag mask for enum `E`. Ordinary enum entries use `1L << ordinal`; `GodotEnum` entries use their explicit value as the mask. Exported bitfields support at most 32 entries. Engine bitfield wrapper types cannot be exported directly as properties; use `BitField<E>` with an enum.
+A `BitField<E>` holds a flag mask for enum `E`. Ordinary enum entries use `1L << ordinal`; `GodotEnum` entries use their explicit value as the mask. Exported bitfields support at most 32 entries. Engine bitfield wrapper types such as `Control.SizeFlags` cannot be used in registered properties, functions or signals; use `BitField<E>` with an enum.
 
 This complete script exports one property of each kind: a regular enum dropdown, a `GodotEnum` dropdown with explicit values, and a `BitField` checkbox group.
 
@@ -301,4 +301,4 @@ class Player extends Node {
 
 `BitField` exposes `or`, `and`, `xor`, `contains`, `inv`, `shl`, `shr`, and `ushr`. Operations return a new wrapper. The numeric mask is `flag` in Kotlin or `getFlag()` in Java/Scala. The Inspector uses the explicit `GodotEnum` values for its dropdown and bitfield masks.
 
-A collection of enums on a property receives an enum-list hint. It does not make general JVM collections a replacement for `VariantArray` in registered function signatures. See [property registration](../registration/properties.md).
+A `List` of enums on a property receives an enum-list hint. It does not make JVM lists a replacement for `VariantArray` in registered function signatures. See [property registration](../registration/properties.md).

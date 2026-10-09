@@ -163,7 +163,7 @@ public object GDExtensionManager : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LoadStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LoadStatus = entries.first { it.`value` == `value` }
     }
   }
 

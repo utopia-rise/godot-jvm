@@ -17,6 +17,7 @@ Package: `godot.annotation`. These annotations have runtime retention and can al
 | [`@Register`](#register) | Callable function selection |
 | [`@Rpc`](#rpc) | Remote procedure call configuration |
 | [`@Script`](#script) | Script class selection and custom name |
+| [`@Storage`](#storage) | Scene storage without Inspector visibility |
 | [`@Tool`](#tool) | Tool marker; editor execution is not implemented |
 | [`@Visible`](#visible) | Property selection |
 
@@ -71,7 +72,7 @@ val healthChanged: Signal2[Integer, Integer] =
 
 Targets: property or field. No arguments.
 
-Inferred: also selects the property through `@Visible`. Explicit: requires direct `@Visible` to select the property. Automatic: every selected property is already exported. Adds Inspector visibility; it does not add a setter to a read-only property.
+Inferred: also selects the property through `@Visible`. Explicit: requires direct `@Visible` to select the property. Automatic: a selected property is already exported unless `@Visible` or `@Storage` is written on it; written alongside them, `@Export` still wins. Adds Inspector visibility; it does not add a setter to a read-only property.
 
 /// tab | Kotlin
 
@@ -287,6 +288,50 @@ class Player extends Node
 
 ///
 
+### `@Storage` { #storage }
+
+Targets: property or field. No arguments.
+
+Inferred: also selects the property through `@Visible`. Explicit: requires direct `@Visible` to select the property. Automatic: replaces the implicit export, so a selected property is stored but hidden. The value is saved and loaded with the scene or resource but does not appear in the Inspector, like GDScript's `@export_storage`. With `@Export` on the same property, the property is exported.
+
+/// tab | Kotlin
+
+```kotlin
+import godot.annotation.Storage
+import godot.annotation.Visible
+
+@Visible
+@Storage
+var spawnCount: Int = 0
+```
+
+///
+
+/// tab | Java
+
+```java
+import godot.annotation.Storage;
+import godot.annotation.Visible;
+
+@Visible
+@Storage
+public int spawnCount = 0;
+```
+
+///
+
+/// tab | Scala
+
+```scala
+import godot.annotation.{Storage, Visible}
+
+@Visible
+@Storage
+var spawnCount: Int = 0
+```
+
+///
+
 ### `@Tool` { #tool }
 
 Target: class. No arguments. **Editor-time tool execution is not implemented.**
@@ -338,7 +383,7 @@ class EditorMarker extends Node
 
 Targets: property or field. No arguments.
 
-Selects a property in Inferred and Explicit modes without exporting it to the Inspector. Add `@Export` for Inspector editing. Automatic exports all selected properties, including those marked only `@Visible`. It cannot be used as an opt-out from Automatic export.
+Selects a property in Inferred and Explicit modes without exporting it to the Inspector. Add `@Export` for Inspector editing. Automatic exports selected properties by default; writing `@Visible` replaces that default, so the property is registered but neither stored nor shown in the Inspector.
 
 /// tab | Kotlin
 

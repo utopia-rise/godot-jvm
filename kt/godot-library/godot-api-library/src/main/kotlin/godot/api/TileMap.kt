@@ -837,7 +837,7 @@ public open class TileMap : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VisibilityMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VisibilityMode = entries.first { it.`value` == `value` }
     }
   }
 

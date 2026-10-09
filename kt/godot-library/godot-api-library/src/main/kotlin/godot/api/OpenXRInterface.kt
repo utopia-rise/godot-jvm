@@ -490,7 +490,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SessionState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SessionState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -512,7 +512,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Hand = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Hand = entries.first { it.`value` == `value` }
     }
   }
 
@@ -535,7 +535,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): HandMotionRange = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): HandMotionRange = entries.first { it.`value` == `value` }
     }
   }
 
@@ -563,7 +563,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): HandTrackedSource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): HandTrackedSource = entries.first { it.`value` == `value` }
     }
   }
 
@@ -681,7 +681,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): HandJoints = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): HandJoints = entries.first { it.`value` == `value` }
     }
   }
 
@@ -711,7 +711,7 @@ public open class OpenXRInterface : XRInterface() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PerfSettingsLevel = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PerfSettingsLevel = entries.first { it.`value` == `value` }
     }
   }
 
@@ -734,7 +734,7 @@ public open class OpenXRInterface : XRInterface() {
 
     public companion object {
       public fun from(`value`: Long): PerfSettingsSubDomain =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -760,7 +760,7 @@ public open class OpenXRInterface : XRInterface() {
 
     public companion object {
       public fun from(`value`: Long): PerfSettingsNotificationLevel =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

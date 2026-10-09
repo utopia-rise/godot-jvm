@@ -75,7 +75,7 @@ public open class VisualShaderNodeParticleEmit : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EmitFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EmitFlags = entries.first { it.`value` == `value` }
     }
   }
 

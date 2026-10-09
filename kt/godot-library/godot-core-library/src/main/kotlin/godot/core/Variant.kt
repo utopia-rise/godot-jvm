@@ -569,13 +569,23 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
         override fun toGodotCast(any: Any?) = (any as Byte).toLong()
     }
 
+    data object SHORT : VariantSimpleCaster<Short>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = (any as Long).toShort()
+        override fun toGodotCast(any: Any?) = (any as Short).toLong()
+    }
+
+    data object CHAR : VariantSimpleCaster<Char>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = (any as Long).toInt().toChar()
+        override fun toGodotCast(any: Any?) = (any as Char).code.toLong()
+    }
+
     data object INT : VariantSimpleCaster<Int>(VariantParser.LONG) {
         override fun toKotlinCast(any: Any?) = (any as Long).toInt()
         override fun toGodotCast(any: Any?) = (any as Int).toLong()
     }
 
     class ENUM<ENUM_TYPE : Enum<ENUM_TYPE>>(private val entries: Array<ENUM_TYPE>) : VariantSimpleCaster<ENUM_TYPE>(VariantParser.LONG) {
-        private val entryMap: Map<Long, ENUM_TYPE> = entries.associateBy { it.godotValue }
+        private val entryMap: Map<Long, ENUM_TYPE> = entries.distinctBy { it.godotValue }.associateBy { it.godotValue }
 
         override fun toKotlinCast(any: Any?) = requireNotNull(entryMap[any as Long]) {
             "No enum entry with godotValue $any found in entries: [${entries.joinToString()}]"
@@ -583,6 +593,11 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
 
         @Suppress("UNCHECKED_CAST")
         override fun toGodotCast(any: Any?) = (any as ENUM_TYPE).godotValue
+    }
+
+    data object BITFIELD : VariantSimpleCaster<BitField<*>>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = BitField<Nothing>(any as Long)
+        override fun toGodotCast(any: Any?) = (any as BitField<*>).flag
     }
 
     data object FLOAT : VariantSimpleCaster<Float>(VariantParser.DOUBLE) {
@@ -626,12 +641,12 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
         }
 
         override fun toGodot(buffer: ByteBuffer, any: Any?) {
-            if (any === null) {
-                VariantParser.NIL.toGodot(buffer, null)
-            } else {
-                val type = getVariantConverter(any::class)
-                    ?: throw UnsupportedOperationException("Can't convert type ${any::class} to Variant")
-                type.toGodot(buffer, any)
+            val converter = if (any != null) variantMapper[any.javaClass] else null
+            when {
+                converter != null -> converter.toGodot(buffer, any)
+                any is Enum<*> -> VariantParser.LONG.toGodot(buffer, any.godotValue)
+                any == null -> VariantParser.NIL.toGodot(buffer, null)
+                else -> throw UnsupportedOperationException("Can't convert type ${any::class} to Variant")
             }
         }
     }

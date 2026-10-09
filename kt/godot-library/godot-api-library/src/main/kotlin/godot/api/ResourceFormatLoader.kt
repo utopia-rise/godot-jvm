@@ -199,7 +199,7 @@ public abstract class ResourceFormatLoader : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CacheMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CacheMode = entries.first { it.`value` == `value` }
     }
   }
 

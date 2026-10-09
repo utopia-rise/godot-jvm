@@ -79,7 +79,7 @@ override def _ready(): Unit = {}
 
 - At most 16 parameters per registered function.
 - Return types may additionally be `Unit`/`void` for no result.
-- JVM collections of enums are a property feature, not a registered function parameter/return representation.
+- `List`s of enums are a property feature, not a registered function parameter/return representation.
 - JVM arrays/varargs and unrelated JVM classes are not substitutes for Godot containers. Use `VariantArray`, a packed array, or a Godot-compatible object.
 - Generic type parameters do not supply a concrete Godot signature. Use concrete supported types.
 - JVM default arguments do not supply Godot call defaults. Pass the registered arguments explicitly.

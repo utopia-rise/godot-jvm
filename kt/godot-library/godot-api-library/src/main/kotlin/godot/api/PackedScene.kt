@@ -169,7 +169,7 @@ public open class PackedScene : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GenEditState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GenEditState = entries.first { it.`value` == `value` }
     }
   }
 

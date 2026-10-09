@@ -1009,7 +1009,7 @@ public open class RigidBody3D : PhysicsBody3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FreezeMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FreezeMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1029,7 +1029,7 @@ public open class RigidBody3D : PhysicsBody3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CenterOfMassMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CenterOfMassMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1048,7 +1048,7 @@ public open class RigidBody3D : PhysicsBody3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DampMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DampMode = entries.first { it.`value` == `value` }
     }
   }
 

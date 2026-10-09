@@ -2,11 +2,12 @@ package godot.inspection.automatic
 
 // Manual review mode: Automatic.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*
 import godot.annotation.IntRange
 import godot.annotation.LongRange
+import godot.api.InputEvent
 import godot.api.Node
 import godot.core.*
 import godot.extension.connectMethod
@@ -24,38 +25,35 @@ enum class LargeEnum {
     E23, E24, E25, E26, E27, E28, E29, E30, E31, E32, E33,
 }
 
-// Class-level registration checks.
-// Expected red: `@Tool` requires the class itself to be registered.
+// Expected warning: registration ignores a class that is not public.
+@Script
+private class PrivateScriptFixtureAutomatic : Node()
+
+// Expected no issue: the class is registered automatically.
 @Tool
 class NotRegisteredButToolFixtureAutomatic : Node()
 
-// Expected red on the class: it is not `@Script`, but it contains
-// registered properties, signals, and functions.
+// Expected no issue: the class is registered automatically, and its members with it.
 class NotRegisteredButMembersFixtureAutomatic : Node() {
-    // Expected red via the containing class: registered property inside a
-    // non-registered class.
+    // Expected no issue: registered with its automatically registered class.
     @Export
     @Visible
     var propertyShouldStayRed = 1
 
-    // Expected red via the containing class: registered signal inside a
-    // non-registered class.
+    // Expected no issue: registered with its automatically registered class.
     @Emit
     val signalShouldStayRed by signal0()
 
-    // Expected red via the containing class: registered function inside a
-    // non-registered class.
-    @Register
+    // Expected no issue: registered with its automatically registered class.
     fun functionShouldStayRed() = propertyShouldStayRed
 }
 
-// Expected red: `@Script` is present, but the class does not inherit a
-// Godot object type.
+// Expected no issue: only Godot subclasses are script candidates in this mode, so the class is
+// ignored.
 @Script
 class GodotScriptWithoutGodotBaseFixtureAutomatic
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class GodotScriptWithoutDefaultConstructorFixtureAutomatic(val number: Int) : Node()
 
@@ -74,23 +72,43 @@ class GenericRegisteredClassFixtureAutomatic<T> : Node()
 // Method registration checks.
 @Script
 class NotificationFunctionWithoutRegisterFixtureAutomatic : Node() {
-    // Expected red: notification callbacks like `_ready` must also carry
-    // `@Register` inside a registered class.
+    // Expected no issue: lifecycle overrides are registered without `@Register` in this mode.
     override fun _ready() {
     }
+
+    // Expected no issue: Godot virtual function overrides are registered without `@Register` in this mode.
+    override fun _shortcutInput(event: InputEvent) {
+    }
+
+    // Expected red: a `@Notification` function cannot have parameters.
+    @Notification(1)
+    fun notificationWithParameter(value: Int) {
+    }
+
+    // Expected red: a `@Notification` function must return Unit.
+    @Notification(2)
+    fun notificationWithReturnValue(): Int = 0
 }
 
 @Script
 abstract class RegisteredAbstractBaseFixtureAutomatic : Node() {
     @Register
     abstract fun mustStayRegistered()
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    abstract fun mustStayRegisteredWithUnsupportedType(value: UnsupportedExportedType)
 }
 
 @Script
 class OverriddenRegisteredFunctionMissingAnnotationFixtureAutomatic : RegisteredAbstractBaseFixtureAutomatic() {
-    // Expected weak warning: this overrides an abstract registered function,
-    // but the override itself is missing `@Register`.
+    // Expected no issue: the override inherits its registration in this mode.
     override fun mustStayRegistered() {
+    }
+
+    // Expected no issue: the parameter type keeps this override out of automatic registration, and
+    // missing registration is never reported in this mode.
+    override fun mustStayRegisteredWithUnsupportedType(value: UnsupportedExportedType) {
     }
 }
 
@@ -110,6 +128,26 @@ class RegisterProblemFixtureAutomatic : Node() {
         p13: Int, p14: Int, p15: Int, p16: Int, p17: Int,
     ) {
     }
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    fun unsupportedParameterType(value: UnsupportedExportedType) {
+    }
+
+    @Register
+    fun unsupportedReturnType(): UnsupportedExportedType = UnsupportedExportedType()
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Register
+    fun typedSignalParameter(signal: Signal1<Int>) {
+    }
+
+    @Register
+    fun typedCallableReturn(): Callable0<Int> = lambdaCallable0 { 0 }
+
+    // Expected no issue: Godot sees an enum as an int.
+    @Register
+    fun enumParameter(value: SmallEnum): SmallEnum = value
 }
 
 // Property registration checks.
@@ -129,8 +167,8 @@ class VisibleProblemFixtureAutomatic : Node() {
     @Visible
     var nullableCoreTypeProperty: Vector2? = null
 
-    // Expected red: this type is neither a supported JVM type nor a Godot/core
-    // type, so it cannot be exported/registered.
+    // Expected red: the annotation registers the property in this mode too, and this type cannot be
+    // registered.
     @Visible
     var unsupportedExportedType = UnsupportedExportedType()
 
@@ -139,9 +177,17 @@ class VisibleProblemFixtureAutomatic : Node() {
     @Visible
     var enumVariantArray = VariantArray<SmallEnum>()
 
-    // Expected red: `@Export` without `@Visible` is incomplete.
+    // Expected no issue: `@Export` registers the property in this mode.
     @Export
     var exportWithoutVisible = 1
+
+    // Expected no issue: `@Storage` registers the property in this mode.
+    @Storage
+    var storageWithoutVisible = 1
+
+    // Expected warning: registration ignores a property that is not public.
+    @Visible
+    private var privateRegisteredProperty = 1
 }
 
 // Property hint checks.
@@ -203,13 +249,25 @@ class PropertyHintProblemFixtureAutomatic : Node() {
 // Signal registration checks.
 @Script
 class EmitProblemFixtureAutomatic : Node() {
-    // Expected warning: registered signals should be immutable `val`.
+    // Expected red: registered signals have to be immutable `val`.
     @Emit
     var mutableSignal = Signal0("mutableSignal")
 
     // Expected red: a registered signal must actually have signal type.
     @Emit
     val signalWrongType = 1
+
+    // Expected red: signal arguments must be representable by Godot.
+    @Emit
+    val signalUnsupportedArgument by signal1<UnsupportedExportedType>()
+
+    // Expected red: typed callables and signals must be declared as the base `Callable` or `Signal`.
+    @Emit
+    val signalTypedCallableArgument by signal1<Callable0<Int>>()
+
+    // Expected no issue: Godot sees an enum as an int.
+    @Emit
+    val signalEnumArgument by signal1<SmallEnum>()
 }
 
 // RPC annotation checks.
@@ -231,14 +289,14 @@ class CallableReferenceProblemFixtureAutomatic : Node() {
 
     @Register
     override fun _ready() {
-        // Expected red on the callable reference: connected signal targets must
-        // be registered functions.
+        // Expected no issue: the target is registered automatically.
         localSignal.connectMethod(this, CallableReferenceProblemFixtureAutomatic::signalTargetNotRegistered)
-        // Expected red on the callable reference: Godot callable targets must
-        // be registered functions.
-        lambdaCallable0(this::callTargetNotRegistered).call()
-        // Expected red on the callable reference: RPC targets must be
-        // registered functions.
+        // Expected no issue: the target is registered automatically.
+        methodCallable0(this, CallableReferenceProblemFixtureAutomatic::callTargetNotRegistered).call()
+        // Expected no issue: a lambda callable runs the function on the JVM, so it needs no registration.
+        lambdaCallable0(this::lambdaTarget).call()
+        // Expected red on the callable reference: the target is registered automatically but still
+        // needs `@Rpc`.
         rpc(::rpcTargetNotRegistered)
         // Expected red on the callable reference: RPC targets also need the
         // `@Rpc` annotation.
@@ -248,16 +306,18 @@ class CallableReferenceProblemFixtureAutomatic : Node() {
         rpc(::rpcTargetDisabled)
     }
 
-    // Expected red when referenced from `connectMethod`: missing
-    // `@Register`.
+    // Expected no issue: registered automatically.
     fun signalTargetNotRegistered() {
     }
 
-    // Expected red when referenced from `call()`: missing `@Register`.
+    // Expected no issue: registered automatically.
     fun callTargetNotRegistered() {
     }
 
-    // Expected red when referenced from `rpc()`: missing `@Register`.
+    private fun lambdaTarget() {
+    }
+
+    // Expected red when referenced from `rpc()`: registered automatically, but missing `@Rpc`.
     fun rpcTargetNotRegistered() {
     }
 

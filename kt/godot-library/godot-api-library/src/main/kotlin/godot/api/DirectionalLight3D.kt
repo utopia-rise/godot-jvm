@@ -200,7 +200,7 @@ public open class DirectionalLight3D : Light3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShadowMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShadowMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -226,7 +226,7 @@ public open class DirectionalLight3D : Light3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SkyMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SkyMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -278,7 +278,7 @@ public open class GradientTexture2D : Texture2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Fill = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Fill = entries.first { it.`value` == `value` }
     }
   }
 
@@ -302,7 +302,7 @@ public open class GradientTexture2D : Texture2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Repeat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Repeat = entries.first { it.`value` == `value` }
     }
   }
 

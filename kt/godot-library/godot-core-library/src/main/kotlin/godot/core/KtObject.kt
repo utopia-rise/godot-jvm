@@ -31,11 +31,11 @@ abstract class KtObject : GodotObject {
         } else {
             // Branch used when created directly from user code. The native object is going to be created here.
             // If the class is a script, the ScriptInstance is going to be created at the same time.
-            val scriptPtr = TypeManager.classToScriptPtr[this::class]
+            val scriptPtr = TypeManager.classToScriptPtr[javaClass]
             if (GodotJvmBuildConfig.DEBUG) {
                 if (scriptPtr == null) {
                     GodotPrint.pushWarning(
-                        "${this::class.qualifiedName} is not a registered script, its overrides and registered members are ignored. Annotate it with @Script."
+                        "${javaClass.name} is not a registered script, its overrides and registered members are ignored. Annotate it with @Script."
                     )
                 }
             }

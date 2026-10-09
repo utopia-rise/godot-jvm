@@ -469,7 +469,7 @@ public open class OpenXRAPIExtension : RefCounted() {
 
     public companion object {
       public fun from(`value`: Long): OpenXRAlphaBlendModeSupport =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

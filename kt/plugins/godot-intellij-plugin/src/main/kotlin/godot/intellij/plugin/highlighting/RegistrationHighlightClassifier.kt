@@ -1,23 +1,21 @@
 package godot.intellij.plugin.highlighting
 
-import com.intellij.psi.PsiArrayType
 import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
-import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiType
 import godot.common.constants.Constraints
-import godot.core.BitFieldBase
-import godot.core.CoreType
-import godot.core.KtObject
 import godot.core.Signal
-import godot.intellij.plugin.project.isCoreType
+import godot.intellij.plugin.project.inherits
+import godot.intellij.plugin.project.isMappableArgument
+import godot.intellij.plugin.project.isMappableProperty
+import godot.intellij.plugin.project.isMappableReturnType
 import godot.intellij.plugin.project.isOrInheritsType
-import godot.intellij.plugin.project.isSupportedJvmType
-import godot.intellij.plugin.registration.RegistrationPolicy
+import godot.intellij.plugin.project.jvmType
+import godot.intellij.plugin.project.isGodotScriptCandidate
+import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightMethods
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
@@ -28,8 +26,8 @@ import org.jetbrains.kotlin.scripting.resolve.classId
 
 object RegistrationHighlightClassifier {
     fun classify(klass: KtClass): RegistrationHighlight? {
-        if (!RegistrationPolicy.isGodotScriptCandidate(klass)) return null
-        return if (RegistrationPolicy.registersClass(klass)) {
+        if (!klass.isGodotScriptCandidate()) return null
+        return if (klass.registrationPolicy.registersClass(klass)) {
             RegistrationHighlight.REGISTERED
         } else {
             RegistrationHighlight.CANDIDATE
@@ -37,8 +35,8 @@ object RegistrationHighlightClassifier {
     }
 
     fun classify(klass: PsiClass): RegistrationHighlight? {
-        if (!RegistrationPolicy.isGodotScriptCandidate(klass)) return null
-        return if (RegistrationPolicy.registersClass(klass)) {
+        if (!klass.isGodotScriptCandidate()) return null
+        return if (klass.registrationPolicy.registersClass(klass)) {
             RegistrationHighlight.REGISTERED
         } else {
             RegistrationHighlight.CANDIDATE
@@ -47,34 +45,34 @@ object RegistrationHighlightClassifier {
 
     fun classify(property: KtProperty): RegistrationHighlight? {
         val owner = property.containingClass() ?: return null
-        if (!RegistrationPolicy.isGodotScriptCandidate(owner)) return null
+        if (!owner.isGodotScriptCandidate()) return null
+        val policy = owner.registrationPolicy
 
-        val signalSelected = RegistrationPolicy.registersSignal(property)
+        val signalSelected = policy.registersSignal(property)
         val canRegister = property.hasPublicJvmMember() &&
             property.typeParameterList == null &&
             if (signalSelected) {
                 !property.isVar && property.isOrInheritsType(Signal::class.classId)
             } else {
-                property.isCoreType() ||
-                    property.isSupportedJvmType() ||
-                    property.isOrInheritsType(KtObject::class.classId)
+                property.jvmType()?.isMappableProperty() == true
             }
 
         return classify(
             canRegister = canRegister,
-            isRegistered = RegistrationPolicy.registersClass(owner) &&
-                (signalSelected || RegistrationPolicy.registersProperty(property))
+            isRegistered = policy.registersClass(owner) &&
+                (signalSelected || policy.registersProperty(property))
         )
     }
 
     fun classify(function: KtNamedFunction): RegistrationHighlight? {
         val owner = function.containingClass() ?: return null
-        if (!RegistrationPolicy.isGodotScriptCandidate(owner)) return null
+        if (!owner.isGodotScriptCandidate()) return null
+        val policy = owner.registrationPolicy
 
         return classify(
             canRegister = function.toLightMethods().any { method -> method.canRegister() },
-            isRegistered = RegistrationPolicy.registersClass(owner) &&
-                RegistrationPolicy.registersFunction(function)
+            isRegistered = policy.registersClass(owner) &&
+                policy.registersFunction(function)
         )
     }
 
@@ -94,35 +92,35 @@ object RegistrationHighlightClassifier {
         type: PsiType,
         isImmutable: Boolean
     ): RegistrationHighlight? {
-        if (!RegistrationPolicy.isGodotScriptCandidate(owner)) return null
+        if (!owner.isGodotScriptCandidate()) return null
+        val policy = owner.registrationPolicy
 
-        val isSignal = (type as? PsiClassType)
-            ?.resolve()
-            ?.isOrInheritsType(Signal::class.classId) == true
-        val signalSelected = RegistrationPolicy.registersSignal(property, owner, isSignal)
+        val ownerRegistered = policy.registersClass(owner)
+        val isSignal = type.inherits(Signal::class.classId)
+        val signalSelected = policy.registersSignal(property, ownerRegistered, isSignal)
         val canRegister = property.hasModifierProperty(PsiModifier.PUBLIC) &&
             if (signalSelected) {
                 isImmutable && isSignal
             } else {
-                type.isMappable()
+                type.isMappableProperty()
             }
 
         return classify(
             canRegister = canRegister,
-            isRegistered = RegistrationPolicy.registersClass(owner) &&
-                (signalSelected || RegistrationPolicy.registersProperty(property, owner, canRegister))
+            isRegistered = ownerRegistered && (signalSelected || policy.registersProperty(property, ownerRegistered, canRegister))
         )
     }
 
     fun classify(method: PsiMethod): RegistrationHighlight? {
         if (method.isConstructor) return null
         val owner = method.containingClass ?: return null
-        if (!RegistrationPolicy.isGodotScriptCandidate(owner)) return null
+        if (!owner.isGodotScriptCandidate()) return null
+        val policy = owner.registrationPolicy
 
         return classify(
             canRegister = method.canRegister(),
-            isRegistered = RegistrationPolicy.registersClass(owner) &&
-                RegistrationPolicy.registersFunction(method)
+            isRegistered = policy.registersClass(owner) &&
+                policy.registersFunction(method)
         )
     }
 
@@ -147,36 +145,6 @@ object RegistrationHighlightClassifier {
         hasModifierProperty(PsiModifier.PUBLIC) &&
             typeParameters.isEmpty() &&
             parameterList.parametersCount <= Constraints.MAX_ARGUMENT_COUNT &&
-            parameterList.parameters.all { parameter -> parameter.type.isMappable() } &&
-            (returnType?.isMappable() ?: true)
-
-    private fun PsiType.isMappable(): Boolean = when (this) {
-        is PsiPrimitiveType -> true
-        is PsiArrayType -> componentType.isMappable()
-        is PsiClassType -> resolve()?.isMappable() == true
-        else -> false
-    }
-
-    private fun PsiClass.isMappable(): Boolean =
-        qualifiedName in boxedAndUniversalTypes ||
-            isEnum ||
-            isInterface ||
-            isOrInheritsType(KtObject::class.classId) ||
-            isOrInheritsType(CoreType::class.classId) ||
-            isOrInheritsType(BitFieldBase::class.classId)
-
-    private val boxedAndUniversalTypes = setOf(
-        "java.lang.Boolean",
-        "java.lang.Byte",
-        "java.lang.Character",
-        "java.lang.Double",
-        "java.lang.Float",
-        "java.lang.Integer",
-        "java.lang.Long",
-        "java.lang.Object",
-        "java.lang.Short",
-        "java.lang.String",
-        "kotlin.Any",
-        "kotlin.String"
-    )
+            parameterList.parameters.all { parameter -> parameter.type.isMappableArgument() } &&
+            returnType?.isMappableReturnType() != false
 }

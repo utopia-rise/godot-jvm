@@ -2184,7 +2184,7 @@ public object NavigationServer3D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProcessInfo = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProcessInfo = entries.first { it.`value` == `value` }
     }
   }
 

@@ -151,7 +151,7 @@ public open class ZIPPacker : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ZipAppend = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ZipAppend = entries.first { it.`value` == `value` }
     }
   }
 
@@ -184,7 +184,7 @@ public open class ZIPPacker : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CompressionLevel = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CompressionLevel = entries.first { it.`value` == `value` }
     }
   }
 

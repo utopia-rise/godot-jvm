@@ -16,12 +16,6 @@ class SourceClassCheck(logger: Logger, registeredClasses: List<ScriptClass>) : B
                     hasIssue = true
                 }
             }
-
-            scriptClass.signals.forEach { signal ->
-                if (reportUnrepresentable(signal.parameterTypes, signal, "signal parameter")) {
-                    hasIssue = true
-                }
-            }
         }
 
         return hasIssue

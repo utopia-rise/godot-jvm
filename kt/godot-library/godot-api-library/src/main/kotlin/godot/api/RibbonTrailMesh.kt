@@ -165,7 +165,7 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Shape = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Shape = entries.first { it.`value` == `value` }
     }
   }
 

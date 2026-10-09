@@ -682,7 +682,7 @@ public open class Light3D internal constructor() : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Param = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Param = entries.first { it.`value` == `value` }
     }
   }
 
@@ -730,7 +730,7 @@ public open class Light3D internal constructor() : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BakeMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BakeMode = entries.first { it.`value` == `value` }
     }
   }
 

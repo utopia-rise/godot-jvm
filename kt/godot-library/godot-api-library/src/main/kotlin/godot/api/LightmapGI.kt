@@ -608,7 +608,7 @@ public open class LightmapGI : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BakeQuality = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BakeQuality = entries.first { it.`value` == `value` }
     }
   }
 
@@ -638,7 +638,7 @@ public open class LightmapGI : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GenerateProbes = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GenerateProbes = entries.first { it.`value` == `value` }
     }
   }
 
@@ -703,7 +703,7 @@ public open class LightmapGI : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BakeError = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BakeError = entries.first { it.`value` == `value` }
     }
   }
 
@@ -734,7 +734,7 @@ public open class LightmapGI : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EnvironmentMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EnvironmentMode = entries.first { it.`value` == `value` }
     }
   }
 

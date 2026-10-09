@@ -2318,7 +2318,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FontAntialiasing = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FontAntialiasing = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2353,7 +2353,7 @@ public open class TextServer internal constructor() : RefCounted() {
 
     public companion object {
       public fun from(`value`: Long): FontLCDSubpixelLayout =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -2380,7 +2380,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Direction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Direction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2400,7 +2400,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Orientation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Orientation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2493,7 +2493,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AutowrapMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AutowrapMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2600,7 +2600,7 @@ public open class TextServer internal constructor() : RefCounted() {
 
     public companion object {
       public fun from(`value`: Long): VisibleCharactersBehavior =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -2642,7 +2642,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): OverrunBehavior = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): OverrunBehavior = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2812,7 +2812,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Hinting = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Hinting = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2858,7 +2858,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SubpixelPositioning = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SubpixelPositioning = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2930,7 +2930,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Feature = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Feature = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2953,7 +2953,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ContourPointTag = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ContourPointTag = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2983,7 +2983,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SpacingType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SpacingType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3047,8 +3047,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StructuredTextParser =
-          entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StructuredTextParser = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3072,7 +3071,7 @@ public open class TextServer internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FixedSizeScaleMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FixedSizeScaleMode = entries.first { it.`value` == `value` }
     }
   }
 
