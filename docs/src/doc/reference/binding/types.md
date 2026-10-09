@@ -15,11 +15,11 @@ description: Variant mappings, supported registered signatures, primitive and ge
 | Other `godot.api.Object` subclasses | Not a supported property type | Supported |
 | JVM enum | Supported | Supported |
 | `BitField<E>` | Supported when `E` is an enum | Supported |
-| JVM collection of enums | Supported as an enum-list property | Not supported |
+| `List` of enums | Supported as an enum-list property | Not supported |
 | No result (`Unit` / `void`) | Not a property value | Return only |
 | Arbitrary JVM classes, JVM arrays, generic type parameters | Not supported | Not supported |
 
-Container element types must also be representable. `Any`/`Object` does not make an arbitrary JVM instance serializable to a Godot Variant. Primitive, string, and core-type properties must not be nullable; Node and Resource references may be null.
+Container element types must also be representable. `Any`/`Object` does not make an arbitrary JVM instance serializable to a Godot Variant. Primitive, string, and core-type properties must not be nullable; Node and Resource references may be null. Java and Scala carry no reliable nullability information, so the build cannot check this for them: a `null` reaching a primitive, string, core-type or enum property, parameter or return value fails at runtime instead.
 
 ## Type names
 
@@ -86,7 +86,7 @@ Use the same class names from `godot.core` in each language:
 - Math: `Vector2`, `Vector2i`, `Vector3`, `Vector3i`, `Vector4`, `Vector4i`, `Rect2`, `Rect2i`, `Transform2D`, `Transform3D`, `Plane`, `Quaternion`, `AABB`, `Basis`, `Projection`, `Color`.
 - Names and handles: `StringName`, `NodePath`, `RID`.
 - Containers: `VariantArray`, `Dictionary`, `PackedByteArray`, `PackedInt32Array`, `PackedInt64Array`, `PackedFloat32Array`, `PackedFloat64Array`, `PackedStringArray`, `PackedVector2Array`, `PackedVector3Array`, `PackedVector4Array`, `PackedColorArray`.
-- Callbacks: `Signal` and `Callable` families.
+- Callbacks: `Signal` and `Callable`. A value coming from Godot is always the base type, so a registered parameter, return or signal argument must be declared as `Callable` or `Signal`, never as a typed variant such as `Signal1` or `Callable0`.
 
 ## Copies and shared storage
 
@@ -190,7 +190,7 @@ val method = StringNames.toGodotName("takeDamage")
 
 A registered enum property automatically receives an Inspector dropdown. Its labels are the entry names capitalized the way GDScript does, so `FIRE_BALL` reads `Fire Ball`. Ordinary JVM enums use their ordinal as the numeric value. `GodotEnum` permits custom values; the numeric accessor is `value` in Kotlin and `getValue()` in Java/Scala.
 
-A `BitField<E>` holds a flag mask for enum `E`. Ordinary enum entries use `1L << ordinal`; `GodotEnum` entries use their explicit value as the mask. Exported bitfields support at most 32 entries. Engine bitfield wrapper types cannot be exported directly as properties; use `BitField<E>` with an enum.
+A `BitField<E>` holds a flag mask for enum `E`. Ordinary enum entries use `1L << ordinal`; `GodotEnum` entries use their explicit value as the mask. Exported bitfields support at most 32 entries. Engine bitfield wrapper types such as `Control.SizeFlags` cannot be used in registered properties, functions or signals; use `BitField<E>` with an enum.
 
 This complete script exports one property of each kind: a regular enum dropdown, a `GodotEnum` dropdown with explicit values, and a `BitField` checkbox group.
 
@@ -301,4 +301,4 @@ class Player extends Node {
 
 `BitField` exposes `or`, `and`, `xor`, `contains`, `inv`, `shl`, `shr`, and `ushr`. Operations return a new wrapper. The numeric mask is `flag` in Kotlin or `getFlag()` in Java/Scala. The Inspector uses the explicit `GodotEnum` values for its dropdown and bitfield masks.
 
-A collection of enums on a property receives an enum-list hint. It does not make general JVM collections a replacement for `VariantArray` in registered function signatures. See [property registration](../registration/properties.md).
+A `List` of enums on a property receives an enum-list hint. It does not make JVM lists a replacement for `VariantArray` in registered function signatures. See [property registration](../registration/properties.md).

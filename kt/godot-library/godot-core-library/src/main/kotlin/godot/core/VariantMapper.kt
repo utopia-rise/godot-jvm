@@ -7,7 +7,9 @@ import kotlin.reflect.KClass
 private val coreVariantMappings: Map<Class<*>, VariantConverter<*>> = mapOf(
     Unit::class.java to VariantParser.NIL,
     Void::class.java to VariantParser.NIL,
+    Void.TYPE to VariantParser.NIL,
     Any::class.java to VariantCaster.ANY,
+    BitField::class.java to VariantCaster.BITFIELD,
     Boolean::class.java to VariantParser.BOOL,
     Boolean::class.javaObjectType to VariantParser.BOOL,
     Byte::class.java to VariantCaster.BYTE,

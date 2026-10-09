@@ -162,6 +162,16 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
 
     _assert_property_hint(property_map, "int_flag_value", PROPERTY_HINT_FLAGS, "Player,Enemy,Npc")
     assert_that(property_map["enum_flag_value"]["hint"]).is_equal(PROPERTY_HINT_FLAGS)
+    var original_flags: int = instance.get("enum_flag_value")
+    instance.set("enum_flag_value", 1 << 31)
+    assert_that(instance.get("enum_flag_value"))\
+        .override_failure_message("A bitfield property should keep bit 31 as a positive 32-bit value")\
+        .is_equal(1 << 31)
+    instance.set("enum_flag_value", 1 << 40)
+    assert_that(instance.get("enum_flag_value"))\
+        .override_failure_message("A bitfield property should keep all 64 bits")\
+        .is_equal(1 << 40)
+    instance.set("enum_flag_value", original_flags)
     assert_str(property_map["enum_flag_value"]["hint_string"])\
         .override_failure_message("A plain enum bitfield should list title-cased labels and leave Godot's implicit flag values")\
         .not_contains(":").not_contains("_")

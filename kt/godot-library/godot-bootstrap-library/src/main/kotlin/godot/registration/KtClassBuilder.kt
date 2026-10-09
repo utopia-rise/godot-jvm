@@ -113,10 +113,10 @@ class KtClassBuilder<T : KtObject>(
         )
     }
 
-    inline fun <reified P : Enum<P>, L : Collection<P>> enumListProperty(
+    inline fun <reified P : Enum<P>> enumListProperty(
         name: String,
-        noinline getter: (T) -> L,
-        noinline setter: ((T, L) -> Unit)? = null,
+        noinline getter: (T) -> List<P>,
+        noinline setter: ((T, List<P>) -> Unit)? = null,
         usage: PropertyUsageFlags,
         hintString: String
     ) {
@@ -129,35 +129,27 @@ class KtClassBuilder<T : KtObject>(
             KtPropertyInfo(
                 converter,
                 name,
-                "Int",
-                PropertyHint.ENUM,
+                "Array",
+                PropertyHint.TYPE_STRING,
                 hintString,
                 propertyUsage(usage, setter != null, converter),
             ),
             getter,
             setter,
-            { enumList: Collection<P>? ->
-                (enumList
-                    ?.map { it.godotValue }
-                    ?.toVariantArray()
-                    ?: variantArrayOf())
-            },
-            { enumValueVariantArray ->
-                @Suppress("UNCHECKED_CAST")
-                (enumValueVariantArray.map { it.toEnum<P>() } as L)
-            }
+            { enumList -> enumList?.map { it.godotValue }?.toVariantArray() ?: variantArrayOf() },
+            { enumValueVariantArray -> enumValueVariantArray.map { it.toEnum<P>() } }
         )
     }
 
-    inline fun <reified P : Enum<P>, L : Collection<P>> enumListProperty(
-        kProperty: KProperty1<T, L>,
+    inline fun <reified P : Enum<P>> enumListProperty(
+        kProperty: KProperty1<T, List<P>>,
         usage: PropertyUsageFlags,
         hintString: String
     ) = enumListProperty(
         kProperty.name.convertToSnakeCase(),
         { instance: T -> kProperty.get(instance) },
-        (kProperty as? KMutableProperty1<T, L>)?.let { mutableProperty ->
-            { instance: T, l: L -> mutableProperty.set(instance, l) }
+        (kProperty as? KMutableProperty1<T, List<P>>)?.let { mutableProperty ->
+            { instance: T, list: List<P> -> mutableProperty.set(instance, list) }
         },
         usage,
         hintString
@@ -176,17 +168,17 @@ class KtClassBuilder<T : KtObject>(
 
         properties += KtBitFieldProperty(
             KtPropertyInfo(
-                VariantCaster.INT,
+                VariantParser.LONG,
                 name,
                 "int",
                 PropertyHint.FLAGS,
                 hintString,
-                propertyUsage(usage, setter != null, VariantCaster.INT),
+                propertyUsage(usage, setter != null, VariantParser.LONG),
             ),
             getter,
             setter,
-            { bitField -> bitField?.flag?.toInt() ?: 0 },
-            { value -> BitField<E>(value.toLong()) }
+            { bitField -> bitField?.flag ?: 0L },
+            { value -> BitField<E>(value) }
         )
     }
 

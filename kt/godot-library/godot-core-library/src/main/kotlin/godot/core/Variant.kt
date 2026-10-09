@@ -585,7 +585,7 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
     }
 
     class ENUM<ENUM_TYPE : Enum<ENUM_TYPE>>(private val entries: Array<ENUM_TYPE>) : VariantSimpleCaster<ENUM_TYPE>(VariantParser.LONG) {
-        private val entryMap: Map<Long, ENUM_TYPE> = entries.associateBy { it.godotValue }
+        private val entryMap: Map<Long, ENUM_TYPE> = entries.distinctBy { it.godotValue }.associateBy { it.godotValue }
 
         override fun toKotlinCast(any: Any?) = requireNotNull(entryMap[any as Long]) {
             "No enum entry with godotValue $any found in entries: [${entries.joinToString()}]"
@@ -593,6 +593,11 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
 
         @Suppress("UNCHECKED_CAST")
         override fun toGodotCast(any: Any?) = (any as ENUM_TYPE).godotValue
+    }
+
+    data object BITFIELD : VariantSimpleCaster<BitField<*>>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = BitField<Nothing>(any as Long)
+        override fun toGodotCast(any: Any?) = (any as BitField<*>).flag
     }
 
     data object FLOAT : VariantSimpleCaster<Float>(VariantParser.DOUBLE) {

@@ -1,10 +1,8 @@
 package godot.registration.model.checks
 
 import godot.core.Color
-import godot.core.Dictionary
-import godot.core.VariantArray
 import godot.registration.model.RegisteredProperty
-import godot.registration.model.ext.isCollection
+import godot.registration.model.ext.isList
 import godot.registration.model.hint.property.ColorNoAlphaHint
 import godot.registration.model.hint.property.DirHint
 import godot.registration.model.hint.property.EnumFlagHintStringHint
@@ -63,14 +61,9 @@ class PropertyHintCheck(logger: Logger, registeredClasses: List<ScriptClass>) : 
             is ColorNoAlphaHint -> propertyType.fqName == colorType
             is EnumHintStringHint -> propertyType.kind == TypeKind.ENUM
             is EnumFlagHintStringHint -> propertyType.kind == TypeKind.BITFIELD
-            is EnumListHintStringHint -> propertyType.supportsEnumListHint()
+            is EnumListHintStringHint -> propertyType.isList()
         }
     }
-
-    private fun godot.registration.model.types.Type.supportsEnumListHint(): Boolean =
-        isCollection() ||
-            fqName == requireNotNull(VariantArray::class.qualifiedName) ||
-            fqName == requireNotNull(Dictionary::class.qualifiedName)
 
     private fun PropertyHint.displayName(): String =
         this::class.qualifiedName

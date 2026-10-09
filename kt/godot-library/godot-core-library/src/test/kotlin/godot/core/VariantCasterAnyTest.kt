@@ -10,7 +10,7 @@ import java.nio.ByteBuffer
 class VariantCasterAnyTest {
     private enum class Plain { FIRST, SECOND }
 
-    private enum class Custom(override val value: Long) : GodotEnum { TEN(10), TWENTY(20) }
+    private enum class Custom(override val value: Long) : GodotEnum { TEN(10), TWENTY(20), TEN_ALIAS(10) }
 
     private enum class WithBody {
         A { override fun label() = "a" },
@@ -41,7 +41,7 @@ class VariantCasterAnyTest {
         assertEquals(1L, writeAsVariantAndReadLong(WithBody.B))
     }
 
-    private fun <T> readEnumFromLong(converter: VariantConverter<T>, value: Long): T {
+    private fun <T> readFromLong(converter: VariantConverter<T>, value: Long): T {
         val buffer = ByteBuffer.allocate(16)
         VariantParser.LONG.write(buffer, value)
         buffer.rewind()
@@ -50,12 +50,18 @@ class VariantCasterAnyTest {
 
     @Test
     fun plainEnumConverterReadsItsOrdinal() {
-        assertSame(Plain.SECOND, readEnumFromLong(getVariantConverter<Plain>()!!, 1))
+        assertSame(Plain.SECOND, readFromLong(getVariantConverter<Plain>()!!, 1))
     }
 
     @Test
     fun godotEnumConverterReadsItsValue() {
-        assertSame(Custom.TWENTY, readEnumFromLong(getVariantConverter(Custom::class.java)!!, 20))
+        assertSame(Custom.TWENTY, readFromLong(getVariantConverter(Custom::class.java)!!, 20))
+    }
+
+    @Test
+    fun duplicateEnumValuesDecodeToTheFirstDeclaredEntry() {
+        assertSame(Custom.TEN, readFromLong(getVariantConverter(Custom::class.java)!!, 10))
+        assertSame(Custom.TEN, 10L.toEnum<Custom>())
     }
 
     @Test
@@ -69,10 +75,29 @@ class VariantCasterAnyTest {
     }
 
     @Test
+    fun voidAndUnitMapToNil() {
+        assertSame(VariantParser.NIL, getVariantConverter(Void.TYPE))
+        assertSame(VariantParser.NIL, getVariantConverter(Void::class.java))
+        assertSame(VariantParser.NIL, getVariantConverter(Unit::class.java))
+    }
+
+    @Test
     fun narrowIntegralTypesAreWrittenAsLongs() {
         assertEquals(7L, writeAsVariantAndReadLong(7.toShort()))
         assertEquals(65L, writeAsVariantAndReadLong('A'))
-        assertSame('A', readEnumFromLong(VariantCaster.CHAR, 65))
+        assertSame('A', readFromLong(VariantCaster.CHAR, 65))
+    }
+
+    @Test
+    fun bitFieldsAreWrittenAsTheirFlag() {
+        assertEquals(3L, writeAsVariantAndReadLong(BitField.of(Plain.FIRST, Plain.SECOND)))
+        assertEquals(20L, writeAsVariantAndReadLong(BitField.of(Custom.TWENTY)))
+    }
+
+    @Test
+    fun bitFieldConverterRebuildsTheFlag() {
+        val bitField = readFromLong(getVariantConverter<BitField<Plain>>()!!, 3)
+        assertEquals(3L, (bitField as BitField<*>).flag)
     }
 
     @Test
