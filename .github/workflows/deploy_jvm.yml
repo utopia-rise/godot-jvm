@@ -26,8 +26,6 @@ jobs:
     steps:
       - name: Clone Godot JVM module.
         uses: actions/checkout@v6
-        with:
-          path: modules/kotlin_jvm
 
       - uses: actions/setup-java@v5
         with:
@@ -59,99 +57,99 @@ jobs:
       - name: Publish common
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :common:publish
+          kt/gradlew -p kt :common:publish
 
       - name: Publish tools-common
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :tools-common:publish
+          kt/gradlew -p kt :tools-common:publish
 
       - name: Publish api-generator
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :api-generator:publish
+          kt/gradlew -p kt :api-generator:publish
 
       - name: Publish godot-registration
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-registration:publish
+          kt/gradlew -p kt :godot-registration:publish
 
       - name: Publish godot-internal-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-internal-library:publish -Pdebug
+          kt/gradlew -p kt :godot-internal-library:publish -Pdebug
 
       - name: Publish godot-internal-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-internal-library:publish -Prelease
+          kt/gradlew -p kt :godot-internal-library:publish -Prelease
 
       - name: Publish godot-core-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-core-library:publish -Pdebug
+          kt/gradlew -p kt :godot-core-library:publish -Pdebug
 
       - name: Publish godot-core-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-core-library:publish -Prelease
+          kt/gradlew -p kt :godot-core-library:publish -Prelease
 
       - name: Publish godot-api-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-api-library:publish -Pdebug
+          kt/gradlew -p kt :godot-api-library:publish -Pdebug
 
       - name: Publish godot-api-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-api-library:publish -Prelease
+          kt/gradlew -p kt :godot-api-library:publish -Prelease
 
       - name: Publish godot-bootstrap-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-bootstrap-library:publish -Pdebug
+          kt/gradlew -p kt :godot-bootstrap-library:publish -Pdebug
 
       - name: Publish godot-bootstrap-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-bootstrap-library:publish -Prelease
+          kt/gradlew -p kt :godot-bootstrap-library:publish -Prelease
 
       - name: Publish godot-extension-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-extension-library:publish -Pdebug
+          kt/gradlew -p kt :godot-extension-library:publish -Pdebug
 
       - name: Publish godot-extension-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-extension-library:publish -Prelease
+          kt/gradlew -p kt :godot-extension-library:publish -Prelease
 
       - name: Publish godot-coroutine-library debug
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-coroutine-library:publish -Pdebug
+          kt/gradlew -p kt :godot-coroutine-library:publish -Pdebug
 
       - name: Publish godot-coroutine-library release
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-coroutine-library:publish -Prelease
+          kt/gradlew -p kt :godot-coroutine-library:publish -Prelease
 
       - name: Publish godot plugins
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-gradle-plugin:publish :godot-gradle-plugin:publishPlugins -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+          kt/gradlew -p kt :godot-gradle-plugin:publish :godot-gradle-plugin:publishPlugins -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
       - name: Build IntelliJ plugin
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-intellij-plugin:buildPlugin
-          cp modules/kotlin_jvm/kt/plugins/godot-intellij-plugin/build/distributions/godot-intellij-plugin-*.zip godot-jvm-intellij-plugin-${{ inputs.godot-jvm-version }}.zip
+          kt/gradlew -p kt :godot-intellij-plugin:buildPlugin
+          cp kt/plugins/godot-intellij-plugin/build/distributions/godot-intellij-plugin-*.zip godot-jvm-intellij-plugin-${{ inputs.godot-jvm-version }}.zip
 
       - name: Publish IntelliJ plugin to the Marketplace
         if: ${{ !contains(inputs.godot-jvm-version, '-dev') && !contains(inputs.godot-jvm-version, '-rc') }}
         shell: sh
         run: |
-          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-intellij-plugin:publishPlugin
+          kt/gradlew -p kt :godot-intellij-plugin:publishPlugin
 
       - name: Upload IntelliJ plugin release asset
         shell: sh
