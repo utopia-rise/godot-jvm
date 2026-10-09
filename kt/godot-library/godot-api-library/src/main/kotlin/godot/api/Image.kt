@@ -1184,7 +1184,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Format = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Format = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1231,7 +1231,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Interpolation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Interpolation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1254,7 +1254,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlphaMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlphaMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1288,7 +1288,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CompressMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CompressMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1322,7 +1322,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): UsedChannels = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UsedChannels = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1345,7 +1345,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CompressSource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CompressSource = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1363,7 +1363,7 @@ public open class Image : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ASTCFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ASTCFormat = entries.first { it.`value` == `value` }
     }
   }
 

@@ -52,6 +52,6 @@ public enum class JoyAxis(
   ;
 
   public companion object {
-    public fun from(`value`: Long): JoyAxis = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): JoyAxis = entries.first { it.`value` == `value` }
   }
 }

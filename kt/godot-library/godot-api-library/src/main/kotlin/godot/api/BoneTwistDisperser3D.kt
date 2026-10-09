@@ -355,7 +355,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DisperseMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DisperseMode = entries.first { it.`value` == `value` }
     }
   }
 

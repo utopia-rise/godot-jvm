@@ -1899,7 +1899,7 @@ public object OS : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RenderingDriver = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RenderingDriver = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1941,7 +1941,7 @@ public object OS : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SystemDir = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SystemDir = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1976,7 +1976,7 @@ public object OS : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StdHandleType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StdHandleType = entries.first { it.`value` == `value` }
     }
   }
 

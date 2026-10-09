@@ -533,7 +533,7 @@ public open class HTTPRequest : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Result = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Result = entries.first { it.`value` == `value` }
     }
   }
 

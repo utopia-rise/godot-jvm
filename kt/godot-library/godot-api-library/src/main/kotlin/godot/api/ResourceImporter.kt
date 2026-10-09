@@ -64,7 +64,7 @@ public open class ResourceImporter internal constructor() : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ImportOrder = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ImportOrder = entries.first { it.`value` == `value` }
     }
   }
 

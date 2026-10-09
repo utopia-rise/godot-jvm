@@ -81,7 +81,7 @@ public open class VisualShaderNodeClamp : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): OpType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): OpType = entries.first { it.`value` == `value` }
     }
   }
 

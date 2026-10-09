@@ -532,7 +532,7 @@ public open class TabContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TabPosition = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TabPosition = entries.first { it.`value` == `value` }
     }
   }
 

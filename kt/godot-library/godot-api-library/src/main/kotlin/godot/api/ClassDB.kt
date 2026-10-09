@@ -754,7 +754,7 @@ public object ClassDB : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): APIType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): APIType = entries.first { it.`value` == `value` }
     }
   }
 

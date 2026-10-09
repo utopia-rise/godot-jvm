@@ -2245,7 +2245,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BGMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BGMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2272,7 +2272,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AmbientSource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AmbientSource = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2294,7 +2294,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ReflectionSource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ReflectionSource = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2341,7 +2341,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ToneMapper = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ToneMapper = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2386,7 +2386,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GlowBlendMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GlowBlendMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2405,7 +2405,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FogMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FogMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2433,7 +2433,7 @@ public open class Environment : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SDFGIYScale = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SDFGIYScale = entries.first { it.`value` == `value` }
     }
   }
 

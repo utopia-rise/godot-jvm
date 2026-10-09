@@ -461,7 +461,7 @@ public open class GLTFAccessor : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GLTFAccessorType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GLTFAccessorType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -545,7 +545,7 @@ public open class GLTFAccessor : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GLTFComponentType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GLTFComponentType = entries.first { it.`value` == `value` }
     }
   }
 

@@ -296,7 +296,7 @@ public open class ENetConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CompressionMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CompressionMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -334,7 +334,7 @@ public open class ENetConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EventType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EventType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -360,7 +360,7 @@ public open class ENetConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): HostStatistic = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): HostStatistic = entries.first { it.`value` == `value` }
     }
   }
 

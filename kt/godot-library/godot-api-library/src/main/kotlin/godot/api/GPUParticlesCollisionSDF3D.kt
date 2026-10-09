@@ -241,7 +241,7 @@ public open class GPUParticlesCollisionSDF3D : GPUParticlesCollision3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Resolution = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Resolution = entries.first { it.`value` == `value` }
     }
   }
 

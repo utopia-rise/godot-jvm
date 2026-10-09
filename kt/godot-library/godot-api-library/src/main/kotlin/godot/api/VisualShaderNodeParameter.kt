@@ -117,7 +117,7 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
     ;
 
     public companion object {
-      public fun from(`value`: Long): Qualifier = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Qualifier = entries.first { it.`value` == `value` }
     }
   }
 

@@ -883,7 +883,7 @@ public open class AnimationPlayer : AnimationMixer() {
 
     public companion object {
       public fun from(`value`: Long): AnimationProcessCallback =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -896,7 +896,7 @@ public open class AnimationPlayer : AnimationMixer() {
 
     public companion object {
       public fun from(`value`: Long): AnimationMethodCallMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

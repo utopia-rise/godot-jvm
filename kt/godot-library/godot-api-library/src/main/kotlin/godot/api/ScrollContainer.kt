@@ -374,7 +374,7 @@ public open class ScrollContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScrollMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScrollMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -401,7 +401,7 @@ public open class ScrollContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScrollHintMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScrollHintMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -121,7 +121,7 @@ public open class CurveTexture : Texture2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureMode = entries.first { it.`value` == `value` }
     }
   }
 

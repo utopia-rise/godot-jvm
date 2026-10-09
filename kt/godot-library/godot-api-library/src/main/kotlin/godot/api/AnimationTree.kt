@@ -130,7 +130,7 @@ public open class AnimationTree : AnimationMixer() {
 
     public companion object {
       public fun from(`value`: Long): AnimationProcessCallback =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

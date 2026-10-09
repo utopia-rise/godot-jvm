@@ -82,7 +82,7 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
     ;
 
     public companion object {
-      public fun from(`value`: Long): MarkerType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MarkerType = entries.first { it.`value` == `value` }
     }
   }
 

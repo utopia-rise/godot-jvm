@@ -1157,7 +1157,7 @@ public open class CodeEdit : TextEdit() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CodeCompletionKind = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CodeCompletionKind = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1191,7 +1191,7 @@ public open class CodeEdit : TextEdit() {
 
     public companion object {
       public fun from(`value`: Long): CodeCompletionLocation =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

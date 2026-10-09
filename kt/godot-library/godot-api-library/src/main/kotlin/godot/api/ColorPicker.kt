@@ -380,7 +380,7 @@ public open class ColorPicker : VBoxContainer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ColorModeType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ColorModeType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -419,7 +419,7 @@ public open class ColorPicker : VBoxContainer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PickerShapeType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PickerShapeType = entries.first { it.`value` == `value` }
     }
   }
 

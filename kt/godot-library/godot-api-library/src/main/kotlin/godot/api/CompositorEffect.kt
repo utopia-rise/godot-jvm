@@ -256,7 +256,7 @@ public open class CompositorEffect : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EffectCallbackType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EffectCallbackType = entries.first { it.`value` == `value` }
     }
   }
 

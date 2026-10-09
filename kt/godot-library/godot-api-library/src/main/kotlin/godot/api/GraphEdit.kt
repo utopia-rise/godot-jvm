@@ -1258,7 +1258,7 @@ public open class GraphEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PanningScheme = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PanningScheme = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1276,7 +1276,7 @@ public open class GraphEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GridPattern = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GridPattern = entries.first { it.`value` == `value` }
     }
   }
 

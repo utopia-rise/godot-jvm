@@ -104,7 +104,7 @@ public open class VisibleOnScreenEnabler3D : VisibleOnScreenNotifier3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EnableMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EnableMode = entries.first { it.`value` == `value` }
     }
   }
 

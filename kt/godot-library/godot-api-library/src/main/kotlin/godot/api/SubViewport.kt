@@ -238,7 +238,7 @@ public open class SubViewport : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ClearMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ClearMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -268,7 +268,7 @@ public open class SubViewport : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): UpdateMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UpdateMode = entries.first { it.`value` == `value` }
     }
   }
 

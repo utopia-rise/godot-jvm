@@ -114,7 +114,7 @@ public open class Thread : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Priority = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Priority = entries.first { it.`value` == `value` }
     }
   }
 

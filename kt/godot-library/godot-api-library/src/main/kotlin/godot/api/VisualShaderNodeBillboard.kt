@@ -96,7 +96,7 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BillboardType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BillboardType = entries.first { it.`value` == `value` }
     }
   }
 

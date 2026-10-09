@@ -425,8 +425,7 @@ public open class NavigationPathQueryParameters2D : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PathfindingAlgorithm =
-          entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PathfindingAlgorithm = entries.first { it.`value` == `value` }
     }
   }
 
@@ -455,7 +454,7 @@ public open class NavigationPathQueryParameters2D : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PathPostProcessing = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PathPostProcessing = entries.first { it.`value` == `value` }
     }
   }
 

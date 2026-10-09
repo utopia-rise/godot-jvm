@@ -383,7 +383,7 @@ public open class Resource : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DeepDuplicateMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DeepDuplicateMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -255,7 +255,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PeerState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PeerState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -329,7 +329,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PeerStatistic = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PeerStatistic = entries.first { it.`value` == `value` }
     }
   }
 

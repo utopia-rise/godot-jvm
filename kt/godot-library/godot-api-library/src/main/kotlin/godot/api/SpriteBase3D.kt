@@ -531,7 +531,7 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DrawFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DrawFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -565,7 +565,7 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlphaCutMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlphaCutMode = entries.first { it.`value` == `value` }
     }
   }
 

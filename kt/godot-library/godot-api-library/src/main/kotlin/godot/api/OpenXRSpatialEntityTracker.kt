@@ -135,7 +135,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EntityTrackingState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EntityTrackingState = entries.first { it.`value` == `value` }
     }
   }
 

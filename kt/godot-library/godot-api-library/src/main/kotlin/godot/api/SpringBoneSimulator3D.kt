@@ -874,7 +874,7 @@ public open class SpringBoneSimulator3D : SkeletonModifier3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CenterFrom = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CenterFrom = entries.first { it.`value` == `value` }
     }
   }
 

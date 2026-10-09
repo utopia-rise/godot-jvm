@@ -446,7 +446,7 @@ public open class SplitContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DraggerVisibility = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DraggerVisibility = entries.first { it.`value` == `value` }
     }
   }
 

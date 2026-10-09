@@ -2618,7 +2618,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MenuItems = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MenuItems = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2644,7 +2644,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EditAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EditAction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2666,7 +2666,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SearchFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SearchFlags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2684,7 +2684,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CaretType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CaretType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2714,7 +2714,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SelectionMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SelectionMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2732,7 +2732,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LineWrappingMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LineWrappingMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2757,7 +2757,7 @@ public open class TextEdit : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GutterType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GutterType = entries.first { it.`value` == `value` }
     }
   }
 

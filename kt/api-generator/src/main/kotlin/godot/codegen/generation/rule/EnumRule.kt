@@ -60,7 +60,7 @@ class EnumRule : GodotApiRule<EnrichedEnumTask>() {
                     FunSpec.builder("from")
                         .returns(enum.className)
                         .addParameter("value", Long::class)
-                        .addStatement("return·entries.single·{·it.%N·==·%N·}", "value", "value")
+                        .addStatement("return·entries.first·{·it.%N·==·%N·}", "value", "value")
                         .build()
                 )
                 .build()

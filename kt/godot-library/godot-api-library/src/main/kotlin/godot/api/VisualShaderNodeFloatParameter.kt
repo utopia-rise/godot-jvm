@@ -166,7 +166,7 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Hint = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Hint = entries.first { it.`value` == `value` }
     }
   }
 

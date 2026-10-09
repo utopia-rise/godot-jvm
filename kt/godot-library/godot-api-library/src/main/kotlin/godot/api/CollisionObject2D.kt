@@ -470,7 +470,7 @@ public open class CollisionObject2D internal constructor() : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DisableMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DisableMode = entries.first { it.`value` == `value` }
     }
   }
 

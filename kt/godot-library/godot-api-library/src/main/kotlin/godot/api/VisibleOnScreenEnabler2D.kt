@@ -103,7 +103,7 @@ public open class VisibleOnScreenEnabler2D : VisibleOnScreenNotifier2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EnableMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EnableMode = entries.first { it.`value` == `value` }
     }
   }
 

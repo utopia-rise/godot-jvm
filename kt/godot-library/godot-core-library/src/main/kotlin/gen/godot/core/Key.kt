@@ -788,6 +788,6 @@ public enum class Key(
   ;
 
   public companion object {
-    public fun from(`value`: Long): Key = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): Key = entries.first { it.`value` == `value` }
   }
 }

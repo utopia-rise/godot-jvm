@@ -132,7 +132,7 @@ public open class OpenXRSpatialCapabilityConfigurationAruco :
     ;
 
     public companion object {
-      public fun from(`value`: Long): ArucoDict = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ArucoDict = entries.first { it.`value` == `value` }
     }
   }
 

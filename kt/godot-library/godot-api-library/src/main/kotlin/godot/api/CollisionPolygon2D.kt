@@ -270,7 +270,7 @@ public open class CollisionPolygon2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BuildMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BuildMode = entries.first { it.`value` == `value` }
     }
   }
 

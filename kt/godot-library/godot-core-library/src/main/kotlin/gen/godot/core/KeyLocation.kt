@@ -31,6 +31,6 @@ public enum class KeyLocation(
   ;
 
   public companion object {
-    public fun from(`value`: Long): KeyLocation = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): KeyLocation = entries.first { it.`value` == `value` }
   }
 }

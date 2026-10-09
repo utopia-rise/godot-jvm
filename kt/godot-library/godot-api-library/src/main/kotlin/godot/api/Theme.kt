@@ -1249,7 +1249,7 @@ public open class Theme : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DataType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DataType = entries.first { it.`value` == `value` }
     }
   }
 

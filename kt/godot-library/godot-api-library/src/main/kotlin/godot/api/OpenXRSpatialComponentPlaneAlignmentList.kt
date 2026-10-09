@@ -55,7 +55,7 @@ public open class OpenXRSpatialComponentPlaneAlignmentList : OpenXRSpatialCompon
     ;
 
     public companion object {
-      public fun from(`value`: Long): PlaneAlignment = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PlaneAlignment = entries.first { it.`value` == `value` }
     }
   }
 

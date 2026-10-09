@@ -468,7 +468,7 @@ public open class SurfaceTool : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CustomFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CustomFormat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -486,7 +486,7 @@ public open class SurfaceTool : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SkinWeightCount = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SkinWeightCount = entries.first { it.`value` == `value` }
     }
   }
 

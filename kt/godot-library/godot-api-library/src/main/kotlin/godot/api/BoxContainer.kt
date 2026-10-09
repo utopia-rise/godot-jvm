@@ -99,7 +99,7 @@ public open class BoxContainer : Container() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AlignmentMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AlignmentMode = entries.first { it.`value` == `value` }
     }
   }
 

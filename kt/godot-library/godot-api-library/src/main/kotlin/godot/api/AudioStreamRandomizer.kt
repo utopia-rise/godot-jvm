@@ -227,7 +227,7 @@ public open class AudioStreamRandomizer : AudioStream() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PlaybackMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PlaybackMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -933,7 +933,7 @@ public open class GLTFState : Resource() {
 
     public companion object {
       public fun from(`value`: Long): HandleBinaryImageMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

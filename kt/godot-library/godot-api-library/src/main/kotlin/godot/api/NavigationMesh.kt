@@ -740,7 +740,7 @@ public open class NavigationMesh : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SamplePartitionType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SamplePartitionType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -768,7 +768,7 @@ public open class NavigationMesh : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ParsedGeometryType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ParsedGeometryType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -795,7 +795,7 @@ public open class NavigationMesh : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SourceGeometryMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SourceGeometryMode = entries.first { it.`value` == `value` }
     }
   }
 

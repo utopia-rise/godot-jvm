@@ -343,7 +343,7 @@ public object ResourceLoader : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ThreadLoadStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ThreadLoadStatus = entries.first { it.`value` == `value` }
     }
   }
 
@@ -383,7 +383,7 @@ public object ResourceLoader : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CacheMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CacheMode = entries.first { it.`value` == `value` }
     }
   }
 

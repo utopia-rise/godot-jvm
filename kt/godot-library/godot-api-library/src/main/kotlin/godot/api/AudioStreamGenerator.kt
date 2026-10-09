@@ -203,7 +203,7 @@ public open class AudioStreamGenerator : AudioStream() {
 
     public companion object {
       public fun from(`value`: Long): AudioStreamGeneratorMixRate =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

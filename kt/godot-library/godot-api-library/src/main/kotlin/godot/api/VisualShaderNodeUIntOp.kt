@@ -110,7 +110,7 @@ public open class VisualShaderNodeUIntOp : VisualShaderNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Operator = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Operator = entries.first { it.`value` == `value` }
     }
   }
 

@@ -631,7 +631,7 @@ public open class Skeleton3D : Node3D() {
 
     public companion object {
       public fun from(`value`: Long): ModifierCallbackModeProcess =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

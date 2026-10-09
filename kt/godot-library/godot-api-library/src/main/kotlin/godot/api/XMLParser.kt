@@ -228,7 +228,7 @@ public open class XMLParser : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): NodeType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): NodeType = entries.first { it.`value` == `value` }
     }
   }
 

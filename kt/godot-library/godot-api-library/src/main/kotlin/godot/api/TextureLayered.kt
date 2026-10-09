@@ -134,7 +134,7 @@ public abstract class TextureLayered : Texture() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LayeredType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LayeredType = entries.first { it.`value` == `value` }
     }
   }
 

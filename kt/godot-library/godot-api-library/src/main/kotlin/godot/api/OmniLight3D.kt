@@ -111,7 +111,7 @@ public open class OmniLight3D : Light3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShadowMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShadowMode = entries.first { it.`value` == `value` }
     }
   }
 

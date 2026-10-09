@@ -350,7 +350,7 @@ public open class VirtualJoystick : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): JoystickMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): JoystickMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -368,7 +368,7 @@ public open class VirtualJoystick : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VisibilityMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VisibilityMode = entries.first { it.`value` == `value` }
     }
   }
 

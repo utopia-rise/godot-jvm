@@ -2353,7 +2353,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Mode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Mode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2481,7 +2481,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Flags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Flags = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2505,7 +2505,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ContentScaleMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ContentScaleMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2540,7 +2540,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ContentScaleAspect = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ContentScaleAspect = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2560,7 +2560,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ContentScaleStretch = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ContentScaleStretch = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2595,7 +2595,7 @@ public open class Window : Viewport() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LayoutDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LayoutDirection = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2631,7 +2631,7 @@ public open class Window : Viewport() {
 
     public companion object {
       public fun from(`value`: Long): WindowInitialPosition =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

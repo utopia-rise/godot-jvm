@@ -882,7 +882,7 @@ public open class ItemList : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): IconMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): IconMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -904,7 +904,7 @@ public open class ItemList : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SelectMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SelectMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -930,7 +930,7 @@ public open class ItemList : Control() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ScrollHintMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ScrollHintMode = entries.first { it.`value` == `value` }
     }
   }
 

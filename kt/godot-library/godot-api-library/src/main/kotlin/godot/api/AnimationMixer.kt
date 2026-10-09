@@ -763,7 +763,7 @@ public open class AnimationMixer internal constructor() : Node() {
 
     public companion object {
       public fun from(`value`: Long): AnimationCallbackModeProcess =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -784,7 +784,7 @@ public open class AnimationMixer internal constructor() : Node() {
 
     public companion object {
       public fun from(`value`: Long): AnimationCallbackModeMethod =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -845,7 +845,7 @@ public open class AnimationMixer internal constructor() : Node() {
 
     public companion object {
       public fun from(`value`: Long): AnimationCallbackModeDiscrete =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

@@ -269,7 +269,7 @@ public open class Gradient : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): InterpolationMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): InterpolationMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -292,7 +292,7 @@ public open class Gradient : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ColorSpace = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ColorSpace = entries.first { it.`value` == `value` }
     }
   }
 

@@ -610,7 +610,7 @@ public object Performance : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Monitor = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Monitor = entries.first { it.`value` == `value` }
     }
   }
 
@@ -639,7 +639,7 @@ public object Performance : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MonitorType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MonitorType = entries.first { it.`value` == `value` }
     }
   }
 

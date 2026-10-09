@@ -159,7 +159,7 @@ public open class Slider internal constructor() : Range() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TickPosition = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TickPosition = entries.first { it.`value` == `value` }
     }
   }
 

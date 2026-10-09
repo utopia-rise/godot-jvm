@@ -230,7 +230,7 @@ public open class VoxelGI : VisualInstance3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Subdiv = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Subdiv = entries.first { it.`value` == `value` }
     }
   }
 

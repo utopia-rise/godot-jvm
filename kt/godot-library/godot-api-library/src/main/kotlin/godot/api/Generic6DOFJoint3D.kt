@@ -159,7 +159,7 @@ public open class Generic6DOFJoint3D : Joint3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Param = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Param = entries.first { it.`value` == `value` }
     }
   }
 
@@ -191,7 +191,7 @@ public open class Generic6DOFJoint3D : Joint3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Flag = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Flag = entries.first { it.`value` == `value` }
     }
   }
 

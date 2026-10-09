@@ -202,7 +202,7 @@ public object CameraServer : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FeedImage = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FeedImage = entries.first { it.`value` == `value` }
     }
   }
 

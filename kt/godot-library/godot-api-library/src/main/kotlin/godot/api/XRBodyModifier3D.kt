@@ -151,7 +151,7 @@ public open class XRBodyModifier3D : SkeletonModifier3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BoneUpdate = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BoneUpdate = entries.first { it.`value` == `value` }
     }
   }
 

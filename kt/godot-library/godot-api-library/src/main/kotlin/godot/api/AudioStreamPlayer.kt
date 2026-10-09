@@ -345,7 +345,7 @@ public open class AudioStreamPlayer : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MixTarget = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MixTarget = entries.first { it.`value` == `value` }
     }
   }
 

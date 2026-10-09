@@ -564,8 +564,7 @@ public object Geometry2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PolyBooleanOperation =
-          entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PolyBooleanOperation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -590,7 +589,7 @@ public object Geometry2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PolyJoinType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PolyJoinType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -620,7 +619,7 @@ public object Geometry2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PolyEndType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PolyEndType = entries.first { it.`value` == `value` }
     }
   }
 

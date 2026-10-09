@@ -331,7 +331,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Capability = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Capability = entries.first { it.`value` == `value` }
     }
   }
 
@@ -405,7 +405,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ComponentType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ComponentType = entries.first { it.`value` == `value` }
     }
   }
 

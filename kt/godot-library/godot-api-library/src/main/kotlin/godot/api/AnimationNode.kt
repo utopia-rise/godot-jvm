@@ -428,7 +428,7 @@ public open class AnimationNode : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FilterAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FilterAction = entries.first { it.`value` == `value` }
     }
   }
 

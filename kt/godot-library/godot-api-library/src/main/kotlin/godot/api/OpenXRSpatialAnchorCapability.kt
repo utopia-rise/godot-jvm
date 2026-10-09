@@ -243,7 +243,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PersistenceScope = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PersistenceScope = entries.first { it.`value` == `value` }
     }
   }
 

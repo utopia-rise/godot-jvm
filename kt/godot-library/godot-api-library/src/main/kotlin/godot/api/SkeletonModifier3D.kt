@@ -167,7 +167,7 @@ public open class SkeletonModifier3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BoneAxis = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BoneAxis = entries.first { it.`value` == `value` }
     }
   }
 
@@ -205,7 +205,7 @@ public open class SkeletonModifier3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BoneDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BoneDirection = entries.first { it.`value` == `value` }
     }
   }
 
@@ -247,7 +247,7 @@ public open class SkeletonModifier3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SecondaryDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SecondaryDirection = entries.first { it.`value` == `value` }
     }
   }
 
@@ -277,7 +277,7 @@ public open class SkeletonModifier3D : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RotationAxis = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RotationAxis = entries.first { it.`value` == `value` }
     }
   }
 

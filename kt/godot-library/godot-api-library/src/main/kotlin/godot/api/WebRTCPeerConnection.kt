@@ -257,7 +257,7 @@ public open class WebRTCPeerConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ConnectionState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ConnectionState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -281,7 +281,7 @@ public open class WebRTCPeerConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GatheringState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GatheringState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -323,7 +323,7 @@ public open class WebRTCPeerConnection : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SignalingState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SignalingState = entries.first { it.`value` == `value` }
     }
   }
 

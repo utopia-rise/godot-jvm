@@ -233,7 +233,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TransformMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TransformMode = entries.first { it.`value` == `value` }
     }
   }
 

@@ -3431,7 +3431,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FocusMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FocusMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3457,7 +3457,7 @@ public open class Control : CanvasItem() {
 
     public companion object {
       public fun from(`value`: Long): FocusBehaviorRecursive =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -3484,7 +3484,7 @@ public open class Control : CanvasItem() {
 
     public companion object {
       public fun from(`value`: Long): MouseBehaviorRecursive =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -3580,7 +3580,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CursorShape = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CursorShape = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3674,7 +3674,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LayoutPreset = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LayoutPreset = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3700,7 +3700,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LayoutPresetMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LayoutPresetMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3800,7 +3800,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MouseFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MouseFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3825,7 +3825,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GrowDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GrowDirection = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3847,7 +3847,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Anchor = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Anchor = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3895,7 +3895,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LayoutDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LayoutDirection = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3921,7 +3921,7 @@ public open class Control : CanvasItem() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextDirection = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextDirection = entries.first { it.`value` == `value` }
     }
   }
 

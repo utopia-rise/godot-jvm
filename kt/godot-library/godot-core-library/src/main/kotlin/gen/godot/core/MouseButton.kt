@@ -56,6 +56,6 @@ public enum class MouseButton(
   ;
 
   public companion object {
-    public fun from(`value`: Long): MouseButton = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): MouseButton = entries.first { it.`value` == `value` }
   }
 }

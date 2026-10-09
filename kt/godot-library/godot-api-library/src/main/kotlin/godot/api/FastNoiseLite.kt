@@ -499,7 +499,7 @@ public open class FastNoiseLite : Noise() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): NoiseType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): NoiseType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -525,7 +525,7 @@ public open class FastNoiseLite : Noise() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FractalType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FractalType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -552,7 +552,7 @@ public open class FastNoiseLite : Noise() {
 
     public companion object {
       public fun from(`value`: Long): CellularDistanceFunction =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -593,7 +593,7 @@ public open class FastNoiseLite : Noise() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CellularReturnType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CellularReturnType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -616,7 +616,7 @@ public open class FastNoiseLite : Noise() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DomainWarpType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DomainWarpType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -640,7 +640,7 @@ public open class FastNoiseLite : Noise() {
 
     public companion object {
       public fun from(`value`: Long): DomainWarpFractalType =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

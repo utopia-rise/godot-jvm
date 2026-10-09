@@ -314,7 +314,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GLTFObjectModelType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GLTFObjectModelType = entries.first { it.`value` == `value` }
     }
   }
 

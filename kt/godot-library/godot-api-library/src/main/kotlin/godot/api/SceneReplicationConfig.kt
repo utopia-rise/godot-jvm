@@ -231,7 +231,7 @@ public open class SceneReplicationConfig : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ReplicationMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ReplicationMode = entries.first { it.`value` == `value` }
     }
   }
 

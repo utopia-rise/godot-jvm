@@ -1633,7 +1633,7 @@ public open class CanvasItem internal constructor() : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1666,7 +1666,7 @@ public open class CanvasItem internal constructor() : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureRepeat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureRepeat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1696,7 +1696,7 @@ public open class CanvasItem internal constructor() : Node() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ClipChildrenMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ClipChildrenMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1724,7 +1724,7 @@ public open class CanvasItem internal constructor() : Node() {
 
     public companion object {
       public fun from(`value`: Long): OversamplingWithScale =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 

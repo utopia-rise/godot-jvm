@@ -315,7 +315,7 @@ public open class AudioStreamWAV : AudioStream() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Format = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Format = entries.first { it.`value` == `value` }
     }
   }
 
@@ -341,7 +341,7 @@ public open class AudioStreamWAV : AudioStream() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LoopMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LoopMode = entries.first { it.`value` == `value` }
     }
   }
 

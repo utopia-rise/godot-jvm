@@ -2048,7 +2048,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DeviceType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DeviceType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2161,7 +2161,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DriverResource = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DriverResource = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3404,7 +3404,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DataFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DataFormat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3497,7 +3497,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3540,7 +3540,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureSamples = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureSamples = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3663,7 +3663,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureSwizzle = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureSwizzle = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3685,7 +3685,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): TextureSliceType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): TextureSliceType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3705,7 +3705,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SamplerFilter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SamplerFilter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3745,7 +3745,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SamplerRepeatMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SamplerRepeatMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3789,7 +3789,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SamplerBorderColor = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SamplerBorderColor = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3809,7 +3809,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): VertexFrequency = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): VertexFrequency = entries.first { it.`value` == `value` }
     }
   }
 
@@ -3829,7 +3829,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): IndexBufferFormat = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): IndexBufferFormat = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4074,7 +4074,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): UniformType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): UniformType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4149,7 +4149,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): RenderPrimitive = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): RenderPrimitive = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4171,7 +4171,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PolygonCullMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PolygonCullMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4189,7 +4189,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PolygonFrontFace = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PolygonFrontFace = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4239,7 +4239,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): StencilOperation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): StencilOperation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4285,7 +4285,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CompareOperator = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CompareOperator = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4367,7 +4367,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): LogicOperation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): LogicOperation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4466,7 +4466,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendFactor = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendFactor = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4500,7 +4500,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendOperation = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendOperation = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4573,7 +4573,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): InitialAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): InitialAction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4598,7 +4598,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): FinalAction = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): FinalAction = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4701,7 +4701,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShaderStage = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShaderStage = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4721,7 +4721,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShaderLanguage = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShaderLanguage = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4744,7 +4744,7 @@ public open class RenderingDevice internal constructor() : Object() {
 
     public companion object {
       public fun from(`value`: Long): PipelineSpecializationConstantType =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -4788,7 +4788,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Features = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Features = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4966,7 +4966,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): Limit = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): Limit = entries.first { it.`value` == `value` }
     }
   }
 
@@ -4989,7 +4989,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): MemoryType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): MemoryType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -5063,7 +5063,7 @@ public open class RenderingDevice internal constructor() : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BreadcrumbMarker = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BreadcrumbMarker = entries.first { it.`value` == `value` }
     }
   }
 

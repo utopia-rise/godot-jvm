@@ -637,7 +637,7 @@ public open class GridMap : Node3D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DebugVisibilityMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DebugVisibilityMode = entries.first { it.`value` == `value` }
     }
   }
 

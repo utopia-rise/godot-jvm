@@ -191,7 +191,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PortType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PortType = entries.first { it.`value` == `value` }
     }
   }
 

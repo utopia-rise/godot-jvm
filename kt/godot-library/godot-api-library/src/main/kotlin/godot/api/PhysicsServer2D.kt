@@ -1929,7 +1929,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SpaceParameter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SpaceParameter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -1986,7 +1986,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ShapeType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ShapeType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2054,7 +2054,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AreaParameter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AreaParameter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2090,7 +2090,7 @@ public object PhysicsServer2D : Object() {
 
     public companion object {
       public fun from(`value`: Long): AreaSpaceOverrideMode =
-          entries.single { it.`value` == `value` }
+          entries.first { it.`value` == `value` }
     }
   }
 
@@ -2120,7 +2120,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BodyMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BodyMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2192,7 +2192,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BodyParameter = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BodyParameter = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2210,7 +2210,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BodyDampMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BodyDampMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2240,7 +2240,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BodyState = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BodyState = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2266,7 +2266,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): JointType = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): JointType = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2298,7 +2298,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): JointParam = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): JointParam = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2325,7 +2325,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PinJointParam = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PinJointParam = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2343,7 +2343,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): PinJointFlag = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): PinJointFlag = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2370,7 +2370,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DampedSpringParam = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DampedSpringParam = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2395,7 +2395,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): CCDMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): CCDMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2415,7 +2415,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): AreaBodyStatus = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): AreaBodyStatus = entries.first { it.`value` == `value` }
     }
   }
 
@@ -2437,7 +2437,7 @@ public object PhysicsServer2D : Object() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): ProcessInfo = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): ProcessInfo = entries.first { it.`value` == `value` }
     }
   }
 

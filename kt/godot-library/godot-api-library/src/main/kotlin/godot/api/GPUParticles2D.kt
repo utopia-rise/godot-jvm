@@ -732,7 +732,7 @@ public open class GPUParticles2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): DrawOrder = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): DrawOrder = entries.first { it.`value` == `value` }
     }
   }
 
@@ -763,7 +763,7 @@ public open class GPUParticles2D : Node2D() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): EmitFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): EmitFlags = entries.first { it.`value` == `value` }
     }
   }
 

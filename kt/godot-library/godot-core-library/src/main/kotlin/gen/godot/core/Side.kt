@@ -31,6 +31,6 @@ public enum class Side(
   ;
 
   public companion object {
-    public fun from(`value`: Long): Side = entries.single { it.`value` == `value` }
+    public fun from(`value`: Long): Side = entries.first { it.`value` == `value` }
   }
 }

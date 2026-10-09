@@ -888,7 +888,7 @@ public open class SceneTree : MainLoop() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): GroupCallFlags = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): GroupCallFlags = entries.first { it.`value` == `value` }
     }
   }
 

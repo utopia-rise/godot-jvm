@@ -507,7 +507,7 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): BlendMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): BlendMode = entries.first { it.`value` == `value` }
     }
   }
 
@@ -545,7 +545,7 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
     ;
 
     public companion object {
-      public fun from(`value`: Long): SyncMode = entries.single { it.`value` == `value` }
+      public fun from(`value`: Long): SyncMode = entries.first { it.`value` == `value` }
     }
   }
 
