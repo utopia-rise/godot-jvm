@@ -6,10 +6,10 @@ import godot.common.interop.nullptr
 import kotlin.reflect.KClass
 
 object TypeManager {
-    val engineTypeToId = mutableMapOf<KClass<out NativeWrapper>, Int>()
+    val engineTypeToId = HashMap<Class<*>, Int>()
 
-    private val scriptClassCache = mutableListOf<KClass<out NativeWrapper>>()
-    val classToScriptPtr = mutableMapOf<KClass<out NativeWrapper>, VoidPtr>()
+    private val scriptClassCache = mutableListOf<Class<*>>()
+    val classToScriptPtr = HashMap<Class<*>, VoidPtr>()
 
     val userTypes = LinkedHashSet<String>()
     val engineTypeNames = LinkedHashSet<String>()
@@ -20,14 +20,14 @@ object TypeManager {
 
     fun registerUserType(className: String, kClass: KClass<out NativeWrapper>) {
         userTypes.add(className)
-        scriptClassCache.add(kClass)
+        scriptClassCache.add(kClass.java)
     }
 
     fun registerEngineType(className: String, clazz: KClass<out NativeWrapper>, invoke: (() -> NativeWrapper)?) {
         engineTypesConstructors.add(invoke)
         engineTypeNames.add(className)
-        engineTypeToId[clazz] = engineTypeNames.size - 1
-        classToScriptPtr[clazz] = nullptr
+        engineTypeToId[clazz.java] = engineTypeNames.size - 1
+        classToScriptPtr[clazz.java] = nullptr
     }
 
     fun registerSingleton(singletonName: String, invocator: () -> NativeWrapper) {

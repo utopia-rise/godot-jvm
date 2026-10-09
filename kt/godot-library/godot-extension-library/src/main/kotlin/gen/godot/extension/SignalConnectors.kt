@@ -235,7 +235,7 @@ public fun <T : Object, R, P0> Signal1<P0>._connectMethod1Java(
 
 public inline fun <reified P0> Signal1<P0>.promise(noinline method: (p0: P0) -> Unit, noinline
     cancel: () -> Unit): Unit {
-  LambdaContainer1<Unit, P0>(NIL, arrayOf(getVariantConverter(P0::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer1<Unit, P0>(NIL, arrayOf(getVariantConverter<P0>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1> Signal2<P0, P1>.connectLambda(flags: ConnectFlags =
@@ -295,7 +295,7 @@ public fun <T : Object, R, P0, P1> Signal2<P0, P1>._connectMethod2Java(
 
 public inline fun <reified P0, reified P1> Signal2<P0, P1>.promise(noinline method: (p0: P0,
     p1: P1) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer2<Unit, P0, P1>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer2<Unit, P0, P1>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2>
@@ -368,7 +368,7 @@ public inline fun <reified P0, reified P1, reified P2> Signal3<P0, P1, P2>.promi
   p1: P1,
   p2: P2,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer3<Unit, P0, P1, P2>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer3<Unit, P0, P1, P2>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3>
@@ -446,7 +446,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3>
   p2: P2,
   p3: P3,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer4<Unit, P0, P1, P2, P3>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer4<Unit, P0, P1, P2, P3>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4>
@@ -528,7 +528,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4>
   p3: P3,
   p4: P4,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer5<Unit, P0, P1, P2, P3, P4>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer5<Unit, P0, P1, P2, P3, P4>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5>
@@ -615,7 +615,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p4: P4,
   p5: P5,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer6<Unit, P0, P1, P2, P3, P4, P5>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer6<Unit, P0, P1, P2, P3, P4, P5>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -707,7 +707,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p5: P5,
   p6: P6,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer7<Unit, P0, P1, P2, P3, P4, P5, P6>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer7<Unit, P0, P1, P2, P3, P4, P5, P6>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -804,7 +804,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p6: P6,
   p7: P7,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer8<Unit, P0, P1, P2, P3, P4, P5, P6, P7>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer8<Unit, P0, P1, P2, P3, P4, P5, P6, P7>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -907,7 +907,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p7: P7,
   p8: P8,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer9<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer9<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1014,7 +1014,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p8: P8,
   p9: P9,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer10<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer10<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1125,7 +1125,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p9: P9,
   p10: P10,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer11<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer11<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1240,7 +1240,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p10: P10,
   p11: P11,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer12<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!, getVariantConverter(P11::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer12<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1359,7 +1359,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p11: P11,
   p12: P12,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer13<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!, getVariantConverter(P11::class)!!, getVariantConverter(P12::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer13<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1482,7 +1482,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p12: P12,
   p13: P13,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer14<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!, getVariantConverter(P11::class)!!, getVariantConverter(P12::class)!!, getVariantConverter(P13::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer14<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1612,7 +1612,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p13: P13,
   p14: P14,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer15<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!, getVariantConverter(P11::class)!!, getVariantConverter(P12::class)!!, getVariantConverter(P13::class)!!, getVariantConverter(P14::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer15<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!, getVariantConverter<P14>()!!), method).setAsCancellable(this, cancel)
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
@@ -1746,5 +1746,5 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
   p14: P14,
   p15: P15,
 ) -> Unit, noinline cancel: () -> Unit): Unit {
-  LambdaContainer16<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(NIL, arrayOf(getVariantConverter(P0::class)!!, getVariantConverter(P1::class)!!, getVariantConverter(P2::class)!!, getVariantConverter(P3::class)!!, getVariantConverter(P4::class)!!, getVariantConverter(P5::class)!!, getVariantConverter(P6::class)!!, getVariantConverter(P7::class)!!, getVariantConverter(P8::class)!!, getVariantConverter(P9::class)!!, getVariantConverter(P10::class)!!, getVariantConverter(P11::class)!!, getVariantConverter(P12::class)!!, getVariantConverter(P13::class)!!, getVariantConverter(P14::class)!!, getVariantConverter(P15::class)!!), method).setAsCancellable(this, cancel)
+  LambdaContainer16<Unit, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(NIL, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!, getVariantConverter<P14>()!!, getVariantConverter<P15>()!!), method).setAsCancellable(this, cancel)
 }

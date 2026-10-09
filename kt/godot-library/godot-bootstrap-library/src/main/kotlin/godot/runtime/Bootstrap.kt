@@ -3,6 +3,7 @@ package godot.runtime
 import godot.common.GODOT_JVM_VERSION
 import godot.core.VariantParser
 import godot.core.addVariantMapping
+import godot.core.clearVariantMappings
 import godot.internal.logging.JVMLogging
 import godot.internal.reflection.TypeManager
 import godot.registerEngineTypes
@@ -88,6 +89,8 @@ internal class Bootstrap {
 
     private fun clearClassesCache() {
         TypeManager.clearUserTypes()
+        clearVariantMappings()
+        registerVariantMapping()
     }
 
     private fun forceJvmInitializationOfSingletons() {
