@@ -192,7 +192,7 @@ String GodotJvm::get_path_to_embedded_jvm() {
         ->get_executable_path()
         .get_base_dir()
 #if defined(MACOS_ENABLED)
-        .path_join("../PlugIns/")
+        .path_join("../Resources/")
         .path_join(
             String(HOST_EMBEDDED_JRE_DIRECTORY).get_file()
         ) // Only use the last subdir, as the export doesn't keep the relative path

@@ -282,6 +282,14 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
                  ? "Debug Address must be an IP address or * to listen on every address."
                  : String();
     }
+    if (p_option == "codesign/entitlements/allow_jit_code_execution"
+        || p_option == "codesign/entitlements/allow_unsigned_executable_memory") {
+        // The hardened runtime, which signing with a Developer ID enables, refuses the JVM's code cache without
+        // these; ad-hoc signatures do not enforce entitlements.
+        return selected_runtime() == RUNTIME_JVM && !bool(get_option(p_option))
+                 ? "The JVM needs this entitlement to start once the app is signed with a Developer ID."
+                 : String();
+    }
     if (p_option != runtime_option) { return String(); }
 
     const DesktopRuntimeFiles* files = desktop_runtime_files(p_platform->get_os_name());
@@ -441,17 +449,35 @@ void GodotJvmEditorExportPlugin::_export_begin(
                     String(RES_DIRECTORY) + export_directory.trim_prefix("./")
                 );
             }
-            for (const String& jre_directory : embedded_jre_directories(*desktop_files, arm64, x86_64)) {
-                if (!DirAccess::dir_exists_absolute(jre_directory)) {
-                    report_export_error(vformat(
-                        "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
-                        jre_directory
-                    ));
-                    return;
-                }
+            PackedStringArray jre_directories = embedded_jre_directories(*desktop_files, arm64, x86_64);
+            PackedStringArray missing_jres;
+            for (const String& jre_directory : jre_directories) {
+                if (!DirAccess::dir_exists_absolute(jre_directory)) { missing_jres.push_back(jre_directory); }
+            }
+            if (missing_jres.size() == jre_directories.size()) {
+                report_export_error(vformat(
+                    "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
+                    String(", ").join(missing_jres)
+                ));
+                return;
+            }
+            if (!missing_jres.is_empty()) {
+                get_export_platform()->add_message(
+                    EditorExportPlatform::EXPORT_MESSAGE_WARNING,
+                    "Godot-JVM",
+                    vformat(
+                        "No embedded JRE at %s. The exported game will only start on the architecture of the "
+                        "bundled JRE. Run the \"Generate JRE (universal)\" Gradle task to bundle both.",
+                        String(", ").join(missing_jres)
+                    )
+                );
+            }
+            for (const String& jre_directory : jre_directories) {
+                if (missing_jres.has(jre_directory)) { continue; }
                 if (os_name == "macOS") {
-                    // on macos the embedded jre needs to be added as a plugin file
-                    add_macos_plugin_file(jre_directory);
+                    // Under Contents/Resources the JRE is sealed as data. In Contents/PlugIns Godot's signer would
+                    // expect a bundle with its own executable and abort signing the whole app.
+                    add_shared_object(jre_directory, PackedStringArray(), "Contents/Resources");
                 } else {
                     // on windows and linux the embedded jre is copied next to the exported executable
                     String target_directory = export_directory.path_join(jre_directory.trim_prefix(RES_DIRECTORY));
