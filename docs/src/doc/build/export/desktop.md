@@ -69,6 +69,23 @@ jlink --module-path /Library/Java/JavaVirtualMachines/temurin-17-x64.jdk/Content
 
 The export bundles whichever of the two directories exist. With only one present it still succeeds, with a warning, and the exported game starts only on that JRE's architecture. To skip the second JRE altogether, set the preset's **Binary Format > Architecture** to `arm64` or `x86_64` instead of `universal`.
 
+### Signing macOS exports
+
+macOS refuses to run native code without a signature, so Godot signs the exported app. The embedded JRE is copied to `Contents/Resources/jre-<arch>-macos` inside the app, and Godot signs every library and executable in it along with the rest of the bundle. Godot reports a few "Unknown bundle type" warnings while doing so, one per plain directory of the JRE; they are harmless. All of Godot's signing modes work:
+
+| **Codesign** preset option | Signature | Use |
+|---|---|---|
+| Built-in | Ad hoc, no certificate | Local runs and testing, from any host OS |
+| Xcode codesign with an empty identity | Ad hoc | Local runs and testing, on a Mac |
+| Xcode codesign or rcodesign with a Developer ID | Hardened runtime | Distribution and notarization |
+
+With a Developer ID, the app runs under Apple's hardened runtime, which forbids writable executable memory unless the app declares entitlements for it. The JVM allocates its code cache that way, for the interpreter and the JIT compiler alike, so without the entitlements the game does not start at all. Enable both in the preset under **Codesign > Entitlements**:
+
+- **Allow JIT Code Execution**, used by the JVM on arm64
+- **Allow Unsigned Executable Memory**, used by the JVM on x86_64
+
+The export dialog warns while either is off for a JVM runtime. Ad-hoc signatures do not enforce entitlements, so a locally signed export runs either way. Native image exports need neither, since GraalVM compiles everything ahead of time.
+
 Open **Project > Export** and select your desktop [export preset](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html). Leave **Godot Jvm > Runtime** on **JVM**, resolve missing-file warnings, and click **Export Project**. Launch the exported executable to finish the desktop workflow.
 
 Details: [Reference](../../reference/gradle-plugin/tasks.md).

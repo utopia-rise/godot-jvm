@@ -282,6 +282,14 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
                  ? "Debug Address must be an IP address or * to listen on every address."
                  : String();
     }
+    if (p_option == "codesign/entitlements/allow_jit_code_execution"
+        || p_option == "codesign/entitlements/allow_unsigned_executable_memory") {
+        // The hardened runtime, which signing with a Developer ID enables, refuses the JVM's code cache without
+        // these; ad-hoc signatures do not enforce entitlements.
+        return selected_runtime() == RUNTIME_JVM && !bool(get_option(p_option))
+                 ? "The JVM needs this entitlement to start once the app is signed with a Developer ID."
+                 : String();
+    }
     if (p_option != runtime_option) { return String(); }
 
     const DesktopRuntimeFiles* files = desktop_runtime_files(p_platform->get_os_name());
