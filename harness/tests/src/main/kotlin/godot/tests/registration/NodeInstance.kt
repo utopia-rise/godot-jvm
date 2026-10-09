@@ -18,4 +18,12 @@ class NodeInstance : Node() {
 
     @Register
     fun isTrackedNodeValid(): Boolean = GD.isInstanceValid(trackedNode)
+
+    @Register
+    fun instantiateUnregisteredSubclass() {
+        UnregisteredNodeInstance().free()
+    }
 }
+
+// Deliberately not annotated with @Script: instantiating it from user code is the silent failure of issue #988.
+class UnregisteredNodeInstance : Node()

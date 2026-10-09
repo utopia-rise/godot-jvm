@@ -75,10 +75,10 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
             VariantBuffer.transfer.writeArgs(6) {
                 VariantParser.LONG.write(keyVariantConverter.id.toLong())
                 VariantParser.LONG.write(((TypeManager.engineTypeToId[keyClass] ?: -1)).toLong())
-                VariantParser.LONG.write((TypeManager.userClassToScriptPtr[keyClass] ?: nullptr))
+                VariantParser.LONG.write((TypeManager.classToScriptPtr[keyClass] ?: nullptr))
                 VariantParser.LONG.write(valueVariantConverter.id.toLong())
                 VariantParser.LONG.write(((TypeManager.engineTypeToId[valueClass] ?: -1)).toLong())
-                VariantParser.LONG.write((TypeManager.userClassToScriptPtr[valueClass] ?: nullptr))
+                VariantParser.LONG.write((TypeManager.classToScriptPtr[valueClass] ?: nullptr))
             }
             Bridge.engine_call_constructor_typed()
         } else {
