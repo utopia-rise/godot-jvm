@@ -22,6 +22,14 @@ kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
 }
 
+dependencies {
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
 publishing {
     publications {
         @Suppress("UNUSED_VARIABLE", "unused")

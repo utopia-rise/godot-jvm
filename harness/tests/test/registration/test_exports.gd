@@ -161,6 +161,10 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
 
 
     _assert_property_hint(property_map, "int_flag_value", PROPERTY_HINT_FLAGS, "Player,Enemy,Npc")
+    assert_that(property_map["enum_flag_value"]["hint"]).is_equal(PROPERTY_HINT_FLAGS)
+    assert_str(property_map["enum_flag_value"]["hint_string"])\
+        .override_failure_message("A plain enum bitfield should list title-cased labels and leave Godot's implicit flag values")\
+        .not_contains(":").not_contains("_")
     _assert_property_hint(property_map, "file_path_value", PROPERTY_HINT_FILE, "*.gd,*.gdj")
     assert_that(property_map["enum_flag_value"]["class_name"])\
         .override_failure_message("Expected the enum flag property to report Godot's int class name")\

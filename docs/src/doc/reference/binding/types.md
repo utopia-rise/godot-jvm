@@ -188,7 +188,7 @@ val method = StringNames.toGodotName("takeDamage")
 !!! warning "Scala enums"
     Plain Scala 3 `enum` types are not recognized for registration. Extend `java.lang.Enum[YourEnum]`.
 
-A registered enum property automatically receives an Inspector dropdown. Ordinary JVM enums use their ordinal as the numeric value. `GodotEnum` permits custom values; the numeric accessor is `value` in Kotlin and `getValue()` in Java/Scala.
+A registered enum property automatically receives an Inspector dropdown. Its labels are the entry names capitalized the way GDScript does, so `FIRE_BALL` reads `Fire Ball`. Ordinary JVM enums use their ordinal as the numeric value. `GodotEnum` permits custom values; the numeric accessor is `value` in Kotlin and `getValue()` in Java/Scala.
 
 A `BitField<E>` holds a flag mask for enum `E`. Ordinary enum entries use `1L << ordinal`; `GodotEnum` entries use their explicit value as the mask. Exported bitfields support at most 32 entries. Engine bitfield wrapper types cannot be exported directly as properties; use `BitField<E>` with an enum.
 
