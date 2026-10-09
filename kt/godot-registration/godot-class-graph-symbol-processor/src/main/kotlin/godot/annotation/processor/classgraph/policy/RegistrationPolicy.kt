@@ -18,6 +18,8 @@ import godot.annotation.processor.classgraph.extensions.metaAnnotations
 import godot.annotation.processor.classgraph.extensions.overridesGodotBaseMethod
 import godot.annotation.processor.classgraph.extensions.rawDescriptor
 import godot.annotation.processor.classgraph.extensions.returnRawDescriptor
+import godot.annotation.processor.classgraph.extensions.returnTypeArguments
+import godot.annotation.processor.classgraph.extensions.typeArguments
 import godot.annotation.processor.classgraph.extensions.withMetaAnnotations
 import godot.annotation.processor.classgraph.shape.AnnotationHolder
 import godot.annotation.processor.classgraph.shape.LogicalClassShape
@@ -69,7 +71,8 @@ private class ExplicitRegistrationPolicy(
 ) : RegistrationPolicyMode {
     override fun resolvedAnnotations(holder: AnnotationHolder): List<AnnotationInfo> = holder.annotations.toList()
 
-    override fun selectClass(shape: LogicalClassShape): Boolean = hasAnnotation(shape, Script::class)
+    override fun selectClass(shape: LogicalClassShape): Boolean =
+        shape.classInfo.isPublic && hasAnnotation(shape, Script::class)
 
     override fun selectProperty(property: LogicalProperty): Boolean = hasAnnotation(property, Visible::class)
 
@@ -90,7 +93,8 @@ private class InferredRegistrationPolicy(
             }
         }
 
-    override fun selectClass(shape: LogicalClassShape): Boolean = hasAnnotation(shape, Script::class)
+    override fun selectClass(shape: LogicalClassShape): Boolean =
+        shape.classInfo.isPublic && hasAnnotation(shape, Script::class)
 
     override fun selectProperty(property: LogicalProperty): Boolean = hasAnnotation(property, Visible::class)
 
@@ -114,19 +118,25 @@ private class AutomaticRegistrationPolicy(
     override fun selectClass(shape: LogicalClassShape): Boolean = shape.classInfo.isPublic
 
     override fun selectProperty(property: LogicalProperty): Boolean {
+        if (hasAnnotation(property, Visible::class)) {
+            return true
+        }
         if (!property.isPublic) {
             return false
         }
         val rawDescriptor = property.getter?.returnRawDescriptor()
             ?: property.fieldInfo?.rawDescriptor()
             ?: return false
-        return rawDescriptor.isMappablePropertyType(context)
+        val typeArguments = property.getter?.returnTypeArguments() ?: property.fieldInfo?.typeArguments().orEmpty()
+        return rawDescriptor.isMappablePropertyType(context, typeArguments)
     }
 
-    override fun selectSignal(signal: LogicalSignal): Boolean = signal.isPublic
+    override fun selectSignal(signal: LogicalSignal): Boolean = hasAnnotation(signal, Emit::class) || signal.isPublic
 
     override fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean =
-        method.methodInfo.isMappable(context)
+        hasAnnotation(method, Register::class) ||
+            hasAnnotation(method, Notification::class) ||
+            method.methodInfo.isMappable(context)
 
     override fun propertyExposure(property: LogicalProperty): PropertyExposure =
         if (hasAnnotation(property, Visible::class)) super.propertyExposure(property) else PropertyExposure.EXPORT

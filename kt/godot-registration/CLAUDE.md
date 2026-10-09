@@ -181,13 +181,13 @@ These lightweight nodes preserve `parent`, `interfaces`, and `allAncestry` while
 only when none fail. Checks currently include:
 
 - `ConstructorCheck`
+- `GenericClassCheck`
 - `FunctionArgCountCheck`
 - `RegisteredNameUniquenessCheck` when a name provider is supplied
 - `SignalTypeCheck`
 - `PropertyTypeCheck`
 - `PropertyMutablilityCheck`
 - `LateinitPropertyCheck`
-- `NullablePropertyCheck`
 - `RpcCheck`
 
 Add new model invariants as `BaseCheck` implementations and wire them into `ModelCheck`. If a check needs

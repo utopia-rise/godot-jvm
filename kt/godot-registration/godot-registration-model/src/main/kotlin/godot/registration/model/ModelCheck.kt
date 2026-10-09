@@ -3,9 +3,9 @@ package godot.registration.model
 import godot.registration.model.checks.BitFieldEntryCountCheck
 import godot.registration.model.checks.FunctionArgCountCheck
 import godot.registration.model.checks.FunctionTypeCheck
+import godot.registration.model.checks.GenericClassCheck
 import godot.registration.model.checks.LateinitPropertyCheck
 import godot.registration.model.checks.NotificationFunctionCheck
-import godot.registration.model.checks.NullablePropertyCheck
 import godot.registration.model.checks.PropertyHintCheck
 import godot.registration.model.checks.PropertyHintCountCheck
 import godot.registration.model.checks.PropertyTypeCheck
@@ -29,6 +29,8 @@ object ModelCheck {
         registeredNameProvider: ((ScriptClass) -> String)? = null,
     ): Boolean {
         val hasIssue = listOf(
+            GenericClassCheck(logger, registeredClasses).execute(),
+
             FunctionArgCountCheck(logger, registeredClasses).execute(),
             FunctionTypeCheck(logger, registeredClasses).execute(),
             NotificationFunctionCheck(logger, registeredClasses).execute(),
@@ -44,7 +46,6 @@ object ModelCheck {
             PropertyHintCheck(logger, registeredClasses).execute(),
             BitFieldEntryCountCheck(logger, registeredClasses).execute(),
             LateinitPropertyCheck(logger, registeredClasses).execute(),
-            NullablePropertyCheck(logger, registeredClasses).execute(),
 
             RpcCheck(logger, registeredClasses).execute(),
         ).any { issueFound -> issueFound }
