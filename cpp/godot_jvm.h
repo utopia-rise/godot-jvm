@@ -42,8 +42,11 @@ namespace godot {
         ClassLoader* bootstrap_class_loader = nullptr;
         Bootstrap* bootstrap = nullptr;
 #ifdef TOOLS_ENABLED
-        godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a
-                                     // resource to be in cache to reload.
+        // We keep a Reference to the jars in memory because the Godot editor require a resource to be in cache to
+        // reload.
+        godot::Ref<JavaArchive> bootstrap_archive;
+        godot::Ref<JavaArchive> user_code_archive;
+        bool bootstrap_outdated = false;
 #endif
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
         engine::RawObject callable_middleman;
@@ -94,6 +97,7 @@ namespace godot {
 
 #ifdef TOOLS_ENABLED
         void reload_user_code();
+        void mark_bootstrap_outdated();
 #endif
 
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved

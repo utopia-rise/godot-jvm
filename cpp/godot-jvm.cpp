@@ -378,6 +378,10 @@ bool GodotJvm::load_bootstrap() {
 
         JVM_LOG_VERBOSE("Loading bootstrap jar: %s", bootstrap_jar);
         bootstrap_class_loader = ClassLoader::create_instance(env, bootstrap_jar, jni::JObject(nullptr));
+#ifdef TOOLS_ENABLED
+        bootstrap_archive.instantiate();
+        bootstrap_archive->take_over_path(String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE));
+#endif
 
         // set context classloader to bootstrap initially
         bootstrap_class_loader->set_as_context_loader(env);
@@ -461,8 +465,8 @@ bool GodotJvm::load_user_code() {
 
         JVM_LOG_VERBOSE("Loading user code file at: %s", user_code_path);
 #ifdef TOOLS_ENABLED
-        jar.instantiate();
-        jar->take_over_path(user_code_path);
+        user_code_archive.instantiate();
+        user_code_archive->take_over_path(user_code_path);
 #endif
 
         ClassLoader* user_class_loader = ClassLoader::create_instance(
@@ -489,7 +493,7 @@ void GodotJvm::unload_user_code() {
 
     bootstrap->finish(env);
 #ifdef TOOLS_ENABLED
-    jar.unref();
+    user_code_archive.unref();
 #endif
 }
 
@@ -518,6 +522,9 @@ void GodotJvm::unload_boostrap() {
     bootstrap = nullptr;
     delete bootstrap_class_loader;
     bootstrap_class_loader = nullptr;
+#ifdef TOOLS_ENABLED
+    bootstrap_archive.unref();
+#endif
 }
 
 #define SET_LOADING_STATE(cond, new_state, target_state) \
@@ -586,6 +593,10 @@ void GodotJvm::reload_user_code() {
         finalize_down_to(ENGINE_TYPES_INITIALIZED);
         initialize_up_to(JVM_SCRIPTS_INITIALIZED);
     }
+}
+
+void GodotJvm::mark_bootstrap_outdated() {
+    bootstrap_outdated = true;
 }
 #endif
 
