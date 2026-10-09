@@ -42,6 +42,7 @@ Variant JavaArchiveFormatLoader::_load(
 
 #ifdef TOOLS_ENABLED
     if (p_path.ends_with(USER_CODE_FILE)) { GodotJvm::get_instance().reload_user_code(); }
+    if (p_path.ends_with(BOOTSTRAP_FILE)) { GodotJvm::get_instance().mark_bootstrap_outdated(); }
 #endif
 
     return ref;

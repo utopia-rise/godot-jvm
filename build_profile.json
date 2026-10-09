@@ -38,6 +38,7 @@
     "EditorSettings",
     "EditorSyntaxHighlighter",
     "EditorFileSystem",
+    "EditorToaster",
 
     "EditorExportPlatform",
     "EditorExportPlugin",

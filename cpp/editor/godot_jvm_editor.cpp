@@ -13,6 +13,7 @@
 #include <classes/button.hpp>
 #include <classes/editor_file_system.hpp>
 #include <classes/editor_interface.hpp>
+#include <classes/editor_toaster.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
 #include <classes/popup_menu.hpp>
@@ -54,9 +55,18 @@ void GodotJvmEditor::on_filesystem_change() {
 
 void GodotJvmEditor::update_jvm_status(bool force) {
     GodotJvm::State state = GodotJvm::get_instance().state;
-    if (!force && displayed_jvm_state == state) { return; }
+    bool bootstrap_outdated = GodotJvm::get_instance().bootstrap_outdated;
+    if (!force && displayed_jvm_state == state && displayed_bootstrap_outdated == bootstrap_outdated) { return; }
+
+    if (bootstrap_outdated && !displayed_bootstrap_outdated) {
+        get_editor_interface()->get_editor_toaster()->push_toast(
+            "The JVM bootstrap archive changed. Restart the editor to load it (Project > Reload Current Project).",
+            EditorToaster::SEVERITY_WARNING
+        );
+    }
 
     displayed_jvm_state = state;
+    displayed_bootstrap_outdated = bootstrap_outdated;
 
     StringName icon;
     String label;
@@ -91,6 +101,11 @@ void GodotJvmEditor::update_jvm_status(bool force) {
             break;
         default:
             return;
+    }
+
+    if (bootstrap_outdated) {
+        icon = SNAME("StatusWarning");
+        label = "Bootstrap modified, restart the editor to load it";
     }
 
     jvm_status_light->set_texture(get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons")));

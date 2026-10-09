@@ -35,6 +35,7 @@ namespace godot {
         OptionButton* tool_bar_gradle_task_choice;
 
         GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
+        bool displayed_bootstrap_outdated = false;
 
         Ref<GodotJvmEditorExportPlugin> export_plugin;
         Ref<JvmStandardSyntaxHighlighter> syntax_highlighter;
