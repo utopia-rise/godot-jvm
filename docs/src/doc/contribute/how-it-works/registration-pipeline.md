@@ -380,7 +380,7 @@ supported Godot-facing type, including:
 - supported primitives and strings
 - Godot core types
 - Godot `Node` and `Resource` types
-- supported Kotlin and Java collections
+- `java.util.List` of enums
 - enums
 - `BitField<Enum>`
 

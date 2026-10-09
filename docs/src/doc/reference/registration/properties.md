@@ -8,9 +8,9 @@ description: Field and accessor selection, export, nullability, and initializati
 
 | Mode | Registered property | Exported property |
 |---|---|---|
-| Inferred | `@Visible`, `@Export`, or a property hint | `@Export` or a property hint |
+| Inferred | `@Visible`, `@Storage`, `@Export`, or a property hint | `@Export` or a property hint |
 | Explicit | Direct `@Visible` | Direct `@Visible` plus direct `@Export` |
-| Automatic | Public compatible property | Every selected property |
+| Automatic | Public compatible property | Every selected property without a written `@Visible` or `@Storage`, or with `@Export` |
 
 Property annotations belong to `godot.annotation`. A field must be public when there are no accessors. When accessors exist, every present getter/setter must be public. A private backing field can be exposed through public accessors.
 
@@ -78,7 +78,7 @@ fun currentHealth(): Int = health
 ```
 
 
-`var` supplies a getter and setter; `val` supplies only a getter. Computed properties are recognized through Kotlin metadata. Apply property annotations to the property. `@Register` cannot target a Kotlin property accessor; expose a separate named function when a callable method is needed. A private setter makes the property ineligible.
+`var` supplies a getter and setter; `val` supplies only a getter. Apply property annotations to the property. `@Register` cannot target a Kotlin property accessor; expose a separate named function when a callable method is needed. A private setter makes the property ineligible.
 
 ///
 
@@ -117,9 +117,9 @@ def getHealth(): Int = storedHealth
 
 ## Types and initialization
 
-Registered properties accept Variant-compatible values, core Godot types, `Node`/`Resource` references, enums, `BitField<E>`, and supported enum collections. See [types and conversions](../binding/types.md) for the precise distinction between property and method types.
+Registered properties accept Variant-compatible values, core Godot types, `Node`/`Resource` references, enums, `BitField<E>`, and `List`s of enums. See [types and conversions](../binding/types.md) for the precise distinction between property and method types.
 
-Primitive, string, and core-type properties cannot be nullable. Kotlin primitive/core-type properties cannot be `lateinit`; initialize them. Node and Resource references may be null. `Any`/`Object` allows a dynamic Variant value, not arbitrary JVM objects.
+Primitive, string, and core-type properties cannot be nullable. Kotlin primitive/core-type properties cannot be `lateinit`; initialize them. Node and Resource references may be null. Java and Scala carry no reliable nullability information, so the build cannot check this for them: a `null` reaching a primitive, string, core-type or enum property, parameter or return value fails at runtime instead. `Any`/`Object` allows a dynamic Variant value, not arbitrary JVM objects.
 
 A getter-only or final property has no setter available to Godot. It does not become writable by adding `@Export`.
 
@@ -198,7 +198,7 @@ For regular enums, each constant gets the bit at its ordinal (`1 << ordinal`).
 
 ## List of enums
 
-Any `Collection<MyEnum>`, such as `List` or `Set`, becomes a resizable list where each element is a dropdown:
+A property declared as a `List` of enums becomes a resizable list where each element is a dropdown. Kotlin accepts `List` or `MutableList`, Java uses `java.util.List`, and Scala uses `java.util.List` rather than its own `List`. Other collection types, such as `Set`, are rejected. The list keeps order and duplicates.
 
 /// tab | Kotlin
 ```kotlin

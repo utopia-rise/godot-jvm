@@ -68,7 +68,7 @@ enum class TypeKind {
     GODOT_CLASS,
     ENUM,
     BITFIELD,
-    COLLECTION,
+    LIST,
     OTHER,
 }
 
@@ -117,10 +117,6 @@ open class Type(
             kind = kind,
             isNullable = false,
         )
-
-        private fun isAssignableTo(fqName: String, target: Class<*>): Boolean = runCatching {
-            target.isAssignableFrom(Class.forName(fqName))
-        }.getOrDefault(false)
 
         val nilType = knownType(TYPE_VOID, TypeKind.PRIMITIVE)
         val booleanType = knownType(TYPE_BOOLEAN, TypeKind.PRIMITIVE)
@@ -247,14 +243,7 @@ open class Type(
             isNullable: Boolean = false,
             genericArguments: List<Type> = emptyList(),
         ): Type? {
-            val base = coreTypesByFqName[fqName]
-                ?: when {
-                    isAssignableTo(fqName, Callable::class.java) -> knownType(fqName, TypeKind.CORE_TYPE)
-                    isAssignableTo(fqName, Signal::class.java) -> knownType(fqName, TypeKind.CORE_TYPE)
-                    else -> null
-                }
-
-            return base?.with(isNullable = isNullable, genericArguments = genericArguments)
+            return coreTypesByFqName[fqName]?.with(isNullable = isNullable, genericArguments = genericArguments)
         }
 
         fun getPrimitiveType(
@@ -263,14 +252,6 @@ open class Type(
             genericArguments: List<Type> = emptyList(),
         ): Type = requireNotNull(findPrimitiveType(fqName, isNullable, genericArguments)) {
             "$fqName is not a primitive type"
-        }
-
-        fun getCoreType(
-            fqName: String,
-            isNullable: Boolean = false,
-            genericArguments: List<Type> = emptyList(),
-        ): Type = requireNotNull(findCoreType(fqName, isNullable, genericArguments)) {
-            "$fqName is not a core type"
         }
 
         fun getEnum(
@@ -282,13 +263,13 @@ open class Type(
             kind = TypeKind.ENUM,
         ).with(isNullable = isNullable, genericArguments = genericArguments)
 
-        fun getCollection(
+        fun getList(
             fqName: String,
             isNullable: Boolean = false,
             genericArguments: List<Type> = emptyList(),
         ): Type = knownType(
             fqName = fqName,
-            kind = TypeKind.COLLECTION,
+            kind = TypeKind.LIST,
         ).with(isNullable = isNullable, genericArguments = genericArguments)
 
         fun getBitField(

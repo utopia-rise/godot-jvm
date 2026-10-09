@@ -13,7 +13,7 @@ Selection exposes a declaration to Godot only if its shape and types are valid. 
 | Declaration or behavior | Inferred | Explicit | Automatic |
 |---|---|---|---|
 | Class | `@Script`, directly or through a meta-annotation | Direct `@Script` | Public Godot subclass |
-| Property | `@Visible`, directly or implied by `@Export`/a hint | Direct `@Visible` | Public compatible property |
+| Property | `@Visible`, directly or implied by `@Export`/`@Storage`/a hint | Direct `@Visible` | Public compatible property |
 | Inspector export | `@Export`, directly or implied by a hint | Direct `@Export` on a selected property | Every selected property without a written `@Visible` or `@Storage`, or with `@Export` |
 | Ordinary function | `@Register`, directly or implied by `@Rpc` | Direct `@Register` | Public compatible function |
 | Godot virtual override | Compatible override | Direct `@Register` | Compatible override |
@@ -188,7 +188,7 @@ With `Explicit` selected, this class produces:
 
 ## Automatic { #automatic }
 
-Public compatible declarations are selected without annotations. Selected properties are exported to the Inspector by default. Writing `@Visible` or `@Storage` replaces that default with the lower exposure, and `@Export` still wins when combined with them. Annotations that add something the default lacks, such as `@Rpc`, must still be written. Annotations also configure names, hints, and notifications.
+Public compatible declarations are selected without annotations. Selected properties are exported to the Inspector by default. Writing `@Visible` or `@Storage` replaces that default with the lower exposure, and `@Export` still wins when combined with them. Annotations that add something the default lacks, such as `@Rpc`, must still be written. A registration annotation on an incompatible member registers it anyway, so the build reports the problem as it would in the other modes. Annotations also configure names, hints, and notifications.
 
 /// tab | Kotlin
 
