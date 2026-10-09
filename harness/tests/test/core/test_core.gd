@@ -45,6 +45,14 @@ func test_long_string_round_trip() -> void:
     _assert_core_round_trip("read_long_string", "echo_long_string", _long_string_value())
 
 
+func test_short_round_trip() -> void:
+    _assert_core_round_trip("read_short", "echo_short", 7)
+
+
+func test_char_round_trip() -> void:
+    _assert_core_round_trip("read_char", "echo_char", 65)
+
+
 func test_vector2_round_trip() -> void:
     _assert_core_round_trip("read_vector2", "echo_vector2", Vector2(1.25, 2.5))
 

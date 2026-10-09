@@ -7,6 +7,7 @@ import godot.core.VariantArray
 import godot.registration.model.types.GodotClass
 import godot.registration.model.types.TYPE_BOOLEAN
 import godot.registration.model.types.TYPE_BYTE
+import godot.registration.model.types.TYPE_CHAR
 import godot.registration.model.types.TYPE_DOUBLE
 import godot.registration.model.types.TYPE_FLOAT
 import godot.registration.model.types.TYPE_INT
@@ -52,6 +53,7 @@ fun Type.isGodotPrimitive(): Boolean = when (fqName) {
     TYPE_BOOLEAN,
     TYPE_BYTE,
     TYPE_SHORT,
+    TYPE_CHAR,
     TYPE_KOTLIN_STRING -> true
 
     else -> false

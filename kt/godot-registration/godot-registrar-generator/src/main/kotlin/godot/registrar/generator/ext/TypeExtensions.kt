@@ -22,6 +22,7 @@ import godot.registration.model.types.Type.Companion.aabbType
 import godot.registration.model.types.Type.Companion.basisType
 import godot.registration.model.types.Type.Companion.booleanType
 import godot.registration.model.types.Type.Companion.byteType
+import godot.registration.model.types.Type.Companion.charType
 import godot.registration.model.types.Type.Companion.callableType
 import godot.registration.model.types.Type.Companion.colorType
 import godot.registration.model.types.Type.Companion.doubleType
@@ -152,7 +153,8 @@ private object TypeMetadataRegistry {
         nilType to singleton(VariantParser.NIL, GODOT_NIL, ""),
         booleanType to singleton(VariantParser.BOOL, GODOT_BOOL),
         byteType to singleton(VariantCaster.BYTE, GODOT_INT),
-        shortType to singleton(VariantParser.LONG, GODOT_INT),
+        shortType to singleton(VariantCaster.SHORT, GODOT_INT),
+        charType to singleton(VariantCaster.CHAR, GODOT_INT),
         intType to singleton(VariantCaster.INT, GODOT_INT),
         naturalType to singleton(VariantParser.LONG, GODOT_INT),
         longType to singleton(VariantParser.LONG, GODOT_INT),

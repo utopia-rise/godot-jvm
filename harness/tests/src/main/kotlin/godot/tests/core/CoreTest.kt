@@ -84,6 +84,18 @@ class CoreTest : Node() {
     }
 
     @Register
+    fun readShort(): Short = 7
+
+    @Register
+    fun echoShort(value: Short) = value
+
+    @Register
+    fun readChar() = 'A'
+
+    @Register
+    fun echoChar(value: Char) = value
+
+    @Register
     fun readVector2() = vector2Value
 
     @Register

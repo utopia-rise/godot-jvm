@@ -569,6 +569,16 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
         override fun toGodotCast(any: Any?) = (any as Byte).toLong()
     }
 
+    data object SHORT : VariantSimpleCaster<Short>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = (any as Long).toShort()
+        override fun toGodotCast(any: Any?) = (any as Short).toLong()
+    }
+
+    data object CHAR : VariantSimpleCaster<Char>(VariantParser.LONG) {
+        override fun toKotlinCast(any: Any?) = (any as Long).toInt().toChar()
+        override fun toGodotCast(any: Any?) = (any as Char).code.toLong()
+    }
+
     data object INT : VariantSimpleCaster<Int>(VariantParser.LONG) {
         override fun toKotlinCast(any: Any?) = (any as Long).toInt()
         override fun toGodotCast(any: Any?) = (any as Int).toLong()

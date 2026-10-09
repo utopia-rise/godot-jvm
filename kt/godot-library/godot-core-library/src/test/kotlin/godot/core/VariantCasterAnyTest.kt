@@ -60,12 +60,19 @@ class VariantCasterAnyTest {
 
     @Test
     fun primitiveAndWrapperClassesShareTheirConverter() {
-        val primitives = listOf(Boolean::class, Byte::class, Int::class, Long::class, Float::class, Double::class)
+        val primitives = listOf(Boolean::class, Byte::class, Short::class, Char::class, Int::class, Long::class, Float::class, Double::class)
         for (primitive in primitives) {
             val converter = getVariantConverter(primitive.javaPrimitiveType!!)
             assertNotNull(primitive.simpleName, converter)
             assertSame(primitive.simpleName, converter, getVariantConverter(primitive.javaObjectType))
         }
+    }
+
+    @Test
+    fun narrowIntegralTypesAreWrittenAsLongs() {
+        assertEquals(7L, writeAsVariantAndReadLong(7.toShort()))
+        assertEquals(65L, writeAsVariantAndReadLong('A'))
+        assertSame('A', readEnumFromLong(VariantCaster.CHAR, 65))
     }
 
     @Test

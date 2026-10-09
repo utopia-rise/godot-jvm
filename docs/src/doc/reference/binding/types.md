@@ -8,7 +8,7 @@ description: Variant mappings, supported registered signatures, primitive and ge
 
 | Value family | Property | Function parameter / return |
 |---|---|---|
-| Boolean, Byte, Short, Int, Long, Float, Double, String | Supported | Supported |
+| Boolean, Byte, Short, Char, Int, Long, Float, Double, String | Supported | Supported |
 | Dynamic Variant (`Any` / `Object`) | Supported | Supported |
 | Core Godot types | Supported | Supported |
 | `Node` or `Resource` subclass | Supported | Supported |
@@ -30,7 +30,7 @@ These are accepted JVM representations, including narrower numeric types; they d
 | Godot | Kotlin |
 |---|---|
 | bool | `Boolean` |
-| int (signed 64-bit) | `Byte, Short, Int, Long` |
+| int (signed 64-bit) | `Byte, Short, Char, Int, Long` |
 | float (64-bit) | `Float, Double` |
 | String | `String` |
 | Variant / dynamic value | `Any?` |
@@ -46,7 +46,7 @@ These are accepted JVM representations, including narrower numeric types; they d
 | Godot | Java |
 |---|---|
 | bool | `boolean / Boolean` |
-| int (signed 64-bit) | `byte, short, int, long / boxed equivalents` |
+| int (signed 64-bit) | `byte, short, char, int, long / boxed equivalents` |
 | float (64-bit) | `float, double / boxed equivalents` |
 | String | `String` |
 | Variant / dynamic value | `java.lang.Object` |
@@ -64,7 +64,7 @@ Use boxed primitives in generic arguments, such as `VariantArray<Integer>`. `god
 | Godot | Scala |
 |---|---|
 | bool | `Boolean` |
-| int (signed 64-bit) | `Byte, Short, Int, Long` |
+| int (signed 64-bit) | `Byte, Short, Char, Int, Long` |
 | float (64-bit) | `Float, Double` |
 | String | `String` |
 | Variant / dynamic value | `Any` |
@@ -77,7 +77,7 @@ Use boxed types such as `Integer` and `java.lang.Boolean` in generic arguments w
 
 ///
 
-Narrower numeric types can lose range or precision when receiving Godot values. `Char` is not a registered primitive; use a string or integer instead.
+Narrower numeric types can lose range or precision when receiving Godot values. A `Char` is its code point to Godot, not a one-character string.
 
 ### Core types
 
