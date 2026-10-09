@@ -8,6 +8,7 @@
 
 ### Added
 
+- Registered functions and signals report parameter, return and argument types Godot cannot represent.
 - Added a `Godot` run configuration type. It runs the editor or the game of the current Godot project with a JDK picked from the ones the IDE knows or
   detects, so the JVM used by Godot no longer depends on machine wide settings. The selected JDK is passed with `--jvm-path`, which takes priority over an
   embedded JRE and over the environment.

@@ -2,45 +2,41 @@ package godot.inspection.automatic
 
 // Manual review mode: Automatic.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation._
 import godot.api.Node
 import godot.core.{Signal0, StringNames}
 
+class ScalaUnsupportedType
+
 // Class-level registration checks.
 
-// Expected red: `@Tool` requires the class itself to be registered.
+// Expected no issue: the class is registered automatically.
 @Tool
 class ScalaNotRegisteredButToolFixtureAutomatic extends Node
 
-// Expected red on the class: it is not `@Script`, but it contains
-// registered properties, signals, and functions.
+// Expected no issue: the class is registered automatically, and its members with it.
 class ScalaNotRegisteredButMembersFixtureAutomatic extends Node {
-  // Expected red via the containing class: registered property inside a
-  // non-registered class.
+  // Expected no issue: registered with its automatically registered class.
   @Export
   @Visible
   var propertyShouldStayRed = 1
 
-  // Expected red via the containing class: registered signal inside a
-  // non-registered class.
+  // Expected no issue: registered with its automatically registered class.
   @Emit
   val signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"))
 
-  // Expected red via the containing class: registered function inside a
-  // non-registered class.
-  @Register
+  // Expected no issue: registered with its automatically registered class.
   def functionShouldStayRed(): Int = propertyShouldStayRed
 }
 
-// Expected red: `@Script` is present, but the class does not inherit a
-// Godot object type.
+// Expected no issue: only Godot subclasses are script candidates in this mode, so the class is
+// ignored.
 @Script
 class ScalaGodotScriptWithoutGodotBaseFixtureAutomatic
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class ScalaGodotScriptWithoutDefaultConstructorFixtureAutomatic(number: Int) extends Node
 
@@ -59,8 +55,7 @@ class ScalaGenericRegisteredClassFixtureAutomatic[T] extends Node
 // Method registration checks.
 @Script
 class IdeScalaInspectionAutomatic extends Node {
-  // Expected red: notification callbacks like `_ready` must also carry
-  // `@Register` inside a registered class.
+  // Expected no issue: lifecycle overrides are registered without `@Register` in this mode.
   override def _ready(): Unit = {
   }
 
@@ -92,6 +87,14 @@ class IdeScalaInspectionAutomatic extends Node {
                          p17: Int
                        ): Unit = {
   }
+
+  // Expected red: parameter and return types must be representable by Godot.
+  @Register
+  def unsupportedParameterType(value: ScalaUnsupportedType): Unit = {
+  }
+
+  @Register
+  def unsupportedReturnType(): ScalaUnsupportedType = new ScalaUnsupportedType
 }
 
 

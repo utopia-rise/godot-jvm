@@ -1,22 +1,19 @@
 package godot.intellij.plugin.highlighting
 
-import com.intellij.psi.PsiArrayType
 import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
-import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiType
 import godot.common.constants.Constraints
-import godot.core.BitFieldBase
-import godot.core.CoreType
-import godot.core.KtObject
 import godot.core.Signal
-import godot.intellij.plugin.project.isCoreType
+import godot.intellij.plugin.project.inherits
+import godot.intellij.plugin.project.isMappableArgument
+import godot.intellij.plugin.project.isMappableProperty
+import godot.intellij.plugin.project.isMappableReturnType
 import godot.intellij.plugin.project.isOrInheritsType
-import godot.intellij.plugin.project.isSupportedJvmType
+import godot.intellij.plugin.project.jvmType
 import godot.intellij.plugin.registration.RegistrationPolicy
 import org.jetbrains.kotlin.asJava.toLightMethods
 import org.jetbrains.kotlin.lexer.KtTokens
@@ -55,9 +52,7 @@ object RegistrationHighlightClassifier {
             if (signalSelected) {
                 !property.isVar && property.isOrInheritsType(Signal::class.classId)
             } else {
-                property.isCoreType() ||
-                    property.isSupportedJvmType() ||
-                    property.isOrInheritsType(KtObject::class.classId)
+                property.jvmType()?.isMappableProperty() == true
             }
 
         return classify(
@@ -96,15 +91,13 @@ object RegistrationHighlightClassifier {
     ): RegistrationHighlight? {
         if (!RegistrationPolicy.isGodotScriptCandidate(owner)) return null
 
-        val isSignal = (type as? PsiClassType)
-            ?.resolve()
-            ?.isOrInheritsType(Signal::class.classId) == true
+        val isSignal = type.inherits(Signal::class.classId)
         val signalSelected = RegistrationPolicy.registersSignal(property, owner, isSignal)
         val canRegister = property.hasModifierProperty(PsiModifier.PUBLIC) &&
             if (signalSelected) {
                 isImmutable && isSignal
             } else {
-                type.isMappable()
+                type.isMappableProperty()
             }
 
         return classify(
@@ -147,36 +140,6 @@ object RegistrationHighlightClassifier {
         hasModifierProperty(PsiModifier.PUBLIC) &&
             typeParameters.isEmpty() &&
             parameterList.parametersCount <= Constraints.MAX_ARGUMENT_COUNT &&
-            parameterList.parameters.all { parameter -> parameter.type.isMappable() } &&
-            (returnType?.isMappable() ?: true)
-
-    private fun PsiType.isMappable(): Boolean = when (this) {
-        is PsiPrimitiveType -> true
-        is PsiArrayType -> componentType.isMappable()
-        is PsiClassType -> resolve()?.isMappable() == true
-        else -> false
-    }
-
-    private fun PsiClass.isMappable(): Boolean =
-        qualifiedName in boxedAndUniversalTypes ||
-            isEnum ||
-            isInterface ||
-            isOrInheritsType(KtObject::class.classId) ||
-            isOrInheritsType(CoreType::class.classId) ||
-            isOrInheritsType(BitFieldBase::class.classId)
-
-    private val boxedAndUniversalTypes = setOf(
-        "java.lang.Boolean",
-        "java.lang.Byte",
-        "java.lang.Character",
-        "java.lang.Double",
-        "java.lang.Float",
-        "java.lang.Integer",
-        "java.lang.Long",
-        "java.lang.Object",
-        "java.lang.Short",
-        "java.lang.String",
-        "kotlin.Any",
-        "kotlin.String"
-    )
+            parameterList.parameters.all { parameter -> parameter.type.isMappableArgument() } &&
+            returnType?.isMappableReturnType() != false
 }

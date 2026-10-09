@@ -2,11 +2,13 @@ package godot.inspection.explicit
 
 // Manual review mode: Explicit.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation._
 import godot.api.Node
 import godot.core.{Signal0, StringNames}
+
+class ScalaUnsupportedType
 
 // Class-level registration checks.
 
@@ -39,8 +41,7 @@ class ScalaNotRegisteredButMembersFixtureExplicit extends Node {
 @Script
 class ScalaGodotScriptWithoutGodotBaseFixtureExplicit
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class ScalaGodotScriptWithoutDefaultConstructorFixtureExplicit(number: Int) extends Node
 
@@ -92,6 +93,14 @@ class IdeScalaInspectionExplicit extends Node {
                          p17: Int
                        ): Unit = {
   }
+
+  // Expected red: parameter and return types must be representable by Godot.
+  @Register
+  def unsupportedParameterType(value: ScalaUnsupportedType): Unit = {
+  }
+
+  @Register
+  def unsupportedReturnType(): ScalaUnsupportedType = new ScalaUnsupportedType
 }
 
 

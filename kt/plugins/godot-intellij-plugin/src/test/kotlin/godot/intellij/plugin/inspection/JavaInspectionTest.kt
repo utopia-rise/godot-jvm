@@ -20,7 +20,9 @@ class JavaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "JvmUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "JvmUnsupportedType"))
         )
     }
 
@@ -39,7 +41,9 @@ class JavaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "JvmUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "JvmUnsupportedType"))
         )
     }
 
@@ -54,7 +58,9 @@ class JavaInspectionTest : CodeInsightFixtureTestBase() {
             problems,
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
-            error(GodotPluginBundle.message("problem.function.toManyParams", 16))
+            error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "JvmUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "JvmUnsupportedType"))
         )
     }
 }

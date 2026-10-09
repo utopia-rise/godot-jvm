@@ -4,6 +4,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiMethod
 import godot.common.constants.Constraints
 import godot.intellij.plugin.GodotPluginBundle
+import godot.intellij.plugin.project.isMappableArgument
+import godot.intellij.plugin.project.isMappableReturnType
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.registration.RegistrationPolicy
 import godot.tools.common.constants.lifecycleFunctions
@@ -27,6 +29,9 @@ object RegisterMethodAnalyzer {
 
             if (RegistrationPolicy.registersFunction(method)) {
                 addAll(GenericRegistrationAnalyzer.analyze(method))
+                if (method.typeParameters.isEmpty()) {
+                    addAll(checkSignatureTypes(method))
+                }
                 if (method.parameterList.parametersCount > Constraints.MAX_ARGUMENT_COUNT) {
                     add(
                         GodotProblem(
@@ -40,6 +45,18 @@ object RegisterMethodAnalyzer {
                     )
                 }
             }
+        }
+    }
+
+    private fun checkSignatureTypes(method: PsiMethod): List<GodotProblem> = buildList {
+        val nameAnchor = physicalAnchor(method.nameIdentifier, method.navigationElement)
+        method.parameterList.parameters.filterNot { it.type.isMappableArgument() }.forEach { parameter ->
+            val message = GodotPluginBundle.message("problem.function.unsupportedParameterType", parameter.name, parameter.type.presentableText)
+            add(GodotProblem(message, physicalAnchor(parameter.typeElement, parameter, nameAnchor)))
+        }
+        method.returnType?.takeUnless { it.isMappableReturnType() }?.let { returnType ->
+            val message = GodotPluginBundle.message("problem.function.unsupportedReturnType", returnType.presentableText)
+            add(GodotProblem(message, physicalAnchor(method.returnTypeElement, nameAnchor)))
         }
     }
 

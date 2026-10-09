@@ -2,12 +2,15 @@ package godot.inspection.explicit;
 
 // Manual review mode: Explicit.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*;
 import godot.api.Node;
 import godot.core.Signal0;
 import godot.core.StringNames;
+
+class JvmUnsupportedType {
+}
 
 // Class-level registration checks.
 
@@ -44,8 +47,7 @@ class JvmNotRegisteredButMembersFixtureExplicit extends Node {
 class JvmGodotScriptWithoutGodotBaseFixtureExplicit {
 }
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class JvmGodotScriptWithoutDefaultConstructorFixtureExplicit extends Node {
     public JvmGodotScriptWithoutDefaultConstructorFixtureExplicit(int number) {
@@ -103,6 +105,16 @@ public class IdeJavaInspectionExplicit extends Node {
             int p16,
             int p17
     ) {
+    }
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    public void unsupportedParameterType(JvmUnsupportedType value) {
+    }
+
+    @Register
+    public JvmUnsupportedType unsupportedReturnType() {
+        return new JvmUnsupportedType();
     }
 }
 

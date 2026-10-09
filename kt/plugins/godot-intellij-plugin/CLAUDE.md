@@ -182,8 +182,9 @@ The fixtures serve two purposes:
 2. readable examples that can be opened in the sandbox IDE
 
 Keep equivalent declaration cases aligned across the three files for a
-language. Inline comments describe the original Explicit baseline; the test
-method for each file is authoritative for its mode-specific diagnostics.
+language. Inline comments describe what that file's mode reports, so the same
+case can read "Expected red" in Explicit and "Expected no issue" in Inferred or
+Automatic. They must agree with the file's test method.
 
 ### Checks shared by Kotlin, Java, and Scala
 
@@ -200,6 +201,7 @@ The regular fixtures cover:
 - generic registered functions
 - Godot lifecycle overrides missing explicit registration
 - registered functions exceeding the 16-parameter limit
+- registered functions with parameter or return types Godot cannot represent
 
 ### Additional Kotlin checks
 
@@ -216,6 +218,7 @@ The Kotlin fixture also covers Kotlin-specific PSI and K2 rules:
 - bitfields with more than 32 enum entries
 - mutable signals
 - `@Emit` on a non-signal value
+- signal arguments Godot cannot represent
 - ignored RPC transfer channels
 - unregistered signal connection targets
 - unregistered callable targets

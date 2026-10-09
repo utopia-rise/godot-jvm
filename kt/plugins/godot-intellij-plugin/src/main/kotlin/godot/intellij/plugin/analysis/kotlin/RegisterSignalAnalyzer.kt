@@ -5,7 +5,10 @@ import godot.core.Signal
 import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.analysis.jvm.GenericRegistrationAnalyzer
-import godot.intellij.plugin.project.isOrInheritsType
+import godot.intellij.plugin.project.inherits
+import godot.intellij.plugin.project.isMappableArgument
+import godot.intellij.plugin.project.jvmType
+import godot.intellij.plugin.project.typeArguments
 import godot.intellij.plugin.quickfix.EmitMutabilityQuickFix
 import godot.intellij.plugin.registration.RegistrationPolicy
 import godot.intellij.plugin.registration.RegistrationPolicy.hasEffectiveAnnotation
@@ -36,13 +39,16 @@ object EmitAnalyzer {
                     )
                 )
             }
-            if (!property.isOrInheritsType(Signal::class.classId)) {
-                add(
-                    GodotProblem(
-                        GodotPluginBundle.message("problem.signal.wrongType"),
-                        property.initializer?.psiOrParent ?: property.nameIdentifier ?: property.navigationElement
-                    )
-                )
+            val type = property.jvmType()
+            val typeAnchor = property.typeReference ?: property.delegateExpression ?: property.initializer
+                ?: property.nameIdentifier ?: property.navigationElement
+            if (type?.inherits(Signal::class.classId) != true) {
+                add(GodotProblem(GodotPluginBundle.message("problem.signal.wrongType"), typeAnchor))
+                return@buildList
+            }
+            type.typeArguments.filterNot { it.isMappableArgument() }.forEach { argumentType ->
+                val message = GodotPluginBundle.message("problem.signal.unsupportedArgumentType", argumentType.presentableText)
+                add(GodotProblem(message, typeAnchor))
             }
         }
     }

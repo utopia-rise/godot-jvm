@@ -2,50 +2,47 @@ package godot.inspection.automatic;
 
 // Manual review mode: Automatic.
 // This same source is exercised by the IntelliJ CodeInsight fixture test.
-// Inline expectation comments describe the original Explicit baseline; the test owns mode-specific expectations.
+// Inline expectation comments describe what this mode reports and must match the test.
 
 import godot.annotation.*;
 import godot.api.Node;
 import godot.core.Signal0;
 import godot.core.StringNames;
 
+class JvmUnsupportedType {
+}
+
 // Class-level registration checks.
 
-// Expected red: `@Tool` requires the class itself to be registered.
+// Expected no issue: the class is registered automatically.
 @Tool
 class JvmNotRegisteredButToolFixtureAutomatic extends Node {
 }
 
-// Expected red on the class: it is not `@Script`, but it contains
-// registered properties, signals, and functions.
+// Expected no issue: the class is registered automatically, and its members with it.
 class JvmNotRegisteredButMembersFixtureAutomatic extends Node {
-    // Expected red via the containing class: registered property inside a
-    // non-registered class.
+    // Expected no issue: registered with its automatically registered class.
     @Export
     @Visible
     public int propertyShouldStayRed = 1;
 
-    // Expected red via the containing class: registered signal inside a
-    // non-registered class.
+    // Expected no issue: registered with its automatically registered class.
     @Emit
     public Signal0 signalShouldStayRed = new Signal0(this, StringNames.asStringName("signalShouldStayRed"));
 
-    // Expected red via the containing class: registered function inside a
-    // non-registered class.
-    @Register
+    // Expected no issue: registered with its automatically registered class.
     public int functionShouldStayRed() {
         return propertyShouldStayRed;
     }
 }
 
-// Expected red: `@Script` is present, but the class does not inherit a
-// Godot object type.
+// Expected no issue: only Godot subclasses are script candidates in this mode, so the class is
+// ignored.
 @Script
 class JvmGodotScriptWithoutGodotBaseFixtureAutomatic {
 }
 
-// Expected red: registered classes must expose exactly one parameterless
-// constructor, and this one only has a parameterized constructor.
+// Expected no issue: the IDE does not check constructors.
 @Script
 class JvmGodotScriptWithoutDefaultConstructorFixtureAutomatic extends Node {
     public JvmGodotScriptWithoutDefaultConstructorFixtureAutomatic(int number) {
@@ -70,8 +67,7 @@ class JvmGenericRegisteredClassFixtureAutomatic<T> extends Node {
 // Method registration checks.
 @Script
 public class IdeJavaInspectionAutomatic extends Node {
-    // Expected red: notification callbacks like `_ready` must also carry
-    // `@Register` inside a registered class.
+    // Expected no issue: lifecycle overrides are registered without `@Register` in this mode.
     @Override
     public void _ready() {
     }
@@ -103,6 +99,16 @@ public class IdeJavaInspectionAutomatic extends Node {
             int p16,
             int p17
     ) {
+    }
+
+    // Expected red: parameter and return types must be representable by Godot.
+    @Register
+    public void unsupportedParameterType(JvmUnsupportedType value) {
+    }
+
+    @Register
+    public JvmUnsupportedType unsupportedReturnType() {
+        return new JvmUnsupportedType();
     }
 }
 

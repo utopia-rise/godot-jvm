@@ -3,7 +3,6 @@ package godot.intellij.plugin.registration
 import com.intellij.openapi.components.service
 import com.intellij.psi.PsiAnnotation
 import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
@@ -16,9 +15,10 @@ import godot.annotation.Script
 import godot.annotation.Visible
 import godot.core.KtObject
 import godot.core.Signal
-import godot.intellij.plugin.project.isCoreType
 import godot.intellij.plugin.project.isOrInheritsType
-import godot.intellij.plugin.project.isSupportedJvmType
+import godot.intellij.plugin.project.inherits
+import godot.intellij.plugin.project.isMappableProperty
+import godot.intellij.plugin.project.jvmType
 import godot.tools.common.constants.lifecycleFunctions
 import org.jetbrains.kotlin.idea.references.mainReference
 import org.jetbrains.kotlin.idea.util.findAnnotation
@@ -68,11 +68,7 @@ object RegistrationPolicy {
         RegistrationMode.Inferred -> property.hasEffectiveAnnotation(Visible::class)
         RegistrationMode.Automatic ->
             property.containingClass()?.let(::registersClass) == true &&
-                (
-                    property.isCoreType() ||
-                        property.isSupportedJvmType() ||
-                        property.isOrInheritsType(KtObject::class.classId)
-                    )
+                property.jvmType()?.isMappableProperty() == true
     }
 
     fun registersProperty(field: PsiField): Boolean = when (field.mode) {
@@ -111,16 +107,12 @@ object RegistrationPolicy {
             field.hasEffectiveAnnotation(Emit::class) ||
                 (
                     field.containingClass?.let(::registersClass) == true &&
-                        (field.type as? PsiClassType)
-                            ?.resolve()
-                            ?.isOrInheritsType(Signal::class.classId) == true
+                        field.type.inherits(Signal::class.classId)
                     )
 
         RegistrationMode.Automatic ->
             field.containingClass?.let(::registersClass) == true &&
-                (field.type as? PsiClassType)
-                    ?.resolve()
-                    ?.isOrInheritsType(Signal::class.classId) == true
+                field.type.inherits(Signal::class.classId)
     }
 
     fun registersSignal(
