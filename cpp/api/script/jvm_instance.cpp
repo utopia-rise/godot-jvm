@@ -68,6 +68,12 @@ GDExtensionBool JvmInstance::get(
         return true;
     }
 
+    // Like GDScript, reading a method by name gives a Callable, as in `node.method_name`.
+    if (kt_class->has_method(parameter_name)) {
+        r_return = engine::RawObject(owner).to_callable(parameter_name);
+        return true;
+    }
+
     if (KtFunction* function = kt_class->get_method(SNAME("_get"))) {
         const int arg_count = 1;
         Variant name = parameter_name;
