@@ -1,18 +1,17 @@
 package godot.internal.logging
 
-import java.util.stream.Collectors.joining
-
 object GodotPrint {
     fun getExceptionStackTrace(throwable: Throwable): String {
         return throwable.stackTraceToString()
     }
 
-    fun getCurrentStacktrace(): String = StackWalker.getInstance().walk { frames ->
-        frames
-            .dropWhile { it.className == GodotPrint::class.java.name }
-            .map { it.toString() }
-            .collect(joining("\n"))
-    }
+    // To change for StackWalker once Android min api is at least 34.
+    fun getCurrentStacktrace(): String = Thread.currentThread().stackTrace
+        .asSequence()
+        .dropWhile { it.className != GodotPrint::class.java.name }
+        .dropWhile { it.className == GodotPrint::class.java.name }
+        .filterNot { it.className.startsWith("org.godotengine.godot.") }
+        .joinToString("\n")
 
     external fun print(str: String)
     external fun printRich(str: String)

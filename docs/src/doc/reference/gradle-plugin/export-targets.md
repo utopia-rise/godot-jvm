@@ -51,11 +51,11 @@ Minimum Android API level passed to `d8`.
 
 Default:
 
-- `21`
+- `24`, Godot's own minimum
 
 ```kotlin
 godot {
-    android.minApiLevel.set(21)
+    android.minApiLevel.set(24)
 }
 ```
 

@@ -35,6 +35,6 @@ open class GodotAndroidExtension @Inject constructor(objects: ObjectFactory) {
 
         d8Tool?.absolutePath?.let(d8ToolPath::convention)
         compileSdk?.absolutePath?.let(compileSdkDirectory::convention)
-        minApiLevel.convention(21)
+        minApiLevel.convention(24)
     }
 }
