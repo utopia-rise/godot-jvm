@@ -4,15 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     id("com.utopia-rise.godot-publish")
     id("com.utopia-rise.versioninfo")
-    alias(libs.plugins.kotlinPreProcessors)
 }
 
 val isRelease = project.hasProperty("release")
-
-kotlinDefinitions {
-    definitionsObjectName.set("GodotJvmBuildConfig")
-    define("DEBUG", !isRelease)
-}
 
 
 kotlin {

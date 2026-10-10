@@ -1,2 +1,4 @@
-kt/godot-api-library/src/main/kotlin/godot/api/*.kt    linguist-generated=true
+# Written by the API generator with LF endings on every platform.
+kt/godot-library/godot-api-library/src/main/kotlin/**    text eol=lf linguist-generated=true
+kt/godot-library/*/src/main/kotlin/gen/**    text eol=lf linguist-generated=true
 harness/tests/.godot/**/*    linguist-generated=true

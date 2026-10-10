@@ -6,16 +6,9 @@ plugins {
     id("com.utopia-rise.versioninfo")
     id("com.utopia-rise.api-generator")
     alias(libs.plugins.shadowJar)
-    alias(libs.plugins.kotlinPreProcessors)
 }
 
 val isRelease = project.hasProperty("release")
-
-kotlinDefinitions {
-    definitionsObjectName.set("GodotJvmBuildConfig")
-
-    define("DEBUG", !isRelease)
-}
 
 apiGenerator {
     sourceJson.set(project.file("$rootDir/api-generator/src/main/resources/api.json"))

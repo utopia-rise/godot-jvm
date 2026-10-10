@@ -199,8 +199,7 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
 tasks {
     register("importResources") {
         group = "verification"
-        description = "Imports the Godot project after rebuilding JVM registrations."
-        dependsOn(build)
+        description = "Imports the Godot project. Requires build first."
 
         val javaHome = System.getProperty("java.home")
         val workingDirectory = projectDir
