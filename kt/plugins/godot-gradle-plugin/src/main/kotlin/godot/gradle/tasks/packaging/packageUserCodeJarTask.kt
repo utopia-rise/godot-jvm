@@ -2,10 +2,8 @@ package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.projectExt.GODOT_GAME_IMPLEMENTATION_CONFIGURATION
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
-import godot.tools.common.constants.Paths
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -30,18 +28,6 @@ fun Project.packageUserCodeJarTask(
             configurations.add(
                 this@packageUserCodeJarTask.configurations.getByName(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
             )
-
-            val godotSplitImplementation =
-                this@packageUserCodeJarTask.configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
-            // Keep godotSplitImplementation dependencies as intact JARs, visible to the main URLClassLoader.
-            manifest.attributes[
-                "Class-Path"
-            ] = provider {
-                godotSplitImplementation.files
-                    .filter { it.extension == "jar" }
-                    .sortedBy { it.name }
-                    .joinToString(" ") { "${Paths.DEPENDENCIES_DIR}/${it.name}" }
-            }
 
             dependsOn(userClassesTask)
             dependsOn(generatedRegistrarJarTask)

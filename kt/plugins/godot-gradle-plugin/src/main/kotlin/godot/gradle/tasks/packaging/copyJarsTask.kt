@@ -6,10 +6,8 @@ import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantDirectoryName
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
-import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.file.CopySpec
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
@@ -27,6 +25,8 @@ private fun Project.registerCopyTask(
     name: String,
     description: String,
     dependsOnTasks: List<TaskProvider<out Task>>,
+    destination: File = godotJvmVariantDestinationDir(),
+    cleanBeforeCopy: Boolean = false,
     configureSources: Copy.(File) -> Unit,
 ): TaskProvider<Copy> {
     return tasks.register(name, Copy::class.java) {
@@ -38,37 +38,66 @@ private fun Project.registerCopyTask(
 
             val libsDir = libsDir()
             configureSources(libsDir)
-            destinationDir = godotJvmVariantDestinationDir()
+            destinationDir = destination
+            if (cleanBeforeCopy) {
+                doFirst { destination.deleteRecursively() }
+            }
         }
     }
 }
 
-fun Project.createCopyDesktopJarsTask(
-    gameJarTasks: List<TaskProvider<ShadowJar>>,
-): TaskProvider<Copy> {
-    return registerCopyTask(
-        name = "copyDesktopJars",
-        description = "Internal task! Copies the desktop jars of this variant into the Godot-JVM output directory.",
-        dependsOnTasks = gameJarTasks,
+// One copy task per artifact, so Gradle skips the copy of a reused artifact: the editor reloads every rewritten jar,
+// and a reloaded bootstrap jar asks for an editor restart.
+private fun Project.registerArtifactCopyTasks(
+    artifactTasksByName: Map<String, TaskProvider<out Task>>,
+): List<TaskProvider<Copy>> = artifactTasksByName.map { (artifactName, artifactTask) ->
+    registerCopyTask(
+        name = "copy$artifactName",
+        description = "Internal task! Copies the output of ${artifactTask.name} into the Godot-JVM output directory.",
+        dependsOnTasks = listOf(artifactTask),
     ) {
-        from(gameJarTasks)
-        from(
-            configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION).filter { it.extension == "jar" },
-            Action<CopySpec> { it.into(Paths.DEPENDENCIES_DIR) },
-        )
+        from(artifactTask)
     }
 }
 
+private fun Project.registerCopyGroupTask(
+    name: String,
+    description: String,
+    copyTasks: List<TaskProvider<out Task>>,
+): TaskProvider<Task> = tasks.register(name) { task ->
+    task.group = "godot-jvm-internal"
+    task.description = description
+    task.dependsOn(copyTasks)
+}
+
+fun Project.createCopyDesktopJarsTask(
+    gameJarTasksByJarName: Map<String, TaskProvider<ShadowJar>>,
+): TaskProvider<Task> {
+    // Emptied first, as only this task writes there: the jar of a dependency the project dropped would stay and ship.
+    val copySplitDependenciesTask = registerCopyTask(
+        name = "copySplitDependencies",
+        description = "Internal task! Copies the split dependency jars into the Godot-JVM output directory.",
+        dependsOnTasks = emptyList(),
+        destination = godotJvmVariantDestinationDir().resolve(Paths.DEPENDENCIES_DIR),
+        cleanBeforeCopy = true,
+    ) {
+        from(configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION).filter { it.extension == "jar" })
+    }
+    return registerCopyGroupTask(
+        name = "copyDesktopJars",
+        description = "Internal task! Copies the desktop jars of this variant into the Godot-JVM output directory.",
+        copyTasks = registerArtifactCopyTasks(gameJarTasksByJarName) + copySplitDependenciesTask,
+    )
+}
+
 fun Project.createCopyAndroidArtifactsTask(
-    gameDexJarTasks: List<TaskProvider<out Task>>,
-): TaskProvider<Copy> {
-    return registerCopyTask(
+    gameDexJarTasksByJarName: Map<String, TaskProvider<out Task>>,
+): TaskProvider<Task> {
+    return registerCopyGroupTask(
         name = "copyAndroidArtifacts",
         description = "Internal task! Copies the Android dex artifacts of this variant into the Godot-JVM output directory.",
-        dependsOnTasks = gameDexJarTasks,
-    ) {
-        from(gameDexJarTasks)
-    }
+        copyTasks = registerArtifactCopyTasks(gameDexJarTasksByJarName),
+    )
 }
 
 fun Project.createCopyGraalArtifactsTask(
@@ -78,12 +107,8 @@ fun Project.createCopyGraalArtifactsTask(
         name = "copyGraalArtifacts",
         description = "Internal task! Copies the GraalVM native-image outputs into the Godot-JVM output directory.",
         dependsOnTasks = listOf(createGraalNativeImageTask),
-    ) { libsDir ->
-        from(provider {
-            listOf("dll", "so", "dylib")
-                .map { extension -> File(libsDir, "${ArtifactNames.NATIVE_IMAGE_BASE_NAME}.$extension") }
-                .filter(File::exists)
-        })
+    ) {
+        from(createGraalNativeImageTask)
     }
 }
 

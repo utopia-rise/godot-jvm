@@ -51,7 +51,7 @@ dependencies {
 
 Use `godotSplitImplementation` when a dependency must remain an intact JAR, such as a signed
 JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/dependencies/` and adds them to the
-class path of `usercode.jar` or `game.jar`:
+class path of `godot-bootstrap.jar` or `game.jar`:
 
 ```kotlin
 dependencies {

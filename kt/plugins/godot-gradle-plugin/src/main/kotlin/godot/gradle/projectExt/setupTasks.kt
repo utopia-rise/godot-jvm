@@ -7,7 +7,7 @@ import godot.gradle.tasks.android.checkAndroidJarAccessibleTask
 import godot.gradle.tasks.android.checkD8ToolAccessibleTask
 import godot.gradle.tasks.android.createBootstrapDexJarTask
 import godot.gradle.tasks.android.createMainDexFileTask
-import godot.gradle.tasks.android.createReleaseDexJarTask
+import godot.gradle.tasks.android.createGameDexJarTask
 import godot.gradle.tasks.android.packageUserCodeDexJarTask
 import godot.gradle.tasks.createCopyAndroidArtifactsTask
 import godot.gradle.tasks.createCopyDesktopJarsTask
@@ -48,18 +48,26 @@ private data class DesktopPackagingTasks(
     /** Only registered for release builds, which ship the merged jar instead of the pair. */
     val packageReleaseJarTask: TaskProvider<ShadowJar>?,
 ) {
+    val gameJarTasksByJarName: Map<String, TaskProvider<ShadowJar>>
+        get() = packageReleaseJarTask?.let { mapOf("GameJar" to it) }
+            ?: mapOf("BootstrapJar" to packageBootstrapJarTask, "UserCodeJar" to packageUserCodeJarTask)
+
     val gameJarTasks: List<TaskProvider<ShadowJar>>
-        get() = packageReleaseJarTask?.let(::listOf) ?: listOf(packageBootstrapJarTask, packageUserCodeJarTask)
+        get() = gameJarTasksByJarName.values.toList()
 }
 
 private data class AndroidPackagingTasks(
     val createBootstrapDexJarTask: TaskProvider<CreateDexJarTask>,
     val packageUserCodeDexJarTask: TaskProvider<ShadowJar>,
     /** Only registered for release builds, which dex the merged jar instead of the pair. */
-    val createReleaseDexJarTask: TaskProvider<CreateDexJarTask>?,
+    val createGameDexJarTask: TaskProvider<CreateDexJarTask>?,
 ) {
+    val gameDexJarTasksByJarName: Map<String, TaskProvider<out Task>>
+        get() = createGameDexJarTask?.let { mapOf("GameDexJar" to it) }
+            ?: mapOf("BootstrapDexJar" to createBootstrapDexJarTask, "UserCodeDexJar" to packageUserCodeDexJarTask)
+
     val gameDexJarTasks: List<TaskProvider<out Task>>
-        get() = createReleaseDexJarTask?.let(::listOf) ?: listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask)
+        get() = gameDexJarTasksByJarName.values.toList()
 }
 
 private data class NativePackagingTasks(
@@ -273,8 +281,8 @@ private fun Project.setupAndroidPackagingTasks(
     )
 
     val packageReleaseJarTask = desktopPackagingTasks.packageReleaseJarTask
-    val createReleaseDexJarTask = if (packageReleaseJarTask != null) {
-        createReleaseDexJarTask(
+    val createGameDexJarTask = if (packageReleaseJarTask != null) {
+        createGameDexJarTask(
             checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
             checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
             packageReleaseJarTask = packageReleaseJarTask,
@@ -286,7 +294,7 @@ private fun Project.setupAndroidPackagingTasks(
     return AndroidPackagingTasks(
         createBootstrapDexJarTask = createBootstrapDexJarTask,
         packageUserCodeDexJarTask = packageUserCodeDexJarTask,
-        createReleaseDexJarTask = createReleaseDexJarTask,
+        createGameDexJarTask = createGameDexJarTask,
     )
 }
 
@@ -329,10 +337,10 @@ private fun Project.setupCopyTasks(
 ): CopyTasks {
     val generateGdIgnoreFilesTask = generateGdIgnoreFilesTask()
     val copyDesktopJarsTask = createCopyDesktopJarsTask(
-        gameJarTasks = desktopPackagingTasks.gameJarTasks,
+        gameJarTasksByJarName = desktopPackagingTasks.gameJarTasksByJarName,
     )
     val copyAndroidArtifactsTask = createCopyAndroidArtifactsTask(
-        gameDexJarTasks = androidPackagingTasks.gameDexJarTasks,
+        gameDexJarTasksByJarName = androidPackagingTasks.gameDexJarTasksByJarName,
     )
     val copyGraalArtifactsTask = createCopyGraalArtifactsTask(
         createGraalNativeImageTask = nativePackagingTasks.createGraalNativeImageTask,

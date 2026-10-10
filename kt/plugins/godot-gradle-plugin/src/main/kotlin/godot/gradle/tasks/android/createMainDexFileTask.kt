@@ -4,17 +4,19 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
 import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
-import godot.gradle.projectExt.variantLibsDirectory
+import godot.gradle.projectExt.variantDirectoryName
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
@@ -28,15 +30,15 @@ abstract class CreateMainDexFileTask : DefaultTask() {
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
 
-    // ART cannot load plain jars, so godotSplitImplementation dependencies are dexed together with usercode.jar.
+    // Dexed into the bootstrap dex jar, so only resolved against here.
     @get:InputFiles
     abstract val godotSplitImplementationJars: ConfigurableFileCollection
 
     @get:OutputFile
     abstract val mainDexRulesFile: RegularFileProperty
 
-    @get:OutputFile
-    abstract val mainDexFile: RegularFileProperty
+    @get:OutputDirectory
+    abstract val dexOutputDirectory: DirectoryProperty
 
     @get:Input
     @get:Optional
@@ -51,17 +53,19 @@ abstract class CreateMainDexFileTask : DefaultTask() {
 
     @TaskAction
     fun createMainDexFile() {
-        val libsDir = userCodeJar.get().asFile.parentFile
+        val outputDirectory = dexOutputDirectory.get().asFile
+        outputDirectory.deleteRecursively()
+        outputDirectory.mkdirs()
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val inputJars = listOf(userCodeJar.get().asFile) +
+        val classpathJars = listOf(bootstrapJar.get().asFile) +
             godotSplitImplementationJars.files.sortedBy { file -> file.name }
-        val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath) +
-            inputJars.map { file -> file.absolutePath } +
+        val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath, userCodeJar.get().asFile.absolutePath) +
+            classpathJars.flatMap { file -> listOf("--classpath", file.absolutePath) } +
             listOf(
+                "--output",
+                outputDirectory.absolutePath,
                 "--lib",
                 androidJarPath.get(),
-                "--classpath",
-                bootstrapJar.get().asFile.absolutePath,
                 "--min-api",
                 androidMinApiLevel.get().toString(),
                 "--main-dex-rules",
@@ -74,7 +78,7 @@ abstract class CreateMainDexFileTask : DefaultTask() {
         }
 
         val process = ProcessBuilder(command)
-            .directory(libsDir)
+            .directory(outputDirectory)
             .redirectErrorStream(true)
             .start()
         val output = process.inputStream.bufferedReader().readText()
@@ -102,7 +106,6 @@ fun Project.createMainDexFileTask(
     packageUserCodeJarTask: TaskProvider<ShadowJar>,
     packageBootstrapJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<CreateMainDexFileTask> {
-    val libsDirectory = variantLibsDirectory()
     val d8ToolPath = godotJvmExtension.android.d8ToolPath
     val androidCompileSdkDirectory = godotJvmExtension.android.compileSdkDirectory
     val androidMinApiLevel = godotJvmExtension.android.minApiLevel
@@ -121,7 +124,7 @@ fun Project.createMainDexFileTask(
                     .filter { file -> file.extension == "jar" }
             )
             this.mainDexRulesFile.set(layout.buildDirectory.file("main-dex-rules.proguard"))
-            this.mainDexFile.set(libsDirectory.map { directory -> directory.file("classes.dex") })
+            this.dexOutputDirectory.set(layout.buildDirectory.dir("intermediates/user-code-dex/$variantDirectoryName"))
             this.d8ToolPath.set(d8ToolPath)
             this.androidJarPath.set(androidCompileSdkDirectory.map { compileSdkDirectory ->
                 File(compileSdkDirectory).resolve("android.jar").absolutePath

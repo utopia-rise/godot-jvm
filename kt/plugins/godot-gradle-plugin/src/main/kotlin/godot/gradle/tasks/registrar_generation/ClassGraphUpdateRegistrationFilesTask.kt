@@ -7,15 +7,12 @@ import godot.gradle.tasks.registrar_generation.readGeneratedRegistrationFiles
 import godot.gradle.tasks.registrar_generation.requireConfiguredGodotProjectDirectory
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
-import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -23,7 +20,6 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
 
-@CacheableTask
 abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
 
     @get:InputDirectory
@@ -37,13 +33,8 @@ abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val existingRegistrationFilesIndexFile: RegularFileProperty
 
-    // The directory itself is not an output: only the files declared below are. This prevents Gradle from
-    // materializing an empty directory when no new registration file targets it.
     @get:Internal
     abstract val gdjFilesOutputDir: DirectoryProperty
-
-    @get:OutputFiles
-    abstract val synchronizedRegistrationFiles: ConfigurableFileCollection
 
     @TaskAction
     fun update() {
@@ -130,32 +121,6 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
             indexExistingRegistrationFilesTask.flatMap { it.existingRegistrationFilesIndexFile }
         )
         task.gdjFilesOutputDir.convention(gdjFilesOutputDir)
-        task.synchronizedRegistrationFiles.from(providers.provider {
-            val generatedRoot = generateRegistrarFilesTask.get().generatedRegistrationFilesRootDir.get().asFile
-            val generatedFilesByFileName = readGeneratedRegistrationFiles(generatedRoot, logger)
-            val existingRegistrationFileIndex = readExistingRegistrationFileIndex(
-                indexExistingRegistrationFilesTask.get().existingRegistrationFilesIndexFile.get().asFile
-            )
-            val matchedFileNames = mutableSetOf<String>()
-            val synchronizedFiles = mutableListOf<File>()
-            val targetRoot = gdjFilesOutputDir.asFile
-
-            existingRegistrationFileIndex.forEach { indexRegistrar ->
-                if (generatedFilesByFileName.containsKey(indexRegistrar.registrationFileName)) {
-                    matchedFileNames.add(indexRegistrar.registrationFileName)
-                    synchronizedFiles.add(godotProjectDir.resolve(indexRegistrar.relativePath))
-                }
-            }
-
-            generatedFilesByFileName.values
-                .asSequence()
-                .filter { generatedFile -> generatedFile.registrationFileName !in matchedFileNames }
-                .mapTo(synchronizedFiles) { generatedFile ->
-                    targetRoot.resolve(generatedFile.relativePath)
-                }
-
-            synchronizedFiles
-        })
     }
 }
 
