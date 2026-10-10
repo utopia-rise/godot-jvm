@@ -70,8 +70,10 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     bool is_rc = binding->get_object_id().is_ref_counted();
 
     if (auto* kotlin_script = bridges::native_or_null<godot::JvmScript>(p_script_ptr)) {
-        KtObject kt_object = is_rc ? KtObject::create_weak_ref(env, jni::JObject(p_instance))
-                                   : KtObject::create_object(env, jni::JObject(p_instance));
+        // p_instance is a native method argument, so it is not deleted like the local references create_* take.
+        jni::JObject instance(p_instance);
+        KtObject kt_object = is_rc ? KtObject(instance.new_weak_ref<jni::JObject>(env), jni::JObject())
+                                   : KtObject(instance.new_global_ref<jni::JObject>(env));
         engine::RawObject(raw_ptr_value)
             .set_script_instance(
                 godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
