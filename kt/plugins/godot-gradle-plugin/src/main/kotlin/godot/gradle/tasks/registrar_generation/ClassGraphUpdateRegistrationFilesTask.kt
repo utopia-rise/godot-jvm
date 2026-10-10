@@ -62,7 +62,7 @@ abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
             if (generatedFile != null) {
                 matchedFileNames.add(indexRegistrar.registrationFileName)
                 existingFile.parentFile.mkdirs()
-                generatedFile.file.copyTo(existingFile, overwrite = true)
+                generatedFile.file.copyIfChanged(existingFile)
             } else if (existingFile.exists()) {
                 if (!existingFile.delete()) {
                     logger.warn("Could not delete obsolete registration file. You need to delete it manually! ${existingFile.absolutePath}")
@@ -78,7 +78,7 @@ abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
             .forEach { generatedFile ->
                 val targetFile = targetRoot.resolve(generatedFile.relativePath)
                 targetFile.parentFile.mkdirs()
-                generatedFile.file.copyTo(targetFile, overwrite = true)
+                generatedFile.file.copyIfChanged(targetFile)
             }
 
         candidateEmptyDirs
@@ -157,4 +157,9 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
             synchronizedFiles
         })
     }
+}
+
+private fun File.copyIfChanged(target: File) {
+    if (target.isFile && target.readText().replace("\r\n", "\n") == readText().replace("\r\n", "\n")) return
+    copyTo(target, overwrite = true)
 }
