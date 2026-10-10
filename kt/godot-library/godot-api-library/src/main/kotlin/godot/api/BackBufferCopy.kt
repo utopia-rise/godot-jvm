@@ -53,9 +53,7 @@ public open class BackBufferCopy : Node2D() {
    * The area covered by the [BackBufferCopy]. Only used if [copyMode] is [COPY_MODE_RECT].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

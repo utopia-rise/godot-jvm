@@ -73,9 +73,7 @@ public open class SpringBoneCollision3D : Node3D() {
    * The offset of the position from [Skeleton3D]'s [bone] pose position.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -92,9 +90,7 @@ public open class SpringBoneCollision3D : Node3D() {
    * The offset of the rotation from [Skeleton3D]'s [bone] pose rotation.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

@@ -64,9 +64,7 @@ public open class GPUParticlesCollisionSDF3D : GPUParticlesCollision3D() {
    * as possible while covering the parts of the scene you need.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
