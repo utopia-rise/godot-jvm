@@ -263,11 +263,10 @@ void GodotJvmEditor::_notification(int notification) {
                 GradleTaskRunner::get_instance().get_task_output(log, error);
                 task_dialog_update_state(task_dialog, log + error);
 
-                if (!log.is_empty()) {
-                    // We are streaming the output, we use the regular Godot print to avoid spamming the JVM prefix.
-                    print_line(log);
-                }
-                if (!error.is_empty()) { JVM_ERR_PRINT(error); }
+                // Streamed with the regular Godot print to avoid repeating the JVM prefix. Gradle also writes its
+                // warnings to stderr, so stderr is not an error by itself: a failure is reported from the exit code.
+                if (!log.is_empty()) { print_line(log); }
+                if (!error.is_empty()) { print_line(error); }
 
                 if (!running) {
                     int exit_code = GradleTaskRunner::get_instance().finish_task();
