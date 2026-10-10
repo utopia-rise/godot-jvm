@@ -20,16 +20,37 @@ constexpr const int permissions = FileAccess::UnixPermissionFlags::UNIX_READ_OTH
                                 | FileAccess::UnixPermissionFlags::UNIX_WRITE_OWNER
                                 | FileAccess::UnixPermissionFlags::UNIX_EXECUTE_OWNER;
 
-void remove_optional_block(String& content, const String& name) {
-    const String begin_marker = "// BEGIN_OPTIONAL_" + name;
-    const String end_marker = "// END_OPTIONAL_" + name;
-    const int begin = content.find(begin_marker);
-    const int end = content.find(end_marker, begin);
-    if (begin != -1 && end != -1) { content = content.left(begin) + content.substr(end + end_marker.length()); }
+static int get_line_start(const String& p_content, int p_position) {
+    return p_position == 0 ? 0 : p_content.rfind("\n", p_position - 1) + 1;
 }
 
-void remove_optional_markers(String& content, const String& name) {
-    content = content.replace("// BEGIN_OPTIONAL_" + name, "").replace("// END_OPTIONAL_" + name, "");
+static int get_next_line_start(const String& p_content, int p_position) {
+    const int newline = p_content.find("\n", p_position);
+    return newline == -1 ? p_content.length() : newline + 1;
+}
+
+static void remove_optional_block(String& content, const String& name) {
+    const int begin = content.find("// BEGIN_OPTIONAL_" + name);
+    const int end = content.find("// END_OPTIONAL_" + name, begin);
+    if (begin == -1 || end == -1) { return; }
+
+    // The blank lines separating the block from what precedes it go with it.
+    int start = get_line_start(content, begin);
+    while (start > 0) {
+        const int previous = get_line_start(content, start - 1);
+        if (!content.substr(previous, start - previous).strip_edges().is_empty()) { break; }
+        start = previous;
+    }
+    content = content.left(start) + content.substr(get_next_line_start(content, end));
+}
+
+static void remove_optional_markers(String& content, const String& name) {
+    for (const String& marker : {"// BEGIN_OPTIONAL_" + name, "// END_OPTIONAL_" + name}) {
+        const int position = content.find(marker);
+        if (position == -1) { continue; }
+        content = content.left(get_line_start(content, position))
+                + content.substr(get_next_line_start(content, position));
+    }
 }
 
 void ProjectGenerator::generate_jvm_files(bool erase_existing) {

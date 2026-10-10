@@ -6,10 +6,10 @@ import godot.global.GD
 import godot.api.Node
 
 @Script
-class HelloWorld : Node() {
+class HelloGodot : Node() {
 
     @Export
-    var helloString =  "Godot"
+    var helloString = "Godot"
 
     override fun _ready() {
         GD.print("Hello $helloString !")
