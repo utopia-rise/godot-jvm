@@ -6,6 +6,7 @@ import godot.gradle.ext.existingDirectoryOrNull
 import godot.gradle.ext.existingFileOrNull
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import java.io.File
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ open class GodotAndroidExtension @Inject constructor(objects: ObjectFactory) {
             ?.listFiles()
             ?.filter(File::isDirectory)
             ?.maxByOrNull(File::getName)
-            ?.resolve("d8")
+            ?.resolve(if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) "d8.bat" else "d8")
             ?.executableFileOrNull()
         val compileSdk = androidHome
             ?.resolve("platforms")
