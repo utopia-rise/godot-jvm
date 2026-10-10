@@ -12,7 +12,7 @@ namespace godot {
 
     constexpr const char* generate_project = "This will generate the files necessary to build a JVM project.\n"
                                              "This includes Gradle files, a new gitignore, and a basic Kotlin script.\n"
-                                             "What do you want to do ?";
+                                             "What do you want to do?";
 
     constexpr const char* generate_all = "Generate all files";
     constexpr const char* generate_missing = "Only generate missing files";
