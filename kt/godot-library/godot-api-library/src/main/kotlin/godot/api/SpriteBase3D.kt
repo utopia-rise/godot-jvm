@@ -66,9 +66,7 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
    * (i.e., +Y is up).
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -117,9 +115,7 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
    * COLOR.rgb;` must be inserted in the shader's `fragment()` function.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

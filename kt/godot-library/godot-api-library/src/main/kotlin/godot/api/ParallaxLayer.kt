@@ -37,9 +37,7 @@ public open class ParallaxLayer : Node2D() {
    * Multiplies the ParallaxLayer's motion. If an axis is set to `0`, it will not scroll.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -57,9 +55,7 @@ public open class ParallaxLayer : Node2D() {
    * [ParallaxBackground.scrollOffset].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -93,9 +89,7 @@ public open class ParallaxLayer : Node2D() {
    * **Note:** Despite the name, the layer will not be mirrored, it will only be repeated.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

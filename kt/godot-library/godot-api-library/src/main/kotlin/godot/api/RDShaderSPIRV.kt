@@ -41,9 +41,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the vertex shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -60,9 +58,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the fragment shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -79,9 +75,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the tessellation control shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -98,9 +92,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the tessellation evaluation shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -117,9 +109,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the compute shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -136,9 +126,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the ray generation shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -155,9 +143,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the any hit shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -174,9 +160,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the closest hit shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -193,9 +177,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the miss shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -212,9 +194,7 @@ public open class RDShaderSPIRV : Resource() {
    * The SPIR-V bytecode for the intersection shader stage.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

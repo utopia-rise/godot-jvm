@@ -69,9 +69,7 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
    * The color of the frame when [tintColorEnabled] is `true`.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -99,9 +97,7 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
    * The list of nodes attached to the frame.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */

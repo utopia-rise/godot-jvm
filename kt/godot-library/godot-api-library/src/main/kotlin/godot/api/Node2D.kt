@@ -47,9 +47,7 @@ public open class Node2D : CanvasItem() {
    * Position, relative to the node's parent. See also [globalPosition].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -97,9 +95,7 @@ public open class Node2D : CanvasItem() {
    * will be changed to negative scales on the Y axis and a rotation of 180 degrees when decomposed.
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -133,9 +129,7 @@ public open class Node2D : CanvasItem() {
    * The node's [Transform2D], relative to the node's parent. See also [globalTransform].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -152,9 +146,7 @@ public open class Node2D : CanvasItem() {
    * Global position. See also [position].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -194,9 +186,7 @@ public open class Node2D : CanvasItem() {
    * Global scale. See also [scale].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
@@ -224,9 +214,7 @@ public open class Node2D : CanvasItem() {
    * Global [Transform2D]. See also [transform].
    *
    * **Warning:**
-   * Be careful when trying to modify a local
-   * [copy](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types) obtained from this
-   * getter.
+   * Be careful when trying to modify a local copy obtained from this getter.
    * Mutating it alone won't have any effect on the actual property, it has to be reassigned again
    * afterward.
    */
