@@ -225,7 +225,7 @@ class PropertyHintProblemFixtureInferred : Node() {
     var intRangeOnDouble = 1.0
 
     // Expected red: a float range does not apply to an integer property.
-    @FloatRange(min = 0f, max = 1f)
+    @FloatRange(min = 0.0, max = 1.0)
     var floatRangeWrongType = 1
 
     // Expected no issue: `@IntRange` applies to every integer type.
@@ -237,7 +237,7 @@ class PropertyHintProblemFixtureInferred : Node() {
     // Expected no issue: `@FloatRange` applies to `Float` and `Double`.
     @Export
     @Visible
-    @FloatRange(min = 0f, max = 1f)
+    @FloatRange(min = 0.0, max = 1.0)
     var floatRangeOnDouble = 1.0
 
     // Expected red: `@ExpEasing` only makes sense on `Float` or `Double`

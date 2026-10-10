@@ -14,9 +14,9 @@ The following annotations are implemented based on https://github.com/godotengin
 @Retention(AnnotationRetention.RUNTIME)
 @Export
 annotation class IntRange(
-    val min: Int,
-    val max: Int,
-    val step: Int = -1,
+    val min: Long,
+    val max: Long,
+    val step: Long = -1,
     val or: Range = Range.NONE,
     val hideSlider: Boolean = false,
     val isRadians: Boolean = false,
@@ -32,9 +32,9 @@ annotation class IntRange(
 @Retention(AnnotationRetention.RUNTIME)
 @Export
 annotation class FloatRange(
-    val min: Float,
-    val max: Float,
-    val step: Float = -1f,
+    val min: Double,
+    val max: Double,
+    val step: Double = -1.0,
     val or: Range = Range.NONE,
     val hideSlider: Boolean = false,
     val isRadians: Boolean = false,

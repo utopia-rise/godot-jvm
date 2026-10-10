@@ -645,7 +645,7 @@ var imagePath: String = ""
 
 ### `@FloatRange` { #floatrange }
 
-`min`, `max`: required single-precision numbers. `step`: float, default `-1f`. Also accepts every [shared range argument](#shared-range-arguments).
+`min`, `max`: required double-precision numbers. `step`: double, default `-1.0`. Also accepts every [shared range argument](#shared-range-arguments).
 
 /// tab | Kotlin
 
@@ -656,7 +656,7 @@ import godot.annotation.FloatRange
 
 @Visible
 @Export
-@FloatRange(min = 0f, max = 10f)
+@FloatRange(min = 0.0, max = 10.0)
 var speed: Float = 2f
 ```
 
@@ -671,7 +671,7 @@ import godot.annotation.FloatRange;
 
 @Visible
 @Export
-@FloatRange(min = 0f, max = 10f)
+@FloatRange(min = 0.0, max = 10.0)
 public float speed = 2f;
 ```
 
@@ -686,7 +686,7 @@ import godot.annotation.FloatRange
 
 @Visible
 @Export
-@FloatRange(min = 0f, max = 10f)
+@FloatRange(min = 0.0, max = 10.0)
 var speed: Float = 2f
 ```
 
@@ -792,7 +792,7 @@ var mask: Int = 0
 
 ### `@IntRange` { #intrange }
 
-`min`, `max`: required 32-bit integers. `step`: integer, default `-1`. Also accepts every [shared range argument](#shared-range-arguments).
+`min`, `max`: required 64-bit integers. `step`: integer, default `-1`. Also accepts every [shared range argument](#shared-range-arguments).
 
 /// tab | Kotlin
 
