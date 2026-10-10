@@ -9,7 +9,6 @@ import godot.annotation.File;
 import godot.annotation.FloatRange;
 import godot.annotation.IntFlag;
 import godot.annotation.IntRange;
-import godot.annotation.LongRange;
 import godot.annotation.MultilineText;
 import godot.annotation.PlaceHolderText;
 import godot.annotation.Script;
@@ -17,7 +16,6 @@ import godot.annotation.Storage;
 import godot.annotation.Visible;
 import godot.annotation.ColorNoAlpha;
 import godot.annotation.Dir;
-import godot.annotation.DoubleRange;
 import godot.api.Button;
 import godot.api.NavigationMesh;
 import godot.api.Node;
@@ -125,7 +123,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @LongRange(min = 10L, max = 100L)
+    @IntRange(min = 10, max = 100)
     public long longRangeValue = 42L;
 
     @Export
@@ -148,7 +146,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @DoubleRange(min = 1.25, max = 9.75, step = 0.25)
+    @FloatRange(min = 1.25f, max = 9.75f, step = 0.25f)
     public double doubleRangeValue = 4.75;
 
     @Export

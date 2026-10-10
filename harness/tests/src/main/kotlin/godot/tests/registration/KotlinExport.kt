@@ -9,7 +9,6 @@ import godot.annotation.File
 import godot.annotation.FloatRange
 import godot.annotation.IntFlag
 import godot.annotation.IntRange
-import godot.annotation.LongRange
 import godot.annotation.MultilineText
 import godot.annotation.PlaceHolderText
 import godot.annotation.Script
@@ -17,7 +16,6 @@ import godot.annotation.Storage
 import godot.annotation.Visible
 import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
-import godot.annotation.DoubleRange
 import godot.api.Button
 import godot.api.Camera3D
 import godot.api.NavigationMesh
@@ -228,7 +226,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @LongRange(10L, 100L)
+    @IntRange(10, 100)
     var longRangeValue = 42L
 
     @Export
@@ -251,7 +249,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @DoubleRange(1.25, 9.75, 0.25)
+    @FloatRange(1.25f, 9.75f, 0.25f)
     var doubleRangeValue = 4.75
 
     @Export

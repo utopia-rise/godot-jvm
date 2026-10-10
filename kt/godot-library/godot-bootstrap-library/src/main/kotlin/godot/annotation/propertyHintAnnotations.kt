@@ -8,7 +8,7 @@ The following annotations are implemented based on https://github.com/godotengin
  */
 
 /**
- * Can only be used on Int properties!
+ * Can only be used on integer properties: Byte, Short, Int and Long.
  */
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD, AnnotationTarget.ANNOTATION_CLASS)
 @Retention(AnnotationRetention.RUNTIME)
@@ -26,25 +26,7 @@ annotation class IntRange(
 )
 
 /**
- * Can only be used on Long properties!
- */
-@Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD, AnnotationTarget.ANNOTATION_CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-@Export
-annotation class LongRange(
-    val min: Long,
-    val max: Long,
-    val step: Long = -1L,
-    val or: Range = Range.NONE,
-    val hideSlider: Boolean = false,
-    val isRadians: Boolean = false,
-    val isDegrees: Boolean = false,
-    val isExp: Boolean = false,
-    val suffix: String = "<none>",
-)
-
-/**
- * Can only be used on Float properties!
+ * Can only be used on Float and Double properties.
  */
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD, AnnotationTarget.ANNOTATION_CLASS)
 @Retention(AnnotationRetention.RUNTIME)
@@ -53,24 +35,6 @@ annotation class FloatRange(
     val min: Float,
     val max: Float,
     val step: Float = -1f,
-    val or: Range = Range.NONE,
-    val hideSlider: Boolean = false,
-    val isRadians: Boolean = false,
-    val isDegrees: Boolean = false,
-    val isExp: Boolean = false,
-    val suffix: String = "<none>",
-)
-
-/**
- * Can only be used on Double properties!
- */
-@Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD, AnnotationTarget.ANNOTATION_CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-@Export
-annotation class DoubleRange(
-    val min: Double,
-    val max: Double,
-    val step: Double = -1.0,
     val or: Range = Range.NONE,
     val hideSlider: Boolean = false,
     val isRadians: Boolean = false,

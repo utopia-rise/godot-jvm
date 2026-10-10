@@ -36,6 +36,7 @@
 - Corrected inspection severities so registration errors and advisory warnings are reported appropriately.
 - Expanded Java and Scala inspections for shared class and function registration rules.
 - Improved compatibility with IntelliJ IDEA 2025.1, 2025.2, and 2026.1.
+- Range hints follow Godot's underlying type: `@IntRange` is accepted on any integer property (`Byte`, `Short`, `Int`, `Long`) and `@FloatRange` on `Float` or `Double`. `@LongRange` and `@DoubleRange` no longer exist.
 
 ### Fixed
 

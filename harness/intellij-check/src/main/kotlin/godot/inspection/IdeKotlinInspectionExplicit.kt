@@ -6,7 +6,6 @@ package godot.inspection.explicit
 
 import godot.annotation.*
 import godot.annotation.IntRange
-import godot.annotation.LongRange
 import godot.api.InputEvent
 import godot.api.Node
 import godot.core.*
@@ -208,21 +207,29 @@ class VisibleProblemFixtureExplicit : Node() {
 // Property hint checks.
 @Script
 class PropertyHintProblemFixtureExplicit : Node() {
-    // Expected red: `@IntRange` only makes sense on `Int` properties.
+    // Expected red: `@IntRange` only makes sense on integer properties.
     @IntRange(min = 0, max = 1)
     var intRangeWrongType = ""
 
-    // Expected red: `@LongRange` only makes sense on `Long` properties.
-    @LongRange(min = 0, max = 1)
-    var longRangeWrongType = 1
+    // Expected red: an integer range does not apply to a float property.
+    @IntRange(min = 0, max = 1)
+    var intRangeOnDouble = 1.0
 
-    // Expected red: `@FloatRange` only makes sense on `Float` properties.
+    // Expected red: a float range does not apply to an integer property.
     @FloatRange(min = 0f, max = 1f)
     var floatRangeWrongType = 1
 
-    // Expected red: `@DoubleRange` only makes sense on `Double` properties.
-    @DoubleRange(min = 0.0, max = 1.0)
-    var doubleRangeWrongType = 1
+    // Expected no issue: `@IntRange` applies to every integer type.
+    @Export
+    @Visible
+    @IntRange(min = 0, max = 1)
+    var intRangeOnLong = 1L
+
+    // Expected no issue: `@FloatRange` applies to `Float` and `Double`.
+    @Export
+    @Visible
+    @FloatRange(min = 0f, max = 1f)
+    var floatRangeOnDouble = 1.0
 
     // Expected red: `@ExpEasing` only makes sense on `Float` or `Double`
     // properties.

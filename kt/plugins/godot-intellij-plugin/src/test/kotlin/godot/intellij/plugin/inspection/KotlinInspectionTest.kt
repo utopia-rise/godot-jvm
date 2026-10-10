@@ -38,16 +38,21 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
             error(GodotPluginBundle.message("problem.property.export.notRegistered")),
             error(GodotPluginBundle.message("problem.property.storage.notRegistered")),
-            error(GodotPluginBundle.message("problem.property.hint.notRegistered"), 11),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Float::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Double::class.qualifiedName!!)),
+            error(GodotPluginBundle.message("problem.property.hint.notRegistered"), 10),
+            error(
+                GodotPluginBundle.message(
+                    "problem.property.hint.wrongType",
+                    "${Byte::class.qualifiedName!!}, ${Short::class.qualifiedName!!}, ${Int::class.qualifiedName!!} or ${Long::class.qualifiedName!!}"
+                ),
+                2
+            ),
+            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!)),
             error(
                 GodotPluginBundle.message(
                     "problem.property.hint.wrongType",
                     "${Float::class.qualifiedName!!} or ${Double::class.qualifiedName!!}"
-                )
+                ),
+                2
             ),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", String::class.qualifiedName!!), 4),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", "godot.core.Color")),
@@ -115,15 +120,20 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             warning(GodotPluginBundle.message("problem.property.notPublic")),
             error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Float::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Double::class.qualifiedName!!)),
+            error(
+                GodotPluginBundle.message(
+                    "problem.property.hint.wrongType",
+                    "${Byte::class.qualifiedName!!}, ${Short::class.qualifiedName!!}, ${Int::class.qualifiedName!!} or ${Long::class.qualifiedName!!}"
+                ),
+                2
+            ),
+            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!)),
             error(
                 GodotPluginBundle.message(
                     "problem.property.hint.wrongType",
                     "${Float::class.qualifiedName!!} or ${Double::class.qualifiedName!!}"
-                )
+                ),
+                2
             ),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", String::class.qualifiedName!!), 4),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", "godot.core.Color")),
@@ -165,15 +175,20 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             warning(GodotPluginBundle.message("problem.property.notPublic")),
             error(GodotPluginBundle.message("problem.property.export.triedToExportUnsupportedType")),
             error(GodotPluginBundle.message("problem.property.registeredEnumListWithVariantArray")),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!), 2),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Float::class.qualifiedName!!)),
-            error(GodotPluginBundle.message("problem.property.hint.wrongType", Double::class.qualifiedName!!)),
+            error(
+                GodotPluginBundle.message(
+                    "problem.property.hint.wrongType",
+                    "${Byte::class.qualifiedName!!}, ${Short::class.qualifiedName!!}, ${Int::class.qualifiedName!!} or ${Long::class.qualifiedName!!}"
+                ),
+                2
+            ),
+            error(GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!)),
             error(
                 GodotPluginBundle.message(
                     "problem.property.hint.wrongType",
                     "${Float::class.qualifiedName!!} or ${Double::class.qualifiedName!!}"
-                )
+                ),
+                2
             ),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", String::class.qualifiedName!!), 4),
             error(GodotPluginBundle.message("problem.property.hint.wrongType", "godot.core.Color")),

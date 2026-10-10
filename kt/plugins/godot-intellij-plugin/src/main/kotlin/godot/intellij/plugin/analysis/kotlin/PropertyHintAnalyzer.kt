@@ -2,13 +2,11 @@ package godot.intellij.plugin.analysis.kotlin
 
 import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
-import godot.annotation.DoubleRange
 import godot.annotation.ExpEasing
 import godot.annotation.File
 import godot.annotation.FloatRange
 import godot.annotation.IntFlag
 import godot.annotation.IntRange
-import godot.annotation.LongRange
 import godot.annotation.MultilineText
 import godot.annotation.PlaceHolderText
 import godot.core.Color
@@ -34,16 +32,8 @@ object PropertyHintAnalyzer {
                 checkForRegistrationAnnotations(property) + checkIntRange(property)
             }
 
-            property.findAnnotation(LongRange::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkLongRange(property)
-            }
-
             property.findAnnotation(FloatRange::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkFloatRange(property)
-            }
-
-            property.findAnnotation(DoubleRange::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkDoubleRange(property)
+                checkForRegistrationAnnotations(property) + checkRealTypeProperty(property, FloatRange::class)
             }
 
             property.findAnnotation(ExpEasing::class.classId) != null -> {
@@ -130,51 +120,17 @@ object PropertyHintAnalyzer {
         )
     }
 
-    private fun checkDoubleRange(property: KtProperty): List<GodotProblem> {
-        val isDouble = property.withType { propertyType -> propertyType.isDoubleType }
-        if (isDouble) return emptyList()
-        return listOf(
-            GodotProblem(
-                GodotPluginBundle.message("problem.property.hint.wrongType", Double::class.qualifiedName!!),
-                property.findAnnotation(DoubleRange::class.classId)?.psiOrParent
-                    ?: property.nameIdentifier
-                    ?: property.navigationElement
-            )
-        )
-    }
-
-    private fun checkFloatRange(property: KtProperty): List<GodotProblem> {
-        val isFloat = property.withType { propertyType -> propertyType.isFloatType }
-        if (isFloat) return emptyList()
-        return listOf(
-            GodotProblem(
-                GodotPluginBundle.message("problem.property.hint.wrongType", Float::class.qualifiedName!!),
-                property.findAnnotation(FloatRange::class.classId)?.psiOrParent
-                    ?: property.nameIdentifier
-                    ?: property.navigationElement
-            )
-        )
-    }
-
-    private fun checkLongRange(property: KtProperty): List<GodotProblem> {
-        val isLong = property.withType { propertyType -> propertyType.isLongType }
-        if (isLong) return emptyList()
-        return listOf(
-            GodotProblem(
-                GodotPluginBundle.message("problem.property.hint.wrongType", Long::class.qualifiedName!!),
-                property.findAnnotation(LongRange::class.classId)?.psiOrParent
-                    ?: property.nameIdentifier
-                    ?: property.navigationElement
-            )
-        )
-    }
-
     private fun checkIntRange(property: KtProperty): List<GodotProblem> {
-        val isInt = property.withType { propertyType -> propertyType.isIntType }
-        if (isInt) return emptyList()
+        val isIntegerType = property.withType { propertyType ->
+            propertyType.isByteType || propertyType.isShortType || propertyType.isIntType || propertyType.isLongType
+        }
+        if (isIntegerType) return emptyList()
         return listOf(
             GodotProblem(
-                GodotPluginBundle.message("problem.property.hint.wrongType", Int::class.qualifiedName!!),
+                GodotPluginBundle.message(
+                    "problem.property.hint.wrongType",
+                    "${Byte::class.qualifiedName!!}, ${Short::class.qualifiedName!!}, ${Int::class.qualifiedName!!} or ${Long::class.qualifiedName!!}"
+                ),
                 property.findAnnotation(IntRange::class.classId)?.psiOrParent
                     ?: property.nameIdentifier
                     ?: property.navigationElement

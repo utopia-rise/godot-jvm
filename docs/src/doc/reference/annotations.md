@@ -23,7 +23,6 @@ Package: `godot.annotation`. These annotations have runtime retention and can al
 
 Member examples belong inside a registered script class. All examples include the direct selection annotations needed by Explicit mode unless stated otherwise.
 
-
 ### `@Emit` { #emit }
 
 Targets: property or field. `parameters` is an array of strings, default empty; provide one name per signal argument when naming them.
@@ -434,19 +433,16 @@ At most one property hint is allowed, including hints inferred from enum/bitfiel
 |---|---|---|
 | [`@ColorNoAlpha`](#colornoalpha) | `Color` | Color without alpha |
 | [`@Dir`](#dir) | String | Directory picker |
-| [`@DoubleRange`](#doublerange) | Numeric | Range with double-precision bounds |
 | [`@ExpEasing`](#expeasing) | Float or Double | Easing curve |
 | [`@File`](#file) | String | File picker |
-| [`@FloatRange`](#floatrange) | Numeric | Range with single-precision bounds |
+| [`@FloatRange`](#floatrange) | Float or Double | Range with floating-point bounds |
 | [`@HintString`](#hintstring) | Any supported property | Raw hint string |
 | [`@IntFlag`](#intflag) | Int | Flag checkboxes |
-| [`@IntRange`](#intrange) | Numeric | Range with 32-bit integer bounds |
-| [`@LongRange`](#longrange) | Numeric | Range with 64-bit integer bounds |
+| [`@IntRange`](#intrange) | Byte, Short, Int or Long | Range with integer bounds |
 | [`@MultilineText`](#multilinetext) | String | Multiline input |
 | [`@PlaceHolderText`](#placeholdertext) | String | Placeholder-text hint |
 
 Range hints accept Int, Long, Float, or Double properties. Choose the annotation with argument precision appropriate to the property. Boolean, Byte, and Short properties are not accepted by range-hint validation.
-
 
 ### `@ColorNoAlpha` { #colornoalpha }
 
@@ -545,55 +541,6 @@ import godot.annotation.Dir
 @Export
 @Dir(global = false)
 var directory: String = "res://"
-```
-
-///
-
-### `@DoubleRange` { #doublerange }
-
-`min`, `max`: required double-precision numbers. `step`: double, default `-1.0`. Also accepts every [shared range argument](#shared-range-arguments).
-
-/// tab | Kotlin
-
-```kotlin
-import godot.annotation.Visible
-import godot.annotation.Export
-import godot.annotation.DoubleRange
-
-@Visible
-@Export
-@DoubleRange(min = 0.0, max = 10.0)
-var speed: Double = 2.0
-```
-
-///
-
-/// tab | Java
-
-```java
-import godot.annotation.Visible;
-import godot.annotation.Export;
-import godot.annotation.DoubleRange;
-
-@Visible
-@Export
-@DoubleRange(min = 0.0, max = 10.0)
-public double speed = 2.0;
-```
-
-///
-
-/// tab | Scala
-
-```scala
-import godot.annotation.Visible
-import godot.annotation.Export
-import godot.annotation.DoubleRange
-
-@Visible
-@Export
-@DoubleRange(min = 0.0, max = 10.0)
-var speed: Double = 2.0
 ```
 
 ///
@@ -892,55 +839,6 @@ var health: Int = 100
 
 ///
 
-### `@LongRange` { #longrange }
-
-`min`, `max`: required 64-bit integers. `step`: long, default `-1L`. Also accepts every [shared range argument](#shared-range-arguments).
-
-/// tab | Kotlin
-
-```kotlin
-import godot.annotation.Visible
-import godot.annotation.Export
-import godot.annotation.LongRange
-
-@Visible
-@Export
-@LongRange(min = 0L, max = 1000L)
-var score: Long = 0L
-```
-
-///
-
-/// tab | Java
-
-```java
-import godot.annotation.Visible;
-import godot.annotation.Export;
-import godot.annotation.LongRange;
-
-@Visible
-@Export
-@LongRange(min = 0L, max = 1000L)
-public long score = 0L;
-```
-
-///
-
-/// tab | Scala
-
-```scala
-import godot.annotation.Visible
-import godot.annotation.Export
-import godot.annotation.LongRange
-
-@Visible
-@Export
-@LongRange(min = 0L, max = 1000L)
-var score: Long = 0L
-```
-
-///
-
 ### `@MultilineText` { #multilinetext }
 
 No arguments. Uses a multiline string input.
@@ -1041,7 +939,7 @@ var text: String = ""
 
 ### Shared range arguments { #shared-range-arguments }
 
-`IntRange`, `LongRange`, `FloatRange`, and `DoubleRange` accept these arguments after `min`, `max`, and `step`:
+`IntRange` and `FloatRange` accept these arguments after `min`, `max`, and `step`:
 
 | Argument | Type | Default | Effect in the Godot hint string |
 |---|---|---|---|
