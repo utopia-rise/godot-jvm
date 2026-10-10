@@ -1,5 +1,6 @@
 #include "jvm_resource_format_saver.h"
 
+#include "api/language/jvm_language.h"
 #include "api/language/names.h"
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
@@ -10,12 +11,12 @@
 
 using namespace godot;
 
+// Godot asks every saver about any resource it offers to save, so only a JVM script gets an extension, its own.
 PackedStringArray JvmResourceFormatSaver::_get_recognized_extensions(const Ref<Resource>& p_resource) const {
     PackedStringArray extensions;
-    extensions.push_back(GODOT_KOTLIN_SCRIPT_EXTENSION);
-    extensions.push_back(GODOT_JVM_REGISTRATION_FILE_EXTENSION);
-    extensions.push_back(GODOT_JAVA_SCRIPT_EXTENSION);
-    extensions.push_back(GODOT_SCALA_SCRIPT_EXTENSION);
+    if (const JvmScript* script = Object::cast_to<JvmScript>(p_resource.ptr())) {
+        extensions.push_back(static_cast<JvmLanguage*>(script->_get_language())->_get_extension());
+    }
     return extensions;
 }
 
