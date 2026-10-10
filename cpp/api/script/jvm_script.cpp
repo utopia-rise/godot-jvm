@@ -12,6 +12,7 @@
 #include "jvm_placeholder_instance.h"
 #include "logging.h"
 
+#include <classes/class_db_singleton.hpp>
 #include <core/object.hpp>
 #include <utility>
 
@@ -409,7 +410,10 @@ void JvmScript::update_script_exports() const {
     if (!Engine::get_singleton()->is_editor_hint()) { return; }
 
     exported_members_default_value_cache.clear();
-    if (!_is_valid() || kotlin_class->is_abstract || !kotlin_class->can_zero_init()) {
+    if (!_is_valid()
+        || kotlin_class->is_abstract
+        || !kotlin_class->can_zero_init()
+        || !ClassDB::can_instantiate(kotlin_class->base_godot_class)) {
         export_dirty_flag = false;
         return;
     }

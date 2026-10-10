@@ -16,6 +16,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName6
+import godot.core.NotInstantiableException
 import godot.core.StringName
 import godot.core.asCachedStringName
 import kotlin.Boolean
@@ -37,9 +38,8 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioStreamPlayback() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(92, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AudioStreamPlaybackPolyphonic")
 
   /**
    * Play an [AudioStream] at a given offset, volume, pitch scale, playback type, and bus. Playback

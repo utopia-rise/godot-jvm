@@ -83,7 +83,7 @@ class MemberRule : GodotApiRule<EnrichedClassTask>() {
                 addModifiers(KModifier.OPEN)
             }
 
-            generateClassConstructor(context)
+            generateClassConstructor(clazz, context)
         }
 
         addKdoc(clazz)
@@ -104,19 +104,20 @@ class MemberRule : GodotApiRule<EnrichedClassTask>() {
     }
 
     private fun TypeSpec.Builder.generateClassConstructor(
+        clazz: EnrichedClass,
         context: GenerationContext
     ): TypeSpec.Builder {
-
-        addFunction(
-            FunSpec.builder("new")
-                .addModifiers(KModifier.OVERRIDE)
-                .addParameter("scriptPtr", Internal.voidPtr)
-                .returns(Unit::class)
-                .addStatement(
-                    "createNativeObject(${context.getNextEngineClassIndex()}, scriptPtr)"
-                )
-                .build()
-        )
+        val classIndex = context.getNextEngineClassIndex()
+        val new = FunSpec.builder("new")
+            .addModifiers(KModifier.OVERRIDE)
+            .addParameter("scriptPtr", Internal.voidPtr)
+            .returns(Unit::class)
+        if (clazz.isInstantiable) {
+            new.addStatement("createNativeObject($classIndex, scriptPtr)")
+        } else {
+            new.addStatement("throw·%T(%S)", API.notInstantiableException, clazz.identifier)
+        }
+        addFunction(new.build())
         return this
     }
 

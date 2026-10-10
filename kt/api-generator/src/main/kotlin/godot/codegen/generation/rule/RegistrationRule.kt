@@ -33,6 +33,15 @@ class RegistrationRule : GodotApiRule<ApiTask>() {
             enrichedClass.className,
             enrichedClass.getVariantConverter()
         )
+        // The class itself serves lookups by declared type, its dummy those by the runtime class of a wrapper.
+        if (enrichedClass.isAbstract) {
+            variantMapper.addStatement(
+                "%M(%T::class, %M)",
+                Utils.addVariantMapping,
+                enrichedClass.abstractDummyClassName,
+                enrichedClass.getVariantConverter()
+            )
+        }
     }
 
     private fun RegistrationTask.addClassRegistering(clazz: EnrichedClass) {

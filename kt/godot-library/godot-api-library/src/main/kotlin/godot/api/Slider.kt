@@ -16,6 +16,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Signal0
 import godot.core.Signal1
 import kotlin.Boolean
@@ -101,9 +102,7 @@ public open class Slider internal constructor() : Range() {
       setTicksPosition(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(682, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Slider")
 
   public final fun setTicks(count: Int): Unit {
     callPtrMethod_LONG(MethodBindings.setTicksPtr, count.toLong())

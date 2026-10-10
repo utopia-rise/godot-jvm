@@ -25,6 +25,7 @@ import godot.core.Dictionary
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
@@ -61,9 +62,7 @@ public open class Script internal constructor() : Resource() {
       setSourceCode(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(642, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Script")
 
   /**
    * Returns `true` if the script can be instantiated.

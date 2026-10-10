@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -36,9 +37,8 @@ public open class VisualShaderNodeVectorBase internal constructor() : VisualShad
       setOpType(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(907, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeVectorBase")
 
   public final fun setOpType(type: OpType): Unit {
     callPtrMethod_LONG(MethodBindings.setOpTypePtr, type.value)

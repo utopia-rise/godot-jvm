@@ -13,6 +13,7 @@ import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -61,9 +62,8 @@ public open class GPUParticlesCollision3D internal constructor() : VisualInstanc
       setCullMask(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(263, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("GPUParticlesCollision3D")
 
   public final fun setCullMask(mask: Long): Unit {
     callPtrMethod_LONG(MethodBindings.setCullMaskPtr, mask)

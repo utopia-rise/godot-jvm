@@ -29,6 +29,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.MethodStringName6
+import godot.core.NotInstantiableException
 import godot.core.PackedVector3Array
 import godot.core.Projection
 import godot.core.Signal1
@@ -102,9 +103,7 @@ public open class XRInterface internal constructor() : RefCounted() {
       setAnchorDetectionIsEnabled(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(946, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("XRInterface")
 
   /**
    * Returns the name of this interface (`"OpenXR"`, `"OpenVR"`, `"OpenHMD"`, `"ARKit"`, etc.).

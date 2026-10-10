@@ -52,6 +52,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
 import kotlin.Any
@@ -153,9 +154,7 @@ public open class FileAccess internal constructor() : RefCounted() {
       setBigEndian(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(224, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("FileAccess")
 
   /**
    * Resizes the file to a specified length. The file must be open in a mode that permits writing.

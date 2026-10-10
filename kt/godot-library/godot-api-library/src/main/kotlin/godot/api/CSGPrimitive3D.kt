@@ -13,6 +13,7 @@ import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,9 +44,8 @@ public open class CSGPrimitive3D internal constructor() : CSGShape3D() {
       setFlipFaces(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(128, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("CSGPrimitive3D")
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
     callPtrMethod_BOOL(MethodBindings.setFlipFacesPtr, flipFaces)

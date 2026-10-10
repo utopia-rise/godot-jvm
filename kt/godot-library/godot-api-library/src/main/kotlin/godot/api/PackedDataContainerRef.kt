@@ -12,6 +12,7 @@ import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import godot.core.VariantArray
 import kotlin.Int
 import kotlin.Suppress
@@ -59,9 +60,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class PackedDataContainerRef internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(500, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PackedDataContainerRef")
 
   /**
    * Returns the size of the packed container (see [Array.size] and [Dictionary.size]).

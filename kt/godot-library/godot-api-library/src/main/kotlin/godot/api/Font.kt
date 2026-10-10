@@ -44,6 +44,7 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName6
 import godot.core.MethodStringName7
 import godot.core.MethodStringName9
+import godot.core.NotInstantiableException
 import godot.core.PackedColorArray
 import godot.core.RID
 import godot.core.Transform2D
@@ -82,9 +83,7 @@ public open class Font internal constructor() : Resource() {
       setFallbacks(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(231, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Font")
 
   public final fun setFallbacks(fallbacks: VariantArray<Font>): Unit {
     callPtrMethod_ARRAY(MethodBindings.setFallbacksPtr, fallbacks)

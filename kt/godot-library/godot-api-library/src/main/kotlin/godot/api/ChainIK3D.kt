@@ -21,6 +21,7 @@ import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -39,9 +40,7 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class ChainIK3D internal constructor() : IKModifier3D() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(151, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("ChainIK3D")
 
   /**
    * Sets the root bone name of the bone chain.

@@ -8,6 +8,7 @@ package godot.api
 
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.NotImplementedError
@@ -20,9 +21,8 @@ import kotlin.Unit
  */
 @GodotBaseType
 public open class AudioStreamPlaybackPlaylist internal constructor() : AudioStreamPlayback() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(91, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AudioStreamPlaybackPlaylist")
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -23,6 +23,7 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
+import godot.core.NotInstantiableException
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.Vector3
@@ -46,9 +47,7 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class Noise internal constructor() : Resource() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(423, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Noise")
 
   /**
    * Returns the 1D noise value at the given (x) coordinate.

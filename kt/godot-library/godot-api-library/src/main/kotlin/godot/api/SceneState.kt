@@ -28,6 +28,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
+import godot.core.NotInstantiableException
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.VariantArray
@@ -51,9 +52,7 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class SceneState internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(639, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("SceneState")
 
   /**
    * Returns the resource path to the represented [PackedScene].

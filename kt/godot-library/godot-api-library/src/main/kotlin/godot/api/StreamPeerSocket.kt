@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -24,9 +25,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class StreamPeerSocket internal constructor() : StreamPeer() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(711, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("StreamPeerSocket")
 
   /**
    * Polls the socket, updating its state. See [getStatus].

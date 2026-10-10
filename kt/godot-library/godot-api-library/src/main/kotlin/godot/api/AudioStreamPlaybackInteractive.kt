@@ -14,6 +14,7 @@ import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.StringName
 import godot.core.asCachedStringName
 import kotlin.Boolean
@@ -31,9 +32,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class AudioStreamPlaybackInteractive internal constructor() : AudioStreamPlayback() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(89, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AudioStreamPlaybackInteractive")
 
   /**
    * Switch to a clip (by name).

@@ -32,6 +32,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.PackedInt32Array
 import godot.core.RID
 import godot.core.Signal0
@@ -170,9 +171,8 @@ public open class CollisionObject3D internal constructor() : Node3D() {
       setCaptureInputOnDrag(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(162, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("CollisionObject3D")
 
   /**
    * Receives unhandled [InputEvent]s. [eventPosition] is the location in world space of the mouse

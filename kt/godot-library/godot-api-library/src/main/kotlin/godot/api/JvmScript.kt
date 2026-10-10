@@ -11,6 +11,7 @@ import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -18,9 +19,7 @@ import kotlin.jvm.JvmField
 
 @GodotBaseType
 public open class JvmScript internal constructor() : Script() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(344, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("JvmScript")
 
   public final fun new(): Any? = callMethod0_ret_ANY(MethodBindings.newPtr)
 

@@ -19,6 +19,7 @@ import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import kotlin.Any
 import kotlin.Boolean
@@ -57,9 +58,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
       setEncodeBufferMaxSize(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(502, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("PacketPeer")
 
   /**
    * Gets a Variant. If [allowObjects] is `true`, decoding objects is allowed.

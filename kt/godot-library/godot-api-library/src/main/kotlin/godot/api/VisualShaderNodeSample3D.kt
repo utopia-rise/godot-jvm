@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -36,9 +37,8 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
       setSource(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(869, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeSample3D")
 
   public final fun setSource(`value`: Source): Unit {
     callPtrMethod_LONG(MethodBindings.setSourcePtr, value.value)

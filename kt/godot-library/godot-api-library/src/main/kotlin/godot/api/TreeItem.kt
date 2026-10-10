@@ -66,6 +66,7 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
+import godot.core.NotInstantiableException
 import godot.core.Rect2
 import godot.core.StringName
 import godot.core.VariantArray
@@ -142,9 +143,7 @@ public open class TreeItem internal constructor() : Object() {
       setCustomMinimumHeight(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(772, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("TreeItem")
 
   /**
    * Sets the given column's cell mode to [mode]. This determines how the cell is displayed and

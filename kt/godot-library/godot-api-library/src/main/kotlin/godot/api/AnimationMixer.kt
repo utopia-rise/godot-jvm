@@ -35,6 +35,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.NodePath
+import godot.core.NotInstantiableException
 import godot.core.PackedStringArray
 import godot.core.Quaternion
 import godot.core.Signal0
@@ -260,9 +261,8 @@ public open class AnimationMixer internal constructor() : Node() {
       setCallbackModeDiscrete(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(14, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AnimationMixer")
 
   /**
    * A virtual function for processing after getting a key during playback.

@@ -30,6 +30,7 @@ import java.util.*
 
 object API {
     val ktObject = ClassName(godotCorePackage, "KtObject")
+    val notInstantiableException = ClassName(godotCorePackage, "NotInstantiableException")
     val `object` = ClassName(godotApiPackage, "Object")
     val refCounted = ClassName(godotApiPackage, "RefCounted")
     val resource = ClassName(godotApiPackage, "Resource")

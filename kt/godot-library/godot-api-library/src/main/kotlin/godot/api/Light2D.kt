@@ -23,6 +23,7 @@ import godot.core.Color
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -223,9 +224,7 @@ public open class Light2D internal constructor() : Node2D() {
       setItemShadowCullMask(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(351, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Light2D")
 
   /**
    * This is a helper function for [color] to make dealing with local copies easier.

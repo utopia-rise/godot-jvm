@@ -8,6 +8,7 @@ package godot.api
 
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
+import godot.core.NotInstantiableException
 import kotlin.Suppress
 import kotlin.Unit
 
@@ -48,9 +49,8 @@ import kotlin.Unit
  */
 @GodotBaseType
 public open class JavaScriptObject internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(339, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("JavaScriptObject")
 
   public companion object
 

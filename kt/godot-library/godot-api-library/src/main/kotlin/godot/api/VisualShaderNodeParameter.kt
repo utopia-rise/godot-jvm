@@ -16,6 +16,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
@@ -65,9 +66,8 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
       setInstanceIndex(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(848, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeParameter")
 
   public final fun setParameterName(name: String): Unit {
     callMethod_STRING(MethodBindings.setParameterNamePtr, name)

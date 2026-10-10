@@ -30,6 +30,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.RID
 import godot.core.Vector3
 import kotlin.Boolean
@@ -1839,9 +1840,8 @@ public open class BaseMaterial3D internal constructor() : Material() {
       setStencilEffectOutlineThickness(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(106, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("BaseMaterial3D")
 
   /**
    * This is a helper function for [albedoColor] to make dealing with local copies easier.

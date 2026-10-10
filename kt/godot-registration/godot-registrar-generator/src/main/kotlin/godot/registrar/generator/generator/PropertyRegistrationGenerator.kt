@@ -5,16 +5,17 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import godot.common.extensions.convertToSnakeCase
 import godot.core.PropertyUsageFlags
+import godot.core.VariantCaster
 import godot.registrar.generator.GeneratorContext
 import godot.registrar.generator.ext.effectiveProperties
 import godot.registrar.generator.ext.toGodotClassName
 import godot.registrar.generator.ext.toKtVariantConverter
+import godot.registrar.generator.ext.toTypeName
 import godot.registrar.generator.generator.hint.PropertyHintProvider
 import godot.registration.model.PropertyExposure
 import godot.registration.model.RegisteredProperty
 import godot.registration.model.RegisteredPropertyBindingKind
 import godot.registration.model.PropertyGroupKind
-import godot.registration.model.ext.isBitField
 import godot.registration.model.ext.isEnum
 import godot.registration.model.hint.property.EnumListHintStringHint
 import godot.registration.model.types.ScriptClass
@@ -33,25 +34,7 @@ fun FunSpec.Builder.addPropertyRegistrations(
             }
         }
 
-        when {
-            registeredProperty.type.isBitField() -> registerBitFieldProperty(
-                registeredProperty,
-                context,
-                className,
-            )
-
-            registeredProperty.hints.any { it is EnumListHintStringHint } -> registerEnumListProperty(
-                registeredProperty,
-                context,
-                className,
-            )
-
-            else -> registerProperty(
-                registeredProperty,
-                context,
-                className,
-            )
-        }
+        registerProperty(registeredProperty, context, className)
     }
 }
 
@@ -62,7 +45,7 @@ private fun FunSpec.Builder.registerProperty(
 ) {
     val propertyHint = PropertyHintProvider.provide(registeredProperty, context).generate()
     val typeGodotName = if (registeredProperty.type.isEnum()) "int" else registeredProperty.type.toGodotClassName(context)
-    val variantConverter = registeredProperty.type.toKtVariantConverter()
+    val variantConverter = registeredProperty.variantConverter()
 
     if (registeredProperty.bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS) {
         val getterFqName = registeredProperty.getterFqName
@@ -95,68 +78,9 @@ private fun FunSpec.Builder.registerProperty(
     )
 }
 
-private fun FunSpec.Builder.registerEnumListProperty(
-    registeredProperty: RegisteredProperty,
-    context: GeneratorContext,
-    className: ClassName,
-) {
-    val propertyHint = PropertyHintProvider.provide(registeredProperty, context).generate()
-    if (registeredProperty.bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS) {
-        val getterFqName = registeredProperty.getterFqName
-        val setterFqName = registeredProperty.setterFqName
-        requireNotNull(getterFqName) {
-            "Property ${registeredProperty.name} should have a getter when using accessor binding"
-        }
-
-        addStatement(
-            "enumListProperty(%S, %L, %L, %L, %L)",
-            registeredProperty.name.convertToSnakeCase(),
-            getGetterReference(registeredProperty, className),
-            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
-            getPropertyUsage(registeredProperty),
-            propertyHint.hintString,
-        )
-        return
-    }
-
-    addStatement(
-        "enumListProperty(%L, %L, %L)",
-        getPropertyReference(registeredProperty, className),
-        getPropertyUsage(registeredProperty),
-        propertyHint.hintString,
-    )
-}
-
-private fun FunSpec.Builder.registerBitFieldProperty(
-    registeredProperty: RegisteredProperty,
-    context: GeneratorContext,
-    className: ClassName,
-) {
-    val propertyHint = PropertyHintProvider.provide(registeredProperty, context).generate()
-    if (registeredProperty.bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS) {
-        val getterFqName = registeredProperty.getterFqName
-        val setterFqName = registeredProperty.setterFqName
-        requireNotNull(getterFqName) {
-            "Property ${registeredProperty.name} should have a getter when using accessor binding"
-        }
-
-        addStatement(
-            "bitFieldProperty(%S, %L, %L, %L, %L)",
-            registeredProperty.name.convertToSnakeCase(),
-            getGetterReference(registeredProperty, className),
-            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
-            getPropertyUsage(registeredProperty),
-            propertyHint.hintString,
-        )
-        return
-    }
-
-    addStatement(
-        "bitFieldProperty(%L, %L, %L)",
-        getPropertyReference(registeredProperty, className),
-        getPropertyUsage(registeredProperty),
-        propertyHint.hintString,
-    )
+private fun RegisteredProperty.variantConverter(): CodeBlock {
+    val enumListHint = hints.filterIsInstance<EnumListHintStringHint>().firstOrNull() ?: return type.toKtVariantConverter()
+    return CodeBlock.of("%T.ENUM_LIST(%T.entries.toTypedArray())", VariantCaster::class, enumListHint.enumType.toTypeName())
 }
 
 private fun getPropertyReference(registeredProperty: RegisteredProperty, className: ClassName): CodeBlock {

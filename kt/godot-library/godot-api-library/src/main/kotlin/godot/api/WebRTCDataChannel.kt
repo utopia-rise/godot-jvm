@@ -18,6 +18,7 @@ import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -40,9 +41,8 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
       setWriteMode(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(919, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("WebRTCDataChannel")
 
   /**
    * Reserved, but not used for now.

@@ -13,6 +13,7 @@ import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Signal0
 import kotlin.Double
 import kotlin.Suppress
@@ -70,9 +71,8 @@ public open class SceneTreeTimer internal constructor() : RefCounted() {
       setTimeLeft(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(641, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("SceneTreeTimer")
 
   public final fun setTimeLeft(time: Double): Unit {
     callPtrMethod_DOUBLE(MethodBindings.setTimeLeftPtr, time)

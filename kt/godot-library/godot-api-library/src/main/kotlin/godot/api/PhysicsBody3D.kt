@@ -21,6 +21,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
+import godot.core.NotInstantiableException
 import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector3
@@ -108,9 +109,8 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
       setAxisLock(PhysicsServer3D.BodyAxis.ANGULAR_Z, value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(524, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PhysicsBody3D")
 
   /**
    * Moves the body along the vector [motion]. In order to be frame rate independent in

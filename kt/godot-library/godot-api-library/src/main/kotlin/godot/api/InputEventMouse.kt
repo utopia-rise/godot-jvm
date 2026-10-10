@@ -18,6 +18,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MouseButtonMask
+import godot.core.NotInstantiableException
 import godot.core.Vector2
 import kotlin.Suppress
 import kotlin.Unit
@@ -83,9 +84,8 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
       setGlobalPosition(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(317, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("InputEventMouse")
 
   /**
    * This is a helper function for [position] to make dealing with local copies easier.

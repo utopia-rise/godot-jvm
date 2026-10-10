@@ -1,7 +1,9 @@
 #include "jvm/bridge/kotlin_callable_custom.h"
 
+#include "constraints.h"
 #include "godot_jvm.h"
 #include "jvm/memory/variant_buffer.h"
+#include "logging.h"
 
 void LambdaContainer::invoke(
     jni::Env& p_env,
@@ -9,6 +11,14 @@ void LambdaContainer::invoke(
     int args_count,
     godot::Variant& r_ret
 ) const {
+#ifdef DEBUG_ENABLED
+    JVM_ERR_FAIL_COND_MSG(
+        args_count > MAX_ARGUMENT_COUNT,
+        "Cannot call a JVM Callable with %s arguments, the maximum is %s.",
+        args_count,
+        MAX_ARGUMENT_COUNT
+    );
+#endif
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     transfer->encode_args(p_args, args_count);
 

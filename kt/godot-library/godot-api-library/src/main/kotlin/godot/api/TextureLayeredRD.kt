@@ -13,6 +13,7 @@ import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.RID
 import kotlin.Boolean
 import kotlin.Int
@@ -43,9 +44,8 @@ public open class TextureLayeredRD internal constructor() : TextureLayered() {
       setTextureRdRid(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(750, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("TextureLayeredRD")
 
   public final fun setTextureRdRid(textureRdRid: RID): Unit {
     callPtrMethod_RID(MethodBindings.setTextureRdRidPtr, textureRdRid)

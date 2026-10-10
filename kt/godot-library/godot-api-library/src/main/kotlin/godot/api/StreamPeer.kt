@@ -26,6 +26,7 @@ import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import godot.core.VariantArray
 import kotlin.Any
@@ -62,9 +63,7 @@ public open class StreamPeer internal constructor() : RefCounted() {
       setBigEndian(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(707, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("StreamPeer")
 
   /**
    * Sends a chunk of data through the connection, blocking if necessary until the data is done

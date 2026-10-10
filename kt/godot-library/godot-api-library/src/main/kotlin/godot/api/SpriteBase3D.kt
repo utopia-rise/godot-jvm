@@ -30,6 +30,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.Rect2
 import godot.core.Vector2
 import godot.core.Vector3
@@ -314,9 +315,7 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       setRenderPriority(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(701, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("SpriteBase3D")
 
   /**
    * This is a helper function for [offset] to make dealing with local copies easier.

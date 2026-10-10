@@ -15,6 +15,7 @@ import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Vector2
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,9 +44,8 @@ public open class VisualShaderNodeResizableBase internal constructor() : VisualS
       setSize(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(865, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeResizableBase")
 
   /**
    * This is a helper function for [size] to make dealing with local copies easier.

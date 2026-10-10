@@ -70,3 +70,18 @@ func test_enum_list_property_round_trip():
 	script.set_enum_list_from_jvm()
 	assert_array(script.enum_list).override_failure_message("An enum list set from the JVM should be read as its godot values").contains_exactly([0, 0, 1])
 	script.free()
+
+
+func test_enum_list_property_uses_godot_values():
+	var script := EnumRegistration.new()
+	assert_array(script.godot_value_enum_list).override_failure_message("An enum list of a GodotEnum should be read as its Godot values, not its ordinals").contains_exactly([8, 2])
+	script.godot_value_enum_list = [2, 8, 8]
+	assert_that(script.godot_value_enum_list_names()).override_failure_message("Godot values assigned to an enum list should map back to their entries").is_equal("A,B,B")
+	script.free()
+
+
+func test_enum_list_property_refuses_unknown_values():
+	var script := EnumRegistration.new()
+	script.enum_list = [0, 99]
+	assert_that(script.enum_list_names()).override_failure_message("An enum list should keep its value when assigned an unknown entry").is_equal("ENUM_2,ENUM_1")
+	script.free()

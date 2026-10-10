@@ -13,6 +13,7 @@ import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import godot.core.RID
 import kotlin.Suppress
 import kotlin.Unit
@@ -27,9 +28,7 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class RenderData internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(609, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("RenderData")
 
   /**
    * Returns the [RenderSceneBuffers] object managing the scene buffers for rendering this viewport.

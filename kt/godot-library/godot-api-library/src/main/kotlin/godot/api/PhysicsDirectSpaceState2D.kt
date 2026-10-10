@@ -15,6 +15,7 @@ import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.PackedFloat32Array
 import godot.core.RID
 import godot.core.VariantArray
@@ -35,9 +36,8 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(529, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PhysicsDirectSpaceState2D")
 
   /**
    * Checks whether a point is inside any solid shape. Position and other parameters are defined

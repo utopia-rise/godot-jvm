@@ -11,6 +11,7 @@ import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -25,9 +26,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class RenderSceneBuffers internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(612, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("RenderSceneBuffers")
 
   /**
    * This method is called by the rendering server when the associated viewport's configuration is

@@ -36,79 +36,28 @@ data class KtPropertyInfo(
         get() = _hint.value.toInt()
 }
 
-open class KtProperty<T : KtObject, P : Any?>(
-    @Suppress("unused") val ktPropertyInfo: KtPropertyInfo,
-    protected val getter: (T) -> P,
-    protected val setter: ((T, P) -> Unit)?,
-    protected val variantConverter: VariantConverter<*>,
+class KtProperty<T : KtObject, P : Any?>(
+    val ktPropertyInfo: KtPropertyInfo,
+    private val getter: (T) -> P,
+    private val setter: ((T, P) -> Unit)?,
+    private val variantConverter: VariantConverter<*>,
 ) {
-    open fun callGet(instance: T) {
+    fun callGet(instance: T) {
         try {
             VariantBuffer.transfer.writeRet(getter(instance), variantConverter)
-        } catch (t: Throwable) {
-            GodotLogging.error("Error calling JVM getter ${ktPropertyInfo.name} of script $instance from Godot\n:" + t.stackTraceToString())
+        } catch (error: Throwable) {
+            GodotLogging.error("Error calling JVM getter ${ktPropertyInfo.name} of script $instance from Godot:\n${error.stackTraceToString()}")
             VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
     }
 
-    open fun callSet(instance: T) {
-        val arg = extractSetterArgument<P>()
-        val setter = setter ?: return
+    fun callSet(instance: T) {
         try {
-            setter(instance, arg)
-        } catch (t: Throwable) {
-            GodotLogging.error("Error calling JVM setter ${ktPropertyInfo.name} of script $instance from Godot:\n" + t.stackTraceToString())
+            @Suppress("UNCHECKED_CAST")
+            val value = VariantBuffer.transfer.readSetterArg(variantConverter) as P
+            setter?.invoke(instance, value)
+        } catch (error: Throwable) {
+            GodotLogging.error("Error calling JVM setter ${ktPropertyInfo.name} of script $instance from Godot:\n${error.stackTraceToString()}")
         }
-    }
-
-    protected fun <P> extractSetterArgument(): P {
-        //TODO: manage nullable argument of enum setter (only for objects)
-        val arg = VariantBuffer.transfer.readSetterArg(variantConverter)
-        @Suppress("UNCHECKED_CAST")
-        return arg as P
-    }
-}
-
-class KtBitFieldProperty<T : KtObject, P : BitFieldBase<*>>(
-    ktPropertyInfo: KtPropertyInfo,
-    getter: (T) -> P,
-    setter: ((T, P) -> Unit)?,
-    val getValueConverter: (P?) -> Long,
-    val setValueConverter: (Long) -> P
-) : KtProperty<T, P>(
-    ktPropertyInfo,
-    getter,
-    setter,
-    VariantParser.LONG
-) {
-    override fun callGet(instance: T) {
-        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), VariantParser.LONG)
-    }
-
-    override fun callSet(instance: T) {
-        val arg = extractSetterArgument<Long>()
-        setter?.invoke(instance, setValueConverter(arg))
-    }
-}
-
-class KtEnumListProperty<T : KtObject, P : Enum<P>>(
-    ktPropertyInfo: KtPropertyInfo,
-    getter: (T) -> List<P>,
-    setter: ((T, List<P>) -> Unit)?,
-    val getValueConverter: (List<P>?) -> VariantArray<Long>,
-    val setValueConverter: (VariantArray<Long>) -> List<P>
-) : KtProperty<T, List<P>>(
-    ktPropertyInfo,
-    getter,
-    setter,
-    VariantCaster.TYPED_ARRAY(VariantParser.LONG)
-) {
-    override fun callGet(instance: T) {
-        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), variantConverter)
-    }
-
-    override fun callSet(instance: T) {
-        val arg = extractSetterArgument<VariantArray<Long>>()
-        setter?.invoke(instance, setValueConverter(arg))
     }
 }

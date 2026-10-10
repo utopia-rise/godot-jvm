@@ -15,6 +15,7 @@ import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -49,9 +50,8 @@ public open class VisualShaderNodeVarying internal constructor() : VisualShaderN
       setVaryingType(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(898, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeVarying")
 
   public final fun setVaryingName(name: String): Unit {
     callMethod_STRING(MethodBindings.setVaryingNamePtr, name)

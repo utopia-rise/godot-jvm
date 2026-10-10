@@ -13,6 +13,7 @@ import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -23,9 +24,7 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class SocketServer internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(684, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("SocketServer")
 
   /**
    * Returns `true` if a connection is available for taking.

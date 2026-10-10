@@ -18,6 +18,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.Vector2i
 import kotlin.Boolean
 import kotlin.Int
@@ -43,9 +44,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class TileSetSource internal constructor() : Resource() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(763, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("TileSetSource")
 
   /**
    * Returns how many tiles this atlas source defines (not including alternative tiles).

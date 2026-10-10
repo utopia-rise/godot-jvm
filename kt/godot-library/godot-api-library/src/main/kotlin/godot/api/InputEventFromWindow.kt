@@ -13,6 +13,7 @@ import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -36,9 +37,8 @@ public open class InputEventFromWindow internal constructor() : InputEvent() {
       setWindowId(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(310, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("InputEventFromWindow")
 
   public final fun setWindowId(id: Long): Unit {
     callPtrMethod_LONG(MethodBindings.setWindowIdPtr, id)

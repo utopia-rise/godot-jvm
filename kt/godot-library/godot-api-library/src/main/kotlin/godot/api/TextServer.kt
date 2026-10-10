@@ -125,6 +125,7 @@ import godot.core.MethodStringName5
 import godot.core.MethodStringName6
 import godot.core.MethodStringName7
 import godot.core.MethodStringName8
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import godot.core.PackedColorArray
 import godot.core.PackedFloat32Array
@@ -202,9 +203,7 @@ public infix fun Long.and(other: TextServer.FontStyle): Long = this.and(other.fl
  */
 @GodotBaseType
 public open class TextServer internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(734, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("TextServer")
 
   /**
    * Returns `true` if the server supports a feature.

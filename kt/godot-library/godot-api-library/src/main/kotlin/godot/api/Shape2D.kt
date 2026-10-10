@@ -23,6 +23,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
+import godot.core.NotInstantiableException
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Rect2
@@ -58,9 +59,7 @@ public open class Shape2D internal constructor() : Resource() {
       setCustomSolverBias(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(659, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Shape2D")
 
   public final fun setCustomSolverBias(bias: Float): Unit {
     callPtrMethod_DOUBLE(MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
