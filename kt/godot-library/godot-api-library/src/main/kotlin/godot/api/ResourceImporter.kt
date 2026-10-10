@@ -9,6 +9,7 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
+import godot.core.NotInstantiableException
 import godot.core.PackedStringArray
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -22,9 +23,8 @@ import kotlin.Unit
  */
 @GodotBaseType
 public open class ResourceImporter internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(624, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("ResourceImporter")
 
   /**
    * Called when the engine compilation profile editor wants to check what build options an imported

@@ -21,6 +21,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import godot.core.VariantArray
 import kotlin.Any
 import kotlin.Int
@@ -70,9 +71,8 @@ public open class VisualShaderNode internal constructor() : Resource() {
       setFrame(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(805, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNode")
 
   /**
    * Returns the input port which should be connected by default when this node is created as a

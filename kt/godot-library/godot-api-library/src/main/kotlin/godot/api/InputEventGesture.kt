@@ -15,6 +15,7 @@ import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Vector2
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,9 +46,8 @@ public open class InputEventGesture internal constructor() : InputEventWithModif
       setPosition(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(311, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("InputEventGesture")
 
   /**
    * This is a helper function for [position] to make dealing with local copies easier.

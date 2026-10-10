@@ -17,6 +17,7 @@ import godot.callPtrMethod_LONG_ret_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Projection
 import godot.core.RID
 import godot.core.Transform3D
@@ -35,9 +36,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class RenderSceneData internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(616, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("RenderSceneData")
 
   /**
    * Returns the camera transform used to render this frame.

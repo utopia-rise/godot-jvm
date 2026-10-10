@@ -18,6 +18,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -47,9 +48,7 @@ import kotlin.jvm.JvmStatic
  */
 @GodotBaseType
 public open class TLSOptions internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(727, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("TLSOptions")
 
   /**
    * Returns `true` if created with [TLSOptions.server], `false` otherwise.

@@ -23,6 +23,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import godot.core.StringName
 import godot.core.Transform2D
 import godot.core.Vector2
@@ -57,9 +58,7 @@ public open class InputEvent internal constructor() : Resource() {
       setDevice(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(308, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("InputEvent")
 
   public final fun setDevice(device: Int): Unit {
     callPtrMethod_LONG(MethodBindings.setDevicePtr, device.toLong())

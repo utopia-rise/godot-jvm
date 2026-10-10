@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.VariantArray
 import kotlin.Boolean
 import kotlin.Int
@@ -29,9 +30,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class ImageTextureLayered internal constructor() : TextureLayered() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(303, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("ImageTextureLayered")
 
   /**
    * Creates an [ImageTextureLayered] from an array of [Image]s. See [Image.create] for the expected

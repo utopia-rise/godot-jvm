@@ -15,6 +15,7 @@ import godot.common.interop.VoidPtr
 import godot.core.KeyModifierMask
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -89,9 +90,8 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       setMetaPressed(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(324, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("InputEventWithModifiers")
 
   public final fun setCommandOrControlAutoremap(enable: Boolean): Unit {
     callPtrMethod_BOOL(MethodBindings.setCommandOrControlAutoremapPtr, enable)

@@ -19,6 +19,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
+import godot.core.NotInstantiableException
 import godot.core.RID
 import godot.core.asCachedNodePath
 import kotlin.Boolean
@@ -84,9 +85,7 @@ public open class Joint2D internal constructor() : Node2D() {
       setExcludeNodesFromCollision(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(340, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Joint2D")
 
   public final fun setNodeA(node: NodePath): Unit {
     callPtrMethod_NODE_PATH(MethodBindings.setNodeAPtr, node)

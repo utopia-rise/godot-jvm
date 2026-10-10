@@ -13,6 +13,7 @@ import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -37,9 +38,8 @@ public open class VisualShaderNodeParticleEmitter internal constructor() : Visua
       setMode2d(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(854, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeParticleEmitter")
 
   public final fun setMode2d(enabled: Boolean): Unit {
     callPtrMethod_BOOL(MethodBindings.setMode2dPtr, enabled)

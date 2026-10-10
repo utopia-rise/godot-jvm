@@ -8,6 +8,7 @@ import godot.api.Node
 import godot.api.Tween
 import godot.core.Error
 import godot.core.variantArrayOf
+import godot.tests.JavaGodotEnum
 
 enum class RegistrationEnum {
     ENUM_1,
@@ -37,13 +38,20 @@ class EnumRegistration: Node() {
     @Visible
     var bitFlagValue = 0b011
 
-    // Registered through KtEnumListProperty: Godot sees an int array with enum hints, the JVM keeps the enum list.
+    // Godot sees an int array with enum hints, the JVM keeps the enum list.
     @Export
     @Visible
     var enumList: List<RegistrationEnum> = listOf(RegistrationEnum.ENUM_2, RegistrationEnum.ENUM_1)
 
     @Register
     fun enumListNames(): String = enumList.joinToString(",") { it.name }
+
+    @Export
+    @Visible
+    var godotValueEnumList: List<JavaGodotEnum> = listOf(JavaGodotEnum.B, JavaGodotEnum.A)
+
+    @Register
+    fun godotValueEnumListNames(): String = godotValueEnumList.joinToString(",") { it.name }
 
     @Register
     fun setEnumListFromJvm() {

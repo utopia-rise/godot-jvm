@@ -39,3 +39,14 @@ func test_registered_node_reference_invalidation():
 	assert_bool(tracker.is_tracked_node_valid()).override_failure_message("Tracked node references should become invalid once the Godot object is freed").is_false()
 
 	tracker.free()
+
+
+func test_wrongly_typed_property_set_is_ignored():
+	var tracker := NodeInstance.new()
+	var tracked := Node.new()
+	tracker.set("tracked_node", 42)
+	assert_object(tracker.tracked_node).override_failure_message("a value of the wrong type should not be assigned").is_null()
+	tracker.tracked_node = tracked
+	assert_object(tracker.tracked_node).override_failure_message("an assignment after an ignored one should work").is_same(tracked)
+	tracked.free()
+	tracker.free()

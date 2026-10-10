@@ -14,6 +14,7 @@ import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -63,9 +64,7 @@ public open class Shape3D internal constructor() : Resource() {
       setMargin(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(660, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Shape3D")
 
   public final fun setCustomSolverBias(bias: Float): Unit {
     callPtrMethod_DOUBLE(MethodBindings.setCustomSolverBiasPtr, bias.toDouble())

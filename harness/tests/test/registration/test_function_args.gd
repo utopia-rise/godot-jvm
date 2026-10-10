@@ -35,3 +35,30 @@ func test_function_arg_size():
             assert_that(result.size()).override_failure_message("arg count should be 0 when calling no arg function").is_equal(0)
 
         test_instance.free()
+
+func test_rejected_call_leaves_the_next_call_working():
+    var test_instance = FunctionArgSizeTest.new()
+
+    assert_that(test_instance.callv("arg2", ["arg1"])).override_failure_message("a call with too few arguments should be rejected").is_null()
+    assert_that(test_instance.callv("arg1", ["arg1", "arg2"])).override_failure_message("a call with too many arguments should be rejected").is_null()
+    assert_that(test_instance.callv("arg1", [1])).override_failure_message("a call with an argument of the wrong type should return null").is_null()
+    assert_that(test_instance.callv("arg1", ["arg1"])).override_failure_message("a call after rejected ones should work").is_equal(["arg1"])
+
+    test_instance.free()
+
+func test_call_above_the_argument_limit_is_rejected():
+    if not OS.is_debug_build():
+        return
+    var too_many := []
+    for i in 64:
+        too_many.append("x".repeat(120))
+    var test_instance = FunctionArgSizeTest.new()
+    var lambdas := LambdaCallableKotlinTest.new()
+
+    assert_that(test_instance.callv("arg1", too_many)).override_failure_message("a script call above the argument limit should be rejected").is_null()
+    assert_that(lambdas.returns_int.callv(too_many)).override_failure_message("a lambda call above the argument limit should be rejected").is_null()
+    assert_that(test_instance.callv("arg1", ["arg1"])).override_failure_message("a call after a rejected one should work").is_equal(["arg1"])
+    assert_that(lambdas.returns_int.call()).override_failure_message("a lambda call after a rejected one should work").is_equal(42)
+
+    lambdas.free()
+    test_instance.free()

@@ -36,6 +36,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import godot.core.PackedStringArray
 import kotlin.Boolean
 import kotlin.Int
@@ -149,9 +150,7 @@ public open class DirAccess internal constructor() : RefCounted() {
       setIncludeHidden(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(205, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("DirAccess")
 
   /**
    * Initializes the stream used to list all files and directories using the [getNext] function,

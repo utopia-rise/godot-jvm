@@ -12,6 +12,7 @@ import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import godot.core.RID
 import kotlin.Suppress
 import kotlin.Unit
@@ -35,9 +36,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class SkinReference internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(680, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("SkinReference")
 
   /**
    * Returns the [RID] owned by this SkinReference, as returned by [RenderingServer.skeletonCreate].

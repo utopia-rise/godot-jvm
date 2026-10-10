@@ -33,6 +33,7 @@ import godot.core.Basis
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.RID
 import godot.core.Transform3D
 import godot.core.Vector3
@@ -205,9 +206,8 @@ public open class PhysicsDirectBodyState3D internal constructor() : Object() {
       setTransform(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(527, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PhysicsDirectBodyState3D")
 
   /**
    * This is a helper function for [angularVelocity] to make dealing with local copies easier.

@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -38,9 +39,8 @@ public open class CompressedTextureLayered internal constructor() : TextureLayer
     @JvmName("loadPathProperty")
     get() = getLoadPath()
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(178, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("CompressedTextureLayered")
 
   /**
    * Loads the texture at [path].

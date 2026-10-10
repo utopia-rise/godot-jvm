@@ -17,6 +17,7 @@ import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.StringName
 import godot.core.asCachedStringName
 import kotlin.String
@@ -79,9 +80,7 @@ public open class XRTracker internal constructor() : RefCounted() {
       setTrackerDesc(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(953, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("XRTracker")
 
   public final fun getTrackerType(): XRServer.TrackerType =
       XRServer.TrackerType.from(callPtrMethod0_ret_LONG(MethodBindings.getTrackerTypePtr))

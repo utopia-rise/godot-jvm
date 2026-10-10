@@ -23,6 +23,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.Transform3D
 import godot.core.VariantArray
 import kotlin.Any
@@ -179,9 +180,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
       setCollisionPriority(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(129, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("CSGShape3D")
 
   /**
    * Returns `true` if this is a root shape and is thus the object that is rendered.

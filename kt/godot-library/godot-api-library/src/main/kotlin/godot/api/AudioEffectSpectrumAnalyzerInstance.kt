@@ -12,6 +12,7 @@ import godot.callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import godot.core.Vector2
 import kotlin.Float
 import kotlin.Long
@@ -29,9 +30,8 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : AudioEffectInstance()
     {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(74, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AudioEffectSpectrumAnalyzerInstance")
 
   /**
    * Returns the magnitude of the frequencies from [fromHz] to [toHz] in linear energy as a Vector2.

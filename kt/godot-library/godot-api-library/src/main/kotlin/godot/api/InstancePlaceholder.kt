@@ -16,6 +16,7 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -38,9 +39,8 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class InstancePlaceholder internal constructor() : Node() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(326, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("InstancePlaceholder")
 
   /**
    * Returns the list of properties that will be applied to the node when [createInstance] is

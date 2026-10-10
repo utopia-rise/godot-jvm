@@ -14,6 +14,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -82,9 +83,8 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
       setTextureSource(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(881, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeTextureParameter")
 
   public final fun setTextureType(type: TextureType): Unit {
     callPtrMethod_LONG(MethodBindings.setTextureTypePtr, type.value)

@@ -9,15 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
 @GodotBaseType
 public open class ScriptLanguage internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(645, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("ScriptLanguage")
 
   public enum class ScriptNameCasing(
     public override val `value`: Long,

@@ -102,6 +102,7 @@ import godot.core.MethodStringName5
 import godot.core.MethodStringName6
 import godot.core.MethodStringName7
 import godot.core.MethodStringName9
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import godot.core.PackedColorArray
 import godot.core.PackedInt32Array
@@ -215,9 +216,8 @@ public infix fun Long.and(other: RenderingDevice.DrawFlags): Long = this.and(oth
  */
 @GodotBaseType
 public open class RenderingDevice internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(619, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("RenderingDevice")
 
   /**
    * Creates a new texture. It can be accessed with the RID that is returned.

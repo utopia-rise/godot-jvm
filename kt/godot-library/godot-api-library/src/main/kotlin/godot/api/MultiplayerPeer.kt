@@ -19,6 +19,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.NotInstantiableException
 import godot.core.Signal1
 import kotlin.Boolean
 import kotlin.Int
@@ -95,9 +96,8 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
       setTransferChannel(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(391, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("MultiplayerPeer")
 
   public final fun setTransferChannel(channel: Int): Unit {
     callPtrMethod_LONG(MethodBindings.setTransferChannelPtr, channel.toLong())

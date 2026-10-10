@@ -8,6 +8,7 @@ package godot.api
 
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
+import godot.core.NotInstantiableException
 import kotlin.Suppress
 import kotlin.Unit
 
@@ -20,9 +21,7 @@ import kotlin.Unit
  */
 @GodotBaseType
 public open class Lightmapper internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(357, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Lightmapper")
 
   public companion object
 

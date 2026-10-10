@@ -76,6 +76,7 @@ import godot.core.MethodStringName6
 import godot.core.MethodStringName7
 import godot.core.MethodStringName8
 import godot.core.MethodStringName9
+import godot.core.NotInstantiableException
 import godot.core.PackedColorArray
 import godot.core.PackedVector2Array
 import godot.core.RID
@@ -394,9 +395,7 @@ public open class CanvasItem internal constructor() : Node() {
       setUseParentMaterial(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(142, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("CanvasItem")
 
   /**
    * This is a helper function for [modulate] to make dealing with local copies easier.

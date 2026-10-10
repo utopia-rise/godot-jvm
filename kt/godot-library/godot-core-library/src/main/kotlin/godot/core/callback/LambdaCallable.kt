@@ -77,26 +77,26 @@ abstract class LambdaContainer<R>(
 
     abstract fun invokeUnsafe(vararg args: Any?): R
 
-    fun invoke() = withParameters(typeConverters) {
+    fun invoke() {
         try {
-            invokeUnsafe(*paramsArray)
+            withParameters(typeConverters) { invokeUnsafe(*paramsArray) }
         } catch (t: Throwable) {
             GodotLogging.error("Error calling a JVM custom Callable from Godot:\n" + t.stackTraceToString())
         }
     }
 
-    fun invokeWithReturn(): Any? = withParametersReturn(typeConverters) {
+    fun invokeWithReturn(): Any? {
         // Held, not discarded: the buffer carries only a raw pointer and an ObjectID, so this reference is the one
         // thing keeping a returned JVM object alive until the caller has read it back out on the other side.
         var ret: Any? = null
         try {
-            ret = invokeUnsafe(*paramsArray)
+            ret = withParametersReturn(typeConverters) { invokeUnsafe(*paramsArray) }
             VariantBuffer.transfer.writeRet(ret, returnConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling a JVM custom Callable from Godot:\n" + t.stackTraceToString())
             VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
-        ret
+        return ret
     }
 
     fun invalidate(): Unit {

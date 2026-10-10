@@ -16,6 +16,7 @@ import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -44,9 +45,7 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
       setMutableBoneAxes(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(296, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("IKModifier3D")
 
   /**
    * Sets the number of settings.

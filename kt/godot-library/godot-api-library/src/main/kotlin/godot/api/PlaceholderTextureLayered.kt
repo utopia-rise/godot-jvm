@@ -16,6 +16,7 @@ import godot.callPtrMethod_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Vector2i
 import kotlin.Boolean
 import kotlin.Int
@@ -69,9 +70,8 @@ public open class PlaceholderTextureLayered internal constructor() : TextureLaye
       setLayers(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(558, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PlaceholderTextureLayered")
 
   /**
    * This is a helper function for [size] to make dealing with local copies easier.

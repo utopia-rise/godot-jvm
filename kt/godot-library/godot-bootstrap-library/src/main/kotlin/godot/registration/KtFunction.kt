@@ -32,24 +32,24 @@ abstract class KtFunction<T : KtObject, R : Any?>(
     private val variantConverter: VariantConverter<*> = functionInfo.returnVal._type
     private val types: Array<VariantConverter<*>> = functionInfo.arguments.map { it._type }.toTypedArray()
 
-    fun invoke(instance: T): Unit = withParameters(types) {
+    fun invoke(instance: T) {
         try {
-            invokeKt(instance)
+            withParameters(types) { invokeKt(instance) }
         } catch (t: Throwable) {
             GodotLogging.error("Error calling JVM method ${functionInfo.name} of script $instance from Godot:\n" + t.stackTraceToString())
         }
     }
 
-    fun invokeWithReturn(instance: T): Any? = withParametersReturn(types) {
+    fun invokeWithReturn(instance: T): Any? {
         var ret: Any? = Unit
         try {
-            ret = invokeKt(instance)
+            ret = withParametersReturn(types) { invokeKt(instance) }
             VariantBuffer.transfer.writeRet(ret, variantConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling JVM method ${functionInfo.name} of script $instance from Godot:\n" + t.stackTraceToString())
             VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
-        ret
+        return ret
     }
 
     internal companion object : ParametersReader()

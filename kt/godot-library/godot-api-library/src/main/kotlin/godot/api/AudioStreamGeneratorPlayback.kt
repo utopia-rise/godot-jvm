@@ -16,6 +16,7 @@ import godot.callPtrMethod_VECTOR2_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.PackedVector2Array
 import godot.core.Vector2
 import kotlin.Boolean
@@ -33,9 +34,8 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AudioStreamGeneratorPlayback internal constructor() :
     AudioStreamPlaybackResampled() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(83, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("AudioStreamGeneratorPlayback")
 
   /**
    * Pushes a single audio data frame to the buffer. This is usually less efficient than

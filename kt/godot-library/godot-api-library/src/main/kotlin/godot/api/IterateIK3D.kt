@@ -30,6 +30,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.NodePath
+import godot.core.NotInstantiableException
 import godot.core.Quaternion
 import godot.core.Vector3
 import godot.core.asCachedNodePath
@@ -120,9 +121,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
       setSettingCount(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(329, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("IterateIK3D")
 
   public final fun setMaxIterations(maxIterations: Int): Unit {
     callPtrMethod_LONG(MethodBindings.setMaxIterationsPtr, maxIterations.toLong())

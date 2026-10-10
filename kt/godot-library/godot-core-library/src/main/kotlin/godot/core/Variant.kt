@@ -595,6 +595,23 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
         override fun toGodotCast(any: Any?) = (any as ENUM_TYPE).godotValue
     }
 
+    class ENUM_LIST<ENUM_TYPE : Enum<ENUM_TYPE>>(entries: Array<ENUM_TYPE>) :
+        VariantCaster<List<ENUM_TYPE>>(VariantParser.ARRAY) {
+        private val elementCaster = ENUM(entries)
+
+        override fun toKotlin(buffer: ByteBuffer) =
+            (coreVariant.toKotlin(buffer) as VariantArray<*>).map(elementCaster::toKotlinCast)
+
+        // Builds the array before writing: creating it reuses the buffer, so this converter only handles a value written alone.
+        @Suppress("UNCHECKED_CAST")
+        override fun toGodot(buffer: ByteBuffer, any: Any?) {
+            val start = buffer.position()
+            val array = (any as List<ENUM_TYPE>).map(elementCaster::toGodotCast).toVariantArray()
+            buffer.position(start)
+            coreVariant.toGodot(buffer, array)
+        }
+    }
+
     data object BITFIELD : VariantSimpleCaster<BitField<*>>(VariantParser.LONG) {
         override fun toKotlinCast(any: Any?) = BitField<Nothing>(any as Long)
         override fun toGodotCast(any: Any?) = (any as BitField<*>).flag

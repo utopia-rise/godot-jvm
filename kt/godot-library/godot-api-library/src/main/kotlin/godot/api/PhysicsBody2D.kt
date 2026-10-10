@@ -18,6 +18,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName4
 import godot.core.MethodStringName5
+import godot.core.NotInstantiableException
 import godot.core.Transform2D
 import godot.core.VariantArray
 import godot.core.Vector2
@@ -34,9 +35,8 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(523, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("PhysicsBody2D")
 
   /**
    * Moves the body along the vector [motion]. In order to be frame rate independent in

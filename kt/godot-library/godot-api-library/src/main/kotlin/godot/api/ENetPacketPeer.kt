@@ -22,6 +22,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import godot.core.PackedByteArray
 import kotlin.Boolean
 import kotlin.Double
@@ -45,9 +46,8 @@ import kotlin.jvm.JvmOverloads
  */
 @GodotBaseType
 public open class ENetPacketPeer internal constructor() : PacketPeer() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(212, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("ENetPacketPeer")
 
   /**
    * Request a disconnection from a peer. An [ENetConnection.EVENT_DISCONNECT] will be generated

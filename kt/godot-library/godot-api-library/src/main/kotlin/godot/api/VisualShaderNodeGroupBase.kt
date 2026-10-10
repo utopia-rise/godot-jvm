@@ -23,6 +23,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -36,9 +37,8 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class VisualShaderNodeGroupBase internal constructor() : VisualShaderNodeResizableBase()
     {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(835, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("VisualShaderNodeGroupBase")
 
   /**
    * Defines all input ports using a [String] formatted as a colon-separated list: `id,type,name;`

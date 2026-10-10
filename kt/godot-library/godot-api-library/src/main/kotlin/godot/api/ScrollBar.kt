@@ -13,6 +13,7 @@ import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Signal0
 import kotlin.Float
 import kotlin.Suppress
@@ -43,9 +44,7 @@ public open class ScrollBar internal constructor() : Range() {
       setCustomStep(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(647, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("ScrollBar")
 
   public final fun setCustomStep(step: Float): Unit {
     callPtrMethod_DOUBLE(MethodBindings.setCustomStepPtr, step.toDouble())

@@ -26,6 +26,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.NodePath
+import godot.core.NotInstantiableException
 import godot.core.PackedInt32Array
 import godot.core.Signal0
 import godot.core.Signal1
@@ -106,9 +107,8 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
       setMultiplayerPeer(value)
     }
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(389, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("MultiplayerAPI")
 
   /**
    * Returns `true` if there is a [multiplayerPeer] set.

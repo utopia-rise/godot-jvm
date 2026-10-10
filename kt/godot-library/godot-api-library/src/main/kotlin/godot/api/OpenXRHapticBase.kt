@@ -8,6 +8,7 @@ package godot.api
 
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
+import godot.core.NotInstantiableException
 import kotlin.Suppress
 import kotlin.Unit
 
@@ -16,9 +17,8 @@ import kotlin.Unit
  */
 @GodotBaseType
 public open class OpenXRHapticBase internal constructor() : Resource() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(456, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("OpenXRHapticBase")
 
   public companion object
 

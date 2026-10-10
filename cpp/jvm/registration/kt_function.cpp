@@ -1,7 +1,9 @@
 #include "kt_function.h"
 
+#include "constraints.h"
 #include "jvm/memory/variant_buffer.h"
 #include "jvm/registration/kt_object.h"
+#include "logging.h"
 
 #include <classes/global_constants.hpp>
 
@@ -24,9 +26,6 @@ const godot::StringName& KtFunction::get_name() const {
 }
 
 int KtFunction::get_parameter_count() const {
-    // No "getParameterCount" JNI method exists on the real Kotlin KtFunction (never did — that JNI binding was a
-    // porting mistake, not a Kotlin-side gap). The argument count is already known locally from the getArguments()
-    // array fetched into me...
     return method_info->arguments.size();
 }
 
@@ -46,6 +45,15 @@ void KtFunction::invoke(
     godot::Variant& r_ret
 ) {
     if (instance->is_collected(p_env)) { return; }
+#ifdef DEBUG_ENABLED
+    JVM_ERR_FAIL_COND_MSG(
+        args_count > MAX_ARGUMENT_COUNT,
+        "Cannot call %s with %s arguments, the maximum is %s.",
+        method_info->name,
+        args_count,
+        MAX_ARGUMENT_COUNT
+    );
+#endif
 
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     transfer->encode_args(p_args, args_count);

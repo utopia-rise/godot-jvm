@@ -20,6 +20,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.NotInstantiableException
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Signal2
@@ -369,9 +370,8 @@ public open class WebXRInterface internal constructor() : XRInterface() {
     @JvmName("visibilityStateProperty")
     get() = getVisibilityState()
 
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(926, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("WebXRInterface")
 
   /**
    * Checks if the given [sessionMode] is supported by the user's browser.

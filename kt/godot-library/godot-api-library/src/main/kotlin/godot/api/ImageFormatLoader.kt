@@ -9,6 +9,7 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
+import godot.core.NotInstantiableException
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -27,9 +28,8 @@ public infix fun Long.and(other: ImageFormatLoader.LoaderFlags): Long = this.and
  */
 @GodotBaseType
 public open class ImageFormatLoader internal constructor() : RefCounted() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(299, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("ImageFormatLoader")
 
   public class LoaderFlags(
     flag: Long,

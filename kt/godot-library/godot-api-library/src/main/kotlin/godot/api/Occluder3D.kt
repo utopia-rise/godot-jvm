@@ -12,6 +12,7 @@ import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
 import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
 import kotlin.Suppress
@@ -25,9 +26,7 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class Occluder3D internal constructor() : Resource() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(429, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit = throw NotInstantiableException("Occluder3D")
 
   /**
    * Returns the occluder shape's vertex positions.

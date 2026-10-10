@@ -12,6 +12,7 @@ import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.core.NotInstantiableException
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -24,9 +25,8 @@ import kotlin.jvm.JvmField
  */
 @GodotBaseType
 public open class GodotInstance internal constructor() : Object() {
-  public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(273, scriptPtr)
-  }
+  public override fun new(scriptPtr: VoidPtr): Unit =
+      throw NotInstantiableException("GodotInstance")
 
   /**
    * Finishes this instance's startup sequence. Returns `true` on success.

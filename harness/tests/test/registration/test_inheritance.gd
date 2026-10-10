@@ -96,3 +96,32 @@ func test_abstract_call_parent_open_var_from_child() -> void:
     child_script.open_var = 101
     assert_that(child_script.open_var).override_failure_message("Open var inherited from parent should now be 101").is_equal(101)
     child_script.free()
+
+
+const TEXTURE_2D_SCRIPTS := [
+    "res://src/main/kotlin/godot/tests/registration/Texture2DInheritanceKotlin.kt",
+    "res://src/main/java/godot/tests/registration/Texture2DInheritanceJava.java",
+    "res://src/main/scala/godot/tests/registration/Texture2DInheritanceScala.scala",
+]
+const GD_TEXTURE_2D := preload("res://test/registration/fixtures/gd_texture_2d.gd")
+
+
+func test_jvm_constructing_class_godot_cannot_instantiate_fails_cleanly() -> void:
+    for constructor: Node in [CanvasItemConstructionJava.new(), CanvasItemConstructionScala.new()]:
+        assert_str(constructor.construct_canvas_item()).override_failure_message("%s should not construct a CanvasItem" % constructor.get_script().resource_path).is_equal("Godot can't instantiate CanvasItem.")
+        constructor.free()
+
+
+func test_jvm_script_extends_class_with_required_virtuals() -> void:
+    for path: String in TEXTURE_2D_SCRIPTS:
+        var texture: Texture2D = load(path).new()
+        assert_int(texture.get_width()).override_failure_message("%s should give Godot its width" % path).is_equal(7)
+        assert_int(texture.get_height()).override_failure_message("%s should give Godot its height" % path).is_equal(3)
+
+
+func test_jvm_receives_class_with_required_virtuals_carrying_gdscript() -> void:
+    var receiver := Texture2DReceiver.new()
+    var texture: Texture2D = GD_TEXTURE_2D.new()
+    assert_int(receiver.texture_width(texture)).override_failure_message("the JVM should reach the GDScript's virtual through Texture2D").is_equal(5)
+    assert_object(receiver.texture_as_variant(texture)).override_failure_message("the JVM should pass it back as a Variant").is_same(texture)
+    receiver.free()
