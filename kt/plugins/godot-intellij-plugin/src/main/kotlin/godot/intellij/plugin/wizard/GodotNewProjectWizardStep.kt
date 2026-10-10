@@ -266,12 +266,17 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
 
     private fun String.removeOptionalBlock(name: String, isEnabled: Boolean): String {
         if (isEnabled) {
-            return replace("// BEGIN_OPTIONAL_$name\n", "")
-                .replace("\n    // END_OPTIONAL_$name", "")
-                .replace("// END_OPTIONAL_$name", "")
+            return replace(Regex("""^[ \t]*// (BEGIN|END)_OPTIONAL_$name\R""", RegexOption.MULTILINE), "")
         }
 
-        return replace(Regex("""\n?\s*// BEGIN_OPTIONAL_${name}\R.*?\R\s*// END_OPTIONAL_${name}\s*""", RegexOption.DOT_MATCHES_ALL), "\n")
+        // The blank lines separating the block from what precedes it go with it.
+        return replace(
+            Regex(
+                """(^[ \t]*\R)*^[ \t]*// BEGIN_OPTIONAL_$name\R.*?^[ \t]*// END_OPTIONAL_$name\R""",
+                setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL)
+            ),
+            ""
+        )
     }
 
     private fun copyTemplateFile(
