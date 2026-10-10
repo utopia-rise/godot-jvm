@@ -2,7 +2,6 @@ package godot.annotation.processor.classgraph.mapper
 
 import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
-import godot.annotation.DoubleRange
 import godot.annotation.ExpEasing
 import godot.annotation.Category
 import godot.annotation.Group
@@ -12,7 +11,6 @@ import godot.annotation.FloatRange
 import godot.annotation.HintString
 import godot.annotation.IntFlag
 import godot.annotation.IntRange
-import godot.annotation.LongRange
 import godot.annotation.MultilineText
 import godot.annotation.PlaceHolderText
 import godot.common.extensions.convertToSnakeCase
@@ -72,9 +70,7 @@ object AnnotationMapper {
             ColorNoAlpha::class.java.name -> ColorNoAlphaHint()
             HintString::class.java.name -> HintStringHint(annotationInfo.parameterValues.getValue("value") as String)
             IntRange::class.java.name -> annotationInfo.provideRangeHint(-1)
-            LongRange::class.java.name -> annotationInfo.provideRangeHint(-1L)
             FloatRange::class.java.name -> annotationInfo.provideRangeHint(-1f)
-            DoubleRange::class.java.name -> annotationInfo.provideRangeHint(-1.0)
             ExpEasing::class.java.name -> ExpEasingHint(
                 attenuation = annotationInfo.parameterValues.getValue("attenuation") as? Boolean ?: false,
                 isPositiveOnly = annotationInfo.parameterValues.getValue("isPositiveOnly") as? Boolean ?: false,

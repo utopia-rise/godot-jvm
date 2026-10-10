@@ -1,6 +1,6 @@
 package godot.tests.registration
 
-import godot.annotation.DoubleRange
+import godot.annotation.FloatRange
 import godot.annotation.Emit
 import godot.annotation.Export
 import godot.annotation.Register
@@ -11,7 +11,7 @@ import godot.core.signal1
 import godot.core.signal2
 
 abstract class AbstractClassInheritanceParent : Node() {
-    @DoubleRange(1.0, 100.0)
+    @FloatRange(1f, 100f)
     @Visible
     @Export
     var speed: Double = 100.0
