@@ -221,9 +221,8 @@ The Kotlin fixture also covers Kotlin-specific PSI and K2 rules:
 - `@Emit` on a non-signal value
 - signal arguments Godot cannot represent
 - ignored RPC transfer channels
-- unregistered signal connection targets
-- unregistered callable targets
-- RPC targets that are unregistered
+- unregistered targets of function references Godot calls by name
+  (`methodCallableN`, `connectMethod`, `rpc`, `rpcId`)
 - RPC targets without `@Rpc`
 - RPC targets using `RpcMode.DISABLED`
 

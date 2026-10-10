@@ -5,18 +5,9 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.project.Project
 import godot.annotation.Register
 import godot.intellij.plugin.GodotPluginBundle
-import org.jetbrains.kotlin.idea.util.addAnnotation
-import org.jetbrains.kotlin.psi.KtNamedFunction
-import org.jetbrains.kotlin.scripting.resolve.classId
 
 class FunctionNotRegisteredQuickFix : LocalQuickFix {
     override fun getFamilyName(): String = GodotPluginBundle.message("quickFix.function.notificationFunctionNotRegistered.familyName")
 
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val ktNamedFunction = descriptor.psiElement as? KtNamedFunction
-            ?: descriptor.psiElement.parent as? KtNamedFunction
-            ?: return
-        ktNamedFunction.addAnnotation(Register::class.classId)
-    }
+    override fun applyFix(project: Project, descriptor: ProblemDescriptor) = annotateDeclaration(descriptor.psiElement, Register::class)
 }
-

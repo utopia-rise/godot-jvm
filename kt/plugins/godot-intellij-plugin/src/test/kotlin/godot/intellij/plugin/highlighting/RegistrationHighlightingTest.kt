@@ -23,11 +23,11 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
 
     fun testKotlinAutomatic() = assertHighlights("HighlightFixture.kt", kotlinSource, RegistrationMode.Automatic, 2, 0, 11)
 
-    fun testJavaExplicit() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Explicit, 2, 8, 3)
+    fun testJavaExplicit() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Explicit, 2, 10, 3)
 
-    fun testJavaInferred() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Inferred, 2, 5, 6)
+    fun testJavaInferred() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Inferred, 2, 7, 6)
 
-    fun testJavaAutomatic() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Automatic, 2, 0, 11)
+    fun testJavaAutomatic() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Automatic, 2, 2, 11)
 
     fun testScalaExplicit() = assertHighlights("HighlightFixture.scala", scalaSource, RegistrationMode.Explicit, 2, 8, 3)
 
@@ -186,6 +186,11 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
                 @Register
                 fun selectedFunction() = Unit
                 fun unselectedFunction() = Unit
+
+                companion object {
+                    val companionProperty = 1
+                    fun companionFunction() = Unit
+                }
             }
         """.trimIndent()
 
@@ -231,6 +236,8 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
                     @Register
                     public void selectedFunction() {}
                     public void unselectedFunction() {}
+                    public int getUnselected() { return unselected; }
+                    public void setUnselected(int value) { unselected = value; }
                 }
             }
         """.trimIndent()

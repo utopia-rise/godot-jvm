@@ -61,7 +61,12 @@ class RegisteredClassIndex(
                         val psiFile = event.file
                         if (psiFile == null || !psiFile.isInGodotRoot()) return
                         if (psiFile.isIndexedLanguageFile()) {
-                            psiFileChanged(psiFile)
+                            ReadAction
+                                .nonBlocking<Unit> { if (psiFile.isValid) psiFileChanged(psiFile) }
+                                .inSmartMode(project)
+                                .coalesceBy(this@RegisteredClassIndex, psiFile)
+                                .expireWith(parentDisposable)
+                                .submit(AppExecutorUtil.getAppExecutorService())
                         }
                     }
                 },

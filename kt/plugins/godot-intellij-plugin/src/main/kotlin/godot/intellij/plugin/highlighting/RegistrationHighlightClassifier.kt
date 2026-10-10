@@ -21,7 +21,7 @@ import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtProperty
-import org.jetbrains.kotlin.psi.psiUtil.containingClass
+import org.jetbrains.kotlin.psi.psiUtil.containingClassOrObject
 import org.jetbrains.kotlin.scripting.resolve.classId
 
 object RegistrationHighlightClassifier {
@@ -44,7 +44,7 @@ object RegistrationHighlightClassifier {
     }
 
     fun classify(property: KtProperty): RegistrationHighlight? {
-        val owner = property.containingClass() ?: return null
+        val owner = property.containingClassOrObject as? KtClass ?: return null
         if (!owner.isGodotScriptCandidate()) return null
         val policy = owner.registrationPolicy
 
@@ -65,7 +65,7 @@ object RegistrationHighlightClassifier {
     }
 
     fun classify(function: KtNamedFunction): RegistrationHighlight? {
-        val owner = function.containingClass() ?: return null
+        val owner = function.containingClassOrObject as? KtClass ?: return null
         if (!owner.isGodotScriptCandidate()) return null
         val policy = owner.registrationPolicy
 

@@ -9,6 +9,7 @@ import godot.annotation.IntRange
 import godot.api.InputEvent
 import godot.api.Node
 import godot.core.*
+import godot.extension.connectLambda
 import godot.extension.connectMethod
 
 class UnsupportedExportedType
@@ -202,6 +203,19 @@ class VisibleProblemFixtureExplicit : Node() {
     // Expected warning: registration ignores a property that is not public.
     @Visible
     private var privateRegisteredProperty = 1
+
+    // Expected no issue: companion and nested object members belong to other
+    // JVM classes, so they are never registered with this script.
+    companion object {
+        var companionNullableProperty: Int? = null
+        const val COMPANION_CONSTANT = 1
+        var companionMutableSignal: Signal0? = null
+    }
+
+    object NestedObject {
+        var nestedNullableProperty: Int? = null
+        var nestedMutableSignal: Signal0? = null
+    }
 }
 
 // Property hint checks.
@@ -333,6 +347,22 @@ class CallableReferenceProblemFixtureExplicit : Node() {
         // Expected red on the callable reference: the target has `@Rpc`, but it
         // is explicitly disabled via `RpcMode.DISABLED`.
         rpc(::rpcTargetDisabled)
+        // Expected no issue: none of these function references is called by name.
+        localSignal.connectLambda { runCallback(::plainHelper) }
+        localSignal.connectLambda(method = ::plainHelper)
+        rpc(::rpcTargetWithArgument, describe(::plainHelper))
+    }
+
+    private fun runCallback(callback: () -> Unit) = callback()
+
+    private fun describe(callback: () -> Unit) = callback.toString()
+
+    @Rpc
+    @Register
+    fun rpcTargetWithArgument(value: String) {
+    }
+
+    private fun plainHelper() {
     }
 
     // Expected red when referenced from `connectMethod`: missing

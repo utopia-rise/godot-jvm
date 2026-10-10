@@ -9,9 +9,7 @@ import godot.intellij.plugin.analysis.kotlin.PropertyHintAnalyzer
 import godot.intellij.plugin.analysis.kotlin.RegisterAnalyzer
 import godot.intellij.plugin.analysis.kotlin.RpcAnnotationAnalyzer
 import godot.intellij.plugin.analysis.kotlin.VisibleAnalyzer
-import godot.intellij.plugin.analysis.kotlin.reference.CallFunctionReferenceAnalyzer
-import godot.intellij.plugin.analysis.kotlin.reference.RpcFunctionReferenceAnalyzer
-import godot.intellij.plugin.analysis.kotlin.reference.SignalFunctionReferenceAnalyzer
+import godot.intellij.plugin.analysis.kotlin.reference.FunctionReferenceTargetAnalyzer
 import godot.intellij.plugin.analysis.registerProblems
 import godot.intellij.plugin.analysis.withPhysicalAnchor
 import org.jetbrains.kotlin.asJava.toLightMethods
@@ -48,9 +46,7 @@ class KotlinInspection : GodotInspection() {
             }
 
             is KtCallableReferenceExpression -> {
-                holder.registerProblems(SignalFunctionReferenceAnalyzer.analyze(element))
-                holder.registerProblems(RpcFunctionReferenceAnalyzer.analyze(element))
-                holder.registerProblems(CallFunctionReferenceAnalyzer.analyze(element))
+                holder.registerProblems(FunctionReferenceTargetAnalyzer.analyze(element))
             }
 
         }

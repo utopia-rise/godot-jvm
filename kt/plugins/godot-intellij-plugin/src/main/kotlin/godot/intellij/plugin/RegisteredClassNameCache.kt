@@ -7,9 +7,10 @@ import com.intellij.psi.PsiRecursiveElementWalkingVisitor
 import godot.intellij.plugin.project.getRegisteredClassName
 import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.psi.KtClass
+import java.util.concurrent.ConcurrentHashMap
 
 class RegisteredClassNameCache {
-    private val fqNameToRegisteredName: MutableMap<String, RegisteredClassDataContainer> = mutableMapOf()
+    private val fqNameToRegisteredName: MutableMap<String, RegisteredClassDataContainer> = ConcurrentHashMap()
 
     fun getContainersByName(registeredName: String): Set<RegisteredClassDataContainer> =
         fqNameToRegisteredName

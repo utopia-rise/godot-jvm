@@ -60,9 +60,7 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.signal.mutability")),
             error(GodotPluginBundle.message("problem.signal.wrongType")),
             weakWarning(GodotPluginBundle.message("problem.function.rpcChannelSetWhenTransferTypeIgnoresIt")),
-            error(GodotPluginBundle.message("problem.signal.connection.connectedFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.general.calledFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.rpc.calledFunctionNotRegistered")),
+            error(GodotPluginBundle.message("problem.function.reference.notRegistered"), 3),
             error(GodotPluginBundle.message("problem.rpc.calledFunctionHasNoRpcAnnotation")),
             error(GodotPluginBundle.message("problem.rpc.calledFunctionNotAccessible"))
         )
@@ -141,9 +139,7 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.signal.mutability")),
             error(GodotPluginBundle.message("problem.signal.wrongType")),
             weakWarning(GodotPluginBundle.message("problem.function.rpcChannelSetWhenTransferTypeIgnoresIt")),
-            error(GodotPluginBundle.message("problem.signal.connection.connectedFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.general.calledFunctionNotRegistered")),
-            error(GodotPluginBundle.message("problem.rpc.calledFunctionNotRegistered")),
+            error(GodotPluginBundle.message("problem.function.reference.notRegistered"), 3),
             error(GodotPluginBundle.message("problem.rpc.calledFunctionHasNoRpcAnnotation")),
             error(GodotPluginBundle.message("problem.rpc.calledFunctionNotAccessible"))
         )

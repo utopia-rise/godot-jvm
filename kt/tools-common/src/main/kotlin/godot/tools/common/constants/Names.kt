@@ -64,26 +64,6 @@ val lifecycleFunctions = listOf(
     "_draw",
 )
 
-val objectCallableFunctions = setOf(
-    "call",
-    "callRawName",
-    "callDeferred",
-    "callDeferredRawName",
-    "callv",
-    "callvRawName",
-    "connect",
-    "connectRawName",
-    "disconnect",
-    "disconnectRawName",
-)
-
-val rpcFunctions = setOf(
-    "rpc",
-    "rpcId",
-    "rpcUnreliable",
-    "rpcUnreliableId",
-)
-
 val rpcModeDisabled = "$godotApiPackage.MultiplayerAPI.DISABLED"
 val transferModeUnreliableOrdered = "$godotApiPackage.MultiplayerPeer.UNRELIABLE_ORDERED"
 val variantParser = "VariantParser"

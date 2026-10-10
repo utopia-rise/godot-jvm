@@ -5,6 +5,7 @@ import com.intellij.ide.wizard.AbstractNewProjectWizardStep
 import com.intellij.ide.wizard.NewProjectWizardBaseStep
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.io.FileUtil
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.Cell
@@ -173,7 +174,7 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
     override fun setupProject(project: Project) {
         val baseDir = when {
             context.isCreatingNewProject -> project.basePath?.let(::File) ?: File(baseStep.path, baseStep.name)
-            else -> File(baseStep.path)
+            else -> File(baseStep.path, baseStep.name)
         }
         val packagePath = group.replace(".", "/")
         val enabledLanguages = getEnabledLanguages()
@@ -193,15 +194,21 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
             copyTemplateFile(baseDir, "settings.gradle.kts.template") { outFile ->
                 outFile.writeText(outFile.readText().replace("PROJECT_NAME", baseStep.name))
             }
+            copyTemplateFile(baseDir, "icon.svg.intellij_template")
+            copyTemplateFile(baseDir, "project.godot.intellij_template") { outFile ->
+                outFile.writeText(
+                    outFile
+                        .readText()
+                        .replace("GODOT_VERSION", GODOT_VERSION.majorMinor())
+                        .replace("PROJECT_NAME", project.name)
+                )
+            }
         } else {
             val projectBasePath = project.basePath ?: return
             File(projectBasePath, "settings.gradle.kts").also { settingsFile ->
-                if (settingsFile.exists()) {
-                    val moduleRelativePath = baseDir.absolutePath.removePrefix(projectBasePath)
-                    val modulePath = moduleRelativePath
-                        .replace("/", ":")
-                        .replace(File.separator, ":")
-                    settingsFile.appendText("\ninclude(\"$modulePath\")")
+                val moduleRelativePath = FileUtil.getRelativePath(File(projectBasePath), baseDir)
+                if (settingsFile.exists() && moduleRelativePath != null) {
+                    settingsFile.appendText("\ninclude(\":${moduleRelativePath.replace(File.separatorChar, ':')}\")")
                 }
             }
 
@@ -224,15 +231,6 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
                         .replace("GROUP_ID", group)
                 )
             }
-        }
-        copyTemplateFile(baseDir, "icon.svg.intellij_template")
-        copyTemplateFile(baseDir, "project.godot.intellij_template") { outFile ->
-            outFile.writeText(
-                outFile
-                    .readText()
-                    .replace("GODOT_VERSION", GODOT_VERSION.majorMinor())
-                    .replace("PROJECT_NAME", project.name)
-            )
         }
         copyTemplateFile(baseDir, ".gitattributes.template")
         copyTemplateFile(baseDir, ".gitignore.template")
@@ -294,8 +292,8 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
 
         val outFile = File(targetDir, targetPath.substringAfterLast("/"))
 
-        this::class.java.getResourceAsStream("/template/$sourcePath").use { inputStream ->
-            inputStream?.copyTo(outFile.outputStream())
+        this::class.java.getResourceAsStream("/template/$sourcePath")?.use { inputStream ->
+            outFile.outputStream().use { outputStream -> inputStream.copyTo(outputStream) }
         }
 
         modifyOutFile(outFile)

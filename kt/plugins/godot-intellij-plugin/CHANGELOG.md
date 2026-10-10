@@ -16,6 +16,7 @@
 - Every override of a Godot virtual function counts as a lifecycle override, like in the build, instead of a fixed list of eight names.
 - Kotlin functions registered through a meta-annotation such as `@Rpc` or `@Notification` are now checked in Inferred mode.
 - Typed callables and signals such as `Signal1` or `Callable0` are reported as parameter, return and signal argument types, with a quick fix declaring the base `Callable` or `Signal`, since Godot only ever hands back the base type.
+- An unregistered lifecycle override in Explicit mode offers an "Add @Register annotation" quick fix, in Kotlin, Java and Scala.
 - Functions passed to `lambdaCallable` no longer have to be registered, since the JVM calls them directly. Only `methodCallable` targets do.
 - Added a `Godot` run configuration type. It runs the editor or the game of the current Godot project with a JDK picked from the ones the IDE knows or
   detects, so the JVM used by Godot no longer depends on machine wide settings. The selected JDK is passed with `--jvm-path`, which takes priority over an
@@ -40,8 +41,19 @@
 
 ### Fixed
 
+- Editing a Kotlin file in Automatic mode no longer throws an analysis error from the registered class index, which now updates in the background.
 - Fixed registration highlights not appearing in the editor.
 - Fixed registration highlight ranges so they cover only declaration signatures, excluding indentation, bodies, initializers, and delegates.
 - Fixed duplicate custom Godot class names so both declarations are reported and results update immediately after editing or renaming either name.
 - Fixed stale duplicate-name highlights and an IDE error that could occur while renaming a duplicate registered class name.
 - Fixed an IDE error that stopped all Kotlin registration checks in a file containing a registered `@JvmField` property or signal.
+- Members of a companion object or a nested object inside a Kotlin script are no longer checked or highlighted as members of the script, since the build never registers them.
+- Function references are checked only where Godot calls the function by name: `methodCallable0` to `methodCallable16`, `connectMethod`, `rpc` and `rpcId`. A reference used as a lambda, such as `connectLambda(method = ::cleanup)`, or passed to another function is no longer reported as unregistered.
+- The quick fix adding `@Script` to an unregistered class now works on Kotlin classes, where it did nothing, and on Scala classes, where it left code that did not compile.
+- The quick fix for an RPC target with `RpcMode.DISABLED` replaces it with `RpcMode.AUTHORITY` instead of deleting the argument, which broke annotations passing the mode positionally, such as `@Rpc(RpcMode.DISABLED, Sync.SYNC)`.
+- Overloaded Scala functions are each checked against their own signature. A registered overload with an unsupported parameter type was either missed or reported on the other overload too.
+- Adding a Godot-JVM module to an existing project creates it in a directory named after the module, includes it in `settings.gradle.kts` with a valid Gradle path on Windows too, and no longer gives it its own `project.godot`.
+- `New | Godot Script` rejects a base class the generated script could not extend: a final class or object, such as a singleton like `Input`, a class without an accessible constructor, such as `CanvasItem`, and an abstract class with abstract members.
+- Messages and inspection descriptions name the `@Script` annotation instead of `@GodotScript`, which does not exist.
+- In Automatic mode, Java getters and setters are no longer highlighted as registered functions, since the build registers them as part of their property.
+- Class-level problems in Scala files are underlined on the class name, as in Java and Kotlin, instead of across the whole class.

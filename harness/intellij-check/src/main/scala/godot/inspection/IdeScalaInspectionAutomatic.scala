@@ -107,6 +107,22 @@ class IdeScalaInspectionAutomatic extends Node {
   def unsupportedParameterType(value: ScalaUnsupportedType): Unit = {
   }
 
+  // Expected red on the registered overload only: each overload is checked on
+  // its own, whichever comes first.
+  @Register
+  def overloadRegisteredFirst(value: ScalaUnsupportedType): Unit = {
+  }
+
+  def overloadRegisteredFirst(value: Int): Unit = {
+  }
+
+  def overloadRegisteredLast(other: Int): Unit = {
+  }
+
+  @Register
+  def overloadRegisteredLast(other: ScalaUnsupportedType): Unit = {
+  }
+
   @Register
   def unsupportedReturnType(): ScalaUnsupportedType = new ScalaUnsupportedType
 

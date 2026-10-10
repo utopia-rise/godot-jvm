@@ -30,7 +30,7 @@ Features:
 - follows the registration mode selected for the project: Explicit, Inferred, or Automatic
 - highlights script declarations as ineligible, registration candidates, or registered
 - reports duplicate registered class names on both declarations
-- validates callable references used in Godot signal, `call`, and `rpc` patterns
+- validates function references Godot calls by name: `methodCallable`, `connectMethod`, and `rpc`
 - detects nested mutation of `@CoreTypeLocalCopy` getter results
 - offers quick fixes for common registration and mutability mistakes
 
@@ -130,7 +130,7 @@ Relevant files:
 
 ### Signal and callable-reference checks
 
-Checks around `@Emit` and callable references used in Godot patterns such as signal connect, `call`, and `rpc`.
+Checks around `@Emit` and function references Godot calls by name: `methodCallable`, `connectMethod`, and `rpc`.
 
 Relevant files:
 
