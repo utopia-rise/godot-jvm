@@ -54,6 +54,11 @@ func test_kotlin_lambda_callable() -> void:
     script.callable_no_param_triggered = false
     assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
 
+    var method_callable: Callable = script.get("mark_callable_no_param_triggered")
+    script.callable_no_param_triggered = false
+    method_callable.call()
+    assert_bool(script.callable_no_param_triggered).override_failure_message("Reading a registered method by name should give a Callable that calls it").is_true()
+
     script.free()
 
 
@@ -81,6 +86,11 @@ func test_java_lambda_callable() -> void:
     script.callable_no_param_triggered = false
     assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
 
+    var method_callable: Callable = script.get("mark_callable_no_param_triggered")
+    script.callable_no_param_triggered = false
+    method_callable.call()
+    assert_bool(script.callable_no_param_triggered).override_failure_message("Reading a registered method by name should give a Callable that calls it").is_true()
+
     script.free()
 
 
@@ -107,5 +117,10 @@ func test_scala_lambda_callable() -> void:
     assert_that(script.call_primitive_return_callable()).override_failure_message("A callable created with a primitive return class should return its value").is_equal(7)
     script.callable_no_param_triggered = false
     assert_bool(script.call_void_return_callable()).override_failure_message("A callable created with a void return class should run").is_true()
+
+    var method_callable: Callable = script.get("mark_callable_no_param_triggered")
+    script.callable_no_param_triggered = false
+    method_callable.call()
+    assert_bool(script.callable_no_param_triggered).override_failure_message("Reading a registered method by name should give a Callable that calls it").is_true()
 
     script.free()
