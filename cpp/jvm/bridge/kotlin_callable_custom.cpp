@@ -47,7 +47,8 @@ LambdaContainer::LambdaContainer(
     int p_hash_code,
     bool p_has_on_cancel
 ) :
-    JvmInstanceWrapper(p_env, p_wrapped) {
+    // p_wrapped is a native method argument, which must not be deleted as a local reference.
+    JvmInstanceWrapper(p_wrapped.new_global_ref<jni::JObject>(p_env)) {
     has_return_value = return_type != godot::Variant::NIL;
 
     hash_code = p_hash_code;

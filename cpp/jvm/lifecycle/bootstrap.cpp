@@ -8,7 +8,6 @@
 void Bootstrap::load_classes(JNIEnv* p_env, jobject p_this, jobjectArray p_classes) {
     jni::Env env(p_env);
     jni::JObjectArray jni_classes(p_classes);
-    jni::JObject j_object(p_this);
 
     godot::Vector<KtClass*> classes;
     for (auto i = 0; i < jni_classes.length(env); i++) {
@@ -17,9 +16,6 @@ void Bootstrap::load_classes(JNIEnv* p_env, jobject p_this, jobjectArray p_class
         classes.append(kt_class);
         JVM_DEV_VERBOSE("Loaded class %s : %s", kt_class->registered_class_name, kt_class->base_godot_class);
     }
-
-    j_object.delete_local_ref(env);
-    jni_classes.delete_local_ref(env);
 
     godot::JvmScriptManager::get_instance()->initialize_scripts(classes);
 }
@@ -40,11 +36,6 @@ void Bootstrap::register_engine_type(
 
     jni::JObjectArray singleton_names(p_singleton_names);
     TypeManager::get_instance().register_engine_singletons(env, singleton_names);
-
-    jni::JObject j_object(p_this);
-    j_object.delete_local_ref(env);
-    engine_types.delete_local_ref(env);
-    singleton_names.delete_local_ref(env);
 #ifdef DEV_ENABLED
     JVM_LOG_VERBOSE("Done registering managed engine types...");
 #endif

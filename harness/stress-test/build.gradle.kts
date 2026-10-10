@@ -56,8 +56,8 @@ tasks {
 
     register("importResources") {
         group = "verification"
-        description = "Imports the Godot project after rebuilding the JVM registrations."
-        dependsOn(build, syncAddon)
+        description = "Imports the Godot project. Requires build first."
+        dependsOn(syncAddon)
 
         val javaHome = System.getProperty("java.home")
         val workingDirectory = projectDir

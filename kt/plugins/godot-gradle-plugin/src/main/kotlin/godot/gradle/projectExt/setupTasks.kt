@@ -33,9 +33,7 @@ import godot.gradle.tasks.packageReleaseJarTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskProvider
 
 private data class RegistrarGenerationTasks(
@@ -102,34 +100,12 @@ fun Project.setupTasks() {
                 null
             }
             if (godotJvmExtension.isLibrary.get()) {
-                val mainSourceSet = extensions
-                    .getByType(SourceSetContainer::class.java)
-                    .getByName("main")
-
                 tasks.named("jar", Jar::class.java) { jarTask ->
                     jarTask.group = "godot-jvm"
                     jarTask.description = "Builds the reusable Godot-JVM library jar."
                     jarTask.archiveBaseName.set(project.name)
                     jarTask.archiveVersion.set("")
                     jarTask.archiveClassifier.set("")
-                    jarTask.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-                    val runtimeClasspath = configurations.getByName(mainSourceSet.runtimeClasspathConfigurationName)
-                    val bundledDependencies = runtimeClasspath.filter { dependencyFile ->
-                        dependencyFile.isFile && dependencyFile.name !in setOf(
-                            "$godotInternalArtifactName.jar",
-                            "$godotCoreArtifactName.jar",
-                            "$godotApiArtifactName.jar",
-                            "$godotBootstrapArtifactName.jar",
-                            "$godotExtensionArtifactName.jar",
-                        )
-                    }
-
-                    // Resolve lazily: iterating the file collection here would resolve the runtime classpath at
-                    // configuration time, which Gradle rejects when this task is realized from another build.
-                    jarTask.from(bundledDependencies.elements.map { dependencyJars ->
-                        dependencyJars.map { dependencyJar -> zipTree(dependencyJar.asFile) }
-                    })
                 }
                 setupLibraryModeBuildLifecycleTasks()
                 return@with
