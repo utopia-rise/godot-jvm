@@ -167,6 +167,11 @@ class VisibleProblemFixtureExplicit : Node() {
     @Visible
     val immutableRegisteredProperty = 1
 
+    // Expected no issue: a `@JvmField` property is registered through its field.
+    @JvmField
+    @Visible
+    var jvmFieldProperty = 1
+
     // Expected red: core types are not allowed as `lateinit` registered
     // properties.
     @Visible
@@ -278,6 +283,11 @@ class EmitProblemFixtureExplicit : Node() {
     // Expected no issue: Godot sees an enum as an int.
     @Emit
     val signalEnumArgument by signal1<SmallEnum>()
+
+    // Expected no issue: a `@JvmField` signal is registered through its field.
+    @JvmField
+    @Emit
+    val jvmFieldSignal = Signal0("jvmFieldSignal")
 }
 
 // RPC annotation checks.

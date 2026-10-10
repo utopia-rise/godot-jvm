@@ -43,3 +43,4 @@
 - Fixed registration highlight ranges so they cover only declaration signatures, excluding indentation, bodies, initializers, and delegates.
 - Fixed duplicate custom Godot class names so both declarations are reported and results update immediately after editing or renaming either name.
 - Fixed stale duplicate-name highlights and an IDE error that could occur while renaming a duplicate registered class name.
+- Fixed an IDE error that stopped all Kotlin registration checks in a file containing a registered `@JvmField` property or signal.

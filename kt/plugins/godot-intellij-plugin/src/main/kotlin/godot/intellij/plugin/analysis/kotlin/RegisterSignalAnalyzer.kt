@@ -1,5 +1,6 @@
 package godot.intellij.plugin.analysis.kotlin
 
+import com.intellij.psi.PsiTypeParameterListOwner
 import godot.annotation.Emit
 import godot.core.Signal
 import godot.intellij.plugin.GodotPluginBundle
@@ -16,7 +17,7 @@ import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
-import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
+import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstanceOrNull
 
 object EmitAnalyzer {
     private val mutabilityQuickFix = EmitMutabilityQuickFix()
@@ -28,7 +29,7 @@ object EmitAnalyzer {
         }
 
         return buildList {
-            addAll(GenericRegistrationAnalyzer.analyze(property.toLightElements().firstIsInstance()))
+            property.toLightElements().firstIsInstanceOrNull<PsiTypeParameterListOwner>()?.let { addAll(GenericRegistrationAnalyzer.analyze(it)) }
             if (property.isVar) {
                 add(
                     GodotProblem(

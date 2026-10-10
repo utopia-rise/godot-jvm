@@ -4,6 +4,7 @@ import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiEnumConstant
+import com.intellij.psi.PsiTypeParameterListOwner
 import godot.annotation.Export
 import godot.annotation.Storage
 import godot.annotation.Visible
@@ -29,7 +30,7 @@ import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
-import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
+import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstanceOrNull
 
 object VisibleAnalyzer {
     private const val MAX_ENUM_ENTRIES_FOR_BIT_FLAG = 32
@@ -67,7 +68,7 @@ object VisibleAnalyzer {
         }
         if (!isRegistered) return@buildList
 
-        addAll(GenericRegistrationAnalyzer.analyze(property.toLightElements().firstIsInstance()))
+        property.toLightElements().firstIsInstanceOrNull<PsiTypeParameterListOwner>()?.let { addAll(GenericRegistrationAnalyzer.analyze(it)) }
         val type = property.jvmType() ?: return@buildList
         val elementClass = (type.typeArguments.firstOrNull() as? PsiClassType)?.resolve()
         if (type.inherits(VariantArray::class.classId) && elementClass?.isEnum == true) {
