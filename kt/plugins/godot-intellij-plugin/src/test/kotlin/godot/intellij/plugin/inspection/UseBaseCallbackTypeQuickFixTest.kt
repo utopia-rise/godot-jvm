@@ -51,7 +51,8 @@ class UseBaseCallbackTypeQuickFixTest : CodeInsightFixtureTestBase() {
             }
         """,
         JavaInspection(),
-        "public godot.core.Callable typed(godot.core.Signal signal)"
+        "public godot.core.Callable typed(",
+        "(godot.core.Signal signal)"
     )
 
     fun testScala() = assertQuickFix(
@@ -68,7 +69,8 @@ class UseBaseCallbackTypeQuickFixTest : CodeInsightFixtureTestBase() {
             }
         """,
         ScalaInspection(),
-        "def typed(signal: godot.core.Signal): godot.core.Callable = null"
+        "def typed(signal: godot.core.Signal)",
+        "): godot.core.Callable = null"
     )
 
     private fun assertQuickFix(fileName: String, source: String, inspection: LocalInspectionTool, vararg expected: String) {
@@ -77,13 +79,13 @@ class UseBaseCallbackTypeQuickFixTest : CodeInsightFixtureTestBase() {
         myFixture.enableInspections(inspection)
         val familyName = GodotPluginBundle.message("quickFix.type.useBaseCallback.familyName")
         var applied = 0
-        while (true) {
+        while (applied <= expected.size) {
             myFixture.doHighlighting()
             val fix = myFixture.getAllQuickFixes().firstOrNull { it.familyName == familyName } ?: break
             myFixture.launchAction(fix)
             applied++
         }
-        assertEquals(expected.size, applied)
+        assertEquals(myFixture.file.text, expected.size, applied)
         expected.forEach { fragment -> assertTrue(fragment, myFixture.file.text.contains(fragment)) }
     }
 }
