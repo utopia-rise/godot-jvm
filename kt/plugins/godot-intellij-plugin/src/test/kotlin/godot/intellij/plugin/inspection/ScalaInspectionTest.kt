@@ -1,7 +1,10 @@
 package godot.intellij.plugin.inspection
 
+import com.intellij.openapi.components.service
+import com.intellij.openapi.util.TextRange
 import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.registration.RegistrationMode
+import godot.intellij.plugin.registration.RegistrationSettings
 
 class ScalaInspectionTest : CodeInsightFixtureTestBase() {
     fun testExplicitFixture() {
@@ -25,7 +28,8 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType"), 2),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "other", "ScalaUnsupportedType")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
     }
@@ -50,7 +54,8 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType"), 2),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "other", "ScalaUnsupportedType")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
     }
@@ -71,8 +76,30 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
-            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType")),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType"), 2),
+            error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "other", "ScalaUnsupportedType")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "ScalaUnsupportedType"))
         )
+    }
+
+    fun testClassProblemsAreReportedOnTheClassName() {
+        myFixture.configureByText(
+            "Fixture.scala",
+            """
+                import godot.annotation.Tool
+                import godot.api.Node
+
+                @Tool
+                class Fixture extends Node {
+                  def unrelated(): Unit = {
+                  }
+                }
+            """.trimIndent()
+        )
+        project.service<RegistrationSettings>().state.mode = RegistrationMode.Explicit
+        myFixture.enableInspections(ScalaInspection())
+
+        val problem = myFixture.doHighlighting().single { it.description == GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation") }
+        assertEquals("Fixture", myFixture.editor.document.getText(TextRange(problem.startOffset, problem.endOffset)))
     }
 }

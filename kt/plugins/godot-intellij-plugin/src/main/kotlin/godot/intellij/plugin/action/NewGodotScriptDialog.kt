@@ -11,6 +11,7 @@ import com.intellij.psi.JavaPsiFacade
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiMethod
+import com.intellij.psi.PsiModifier
 import com.intellij.psi.PsiNameHelper
 import com.intellij.psi.search.PsiShortNamesCache
 import com.intellij.psi.util.InheritanceUtil
@@ -24,6 +25,8 @@ import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.registration.RegistrationSettings
 import godot.tools.common.constants.godotApiPackage
 import godot.tools.common.constants.lifecycleFunctions
+import org.jetbrains.kotlin.asJava.elements.KtLightMethod
+import org.jetbrains.kotlin.lexer.KtTokens
 import javax.swing.JComponent
 import javax.swing.event.DocumentEvent
 
@@ -35,7 +38,7 @@ class NewGodotScriptDialog(
     internal val nameField = JBTextField()
     internal val languageComboBox = ComboBox(GodotScriptLanguage.available.toTypedArray())
         .apply { item = directory.sourceRootLanguage() }
-    private val baseClassField = TextFieldWithBrowseButton().apply { text = DEFAULT_BASE_CLASS }
+    internal val baseClassField = TextFieldWithBrowseButton().apply { text = DEFAULT_BASE_CLASS }
     private val lifecycleCheckBoxes = lifecycleFunctions.associateWith { lifecycleFunction ->
         JBCheckBox(lifecycleFunction, lifecycleFunction == "_ready")
     }
@@ -69,7 +72,7 @@ class NewGodotScriptDialog(
         }
     }
 
-    override fun doValidate(): ValidationInfo? {
+    public override fun doValidate(): ValidationInfo? {
         val className = nameField.text.trim()
         if (!PsiNameHelper.getInstance(project).isIdentifier(className)) {
             return ValidationInfo(GodotPluginBundle.message("action.newScript.dialog.error.invalidName"), nameField)
@@ -84,6 +87,23 @@ class NewGodotScriptDialog(
 
         if (!isGodotType(baseClass)) {
             return ValidationInfo(GodotPluginBundle.message("action.newScript.dialog.error.notAGodotType"), baseClassField)
+        }
+
+        // Compiled Kotlin classes expose an internal constructor as public to Java PSI.
+        val hasAccessibleConstructor = baseClass.constructors.isEmpty() || baseClass.constructors.any { constructor ->
+            !constructor.hasModifierProperty(PsiModifier.PRIVATE) &&
+                (constructor as? KtLightMethod)?.kotlinOrigin?.let { origin ->
+                    origin.hasModifier(KtTokens.INTERNAL_KEYWORD) && origin.containingKtFile.isCompiled
+                } != true
+        }
+        if (baseClass.hasModifierProperty(PsiModifier.FINAL) || !hasAccessibleConstructor) {
+            return ValidationInfo(GodotPluginBundle.message("action.newScript.dialog.error.notExtensible"), baseClassField)
+        }
+
+        if (baseClass.hasModifierProperty(PsiModifier.ABSTRACT) &&
+            baseClass.visibleSignatures.any { signature -> signature.method.hasModifierProperty(PsiModifier.ABSTRACT) }
+        ) {
+            return ValidationInfo(GodotPluginBundle.message("action.newScript.dialog.error.abstractMembers"), baseClassField)
         }
 
         return null

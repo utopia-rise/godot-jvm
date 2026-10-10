@@ -14,9 +14,12 @@ import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.registration.registrationPolicy
 import godot.intellij.plugin.project.overridesGodotBaseMethod
 import godot.intellij.plugin.project.typedCallbackBase
+import godot.intellij.plugin.quickfix.FunctionNotRegisteredQuickFix
 import godot.intellij.plugin.quickfix.UseBaseCallbackTypeQuickFix
 
 object RegisterMethodAnalyzer {
+    private val functionNotRegisteredQuickFixes = arrayOf<LocalQuickFix>(FunctionNotRegisteredQuickFix())
+
     fun analyze(method: PsiMethod): List<GodotProblem> {
         val policy = method.registrationPolicy
         val isRegistered = policy.registersFunction(method)
@@ -30,7 +33,8 @@ object RegisterMethodAnalyzer {
                 add(
                     GodotProblem(
                         GodotPluginBundle.message("problem.function.notificationFunctionNotRegistered"),
-                        method.nameIdentifier ?: method.navigationElement
+                        method.nameIdentifier ?: method.navigationElement,
+                        functionNotRegisteredQuickFixes
                     )
                 )
             }

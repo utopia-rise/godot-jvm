@@ -5,10 +5,11 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
 class GodotJvmProjectService(val project: Project) : Disposable {
-    private val registeredClassNameCache: MutableMap<Module, RegisteredClassNameCache> = mutableMapOf()
+    private val registeredClassNameCache: ConcurrentHashMap<Module, RegisteredClassNameCache> = ConcurrentHashMap()
     private val started = AtomicBoolean(false)
     private val registeredClassIndex = RegisteredClassIndex(::provideRegisteredClassNameCache)
 

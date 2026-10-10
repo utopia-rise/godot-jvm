@@ -1,5 +1,6 @@
 package godot.intellij.plugin.registration
 
+import com.intellij.lang.java.JavaLanguage
 import com.intellij.openapi.components.service
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
@@ -7,6 +8,7 @@ import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.PsiModifierListOwner
+import com.intellij.psi.PsiTypes
 import godot.annotation.Emit
 import godot.annotation.Export
 import godot.annotation.Notification
@@ -29,7 +31,7 @@ import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtProperty
-import org.jetbrains.kotlin.psi.psiUtil.containingClass
+import org.jetbrains.kotlin.psi.psiUtil.containingClassOrObject
 import org.jetbrains.kotlin.scripting.resolve.classId
 import kotlin.reflect.KClass
 
@@ -81,7 +83,7 @@ private object ExplicitRegistrationPolicy : RegistrationPolicy {
 private object InferredRegistrationPolicy : RegistrationPolicy {
     override fun registersSignal(property: KtProperty): Boolean =
         hasAnnotation(property, Emit::class) ||
-            property.containingClass()?.let(::registersClass) == true && property.isOrInheritsType(Signal::class.classId)
+            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true && property.isOrInheritsType(Signal::class.classId)
 
     override fun registersSignal(property: PsiMember, ownerRegistered: Boolean, isSignal: Boolean): Boolean =
         hasAnnotation(property, Emit::class) || ownerRegistered && isSignal
@@ -102,7 +104,7 @@ private object AutomaticRegistrationPolicy : RegistrationPolicy {
 
     override fun registersProperty(property: KtProperty): Boolean =
         property.isRegistrableOnJvm() &&
-            property.containingClass()?.let(::registersClass) == true &&
+            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
             (
                 hasAnnotation(property, Visible::class) ||
                     property.jvmType()?.let { it.isMappableProperty() && !it.inherits(Signal::class.classId) } == true
@@ -115,7 +117,7 @@ private object AutomaticRegistrationPolicy : RegistrationPolicy {
         !hasAnnotation(property, Visible::class) || hasAnnotation(property, Export::class)
 
     override fun registersSignal(property: KtProperty): Boolean =
-        property.containingClass()?.let(::registersClass) == true &&
+        (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
             property.isOrInheritsType(Signal::class.classId) &&
             (hasAnnotation(property, Emit::class) || property.isRegistrableOnJvm())
 
@@ -133,7 +135,28 @@ private object AutomaticRegistrationPolicy : RegistrationPolicy {
             (
                 hasAnnotation(method, Register::class) ||
                     method.hasModifierProperty(PsiModifier.PUBLIC) &&
+                    !method.isJavaPropertyAccessor() &&
                     method.parameterList.parameters.all { it.type.isMappableArgument() } &&
                     method.returnType?.isMappableReturnType() != false
                 )
+}
+
+// The build reads JavaBean accessors as the property they belong to, so they only become functions with `@Register`.
+private fun PsiMethod.isJavaPropertyAccessor(): Boolean {
+    if (language != JavaLanguage.INSTANCE) return false
+    val owner = containingClass ?: return false
+    val returnsValue = returnType != PsiTypes.voidType()
+    return when {
+        parameterList.isEmpty && returnsValue ->
+            name.length > 3 && name.startsWith("get") ||
+                name.length > 2 && name.startsWith("is") && returnType?.canonicalText in setOf("boolean", "java.lang.Boolean")
+        parameterList.parametersCount == 1 && !returnsValue && name.length > 3 && name.startsWith("set") -> {
+            val suffix = name.removePrefix("set")
+            owner.findFieldByName(suffix.replaceFirstChar(Char::lowercaseChar), false) != null ||
+                (owner.findMethodsByName("get$suffix", false) + owner.findMethodsByName("is$suffix", false)).any { getter ->
+                    getter.parameterList.isEmpty && getter.returnType != PsiTypes.voidType()
+                }
+        }
+        else -> false
+    }
 }
