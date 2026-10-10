@@ -11,6 +11,7 @@ import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
@@ -48,6 +49,8 @@ fun Project.createGraalNativeImageTask(
     val additionalResourceConfigurationFiles = godotJvmExtension
         .graal.additionalResourceConfigurationFiles
         .map { configFiles -> configFiles.joinToString(",") }
+    val gameJars = files(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
+    val splitImplementationJars: FileCollection = configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
 
     return tasks.register("createGraalNativeImage", Exec::class.java) {
         with(it) {
@@ -58,10 +61,10 @@ fun Project.createGraalNativeImageTask(
 
             // Only the jars, not the whole libs directory: the image itself is written there, and a task whose
             // inputs contain its own outputs (or that declares no outputs at all) can never be up to date.
-            inputs.files(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
+            inputs.files(gameJars)
             inputs.dir(graalDirectory)
             outputs.file(libsDirectory.map { directory -> directory.file(sharedLibraryName) })
-            inputs.files(configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION))
+            inputs.files(splitImplementationJars)
             inputs.property("graalVmHomeDirectory", graalVmHomeDirectory)
             inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath.orElse(""))
             inputs.property("isGraalNativeImageVerboseEnabled", isVerboseEnabled)
@@ -75,8 +78,8 @@ fun Project.createGraalNativeImageTask(
                 val libsDir = libsDirectory.get().asFile
 
                 // A native image cannot load jars at runtime, so godotSplitImplementation dependencies are compiled in.
-                val classPath = gameJarTasks.map { jarTask -> jarTask.get().archiveFile.get().asFile } +
-                    configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION).files
+                val classPath = gameJars.files.toList() +
+                    splitImplementationJars.files
                         .filter { file -> file.extension == "jar" }
                         .sortedBy { file -> file.name }
 
