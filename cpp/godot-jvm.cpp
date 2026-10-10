@@ -17,6 +17,7 @@
 #include <classes/os.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
+#include <variant/packed_string_array.hpp>
 
 #if defined(ANDROID_ENABLED) && !defined(TOOLS_ENABLED)
 // POSIX unlink() removes the previously extracted runtime file before Android recopies it.
@@ -319,6 +320,20 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
 
 void GodotJvm::copy_dependency_jars_to_user_dir() {
     String source_directory = String(RES_DIRECTORY) + DEPENDENCIES_DIRECTORY;
+    String destination_directory = String(USER_DIRECTORY) + DEPENDENCIES_DIRECTORY;
+
+    // A jar an earlier version of the game copied but no longer ships is never loaded, yet would stay forever.
+    Ref<DirAccess> copied = DirAccess::open(destination_directory);
+    if (copied.is_valid()) {
+        PackedStringArray copied_files = copied->get_files();
+        for (int64_t i = 0; i < copied_files.size(); ++i) {
+            const String& entry = copied_files[i];
+            if (entry.get_extension() == "jar" && !FileAccess::file_exists(source_directory.path_join(entry))) {
+                copied->remove(entry);
+            }
+        }
+    }
+
     Ref<DirAccess> source = DirAccess::open(source_directory);
     if (source.is_null()) { return; }
 
@@ -329,9 +344,9 @@ void GodotJvm::copy_dependency_jars_to_user_dir() {
     for (String entry = source->get_next(); !entry.is_empty(); entry = source->get_next()) {
         if (source->current_is_dir() || entry.get_extension() != "jar") { continue; }
 
-        // The user code manifest lists these jars relative to its own location, so they must sit next to it in user://.
+        // The manifests list these jars relative to their own location, so they must sit next to them in user://.
         String source_file = source_directory.path_join(entry);
-        String destination_file = String(USER_DIRECTORY) + DEPENDENCIES_DIRECTORY + entry;
+        String destination_file = destination_directory.path_join(entry);
         if (!FileAccess::file_exists(destination_file)
             || FileAccess::get_md5(destination_file) != FileAccess::get_md5(source_file)) {
             destination->copy(source_file, destination_file);
@@ -351,10 +366,9 @@ bool GodotJvm::load_bootstrap() {
         );
         constexpr const char* hint_text = "Make sure to build your gradle project before running the game.";
 #else
-#ifndef DEBUG_ENABLED
-        // The merged archive lists the dependency jars in its manifest class path, so they have to be in place first.
+        // The bootstrap and release archives list the dependency jars in their manifest class path, so they have to
+        // be in place first.
         copy_dependency_jars_to_user_dir();
-#endif
         String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
             copy_new_file_to_user_dir(BOOTSTRAP_FILE)
         );
@@ -449,7 +463,6 @@ bool GodotJvm::load_user_code() {
         String user_code_path = String(RES_DIRECTORY).path_join(USER_CODE_FILE);
 #else
         String user_code_path = copy_new_file_to_user_dir(USER_CODE_FILE);
-        copy_dependency_jars_to_user_dir();
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {

@@ -147,20 +147,18 @@ fun Project.createBootstrapDexJarTask(
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Debug.BOOTSTRAP_DEX_JAR,
-    includeGodotSplitImplementationJars = false,
 )
 
-fun Project.createReleaseDexJarTask(
+fun Project.createGameDexJarTask(
     checkAndroidJarAccessibleTask: TaskProvider<out Task>,
     checkD8ToolAccessibleTask: TaskProvider<out Task>,
     packageReleaseJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<CreateDexJarTask> = registerDexJarTask(
-    name = "createReleaseDexJar",
+    name = "createGameDexJar",
     description = "Converts the release ${ArtifactNames.Release.JAR} to an android compatible version. Needed for android builds only",
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageReleaseJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Release.DEX_JAR,
-    includeGodotSplitImplementationJars = true,
 )
 
 private fun Project.registerDexJarTask(
@@ -169,7 +167,6 @@ private fun Project.registerDexJarTask(
     dependsOnTasks: List<TaskProvider<out Task>>,
     inputJar: Provider<RegularFile>,
     dexJarName: String,
-    includeGodotSplitImplementationJars: Boolean,
 ): TaskProvider<CreateDexJarTask> {
     val libsDirectory = variantLibsDirectory()
     val d8ToolPath = godotJvmExtension.android.d8ToolPath
@@ -184,12 +181,10 @@ private fun Project.registerDexJarTask(
             dependsOn(dependsOnTasks)
 
             this.inputJar.set(inputJar)
-            if (includeGodotSplitImplementationJars) {
-                additionalInputJars.from(
-                    configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
-                        .filter { file -> file.extension == "jar" }
-                )
-            }
+            additionalInputJars.from(
+                configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+                    .filter { file -> file.extension == "jar" }
+            )
             dexJar.set(libsDirectory.map { directory -> directory.file(dexJarName) })
             this.d8ToolPath.set(d8ToolPath)
             this.androidJarPath.set(androidCompileSdkDirectory.map { compileSdkDirectory ->

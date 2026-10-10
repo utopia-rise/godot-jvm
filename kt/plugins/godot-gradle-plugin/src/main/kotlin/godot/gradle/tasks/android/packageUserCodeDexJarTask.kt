@@ -4,11 +4,10 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 
 fun Project.packageUserCodeDexJarTask(
-    createMainDexFileTask: TaskProvider<out Task>,
+    createMainDexFileTask: TaskProvider<CreateMainDexFileTask>,
     packageUserCodeJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<ShadowJar> {
     return tasks.register("packageUserCodeDexJar", ShadowJar::class.java) {
@@ -20,8 +19,7 @@ fun Project.packageUserCodeDexJarTask(
             archiveBaseName.set(ArtifactNames.Debug.USER_CODE_DEX_JAR.removeSuffix(".jar"))
             destinationDirectory.set(variantLibsDirectory())
 
-            // add all dex files (converted class files)
-            from(variantLibsDirectory()).include("*.dex")
+            from(createMainDexFileTask.flatMap(CreateMainDexFileTask::dexOutputDirectory))
 
             from(zipTree(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
                 // copy everything from the usercode.jar

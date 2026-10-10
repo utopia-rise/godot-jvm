@@ -91,7 +91,9 @@ dependencies {
 - `godotGameImplementation` merges the dependency into `usercode.jar` (into `game.jar` in release
   builds). Use it when the library must load user-code classes or be recreated with editor reloads.
 - `godotSplitImplementation` preserves the dependency as a separate JAR in
-  `res://jvm/<variant>/dependencies/`. Use it for signed JARs or libraries that cannot be merged safely.
+  `res://jvm/<variant>/dependencies/`, on the class path of `godot-bootstrap.jar` (of `game.jar` in
+  release builds), so it is loaded once like `implementation` dependencies and a change to it needs an
+  editor restart. Use it for signed JARs or libraries that cannot be merged safely.
   Only desktop JVM runs keep the JAR intact: native images compile it into `game` and Android dexes
   it into the dex JAR, because neither runtime can load a JAR.
 

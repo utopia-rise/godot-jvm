@@ -1,8 +1,10 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
+import godot.tools.common.constants.Paths
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.SourceSetContainer
@@ -33,6 +35,18 @@ fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null)
             configurations.add(this@packageBootstrapJarTask.configurations.getByName("bootstrap"))
             configurations.add(this@packageBootstrapJarTask.configurations.getByName(mainSourceSet.runtimeClasspathConfigurationName))
             archiveVersion.set("") // otherwise the version is appended to the name and our export plugin cannot find it anymore
+
+            val godotSplitImplementation =
+                this@packageBootstrapJarTask.configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+            // godotSplitImplementation jars stay intact next to the bootstrap jar, so the class path entry follows it.
+            manifest.attributes[
+                "Class-Path"
+            ] = provider {
+                godotSplitImplementation.files
+                    .filter { file -> file.extension == "jar" }
+                    .sortedBy { file -> file.name }
+                    .joinToString(" ") { file -> "${Paths.DEPENDENCIES_DIR}/${file.name}" }
+            }
 
             // Bootstrap is loaded reflectively by the native Godot runtime, so Shadow's
             // release minimization incorrectly removes godot.runtime.Bootstrap.
