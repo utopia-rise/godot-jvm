@@ -69,8 +69,8 @@ object AnnotationMapper {
             PlaceHolderText::class.java.name -> PlaceHolderTextHint()
             ColorNoAlpha::class.java.name -> ColorNoAlphaHint()
             HintString::class.java.name -> HintStringHint(annotationInfo.parameterValues.getValue("value") as String)
-            IntRange::class.java.name -> annotationInfo.provideRangeHint(-1)
-            FloatRange::class.java.name -> annotationInfo.provideRangeHint(-1f)
+            IntRange::class.java.name -> annotationInfo.provideRangeHint(-1L)
+            FloatRange::class.java.name -> annotationInfo.provideRangeHint(-1.0)
             ExpEasing::class.java.name -> ExpEasingHint(
                 attenuation = annotationInfo.parameterValues.getValue("attenuation") as? Boolean ?: false,
                 isPositiveOnly = annotationInfo.parameterValues.getValue("isPositiveOnly") as? Boolean ?: false,

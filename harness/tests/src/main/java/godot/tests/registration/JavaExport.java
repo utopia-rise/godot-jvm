@@ -123,7 +123,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @IntRange(min = 10, max = 100)
+    @IntRange(min = -5_000_000_000L, max = 5_000_000_000L)
     public long longRangeValue = 42L;
 
     @Export
@@ -132,7 +132,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @FloatRange(min = 0.5f, max = 5.5f, step = 0.5f)
+    @FloatRange(min = 0.5, max = 5.5, step = 0.5)
     public float floatRangeValue = 2.5f;
 
     @Export
@@ -146,7 +146,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @FloatRange(min = 1.25f, max = 9.75f, step = 0.25f)
+    @FloatRange(min = 1.25, max = 9.75, step = 0.25)
     public double doubleRangeValue = 4.75;
 
     @Export

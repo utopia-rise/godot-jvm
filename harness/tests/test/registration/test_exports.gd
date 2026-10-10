@@ -176,6 +176,8 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
         .override_failure_message("A plain enum bitfield should list title-cased labels and leave Godot's implicit flag values")\
         .not_contains(":").not_contains("_")
     _assert_property_hint(property_map, "file_path_value", PROPERTY_HINT_FILE, "*.gd,*.gdj")
+    _assert_property_hint(property_map, "long_range_value", PROPERTY_HINT_RANGE, "-5000000000,5000000000")
+    _assert_property_hint(property_map, "double_range_value", PROPERTY_HINT_RANGE, "1.25,9.75,0.25")
     assert_that(property_map["storage_value"]["usage"])\
         .override_failure_message("A @Storage property should be stored but hidden from the Inspector")\
         .is_equal(PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_SCRIPT_VARIABLE)

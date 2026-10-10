@@ -11,7 +11,7 @@ import godot.core.signal1
 import godot.core.signal2
 
 abstract class AbstractClassInheritanceParent : Node() {
-    @FloatRange(1f, 100f)
+    @FloatRange(1.0, 100.0)
     @Visible
     @Export
     var speed: Double = 100.0

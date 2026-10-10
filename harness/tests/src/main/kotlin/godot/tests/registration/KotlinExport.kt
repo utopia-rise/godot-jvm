@@ -226,7 +226,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @IntRange(10, 100)
+    @IntRange(-5_000_000_000, 5_000_000_000)
     var longRangeValue = 42L
 
     @Export
@@ -235,7 +235,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @FloatRange(0.5f, 5.5f, 0.5f)
+    @FloatRange(0.5, 5.5, 0.5)
     var floatRangeValue = 2.5f
 
     @Export
@@ -249,7 +249,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @FloatRange(1.25f, 9.75f, 0.25f)
+    @FloatRange(1.25, 9.75, 0.25)
     var doubleRangeValue = 4.75
 
     @Export
