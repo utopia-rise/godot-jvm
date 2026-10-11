@@ -40,4 +40,5 @@ public abstract class AudioEffectInstance : RefCounted() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class AudioEffectInstanceDummy : AudioEffectInstance()

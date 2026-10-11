@@ -158,43 +158,50 @@ enter the registration model.
 
 ### Selection matrix
 
+Every mode works the same way. `RegistrationPolicy` first identifies the
+*candidates*: a public class that is not an object, and its public instance
+members. Annotations are then resolved identically in every mode,
+meta-annotations included:
+
+```text
+@Tool -> @Script
+@Export -> @Storage -> @Visible
+@IntRange and other property hints -> @Export
+@Rpc -> @Register
+@Notification -> @Register
+```
+
+The mode only decides which annotation is *assumed* on a candidate that has
+none written. A written annotation replaces that default:
+
 | Declaration | Explicit | Inferred | Automatic |
 |---|---|---|---|
-| Class | direct `@Script` | effective `@Script` | every public Godot-compatible candidate |
-| Property | direct `@Visible` | effective `@Visible` | every public mappable logical property |
-| Signal | direct `@Emit` | every logical signal | every logical signal |
-| Method | direct `@Register` or `@Notification` | effective `@Register`, or a mappable Godot override | every public mappable logical method |
-| Property exported | direct `@Export` | effective `@Export` | yes, by default |
+| Class | `@Script` | `@Script` | assumed `@Script` |
+| Property | `@Visible` | `@Visible` | assumed `@Export` |
+| Signal | `@Emit` | assumed `@Emit` | assumed `@Emit` |
+| Method | `@Register` or `@Notification` | `@Register`, or a mappable Godot override assumed `@Register` | assumed `@Register` |
+| Property exposure | written `@Export`/`@Storage`/`@Visible` | same | `@Export` unless written |
 
-"Effective" means the annotation may be present directly or reached
-recursively through meta-annotations.
+A registration annotation written on something that is not a candidate (a
+private or static member, an object, an overload sharing a registered name)
+is recorded on the `ScriptClass` as a rejected declaration and
+`RejectedDeclarationCheck` fails the build with it. The IDE plugin reports the
+same cases as warnings.
 
 ### Explicit mode: spelling out the public Godot surface
 
-Explicit mode uses only directly declared selection annotations.
-
-Examples of implications that **do not** select in this mode:
-
-- `@Tool` contains `@Script`, but `@Tool` alone does not select the class.
-- `@Export` contains `@Visible`, but `@Export` alone does not select the
-  property.
-- a property hint such as `@IntRange` contains `@Export`, but it does not
-  select or export the property by itself.
-- `@Rpc` contains `@Register`, but `@Rpc` alone does not select the function.
-- overriding `_ready` does not select `_ready`.
-
-The direct annotations must be written alongside the configuration:
+Explicit mode assumes nothing. Overriding `_ready` does not register it and a
+`SignalN` member is not a signal until `@Emit` is written. Annotations that
+carry a registration annotation still register on their own: `@Export`,
+`@Rpc` and a property hint are enough.
 
 ```kotlin
 @Script
 class Player : Node() {
-    @Export
-    @Visible
     @IntRange(0, 100)
     var health = 100
 
     @Rpc
-    @Register
     fun synchronizeHealth(value: Int) {
         health = value
     }
@@ -202,6 +209,9 @@ class Player : Node() {
     @Register
     override fun _ready() {
     }
+
+    @Emit
+    val died by signal0()
 }
 ```
 
@@ -210,19 +220,9 @@ API boundary.
 
 ### Inferred mode: following annotation meaning
 
-Inferred mode recursively expands meta-annotations.
-
-The built-in chains include:
-
-```text
-@Tool -> @Script
-@Export -> @Visible
-@IntRange and other property hints -> @Export -> @Visible
-@Rpc -> @Register
-@Notification -> @Register
-```
-
-This means configuration can also provide selection:
+Inferred mode additionally assumes `@Register` on compatible overrides of Godot
+base methods and `@Emit` on every signal member, so configuration alone
+registers a class:
 
 ```kotlin
 @Tool
@@ -240,13 +240,8 @@ class Player : Node() {
 }
 ```
 
-Inferred mode also:
-
-- selects every logical signal in a selected class
-- selects compatible overrides of Godot base methods
-
-Ordinary project methods still need an effective `@Register`. Inferred does
-not mean every public method is exposed.
+Ordinary project methods still need `@Register`, written or carried. Inferred
+does not mean every public method is exposed.
 
 Custom project annotations can participate in the same mechanism by being
 meta-annotated with the built-in annotations.
@@ -305,7 +300,8 @@ is computed.
 
 ### Property metadata
 
-- `@Export` marks a property for the Inspector in Explicit or Inferred mode.
+- `@Export` marks a property for the Inspector; it carries `@Storage`, which
+  carries `@Visible`.
 - Automatic properties are exported by default; a written `@Visible` or
   `@Storage` replaces that default.
 - property-hint annotations configure controls such as numeric ranges, file
@@ -407,8 +403,7 @@ Mutability is not a universal requirement.
 
 An RPC method must also be a selected registered function. This happens:
 
-- directly with `@Register` in Explicit mode
-- through `@Rpc`'s meta-annotation in Inferred mode
+- through `@Rpc`'s meta-annotation in every mode
 - through automatic method selection in Automatic mode
 
 A non-zero transfer channel only has an effect with

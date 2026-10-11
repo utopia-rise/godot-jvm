@@ -17,16 +17,14 @@ import kotlin.reflect.KClass
 private fun KtAnnotated.hasDirectAnnotation(annotation: KClass<out Annotation>): Boolean =
     findAnnotation(annotation.classId) != null
 
-internal fun KtAnnotated.hasAnnotation(annotation: KClass<out Annotation>, includeMetaAnnotations: Boolean): Boolean {
+internal fun KtAnnotated.hasAnnotation(annotation: KClass<out Annotation>): Boolean {
     if (hasDirectAnnotation(annotation)) return true
-    if (!includeMetaAnnotations) return false
     val visited = HashSet<String>()
     return annotationEntries.any { entry -> entry.hasMetaAnnotation(annotation, visited) }
 }
 
-internal fun PsiModifierListOwner.hasAnnotation(annotation: KClass<out Annotation>, includeMetaAnnotations: Boolean): Boolean {
+internal fun PsiModifierListOwner.hasAnnotation(annotation: KClass<out Annotation>): Boolean {
     if (hasAnnotation(annotation.qualifiedName!!)) return true
-    if (!includeMetaAnnotations) return false
     val visited = HashSet<String>()
     return annotations.any { entry -> entry.annotationClass()?.hasAnnotation(annotation, visited) == true }
 }

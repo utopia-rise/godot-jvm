@@ -1,5 +1,3 @@
-@file:Suppress("NOTHING_TO_INLINE")
-
 package godot.annotation.processor.classgraph.policy
 
 import godot.annotation.Emit
@@ -13,7 +11,6 @@ import godot.annotation.processor.classgraph.AnnotationProcessingMode
 import godot.annotation.processor.classgraph.ProcessorContext
 import godot.annotation.processor.classgraph.extensions.isMappable
 import godot.annotation.processor.classgraph.extensions.isMappablePropertyType
-import godot.annotation.processor.classgraph.extensions.isMappableType
 import godot.annotation.processor.classgraph.extensions.metaAnnotations
 import godot.annotation.processor.classgraph.extensions.overridesGodotBaseMethod
 import godot.annotation.processor.classgraph.extensions.rawDescriptor
@@ -31,119 +28,63 @@ import io.github.classgraph.AnnotationInfo
 import io.github.classgraph.ClassInfo
 import kotlin.reflect.KClass
 
-class RegistrationPolicy(
-    context: ProcessorContext,
-) : RegistrationPolicyMode by RegistrationPolicyMode.of(context)
-
-private interface RegistrationPolicyMode {
-    val context: ProcessorContext
+/**
+ * Decides what a declaration registers as. Every mode reads the same annotations, meta-annotations included; the mode
+ * only sets the annotation assumed on a candidate that has none written. A written annotation replaces that default,
+ * and selects even a declaration that is not a candidate, which the model then rejects.
+ *
+ * An accessor-shaped method is read as its property: it registers as a function only with `@Register`, and the
+ * property steps aside for it unless `@Visible` is written too.
+ */
+class RegistrationPolicy(private val context: ProcessorContext) {
+    private val mode = context.settings.annotationProcessingMode
 
     fun hasAnnotation(holder: AnnotationHolder, annotationClass: KClass<out Annotation>): Boolean =
-        resolvedAnnotations(holder).any { annotation -> annotation.name == annotationClass.java.name }
+        findAnnotation(holder, annotationClass) != null
 
     fun findAnnotation(holder: AnnotationHolder, annotationClass: KClass<out Annotation>): AnnotationInfo? =
-        resolvedAnnotations(holder).firstOrNull { annotation -> annotation.name == annotationClass.java.name }
+        findAnnotation(holder.annotations, annotationClass)
 
-    fun selectClass(shape: LogicalClassShape): Boolean
-    fun selectProperty(property: LogicalProperty): Boolean
-    fun selectSignal(signal: LogicalSignal): Boolean
-    fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean
+    private fun findAnnotation(annotations: Collection<AnnotationInfo>, annotationClass: KClass<out Annotation>): AnnotationInfo? =
+        annotations
+            .withMetaAnnotations { annotation -> context.getOrPutAnnotationChain(annotation) { annotation.metaAnnotations() } }
+            .firstOrNull { annotation -> annotation.name == annotationClass.java.name }
+
+    fun selectClass(shape: LogicalClassShape): Boolean =
+        hasAnnotation(shape, Script::class) || mode == AnnotationProcessingMode.Automatic && shape.isCandidate
+
+    fun selectProperty(property: LogicalProperty): Boolean =
+        hasAnnotation(property, Visible::class) ||
+            mode == AnnotationProcessingMode.Automatic &&
+            property.isCandidate &&
+            property.isMappable() &&
+            listOfNotNull(property.getter, property.setter).none { accessor -> findAnnotation(accessor.annotationInfo, Register::class) != null }
+
+    fun selectSignal(signal: LogicalSignal): Boolean =
+        hasAnnotation(signal, Emit::class) || mode != AnnotationProcessingMode.Explicit && signal.isCandidate
+
+    fun selectMethod(method: LogicalMethod, owner: ClassInfo, isAccessor: Boolean): Boolean =
+        hasAnnotation(method, Register::class) ||
+            !isAccessor && hasAnnotation(method, Notification::class) ||
+            !isAccessor &&
+            method.isCandidate &&
+            method.methodInfo.isMappable(context) &&
+            when (mode) {
+                AnnotationProcessingMode.Explicit -> false
+                AnnotationProcessingMode.Inferred -> method.methodInfo.overridesGodotBaseMethod(owner)
+                AnnotationProcessingMode.Automatic -> true
+            }
+
     fun propertyExposure(property: LogicalProperty): PropertyExposure = when {
         hasAnnotation(property, Export::class) -> PropertyExposure.EXPORT
         hasAnnotation(property, Storage::class) -> PropertyExposure.STORAGE
-        else -> PropertyExposure.VISIBLE
+        hasAnnotation(property, Visible::class) -> PropertyExposure.VISIBLE
+        else -> PropertyExposure.EXPORT
     }
 
-    fun resolvedAnnotations(holder: AnnotationHolder): List<AnnotationInfo>
-
-    companion object {
-        fun of(context: ProcessorContext): RegistrationPolicyMode =
-            when (context.settings.annotationProcessingMode) {
-                AnnotationProcessingMode.Explicit -> ExplicitRegistrationPolicy(context)
-                AnnotationProcessingMode.Inferred -> InferredRegistrationPolicy(context)
-                AnnotationProcessingMode.Automatic -> AutomaticRegistrationPolicy(context)
-            }
-    }
-}
-
-private class ExplicitRegistrationPolicy(
-    override val context: ProcessorContext,
-) : RegistrationPolicyMode {
-    override fun resolvedAnnotations(holder: AnnotationHolder): List<AnnotationInfo> = holder.annotations.toList()
-
-    override fun selectClass(shape: LogicalClassShape): Boolean =
-        shape.classInfo.isPublic && hasAnnotation(shape, Script::class)
-
-    override fun selectProperty(property: LogicalProperty): Boolean = hasAnnotation(property, Visible::class)
-
-    override fun selectSignal(signal: LogicalSignal): Boolean = hasAnnotation(signal, Emit::class)
-
-    override fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean =
-        hasAnnotation(method, Register::class) ||
-            hasAnnotation(method, Notification::class)
-}
-
-private class InferredRegistrationPolicy(
-    override val context: ProcessorContext,
-) : RegistrationPolicyMode {
-    override fun resolvedAnnotations(holder: AnnotationHolder): List<AnnotationInfo> =
-        holder.annotations.withMetaAnnotations { annotation ->
-            context.getOrPutAnnotationChain(annotation) {
-                annotation.metaAnnotations()
-            }
-        }
-
-    override fun selectClass(shape: LogicalClassShape): Boolean =
-        shape.classInfo.isPublic && hasAnnotation(shape, Script::class)
-
-    override fun selectProperty(property: LogicalProperty): Boolean = hasAnnotation(property, Visible::class)
-
-    override fun selectSignal(signal: LogicalSignal): Boolean = true
-
-    override fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean =
-        hasAnnotation(method, Register::class) ||
-            (method.methodInfo.overridesGodotBaseMethod(owner) && method.methodInfo.isMappable(context))
-}
-
-private class AutomaticRegistrationPolicy(
-    override val context: ProcessorContext,
-) : RegistrationPolicyMode {
-    override fun resolvedAnnotations(holder: AnnotationHolder): List<AnnotationInfo> =
-        holder.annotations.withMetaAnnotations { annotation ->
-            context.getOrPutAnnotationChain(annotation) {
-                annotation.metaAnnotations()
-            }
-        }
-
-    override fun selectClass(shape: LogicalClassShape): Boolean = shape.classInfo.isPublic
-
-    override fun selectProperty(property: LogicalProperty): Boolean {
-        if (hasAnnotation(property, Visible::class)) {
-            return true
-        }
-        if (!property.isPublic) {
-            return false
-        }
-        val rawDescriptor = property.getter?.returnRawDescriptor()
-            ?: property.fieldInfo?.rawDescriptor()
-            ?: return false
-        val typeArguments = property.getter?.returnTypeArguments() ?: property.fieldInfo?.typeArguments().orEmpty()
+    private fun LogicalProperty.isMappable(): Boolean {
+        val rawDescriptor = getter?.returnRawDescriptor() ?: fieldInfo?.rawDescriptor() ?: return false
+        val typeArguments = getter?.returnTypeArguments() ?: fieldInfo?.typeArguments().orEmpty()
         return rawDescriptor.isMappablePropertyType(context, typeArguments)
     }
-
-    override fun selectSignal(signal: LogicalSignal): Boolean = hasAnnotation(signal, Emit::class) || signal.isPublic
-
-    override fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean =
-        hasAnnotation(method, Register::class) ||
-            hasAnnotation(method, Notification::class) ||
-            method.methodInfo.isMappable(context)
-
-    override fun propertyExposure(property: LogicalProperty): PropertyExposure =
-        if (hasAnnotation(property, Visible::class)) super.propertyExposure(property) else PropertyExposure.EXPORT
 }
-
-private val LogicalProperty.isPublic: Boolean
-    get() = getter?.isPublic ?: fieldInfo?.isPublic ?: false
-
-private val LogicalSignal.isPublic: Boolean
-    get() = getter?.isPublic ?: fieldInfo?.isPublic ?: false

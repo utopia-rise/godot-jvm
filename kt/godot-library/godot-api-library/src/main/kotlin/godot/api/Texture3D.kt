@@ -162,6 +162,7 @@ public abstract class Texture3D : Texture() {
   }
 }
 
+@GodotBaseType
 internal class Texture3DDummy : Texture3D() {
   public override fun _getFormat(): Image.Format {
     throw NotImplementedError("Texture3D::_getFormat is only implemented by non-JVM code.")

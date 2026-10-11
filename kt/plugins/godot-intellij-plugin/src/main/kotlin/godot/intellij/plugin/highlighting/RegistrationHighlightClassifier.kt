@@ -17,7 +17,6 @@ import godot.intellij.plugin.project.jvmType
 import godot.intellij.plugin.project.isGodotScriptCandidate
 import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightMethods
-import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtProperty
@@ -49,7 +48,7 @@ object RegistrationHighlightClassifier {
         val policy = owner.registrationPolicy
 
         val signalSelected = policy.registersSignal(property)
-        val canRegister = property.hasPublicJvmMember() &&
+        val canRegister = policy.isCandidate(property) &&
             property.typeParameterList == null &&
             if (signalSelected) {
                 !property.isVar && property.isOrInheritsType(Signal::class.classId)
@@ -70,7 +69,7 @@ object RegistrationHighlightClassifier {
         val policy = owner.registrationPolicy
 
         return classify(
-            canRegister = function.toLightMethods().any { method -> method.canRegister() },
+            canRegister = function.toLightMethods().any { method -> policy.isCandidate(method) && method.canRegister() },
             isRegistered = policy.registersClass(owner) &&
                 policy.registersFunction(function)
         )
@@ -98,7 +97,7 @@ object RegistrationHighlightClassifier {
         val ownerRegistered = policy.registersClass(owner)
         val isSignal = type.inherits(Signal::class.classId)
         val signalSelected = policy.registersSignal(property, ownerRegistered, isSignal)
-        val canRegister = property.hasModifierProperty(PsiModifier.PUBLIC) &&
+        val canRegister = policy.isCandidate(property) &&
             if (signalSelected) {
                 isImmutable && isSignal
             } else {
@@ -118,7 +117,7 @@ object RegistrationHighlightClassifier {
         val policy = owner.registrationPolicy
 
         return classify(
-            canRegister = method.canRegister(),
+            canRegister = policy.isCandidate(method) && method.canRegister(),
             isRegistered = policy.registersClass(owner) &&
                 policy.registersFunction(method)
         )
@@ -133,17 +132,8 @@ object RegistrationHighlightClassifier {
         else -> RegistrationHighlight.CANDIDATE
     }
 
-    private fun KtProperty.hasPublicJvmMember(): Boolean =
-        !hasModifier(KtTokens.PRIVATE_KEYWORD) &&
-            !hasModifier(KtTokens.PROTECTED_KEYWORD) &&
-            setter?.let { accessor ->
-                !accessor.hasModifier(KtTokens.PRIVATE_KEYWORD) &&
-                    !accessor.hasModifier(KtTokens.PROTECTED_KEYWORD)
-            } != false
-
     private fun PsiMethod.canRegister(): Boolean =
-        hasModifierProperty(PsiModifier.PUBLIC) &&
-            typeParameters.isEmpty() &&
+        typeParameters.isEmpty() &&
             parameterList.parametersCount <= Constraints.MAX_ARGUMENT_COUNT &&
             parameterList.parameters.all { parameter -> parameter.type.isMappableArgument() } &&
             returnType?.isMappableReturnType() != false

@@ -757,6 +757,7 @@ public abstract class Mesh : Resource() {
   }
 }
 
+@GodotBaseType
 internal class MeshDummy : Mesh() {
   public override fun _getSurfaceCount(): Int {
     throw NotImplementedError("Mesh::_getSurfaceCount is only implemented by non-JVM code.")

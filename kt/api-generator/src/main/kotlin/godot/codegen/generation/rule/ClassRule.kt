@@ -142,6 +142,7 @@ class AbstractClassDummyRule : GodotApiRule<AbstractClassDummyTask>() {
         val clazz = task.clazz
         addModifiers(KModifier.INTERNAL)
         superclass(clazz.className)
+        addAnnotation(AnnotationSpec.builder(Annotations.GODOT_BASE_TYPE).build())
 
         clazz.methods
             .filter { it.isAbstract }

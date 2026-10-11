@@ -6,7 +6,7 @@ description: Godot script class eligibility, constructors, abstract classes, and
 
 ## Script classes
 
-A script inherits `godot.api.Object` or a derived engine class such as `Node` or `Resource`. The source language must be identifiable as Kotlin, Java, or Scala. Inferred mode requires `@Script` directly or through a meta-annotation; Explicit requires direct `@Script`; Automatic selects public Godot subclasses.
+A script inherits `godot.api.Object` or a derived engine class such as `Node` or `Resource`. The source language must be identifiable as Kotlin, Java, or Scala. Inferred and Explicit require `@Script`, directly or through a meta-annotation such as `@Tool`; Automatic registers every public Godot subclass. A registered class must be public and cannot be a Kotlin or Scala `object`: Godot creates its own instances.
 
 The following declaration works in all three modes:
 

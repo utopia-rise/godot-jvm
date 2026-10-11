@@ -26,6 +26,7 @@ public abstract class StreamPeerExtension : StreamPeer() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class StreamPeerExtensionDummy : StreamPeerExtension() {
   public override fun _getAvailableBytes(): Int {
     throw NotImplementedError("StreamPeerExtension::_getAvailableBytes is only implemented by non-JVM code.")

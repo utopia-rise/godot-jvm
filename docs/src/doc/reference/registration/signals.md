@@ -6,7 +6,7 @@ description: Typed signal declarations, mode selection, argument names, and lang
 
 ## Declaration and selection
 
-A script signal is a `godot.core.SignalN` member. Inferred mode recognizes it without `@Emit`; Explicit requires direct `@Emit`; Automatic selects public signal members. `@Emit` optionally supplies argument names. No `signal` prefix is required on the member name.
+A script signal is a `godot.core.SignalN` member. Inferred and Automatic register every public signal member without `@Emit`; Explicit requires `@Emit`. `@Emit` optionally supplies argument names. No `signal` prefix is required on the member name.
 
 These declarations work in all three modes and expose `health_changed(current, maximum)`:
 

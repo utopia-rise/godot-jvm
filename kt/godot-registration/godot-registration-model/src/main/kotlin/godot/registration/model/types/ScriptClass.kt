@@ -24,6 +24,7 @@ class ScriptClass(
     override var signals: List<RegisteredSignal> = emptyList(),
     override var properties: List<RegisteredProperty> = emptyList(),
     override var functions: List<RegisteredFunction> = emptyList(),
+    var rejectedDeclarations: List<String> = emptyList(),
 ) : SourceClass(fqName, TypeKind.GODOT_CLASS), ScriptFamily, GodotClass {
     constructor(
         fqName: String,

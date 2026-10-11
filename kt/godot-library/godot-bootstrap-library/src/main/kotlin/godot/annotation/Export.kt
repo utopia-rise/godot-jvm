@@ -1,14 +1,13 @@
 package godot.annotation
 
 /**
- * Mark a registered property as exported and thus visible in the inspector.
+ * Mark a property as exported and thus visible in the inspector. Carries [Storage], so the property is also
+ * registered and stored.
  *
  * Only core types and references can be exported.
- *
- * In inferred registration mode, this also registers the property.
  */
 
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD, AnnotationTarget.ANNOTATION_CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@Visible
+@Storage
 annotation class Export

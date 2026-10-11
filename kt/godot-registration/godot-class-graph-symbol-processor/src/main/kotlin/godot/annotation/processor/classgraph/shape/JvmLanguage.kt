@@ -6,6 +6,7 @@ import godot.annotation.processor.classgraph.extensions.returnRawDescriptor
 import godot.registration.model.RegisteredPropertyBindingKind
 import io.github.classgraph.AnnotationInfo
 import io.github.classgraph.ClassInfo
+import io.github.classgraph.ClassMemberInfo
 import io.github.classgraph.FieldInfo
 import io.github.classgraph.MethodInfo
 
@@ -13,20 +14,30 @@ interface AnnotationHolder {
     val annotations: List<AnnotationInfo>
 }
 
+/**
+ * `isCandidate` marks what registration may reach whatever the mode: a public class that is not an object, a public
+ * instance member. The mode decides what a candidate registers as.
+ */
 data class LogicalClassShape(
     val classInfo: ClassInfo,
     override val annotations: List<AnnotationInfo>,
     val signals: List<LogicalSignal>,
     val properties: List<LogicalProperty>,
     val methods: List<LogicalMethod>,
-) : AnnotationHolder
+) : AnnotationHolder {
+    val isCandidate: Boolean =
+        classInfo.isPublic && classInfo.declaredFieldInfo.orEmpty().none { field -> field.isStatic && field.name == "INSTANCE" }
+    val accessorMethods: Set<MethodInfo> = properties.flatMapTo(mutableSetOf()) { property -> listOfNotNull(property.getter, property.setter) }
+}
 
 data class LogicalSignal(
     val name: String,
     override val annotations: List<AnnotationInfo>,
     val fieldInfo: FieldInfo? = null,
     val getter: MethodInfo? = null,
-) : AnnotationHolder
+) : AnnotationHolder {
+    val isCandidate: Boolean = (getter ?: fieldInfo)?.isPublicInstance == true
+}
 
 data class LogicalProperty(
     val name: String,
@@ -35,12 +46,21 @@ data class LogicalProperty(
     val getter: MethodInfo? = null,
     val setter: MethodInfo? = null,
     val isLateinit: Boolean = false,
-) : AnnotationHolder
+) : AnnotationHolder {
+    val isCandidate: Boolean = listOfNotNull(getter, setter).ifEmpty { listOfNotNull(fieldInfo) }.let { members ->
+        members.isNotEmpty() && members.all { member -> member.isPublicInstance }
+    }
+}
 
 data class LogicalMethod(
     val methodInfo: MethodInfo,
     override val annotations: List<AnnotationInfo>,
-) : AnnotationHolder
+) : AnnotationHolder {
+    val isCandidate: Boolean = methodInfo.isPublicInstance
+}
+
+private val ClassMemberInfo.isPublicInstance: Boolean
+    get() = isPublic && !isStatic
 
 class LanguageNotIdentified(classInfo: ClassInfo) : IllegalStateException(
     "Could not identify JVM source language for ${classInfo.name}"

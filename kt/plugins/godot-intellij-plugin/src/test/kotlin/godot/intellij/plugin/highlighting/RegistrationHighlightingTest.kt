@@ -17,19 +17,19 @@ class RegistrationHighlightingTest : CodeInsightFixtureTestBase() {
     fun testHighlightingIsEnabledByDefault() =
         assertTrue(RegistrationSettings.SettingsState().registrationHighlightsEnabled)
 
-    fun testKotlinExplicit() = assertHighlights("HighlightFixture.kt", kotlinSource, RegistrationMode.Explicit, 2, 8, 3)
+    fun testKotlinExplicit() = assertHighlights("HighlightFixture.kt", kotlinSource, RegistrationMode.Explicit, 2, 5, 6)
 
     fun testKotlinInferred() = assertHighlights("HighlightFixture.kt", kotlinSource, RegistrationMode.Inferred, 2, 5, 6)
 
     fun testKotlinAutomatic() = assertHighlights("HighlightFixture.kt", kotlinSource, RegistrationMode.Automatic, 2, 0, 11)
 
-    fun testJavaExplicit() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Explicit, 2, 10, 3)
+    fun testJavaExplicit() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Explicit, 2, 7, 6)
 
     fun testJavaInferred() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Inferred, 2, 7, 6)
 
     fun testJavaAutomatic() = assertHighlights("HighlightFixture.java", javaSource, RegistrationMode.Automatic, 2, 2, 11)
 
-    fun testScalaExplicit() = assertHighlights("HighlightFixture.scala", scalaSource, RegistrationMode.Explicit, 2, 8, 3)
+    fun testScalaExplicit() = assertHighlights("HighlightFixture.scala", scalaSource, RegistrationMode.Explicit, 2, 5, 6)
 
     fun testScalaInferred() = assertHighlights("HighlightFixture.scala", scalaSource, RegistrationMode.Inferred, 2, 5, 6)
 

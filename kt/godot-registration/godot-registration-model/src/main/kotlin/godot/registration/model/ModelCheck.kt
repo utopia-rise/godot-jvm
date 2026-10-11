@@ -2,6 +2,7 @@ package godot.registration.model
 
 import godot.registration.model.checks.BitFieldEntryCountCheck
 import godot.registration.model.checks.FunctionArgCountCheck
+import godot.registration.model.checks.FunctionNameUniquenessCheck
 import godot.registration.model.checks.FunctionTypeCheck
 import godot.registration.model.checks.GenericClassCheck
 import godot.registration.model.checks.LateinitPropertyCheck
@@ -9,6 +10,7 @@ import godot.registration.model.checks.NotificationFunctionCheck
 import godot.registration.model.checks.PropertyHintCheck
 import godot.registration.model.checks.PropertyHintCountCheck
 import godot.registration.model.checks.PropertyTypeCheck
+import godot.registration.model.checks.RejectedDeclarationCheck
 import godot.registration.model.checks.RegisteredNameUniquenessCheck
 import godot.registration.model.checks.RpcCheck
 import godot.registration.model.checks.SignalTypeCheck
@@ -30,8 +32,10 @@ object ModelCheck {
     ): Boolean {
         val hasIssue = listOf(
             GenericClassCheck(logger, registeredClasses).execute(),
+            RejectedDeclarationCheck(logger, registeredClasses).execute(),
 
             FunctionArgCountCheck(logger, registeredClasses).execute(),
+            FunctionNameUniquenessCheck(logger, registeredClasses).execute(),
             FunctionTypeCheck(logger, registeredClasses).execute(),
             NotificationFunctionCheck(logger, registeredClasses).execute(),
             registeredNameProvider?.let { provider ->

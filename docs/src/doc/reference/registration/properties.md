@@ -9,10 +9,10 @@ description: Field and accessor selection, export, nullability, and initializati
 | Mode | Registered property | Exported property |
 |---|---|---|
 | Inferred | `@Visible`, `@Storage`, `@Export`, or a property hint | `@Export` or a property hint |
-| Explicit | Direct `@Visible` | Direct `@Visible` plus direct `@Export` |
-| Automatic | Public compatible property | Every selected property without a written `@Visible` or `@Storage`, or with `@Export` |
+| Explicit | `@Visible`, `@Storage`, `@Export`, or a property hint | `@Export` or a property hint |
+| Automatic | Public compatible property | Every registered property, unless `@Visible` or `@Storage` is written |
 
-Property annotations belong to `godot.annotation`. A field must be public when there are no accessors. When accessors exist, every present getter/setter must be public. A private backing field can be exposed through public accessors.
+`@Export` carries `@Storage`, which carries `@Visible`: the most specific one written decides the exposure. Property annotations belong to `godot.annotation`. A field must be public and non-static when there are no accessors. When accessors exist, every present getter/setter must be public. A private backing field can be exposed through public accessors. A registration annotation on a field that does not meet this fails the build.
 
 ## Declaration forms
 

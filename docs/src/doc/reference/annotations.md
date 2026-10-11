@@ -71,7 +71,7 @@ val healthChanged: Signal2[Integer, Integer] =
 
 Targets: property or field. No arguments.
 
-Inferred: also selects the property through `@Visible`. Explicit: requires direct `@Visible` to select the property. Automatic: a selected property is already exported unless `@Visible` or `@Storage` is written on it; written alongside them, `@Export` still wins. Adds Inspector visibility; it does not add a setter to a read-only property.
+Carries `@Storage`, so it also registers and stores the property in every mode. Automatic: a registered property is already exported unless `@Visible` or `@Storage` is written on it; written alongside them, `@Export` still wins. Adds Inspector visibility; it does not add a setter to a read-only property.
 
 /// tab | Kotlin
 
@@ -291,7 +291,7 @@ class Player extends Node
 
 Targets: property or field. No arguments.
 
-Inferred: also selects the property through `@Visible`. Explicit: requires direct `@Visible` to select the property. Automatic: replaces the implicit export, so a selected property is stored but hidden. The value is saved and loaded with the scene or resource but does not appear in the Inspector, like GDScript's `@export_storage`. With `@Export` on the same property, the property is exported.
+Carries `@Visible`, so it also registers the property in every mode. Automatic: replaces the assumed `@Export`, so a registered property is stored but hidden. The value is saved and loaded with the scene or resource but does not appear in the Inspector, like GDScript's `@export_storage`. With `@Export` on the same property, the property is exported.
 
 /// tab | Kotlin
 
@@ -382,7 +382,7 @@ class EditorMarker extends Node
 
 Targets: property or field. No arguments.
 
-Selects a property in Inferred and Explicit modes without exporting it to the Inspector. Add `@Export` for Inspector editing. Automatic exports selected properties by default; writing `@Visible` replaces that default, so the property is registered but neither stored nor shown in the Inspector.
+Registers a property without storing it or exporting it to the Inspector. Add `@Storage` or `@Export` for more. Automatic assumes `@Export` on every candidate property; writing `@Visible` replaces that default, so the property is registered but neither stored nor shown in the Inspector.
 
 /// tab | Kotlin
 
@@ -419,15 +419,15 @@ var health: Int = 100
 
 ### Meta-annotations { #meta-annotations }
 
-All registration and hint annotations can annotate another annotation declaration. Inferred and Automatic follow these chains recursively for declaration selection and registration configuration; Explicit reads only direct annotations. Custom annotations must be retained in the compiled class for registration to see them.
+All registration and hint annotations can annotate another annotation declaration. Every mode follows these chains recursively for declaration selection and registration configuration. The built-in chains are `@Export` to `@Storage` to `@Visible`, property hints to `@Export`, `@Rpc` and `@Notification` to `@Register`, and `@Tool` to `@Script`. Custom annotations must be retained in the compiled class for registration to see them.
 
-Inspector hints are read only from annotations placed directly on the property. A custom annotation carrying `@FloatRange`, for example, can imply selection and export in Inferred mode, but does not transfer its range hint. Place `@FloatRange` directly on the property to apply the range.
+Inspector hints are read only from annotations placed directly on the property. A custom annotation carrying `@FloatRange`, for example, implies selection and export, but does not transfer its range hint. Place `@FloatRange` directly on the property to apply the range.
 
 ## Property hints { #property-hints }
 
-Targets: property, field, or annotation declaration. In Inferred mode each hint implies `@Export` and then `@Visible`. Explicit requires both direct `@Visible` and direct `@Export` in addition to the hint. Automatic exports selected properties and uses the hint to configure the Inspector.
+Targets: property, field, or annotation declaration. Each hint carries `@Export`, so a hint alone registers and exports the property in every mode.
 
-At most one property hint is allowed, including hints inferred from enum/bitfield types. A hint/type mismatch fails registration validation. Examples below include `@Visible` and `@Export` so the declaration works in every mode. Import the shown annotations from `godot.annotation`.
+At most one property hint is allowed, including hints inferred from enum/bitfield types. A hint/type mismatch fails registration validation. Import the shown annotations from `godot.annotation`.
 
 | Hint | Property types | Inspector control |
 |---|---|---|

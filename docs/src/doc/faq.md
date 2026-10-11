@@ -49,7 +49,7 @@ registration steps.
 - Was its source language identified? Godot-JVM recognizes `.kt`, `.java`,
   and `.scala` source files; an unrecognized extension is skipped.
 - Does the current registration mode select it?
-- In Explicit mode, is `@Script` directly present? In Inferred mode, is it present directly or through a meta-annotation?
+- In Explicit and Inferred mode, is `@Script` present, directly or through a meta-annotation?
 - Does its registered name collide with another class?
 
 ### A property is missing
@@ -74,7 +74,7 @@ registration steps.
 
 - Is the signal declared as a member of the script class?
 - Does it use a `SignalN` type?
-- In Explicit mode, does it have a direct `@Emit`?
+- In Explicit mode, does it have `@Emit`?
 - Is its containing class selected for registration?
 
 ### The editor and the build disagree

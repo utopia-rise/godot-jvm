@@ -261,6 +261,7 @@ public abstract class StyleBox : Resource() {
   }
 }
 
+@GodotBaseType
 internal class StyleBoxDummy : StyleBox() {
   public override fun _draw(toCanvasItem: RID, rect: Rect2): Unit {
     throw NotImplementedError("StyleBox::_draw is only implemented by non-JVM code.")

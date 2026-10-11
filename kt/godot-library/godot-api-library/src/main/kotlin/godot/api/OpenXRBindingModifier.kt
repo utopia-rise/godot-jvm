@@ -43,6 +43,7 @@ public abstract class OpenXRBindingModifier : Resource() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class OpenXRBindingModifierDummy : OpenXRBindingModifier() {
   public override fun _getDescription(): String {
     throw NotImplementedError("OpenXRBindingModifier::_getDescription is only implemented by non-JVM code.")

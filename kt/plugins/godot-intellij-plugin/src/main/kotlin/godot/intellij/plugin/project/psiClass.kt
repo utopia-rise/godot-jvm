@@ -18,8 +18,5 @@ fun PsiClass.isOrInheritsType(classId: ClassId): Boolean {
 
 fun PsiClass.isGodotScriptCandidate(): Boolean = isOrInheritsType(KtObject::class.classId)
 
-// A Scala `private` class still compiles to a public JVM class, which is what the processor reads.
-fun PsiClass.isPublicOnJvm(): Boolean = language.id == "Scala" || hasModifierProperty(PsiModifier.PUBLIC)
-
 fun PsiMethod.overridesGodotBaseMethod(): Boolean =
     findSuperMethods().any { superMethod -> superMethod.containingClass?.getAnnotation(GodotBaseType::class.qualifiedName!!) != null }

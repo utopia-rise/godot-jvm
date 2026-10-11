@@ -59,6 +59,7 @@ public abstract class WebRTCDataChannelExtension : WebRTCDataChannel() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class WebRTCDataChannelExtensionDummy : WebRTCDataChannelExtension() {
   public override fun _getAvailablePacketCount(): Int {
     throw NotImplementedError("WebRTCDataChannelExtension::_getAvailablePacketCount is only implemented by non-JVM code.")

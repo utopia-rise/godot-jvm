@@ -117,6 +117,7 @@ public abstract class ScriptExtension : Script() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class ScriptExtensionDummy : ScriptExtension() {
   public override fun _editorCanReloadFromFile(): Boolean {
     throw NotImplementedError("ScriptExtension::_editorCanReloadFromFile is only implemented by non-JVM code.")

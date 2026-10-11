@@ -55,6 +55,7 @@ public abstract class AudioEffect : Resource() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class AudioEffectDummy : AudioEffect() {
   public override fun _instantiate(): AudioEffectInstance? {
     throw NotImplementedError("AudioEffect::_instantiate is only implemented by non-JVM code.")

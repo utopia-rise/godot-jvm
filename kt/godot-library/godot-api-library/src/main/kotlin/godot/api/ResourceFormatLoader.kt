@@ -208,6 +208,7 @@ public abstract class ResourceFormatLoader : RefCounted() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class ResourceFormatLoaderDummy : ResourceFormatLoader() {
   public override fun _load(
     path: String,

@@ -212,6 +212,7 @@ public abstract class AudioStream : Resource() {
   }
 }
 
+@GodotBaseType
 internal class AudioStreamDummy : AudioStream() {
   public override fun _instantiatePlayback(): AudioStreamPlayback? {
     throw NotImplementedError("AudioStream::_instantiatePlayback is only implemented by non-JVM code.")

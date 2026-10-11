@@ -3,14 +3,12 @@ package godot.annotation.processor.classgraph.mapper
 import godot.annotation.Emit
 import godot.annotation.GodotBaseType
 import godot.annotation.Notification
-import godot.annotation.Register
 import godot.annotation.Rpc
 import godot.annotation.RpcMode
 import godot.annotation.Script
 import godot.annotation.Sync
 import godot.annotation.Tool
 import godot.annotation.TransferMode
-import godot.annotation.Visible
 import godot.annotation.processor.classgraph.ProcessorContext
 import godot.annotation.processor.classgraph.ProcessorSettings
 import godot.annotation.processor.classgraph.extensions.directSuperInterfaces
@@ -57,7 +55,6 @@ import io.github.classgraph.AnnotationEnumValue
 import io.github.classgraph.AnnotationInfo
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ClassRefTypeSignature
-import io.github.classgraph.MethodInfo
 import io.github.classgraph.MethodParameterInfo
 import io.github.classgraph.ScanResult
 import io.github.classgraph.TypeArgument
@@ -157,11 +154,24 @@ class RegistrationMapper(
                 }
 
                 val logicalShape = shapeOf(classInfo)
-                val accessorPropertiesByMethod = logicalShape.accessorPropertiesByMethod()
-                val selectedProperties = logicalShape.properties
-                    .filter(policy::selectProperty)
-                    .filter(::isRegistrableProperty)
-                    .filter(::shouldRegisterProperty)
+                val rejected = mutableListOf<String>()
+                if (!logicalShape.isCandidate && classInfo.name in selectedClassNames) {
+                    rejected += "${classInfo.name} is registered but must be a public class, not an object"
+                }
+                val selectedSignals = logicalShape.signals.filter(policy::selectSignal)
+                val selectedProperties = logicalShape.properties.filter(policy::selectProperty)
+                val selectedMethods = logicalShape.methods.filter { method ->
+                    policy.selectMethod(method, classInfo, method.methodInfo in logicalShape.accessorMethods)
+                }
+                selectedSignals.filterNot(LogicalSignal::isCandidate).mapTo(rejected) { signal ->
+                    "Signal ${classInfo.name}.${signal.name} is registered but must be a public instance member"
+                }
+                selectedProperties.filterNot(LogicalProperty::isCandidate).mapTo(rejected) { property ->
+                    "Property ${classInfo.name}.${property.name} is registered but must be a public instance member"
+                }
+                selectedMethods.filterNot(LogicalMethod::isCandidate).mapTo(rejected) { method ->
+                    "Function ${method.methodInfo.registrationFqName} is registered but must be a public instance method"
+                }
 
                 scriptClass.parent = classInfo.superclass?.let(typeMapper::mapClass) as? GodotClass
                 scriptClass.interfaces = classInfo.directSuperInterfaces().map(::getOrCreateInterface)
@@ -172,44 +182,11 @@ class RegistrationMapper(
                             parameterTypes = constructor.parameterInfo.map(typeMapper::mapParameter),
                         )
                     }
-                scriptClass.signals = logicalShape.signals
-                    .filter(policy::selectSignal)
-                    .map { signal -> members.mapSignal(signal, classInfo) }
-                scriptClass.properties = selectedProperties
-                    .map { property -> members.mapProperty(property, classInfo) }
-                scriptClass.functions = logicalShape.methods
-                    .filter(::isPublicMethod)
-                    .filter { method -> shouldRegisterMethod(method, accessorPropertiesByMethod[method.methodInfo]) }
-                    .filter { method -> policy.selectMethod(method, classInfo) }
-                    .map(members::mapFunction)
+                scriptClass.signals = selectedSignals.map { signal -> members.mapSignal(signal, classInfo) }
+                scriptClass.properties = selectedProperties.map { property -> members.mapProperty(property, classInfo) }
+                scriptClass.functions = selectedMethods.map(members::mapFunction)
+                scriptClass.rejectedDeclarations = rejected
                 scriptClass.isRegistered = classInfo.name in selectedClassNames
-            }
-
-            private fun isRegistrableProperty(property: LogicalProperty): Boolean =
-                when {
-                    property.getter != null || property.setter != null ->
-                        listOfNotNull(property.getter, property.setter).all(MethodInfo::isPublic)
-
-                    else -> property.fieldInfo?.isPublic == true
-                }
-
-            private fun shouldRegisterProperty(property: LogicalProperty): Boolean {
-                val hasVisible = policy.hasAnnotation(property, Visible::class)
-                val hasRegister = property.accessorMethods().any { methodInfo ->
-                    policy.hasAnnotation(LogicalMethod(methodInfo, methodInfo.annotationInfo), Register::class)
-                }
-
-                return hasVisible || !hasRegister
-            }
-
-            private fun shouldRegisterMethod(
-                method: LogicalMethod,
-                accessorProperties: List<LogicalProperty>?,
-            ): Boolean {
-                if (accessorProperties.isNullOrEmpty()) {
-                    return true
-                }
-                return policy.hasAnnotation(method, Register::class)
             }
 
             fun getOrCreateBaseClass(classInfo: ClassInfo): GodotBaseClass =
@@ -239,13 +216,10 @@ class RegistrationMapper(
                 val logicalShape = shapeOf(classInfo)
                 scriptInterface.interfaces = classInfo.directSuperInterfaces().map(::getOrCreateInterface)
                 scriptInterface.functions = logicalShape.methods
-                    .filter(::isPublicMethod)
-                    .filter { method -> policy.selectMethod(method, classInfo) }
+                    .filter(LogicalMethod::isCandidate)
+                    .filter { method -> policy.selectMethod(method, classInfo, method.methodInfo in logicalShape.accessorMethods) }
                     .map(members::mapFunction)
             }
-
-            private fun isPublicMethod(method: LogicalMethod): Boolean =
-                method.methodInfo.isPublic
         }
 
         private inner class TypeMapper {
@@ -464,14 +438,6 @@ class RegistrationMapper(
         }
     }
 }
-
-private fun LogicalClassShape.accessorPropertiesByMethod(): Map<MethodInfo, List<LogicalProperty>> =
-    properties
-        .flatMap { property -> property.accessorMethods().map { methodInfo -> methodInfo to property } }
-        .groupBy(keySelector = { (methodInfo, _) -> methodInfo }, valueTransform = { (_, property) -> property })
-
-private fun LogicalProperty.accessorMethods(): List<MethodInfo> =
-    listOfNotNull(getter, setter)
 
 private fun ScanResult.rootGodotClasses(): List<ClassInfo> =
     getSubclasses(KtObject::class.java)

@@ -31,7 +31,7 @@ enum class LargeEnum {
 @Script
 private class PrivateScriptFixtureExplicit : Node()
 
-// Expected red: `@Tool` requires the class itself to be registered.
+// Expected no issue: `@Tool` carries `@Script`, so the class is registered.
 @Tool
 class NotRegisteredButToolFixtureExplicit : Node()
 
@@ -192,11 +192,11 @@ class VisibleProblemFixtureExplicit : Node() {
     @Visible
     var enumVariantArray = VariantArray<SmallEnum>()
 
-    // Expected red: `@Export` without `@Visible` is incomplete.
+    // Expected no issue: `@Export` carries `@Visible` in every mode.
     @Export
     var exportWithoutVisible = 1
 
-    // Expected red: `@Storage` without `@Visible` is incomplete.
+    // Expected no issue: `@Storage` carries `@Visible` in every mode.
     @Storage
     var storageWithoutVisible = 1
 
@@ -309,6 +309,33 @@ class EmitProblemFixtureExplicit : Node() {
     @JvmField
     @Emit
     val jvmFieldSignal = Signal0("jvmFieldSignal")
+}
+
+// Declaration shape checks: registration only reaches public instance members of a public class.
+// Expected warning: an object cannot be registered.
+@Script
+object ObjectScriptFixtureExplicit : Node()
+
+@Script
+class ShapeProblemFixtureExplicit : Node() {
+    // Expected warning: a private function is ignored by registration.
+    @Register
+    private fun privateRegisteredFunction() {
+    }
+
+    // Expected warning: an extension function is ignored by registration.
+    @Register
+    fun Node.extensionRegisteredFunction() {
+    }
+
+    // Expected warning on both: registered functions cannot share a name.
+    @Register
+    fun overloadedRegisteredFunction() {
+    }
+
+    @Register
+    fun overloadedRegisteredFunction(value: Int) {
+    }
 }
 
 // RPC annotation checks.

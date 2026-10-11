@@ -159,6 +159,7 @@ public abstract class MovieWriter : Object() {
   }
 }
 
+@GodotBaseType
 internal class MovieWriterDummy : MovieWriter() {
   public override fun _getAudioMixRate(): Long {
     throw NotImplementedError("MovieWriter::_getAudioMixRate is only implemented by non-JVM code.")

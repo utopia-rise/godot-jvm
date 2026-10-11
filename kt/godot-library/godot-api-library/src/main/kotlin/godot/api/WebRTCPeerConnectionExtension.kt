@@ -55,6 +55,7 @@ public abstract class WebRTCPeerConnectionExtension : WebRTCPeerConnection() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class WebRTCPeerConnectionExtensionDummy : WebRTCPeerConnectionExtension() {
   public override fun _getConnectionState(): WebRTCPeerConnection.ConnectionState {
     throw NotImplementedError("WebRTCPeerConnectionExtension::_getConnectionState is only implemented by non-JVM code.")

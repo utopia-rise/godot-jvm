@@ -97,6 +97,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
   }
 }
 
+@GodotBaseType
 internal class PhysicsServer3DRenderingServerHandlerDummy : PhysicsServer3DRenderingServerHandler()
     {
   public override fun _setVertex(vertexId: Int, vertex: Vector3): Unit {

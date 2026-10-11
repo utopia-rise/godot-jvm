@@ -191,6 +191,7 @@ public abstract class Material : Resource() {
   }
 }
 
+@GodotBaseType
 internal class MaterialDummy : Material() {
   public override fun _getShaderRid(): RID {
     throw NotImplementedError("Material::_getShaderRid is only implemented by non-JVM code.")

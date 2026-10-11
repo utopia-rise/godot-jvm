@@ -150,6 +150,33 @@ public class IdeJavaInspectionInferred extends Node {
     public Callable0<Integer> typedCallableReturn() {
         return null;
     }
+
+    // Declaration shape checks: registration only reaches public instance members.
+
+    // Expected warning: a private field is ignored by registration.
+    @Export
+    private int privateRegisteredProperty = 1;
+
+    // Expected warning: a static field is ignored by registration.
+    @Export
+    public static int staticRegisteredProperty = 1;
+
+    // Expected warning: a private method is ignored by registration.
+    @Register
+    private void privateRegisteredFunction() {
+    }
+
+    // Expected warning: a static method is ignored by registration.
+    @Register
+    public static void staticRegisteredFunction() {
+    }
+
+    // Expected warning on both: registered functions cannot share a name.
+    @Register
+    public void overloadedRegisteredFunction() {
+    }
+
+    @Register
+    public void overloadedRegisteredFunction(int value) {
+    }
 }
-
-

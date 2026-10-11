@@ -4,6 +4,7 @@ import com.intellij.lang.java.JavaLanguage
 import com.intellij.openapi.components.service
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
@@ -11,7 +12,6 @@ import com.intellij.psi.PsiModifierListOwner
 import com.intellij.psi.PsiTypes
 import godot.annotation.Emit
 import godot.annotation.Export
-import godot.annotation.Notification
 import godot.annotation.Register
 import godot.annotation.Script
 import godot.annotation.Visible
@@ -22,10 +22,10 @@ import godot.intellij.plugin.project.isMappableArgument
 import godot.intellij.plugin.project.isMappableProperty
 import godot.intellij.plugin.project.isMappableReturnType
 import godot.intellij.plugin.project.isOrInheritsType
-import godot.intellij.plugin.project.isPublicOnJvm
-import godot.intellij.plugin.project.isRegistrableOnJvm
 import godot.intellij.plugin.project.jvmType
 import godot.intellij.plugin.project.overridesGodotBaseMethod
+import org.jetbrains.kotlin.asJava.toLightClass
+import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.asJava.toLightMethods
 import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.KtClass
@@ -36,109 +36,87 @@ import org.jetbrains.kotlin.scripting.resolve.classId
 import kotlin.reflect.KClass
 
 val PsiElement.registrationPolicy: RegistrationPolicy
-    get() = when (project.service<RegistrationSettings>().state.mode) {
-        RegistrationMode.Explicit -> ExplicitRegistrationPolicy
-        RegistrationMode.Inferred -> InferredRegistrationPolicy
-        RegistrationMode.Automatic -> AutomaticRegistrationPolicy
+    get() = RegistrationPolicy.of(project.service<RegistrationSettings>().state.mode)
+
+/**
+ * Decides what a declaration registers as, the way the build does. Every mode reads the same annotations,
+ * meta-annotations included; the mode only sets the annotation assumed on a candidate (a public class, a public
+ * instance member) that has none written. A written annotation replaces that default.
+ */
+class RegistrationPolicy private constructor(private val mode: RegistrationMode) {
+    val reportsMissingRegistration: Boolean get() = mode != RegistrationMode.Automatic
+
+    fun hasAnnotation(element: KtAnnotated, annotation: KClass<out Annotation>): Boolean = element.hasAnnotation(annotation)
+
+    fun hasAnnotation(element: PsiModifierListOwner, annotation: KClass<out Annotation>): Boolean = element.hasAnnotation(annotation)
+
+    fun isCandidate(klass: KtClass): Boolean = klass.toLightClass()?.hasModifierProperty(PsiModifier.PUBLIC) == true
+
+    // A Scala `private` class still compiles to a public JVM class, which is what the processor reads.
+    fun isCandidate(klass: PsiClass): Boolean = klass.language.id == "Scala" || klass.hasModifierProperty(PsiModifier.PUBLIC)
+
+    fun isCandidate(property: KtProperty): Boolean {
+        val accessors = property.toLightMethods()
+        return if (accessors.isNotEmpty()) accessors.all(::isCandidate)
+        else property.toLightElements().any { it is PsiField && isCandidate(it) }
     }
 
-sealed interface RegistrationPolicy {
-    val reportsMissingRegistration: Boolean get() = true
-    val includesMetaAnnotations: Boolean get() = true
+    // Scala members never report PUBLIC, so the check lists what excludes a member instead.
+    fun isCandidate(member: PsiMember): Boolean = excludingModifiers.none(member::hasModifierProperty)
 
-    fun hasAnnotation(element: KtAnnotated, annotation: KClass<out Annotation>): Boolean =
-        element.hasAnnotation(annotation, includesMetaAnnotations)
+    fun registersClass(klass: KtClass): Boolean =
+        hasAnnotation(klass, Script::class) || mode == RegistrationMode.Automatic && isCandidate(klass) && klass.isGodotScriptCandidate()
 
-    fun hasAnnotation(element: PsiModifierListOwner, annotation: KClass<out Annotation>): Boolean =
-        element.hasAnnotation(annotation, includesMetaAnnotations)
-
-    fun registersClass(klass: KtClass): Boolean = klass.isPublicOnJvm() && hasAnnotation(klass, Script::class)
-
-    fun registersClass(klass: PsiClass): Boolean = klass.isPublicOnJvm() && hasAnnotation(klass, Script::class)
+    fun registersClass(klass: PsiClass): Boolean =
+        hasAnnotation(klass, Script::class) || mode == RegistrationMode.Automatic && isCandidate(klass) && klass.isGodotScriptCandidate()
 
     fun registersProperty(property: KtProperty): Boolean =
-        property.isRegistrableOnJvm() && hasAnnotation(property, Visible::class)
+        hasAnnotation(property, Visible::class) ||
+            mode == RegistrationMode.Automatic &&
+            isCandidate(property) &&
+            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
+            property.jvmType()?.let { it.isMappableProperty() && !it.inherits(Signal::class.classId) } == true
 
     fun registersProperty(property: PsiMember, ownerRegistered: Boolean, isCompatible: Boolean): Boolean =
-        hasAnnotation(property, Visible::class)
+        hasAnnotation(property, Visible::class) || mode == RegistrationMode.Automatic && ownerRegistered && isCandidate(property) && isCompatible
 
-    fun exportsProperty(property: KtProperty): Boolean = hasAnnotation(property, Export::class)
+    fun exportsProperty(property: KtProperty): Boolean =
+        hasAnnotation(property, Export::class) || mode == RegistrationMode.Automatic && !hasAnnotation(property, Visible::class)
 
-    fun registersSignal(property: KtProperty): Boolean = hasAnnotation(property, Emit::class)
+    fun registersSignal(property: KtProperty): Boolean =
+        hasAnnotation(property, Emit::class) ||
+            mode != RegistrationMode.Explicit &&
+            isCandidate(property) &&
+            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
+            property.isOrInheritsType(Signal::class.classId)
 
     fun registersSignal(property: PsiMember, ownerRegistered: Boolean, isSignal: Boolean): Boolean =
-        hasAnnotation(property, Emit::class)
+        hasAnnotation(property, Emit::class) || mode != RegistrationMode.Explicit && ownerRegistered && isCandidate(property) && isSignal
 
     fun registersFunction(function: KtNamedFunction): Boolean =
-        hasAnnotation(function, Register::class) || hasAnnotation(function, Notification::class)
+        hasAnnotation(function, Register::class) || function.toLightMethods().any(::assumesRegistered)
 
-    fun registersFunction(method: PsiMethod): Boolean =
-        hasAnnotation(method, Register::class) || hasAnnotation(method, Notification::class)
-}
+    fun registersFunction(method: PsiMethod): Boolean = hasAnnotation(method, Register::class) || assumesRegistered(method)
 
-private object ExplicitRegistrationPolicy : RegistrationPolicy {
-    override val includesMetaAnnotations: Boolean get() = false
-}
+    private fun assumesRegistered(method: PsiMethod): Boolean =
+        !method.isConstructor &&
+            isCandidate(method) &&
+            when (mode) {
+                RegistrationMode.Explicit -> false
+                RegistrationMode.Inferred -> method.overridesGodotBaseMethod()
+                RegistrationMode.Automatic ->
+                    method.containingClass?.let(::registersClass) == true &&
+                        !method.isJavaPropertyAccessor() &&
+                        method.parameterList.parameters.all { it.type.isMappableArgument() } &&
+                        method.returnType?.isMappableReturnType() != false
+            }
 
-private object InferredRegistrationPolicy : RegistrationPolicy {
-    override fun registersSignal(property: KtProperty): Boolean =
-        hasAnnotation(property, Emit::class) ||
-            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true && property.isOrInheritsType(Signal::class.classId)
+    companion object {
+        private val excludingModifiers = listOf(PsiModifier.PRIVATE, PsiModifier.PROTECTED, PsiModifier.PACKAGE_LOCAL, PsiModifier.STATIC)
+        private val policies = RegistrationMode.entries.associateWith(::RegistrationPolicy)
 
-    override fun registersSignal(property: PsiMember, ownerRegistered: Boolean, isSignal: Boolean): Boolean =
-        hasAnnotation(property, Emit::class) || ownerRegistered && isSignal
-
-    override fun registersFunction(function: KtNamedFunction): Boolean =
-        hasAnnotation(function, Register::class) || function.toLightMethods().any(PsiMethod::overridesGodotBaseMethod)
-
-    override fun registersFunction(method: PsiMethod): Boolean =
-        hasAnnotation(method, Register::class) || method.overridesGodotBaseMethod()
-}
-
-private object AutomaticRegistrationPolicy : RegistrationPolicy {
-    override val reportsMissingRegistration: Boolean get() = false
-
-    override fun registersClass(klass: KtClass): Boolean = klass.isPublicOnJvm() && klass.isGodotScriptCandidate()
-
-    override fun registersClass(klass: PsiClass): Boolean = klass.isPublicOnJvm() && klass.isGodotScriptCandidate()
-
-    override fun registersProperty(property: KtProperty): Boolean =
-        property.isRegistrableOnJvm() &&
-            (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
-            (
-                hasAnnotation(property, Visible::class) ||
-                    property.jvmType()?.let { it.isMappableProperty() && !it.inherits(Signal::class.classId) } == true
-                )
-
-    override fun registersProperty(property: PsiMember, ownerRegistered: Boolean, isCompatible: Boolean): Boolean =
-        ownerRegistered && isCompatible
-
-    override fun exportsProperty(property: KtProperty): Boolean =
-        !hasAnnotation(property, Visible::class) || hasAnnotation(property, Export::class)
-
-    override fun registersSignal(property: KtProperty): Boolean =
-        (property.containingClassOrObject as? KtClass)?.let(::registersClass) == true &&
-            property.isOrInheritsType(Signal::class.classId) &&
-            (hasAnnotation(property, Emit::class) || property.isRegistrableOnJvm())
-
-    override fun registersSignal(property: PsiMember, ownerRegistered: Boolean, isSignal: Boolean): Boolean =
-        ownerRegistered &&
-            isSignal &&
-            (hasAnnotation(property, Emit::class) || property.hasModifierProperty(PsiModifier.PUBLIC))
-
-    override fun registersFunction(function: KtNamedFunction): Boolean =
-        function.toLightMethods().any(::registersFunction)
-
-    override fun registersFunction(method: PsiMethod): Boolean =
-        method.containingClass?.let(::registersClass) == true &&
-            !method.isConstructor &&
-            (
-                hasAnnotation(method, Register::class) ||
-                    method.hasModifierProperty(PsiModifier.PUBLIC) &&
-                    !method.isJavaPropertyAccessor() &&
-                    method.parameterList.parameters.all { it.type.isMappableArgument() } &&
-                    method.returnType?.isMappableReturnType() != false
-                )
+        fun of(mode: RegistrationMode): RegistrationPolicy = policies.getValue(mode)
+    }
 }
 
 // The build reads JavaBean accessors as the property they belong to, so they only become functions with `@Register`.

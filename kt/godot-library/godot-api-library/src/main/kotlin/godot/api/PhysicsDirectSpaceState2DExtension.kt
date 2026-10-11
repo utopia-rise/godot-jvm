@@ -47,4 +47,5 @@ public abstract class PhysicsDirectSpaceState2DExtension : PhysicsDirectSpaceSta
   }
 }
 
+@GodotBaseType
 internal class PhysicsDirectSpaceState2DExtensionDummy : PhysicsDirectSpaceState2DExtension()

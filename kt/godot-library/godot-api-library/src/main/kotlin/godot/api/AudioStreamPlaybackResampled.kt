@@ -82,6 +82,7 @@ public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
   }
 }
 
+@GodotBaseType
 internal class AudioStreamPlaybackResampledDummy : AudioStreamPlaybackResampled() {
   public override fun _getStreamSamplingRate(): Float {
     throw NotImplementedError("AudioStreamPlaybackResampled::_getStreamSamplingRate is only implemented by non-JVM code.")
