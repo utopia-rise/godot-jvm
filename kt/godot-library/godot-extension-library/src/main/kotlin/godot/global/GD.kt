@@ -1095,26 +1095,49 @@ object GD {
     fun tanh(s: Double) = kotlin.math.tanh(s)
 
 
-    /** Wraps float value between min and max.
+    // The wrap functions mirror Math::wrapf and Math::wrapi in the engine's core/math/math_funcs.h
+    // line by line; harness/tests/test/core/test_wrap.gd checks them against the GDScript built-ins.
+
+    /** Wraps float value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapf(value: Float, min: Float, max: Float) = min + fposmod(value + min, max - min)
+    fun wrapf(value: Float, min: Float, max: Float): Float {
+        val range = max - min
+        if (isZeroApprox(range)) {
+            return min
+        }
+        val result = value - range * kotlin.math.floor((value - min) / range)
+        return if (isEqualApprox(result, max)) min else result
+    }
 
-    /** Wraps double value between min and max.
+    /** Wraps double value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapf(value: Double, min: Double, max: Double) = min + fposmod(value + min, max - min)
+    fun wrapf(value: Double, min: Double, max: Double): Double {
+        val range = max - min
+        if (isZeroApprox(range)) {
+            return min
+        }
+        val result = value - range * kotlin.math.floor((value - min) / range)
+        return if (isEqualApprox(result, max)) min else result
+    }
 
 
-    /** Wraps int value between min and max.
+    /** Wraps int value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapi(value: Int, min: Int, max: Int) = min + posmod(value + min, max - min)
+    fun wrapi(value: Int, min: Int, max: Int): Int {
+        val range = max - min
+        return if (range == 0) min else min + (((value - min) % range) + range) % range
+    }
 
-    /** Wraps long value between min and max.
+    /** Wraps long value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapi(value: Long, min: Long, max: Long) = min + posmod(value + min, max - min)
+    fun wrapi(value: Long, min: Long, max: Long): Long {
+        val range = max - min
+        return if (range == 0L) min else min + (((value - min) % range) + range) % range
+    }
 
     //endregion
     //region Print

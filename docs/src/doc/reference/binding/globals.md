@@ -411,7 +411,7 @@ The following tables list the available overloads, including return types. Angle
 | `mod`, `fmod` | JVM remainder |
 | `posmod`, `fposmod` | Sign-adjusted modulus |
 | `snapped`, `snappedf`, `snappedi`, `stepify`, `stepDecimals` | Step snapping and decimal precision helpers |
-| `wrapi`, `wrapf` | Binding wrap helpers; implemented as `min + positiveMod(value + min, max - min)` |
+| `wrapi`, `wrapf` | Wrap into `[min, max)`; same formulas as the engine's `Math::wrapi` and `Math::wrapf` |
 | `cartesian2polar`, `polarToCartesian` | Coordinate conversion; the latter returns `(r * sin(angle), r * cos(angle))` |
 | `nearestPo2` | Nearest upper power-of-two helper |
 | `dbToLinear`, `linearToDb` | Decibel/linear conversion |
