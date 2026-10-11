@@ -18,8 +18,9 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
             error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            warning(GodotPluginBundle.message("problem.member.ignored")),
+            warning(GodotPluginBundle.message("problem.function.overloaded"), 2),
             error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
-            error(GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
             error(GodotPluginBundle.message("problem.class.notRegistered.functions")),
@@ -46,6 +47,8 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
             error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            warning(GodotPluginBundle.message("problem.member.ignored")),
+            warning(GodotPluginBundle.message("problem.function.overloaded"), 2),
             error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.notRegistered.properties")),
             error(GodotPluginBundle.message("problem.class.notRegistered.signals")),
@@ -72,8 +75,11 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
             error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "signal", "Signal1<Integer>")),
             error(GodotPluginBundle.message("problem.function.unsupportedReturnType", "Callable0<Integer>")),
             error(GodotPluginBundle.message("problem.function.notificationHasParameters")),
+            warning(GodotPluginBundle.message("problem.member.ignored")),
+            warning(GodotPluginBundle.message("problem.function.overloaded"), 4),
             error(GodotPluginBundle.message("problem.function.notificationReturnsValue")),
             error(GodotPluginBundle.message("problem.class.nameAlreadyRegistered"), 2),
+            error(GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject")),
             error(GodotPluginBundle.message("problem.general.cannotRegisterGenerics"), 2),
             error(GodotPluginBundle.message("problem.function.toManyParams", 16)),
             error(GodotPluginBundle.message("problem.function.unsupportedParameterType", "value", "ScalaUnsupportedType"), 2),
@@ -86,11 +92,10 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
         myFixture.configureByText(
             "Fixture.scala",
             """
-                import godot.annotation.Tool
-                import godot.api.Node
+                import godot.annotation.Script
 
-                @Tool
-                class Fixture extends Node {
+                @Script
+                class Fixture {
                   def unrelated(): Unit = {
                   }
                 }
@@ -99,7 +104,7 @@ class ScalaInspectionTest : CodeInsightFixtureTestBase() {
         project.service<RegistrationSettings>().state.mode = RegistrationMode.Explicit
         myFixture.enableInspections(ScalaInspection())
 
-        val problem = myFixture.doHighlighting().single { it.description == GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation") }
+        val problem = myFixture.doHighlighting().single { it.description == GodotPluginBundle.message("problem.class.inheritance.notInheritingGodotObject") }
         assertEquals("Fixture", myFixture.editor.document.getText(TextRange(problem.startOffset, problem.endOffset)))
     }
 }

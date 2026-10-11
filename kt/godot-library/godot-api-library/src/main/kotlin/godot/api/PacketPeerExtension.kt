@@ -28,6 +28,7 @@ public abstract class PacketPeerExtension : PacketPeer() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class PacketPeerExtensionDummy : PacketPeerExtension() {
   public override fun _getAvailablePacketCount(): Int {
     throw NotImplementedError("PacketPeerExtension::_getAvailablePacketCount is only implemented by non-JVM code.")

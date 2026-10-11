@@ -152,6 +152,7 @@ public abstract class VideoStreamPlayback : Resource() {
   }
 }
 
+@GodotBaseType
 internal class VideoStreamPlaybackDummy : VideoStreamPlayback() {
   public override fun _update(delta: Double): Unit {
     throw NotImplementedError("VideoStreamPlayback::_update is only implemented by non-JVM code.")

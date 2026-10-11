@@ -32,8 +32,8 @@ class ScalaNotRegisteredButMembersFixtureAutomatic extends Node {
   def functionShouldStayRed(): Int = propertyShouldStayRed
 }
 
-// Expected no issue: only Godot subclasses are script candidates in this mode, so the class is
-// ignored.
+// Expected red: `@Script` is written, so the class is registered although it does not inherit a
+// Godot object type.
 @Script
 class ScalaGodotScriptWithoutGodotBaseFixtureAutomatic
 
@@ -107,8 +107,8 @@ class IdeScalaInspectionAutomatic extends Node {
   def unsupportedParameterType(value: ScalaUnsupportedType): Unit = {
   }
 
-  // Expected red on the registered overload only: each overload is checked on
-  // its own, whichever comes first.
+  // Expected red on the overload with the unsupported type, and a warning on both:
+  // this mode registers every public method, so the overloads share a name.
   @Register
   def overloadRegisteredFirst(value: ScalaUnsupportedType): Unit = {
   }
@@ -121,6 +121,20 @@ class IdeScalaInspectionAutomatic extends Node {
 
   @Register
   def overloadRegisteredLast(other: ScalaUnsupportedType): Unit = {
+  }
+
+  // Expected warning: a private method is ignored by registration.
+  @Register
+  private def privateRegisteredFunction(): Unit = {
+  }
+
+  // Expected warning on both: registered functions cannot share a name.
+  @Register
+  def overloadedRegisteredFunction(): Unit = {
+  }
+
+  @Register
+  def overloadedRegisteredFunction(value: Int): Unit = {
   }
 
   @Register

@@ -192,6 +192,7 @@ public abstract class TextureLayered : Texture() {
   }
 }
 
+@GodotBaseType
 internal class TextureLayeredDummy : TextureLayered() {
   public override fun _getFormat(): Image.Format {
     throw NotImplementedError("TextureLayered::_getFormat is only implemented by non-JVM code.")

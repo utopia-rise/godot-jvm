@@ -8,7 +8,7 @@
 
 ### Added
 
-- `@Storage` without `@Visible` is reported in Explicit mode, like `@Export`.
+- Registration annotations on private or static members, on same-name overloads, on objects and on extension functions are reported as warnings in Kotlin, Java and Scala.
 - Automatic mode matches the build: unannotated members register only when public and compatible, and an annotated incompatible member is reported.
 - Interface types are reported as parameter, return and signal argument types, and property types follow the build's rules.
 - Registered functions and signals report parameter, return and argument types Godot cannot represent.

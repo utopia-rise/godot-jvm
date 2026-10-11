@@ -48,8 +48,8 @@ class NotRegisteredButMembersFixtureAutomatic : Node() {
     fun functionShouldStayRed() = propertyShouldStayRed
 }
 
-// Expected no issue: only Godot subclasses are script candidates in this mode, so the class is
-// ignored.
+// Expected red: `@Script` is written, so the class is registered although it does not inherit a
+// Godot object type.
 @Script
 class GodotScriptWithoutGodotBaseFixtureAutomatic
 
@@ -299,6 +299,33 @@ class EmitProblemFixtureAutomatic : Node() {
     @JvmField
     @Emit
     val jvmFieldSignal = Signal0("jvmFieldSignal")
+}
+
+// Declaration shape checks: registration only reaches public instance members of a public class.
+// Expected warning: an object cannot be registered.
+@Script
+object ObjectScriptFixtureAutomatic : Node()
+
+@Script
+class ShapeProblemFixtureAutomatic : Node() {
+    // Expected warning: a private function is ignored by registration.
+    @Register
+    private fun privateRegisteredFunction() {
+    }
+
+    // Expected warning: an extension function is ignored by registration.
+    @Register
+    fun Node.extensionRegisteredFunction() {
+    }
+
+    // Expected warning on both: registered functions cannot share a name.
+    @Register
+    fun overloadedRegisteredFunction() {
+    }
+
+    @Register
+    fun overloadedRegisteredFunction(value: Int) {
+    }
 }
 
 // RPC annotation checks.

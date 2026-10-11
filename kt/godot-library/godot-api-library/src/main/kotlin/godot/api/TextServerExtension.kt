@@ -1934,6 +1934,7 @@ public abstract class TextServerExtension : TextServer() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class TextServerExtensionDummy : TextServerExtension() {
   public override fun _hasFeature(feature: TextServer.Feature): Boolean {
     throw NotImplementedError("TextServerExtension::_hasFeature is only implemented by non-JVM code.")

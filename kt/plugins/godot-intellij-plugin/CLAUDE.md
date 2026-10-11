@@ -104,29 +104,26 @@ Explicit/Inferred/Automatic 3x3 matrix as regular registration inspections.
 
 Every regular registration inspection must be tested in all three modes.
 
+Every mode reads annotations the same way, meta-annotations included
+(`@Tool` carries `@Script`; `@Export` carries `@Storage`, which carries
+`@Visible`; property hints carry `@Export`; `@Rpc` and `@Notification` carry
+`@Register`). `RegistrationPolicy` first decides whether a declaration is a
+*candidate* (`isCandidate`: a public class, a public instance member), then
+whether it registers: a written annotation, or the mode's assumed one on a
+candidate. Registration annotations on something that is not a candidate
+(private, static, object, extension function, same-name overloads) are
+warnings from `MemberShapeAnalyzer`, never errors: the build rejects them.
+
 ### Explicit
 
-Only direct registration annotations count:
-
-- class: `@Script`
-- property: `@Visible`
-- signal: `@Emit`
-- function: `@Register` or `@Notification`
-
-Meta-annotations are not expanded. Godot lifecycle overrides such as
-`_ready` must be registered explicitly.
+Nothing is assumed. Godot lifecycle overrides such as `_ready` must carry
+`@Register` and signals must carry `@Emit`.
 
 ### Inferred
 
-Registration meta-annotations are expanded. Examples:
-
-- `@Tool` carries `@Script`
-- `@Export` and property hints carry property registration metadata
-- `@Rpc` carries function registration metadata
-
-Godot lifecycle overrides are inferred. Logical signals in registered
-classes are inferred, while an effective `@Emit` still identifies a signal
-inside a class that is missing registration.
+Godot lifecycle overrides are assumed `@Register` and logical signals in
+registered classes are assumed `@Emit`, while an `@Emit` still identifies a
+signal inside a class that is missing registration.
 
 ### Automatic
 
@@ -191,7 +188,6 @@ Automatic. They must agree with the file's test method.
 
 The regular fixtures cover:
 
-- tool classes that are not explicitly registered
 - registered members inside an unregistered class
     - properties
     - signals
@@ -203,6 +199,8 @@ The regular fixtures cover:
 - Godot lifecycle overrides missing explicit registration
 - registered functions exceeding the 16-parameter limit
 - registered functions with parameter or return types Godot cannot represent
+- registration annotations on private or static members, and on same-name
+  overloads (plus objects and extension functions in Kotlin)
 
 ### Additional Kotlin checks
 
@@ -213,8 +211,6 @@ The Kotlin fixture also covers Kotlin-specific PSI and K2 rules:
 - `lateinit` Godot core properties
 - unsupported registered property types
 - `VariantArray<Enum>`
-- `@Export` and `@Storage` without direct `@Visible` in Explicit mode
-- property hints without registration in Explicit mode
 - wrong property types for every supported hint family
 - bitfields with more than 32 enum entries
 - mutable signals

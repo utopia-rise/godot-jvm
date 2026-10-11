@@ -89,6 +89,7 @@ public abstract class AnimationNodeExtension : AnimationNode() {
   }
 }
 
+@GodotBaseType
 internal class AnimationNodeExtensionDummy : AnimationNodeExtension() {
   public override fun _processAnimationNode(playbackInfo: PackedFloat64Array, testOnly: Boolean):
       PackedFloat32Array {

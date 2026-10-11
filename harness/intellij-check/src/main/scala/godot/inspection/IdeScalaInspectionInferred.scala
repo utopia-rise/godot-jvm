@@ -113,7 +113,7 @@ class IdeScalaInspectionInferred extends Node {
   }
 
   // Expected red on the registered overload only: each overload is checked on
-  // its own, whichever comes first.
+  // its own, whichever comes first. An unregistered overload does not clash.
   @Register
   def overloadRegisteredFirst(value: ScalaUnsupportedType): Unit = {
   }
@@ -126,6 +126,20 @@ class IdeScalaInspectionInferred extends Node {
 
   @Register
   def overloadRegisteredLast(other: ScalaUnsupportedType): Unit = {
+  }
+
+  // Expected warning: a private method is ignored by registration.
+  @Register
+  private def privateRegisteredFunction(): Unit = {
+  }
+
+  // Expected warning on both: registered functions cannot share a name.
+  @Register
+  def overloadedRegisteredFunction(): Unit = {
+  }
+
+  @Register
+  def overloadedRegisteredFunction(value: Int): Unit = {
   }
 
   @Register

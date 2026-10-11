@@ -14,54 +14,48 @@ import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
 import godot.intellij.plugin.project.fqName
 import godot.intellij.plugin.project.withType
-import godot.intellij.plugin.quickfix.PropertyNotExportedQuickFix
-import godot.intellij.plugin.quickfix.PropertyNotRegisteredQuickFix
-import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.idea.util.findAnnotation
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.scripting.resolve.classId
 import kotlin.reflect.KClass
 
 object PropertyHintAnalyzer {
-    private val propertyNotExportedQuickFix by lazy { PropertyNotExportedQuickFix() }
-    private val propertyNotRegisteredQuickFix by lazy { PropertyNotRegisteredQuickFix() }
-
     fun analyze(property: KtProperty): List<GodotProblem> {
         return when {
             property.findAnnotation(IntRange::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkIntRange(property)
+                checkIntRange(property)
             }
 
             property.findAnnotation(FloatRange::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkRealTypeProperty(property, FloatRange::class)
+                checkRealTypeProperty(property, FloatRange::class)
             }
 
             property.findAnnotation(ExpEasing::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkRealTypeProperty(property, ExpEasing::class)
+                checkRealTypeProperty(property, ExpEasing::class)
             }
 
             property.findAnnotation(IntFlag::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkIntFlag(property)
+                checkIntFlag(property)
             }
 
             property.findAnnotation(File::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkStringPropertyType(property, File::class)
+                checkStringPropertyType(property, File::class)
             }
 
             property.findAnnotation(Dir::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkStringPropertyType(property, Dir::class)
+                checkStringPropertyType(property, Dir::class)
             }
 
             property.findAnnotation(MultilineText::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkStringPropertyType(property, MultilineText::class)
+                checkStringPropertyType(property, MultilineText::class)
             }
 
             property.findAnnotation(PlaceHolderText::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkStringPropertyType(property, PlaceHolderText::class)
+                checkStringPropertyType(property, PlaceHolderText::class)
             }
 
             property.findAnnotation(ColorNoAlpha::class.classId) != null -> {
-                checkForRegistrationAnnotations(property) + checkColorNoAlpha(property)
+                checkColorNoAlpha(property)
             }
 
             else -> emptyList()
@@ -137,28 +131,4 @@ object PropertyHintAnalyzer {
             )
         )
     }
-
-    private fun checkForRegistrationAnnotations(property: KtProperty): List<GodotProblem> {
-        val policy = property.registrationPolicy
-        return buildList {
-            if (!policy.registersProperty(property)) {
-                add(
-                    GodotProblem(
-                        GodotPluginBundle.message("problem.property.hint.notRegistered"),
-                        property.nameIdentifier ?: property.navigationElement,
-                        arrayOf(propertyNotRegisteredQuickFix)
-                    )
-                )
-            } else if (!policy.exportsProperty(property)) {
-                add(
-                    GodotProblem(
-                        GodotPluginBundle.message("problem.property.hint.notExported"),
-                        property.nameIdentifier ?: property.navigationElement,
-                        arrayOf(propertyNotExportedQuickFix)
-                    )
-                )
-            }
-        }
-    }
 }
-

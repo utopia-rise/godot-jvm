@@ -51,6 +51,7 @@ public abstract class PhysicsDirectSpaceState3DExtension : PhysicsDirectSpaceSta
   }
 }
 
+@GodotBaseType
 internal class PhysicsDirectSpaceState3DExtensionDummy : PhysicsDirectSpaceState3DExtension() {
   public override fun _getClosestPointToObjectVolume(`object`: RID, point: Vector3): Vector3 {
     throw NotImplementedError("PhysicsDirectSpaceState3DExtension::_getClosestPointToObjectVolume is only implemented by non-JVM code.")

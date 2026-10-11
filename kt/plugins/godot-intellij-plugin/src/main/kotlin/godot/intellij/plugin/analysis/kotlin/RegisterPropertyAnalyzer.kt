@@ -5,8 +5,6 @@ import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiEnumConstant
 import com.intellij.psi.PsiTypeParameterListOwner
-import godot.annotation.Export
-import godot.annotation.Storage
 import godot.annotation.Visible
 import godot.core.KtObject
 import godot.core.VariantArray
@@ -22,9 +20,6 @@ import godot.intellij.plugin.project.isNullable
 import godot.intellij.plugin.project.jvmType
 import godot.intellij.plugin.project.typeArguments
 import godot.intellij.plugin.quickfix.PropertyMakePublicQuickFix
-import godot.intellij.plugin.quickfix.PropertyNotRegisteredQuickFix
-import godot.intellij.plugin.quickfix.PropertyRemoveExportAnnotationQuickFix
-import godot.intellij.plugin.project.isRegistrableOnJvm
 import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.lexer.KtTokens
@@ -34,9 +29,6 @@ import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstanceOrNull
 
 object VisibleAnalyzer {
     private const val MAX_ENUM_ENTRIES_FOR_BIT_FLAG = 32
-    private val registerQuickFix = PropertyNotRegisteredQuickFix()
-    private val exportNotRegisteredQuickFixes = arrayOf(registerQuickFix, PropertyRemoveExportAnnotationQuickFix())
-    private val storageNotRegisteredQuickFixes = arrayOf(registerQuickFix)
     private val makePublicQuickFixes = arrayOf(PropertyMakePublicQuickFix())
 
     fun analyze(property: KtProperty): List<GodotProblem> = buildList {
@@ -45,28 +37,14 @@ object VisibleAnalyzer {
         val valueAnchor = property.initializer?.psiOrParent ?: nameAnchor
         fun report(key: String, anchor: PsiElement = nameAnchor) = add(GodotProblem(GodotPluginBundle.message(key), anchor))
 
-        if (!property.isRegistrableOnJvm()) {
+        if (!policy.isCandidate(property)) {
             if (policy.hasAnnotation(property, Visible::class)) {
-                add(
-                    GodotProblem(
-                        GodotPluginBundle.message("problem.property.notPublic"),
-                        nameAnchor,
-                        makePublicQuickFixes,
-                        ProblemHighlightType.WARNING
-                    )
-                )
+                add(GodotProblem(GodotPluginBundle.message("problem.member.ignored"), nameAnchor, makePublicQuickFixes, ProblemHighlightType.WARNING))
             }
             return@buildList
         }
 
-        val isRegistered = policy.registersProperty(property)
-        if (policy.hasAnnotation(property, Export::class) && !isRegistered) {
-            add(GodotProblem(GodotPluginBundle.message("problem.property.export.notRegistered"), nameAnchor, exportNotRegisteredQuickFixes))
-        }
-        if (policy.hasAnnotation(property, Storage::class) && !isRegistered) {
-            add(GodotProblem(GodotPluginBundle.message("problem.property.storage.notRegistered"), nameAnchor, storageNotRegisteredQuickFixes))
-        }
-        if (!isRegistered) return@buildList
+        if (!policy.registersProperty(property)) return@buildList
 
         property.toLightElements().firstIsInstanceOrNull<PsiTypeParameterListOwner>()?.let { addAll(GenericRegistrationAnalyzer.analyze(it)) }
         val type = property.jvmType() ?: return@buildList

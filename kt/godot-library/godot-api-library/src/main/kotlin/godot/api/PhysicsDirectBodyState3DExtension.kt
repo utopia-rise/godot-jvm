@@ -138,6 +138,7 @@ public abstract class PhysicsDirectBodyState3DExtension : PhysicsDirectBodyState
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class PhysicsDirectBodyState3DExtensionDummy : PhysicsDirectBodyState3DExtension() {
   public override fun _getTotalGravity(): Vector3 {
     throw NotImplementedError("PhysicsDirectBodyState3DExtension::_getTotalGravity is only implemented by non-JVM code.")

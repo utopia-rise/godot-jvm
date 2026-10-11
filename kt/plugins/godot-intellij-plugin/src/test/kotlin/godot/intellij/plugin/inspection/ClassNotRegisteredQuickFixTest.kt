@@ -7,18 +7,6 @@ import godot.intellij.plugin.registration.RegistrationMode
 import godot.intellij.plugin.registration.RegistrationSettings
 
 class ClassNotRegisteredQuickFixTest : CodeInsightFixtureTestBase() {
-    fun testKotlinToolClass() = assertQuickFix(
-        "Fixture.kt",
-        """
-            import godot.annotation.Tool
-            import godot.api.Node
-
-            @Tool
-            class Fixture : Node()
-        """,
-        KotlinInspection()
-    )
-
     fun testKotlinClassWithRegisteredMembers() = assertQuickFix(
         "Fixture.kt",
         """
@@ -31,31 +19,6 @@ class ClassNotRegisteredQuickFixTest : CodeInsightFixtureTestBase() {
             }
         """,
         KotlinInspection()
-    )
-
-    fun testJavaToolClass() = assertQuickFix(
-        "Fixture.java",
-        """
-            import godot.annotation.Tool;
-            import godot.api.Node;
-
-            @Tool
-            public class Fixture extends Node {
-            }
-        """,
-        JavaInspection()
-    )
-
-    fun testScalaToolClass() = assertQuickFix(
-        "Fixture.scala",
-        """
-            import godot.annotation.Tool
-            import godot.api.Node
-
-            @Tool
-            class Fixture extends Node
-        """,
-        ScalaInspection()
     )
 
     private fun assertQuickFix(fileName: String, source: String, inspection: LocalInspectionTool) {

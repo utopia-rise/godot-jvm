@@ -242,6 +242,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
   }
 }
 
+@GodotBaseType
 internal class AudioStreamPlaybackDummy : AudioStreamPlayback() {
   public override fun _start(fromPos: Double): Unit {
     throw NotImplementedError("AudioStreamPlayback::_start is only implemented by non-JVM code.")

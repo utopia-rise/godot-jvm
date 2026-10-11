@@ -343,6 +343,7 @@ public abstract class Texture2D : Texture() {
   }
 }
 
+@GodotBaseType
 internal class Texture2DDummy : Texture2D() {
   public override fun _getWidth(): Int {
     throw NotImplementedError("Texture2D::_getWidth is only implemented by non-JVM code.")

@@ -8,24 +8,25 @@ Default: `Inferred`. Set [`registration.annotationProcessingMode`](../gradle-plu
 
 ## Selection and export { #what-selects-each-declaration }
 
-Selection exposes a declaration to Godot only if its shape and types are valid. Inspector export is a separate property flag. Class selection does not guarantee that Godot can instantiate the class.
+Every mode reads the same annotations, [meta-annotations](../annotations.md#meta-annotations) included, and only registers *candidates*: a public class that is not an object, and its public instance members. The mode sets the annotation assumed on a candidate that has none written; a written annotation replaces that default. An annotation written on something that is not a candidate, such as a private or static member, an object, an extension function or one of several same-name overloads, fails the build and is flagged by the IDE.
 
 | Declaration or behavior | Inferred | Explicit | Automatic |
 |---|---|---|---|
-| Class | `@Script`, directly or through a meta-annotation | Direct `@Script` | Public Godot subclass |
-| Property | `@Visible`, directly or implied by `@Export`/`@Storage`/a hint | Direct `@Visible` | Public compatible property |
-| Inspector export | `@Export`, directly or implied by a hint | Direct `@Export` on a selected property | Every selected property without a written `@Visible` or `@Storage`, or with `@Export` |
-| Ordinary function | `@Register`, directly or implied by `@Rpc` | Direct `@Register` | Public compatible function |
-| Godot virtual override | Compatible override | Direct `@Register` | Compatible override |
-| Signal | Recognized `SignalN` member | Direct `@Emit` | Public `SignalN` member |
-| Notification handler | `@Notification` implies selection | Direct `@Notification` selects the handler | `@Notification` identifies the handler |
-| [Meta-annotations](../annotations.md#meta-annotations) | Resolved recursively | Not resolved | Resolved recursively |
+| Class | `@Script` | `@Script` | Assumed `@Script` |
+| Property | `@Visible` | `@Visible` | Assumed `@Export` |
+| Inspector export | `@Export` | `@Export` | Every property, unless `@Visible` or `@Storage` is written |
+| Ordinary function | `@Register` | `@Register` | Assumed `@Register` |
+| Godot virtual override | Assumed `@Register` | `@Register` | Assumed `@Register` |
+| Signal | Assumed `@Emit` | `@Emit` | Assumed `@Emit` |
+| Notification handler | `@Notification` | `@Notification` | `@Notification` |
+
+`@Export` carries `@Storage`, which carries `@Visible`; property hints carry `@Export`; `@Rpc` and `@Notification` carry `@Register`; `@Tool` carries `@Script`. Inspector export is a separate property flag. Class selection does not guarantee that Godot can instantiate the class.
 
 Accessor-shaped functions also follow the [property/function intent rules](properties.md#accessors-and-function-intent). The table does not override those rules.
 
 ## Inferred { #inferred }
 
-Direct and implied annotations select declarations. Godot overrides and typed signals are recognized without selection annotations. `@Export` implies `@Visible`; property hints imply `@Export`; `@Rpc` and `@Notification` imply `@Register`; `@Tool` implies `@Script`.
+Annotations select declarations. Godot overrides and typed signals are assumed registered without one.
 
 /// tab | Kotlin
 
@@ -102,7 +103,7 @@ With `Inferred` selected, this class produces:
 
 ## Explicit { #explicit }
 
-Only direct selection annotations count. Exported properties need `@Visible` and `@Export`; hints do not supply either. RPC methods need `@Register` and `@Rpc`. Overrides need `@Register`. A direct `@Notification` selects a notification handler without an additional `@Register`.
+Nothing is assumed: every registered declaration carries an annotation, written or carried by another one. Overrides need `@Register` and signals need `@Emit`. `@Export` alone exports a property and `@Rpc` alone registers an RPC method, as in the other modes.
 
 /// tab | Kotlin
 
@@ -188,7 +189,7 @@ With `Explicit` selected, this class produces:
 
 ## Automatic { #automatic }
 
-Public compatible declarations are selected without annotations. Selected properties are exported to the Inspector by default. Writing `@Visible` or `@Storage` replaces that default with the lower exposure, and `@Export` still wins when combined with them. Annotations that add something the default lacks, such as `@Rpc`, must still be written. A registration annotation on an incompatible member registers it anyway, so the build reports the problem as it would in the other modes. Annotations also configure names, hints, and notifications.
+Every candidate is assumed registered without annotations, and properties are assumed `@Export`. Writing `@Visible` or `@Storage` replaces that default with the lower exposure. Annotations that add something the default lacks, such as `@Rpc`, must still be written. Annotations also configure names, hints, and notifications.
 
 /// tab | Kotlin
 

@@ -6,7 +6,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import godot.annotation.Emit
 import godot.annotation.Script
-import godot.annotation.Tool
 import godot.annotation.Visible
 import godot.core.KtObject
 import godot.intellij.plugin.GodotPluginBundle
@@ -18,7 +17,6 @@ import godot.intellij.plugin.project.registeredClassNameCache
 import godot.intellij.plugin.quickfix.ClassAlreadyRegisteredQuickFix
 import godot.intellij.plugin.quickfix.ClassMakePublicQuickFix
 import godot.intellij.plugin.quickfix.ClassNotRegisteredQuickFix
-import godot.intellij.plugin.project.isPublicOnJvm
 import godot.intellij.plugin.registration.registrationPolicy
 import org.jetbrains.kotlin.idea.base.util.module
 import org.jetbrains.kotlin.idea.util.findAnnotation
@@ -41,7 +39,7 @@ object GodotScriptAnalyzer {
     fun analyze(ktClass: KtClass): List<GodotProblem> {
         val policy = ktClass.registrationPolicy
         return buildList {
-            if (!ktClass.isPublicOnJvm() && policy.hasAnnotation(ktClass, Script::class)) {
+            if (!policy.isCandidate(ktClass) && policy.hasAnnotation(ktClass, Script::class)) {
                 add(notPublicProblem(ktClass.nameIdentifier ?: ktClass.navigationElement))
                 return@buildList
             }
@@ -50,15 +48,6 @@ object GodotScriptAnalyzer {
                 val errorLocation = ktClass.nameIdentifier ?: ktClass.navigationElement
                 val properties = ktClass.getProperties()
                 val isConcrete = !ktClass.isAbstract()
-                if (ktClass.findAnnotation(Tool::class.classId) != null) {
-                    add(
-                        GodotProblem(
-                            GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation"),
-                            errorLocation,
-                            arrayOf(classNotRegisteredQuickFix)
-                        )
-                    )
-                }
                 if (isConcrete && properties.any(policy::registersProperty)) {
                     add(
                         GodotProblem(
@@ -116,7 +105,7 @@ object GodotScriptAnalyzer {
     fun analyze(psiClass: PsiClass): List<GodotProblem> {
         val policy = psiClass.registrationPolicy
         return buildList {
-            if (!psiClass.isPublicOnJvm() && policy.hasAnnotation(psiClass, Script::class)) {
+            if (!policy.isCandidate(psiClass) && policy.hasAnnotation(psiClass, Script::class)) {
                 add(notPublicProblem(psiClass.nameIdentifier ?: psiClass.navigationElement))
                 return@buildList
             }
@@ -126,15 +115,6 @@ object GodotScriptAnalyzer {
                 val isConcrete = !psiClass.isAbstract
                 val fields = psiClass.fields
                 val methods = psiClass.methods
-                if (psiClass.getAnnotation(Tool::class.qualifiedName!!) != null) {
-                    add(
-                        GodotProblem(
-                            GodotPluginBundle.message("problem.class.notRegistered.butHasToolAnnotation"),
-                            errorLocation,
-                            arrayOf(classNotRegisteredQuickFix)
-                        )
-                    )
-                }
                 if (
                     isConcrete &&
                     (

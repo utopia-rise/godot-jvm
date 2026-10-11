@@ -295,6 +295,7 @@ public abstract class ScriptLanguageExtension : ScriptLanguage() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class ScriptLanguageExtensionDummy : ScriptLanguageExtension() {
   public override fun _getName(): String {
     throw NotImplementedError("ScriptLanguageExtension::_getName is only implemented by non-JVM code.")

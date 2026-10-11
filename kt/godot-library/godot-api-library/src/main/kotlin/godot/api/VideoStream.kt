@@ -75,6 +75,7 @@ public abstract class VideoStream : Resource() {
   }
 }
 
+@GodotBaseType
 internal class VideoStreamDummy : VideoStream() {
   public override fun _instantiatePlayback(): VideoStreamPlayback? {
     throw NotImplementedError("VideoStream::_instantiatePlayback is only implemented by non-JVM code.")

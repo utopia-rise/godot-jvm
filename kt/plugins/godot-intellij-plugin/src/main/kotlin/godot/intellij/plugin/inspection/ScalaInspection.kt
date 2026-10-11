@@ -5,6 +5,7 @@ import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiMethod
 import godot.intellij.plugin.analysis.jvm.GodotScriptAnalyzer
+import godot.intellij.plugin.analysis.jvm.MemberShapeAnalyzer
 import godot.intellij.plugin.analysis.jvm.RegisterMethodAnalyzer
 import godot.intellij.plugin.analysis.registerProblems
 import godot.intellij.plugin.analysis.withPhysicalAnchor
@@ -20,7 +21,10 @@ class ScalaInspection : GodotInspection() {
                     element.nameIdentifier?.let { identifier -> element.containingFile.findElementAt(identifier.textOffset) } ?: element
                 )
             )
-            is PsiMethod -> holder.registerProblems(RegisterMethodAnalyzer.analyze(element.javaView()).withPhysicalAnchor(element))
+            is PsiMethod -> {
+                holder.registerProblems(MemberShapeAnalyzer.analyze(element).withPhysicalAnchor(element))
+                holder.registerProblems(RegisterMethodAnalyzer.analyze(element.javaView()).withPhysicalAnchor(element))
+            }
         }
     }
 

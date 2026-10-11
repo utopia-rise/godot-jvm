@@ -164,6 +164,7 @@ public abstract class MultiplayerPeerExtension : MultiplayerPeer() {
   public object MethodBindings
 }
 
+@GodotBaseType
 internal class MultiplayerPeerExtensionDummy : MultiplayerPeerExtension() {
   public override fun _getAvailablePacketCount(): Int {
     throw NotImplementedError("MultiplayerPeerExtension::_getAvailablePacketCount is only implemented by non-JVM code.")

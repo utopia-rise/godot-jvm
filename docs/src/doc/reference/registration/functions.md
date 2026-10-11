@@ -6,7 +6,7 @@ description: Method signatures, lifecycle overrides, notification handlers, and 
 
 ## Ordinary functions
 
-A registered function must be public and use [supported parameter/return types](../binding/types.md#registered-signatures). Inferred mode accepts `@Register` or an annotation that implies it; Explicit requires direct `@Register`; Automatic selects compatible public methods, subject to [accessor intent](properties.md#accessors-and-function-intent).
+A registered function must be a public instance method, carry a unique name among the registered functions of its class, and use [supported parameter/return types](../binding/types.md#registered-signatures). Inferred and Explicit register a method with `@Register` or an annotation that carries it, such as `@Rpc`; Automatic also registers every compatible public method, subject to [accessor intent](properties.md#accessors-and-function-intent). `@Register` on a private or static method, a Kotlin extension function, or several same-name overloads fails the build.
 
 /// tab | Kotlin
 
@@ -129,7 +129,7 @@ def onReadyNotification(): Unit = {}
 
 ## RPC
 
-`@Rpc` supplies RPC configuration. In Inferred mode it also selects the method. In Explicit mode add direct `@Register`; in Automatic mode compatible methods are already selected.
+`@Rpc` supplies RPC configuration and carries `@Register`, so it also registers the method in every mode.
 
 /// tab | Kotlin
 
