@@ -186,6 +186,43 @@ TypedArray<Dictionary> JvmLanguage::_get_built_in_templates(const StringName&) c
     return TypedArray<Dictionary>();
 }
 
+static Dictionary built_in_template(
+    const String& p_inherit,
+    const String& p_name,
+    const String& p_description,
+    const String& p_content
+) {
+    Dictionary script_template;
+    script_template["inherit"] = p_inherit;
+    script_template["name"] = p_name;
+    script_template["description"] = p_description;
+    script_template["content"] = p_content;
+    script_template["id"] = 0;
+    script_template["origin"] = 0; // ScriptLanguage::TEMPLATE_BUILT_IN
+    return script_template;
+}
+
+TypedArray<Dictionary> JvmLanguage::node_and_object_templates(
+    const StringName& p_object,
+    const char* p_node_template,
+    const char* p_object_template
+) {
+    TypedArray<Dictionary> templates;
+    if (p_object == StringName("Node")) {
+        templates.append(built_in_template(
+            "Node",
+            "Default",
+            "Base template for Node based scripts with default Godot cycle methods",
+            p_node_template
+        ));
+    } else if (p_object == StringName("Object")) {
+        templates.append(
+            built_in_template("Object", "Empty", "Empty template suitable for all Objects", p_object_template)
+        );
+    }
+    return templates;
+}
+
 bool JvmLanguage::_is_using_templates() {
     return false;
 }

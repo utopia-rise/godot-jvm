@@ -105,6 +105,15 @@ namespace godot {
         TypedArray<Dictionary> _get_public_functions() const override;
         Dictionary _get_public_constants() const override;
         TypedArray<Dictionary> _get_public_annotations() const override;
+
+    protected:
+        // Godot asks for the templates of the chosen base and each of its ancestors and preselects the nearest one,
+        // so a template for Node and one for Object cover every base. _make_template substitutes the actual base.
+        static TypedArray<Dictionary> node_and_object_templates(
+            const StringName& p_object,
+            const char* p_node_template,
+            const char* p_object_template
+        );
     };
 } // namespace godot
 #endif // KOTLIN_JVM_LANGUAGE_H
