@@ -107,6 +107,51 @@ private var ByteBuffer.variantType: Int
         putLong(value.toLong())
     }
 
+/** Every parser indexed by its Variant type id, the order Godot uses on the shared buffer. */
+object VariantTable {
+    val entries: Array<VariantParser<*>> = arrayOf(
+        VariantParser.NIL,
+        VariantParser.BOOL,
+        VariantParser.LONG,
+        VariantParser.DOUBLE,
+        VariantParser.STRING,
+        VariantParser.VECTOR2,
+        VariantParser.VECTOR2I,
+        VariantParser.RECT2,
+        VariantParser.RECT2I,
+        VariantParser.VECTOR3,
+        VariantParser.VECTOR3I,
+        VariantParser.TRANSFORM2D,
+        VariantParser.VECTOR4,
+        VariantParser.VECTOR4I,
+        VariantParser.PLANE,
+        VariantParser.QUATERNION,
+        VariantParser.AABB,
+        VariantParser.BASIS,
+        VariantParser.TRANSFORM3D,
+        VariantParser.PROJECTION,
+        VariantParser.COLOR,
+        VariantParser.STRING_NAME,
+        VariantParser.NODE_PATH,
+        VariantParser._RID,
+        VariantParser.OBJECT,
+        VariantParser.CALLABLE,
+        VariantParser.SIGNAL,
+        VariantParser.DICTIONARY,
+        VariantParser.ARRAY,
+        VariantParser.PACKED_BYTE_ARRAY,
+        VariantParser.PACKED_INT_32_ARRAY,
+        VariantParser.PACKED_INT_64_ARRAY,
+        VariantParser.PACKED_FLOAT_32_ARRAY,
+        VariantParser.PACKED_FLOAT_64_ARRAY,
+        VariantParser.PACKED_STRING_ARRAY,
+        VariantParser.PACKED_VECTOR2_ARRAY,
+        VariantParser.PACKED_VECTOR3_ARRAY,
+        VariantParser.PACKED_COLOR_ARRAY,
+        VariantParser.PACKED_VECTOR4_ARRAY,
+    )
+}
+
 /**
  * The raw codec of every Godot Variant type, one object per [id]. Sealed rather than an enum so each entry can carry
  * the JVM type it produces.
@@ -531,7 +576,7 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
     internal fun checkType(idInBuffer: Int) {
         if (idInBuffer != id) {
             throw TypeCastException(
-                "Shared Buffer Error: JVM expected a ${this::class.simpleName} but received a ${from(idInBuffer.toLong())}."
+                "Shared Buffer Error: JVM expected a ${this::class.simpleName} but received a ${VariantTable.entries[idInBuffer]}."
             )
         }
     }
@@ -543,13 +588,6 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
 
     abstract fun toUnsafeKotlin(buffer: ByteBuffer): T
     abstract fun toUnsafeGodot(buffer: ByteBuffer, any: Any?)
-
-    companion object {
-        /** Every parser indexed by its Variant type id, the order Godot uses on the shared buffer. */
-        val entries: Array<VariantParser<*>> = arrayOf(NIL, BOOL, LONG, DOUBLE, STRING, VECTOR2, VECTOR2I, RECT2, RECT2I, VECTOR3, VECTOR3I, TRANSFORM2D, VECTOR4, VECTOR4I, PLANE, QUATERNION, AABB, BASIS, TRANSFORM3D, PROJECTION, COLOR, STRING_NAME, NODE_PATH, _RID, OBJECT, CALLABLE, SIGNAL, DICTIONARY, ARRAY, PACKED_BYTE_ARRAY, PACKED_INT_32_ARRAY, PACKED_INT_64_ARRAY, PACKED_FLOAT_32_ARRAY, PACKED_FLOAT_64_ARRAY, PACKED_STRING_ARRAY, PACKED_VECTOR2_ARRAY, PACKED_VECTOR3_ARRAY, PACKED_COLOR_ARRAY, PACKED_VECTOR4_ARRAY)
-
-        fun from(value: Long) = entries[value.toInt()]
-    }
 }
 
 /** Converters layered on a [VariantParser]: the same Variant type on the buffer, a different JVM type on this side. */
@@ -654,7 +692,7 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
     data object ANY : VariantCaster<Any?>(VariantParser.NIL) {
         override fun toKotlin(buffer: ByteBuffer): Any? {
             val expectedType = buffer.variantType
-            return VariantParser.entries[expectedType].toUnsafeKotlin(buffer)
+            return VariantTable.entries[expectedType].toUnsafeKotlin(buffer)
         }
 
         override fun toGodot(buffer: ByteBuffer, any: Any?) {
