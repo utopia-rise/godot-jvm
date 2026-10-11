@@ -27,3 +27,14 @@ Run Kotlin unit tests from `kt/` with `./gradlew test`. For integration tests, u
     ```
 
 For interactive testing, open `harness/tests/project.godot` with the matching official Godot editor.
+
+## Editor tests
+
+`harness/editor-monkey` tests the editor integration itself: each probe starts the official editor on that project, edits sources, runs the toolbar Gradle tasks and checks the global class list, the script members on nodes, the status light and the saved scene, the way a user would. Pass the editor with `--editor`, or set `GODOT_EDITOR` to its absolute path:
+
+```bash
+harness/editor-monkey/run.sh --editor <path-to-godot-editor>        # Linux, macOS, Git Bash
+harness\editor-monkey\run.bat --editor <path-to-godot-editor>       # Windows
+```
+
+The probes are plain GDScript under `harness/editor-monkey/probes`; the project's README explains how to add one. CI runs them on Linux alongside the other platform tests.

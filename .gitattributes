@@ -2,3 +2,5 @@
 kt/godot-library/godot-api-library/src/main/kotlin/**    text eol=lf linguist-generated=true
 kt/godot-library/*/src/main/kotlin/gen/**    text eol=lf linguist-generated=true
 harness/tests/.godot/**/*    linguist-generated=true
+# Godot writes project files with LF endings; the editor probes rewrite this one on every run.
+harness/editor-monkey/project.godot    text eol=lf

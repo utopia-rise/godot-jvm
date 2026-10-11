@@ -56,6 +56,7 @@ jobs:
             kt/build.gradle.kts
             kt/plugins/godot-gradle-plugin
             harness/tests
+            harness/editor-monkey
       - name: API generator
         id: api-generator
         uses: ./.github/actions/detect-path-changes
@@ -165,6 +166,15 @@ jobs:
     with:
       godot-jvm-version: *godot_jvm_version
 
+  test-editor-monkey:
+    name: 🐒 Test editor
+    uses: ./.github/workflows/test_editor_monkey.yml
+    needs:
+      - assemble-linux
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
   test-android:
     name: 🤖 Test Android
     uses: ./.github/workflows/test_android.yml
@@ -224,6 +234,7 @@ jobs:
       - test-android
       - test-ios
       - test-linux
+      - test-editor-monkey
       - test-macos
       - test-windows
     with:
