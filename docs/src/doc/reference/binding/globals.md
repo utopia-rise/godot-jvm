@@ -113,7 +113,7 @@ See [Objects and lifetime](objects.md) for language syntax and lifetime restrict
 | `len(value)` | Integer length for supported strings/collections/core containers; unsupported values throw `IllegalArgumentException` |
 | `ord(text)` | Integer value of the first UTF-16 character; an empty string fails with an index error |
 | `char(code)` | Converts a JVM character code to a one-character string |
-| `Color8(r8, g8, b8, a8)` | Builds a `Color` by dividing integer channels by 256; Kotlin alpha default is `255` |
+| `Color8(r8, g8, b8, a8)` | Builds a `Color` by dividing integer channels by 255; Kotlin alpha default is `255` |
 | `ColorN(name, alpha)` | Named color with alpha; Kotlin alpha default is `1f` |
 | `assert(condition, message)` | JVM assertion; message defaults to empty and assertions must be enabled to take effect |
 
@@ -252,7 +252,6 @@ The following tables list the available overloads, including return types. Angle
 | `snappedi` | `snappedi(x: Float, step: Int): Int`<br>`snappedi(x: Double, step: Long): Long` |
 | `sqrt` | `sqrt(s: Float): Float`<br>`sqrt(s: Double): Double` |
 | `stepDecimals` | `stepDecimals(step: Float): Int`<br>`stepDecimals(step: Double): Int` |
-| `stepify` | `stepify(s: Int, step: Int): Int`<br>`stepify(s: Long, step: Long): Long`<br>`stepify(s: Float, step: Float): Float`<br>`stepify(s: Double, step: Double): Double` |
 | `tan` | `tan(s: Float): Float`<br>`tan(s: Double): Double` |
 | `tanh` | `tanh(s: Float): Float`<br>`tanh(s: Double): Double` |
 | `wrapf` | `wrapf(value: Float, min: Float, max: Float): Float`<br>`wrapf(value: Double, min: Double, max: Double): Double` |
@@ -319,7 +318,6 @@ The following tables list the available overloads, including return types. Angle
 | `snappedi` | `int snappedi(float x, int step)`<br>`long snappedi(double x, long step)` |
 | `sqrt` | `float sqrt(float s)`<br>`double sqrt(double s)` |
 | `stepDecimals` | `int stepDecimals(float step)`<br>`int stepDecimals(double step)` |
-| `stepify` | `int stepify(int s, int step)`<br>`long stepify(long s, long step)`<br>`float stepify(float s, float step)`<br>`double stepify(double s, double step)` |
 | `tan` | `float tan(float s)`<br>`double tan(double s)` |
 | `tanh` | `float tanh(float s)`<br>`double tanh(double s)` |
 | `wrapf` | `float wrapf(float value, float min, float max)`<br>`double wrapf(double value, double min, double max)` |
@@ -386,7 +384,6 @@ The following tables list the available overloads, including return types. Angle
 | `snappedi` | `snappedi(x: Float, step: Int): Int`<br>`snappedi(x: Double, step: Long): Long` |
 | `sqrt` | `sqrt(s: Float): Float`<br>`sqrt(s: Double): Double` |
 | `stepDecimals` | `stepDecimals(step: Float): Int`<br>`stepDecimals(step: Double): Int` |
-| `stepify` | `stepify(s: Int, step: Int): Int`<br>`stepify(s: Long, step: Long): Long`<br>`stepify(s: Float, step: Float): Float`<br>`stepify(s: Double, step: Double): Double` |
 | `tan` | `tan(s: Float): Float`<br>`tan(s: Double): Double` |
 | `tanh` | `tanh(s: Float): Float`<br>`tanh(s: Double): Double` |
 | `wrapf` | `wrapf(value: Float, min: Float, max: Float): Float`<br>`wrapf(value: Double, min: Double, max: Double): Double` |
@@ -401,7 +398,7 @@ The following tables list the available overloads, including return types. Angle
 | `abs`, `min`, `max`, `clamp`, `sign` | Absolute value, extrema, range clamp, sign |
 | `acos`, `asin`, `atan`, `atan2`, `sin`, `cos`, `tan` | Trigonometric functions |
 | `asinh`, `acosh`, `atanh`, `sinh`, `cosh`, `tanh` | Hyperbolic functions |
-| `ceil`, `floor`, `floori`, `round` | Rounding; `floori` returns a 32-bit integer |
+| `ceil`, `floor`, `floori`, `round` | Rounding; `round` rounds halfway cases away from zero and `floori` returns a 32-bit integer |
 | `exp`, `log`, `pow`, `sqrt` | Exponential, natural logarithm, power, square root |
 | `degToRad`, `radToDeg` | Degree/radian conversion |
 | `angleDifference`, `lerpAngle`, `rotateToward` | Wrapped angular difference/interpolation/movement |
@@ -410,9 +407,9 @@ The following tables list the available overloads, including return types. Angle
 | `ease`, `smoothstep`, `bezierDerivative` | Easing, smooth interpolation, cubic Bezier derivative |
 | `mod`, `fmod` | JVM remainder |
 | `posmod`, `fposmod` | Sign-adjusted modulus |
-| `snapped`, `snappedf`, `snappedi`, `stepify`, `stepDecimals` | Step snapping and decimal precision helpers |
-| `wrapi`, `wrapf` | Binding wrap helpers; implemented as `min + positiveMod(value + min, max - min)` |
-| `cartesian2polar`, `polarToCartesian` | Coordinate conversion; the latter returns `(r * sin(angle), r * cos(angle))` |
+| `snapped`, `snappedf`, `snappedi`, `stepDecimals` | Step snapping and decimal precision helpers |
+| `wrapi`, `wrapf` | Wrap into `[min, max)`; same formulas as the engine's `Math::wrapi` and `Math::wrapf` |
+| `cartesian2polar`, `polarToCartesian` | Coordinate conversion; the latter returns `(r * cos(angle), r * sin(angle))` |
 | `nearestPo2` | Nearest upper power-of-two helper |
 | `dbToLinear`, `linearToDb` | Decibel/linear conversion |
 | `isEqualApprox`, `isZeroApprox` | Binding approximate comparisons |

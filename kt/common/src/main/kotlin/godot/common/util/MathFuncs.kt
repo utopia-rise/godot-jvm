@@ -4,6 +4,7 @@ package godot.common.util
 
 import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.pow
 import kotlin.math.sign
 
 
@@ -64,6 +65,28 @@ fun RealT.fposmod(b: RealT): RealT {
     return value
 }
 
+fun Long.posmod(b: Long): Long {
+    val value = this % b
+    if ((value < 0 && b > 0) || (value > 0 && b < 0)) {
+        return value + b
+    }
+    return value
+}
+
+fun wrapi(value: Long, min: Long, max: Long): Long {
+    val range = max - min
+    return if (range == 0L) min else min + ((value - min) % range + range) % range
+}
+
+fun wrapf(value: RealT, min: RealT, max: RealT): RealT {
+    val range = max - min
+    if (range.isZeroApprox()) {
+        return min
+    }
+    val result = value - range * floor((value - min) / range)
+    return if (result.isEqualApprox(max)) min else result
+}
+
 fun snapped(value: NaturalT, step: NaturalT) = if (step != 0) {
     (floor(value.toRealT() / step.toRealT() + 0.5) * step).toNaturalT()
 } else {
@@ -111,10 +134,38 @@ fun cubicInterpolate(
 inline fun lerp(from: Float, to: Float, weight: Float) = from + (to - from) * weight
 inline fun lerp(from: Double, to: Double, weight: Double) = from + (to - from) * weight
 
-fun lerpAngle(from: RealT, to: RealT, weight: RealT): RealT {
-    var difference = (to - from).rem(TAU)
-    difference = (2 * difference).rem(TAU) - difference
-    return from + difference * weight;
+fun angleDifference(from: RealT, to: RealT): RealT {
+    val difference = (to - from).rem(TAU)
+    return (2 * difference).rem(TAU) - difference
+}
+
+fun lerpAngle(from: RealT, to: RealT, weight: RealT) = from + angleDifference(from, to) * weight
+
+fun rotateToward(from: RealT, to: RealT, delta: RealT): RealT {
+    val difference = angleDifference(from, to)
+    val absDifference = abs(difference)
+    return from + delta.coerceIn(absDifference - PI, absDifference) * if (difference >= 0.0) 1.0 else -1.0
+}
+
+fun ease(value: RealT, curve: RealT): RealT {
+    val x = value.coerceIn(0.0, 1.0)
+    return when {
+        curve > 0.0 -> if (curve < 1.0) 1.0 - (1.0 - x).pow(1.0 / curve) else x.pow(curve)
+        curve < 0.0 -> if (x < 0.5) (x * 2.0).pow(-curve) * 0.5 else (1.0 - (1.0 - (x - 0.5) * 2.0).pow(-curve)) * 0.5 + 0.5
+        else -> 0.0
+    }
+}
+
+fun smoothstep(from: RealT, to: RealT, weight: RealT): RealT {
+    if (from.isEqualApprox(to)) {
+        return if (from <= to) {
+            if (weight <= from) 0.0 else 1.0
+        } else {
+            if (weight <= to) 1.0 else 0.0
+        }
+    }
+    val x = ((weight - from) / (to - from)).coerceIn(0.0, 1.0)
+    return x * x * (3.0 - 2.0 * x)
 }
 
 fun cubicInterpolateInTime(

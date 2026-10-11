@@ -24,6 +24,8 @@ dependencies {
     implementation(project(":godot-internal-library"))
     api(project(":godot-core-library"))
     api(project(":godot-api-library"))
+
+    testImplementation("junit", "junit", "4.12")
 }
 
 tasks {
