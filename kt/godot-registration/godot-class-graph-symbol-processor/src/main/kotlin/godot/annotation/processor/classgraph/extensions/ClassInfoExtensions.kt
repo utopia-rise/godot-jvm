@@ -55,20 +55,11 @@ fun ClassInfo.sourceProjectName(settings: ProcessorSettings): String {
         ?: settings.projectName
 }
 
-fun MethodInfo.overridesGodotBaseMethod(owner: ClassInfo): Boolean =
-    owner.superclasses
-        .filter { superclass -> superclass.hasAnnotation(GodotBaseType::class.java.name) }
-        .any { superclass ->
-            superclass.methodInfo.any { superMethod -> superMethod.methodSignature == methodSignature }
-        }
+val ClassInfo.isGodotBaseType: Boolean
+    get() = hasAnnotation(GodotBaseType::class.java.name)
 
-fun ClassInfo.superMethodSignatures(): Set<String> {
-    val signatures = mutableSetOf<String>()
-    for (superclass in superclasses) {
-        signatures += superclass.hierarchyMethodSignatures()
-    }
-    return signatures
-}
+fun MethodInfo.overridesGodotBaseMethod(owner: ClassInfo, context: ProcessorContext): Boolean =
+    owner.superclasses.firstOrNull(ClassInfo::isGodotBaseType)?.let { base -> methodSignature in context.godotBaseMethodSignatures(base) } == true
 
 fun String.isMappableType(context: ProcessorContext): Boolean =
     isMappable(context, storableGodotClassesOnly = false)
@@ -98,17 +89,6 @@ private fun String.isMappable(context: ProcessorContext, storableGodotClassesOnl
         godotClassIsSelectable ||
         storableGodotClassesOnly && classInfo.isProcessorCoreType ||
         classInfo.isProcessorBitField
-}
-
-fun ClassInfo.hierarchyMethodSignatures(): Set<String> {
-    val signatures = mutableSetOf<String>()
-    for (method in methodInfo) {
-        signatures += method.methodSignature
-    }
-    for (superclass in superclasses) {
-        signatures += superclass.hierarchyMethodSignatures()
-    }
-    return signatures
 }
 
 internal val ClassInfo.isProcessorCoreType: Boolean

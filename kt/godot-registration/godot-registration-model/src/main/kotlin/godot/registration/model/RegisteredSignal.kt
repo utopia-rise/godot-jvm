@@ -7,5 +7,4 @@ data class RegisteredSignal(
     val type: Type,
     val parameterTypes: List<Type>,
     val parameterNames: List<String>,
-    val isOverridee: Boolean = false,
 )

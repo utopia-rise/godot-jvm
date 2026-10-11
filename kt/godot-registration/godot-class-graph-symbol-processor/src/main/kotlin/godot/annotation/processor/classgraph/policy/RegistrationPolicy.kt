@@ -71,7 +71,7 @@ class RegistrationPolicy(private val context: ProcessorContext) {
             method.methodInfo.isMappable(context) &&
             when (mode) {
                 AnnotationProcessingMode.Explicit -> false
-                AnnotationProcessingMode.Inferred -> method.methodInfo.overridesGodotBaseMethod(owner)
+                AnnotationProcessingMode.Inferred -> method.methodInfo.overridesGodotBaseMethod(owner, context)
                 AnnotationProcessingMode.Automatic -> true
             }
 

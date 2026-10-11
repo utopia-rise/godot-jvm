@@ -318,6 +318,11 @@ object ObjectScriptFixtureExplicit : Node()
 
 @Script
 class ShapeProblemFixtureExplicit : Node() {
+    // Expected warning: a property with a private setter is ignored by registration.
+    @Visible
+    var privateSetterProperty = 1
+        private set
+
     // Expected warning: a private function is ignored by registration.
     @Register
     private fun privateRegisteredFunction() {

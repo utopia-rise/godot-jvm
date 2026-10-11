@@ -19,6 +19,10 @@ class ScalaNotRegisteredButToolFixtureInferred extends Node
 
 // Expected red on the class: it is not `@Script`, but it contains
 // registered properties, signals, and functions.
+// Expected warning: an object cannot be registered.
+@Script
+object ScalaObjectScriptFixtureInferred extends Node
+
 class ScalaNotRegisteredButMembersFixtureInferred extends Node {
   // Expected red via the containing class: registered property inside a
   // non-registered class.

@@ -24,7 +24,6 @@ data class RegisteredProperty(
     val setterName: String? = setterFqName?.substringAfterLast("."),
     val isMutable: Boolean = true,
     val isLateinit: Boolean = false,
-    val isOverridee: Boolean = false,
     val exposure: PropertyExposure = PropertyExposure.VISIBLE,
     val hints: List<PropertyHint> = emptyList(),
     val groups: List<PropertyGroup> = emptyList(),
