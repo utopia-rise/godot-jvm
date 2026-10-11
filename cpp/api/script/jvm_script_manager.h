@@ -20,6 +20,7 @@ namespace godot {
 
 #ifdef TOOLS_ENABLED
         HashMap<StringName, int> fqdn_to_class_index;
+        HashMap<StringName, String> fqdn_to_source_path;
         uint64_t last_jar_modified_time = 0;
         void update_script(JvmScript* p_script, KtClass* p_kotlin_class);
         void replace_virtual_script(JvmScript* p_physical_script, JvmScript* p_virtual_script);

@@ -158,8 +158,16 @@ void JvmScriptManager::update_all_scripts() {
         if (script->_is_valid()) { script->update_script_exports(); }
         script->update_source_sync_warning();
 
-        const String path = script->get_path();
-        if (filesystem && !path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
+        String path = script->get_path();
+        if (path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
+            const HashMap<StringName, String>::ConstIterator source_path = fqdn_to_source_path.find(entry.key);
+            path = source_path ? source_path->value : String();
+            if (!path.is_empty() && !FileAccess::file_exists(path)) {
+                fqdn_to_source_path.erase(entry.key);
+                path = String();
+            }
+        }
+        if (filesystem && !path.is_empty()) {
             JVM_DEV_VERBOSE("Refreshing global class cache for JVM script %s.", path);
             filesystem->update_file(path);
         }
@@ -207,7 +215,10 @@ Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p
         script = create_script_for_extension(p_path.get_extension());
     }
     script->last_physical_fqdn = p_fqdn;
-    if (!p_fqdn.is_empty()) { set_script_for_fqdn(p_fqdn, script.ptr()); }
+    if (!p_fqdn.is_empty()) {
+        set_script_for_fqdn(p_fqdn, script.ptr());
+        fqdn_to_source_path[p_fqdn] = p_path;
+    }
 #endif
     return script;
 }
@@ -270,6 +281,7 @@ void JvmScriptManager::update_physical_script(JvmScript* p_script, const StringN
         ));
         return;
     }
+    fqdn_to_source_path[p_fqdn] = p_script->get_path();
     if (existing.is_valid()
         && existing.ptr() != p_script
         && existing->kotlin_class

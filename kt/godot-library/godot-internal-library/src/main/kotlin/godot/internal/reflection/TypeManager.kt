@@ -41,10 +41,6 @@ object TypeManager {
         userTypes.clear()
     }
 
-    fun clearScriptClassCache() {
-        scriptClassCache.clear()
-    }
-
     fun assignScriptToClass(index: Int, scriptPtr: VoidPtr) {
         classToScriptPtr[scriptClassCache[index]] = scriptPtr
     }

@@ -69,8 +69,6 @@ internal class Bootstrap {
         // START: order matters!
         loadClasses(classes.toTypedArray())
 
-        TypeManager.clearScriptClassCache()
-
         warmEngineTypes()
         forceJvmInitializationOfSingletons()
         // END: order matters!
