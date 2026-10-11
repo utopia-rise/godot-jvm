@@ -1,11 +1,14 @@
 package godot.annotation.processor.classgraph
 
+import godot.annotation.processor.classgraph.extensions.isGodotBaseType
+import godot.annotation.processor.classgraph.extensions.methodSignature
 import godot.annotation.processor.classgraph.shape.LogicalClassShape
 import godot.registration.model.types.GodotBaseClass
 import godot.registration.model.types.ScriptFamily
 import godot.registration.model.types.Type
 import io.github.classgraph.AnnotationInfo
 import io.github.classgraph.ClassInfo
+import io.github.classgraph.MethodInfo
 import io.github.classgraph.ScanResult
 import io.github.classgraph.TypeArgument
 
@@ -16,7 +19,7 @@ class ProcessorContext(
     private val mappedFamilyByFqName = mutableMapOf<String, ScriptFamily>()
     private val mappedBaseClassByFqName = mutableMapOf<String, GodotBaseClass>()
     private val mappedTypeByKey = mutableMapOf<TypeCacheKey, Type>()
-    private val hierarchyMethodSignaturesByClass = mutableMapOf<String, Set<String>>()
+    private val godotBaseMethodSignaturesByClass = mutableMapOf<String, Set<String>>()
     private val annotationChainByAnnotationName = mutableMapOf<String, List<AnnotationInfo>>()
     private val classShapeByName = mutableMapOf<String, LogicalClassShape>()
 
@@ -46,8 +49,13 @@ class ProcessorContext(
             type,
         )
 
-    fun getOrPutHierarchyMethodSignatures(classInfo: ClassInfo, signatures: () -> Set<String>): Set<String> =
-        hierarchyMethodSignaturesByClass.getOrPut(classInfo.name, signatures)
+    // Every method a Godot base class declares or inherits from the other Godot base classes, computed once per base class.
+    fun godotBaseMethodSignatures(baseClass: ClassInfo): Set<String> =
+        godotBaseMethodSignaturesByClass.getOrPut(baseClass.name) {
+            val signatures = baseClass.methodInfo.mapTo(mutableSetOf(), MethodInfo::methodSignature)
+            baseClass.superclass?.takeIf(ClassInfo::isGodotBaseType)?.let { parent -> signatures += godotBaseMethodSignatures(parent) }
+            signatures
+        }
 
     fun getOrPutAnnotationChain(annotationInfo: AnnotationInfo, annotations: () -> List<AnnotationInfo>): List<AnnotationInfo> =
         annotationChainByAnnotationName.getOrPut(annotationInfo.name, annotations)

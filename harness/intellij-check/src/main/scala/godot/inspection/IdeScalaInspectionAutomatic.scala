@@ -18,6 +18,10 @@ class ScalaUnsupportedType
 class ScalaNotRegisteredButToolFixtureAutomatic extends Node
 
 // Expected no issue: the class is registered automatically, and its members with it.
+// Expected warning: an object cannot be registered.
+@Script
+object ScalaObjectScriptFixtureAutomatic extends Node
+
 class ScalaNotRegisteredButMembersFixtureAutomatic extends Node {
   // Expected no issue: registered with its automatically registered class.
   @Export

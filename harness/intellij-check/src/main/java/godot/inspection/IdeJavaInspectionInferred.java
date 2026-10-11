@@ -32,6 +32,10 @@ public class IdeJavaInspectionInferred extends Node {
     // Expected red on the class: it is not `@Script`, but it contains
     // registered properties, signals, and functions.
     public static class JvmNotRegisteredButMembersFixtureInferred extends Node {
+        // Expected warning: a private field is ignored by registration, so it does not make the class registered.
+        @Export
+        private int privateProperty = 1;
+
         // Expected red via the containing class: registered property inside a
         // non-registered class.
         @Export
@@ -160,6 +164,14 @@ public class IdeJavaInspectionInferred extends Node {
     // Expected warning: a static field is ignored by registration.
     @Export
     public static int staticRegisteredProperty = 1;
+
+    // Expected warning: the field is public, but its setter is not, and registration reads them as one property.
+    @Export
+    public int privateSetterProperty = 1;
+
+    private void setPrivateSetterProperty(int value) {
+        privateSetterProperty = value;
+    }
 
     // Expected warning: a private method is ignored by registration.
     @Register

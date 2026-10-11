@@ -17,13 +17,11 @@ import godot.annotation.processor.classgraph.extensions.isGodotCompatibleClass
 import godot.annotation.processor.classgraph.extensions.isProcessorBitField
 import godot.annotation.processor.classgraph.extensions.isProcessorList
 import godot.annotation.processor.classgraph.extensions.isProcessorCoreType
-import godot.annotation.processor.classgraph.extensions.methodSignature
 import godot.annotation.processor.classgraph.extensions.rawDescriptor
 import godot.annotation.processor.classgraph.extensions.registrationFqName
 import godot.annotation.processor.classgraph.extensions.returnRawDescriptor
 import godot.annotation.processor.classgraph.extensions.returnTypeArguments
 import godot.annotation.processor.classgraph.extensions.sourceProjectName
-import godot.annotation.processor.classgraph.extensions.superMethodSignatures
 import godot.annotation.processor.classgraph.extensions.typeArguments
 import godot.annotation.processor.classgraph.policy.RegistrationPolicy
 import godot.annotation.processor.classgraph.shape.JvmLanguage
@@ -344,8 +342,6 @@ class RegistrationMapper(
                             ?.takeIf { bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS },
                         isMutable = property.setter != null || (property.getter == null && property.fieldInfo?.isFinal == false),
                         isLateinit = property.isLateinit,
-                        isOverridee = listOfNotNull(property.getter, property.setter)
-                            .any { methodInfo -> methodInfo.methodSignature in superMethodSignaturesOf(owner) },
                         exposure = policy.propertyExposure(property),
                         hints = collectPropertyHints(
                             rawDescriptor = property.rawDescriptor(),
@@ -370,7 +366,6 @@ class RegistrationMapper(
                     type = type,
                     parameterTypes = type.genericArguments,
                     parameterNames = signalParameterNames(signal),
-                    isOverridee = signal.getter?.methodSignature in superMethodSignaturesOf(owner),
                 )
             }
 
@@ -430,11 +425,6 @@ class RegistrationMapper(
 
             private fun LogicalSignal.typeArguments(): List<TypeArgument> =
                 getter?.returnTypeArguments() ?: requireNotNull(fieldInfo).typeArguments()
-
-            private fun superMethodSignaturesOf(classInfo: ClassInfo): Set<String> =
-                context.getOrPutHierarchyMethodSignatures(classInfo) {
-                    classInfo.superMethodSignatures()
-                }
         }
     }
 }

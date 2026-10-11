@@ -27,6 +27,7 @@ import godot.intellij.plugin.project.overridesGodotBaseMethod
 import org.jetbrains.kotlin.asJava.toLightClass
 import org.jetbrains.kotlin.asJava.toLightElements
 import org.jetbrains.kotlin.asJava.toLightMethods
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
@@ -55,14 +56,24 @@ class RegistrationPolicy private constructor(private val mode: RegistrationMode)
     // A Scala `private` class still compiles to a public JVM class, which is what the processor reads.
     fun isCandidate(klass: PsiClass): Boolean = klass.language.id == "Scala" || klass.hasModifierProperty(PsiModifier.PUBLIC)
 
+    // A private setter has no light method, so the Kotlin accessor is checked directly.
     fun isCandidate(property: KtProperty): Boolean {
+        if (property.setter?.let { setter -> setter.hasModifier(KtTokens.PRIVATE_KEYWORD) || setter.hasModifier(KtTokens.PROTECTED_KEYWORD) } == true) return false
         val accessors = property.toLightMethods()
         return if (accessors.isNotEmpty()) accessors.all(::isCandidate)
         else property.toLightElements().any { it is PsiField && isCandidate(it) }
     }
 
-    // Scala members never report PUBLIC, so the check lists what excludes a member instead.
-    fun isCandidate(member: PsiMember): Boolean = excludingModifiers.none(member::hasModifierProperty)
+    // Scala members never report PUBLIC, so the check lists what excludes a member instead. A field and its bean
+    // accessors are one property to the build, so every accessor must qualify too.
+    fun isCandidate(member: PsiMember): Boolean =
+        excludingModifiers.none(member::hasModifierProperty) && (member !is PsiField || member.beanAccessors().all(::isCandidate))
+
+    private fun PsiField.beanAccessors(): List<PsiMethod> {
+        val owner = containingClass ?: return emptyList()
+        val suffix = name.replaceFirstChar(Char::uppercaseChar)
+        return listOf("get$suffix", "is$suffix", "set$suffix").flatMap { accessor -> owner.findMethodsByName(accessor, false).toList() }
+    }
 
     fun registersClass(klass: KtClass): Boolean =
         hasAnnotation(klass, Script::class) || mode == RegistrationMode.Automatic && isCandidate(klass) && klass.isGodotScriptCandidate()

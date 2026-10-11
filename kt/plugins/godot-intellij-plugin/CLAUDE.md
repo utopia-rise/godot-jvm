@@ -100,6 +100,10 @@ the Scala annotator only adapts Scala property PSI to those rules.
 `RegistrationHighlightingTest` covers the same Kotlin/Java/Scala by
 Explicit/Inferred/Automatic 3x3 matrix as regular registration inspections.
 
+`EditingInspectionTest` and `RegisteredClassIndexTest` type into a file and
+highlight again, so the checks and the class-name index are also exercised the
+way they run while someone writes code, in every mode.
+
 ## Registration Modes
 
 Every regular registration inspection must be tested in all three modes.
@@ -199,8 +203,9 @@ The regular fixtures cover:
 - Godot lifecycle overrides missing explicit registration
 - registered functions exceeding the 16-parameter limit
 - registered functions with parameter or return types Godot cannot represent
-- registration annotations on private or static members, and on same-name
-  overloads (plus objects and extension functions in Kotlin)
+- registration annotations on private or static members, on properties with a
+  private accessor, and on same-name overloads (plus objects and extension
+  functions in Kotlin, objects in Scala)
 
 ### Additional Kotlin checks
 
