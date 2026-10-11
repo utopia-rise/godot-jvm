@@ -21,12 +21,20 @@ import godot.common.interop.nullptr
 import godot.common.util.DB2NEPER
 import godot.common.util.NEPER2DB
 import godot.common.util.TAU
+import godot.common.util.angleDifference as angleDifferenceImpl
 import godot.common.util.bezierDerivative as bezierDerivativeImpl
+import godot.common.util.ease as easeImpl
 import godot.common.util.fposmod
 import godot.common.util.isEqualApprox
 import godot.common.util.isZeroApprox
+import godot.common.util.lerpAngle as lerpAngleImpl
+import godot.common.util.posmod
+import godot.common.util.rotateToward as rotateTowardImpl
+import godot.common.util.smoothstep as smoothstepImpl
 import godot.common.util.snapped as snap
 import godot.common.util.toRealT
+import godot.common.util.wrapf as wrapfImpl
+import godot.common.util.wrapi as wrapiImpl
 import godot.core.Color
 import godot.core.Dictionary
 import godot.core.VariantArray
@@ -122,7 +130,7 @@ object GD {
     /** Returns a color constructed from integer red, green, blue, and alpha channels.
      * Each channel should have 8 bits of information ranging from 0 to 255. */
     @JvmStatic
-    fun Color8(r8: Int, g8: Int, b8: Int, a8: Int = 255) = Color(r8 / 256f, g8 / 256f, b8 / 256f, a8 / 256f)
+    fun Color8(r8: Int, g8: Int, b8: Int, a8: Int = 255) = Color(r8 / 255f, g8 / 255f, b8 / 255f, a8 / 255f)
 
     /** Returns a color according to the standardized name with alpha ranging from 0 to 1.*/
     @JvmStatic
@@ -536,36 +544,7 @@ object GD {
      * Value must be between 0 and 1.
      */
     @JvmStatic
-    fun ease(value: Double, curve: Double): Double {
-        val s = when {
-            value < 0 -> 0.0
-            value > 1.0 -> 1.0
-            else -> value
-        }
-
-        return when {
-            curve > 0.0 -> {
-                if (curve < 1.0) {
-                    val a = 1.0 - s
-                    1.0 - a.pow(1.0 / curve)
-                } else {
-                    s.pow(curve)
-                }
-            }
-
-            curve < 0.0 -> {
-                if (value < 0.5) {
-                    val a = s * 2.0
-                    a.pow(-curve) * 0.5
-                } else {
-                    val a = 1.0 - (s - 0.5) * 2.0
-                    (1.0 - a.pow(-curve)) * 0.5 + 0.5
-                }
-            }
-
-            else -> 0.0
-        }
-    }
+    fun ease(value: Double, curve: Double) = easeImpl(value, curve)
 
 
     /** The natural exponential function. It raises the mathematical constant e to the power of s and returns it. */
@@ -720,10 +699,7 @@ object GD {
     /** Returns the difference between the two angles (in radians), in the range of `[-PI, +PI]`.
      * When [from] and [to] are opposite, returns `-PI` if [from] is smaller than [to], or `PI` otherwise. */
     @JvmStatic
-    fun angleDifference(from: Double, to: Double): Double {
-        val difference = fmod(to - from, TAU)
-        return fmod(2.0 * difference, TAU) - difference
-    }
+    fun angleDifference(from: Double, to: Double) = angleDifferenceImpl(from, to)
 
 
     /** Linearly interpolates between two angles (in radians) by a normalized value.
@@ -735,11 +711,7 @@ object GD {
     /** Linearly interpolates between two angles (in radians) by a normalized value.
      * Similar to lerp, but interpolates correctly when the angles wrap around TAU. */
     @JvmStatic
-    fun lerpAngle(from: Double, to: Double, weight: Double): Double {
-        val difference = fmod(to - from, TAU)
-        val distance = fmod(2.0f * difference, TAU) - difference
-        return from + distance * weight
-    }
+    fun lerpAngle(from: Double, to: Double, weight: Double) = lerpAngleImpl(from, to, weight)
 
 
     /** Converts from linear energy to decibels (audio).
@@ -836,11 +808,7 @@ object GD {
      * Similar to [moveToward], but interpolates correctly when the angles wrap around TAU.
      * If [delta] is negative, this function will rotate away from [to], toward the opposite angle, and will not go past the opposite angle. */
     @JvmStatic
-    fun rotateToward(from: Double, to: Double, delta: Double): Double {
-        val difference = angleDifference(from, to)
-        val absDifference = abs(difference)
-        return from + delta.coerceIn(absDifference - kotlin.math.PI, absDifference) * if (difference >= 0.0) 1.0 else -1.0
-    }
+    fun rotateToward(from: Double, to: Double, delta: Double) = rotateTowardImpl(from, to, delta)
 
 
     /** Returns the nearest larger power of 2 for integer value. */
@@ -850,8 +818,11 @@ object GD {
     /** Returns the nearest larger power of 2 for long value. */
     @JvmStatic
     fun nearestPo2(value: Long): Long {
-        val powerOf = kotlin.math.ceil(kotlin.math.ln(value.toDouble()) / kotlin.math.ln(2.0))
-        return 2.0.pow(powerOf).toLong()
+        var smeared = value - 1
+        for (shift in 0..5) {
+            smeared = smeared or (smeared ushr (1 shl shift))
+        }
+        return smeared + 1
     }
 
     /** Returns the nearest larger power of 2 for float value. */
@@ -861,8 +832,11 @@ object GD {
     /** Returns the nearest larger power of 2 for double value. */
     @JvmStatic
     fun nearestPo2(value: Double): Double {
-        val powerOf = kotlin.math.ceil(kotlin.math.ln(value) / kotlin.math.ln(2.0))
-        return 2.0.pow(powerOf)
+        if (!(value > 0.0)) {
+            return 0.0
+        }
+        val powerOfTwo = Math.scalb(1.0, Math.getExponent(value))
+        return if (value > powerOfTwo) powerOfTwo * 2 else powerOfTwo
     }
 
     /** Converts a 2D point expressed in the polar coordinate system (a distance from the origin r and an angle th) to the cartesian coordinate system (X and Y axis). */
@@ -871,28 +845,16 @@ object GD {
 
     /** Converts a 2D point expressed in the polar coordinate system (a distance from the origin r and an angle th) to the cartesian coordinate system (X and Y axis). */
     @JvmStatic
-    fun polarToCartesian(r: Double, th: Double) = Vector2(r * kotlin.math.sin(th), r * kotlin.math.cos(th))
+    fun polarToCartesian(r: Double, th: Double) = Vector2(r * kotlin.math.cos(th), r * kotlin.math.sin(th))
 
 
     /** Returns the floating-point modulus of a/b that wraps equally in positive and negative. */
     @JvmStatic
-    fun posmod(a: Int, b: Int): Int {
-        val value = a.rem(b)
-        if ((value < 0 && b > 0) || (value > 0 && b < 0)) {
-            return value + b;
-        }
-        return value
-    }
+    fun posmod(a: Int, b: Int) = a.toLong().posmod(b.toLong()).toInt()
 
     /** Returns the floating-point modulus of a/b that wraps equally in positive and negative. */
     @JvmStatic
-    fun posmod(a: Long, b: Long): Long {
-        val value = a.rem(b)
-        if ((value < 0 && b > 0) || (value > 0 && b < 0)) {
-            return value + b;
-        }
-        return value
-    }
+    fun posmod(a: Long, b: Long) = a.posmod(b)
 
 
     /** Returns the result of x raised to the power of y. */
@@ -933,11 +895,14 @@ object GD {
 
     /** Returns the integral value that is nearest to s, with halfway cases rounded away from zero. */
     @JvmStatic
-    fun round(s: Float) = kotlin.math.round(s)
+    fun round(s: Float) = round(s.toDouble()).toFloat()
 
     /** Returns the integral value that is nearest to s, with halfway cases rounded away from zero. */
     @JvmStatic
-    fun round(s: Double) = kotlin.math.round(s)
+    fun round(s: Double): Double {
+        val integral = kotlin.math.truncate(s)
+        return if (kotlin.math.abs(s - integral) >= 0.5) integral + kotlin.math.sign(s) else integral
+    }
 
 
     /** Returns the sign of s: -1 or 1. Returns 0 if s is 0. */
@@ -973,11 +938,7 @@ object GD {
 
     /** Returns the multiple of [step] that is closest to [x]. */
     @JvmStatic
-    fun snapped(x: Long, step: Long) = if (step != 0L) {
-        (kotlin.math.floor(x.toDouble() / step.toDouble() + 0.5) * step).toLong()
-    } else {
-        x
-    }
+    fun snapped(x: Long, step: Long) = snap(x.toDouble(), step.toDouble()).toLong()
 
     /** Returns the multiple of [step] that is closest to [x]. */
     @JvmStatic
@@ -1001,11 +962,7 @@ object GD {
 
     /** Returns the multiple of [step] that is closest to [x]. */
     @JvmStatic
-    fun snappedi(x: Double, step: Long) = if (step != 0L) {
-        (kotlin.math.floor(x / step.toDouble() + 0.5) * step).toLong()
-    } else {
-        x.toLong()
-    }
+    fun snappedi(x: Double, step: Long) = snap(x, step.toDouble()).toLong()
 
 
     /** Returns a number smoothly interpolated between the from and to, based on the weight.
@@ -1019,13 +976,7 @@ object GD {
      * Similar to lerp, but interpolates faster at the beginning and slower at the end.
      */
     @JvmStatic
-    fun smoothstep(from: Double, to: Double, weight: Double): Double {
-        if (from.isEqualApprox(to)) {
-            return from
-        }
-        val x: Double = clamp((weight - from) / (to - from), 0.0, 1.0)
-        return x * x * (3.0 - 2.0 * x)
-    }
+    fun smoothstep(from: Double, to: Double, weight: Double) = smoothstepImpl(from, to, weight)
 
 
     /** Returns the square root of s. */
@@ -1057,27 +1008,6 @@ object GD {
     }
 
 
-    /** Snaps float value s to a given step.
-     * This can also be used to round a floating point number to an arbitrary number of decimals. */
-    @JvmStatic
-    fun stepify(s: Int, step: Int) = (s / step) * step
-
-    /** Snaps float value s to a given step.
-     * This can also be used to round a floating point number to an arbitrary number of decimals. */
-    @JvmStatic
-    fun stepify(s: Long, step: Long) = (s / step) * step
-
-    /** Snaps float value s to a given step.
-     * This can also be used to round a floating point number to an arbitrary number of decimals. */
-    @JvmStatic
-    fun stepify(s: Float, step: Float) = kotlin.math.floor(s / step) * step
-
-    /** Snaps float value s to a given step.
-     * This can also be used to round a floating point number to an arbitrary number of decimals. */
-    @JvmStatic
-    fun stepify(s: Double, step: Double) = kotlin.math.floor(s / step) * step
-
-
     /** Returns the tangent of angle s in radians. */
     @JvmStatic
     fun tan(s: Float) = kotlin.math.tan(s)
@@ -1095,53 +1025,30 @@ object GD {
     fun tanh(s: Double) = kotlin.math.tanh(s)
 
 
-    // The wrap functions mirror Math::wrapf and Math::wrapi in the engine's core/math/math_funcs.h
-    // line by line; harness/tests/test/core/test_wrap.gd checks them against the GDScript built-ins.
-
     /** Wraps float value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapf(value: Float, min: Float, max: Float): Float {
-        val range = max - min
-        if (isZeroApprox(range)) {
-            return min
-        }
-        val result = value - range * kotlin.math.floor((value - min) / range)
-        return if (isEqualApprox(result, max)) min else result
-    }
+    fun wrapf(value: Float, min: Float, max: Float) = wrapfImpl(value.toDouble(), min.toDouble(), max.toDouble()).toFloat()
 
     /** Wraps double value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapf(value: Double, min: Double, max: Double): Double {
-        val range = max - min
-        if (isZeroApprox(range)) {
-            return min
-        }
-        val result = value - range * kotlin.math.floor((value - min) / range)
-        return if (isEqualApprox(result, max)) min else result
-    }
+    fun wrapf(value: Double, min: Double, max: Double) = wrapfImpl(value, min, max)
 
 
     /** Wraps int value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapi(value: Int, min: Int, max: Int): Int {
-        val range = max - min
-        return if (range == 0) min else min + (((value - min) % range) + range) % range
-    }
+    fun wrapi(value: Int, min: Int, max: Int) = wrapiImpl(value.toLong(), min.toLong(), max.toLong()).toInt()
 
     /** Wraps long value between min (inclusive) and max (exclusive).
      *  Usable for creating loop-alike behavior or infinite surfaces.*/
     @JvmStatic
-    fun wrapi(value: Long, min: Long, max: Long): Long {
-        val range = max - min
-        return if (range == 0L) min else min + (((value - min) % range) + range) % range
-    }
+    fun wrapi(value: Long, min: Long, max: Long) = wrapiImpl(value, min, max)
 
     //endregion
     //region Print
-    private val rng = RandomNumberGenerator().asStatic()
+    private val rng by lazy { RandomNumberGenerator().asStatic() }
 
     /** Converts one or more arguments to strings in the best way possible and prints them to the console.**/
     @JvmStatic
