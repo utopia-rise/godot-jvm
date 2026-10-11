@@ -1,0 +1,73 @@
+name: 🐒 Editor monkey tests
+on:
+  workflow_call:
+    inputs:
+      godot-version:
+        type: string
+      jvm-version:
+        type: string
+
+concurrency:
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-editor_monkey_tests
+  cancel-in-progress: true
+
+jobs:
+  test-editor-monkey:
+    name: Editor monkey tests
+    runs-on: ubuntu-22.04 # Run on the oldest Ubuntu we support. See build_linux.yml.
+    env:
+      # See VersionInfoPlugin: drop the commit hash from the build version so cached Kotlin outputs stay valid.
+      ORG_GRADLE_PROJECT_reproducibleVersion: 'true'
+    steps:
+      - name: Clone Godot JVM module
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: linux
+          destination: harness/tests/bin
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.jvm-version }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-disabled: true
+
+      - name: Restore Gradle build cache
+        uses: ./.github/actions/gradle-build-cache
+        with:
+          mode: restore
+          flavor: debug
+      - name: Restore Gradle dependencies
+        uses: ./.github/actions/gradle-deps-cache
+        with:
+          mode: restore
+
+      - name: Download Linux editor library
+        uses: actions/download-artifact@v7
+        with:
+          name: editor_linux_x86_64
+          path: harness/tests/addons
+
+      # The probes drive the editor's own controls, so the editor needs a display: a virtual one, drawn in software.
+      - name: Install a virtual display
+        run: sudo apt-get update && sudo apt-get install -y xvfb mesa-utils libgl1-mesa-dri
+
+      - name: Run the editor probes
+        run: |
+          export LIBGL_ALWAYS_SOFTWARE=1
+          xvfb-run -a -s "-screen 0 1600x1000x24" harness/editor-monkey/run.sh --editor harness/tests/bin/godot.linuxbsd.editor.x86_64
+        timeout-minutes: 40
+
+      - name: Upload probe logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: editor-monkey-logs
+          path: harness/editor-monkey/*.log
+          if-no-files-found: ignore

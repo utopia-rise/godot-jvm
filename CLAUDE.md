@@ -106,6 +106,8 @@ cd harness/tests/
 
 Harness tasks never depend on one another, so run each step as its own invocation, in this order. Combined in one call, Gradle may start the import or the tests before the build has copied the new jars into the project.
 
+`harness/editor-monkey/run.sh --editor <path>` (or `run.bat`; without `--editor`, `GODOT_EDITOR` must be absolute) runs the editor probes: GDScript files under `harness/editor-monkey/probes` that drive the real editor (`-e -s`) through its own controls, edit sources, run the toolbar Gradle tasks and assert on what the editor shows. Use it to monkey-test editor features and jar reloading; add a probe rather than driving the editor by hand. CI runs them on Linux alongside the other platform tests, and `assemble-addon` waits for them.
+
 The `harness/tests/` directory is a full Godot-JVM project driven by the official Godot editor, not a custom binary. Place the editor in `harness/tests/bin` or point `GODOT_EDITOR` at its executable. The Gradle build produces `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar` inside the project itself, and the SCons build drops the native library into `harness/tests/addons/jvm/libs/`, so nothing needs to be copied anywhere before running.
 
 ### Testing Changes from a Feature Branch

@@ -1,0 +1,20 @@
+# Everything the editor and the Gradle build generate: the run scripts delete it so each probe starts from a bare
+# Godot project with only the addon, and the probe itself generates the JVM project.
+/.godot/
+/.gradle/
+/.kotlin/
+/build/
+/jvm/
+/gdj/
+/src/
+/addons/
+/gradle/
+/gradlew
+/gradlew.bat
+/build.gradle.kts
+/settings.gradle.kts
+/gradle.properties
+/.gitattributes
+/godot_jvm_configuration.json
+/main.tscn
+/*.log
