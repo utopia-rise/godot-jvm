@@ -5,6 +5,7 @@
 
 using namespace godot;
 
+// clang-format off
 constexpr const char* SCALA_TEMPLATE = PACKAGE_TEMPLATE
     "\n"
     "\n"
@@ -28,6 +29,16 @@ constexpr const char* SCALA_TEMPLATE = PACKAGE_TEMPLATE
     "        \n"
     "    }\n"
     "}\n";
+
+constexpr const char* SCALA_EMPTY_TEMPLATE = PACKAGE_TEMPLATE
+    "\n"
+    "\n"
+    "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE "\n"
+    "import godot.annotation.Script\n"
+    "\n"
+    "@Script\n"
+    "class " CLASS_TEMPLATE " extends " BASE_TEMPLATE "\n";
+// clang-format on
 
 ScalaLanguage* ScalaLanguage::get_instance() {
     static ScalaLanguage* instance = memnew(ScalaLanguage);
@@ -101,25 +112,15 @@ Ref<Script> ScalaLanguage::_make_template(
 ) const {
     Ref<ScalaScript> scala_script;
     scala_script.instantiate();
-    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
+    String processed_template =
+        p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case()).replace(BASE_TEMPLATE, p_base_class_name);
     scala_script->set_source_code(processed_template);
     scala_script->set_name(p_class_name);
     return scala_script;
 }
 
 TypedArray<Dictionary> ScalaLanguage::_get_built_in_templates(const StringName& p_object) const {
-    TypedArray<Dictionary> templates;
-    if (ClassDB::is_parent_class(p_object, "Node")) {
-        Dictionary script_template;
-        script_template["inherit"] = String(p_object);
-        script_template["name"] = "Default";
-        script_template["description"] = "Base template for Node based scripts with default Godot cycle methods";
-        script_template["content"] = String(SCALA_TEMPLATE).replace(BASE_TEMPLATE, p_object);
-        script_template["id"] = 0;
-        script_template["origin"] = 0; // ScriptLanguage::TEMPLATE_BUILT_IN
-        templates.append(script_template);
-    }
-    return templates;
+    return node_and_object_templates(p_object, SCALA_TEMPLATE, SCALA_EMPTY_TEMPLATE);
 }
 
 bool ScalaLanguage::_is_using_templates() {

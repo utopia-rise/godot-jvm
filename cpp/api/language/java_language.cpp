@@ -5,6 +5,7 @@
 
 using namespace godot;
 
+// clang-format off
 constexpr const char* JAVA_TEMPLATE = PACKAGE_TEMPLATE
     "\n"
     "\n"
@@ -30,6 +31,17 @@ constexpr const char* JAVA_TEMPLATE = PACKAGE_TEMPLATE
     "        \n"
     "    }\n"
     "}\n";
+
+constexpr const char* JAVA_EMPTY_TEMPLATE = PACKAGE_TEMPLATE
+    "\n"
+    "\n"
+    "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE ";\n"
+    "import godot.annotation.Script;\n"
+    "\n"
+    "@Script\n"
+    "public class " CLASS_TEMPLATE " extends " BASE_TEMPLATE " {\n"
+    "}\n";
+// clang-format on
 
 JavaLanguage* JavaLanguage::get_instance() {
     static JavaLanguage* instance = memnew(JavaLanguage);
@@ -104,25 +116,15 @@ Ref<Script> JavaLanguage::_make_template(
 ) const {
     Ref<JavaScript> java_script;
     java_script.instantiate();
-    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
+    String processed_template =
+        p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case()).replace(BASE_TEMPLATE, p_base_class_name);
     java_script->set_source_code(processed_template);
     java_script->set_name(p_class_name);
     return java_script;
 }
 
 TypedArray<Dictionary> JavaLanguage::_get_built_in_templates(const StringName& p_object) const {
-    TypedArray<Dictionary> templates;
-    if (ClassDB::is_parent_class(p_object, "Node")) {
-        Dictionary script_template;
-        script_template["inherit"] = String(p_object);
-        script_template["name"] = "Default";
-        script_template["description"] = "Base template for Node based scripts with default Godot cycle methods";
-        script_template["content"] = String(JAVA_TEMPLATE).replace(BASE_TEMPLATE, p_object);
-        script_template["id"] = 0;
-        script_template["origin"] = 0; // ScriptLanguage::TEMPLATE_BUILT_IN
-        templates.append(script_template);
-    }
-    return templates;
+    return node_and_object_templates(p_object, JAVA_TEMPLATE, JAVA_EMPTY_TEMPLATE);
 }
 
 bool JavaLanguage::_is_using_templates() {

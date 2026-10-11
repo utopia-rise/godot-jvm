@@ -5,6 +5,7 @@
 
 using namespace godot;
 
+// clang-format off
 constexpr const char* KOTLIN_TEMPLATE = PACKAGE_TEMPLATE
     "\n"
     "\n"
@@ -28,6 +29,16 @@ constexpr const char* KOTLIN_TEMPLATE = PACKAGE_TEMPLATE
     "        \n"
     "    }\n"
     "}\n";
+
+constexpr const char* KOTLIN_EMPTY_TEMPLATE = PACKAGE_TEMPLATE
+    "\n"
+    "\n"
+    "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE "\n"
+    "import godot.annotation.Script\n"
+    "\n"
+    "@Script\n"
+    "class " CLASS_TEMPLATE ": " BASE_TEMPLATE "()\n";
+// clang-format on
 
 KotlinLanguage* KotlinLanguage::get_instance() {
     static KotlinLanguage* instance = memnew(KotlinLanguage);
@@ -180,25 +191,15 @@ Ref<Script> KotlinLanguage::_make_template(
 ) const {
     Ref<KotlinScript> kotlin_script;
     kotlin_script.instantiate();
-    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
+    String processed_template =
+        p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case()).replace(BASE_TEMPLATE, p_base_class_name);
     kotlin_script->set_source_code(processed_template);
     kotlin_script->set_name(p_class_name);
     return kotlin_script;
 }
 
 TypedArray<Dictionary> KotlinLanguage::_get_built_in_templates(const StringName& p_object) const {
-    TypedArray<Dictionary> templates;
-    if (ClassDB::is_parent_class(p_object, "Node")) {
-        Dictionary script_template;
-        script_template["inherit"] = String(p_object);
-        script_template["name"] = "Default";
-        script_template["description"] = "Base template for Node based scripts with default Godot cycle methods";
-        script_template["content"] = String(KOTLIN_TEMPLATE).replace(BASE_TEMPLATE, p_object);
-        script_template["id"] = 0;
-        script_template["origin"] = 0; // ScriptLanguage::TEMPLATE_BUILT_IN
-        templates.append(script_template);
-    }
-    return templates;
+    return node_and_object_templates(p_object, KOTLIN_TEMPLATE, KOTLIN_EMPTY_TEMPLATE);
 }
 
 bool KotlinLanguage::_is_using_templates() {
