@@ -35,10 +35,12 @@ void GodotJvmEditor::on_generate_project(bool erase_existing) {
 
 void GodotJvmEditor::on_gradle_task_pressed() {
     if (GradleTaskRunner::get_instance().is_task_started()) { return; }
-    task_dialog_make_appear(task_dialog);
     String log;
+    if (GradleTaskRunner::get_instance().run_task(tool_bar_gradle_task_choice->get_selected_id(), log, false) != OK) {
+        return;
+    }
 
-    GradleTaskRunner::get_instance().run_task(tool_bar_gradle_task_choice->get_selected_id(), log, false);
+    task_dialog_make_appear(task_dialog);
     JVM_LOG_INFO(log);
 }
 
