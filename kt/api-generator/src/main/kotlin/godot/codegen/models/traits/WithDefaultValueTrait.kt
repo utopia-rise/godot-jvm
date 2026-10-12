@@ -17,6 +17,7 @@ interface WithDefaultValueTrait : MetaGenerationTrait {
             type.isNullable() && defaultValue == "null" -> defaultValueString to arrayOf()
             identifier == TypeIdentifier.COLOR.name -> "${TypeIdentifier.COLOR.name}($defaultValueString)" to arrayOf()
             identifier == TypeIdentifier.VARIANT.name -> defaultValueString to arrayOf()
+            type.isObjectSubClass() -> null
             identifier == TypeIdentifier.BOOL.name -> defaultValueString.lowercase(Locale.US) to arrayOf()
             identifier == TypeIdentifier.FLOAT.name && meta == GodotMeta.Float.float -> "${intToFloat(defaultValueString)}f" to arrayOf()
             identifier == TypeIdentifier.FLOAT.name -> intToFloat(defaultValueString) to arrayOf()
