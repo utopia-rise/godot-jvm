@@ -18,7 +18,7 @@ class EnrichedProperty(model: Property) : MetaGenerationTrait, DocumentedGenerat
     override var description = model.description
 
     var originalType = GenerationType(model.type.sanitizeApiType())
-    val name = model.name.convertToCamelCase()
+    var name = model.name.convertToCamelCase()
     val getterName = model.getter.convertToCamelCase()
     val setterName = model.setter?.convertToCamelCase()
     val index = model.index

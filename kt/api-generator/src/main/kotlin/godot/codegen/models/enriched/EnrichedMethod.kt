@@ -23,7 +23,7 @@ class EnrichedMethod(private val model: Method, override: Boolean = false) : Cal
     override val genericParameters = emptyList<ClassName>()
     override val meta: String? = model.returnValue?.meta
 
-    val name = model.name.convertToCamelCase().let {
+    var name = model.name.convertToCamelCase().let {
         if (model.isVirtual && !it.startsWith("_")) {
             "_$it"
         } else {

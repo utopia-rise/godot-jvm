@@ -125,6 +125,33 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
         }
 
         initializeProperties(context)
+        renameRedeclaredMembers(context)
+    }
+
+    private fun renameRedeclaredMembers(context: GenerationContext) {
+        val methodNames = context.classList.associateWith { clazz -> clazz.methods.filter { !it.isStatic }.map { it.name }.toSet() }
+        val propertyNames = context.classList.associateWith { clazz -> clazz.properties.map { it.name }.toSet() }
+        for (clazz in context.classList) {
+            for (method in clazz.methods) {
+                if (method.isVirtual || method.isStatic || !clazz.isInheritedName(method.name, methodNames)) continue
+                println("Warning: ${clazz.identifier}.${method.name} redeclares an inherited method, generated as ${method.name}${clazz.identifier}.")
+                method.name += clazz.identifier
+            }
+            for (property in clazz.properties) {
+                if (!clazz.isInheritedName(property.name, propertyNames)) continue
+                println("Warning: ${clazz.identifier}.${property.name} redeclares an inherited property, generated as ${property.name}${clazz.identifier}.")
+                property.name += clazz.identifier
+            }
+        }
+    }
+
+    private fun EnrichedClass.isInheritedName(name: String, namesByClass: Map<EnrichedClass, Set<String>>): Boolean {
+        var ancestor = parent
+        while (ancestor != null) {
+            if (namesByClass[ancestor]?.contains(name) == true) return true
+            ancestor = ancestor.parent
+        }
+        return false
     }
 
 
