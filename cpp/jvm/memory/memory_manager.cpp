@@ -96,8 +96,12 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     // Read the list of dead objects and copy them to the JVM.
     dead_objects_mutex.lock();
     jint size = static_cast<jsize>(dead_objects.size());
-    jni::JLongArray arr(p_env, size);
-    arr.set_array_elements(p_env, reinterpret_cast<const jlong*>(dead_objects.ptr()), size);
+    // Null when nothing died, so an idle frame allocates no JVM array.
+    jni::JLongArray arr;
+    if (size > 0) {
+        arr = jni::JLongArray(p_env, size);
+        arr.set_array_elements(p_env, reinterpret_cast<const jlong*>(dead_objects.ptr()), size);
+    }
     dead_objects.clear();
     dead_objects_mutex.unlock();
 

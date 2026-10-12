@@ -141,7 +141,7 @@ object MemoryManager {
         nativeCoreTypeMap[rawPtr] = NativeCoreBinding(nativeCoreType, variantType)
     }
 
-    private fun syncMemory(freedObjects: LongArray): LongArray {
+    private fun syncMemory(freedObjects: LongArray?): LongArray {
         ThreadContext.sweepDeadThreads()
         removeNativeCoreTypes()
         removeDeadObjects(freedObjects)
@@ -149,11 +149,14 @@ object MemoryManager {
     }
 
     /**
-     * Remove the now dead native Object from the JVM ObjectDB.
+     * Remove the now dead native Object from the JVM ObjectDB. Null when no object died since the last sync.
      */
-    private fun removeDeadObjects(freedObjects: LongArray) = lock.withLock {
-        for (id in freedObjects) {
-            ObjectDB.remove(ObjectID(id))
+    private fun removeDeadObjects(freedObjects: LongArray?) {
+        if (freedObjects == null) return
+        lock.withLock {
+            for (id in freedObjects) {
+                ObjectDB.remove(ObjectID(id))
+            }
         }
     }
 
@@ -243,6 +246,7 @@ object MemoryManager {
             val ref = ((NativeCoreBinding.queue.poll() ?: break) as NativeCoreBinding)
             deadNativeCores.add(ref)
         }
+        if (deadNativeCores.isEmpty()) return
 
         val numberToDecrement = Configuration.getNumberOfItemsToProcess(deadNativeCores.size)
         val pointerArray = LongArray(numberToDecrement)
