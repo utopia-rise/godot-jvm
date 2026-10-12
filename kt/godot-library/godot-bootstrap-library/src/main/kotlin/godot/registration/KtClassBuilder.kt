@@ -5,7 +5,7 @@ import godot.annotation.TransferMode
 import godot.common.extensions.convertToSnakeCase
 import godot.common.interop.VariantConverter
 import godot.core.*
-import kotlin.reflect.*
+import kotlin.reflect.KClass
 
 class KtClassBuilder<T : KtObject>(
     @PublishedApi
@@ -64,26 +64,6 @@ class KtClassBuilder<T : KtObject>(
         TransferMode.UNRELIABLE_ORDERED -> 1
         TransferMode.RELIABLE -> 2
     }
-
-    fun <P : Any?> property(
-        kProperty: KProperty1<T, P>,
-        variantType: VariantConverter<*>,
-        className: String,
-        hint: PropertyHint = PropertyHint.NONE,
-        hintString: String = "",
-        usage: PropertyUsageFlags
-    ) = property(
-        kProperty.name.convertToSnakeCase(),
-        { instance: T -> kProperty.get(instance) },
-        (kProperty as? KMutableProperty1<T, P>)?.let { mutableProperty ->
-            { instance: T, p: P -> mutableProperty.set(instance, p) }
-        },
-        variantType,
-        className,
-        hint,
-        hintString,
-        usage
-    )
 
     fun <P : Any?> property(
         name: String,
@@ -151,82 +131,26 @@ class KtClassBuilder<T : KtObject>(
 
     fun notification(
         notification: Int,
-        function: KFunction1<T, Unit>,
+        function: (T) -> Unit,
     ) {
         notifications.add(KtNotification(notification, function))
     }
 
-    @Suppress("UNCHECKED_CAST")
     fun function(
-        func: KFunction<*>,
+        name: String,
+        function: (T, Array<Any?>) -> Any?,
         rpcConfig: KtRpcConfig,
         returnType: KtPropertyInfo,
         vararg arguments: KtPropertyInfo,
     ) {
         val functionInfo = KtFunctionInfo(
-            name = func.name.convertToSnakeCase(),
+            name = name,
             _arguments = arguments.toList(),
             returnVal = returnType,
             rpcConfig = rpcConfig
         )
-
-        val function = when (arguments.size) {
-            0 -> KtFunction0(functionInfo, func as KFunction1<T, Any?>)
-            1 -> KtFunction1(functionInfo, func as KFunction2<T, Any?, Any?>)
-            2 -> KtFunction2(functionInfo, func as KFunction3<T, Any?, Any?, Any?>)
-            3 -> KtFunction3(functionInfo, func as KFunction4<T, Any?, Any?, Any?, Any?>)
-            4 -> KtFunction4(functionInfo, func as KFunction5<T, Any?, Any?, Any?, Any?, Any?>)
-            5 -> KtFunction5(functionInfo, func as KFunction6<T, Any?, Any?, Any?, Any?, Any?, Any?>)
-            6 -> KtFunction6(functionInfo, func as KFunction7<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?>)
-            7 -> KtFunction7(functionInfo, func as KFunction8<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>)
-            8 -> KtFunction8(functionInfo, func as KFunction9<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>)
-            9 -> KtFunction9(
-                functionInfo,
-                func as KFunction10<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            10 -> KtFunction10(
-                functionInfo,
-                func as KFunction11<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            11 -> KtFunction11(
-                functionInfo,
-                func as KFunction12<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            12 -> KtFunction12(
-                functionInfo,
-                func as KFunction13<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            13 -> KtFunction13(
-                functionInfo,
-                func as KFunction14<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            14 -> KtFunction14(
-                functionInfo,
-                func as KFunction15<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            15 -> KtFunction15(
-                functionInfo,
-                func as KFunction16<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            16 -> KtFunction16(
-                functionInfo,
-                func as KFunction17<T, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?>
-            )
-
-            else -> error("Unsupported function arity ${arguments.size} for ${func.name}")
-        }
-
-        require(!functions.containsKey(function.functionInfo.name)) {
-            "A method with ${function.functionInfo.name} already exists."
-        }
-        functions[function.functionInfo.name] = function
+        require(!functions.containsKey(name)) { "A method with $name already exists." }
+        functions[name] = KtFunction(functionInfo, function)
     }
 
     fun process(body: ProcessBody<T>) {
