@@ -144,7 +144,7 @@ fun String.removeSuffixWords(snakeCaseString: String): String {
     return if (valueIndex < 0) "" else valueWords.subList(0, valueIndex + 1).joinToString("_")
 }
 
-fun String.escapeKotlinReservedNames() = if (kotlinReservedNames.find { s -> s == this } != null)
+fun String.escapeKotlinReservedNames() = if (kotlinReservedNames.find { s -> s == this } != null || !isValidKotlinIdentifier())
     "`$this`"
 else
     this
