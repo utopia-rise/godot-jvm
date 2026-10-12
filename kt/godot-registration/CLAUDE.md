@@ -201,13 +201,12 @@ Package: `godot.registrar.generator`
 Entry point:
 
 ```kotlin
-RegistrarGenerator.generateRegistrarFilesUsingRegisteredClasses(
+RegistrarGenerator.generateClassArtifacts(
     settings,
-    registeredClasses,
     logger,
-    jvmTypeFqNamesProvider,
+    scriptClasses,
     sourceOutputDir,
-    serviceFile,
+    registrationOutputDir,
 )
 ```
 
@@ -275,7 +274,7 @@ The Gradle task enables `RegisteredNameUniquenessCheck` only for `SIMPLE_NAME`.
 1. Build `Settings` and `ProcessorSettings`.
 2. Call `ClassGraphProcessor.process(...)`.
 3. Call `ModelCheck.check(...)`.
-4. Call `RegistrarGenerator.generateRegistrarFilesUsingRegisteredClasses(...)`.
+4. Call `RegistrarGenerator.generateClassArtifacts(...)` and write the `ClassRegistrar` service file.
 5. Optionally generate and sync `.gdj` files.
 
 When debugging, the harness is the fastest end-to-end sanity check:

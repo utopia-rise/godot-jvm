@@ -31,7 +31,6 @@ Plugin ID: `com.utopia-rise.godot-jvm`. Options below belong to the `godot { ...
 | [`registration.gdjFilesDirectory`](registration.md#registrationgdjfilesdirectory) | Registration settings |
 | [`registration.gdjFilesIndentation`](registration.md#registrationgdjfilesindentation) | Registration settings |
 | [`registration.gdjFilesLayoutMode`](registration.md#registrationgdjfileslayoutmode) | Registration settings |
-| [`registration.incrementalFullBuildThreshold`](packaging-and-tasks.md#registrationincrementalfullbuildthreshold) | Packaging options |
 | [`registration.nameMode`](registration.md#registrationnamemode) | Registration settings |
 | [`toolchain.javaVersion`](languages-and-toolchains.md#toolchainjavaversion) | Languages and toolchains |
 | [`toolchain.kotlinVersion`](languages-and-toolchains.md#toolchainkotlinversion) | Languages and toolchains |

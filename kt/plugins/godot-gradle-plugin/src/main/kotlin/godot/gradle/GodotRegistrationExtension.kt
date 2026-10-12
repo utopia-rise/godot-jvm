@@ -14,7 +14,6 @@ import javax.inject.Inject
 open class GodotRegistrationExtension @Inject constructor(objects: ObjectFactory) {
     val annotationProcessingMode: Property<AnnotationProcessingMode> = objects.property(AnnotationProcessingMode::class.java)
     val nameMode: Property<RegisteredNameMode> = objects.property(RegisteredNameMode::class.java)
-    val incrementalFullBuildThreshold: Property<Int> = objects.property(Int::class.java)
     val disableGdj: Property<Boolean> = objects.property(Boolean::class.java)
     val gdjFilesDirectory: DirectoryProperty = objects.directoryProperty()
     val gdjFilesLayoutMode: Property<RegistrationFileLayoutMode> = objects.property(RegistrationFileLayoutMode::class.java)
@@ -23,7 +22,6 @@ open class GodotRegistrationExtension @Inject constructor(objects: ObjectFactory
     internal fun configureDefaults(defaultGdjFilesDirectory: Provider<Directory>) {
         annotationProcessingMode.convention(AnnotationProcessingMode.Inferred)
         nameMode.convention(RegisteredNameMode.SIMPLE_NAME)
-        incrementalFullBuildThreshold.convention(32)
         disableGdj.convention(false)
         gdjFilesDirectory.convention(defaultGdjFilesDirectory)
         gdjFilesLayoutMode.convention(RegistrationFileLayoutMode.FLAT)
