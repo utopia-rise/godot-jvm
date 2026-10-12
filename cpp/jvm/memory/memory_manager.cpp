@@ -107,7 +107,7 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
 
     jvalue args[1] = {jni::to_jni_arg(arr)};
     jni::JLongArray release_report(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
-    arr.delete_local_ref(p_env);
+    if (size > 0) { arr.delete_local_ref(p_env); }
 
     // Layout: [confirmed count, candidate count, confirmed ids..., candidate ids...], see
     // MemoryManager.buildReleaseReport on the JVM side. A wrapper's death only makes its object a candidate: its
@@ -119,7 +119,9 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     uint32_t candidates_start = IDS_START_INDEX + static_cast<uint32_t>(header[CONFIRMED_COUNT_INDEX]);
     uint32_t report_size = candidates_start + static_cast<uint32_t>(header[CANDIDATE_COUNT_INDEX]);
     ids.resize(report_size);
-    release_report.get_array_region(p_env, 0, reinterpret_cast<jlong*>(ids.ptr()), report_size);
+    if (report_size > IDS_START_INDEX) {
+        release_report.get_array_region(p_env, 0, reinterpret_cast<jlong*>(ids.ptr()), report_size);
+    }
     release_report.delete_local_ref(p_env);
 
     for (uint32_t i = IDS_START_INDEX; i < candidates_start; ++i) {
