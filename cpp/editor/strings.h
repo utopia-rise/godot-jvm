@@ -3,9 +3,14 @@
 
 namespace godot {
     constexpr const char* GRADLE_DIR = "kotlin_jvm/gradle/gradle_wrapper_dir";
-    constexpr const char* BUILD_BEFORE_START = "kotlin_jvm/editor/build_gradle_before_start";
+    constexpr const char* BUILD_ON_RUN_METADATA_SECTION = "godot_jvm";
+    constexpr const char* BUILD_ON_RUN_METADATA_KEY = "build_on_run";
 
-    constexpr const char* start_build = "Building JVM project...";
+    constexpr const char* build_on_run_mode_names[] = {"never", "when scripts changed", "always"};
+    constexpr const char* build_on_run_tooltip =
+        "Click to switch between never, when scripts changed and always.\n\n"
+        "Shift+click a play button to build first only when scripts changed, whatever this option is.\n"
+        "%s+click a play button to always build first, whatever this option is.";
 
     constexpr const char* VERSION_TEMPLATE = "GODOT_JVM_VERSION";
     constexpr const char* PROJECT_NAME_TEMPLATE = "PROJECT_NAME";

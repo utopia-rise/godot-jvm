@@ -5,8 +5,8 @@
 #include "ui/task_dialog.h"
 
 #include <classes/accept_dialog.hpp>
+#include <classes/button.hpp>
 #include <classes/editor_plugin.hpp>
-#include <classes/editor_settings.hpp>
 #include <classes/option_button.hpp>
 #include <classes/texture_rect.hpp>
 #include <classes/v_separator.hpp>
@@ -22,6 +22,13 @@ namespace godot {
             GENERATE_PROJECT
         };
 
+        enum BuildOnRunMode {
+            BUILD_ON_RUN_NEVER,
+            BUILD_ON_RUN_WHEN_STALE,
+            BUILD_ON_RUN_ALWAYS,
+            BUILD_ON_RUN_MODE_COUNT
+        };
+
         PopupMenu* tool_pop_menu;
         // Built in NOTIFICATION_ENTER_TREE, not the constructor: it reads editor_scale below, which is only populated
         // once this plugin has actually entered the tree — constructing it any earlier crashes.
@@ -33,25 +40,21 @@ namespace godot {
         TextureRect* jvm_status_light;
         Button* tool_bar_gradle_task_button;
         OptionButton* tool_bar_gradle_task_choice;
+        Button* build_on_run_button;
+        int build_on_run_mode = BUILD_ON_RUN_NEVER;
 
         GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
         bool displayed_bootstrap_outdated = false;
 
         Ref<GodotJvmEditorExportPlugin> export_plugin;
         Ref<JvmStandardSyntaxHighlighter> syntax_highlighter;
-        // Deliberately an instance member, not static: a static Ref's destructor only runs at true process exit(),
-        // after Main::cleanup() has already torn down the engine's method-bind tables, and unreference()-ing an
-        // EditorSettings at that point dereferences a stale method-bind pointer into freed memory (confirmed with a
-        // live debugger: SIGSEGV inside RefCounted::unreference(), called from this Ref's static destructor after
-        // exit()). As an instance member it destructs with the object itself, when the engine deletes this plugin
-        // during "deinit extensions EDITOR" -- well before that teardown -- so it never had to be static in the
-        // first place: every use of it below goes through `this`, never a bare class-name access.
-        Ref<EditorSettings> editor_settings;
 
         GodotJvmEditor();
         ~GodotJvmEditor();
 
         void on_gradle_task_pressed();
+        void on_build_on_run_pressed();
+        void update_build_on_run_display();
         void on_menu_option_pressed(int option_id);
         void on_generate_project(bool erase_existing);
         void on_filesystem_change();

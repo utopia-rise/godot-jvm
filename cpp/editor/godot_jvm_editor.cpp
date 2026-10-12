@@ -1,5 +1,6 @@
 #include "godot_jvm_editor.h"
 
+#include "api/script/jvm_script_manager.h"
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
@@ -13,15 +14,25 @@
 #include <classes/button.hpp>
 #include <classes/editor_file_system.hpp>
 #include <classes/editor_interface.hpp>
+#include <classes/editor_settings.hpp>
 #include <classes/editor_toaster.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
+#include <classes/input.hpp>
 #include <classes/popup_menu.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/script_editor.hpp>
 #include <classes/theme.hpp>
 
 using namespace godot;
+
+#ifdef MACOS_ENABLED
+static constexpr Key BUILD_ANYWAY_KEY = KEY_META;
+static constexpr const char* BUILD_ANYWAY_KEY_NAME = "Cmd";
+#else
+static constexpr Key BUILD_ANYWAY_KEY = KEY_CTRL;
+static constexpr const char* BUILD_ANYWAY_KEY_NAME = "Ctrl";
+#endif
 
 void GodotJvmEditor::on_menu_option_pressed(int option_id) {
     if (option_id == GENERATE_PROJECT) { project_dialog->popup_centered(); }
@@ -42,6 +53,50 @@ void GodotJvmEditor::on_gradle_task_pressed() {
 
     task_dialog_make_appear(task_dialog);
     JVM_LOG_INFO(log);
+}
+
+void GodotJvmEditor::on_build_on_run_pressed() {
+    build_on_run_mode = (build_on_run_mode + 1) % BUILD_ON_RUN_MODE_COUNT;
+    get_editor_interface()->get_editor_settings()->set_project_metadata(
+        BUILD_ON_RUN_METADATA_SECTION,
+        BUILD_ON_RUN_METADATA_KEY,
+        build_on_run_mode
+    );
+    update_build_on_run_display();
+}
+
+void GodotJvmEditor::update_build_on_run_display() {
+    StringName icon = build_on_run_mode == BUILD_ON_RUN_WHEN_STALE ? SNAME("Reload") : SNAME("Tools");
+    build_on_run_button->set_button_icon(
+        get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons"))
+    );
+    build_on_run_button->set_self_modulate(Color(1, 1, 1, build_on_run_mode == BUILD_ON_RUN_NEVER ? 0.35 : 1));
+    build_on_run_button->set_tooltip_text(
+        String("Build on Run: ")
+        + build_on_run_mode_names[build_on_run_mode]
+        + "\n\n"
+        + vformat(build_on_run_tooltip, BUILD_ANYWAY_KEY_NAME)
+    );
+}
+
+bool GodotJvmEditor::_build() {
+    Input* input = Input::get_singleton();
+    int mode = build_on_run_mode;
+    if (input->is_key_pressed(KEY_SHIFT)) { mode = BUILD_ON_RUN_WHEN_STALE; }
+    if (input->is_key_pressed(BUILD_ANYWAY_KEY)) { mode = BUILD_ON_RUN_ALWAYS; }
+    if (mode == BUILD_ON_RUN_NEVER) { return true; }
+    if (mode == BUILD_ON_RUN_WHEN_STALE && !JvmScriptManager::get_instance()->is_user_code_outdated()) { return true; }
+
+    String log;
+    Error error = GradleTaskRunner::get_instance().run_task(GradleTaskRunner::Task::BUILD_DEBUG, log, true);
+    print_line(log);
+    get_editor_interface()->get_resource_filesystem()->scan_sources();
+    if (error == OK) { return true; }
+
+    task_dialog_make_appear(task_dialog);
+    task_dialog_update_state(task_dialog, log + "Gradle task failed.\n");
+    task_dialog_stop(task_dialog);
+    return false;
 }
 
 void GodotJvmEditor::on_filesystem_change() {
@@ -114,19 +169,6 @@ void GodotJvmEditor::update_jvm_status(bool force) {
     jvm_status_light->set_tooltip_text("JVM status: " + label);
 }
 
-bool GodotJvmEditor::_build() {
-    bool build_gradle_before_start = editor_settings->get_setting(BUILD_BEFORE_START);
-
-    if (build_gradle_before_start) {
-        String log;
-        Error error = GradleTaskRunner::get_instance().run_task(GradleTaskRunner::Task::BUILD_DEBUG, log, true);
-
-        if (error != OK) { JVM_ERR_FAIL_V_MSG(false, log); }
-        JVM_LOG_INFO(log);
-    }
-    return true;
-}
-
 void GodotJvmEditor::_notification(int notification) {
     if (!Engine::get_singleton()->is_editor_hint()) { return; }
 
@@ -136,13 +178,6 @@ void GodotJvmEditor::_notification(int notification) {
     switch (notification) {
         case NOTIFICATION_ENTER_TREE:
             editor_scale = get_editor_interface()->get_editor_scale();
-            editor_settings = get_editor_interface()->get_editor_settings();
-
-            if (!editor_settings->has_setting(BUILD_BEFORE_START)) {
-                editor_settings->set_setting(BUILD_BEFORE_START, false);
-            }
-            editor_settings->set_initial_value(BUILD_BEFORE_START, false, false);
-
             task_dialog = create_task_dialog(editor_scale);
 
             if (!project_settings->has_setting(GRADLE_DIR)) { project_settings->set_setting(GRADLE_DIR, "res://"); }
@@ -230,7 +265,22 @@ void GodotJvmEditor::_notification(int notification) {
             );
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_button);
 
+            build_on_run_mode = get_editor_interface()->get_editor_settings()->get_project_metadata(
+                BUILD_ON_RUN_METADATA_SECTION,
+                BUILD_ON_RUN_METADATA_KEY,
+                BUILD_ON_RUN_NEVER
+            );
+            if (build_on_run_mode < 0 || build_on_run_mode >= BUILD_ON_RUN_MODE_COUNT) {
+                build_on_run_mode = BUILD_ON_RUN_NEVER;
+            }
+            build_on_run_button->set_flat(true);
+            build_on_run_button->set_focus_mode(Control::FOCUS_NONE);
+            build_on_run_button->connect(SNAME("pressed"), callable_mp(this, &GodotJvmEditor::on_build_on_run_pressed));
+            update_build_on_run_display();
+            add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, build_on_run_button);
+
             jvm_status_light->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
+            jvm_status_light->set_self_modulate(Color(1, 1, 1, 0.5));
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);
             update_jvm_status(true);
 
@@ -296,6 +346,7 @@ void GodotJvmEditor::_notification(int notification) {
             remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, separator);
             remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_choice);
             remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_button);
+            remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, build_on_run_button);
 
             remove_export_plugin(export_plugin);
             export_plugin.unref();
@@ -313,6 +364,7 @@ GodotJvmEditor::GodotJvmEditor() :
     jvm_status_light(memnew(TextureRect)),
     tool_bar_gradle_task_button(memnew(Button)),
     tool_bar_gradle_task_choice(memnew(OptionButton)),
+    build_on_run_button(memnew(Button)),
     separator(memnew(VSeparator)) {}
 
 GodotJvmEditor::~GodotJvmEditor() {
@@ -322,6 +374,7 @@ GodotJvmEditor::~GodotJvmEditor() {
     memdelete(jvm_status_light);
     memdelete(tool_bar_gradle_task_button);
     memdelete(tool_bar_gradle_task_choice);
+    memdelete(build_on_run_button);
     memdelete(separator);
 }
 
