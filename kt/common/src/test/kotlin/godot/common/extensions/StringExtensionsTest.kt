@@ -54,5 +54,6 @@ class StringExtensionsTest {
         assertFalse("1a".isValidKotlinIdentifier())
         assertEquals("`in`", "in".escapeKotlinReservedNames())
         assertEquals("name", "name".escapeKotlinReservedNames())
+        assertEquals("`16Bit`", "16Bit".escapeKotlinReservedNames())
     }
 }

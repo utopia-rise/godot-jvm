@@ -25,7 +25,7 @@ class PropertyRule : GodotApiRule<EnrichedPropertyTask>() {
         if (!property.hasGetter && !property.hasSetter) return@configure
 
         if (property.hasGetter) {
-            val methodName = property.getterName
+            val methodName = property.getterMethod!!.name
 
             getter(
                 FunSpec.getterBuilder()
@@ -69,7 +69,7 @@ class PropertyRule : GodotApiRule<EnrichedPropertyTask>() {
 
         // We don't generate the setter if its type doesn't match the getter.
         if (property.hasCompatibleSetter) {
-            val methodName = property.setterName!!
+            val methodName = property.setterMethod!!.name
 
             mutable().setter(
                 FunSpec.setterBuilder()

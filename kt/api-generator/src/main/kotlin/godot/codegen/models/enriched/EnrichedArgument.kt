@@ -10,8 +10,14 @@ import godot.codegen.workarounds.sanitizeApiType
 import godot.common.extensions.convertToCamelCase
 import godot.common.extensions.escapeKotlinReservedNames
 
+private val nonIdentifierCharacters = Regex("[^A-Za-z0-9_]")
+
 class EnrichedArgument(model: Argument) : MetaGenerationTrait, WithDefaultValueTrait {
-    val name = model.name.convertToCamelCase().escapeKotlinReservedNames()
+    val name = model.name
+        .trim()
+        .replace(nonIdentifierCharacters, "_")
+        .convertToCamelCase()
+        .escapeKotlinReservedNames()
     override var type = GenerationType(model.type.sanitizeApiType())
     override val genericParameters = emptyList<ClassName>()
     override val defaultValue = model.defaultValue
