@@ -64,14 +64,8 @@ class RegistrationMapper(
     private val context = ProcessorContext(scanResult = scanResult, settings = settings)
     private val policy = RegistrationPolicy(context)
 
-    fun map(): List<ScriptClass> =
-        mapClasses(context.scanResult.rootGodotClasses())
-
-    fun mapIncrementally(dirtyClassNames: Set<String>): List<ScriptClass> =
-        mapClasses(context.scanResult.dirtyGodotClasses(dirtyClassNames))
-
-    private fun mapClasses(candidateClasses: List<ClassInfo>): List<ScriptClass> {
-        val selectedClasses = candidateClasses
+    fun map(): List<ScriptClass> {
+        val selectedClasses = context.scanResult.rootGodotClasses()
             .asSequence()
             .mapNotNull(::shapeOfOrNull)
             .filter(policy::selectClass)
@@ -432,13 +426,6 @@ class RegistrationMapper(
 private fun ScanResult.rootGodotClasses(): List<ClassInfo> =
     getSubclasses(KtObject::class.java)
         .filter(ClassInfo::isCustomGodotClass)
-
-private fun ScanResult.dirtyGodotClasses(dirtyClassNames: Set<String>): List<ClassInfo> =
-    dirtyClassNames
-        .asSequence()
-        .mapNotNull(::getClassInfo)
-        .filter(ClassInfo::isCustomGodotClass)
-        .toList()
 
 private fun ClassInfo.isCustomGodotClass(): Boolean =
     superclasses.any { superclass -> superclass.name == KtObject::class.java.name } &&

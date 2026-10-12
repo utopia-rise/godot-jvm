@@ -26,10 +26,6 @@ class ProcessorContext(
 
     fun getClassInfoOrNull(fqName: String): ClassInfo? = scanResult.getClassInfo(fqName)
 
-    fun putMappedFamily(fqName: String, family: ScriptFamily) {
-        mappedFamilyByFqName[fqName] = family
-    }
-
     fun getOrPutMappedFamily(fqName: String, family: () -> ScriptFamily): ScriptFamily =
         mappedFamilyByFqName.getOrPut(fqName, family)
 

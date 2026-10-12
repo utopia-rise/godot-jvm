@@ -1,10 +1,10 @@
 ---
-description: The godot { } packaging and coroutine switches, plus fastBuild and the registrar threshold for incremental builds.
+description: The godot { } packaging and coroutine switches, plus fastBuild.
 ---
 
 # Packaging options
 
-These options control library packaging, optional coroutine support, and incremental builds.
+These options control library packaging, optional coroutine support, and fast builds.
 
 ## Packaging and optional features
 
@@ -100,26 +100,6 @@ dependencies {
 Both configurations are available while compiling and testing, but neither is merged into
 `godot-bootstrap.jar`.
 
-## Incremental builds
-
-Use these tasks and settings to control incremental builds.
+## Fast builds
 
 The [`fastBuild`](tasks.md#fastbuild) task reuses the previous registration artifacts.
-
-### `registration.incrementalFullBuildThreshold`
-
-Maximum number of changed classes handled by incremental registrar generation. Above this threshold, the plugin regenerates all registrars to avoid the overhead of incremental analysis.
-
-Default:
-
-- `32`
-
-Example:
-
-```kotlin
-godot {
-    registration.incrementalFullBuildThreshold.set(64)
-}
-```
-
-Registrar generation also falls back to a full run when there is no previous manifest, when the previous outputs are incomplete, or when the runtime classpath changed.

@@ -23,8 +23,8 @@ orchestrates the whole flow.
 
 1. `ClassGraphProcessor.process(runtimeClassPathFiles, ProcessorSettings)` returns `List<ScriptClass>`.
 2. `ModelCheck.check(allRegisteredClasses, logger, registeredNameProvider?)` validates the model.
-3. `RegistrarGenerator.generateRegistrarFilesUsingRegisteredClasses(...)` writes generated registrar source
-   and the `ClassRegistrar` service file.
+3. `RegistrarGenerator.generateClassArtifacts(...)` writes generated registrar source, and the Gradle task writes
+   the `ClassRegistrar` service file.
 4. For external dependencies, the Gradle task optionally stages `.gdj` files through
    `RegistrationFileGenerator`.
 
@@ -34,7 +34,7 @@ orchestrates the whole flow.
 |--------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
 | `godot-class-graph-symbol-processor` | Front-end. Uses ClassGraph to scan compiled Kotlin/Java/Scala bytecode and map relevant classes into the registration model.    | `ClassGraphProcessor.process(...)`                                     |
 | `godot-registration-model`           | Shared IR and validation layer. Owns `ScriptClass`, registered members, type hierarchy nodes, property hints, and model checks. | `ModelCheck.check(...)`                                                |
-| `godot-registrar-generator`          | Back-end. Consumes validated models and emits registrar Kotlin source, service metadata, and generator-side JVM type helpers.   | `RegistrarGenerator.generateRegistrarFilesUsingRegisteredClasses(...)` |
+| `godot-registrar-generator`          | Back-end. Consumes validated models and emits registrar Kotlin source, service metadata, and generator-side JVM type helpers.   | `RegistrarGenerator.generateClassArtifacts(...)`                       |
 
 ## Property And Method Intent
 

@@ -135,6 +135,8 @@ import godot.registration.model.types.TYPE_KOTLIN_ANY
 import godot.registration.model.types.TYPE_KOTLIN_STRING
 import godot.registration.model.types.TYPE_LONG
 import godot.registration.model.types.TYPE_SHORT
+import java.util.concurrent.ConcurrentHashMap
+import java.util.Optional
 
 /** Everything the registrar needs to know about how a model [Type] maps to Godot. */
 private class TypeMetadata(
@@ -228,9 +230,8 @@ private object TypeMetadataRegistry {
         packedVector4ArrayType to singleton(VariantParser.PACKED_VECTOR4_ARRAY, GODOT_PACKED_VECTOR4_ARRAY),
     )
 
-    private fun isAssignableTo(type: Type, target: Class<*>): Boolean = runCatching {
-        target.isAssignableFrom(Class.forName(type.fqName))
-    }.getOrDefault(false)
+    private fun isAssignableTo(type: Type, target: Class<*>): Boolean =
+        loadedClass(type.fqName)?.let(target::isAssignableFrom) == true
 
     private fun canonicalKey(type: Type): Type? = when (type.kind) {
         TypeKind.PRIMITIVE -> Type.findPrimitiveType(type.fqName)
@@ -353,14 +354,17 @@ fun Type.toKotlinTypeName(): TypeName {
 
 fun <T : Enum<T>> T.asEnumName() = MemberName(this::class.asClassName(), this.name)
 
-private fun Type.isSubtypeOf(target: Class<*>): Boolean = runCatching {
-    target.isAssignableFrom(Class.forName(fqName))
-}.getOrDefault(false)
+private val loadedClassesByFqName = ConcurrentHashMap<String, Optional<Class<*>>>()
+
+private fun loadedClass(fqName: String): Class<*>? =
+    loadedClassesByFqName.getOrPut(fqName) { Optional.ofNullable(runCatching { Class.forName(fqName) }.getOrNull()) }.orElse(null)
+
+private fun Type.isSubtypeOf(target: Class<*>): Boolean = loadedClass(fqName)?.let(target::isAssignableFrom) == true
 
 fun Type.baseGodotType(): Type? {
     if (fqName.isFromPackage(godotApiPackage)) return this
 
-    val loadedClass = runCatching { Class.forName(fqName) }.getOrNull() ?: return null
+    val loadedClass = loadedClass(fqName) ?: return null
     var currentClass: Class<*>? = loadedClass.superclass
     while (currentClass != null) {
         if (currentClass.name.isFromPackage(godotApiPackage)) {
