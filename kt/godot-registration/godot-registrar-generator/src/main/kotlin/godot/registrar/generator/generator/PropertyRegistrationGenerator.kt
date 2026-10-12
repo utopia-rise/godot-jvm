@@ -54,10 +54,10 @@ private fun FunSpec.Builder.registerProperty(
             "Property ${registeredProperty.name} should have a getter when using accessor binding"
         }
         addStatement(
-            "property(%S, %L, %L, %L, %S, %M, %L, %L)",
+            "property(%S, {·it.%L()·}, %L, %L, %S, %M, %L, %L)",
             registeredProperty.name.convertToSnakeCase(),
-            getGetterReference(registeredProperty, className),
-            setterFqName?.let { getSetterReference(registeredProperty, className) } ?: "null",
+            memberName(registeredProperty.getterName!!),
+            registeredProperty.setterName?.let { CodeBlock.of("{·obj,·value·->·obj.%L(value)·}", memberName(it)) } ?: "null",
             variantConverter,
             typeGodotName,
             propertyHint.typeHint,
@@ -67,9 +67,12 @@ private fun FunSpec.Builder.registerProperty(
         return
     }
 
+    val member = memberName(registeredProperty.name)
     addStatement(
-        "property(%L, %L, %S, %M, %L, %L)",
-        getPropertyReference(registeredProperty, className),
+        "property(%S, {·it.%L·}, %L, %L, %S, %M, %L, %L)",
+        registeredProperty.name.convertToSnakeCase(),
+        member,
+        if (registeredProperty.isMutable) CodeBlock.of("{·obj,·value·->·obj.%L·=·value·}", member) else "null",
         variantConverter,
         typeGodotName,
         propertyHint.typeHint,
@@ -83,35 +86,8 @@ private fun RegisteredProperty.variantConverter(): CodeBlock {
     return CodeBlock.of("%T.ENUM_LIST(%T.entries.toTypedArray())", VariantCaster::class, enumListHint.enumType.toTypeName())
 }
 
-private fun getPropertyReference(registeredProperty: RegisteredProperty, className: ClassName): CodeBlock {
-    return memberReference(className, registeredProperty.name)
-}
-
-private fun getGetterReference(registeredProperty: RegisteredProperty, className: ClassName): CodeBlock {
-    val getterName = requireNotNull(registeredProperty.getterName) {
-        "Property ${registeredProperty.fqName} does not have a getter."
-    }
-    return memberReference(className, getterName)
-}
-
-private fun getSetterReference(registeredProperty: RegisteredProperty, className: ClassName): CodeBlock {
-    val setterName = requireNotNull(registeredProperty.setterName) {
-        "Property ${registeredProperty.fqName} does not have a setter."
-    }
-    return memberReference(className, setterName)
-}
-
-private fun memberReference(className: ClassName, memberName: String): CodeBlock =
-    if (memberName.isPlainKotlinIdentifier()) {
-        CodeBlock.of("%T::%L", className, memberName)
-    } else {
-        CodeBlock.builder()
-            .add("%T::", className)
-            .add("`")
-            .add(memberName)
-            .add("`")
-            .build()
-    }
+fun memberName(memberName: String): String =
+    if (memberName.isPlainKotlinIdentifier()) memberName else "`$memberName`"
 
 private fun getPropertyUsage(registeredProperty: RegisteredProperty): CodeBlock {
     val flags = PropertyUsageFlags::class

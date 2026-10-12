@@ -103,6 +103,38 @@ import godot.tools.common.constants.GODOT_VECTOR4
 import godot.tools.common.constants.GODOT_VECTOR4I
 import godot.tools.common.constants.godotApiPackage
 import godot.tools.common.constants.isFromPackage
+import com.squareup.kotlinpoet.ANY
+import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.BYTE
+import com.squareup.kotlinpoet.CHAR
+import com.squareup.kotlinpoet.DOUBLE
+import com.squareup.kotlinpoet.FLOAT
+import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.LIST
+import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.SHORT
+import com.squareup.kotlinpoet.STRING
+import godot.registration.model.types.TYPE_BOOLEAN
+import godot.registration.model.types.TYPE_BOXED_BOOLEAN
+import godot.registration.model.types.TYPE_BOXED_BYTE
+import godot.registration.model.types.TYPE_BOXED_CHAR
+import godot.registration.model.types.TYPE_BOXED_DOUBLE
+import godot.registration.model.types.TYPE_BOXED_FLOAT
+import godot.registration.model.types.TYPE_BOXED_INT
+import godot.registration.model.types.TYPE_BOXED_LONG
+import godot.registration.model.types.TYPE_BOXED_SHORT
+import godot.registration.model.types.TYPE_BYTE
+import godot.registration.model.types.TYPE_CHAR
+import godot.registration.model.types.TYPE_DOUBLE
+import godot.registration.model.types.TYPE_FLOAT
+import godot.registration.model.types.TYPE_INT
+import godot.registration.model.types.TYPE_JAVA_OBJECT
+import godot.registration.model.types.TYPE_JAVA_STRING
+import godot.registration.model.types.TYPE_KOTLIN_ANY
+import godot.registration.model.types.TYPE_KOTLIN_STRING
+import godot.registration.model.types.TYPE_LONG
+import godot.registration.model.types.TYPE_SHORT
 
 /** Everything the registrar needs to know about how a model [Type] maps to Godot. */
 private class TypeMetadata(
@@ -285,6 +317,39 @@ fun Type.toTypeName(): TypeName = ClassName(
     fqName.substringBeforeLast("."),
     fqName.substringAfterLast(".")
 )
+
+private val kotlinTypeNamesByFqName = mapOf(
+    TYPE_BOOLEAN to BOOLEAN,
+    TYPE_BYTE to BYTE,
+    TYPE_SHORT to SHORT,
+    TYPE_CHAR to CHAR,
+    TYPE_INT to INT,
+    TYPE_LONG to LONG,
+    TYPE_FLOAT to FLOAT,
+    TYPE_DOUBLE to DOUBLE,
+    TYPE_BOXED_BOOLEAN to BOOLEAN.copy(nullable = true),
+    TYPE_BOXED_BYTE to BYTE.copy(nullable = true),
+    TYPE_BOXED_SHORT to SHORT.copy(nullable = true),
+    TYPE_BOXED_CHAR to CHAR.copy(nullable = true),
+    TYPE_BOXED_INT to INT.copy(nullable = true),
+    TYPE_BOXED_LONG to LONG.copy(nullable = true),
+    TYPE_BOXED_FLOAT to FLOAT.copy(nullable = true),
+    TYPE_BOXED_DOUBLE to DOUBLE.copy(nullable = true),
+    TYPE_JAVA_STRING to STRING,
+    TYPE_KOTLIN_STRING to STRING,
+    TYPE_JAVA_OBJECT to ANY.copy(nullable = true),
+    TYPE_KOTLIN_ANY to ANY.copy(nullable = true),
+    "java.util.List" to LIST,
+)
+
+/** The Kotlin type a value of this model type is cast to in generated code. */
+fun Type.toKotlinTypeName(): TypeName {
+    val known = kotlinTypeNamesByFqName[fqName]
+    if (known != null) return if (isNullable) known.copy(nullable = true) else known
+    val raw = toTypeName() as ClassName
+    val typeName = if (genericArguments.isEmpty()) raw else raw.parameterizedBy(genericArguments.map(Type::toKotlinTypeName))
+    return typeName.copy(nullable = isNullable)
+}
 
 fun <T : Enum<T>> T.asEnumName() = MemberName(this::class.asClassName(), this.name)
 

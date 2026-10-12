@@ -1,5 +1,6 @@
 package godot.registrar.generator.builder
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
@@ -39,6 +40,7 @@ class RegistrarClassGenerator(
         return FileSpec
             .builder(godotRegistrarBasePackage, "${registeredClassName}Registrar")
             .addFileComment(GENERATED_COMMENT)
+            .addAnnotation(AnnotationSpec.builder(Suppress::class).addMember("%S", "UNCHECKED_CAST").build())
             .addType(buildRegistrarType(registeredClass, registeredClassName))
             .build()
     }
@@ -76,7 +78,7 @@ class RegistrarClassGenerator(
 
         if (!registeredClass.isAbstract) {
             if (registeredClass.constructors.any { it.parameterTypes.isEmpty() }) {
-                registerFunctionBuilder.addStatement("constructor(::%T)", className)
+                registerFunctionBuilder.addStatement("constructor { %T() }", className)
             }
             registerFunctionBuilder.addSignalRegistrations(registeredClass, context)
             registerFunctionBuilder.addPropertyRegistrations(registeredClass, context, className)

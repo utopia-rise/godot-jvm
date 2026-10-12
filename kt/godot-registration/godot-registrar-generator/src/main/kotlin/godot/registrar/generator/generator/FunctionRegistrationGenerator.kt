@@ -1,17 +1,17 @@
 package godot.registrar.generator.generator
 
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import godot.annotation.RpcMode
 import godot.annotation.Sync
 import godot.annotation.TransferMode
+import godot.common.extensions.convertToSnakeCase
 import godot.registrar.generator.GeneratorContext
 import godot.registrar.generator.ext.asEnumName
 import godot.registrar.generator.ext.effectiveFunctions
 import godot.registrar.generator.ext.flattenedHierarchy
 import godot.registrar.generator.ext.toGodotClassName
+import godot.registrar.generator.ext.toKotlinTypeName
 import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registration.model.RegisteredFunction
 import godot.registration.model.types.ScriptClass
@@ -34,12 +34,9 @@ fun FunSpec.Builder.addNotificationRegistrations(
 
     notificationFunctions.forEach { (notificationClass, registeredFunction) ->
         addStatement(
-            "notification(%L, %L)",
+            "notification(%L) {·it.%L()·}",
             registeredFunction.notification!!,
-            getFunctionReference(
-                registeredFunction,
-                ClassName(notificationClass.containingPackage, notificationClass.name),
-            ),
+            memberName(registeredFunction.name),
         )
     }
 }
@@ -75,7 +72,9 @@ private fun RegisteredFunction.isProcessVirtual(): Boolean =
         && parameters.singleOrNull()?.type?.let { it == Type.doubleType && !it.isNullable } == true
 
 private fun getFunctionTemplateString(registeredFunction: RegisteredFunction) = buildString {
-    append("function(%L, rpc(%M, %L, %M, %L), returns(%L, %S)")
+    append("function(%S, {·obj,·args·->·obj.%L(")
+    append(List(registeredFunction.parameters.size) { index -> "args[$index]·as·%T" }.joinToString(",·"))
+    append(")·}, rpc(%M, %L, %M, %L), returns(%L, %S)")
     repeat(registeredFunction.parameters.size) {
         append(", argument(%L, %S, %S)")
     }
@@ -87,7 +86,9 @@ private fun getTemplateArgs(
     context: GeneratorContext,
     className: ClassName,
 ): List<Any> = buildList {
-    add(getFunctionReference(registeredFunction, className))
+    add(registeredFunction.name.convertToSnakeCase())
+    add(memberName(registeredFunction.name))
+    registeredFunction.parameters.forEach { valueParameter -> add(valueParameter.type.toKotlinTypeName()) }
     add(getRpcModeEnum(registeredFunction))
     add(getRpcCallLocal(registeredFunction))
     add(getRpcTransferModeEnum(registeredFunction))
@@ -100,10 +101,6 @@ private fun getTemplateArgs(
         add(valueParameter.type.toGodotClassName(context))
         add(valueParameter.name)
     }
-}
-
-private fun getFunctionReference(registeredFunction: RegisteredFunction, className: ClassName): CodeBlock {
-    return className.member(registeredFunction.name).reference()
 }
 
 private fun getRpcModeEnum(registeredFunction: RegisteredFunction) =

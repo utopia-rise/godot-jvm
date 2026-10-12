@@ -4,11 +4,10 @@ import godot.core.KtObject
 import godot.core.VariantParser
 import godot.internal.memory.VariantBuffer
 import kotlin.reflect.KClass
-import kotlin.reflect.KFunction1
 
 data class KtNotification<T : KtObject>(
     val notification: Int,
-    val function: KFunction1<T, Unit>,
+    val function: (T) -> Unit,
 )
 
 @Suppress("unused")
