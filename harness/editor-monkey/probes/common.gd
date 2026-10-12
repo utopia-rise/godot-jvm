@@ -169,7 +169,10 @@ func generate_project() -> bool:
 	expect(FileAccess.file_exists("res://src/main/kotlin/godot/HelloGodot.kt"), "the generated project contains HelloGodot.kt")
 	expect(FileAccess.file_exists("res://gradlew"), "the generated project contains the Gradle wrapper")
 	write("res://settings.gradle.kts", FileAccess.get_file_as_string("res://settings.gradle.kts") + "\napply(from = \"../godot-jvm-builds.settings.gradle.kts\")\n")
-	write("res://gradle.properties", FileAccess.get_file_as_string("res://gradle.properties").replace("org.gradle.configuration-cache=true", "org.gradle.configuration-cache=false") + "\norg.gradle.daemon=false\nkotlin.compiler.execution.strategy=in-process\n")
+	var properties := FileAccess.get_file_as_string("res://gradle.properties").replace("org.gradle.configuration-cache=true", "org.gradle.configuration-cache=false")
+	if OS.has_feature("windows"):
+		properties += "\norg.gradle.daemon=false\nkotlin.compiler.execution.strategy=in-process\n"
+	write("res://gradle.properties", properties)
 	return true
 
 

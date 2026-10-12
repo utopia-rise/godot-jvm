@@ -98,6 +98,8 @@ Your scripts are compiled by Gradle, and you can start that build from wherever 
 
     ![Build button](../assets/img/editor-plugin/build_button.png)
 
+    Godot can also build when you start the game. The **Build on Run** button next to **Run Gradle** sets what the play buttons, F5, and F6 do, and each click moves to the next option: never (dimmed hammer and wrench, the default), when a script changed since the last build (circular arrow), and always (hammer and wrench). **Shift**+click a play button to build first only when a script changed, or **Ctrl**+click (**Cmd**+click on macOS) to always build first; both take priority over the button. If that build fails, the game does not start and the Gradle output opens in a window. The button's tooltip shows the current option and these shortcuts.
+
 - **From IntelliJ IDEA.** The IDE already manages Gradle for you: run the `build` task from the Gradle panel, or bind it to a run configuration.
 
     ![Gradle task](../assets/img/build_ide.png)
@@ -133,7 +135,5 @@ Select the node: the Inspector shows the **Language** property from the example.
 Run the scene or the project exactly as you would with any Godot game, with the play buttons or F5 and F6. The Output panel shows your greeting. Change the **Language** value in the Inspector and run again to see the exported property in action.
 
 Godot-JVM keeps an eye on stale builds for you. If you edit a script and forget to rebuild, every node using it shows a configuration warning in the scene tree saying the script has been modified since the last build. Rebuild, and the warning disappears.
-
-To never think about it, enable **Kotlin Jvm > Editor > Build Gradle Before Start** in **Editor > Editor Settings**. Godot then runs the Gradle build each time you start the game from the editor, and does not start it if the build fails, so what you play is always what you wrote.
 
 Once you see the greeting, you know the whole loop works: write, build, attach, run. The [User guide](../guide/index.md) covers everyday scripting with Godot-JVM, building and debugging your project, and exporting your game.

@@ -35,7 +35,7 @@ fi
 
 probes=("$@")
 if [ ${#probes[@]} -eq 0 ]; then
-    probes=(reload rename)
+    probes=(reload rename build_on_run)
 fi
 
 cd "$here"

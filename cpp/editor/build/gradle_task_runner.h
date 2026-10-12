@@ -30,10 +30,13 @@ namespace godot {
         Ref<FileAccess> stdio;
         Ref<FileAccess> stderr_io;
         int pid = -1;
+        int task = -1;
+        uint64_t task_start_time = 0;
 
         GradleTaskRunner() = default;
 
         void reset();
+        void record_debug_build() const;
 
     public:
         static GradleTaskRunner& get_instance();

@@ -7,12 +7,12 @@
 #include "api/script/language/scala_script.h"
 #include "jvm/memory/type_manager.h"
 #include "logging.h"
+#include "paths.h"
 
 #include <classes/editor_file_system.hpp>
 #include <classes/editor_interface.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
-#include <classes/time.hpp>
 #include <variant/utility_functions.hpp>
 
 using namespace godot;
@@ -101,7 +101,7 @@ void JvmScriptManager::update_script(JvmScript* p_script, KtClass* p_kotlin_clas
 
 void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 #ifdef TOOLS_ENABLED
-    last_jar_modified_time = static_cast<uint64_t>(Time::get_singleton()->get_unix_time_from_system());
+    record_build_time(FileAccess::get_modified_time(String(RES_DIRECTORY).path_join(USER_CODE_FILE)));
     registered_name_to_script.clear();
     fqdn_to_class_index.clear();
 
@@ -174,8 +174,21 @@ void JvmScriptManager::update_all_scripts() {
     }
 }
 
-uint64_t JvmScriptManager::get_last_jar_modified_time() const {
-    return last_jar_modified_time;
+void JvmScriptManager::record_source_modified_time(uint64_t p_time) {
+    latest_source_modified_time = MAX(latest_source_modified_time, p_time);
+}
+
+void JvmScriptManager::record_build_time(uint64_t p_time) {
+    last_build_time = MAX(last_build_time, p_time);
+}
+
+bool JvmScriptManager::is_source_outdated(uint64_t p_source_modified_time) const {
+    return p_source_modified_time >= last_build_time;
+}
+
+bool JvmScriptManager::is_user_code_outdated() const {
+    return is_source_outdated(latest_source_modified_time)
+        || EditorInterface::get_singleton()->get_resource_filesystem()->is_scanning();
 }
 #endif
 

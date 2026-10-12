@@ -64,7 +64,9 @@ Error JvmResourceFormatSaver::_save(const Ref<Resource>& p_resource, const Strin
     if (is_source_script) {
         const StringName fqdn = parse_source_script_fqname(source_code, p_path);
         JvmScriptManager::get_instance()->update_physical_script(jvm_script.ptr(), fqdn);
-        jvm_script->set_last_source_modified_time(FileAccess::get_modified_time(p_path));
+        const uint64_t modified_time = FileAccess::get_modified_time(p_path);
+        JvmScriptManager::get_instance()->record_source_modified_time(modified_time);
+        jvm_script->set_last_source_modified_time(modified_time);
     }
 #endif
 

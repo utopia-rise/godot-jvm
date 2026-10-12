@@ -158,7 +158,12 @@ String JvmLanguage::_debug_parse_stack_level_expression(int32_t, const String&, 
 
 void JvmLanguage::_reload_all_scripts() {}
 
-void JvmLanguage::_reload_scripts(const Array&, bool) {}
+void JvmLanguage::_reload_scripts(const Array& p_scripts, bool) {
+    for (int i = 0; i < p_scripts.size(); ++i) {
+        ResourceLoader::get_singleton()
+            ->load(Ref<Script>(p_scripts[i])->get_path(), "", ResourceLoader::CACHE_MODE_IGNORE);
+    }
+}
 
 void JvmLanguage::_reload_tool_script(const Ref<Script>&, bool) {}
 

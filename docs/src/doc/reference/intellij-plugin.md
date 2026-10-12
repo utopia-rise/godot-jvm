@@ -1,5 +1,5 @@
 ---
-description: Godot editor build settings and IntelliJ registration inspection settings and actions.
+description: Godot project build settings and IntelliJ registration inspection settings and actions.
 ---
 
 # Editor and IDE settings
@@ -11,14 +11,6 @@ description: Godot editor build settings and IntelliJ registration inspection se
 Type: directory path. Default: `res://`.
 
 Directory containing `gradlew`/`gradlew.bat`, resolved through Godot's project paths. Used by the editor's Gradle runner. Configure it when the wrapper is outside the Godot project root.
-
-## Godot editor settings
-
-### `kotlin_jvm/editor/build_gradle_before_start` { #build-before-start }
-
-Type: boolean. Default: `false`.
-
-When true, the editor builds the Gradle project before starting the game. This is an editor setting, not a project setting or a JVM launch flag.
 
 ## IntelliJ settings
 

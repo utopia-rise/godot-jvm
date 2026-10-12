@@ -44,12 +44,10 @@ bool JvmResourceFormatLoader::_handles_type(const StringName& p_type) const {
         || p_type == SNAME(GODOT_SCALA_SCRIPT_NAME);
 }
 
-Variant JvmResourceFormatLoader::_load(
-    const String& p_path,
-    const String& p_original_path,
-    bool p_use_sub_threads,
-    int32_t p_cache_mode
-) const {
+// A JVM script is identified by its class name, not by its path, so every cache mode refreshes the script bound to
+// the file in place and CACHE_MODE_IGNORE never produces a second instance: the editor's reload paths copy the
+// returned script onto itself.
+Variant JvmResourceFormatLoader::_load(const String& p_path, const String&, bool, int32_t) const {
     if (p_path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
         Ref<JvmScript> virtual_script = JvmScriptManager::get_instance()->get_script_from_registered_name(
             JvmScript::get_script_file_name(p_path)
@@ -61,13 +59,17 @@ Variant JvmResourceFormatLoader::_load(
     String source_code;
     const Error read_error = read_source_script_file(p_path, source_code);
     if (read_error != OK) { return (int64_t) read_error; }
+#ifdef TOOLS_ENABLED
+    const uint64_t modified_time = FileAccess::get_modified_time(p_path);
+    JvmScriptManager::get_instance()->record_source_modified_time(modified_time);
+#endif
 
     const StringName fqdn = parse_source_script_fqname(source_code, p_path);
     Ref<JvmScript> script = JvmScriptManager::get_instance()->create_and_bind_physical_script(p_path, fqdn);
     if (script.is_valid()) {
         script->set_source_code(source_code);
 #ifdef TOOLS_ENABLED
-        script->set_last_source_modified_time(FileAccess::get_modified_time(p_path));
+        script->set_last_source_modified_time(modified_time);
         JvmScriptManager::get_instance()->update_physical_script(script.ptr(), fqdn);
 #endif
     } else {
