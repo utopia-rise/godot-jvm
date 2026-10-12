@@ -63,11 +63,11 @@ class EnrichedMethod(private val model: Method, override: Boolean = false) : Cal
 
     val isJvmCompatible: Boolean
         get() {
-            if (type.isNativeType()) {
+            if (type.isNativeType() || type.isUngeneratedClass()) {
                 return false
             }
             for (argument in arguments) {
-                if (argument.type.isNativeType()) {
+                if (argument.type.isNativeType() || argument.type.isUngeneratedClass()) {
                     return false
                 }
             }

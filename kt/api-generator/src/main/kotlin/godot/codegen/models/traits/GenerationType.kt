@@ -24,7 +24,8 @@ enum class Nature {
     CLASS,
     ENUM,
     BITFIELD,
-    NATIVE
+    NATIVE,
+    UNGENERATED_CLASS
 }
 
 
@@ -70,6 +71,7 @@ interface TypeGenerationTrait {
     fun isObjectSubClass() = nature == Nature.CLASS
     fun isNullable() = isObjectSubClass() || identifier == TypeIdentifier.VARIANT.name
     fun isNativeType() = nature == Nature.NATIVE
+    fun isUngeneratedClass() = nature == Nature.UNGENERATED_CLASS
 }
 
 fun ClassName.Companion.from(type: TypeGenerationTrait) = when {
@@ -121,6 +123,7 @@ fun TypeName.Companion.from(type: TypeGenerationTrait, genericParameters: List<T
 
 const val enumPrefix = "enum::"
 const val bitfieldPrefix = "bitfield::"
+const val ungeneratedClassPrefix = "ungenerated::"
 
 class GenerationType(rawIdentifier: String) : TypeGenerationTrait {
     override val identifier = sanitizeIdentifier(rawIdentifier)
@@ -128,7 +131,7 @@ class GenerationType(rawIdentifier: String) : TypeGenerationTrait {
     override val className = ClassName.from(this)
 
     private fun sanitizeIdentifier(identifier: String): String {
-        return identifier.removePrefix(enumPrefix).removePrefix(bitfieldPrefix)
+        return identifier.removePrefix(enumPrefix).removePrefix(bitfieldPrefix).removePrefix(ungeneratedClassPrefix)
     }
 
     private fun getNature(identifier: String) = when {
@@ -138,6 +141,7 @@ class GenerationType(rawIdentifier: String) : TypeGenerationTrait {
         TypeIdentifier.core.any { it == identifier } -> Nature.CORE
         identifier.startsWith(enumPrefix) -> Nature.ENUM
         identifier.startsWith(bitfieldPrefix) -> Nature.BITFIELD
+        identifier.startsWith(ungeneratedClassPrefix) -> Nature.UNGENERATED_CLASS
         identifier.startsWith(TypeIdentifier.TYPED_ARRAY.name) -> Nature.TYPED_ARRAY
         identifier.contains("*") -> Nature.NATIVE
         else -> Nature.CLASS

@@ -25,6 +25,7 @@ import godot.codegen.models.enriched.EnrichedProperty
 import godot.codegen.models.enriched.EnumScope
 import godot.codegen.models.enriched.toEnriched
 import godot.codegen.models.traits.GenerationType
+import godot.codegen.models.traits.ungeneratedClassPrefix
     import godot.codegen.models.traits.bitfieldPrefix
 import godot.codegen.rpc.RpcFunctionMode
 
@@ -117,6 +118,7 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
         classMap = classList.associateBy { it.identifier }
 
         context.classMap += classMap
+        context.ungeneratedClasses += classes.map { it.name }.filter { it !in classMap }
         context.classList += classList
         for (clazz in classList) {
             context.enumMap += clazz.enums.associateBy { it.identifier }
@@ -199,6 +201,10 @@ class SanitizeTypesRule : GodotApiRule<ApiTask>() {
     }
 
     private fun GenerationType.sanitized(context: GenerationContext, clazz: EnrichedClass, member: String): GenerationType {
+        if (identifier in context.ungeneratedClasses) {
+            println("Warning: ${clazz.identifier}.$member uses $identifier, which is not generated, so it is skipped.")
+            return GenerationType("$ungeneratedClassPrefix$identifier")
+        }
         if (!isEnum() && !isBitField() || identifier in context.enumMap) return this
         println("Warning: ${clazz.identifier}.$member uses the undeclared enum $identifier, generated as Long.")
         return GenerationType(TypeIdentifier.INT.name)

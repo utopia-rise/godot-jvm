@@ -22,6 +22,7 @@ class GenerationContext(
     val globalEnums = mutableListOf<EnrichedEnum>()
     val classMap = mutableMapOf<String, EnrichedClass>()
     val classList = mutableListOf<EnrichedClass>()
+    val ungeneratedClasses = mutableSetOf<String>()
 
     val methodSignatures = LinkedHashSet<TransferSignature>()
 
