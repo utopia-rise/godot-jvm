@@ -1,7 +1,10 @@
 .godot/
 /android/
-.gradle
-.kotlin
-.idea
-build
-jvm
+/.gradle/
+/.kotlin/
+/build/
+/jvm/
+local.properties
+.idea/
+*.iml
+/out/
