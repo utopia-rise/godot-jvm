@@ -14,6 +14,10 @@ config/name="Godot-JVM Bulletmark"
 config/features=PackedStringArray("4.7")
 run/main_scene="res://runner/Main.tscn"
 
+[dotnet]
+
+project/assembly_name="Bulletmark"
+
 [display]
 
 window/size/viewport_width=1040

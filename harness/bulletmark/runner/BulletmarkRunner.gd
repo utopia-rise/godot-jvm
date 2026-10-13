@@ -4,15 +4,19 @@ extends Node
 ## --fixed-fps, so every frame advances the game by the same step and every run with the same settings simulates the
 ## same game: what varies between runs is only how long the frames took to compute.
 
-const ARENA := "res://src/main/kotlin/godot/bulletmark/Arena.kt"
+## The same scene in each language, each a line-for-line port of the others that plays exactly the same game.
+const ARENAS := {
+	"kt": "res://src/main/kotlin/godot/bulletmark/Arena.kt",
+	"cs": "res://cs/Arena.cs",
+}
 const RESULT_MARKER := "BULLETMARK_RESULT:"
-const SCHEMA := 4
+const SCHEMA := 5
 ## How often the live bullet count is read during the measured frames. Each read is a call into the JVM, so it stays
 ## rare enough not to show in the frame times.
 const LIVE_SAMPLE_INTERVAL := 60
 const RENDER_MODES := ["nodes", "draw"]
 const COMPARED_STATS := ["p50", "p95", "p99", "mean"]
-const COMPARED_JVM_COUNTERS := ["allocated_bytes_per_frame", "script_calls_per_frame", "gc_count", "gc_time_ms"]
+const COMPARED_RUNTIME_COUNTERS := ["allocated_bytes_per_frame", "script_calls_per_frame", "gc_count", "gc_time_ms"]
 
 var options := {}
 var settings := {}
@@ -22,7 +26,7 @@ var last_usec := 0
 var frame_usec := PackedInt64Array()
 var live_samples := PackedInt32Array()
 var screenshot_frames := PackedInt32Array()
-var jvm_at_start := {}
+var runtime_at_start := {}
 
 
 func _ready() -> void:
@@ -32,7 +36,12 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 
-	arena = load(ARENA).new()
+	var arena_script: Script = load(ARENAS[settings.lang])
+	if arena_script == null:
+		push_error("Cannot load the %s arena: is this the editor for that language, with the scripts built?" % settings.lang)
+		get_tree().quit(1)
+		return
+	arena = arena_script.new()
 	add_child(arena)
 	arena.configure(
 		settings.seed,
@@ -44,7 +53,7 @@ func _ready() -> void:
 		settings.reactions,
 		settings.bookkeeping,
 	)
-	print("Bulletmark: %d warm-up frames, %d measured frames" % [settings.warmup_frames, settings.measured_frames])
+	print("Bulletmark (%s): %d warm-up frames, %d measured frames" % [settings.lang, settings.warmup_frames, settings.measured_frames])
 	print("settings       %s" % JSON.stringify(settings))
 	# Saving frames needs a renderer, so a headless run ignores the option rather than writing blank images.
 	if options.has("screenshots") and DisplayServer.get_name() != "headless":
@@ -57,7 +66,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var now := Time.get_ticks_usec()
 	if frame == settings.warmup_frames:
-		jvm_at_start = arena.jvm_counters()
+		runtime_at_start = arena.runtime_counters()
 	if frame > settings.warmup_frames:
 		frame_usec.append(now - last_usec)
 		if frame_usec.size() % LIVE_SAMPLE_INTERVAL == 0:
@@ -75,6 +84,7 @@ func _process(_delta: float) -> void:
 ## report records them in full rather than only the options that were passed. Empty when an option is invalid.
 func _resolve_settings() -> Dictionary:
 	var resolved := {
+		"lang": String(options.get("lang", "kt")),
 		"seed": int(options.get("seed", 42)),
 		"bullets_per_frame": int(options.get("bullets-per-frame", 40)),
 		"lifetime_frames": int(options.get("lifetime-frames", 150)),
@@ -89,6 +99,8 @@ func _resolve_settings() -> Dictionary:
 		"headless": DisplayServer.get_name() == "headless",
 	}
 	var problems: Array[String] = []
+	if not ARENAS.has(resolved.lang):
+		problems.append("lang must be one of %s, not %s" % [ARENAS.keys(), resolved.lang])
 	if not RENDER_MODES.has(resolved.render):
 		problems.append("render must be one of %s, not %s" % [RENDER_MODES, resolved.render])
 	for name in ["hits", "reactions", "bookkeeping"]:
@@ -113,7 +125,7 @@ func _finish() -> void:
 		"frames_us": frames,
 		"live_bullets": {"min": Array(live_samples).min(), "max": Array(live_samples).max(), "samples": Array(live_samples)},
 		"game": arena.stats(),
-		"jvm": _jvm_usage(jvm_at_start, arena.jvm_counters(), frame_usec.size()),
+		"runtime": _runtime_usage(runtime_at_start, arena.runtime_counters(), frame_usec.size()),
 	}
 	if options.has("raw-samples"):
 		report["frame_samples_us"] = Array(frame_usec)
@@ -132,7 +144,7 @@ func _finish() -> void:
 	])
 	print("live bullets   %d to %d" % [report.live_bullets.min, report.live_bullets.max])
 	print("game           %s" % JSON.stringify(report.game))
-	_print_jvm(report.jvm)
+	_print_runtime(report.runtime)
 	if report.has("baseline"):
 		_print_comparison(report.baseline)
 	print("Results written to %s" % path)
@@ -140,9 +152,10 @@ func _finish() -> void:
 	get_tree().quit()
 
 
-## What the JVM did during the measured frames: allocation and script calls per frame, collections and their pauses,
-## and compilation time, which should be close to zero once the warm-up has compiled the hot paths.
-func _jvm_usage(start: Dictionary, end: Dictionary, frames: int) -> Dictionary:
+## What the language's runtime, the JVM or .NET, did during the measured frames: allocation and script calls per frame,
+## collections and their pauses, and compilation time, which should be close to zero once the warm-up has compiled
+## the hot paths.
+func _runtime_usage(start: Dictionary, end: Dictionary, frames: int) -> Dictionary:
 	var usage := {
 		"available": int(end.get("available", 0)) == 1,
 		"script_calls_per_frame": float(end.script_calls - start.script_calls) / frames,
@@ -157,11 +170,11 @@ func _jvm_usage(start: Dictionary, end: Dictionary, frames: int) -> Dictionary:
 	return usage
 
 
-func _print_jvm(usage: Dictionary) -> void:
+func _print_runtime(usage: Dictionary) -> void:
 	if not usage.available:
-		print("jvm            counters unavailable (no java.management); %.1f script calls per frame" % usage.script_calls_per_frame)
+		print("runtime        counters unavailable (no java.management); %.1f script calls per frame" % usage.script_calls_per_frame)
 		return
-	print("jvm            %.1f KB allocated and %.1f script calls per frame" % [
+	print("runtime        %.1f KB allocated and %.1f script calls per frame" % [
 		usage.allocated_bytes_per_frame / 1024.0, usage.script_calls_per_frame,
 	])
 	print("               %d collections, %d ms in GC (%s), %d ms compiling" % [
@@ -170,7 +183,8 @@ func _print_jvm(usage: Dictionary) -> void:
 
 
 ## A baseline is only worth comparing against when it ran the same settings and played the same game. The second
-## check catches a change that altered the game itself, whose frame times would otherwise read as a speed change.
+## check catches a change that altered the game itself, whose frame times would otherwise read as a speed change. The
+## language alone may differ: a faithful port plays the same game, so the game check is then what proves the port.
 func _compare(report: Dictionary, baseline: Dictionary) -> Dictionary:
 	var result := {
 		"label": baseline.get("run", {}).get("label", "unknown"),
@@ -182,7 +196,11 @@ func _compare(report: Dictionary, baseline: Dictionary) -> Dictionary:
 		result.comparable = false
 		result.reasons.append("the baseline could not be read")
 		return result
+	var baseline_lang: String = baseline.get("settings", {}).get("lang", "kt")
+	if baseline_lang != report.settings.lang:
+		result["languages"] = [baseline_lang, report.settings.lang]
 	var differing_settings := _differing_keys(report.settings, baseline.get("settings", {}))
+	differing_settings.erase("lang")
 	if not differing_settings.is_empty():
 		result.comparable = false
 		result.reasons.append("settings differ: %s" % ", ".join(differing_settings))
@@ -202,12 +220,12 @@ func _compare(report: Dictionary, baseline: Dictionary) -> Dictionary:
 			}
 	result["frames_us"] = deltas
 
-	var jvm_before: Dictionary = baseline.get("jvm", {})
-	var jvm_deltas := {}
-	if report.jvm.available and jvm_before.get("available", false):
-		for counter in COMPARED_JVM_COUNTERS:
-			jvm_deltas[counter] = {"before": jvm_before.get(counter, 0), "after": report.jvm[counter]}
-	result["jvm"] = jvm_deltas
+	var runtime_before: Dictionary = baseline.get("runtime", {})
+	var runtime_deltas := {}
+	if report.runtime.available and runtime_before.get("available", false):
+		for counter in COMPARED_RUNTIME_COUNTERS:
+			runtime_deltas[counter] = {"before": runtime_before.get(counter, 0), "after": report.runtime[counter]}
+	result["runtime"] = runtime_deltas
 	return result
 
 
@@ -227,14 +245,16 @@ func _differing_keys(current: Dictionary, previous: Dictionary) -> Array[String]
 
 func _print_comparison(comparison: Dictionary) -> void:
 	print("against        %s (%s)" % [comparison.label, comparison.commit])
+	if comparison.has("languages"):
+		print("               languages %s -> %s" % comparison.languages)
 	if not comparison.comparable:
 		print("               NOT COMPARABLE: %s" % "; ".join(comparison.reasons))
 	for stat in COMPARED_STATS:
 		if comparison.frames_us.has(stat):
 			var delta: Dictionary = comparison.frames_us[stat]
 			print("               %-4s %8.1f -> %8.1f us  %+.1f%%" % [stat, delta.before, delta.after, delta.change_percent])
-	for counter in comparison.get("jvm", {}):
-		var values: Dictionary = comparison.jvm[counter]
+	for counter in comparison.get("runtime", {}):
+		var values: Dictionary = comparison.runtime[counter]
 		print("               %s %.1f -> %.1f" % [counter, values.before, values.after])
 
 

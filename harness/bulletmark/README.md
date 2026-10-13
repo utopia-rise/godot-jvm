@@ -153,6 +153,7 @@ option: it tells `runBulletmark` and `abBulletmark` to start Godot without a win
 | Option | Default | Meaning |
 |---|---|---|
 | `-Plabel=<name>` | `run` | Name of the run, and of its report file |
+| `-Plang=kt` or `cs` | `kt` | The scene's language, see [C#](#c) |
 | `-Pwarmup-frames=N` | 2400 | Frames run before measuring, so the JIT has compiled the hot paths |
 | `-Pframes=N` | 1200 | Measured frames |
 | `-Pseed=N` | 42 | Seed of the arena's random generator |
@@ -161,7 +162,7 @@ option: it tells `runBulletmark` and `abBulletmark` to start Godot without a win
 | `-Pmax-live=N` | 10000 | Cap on live bullets; spawns past it are skipped and counted |
 | `-Prender=nodes` or `draw` | `nodes` | A `Sprite2D` per bullet, or the arena drawing every bullet in one `_draw` |
 | `-Phits=on` or `off` | `on` | Off, nothing detects collisions: no `area_entered` signals, no overlap work, no kills |
-| `-Preactions=on` or `off` | `on` | Off, no `Tween` per hit, and respawns are counted down in Kotlin instead of by a timer and lambda |
+| `-Preactions=on` or `off` | `on` | Off, no `Tween` per hit, and respawns are counted down by the arena instead of by a timer and lambda |
 | `-Pbookkeeping=on` or `off` | `on` | Off, no `getNode` lookups, groups, drone scans or score `Dictionary` |
 | `-Pbaseline=<path>` | absent | Compares the frame times with a previous run's report, relative to the project |
 | `-Presults-dir=<path>` | `res://results` | Where the JSON report is written |
@@ -230,3 +231,29 @@ classes instead of the drone, and validate the tool rather than describe today's
 
 The second change removes a few writes from each of the 3,400 or so `position` calls per frame, a few microseconds out
 of five milliseconds, so no detectable change is the expected answer.
+
+## C#
+
+`cs/` holds a line-for-line C# port of the scene, run with `-Plang=cs`. It makes the same random draws in the same
+order and the same arithmetic, so it plays exactly the same game: the same totals and the same 3,373.9 script calls per
+frame. Comparing a C# run against a Kotlin report with `-Pbaseline` checks that, since the comparison allows a
+different language but refuses a different game.
+
+A C# run needs the .NET build of the Godot editor, found through `GODOT_EDITOR_MONO` or at
+`/Applications/Godot_mono.app`, and the .NET 8 SDK. Every task that runs C# first builds the scripts with
+`./gradlew buildCSharp`.
+
+```bash
+./gradlew runBulletmark -Pheadless -Plabel=kt
+./gradlew runBulletmark -Pheadless -Plang=cs -Plabel=cs -Pbaseline=results/kt.json
+```
+
+Two caveats:
+
+- **Editor numbers are not a language comparison.** Run from the editor, every call into a C# script costs about three
+  times what it costs in an exported game: on the M4 Pro, p50 was 16.6 ms from the .NET editor and 4.9 ms from a
+  release export of the same scene, against 5.5 ms for Kotlin from the editor. A C# run from the editor is useful for
+  checking the port and for comparing two C# builds, not for comparing languages.
+- **The .NET editor crashes on quit.** It also loads the Godot-JVM extension, and with both runtimes in one process
+  Godot 4.7.2 exits with a crash after the runner has written its report, whichever language the scene uses. The
+  tasks ignore that exit code when the run passed and say so.

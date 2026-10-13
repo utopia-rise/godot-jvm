@@ -24,27 +24,40 @@ val failurePatterns = listOf(
 val resultMarker = "BULLETMARK_RESULT:"
 
 // What a snapshot holds: everything Godot reads when it runs the project, and nothing it rebuilds.
-val snapshotEntries = listOf(".godot", "addons", "jvm", "src", "runner", "project.godot", "godot_jvm_configuration.json")
+val snapshotEntries = listOf(
+    ".godot", "addons", "jvm", "src", "cs", "runner", "project.godot", "godot_jvm_configuration.json", "Bulletmark.csproj",
+)
 val abDirectory: File = layout.buildDirectory.dir("ab").get().asFile
 
 /**
  * The Godot 4 editor to run: GODOT_EDITOR when set, otherwise the standard macOS install or a godot command on the
- * PATH. The error says how to point at it when none is found.
+ * PATH. A C# run needs the .NET build of the editor instead, found the same way through GODOT_EDITOR_MONO. The error
+ * says how to point at it when none is found.
  */
-fun editorExecutable(): File {
-    System.getenv("GODOT_EDITOR")?.let { path ->
-        return File(path).takeIf(File::isFile) ?: error("GODOT_EDITOR points at $path, which is not a file.")
+fun editorExecutable(dotnet: Boolean = false): File {
+    val variable = if (dotnet) "GODOT_EDITOR_MONO" else "GODOT_EDITOR"
+    System.getenv(variable)?.let { path ->
+        return File(path).takeIf(File::isFile) ?: error("$variable points at $path, which is not a file.")
     }
+    val standard = if (dotnet) "/Applications/Godot_mono.app/Contents/MacOS/Godot" else "/Applications/Godot.app/Contents/MacOS/Godot"
+    val names = if (dotnet) listOf("godot-mono", "godot_mono", "godot-mono.exe") else listOf("godot", "godot4", "godot.exe")
     val onPath = System.getenv("PATH").orEmpty().split(File.pathSeparator).flatMap { directory ->
-        listOf("godot", "godot4", "godot.exe").map { File(directory, it) }
+        names.map { File(directory, it) }
     }
-    return (listOf(File("/Applications/Godot.app/Contents/MacOS/Godot")) + onPath).firstOrNull(File::isFile) ?: error(
-        "Godot was not found. Set GODOT_EDITOR to the Godot 4 editor executable, for example:\n" +
-            "  macOS:   export GODOT_EDITOR=/Applications/Godot.app/Contents/MacOS/Godot\n" +
-            "  Linux:   export GODOT_EDITOR=/path/to/Godot_v4.7.2-stable_linux.x86_64\n" +
-            "  Windows: set GODOT_EDITOR=C:\\path\\to\\Godot_v4.7.2-stable_win64.exe"
+    val build = if (dotnet) "the .NET build of the Godot 4 editor" else "the Godot 4 editor"
+    return (listOf(File(standard)) + onPath).firstOrNull(File::isFile) ?: error(
+        "Godot was not found. Set $variable to $build, for example:\n" +
+            "  macOS:   export $variable=$standard\n" +
+            "  Linux:   export $variable=/path/to/Godot_v4.7.2-stable${if (dotnet) "_mono" else ""}_linux.x86_64\n" +
+            "  Windows: set $variable=C:\\path\\to\\Godot_v4.7.2-stable${if (dotnet) "_mono" else ""}_win64.exe"
     )
 }
+
+// The dotnet command that builds the C# scripts: on the PATH, or where Microsoft's install script puts it.
+fun dotnetExecutable(): File =
+    (System.getenv("PATH").orEmpty().split(File.pathSeparator).map { File(it, "dotnet") } +
+        File(System.getProperty("user.home"), ".dotnet/dotnet")).firstOrNull(File::isFile)
+        ?: error("dotnet was not found: install the .NET 8 SDK to build the C# scripts.")
 
 // The newest file under these directories, in milliseconds since the epoch, or 0 when none exists.
 fun newestModification(directories: List<File>, skip: (File) -> Boolean = { false }): Long = directories
@@ -99,8 +112,9 @@ fun runGodot(
     javaHome: String,
     headless: Boolean,
     fixedFps: Boolean = true,
+    dotnet: Boolean = false,
 ) {
-    val command = listOf(editorExecutable().absolutePath) +
+    val command = listOf(editorExecutable(dotnet).absolutePath) +
         (if (headless) listOf("--headless") else emptyList()) +
         (if (fixedFps) listOf("--fixed-fps", "60") else emptyList()) +
         listOf("--path", projectDirectory.absolutePath, "--") +
@@ -110,11 +124,16 @@ fun runGodot(
     val process = ProcessBuilder(command)
         .directory(projectDirectory)
         .redirectErrorStream(true)
-        .apply { environment()["JAVA_HOME"] = javaHome }
+        .apply {
+            environment()["JAVA_HOME"] = javaHome
+            // The .NET editor finds its runtime through the dotnet command, so the run does not depend on the caller's PATH.
+            if (dotnet) environment()["PATH"] = dotnetExecutable().parent + File.pathSeparator + System.getenv("PATH").orEmpty()
+        }
         .start()
     logFile.parentFile.mkdirs()
     val offending = mutableListOf<String>()
     var running = true
+    var passed = false
     logFile.bufferedWriter().use { log ->
         process.inputStream.bufferedReader().forEachLine { line ->
             println(line)
@@ -122,12 +141,21 @@ fun runGodot(
             log.newLine()
             log.flush()
             if (running && failurePatterns.any { it.containsMatchIn(line) }) offending.add(line)
-            if (line.startsWith(resultMarker)) running = false
+            if (line.startsWith(resultMarker)) {
+                running = false
+                passed = line == "${resultMarker}PASS"
+            }
         }
     }
     val exitCode = process.waitFor()
     check(offending.isEmpty()) {
         "Godot reported ${offending.size} error line(s) during the run:\n" + offending.joinToString("\n")
+    }
+    // The .NET editor also loads the JVM extension, and with both runtimes in the process Godot 4.7.2 crashes while
+    // quitting, after the runner has written its results; the crash does not depend on the scene's language.
+    if (dotnet && exitCode != 0 && passed) {
+        println("The .NET editor exited with code $exitCode after the run passed: its known crash on quit, ignored.")
+        return
     }
     check(exitCode == 0) { "The bulletmark runner exited with code $exitCode, see the summary above." }
 }
@@ -136,7 +164,7 @@ fun runGodot(
 // -Praw-samples with no value for the --raw-samples flag.
 val runnerOptions = listOf(
     "label", "frames", "warmup-frames", "seed", "bullets-per-frame", "lifetime-frames", "max-live", "render", "hits",
-    "reactions", "bookkeeping", "baseline", "results-dir", "raw-samples", "screenshots",
+    "reactions", "bookkeeping", "baseline", "results-dir", "raw-samples", "screenshots", "lang",
 )
 
 fun Project.runnerArguments(): List<String> = runnerOptions.mapNotNull { name ->
@@ -190,11 +218,22 @@ tasks {
         }
     }
 
+    val buildCSharp = register<Exec>("buildCSharp") {
+        group = "verification"
+        description = "Builds the C# scripts the .NET editor runs with -Plang=cs."
+        workingDir = projectDir
+        doFirst { commandLine(dotnetExecutable().absolutePath, "build", "Bulletmark.csproj", "-nologo", "-v", "quiet") }
+    }
+
+    // The language a task runs, -Plang=kt (the default) or -Plang=cs. A C# run needs the .NET editor and its scripts built.
+    val dotnet = findProperty("lang") == "cs"
+
     register("runBulletmark") {
         group = "verification"
         description = "Measures bulletmark at a fixed 60 fps of game time, in a window; -Pheadless measures without one. " +
             "Requires importResources first. Runner options are Gradle properties, for example -Plabel=base -Prender=draw."
         dependsOn(syncAddon)
+        if (dotnet) dependsOn(buildCSharp)
 
         val javaHome = System.getProperty("java.home")
         val workingDirectory = projectDir
@@ -204,7 +243,10 @@ tasks {
 
         doLast {
             checkBuildIsFresh(workingDirectory)
-            runGodot(workingDirectory, listOf("--commit=${gitCommit()}") + arguments, logFile, javaHome, headless = headless)
+            runGodot(
+                workingDirectory, listOf("--commit=${gitCommit()}") + arguments, logFile, javaHome,
+                headless = headless, dotnet = dotnet,
+            )
         }
     }
 
@@ -213,6 +255,7 @@ tasks {
         description = "Opens bulletmark in a window to watch, in real time, for a minute; not a measurement, since each " +
             "frame advances the game by however long it took. Takes the same options as runBulletmark."
         dependsOn(syncAddon)
+        if (dotnet) dependsOn(buildCSharp)
 
         val javaHome = System.getProperty("java.home")
         val workingDirectory = projectDir
@@ -224,7 +267,7 @@ tasks {
             checkBuildIsFresh(workingDirectory)
             runGodot(
                 workingDirectory, listOf("--commit=${gitCommit()}") + arguments, logFile, javaHome,
-                headless = false, fixedFps = false,
+                headless = false, fixedFps = false, dotnet = dotnet,
             )
         }
     }
@@ -295,6 +338,7 @@ tasks {
                     results.resolve("${name}_$round.log"),
                     javaHome,
                     headless = headless,
+                    dotnet = dotnet,
                 )
             }
 
@@ -346,7 +390,7 @@ fun abVerdict(
     val reasons = mutableListOf<String>()
     if (all.map { it.section("settings") }.distinct().size > 1) reasons.add("the runs used different settings")
     if (all.map { it.section("game") }.distinct().size > 1) reasons.add("the runs played out differently")
-    val calls = all.map { (it.section("jvm")["script_calls_per_frame"] as Number).toDouble() }.distinct()
+    val calls = all.map { (it.section("runtime")["script_calls_per_frame"] as Number).toDouble() }.distinct()
     if (calls.size > 1) reasons.add("the runs made different numbers of script calls per frame: $calls")
 
     val rounds = reports.getValue(nameA).size
@@ -386,8 +430,8 @@ fun abVerdict(
 
     val counters = mutableMapOf<String, Any?>()
     for (counter in listOf("allocated_bytes_per_frame", "gc_count", "gc_time_ms")) {
-        val a = reports.getValue(nameA).mapNotNull { (it.section("jvm")[counter] as Number?)?.toDouble() }
-        val b = reports.getValue(nameB).mapNotNull { (it.section("jvm")[counter] as Number?)?.toDouble() }
+        val a = reports.getValue(nameA).mapNotNull { (it.section("runtime")[counter] as Number?)?.toDouble() }
+        val b = reports.getValue(nameB).mapNotNull { (it.section("runtime")[counter] as Number?)?.toDouble() }
         if (a.isEmpty() || b.isEmpty()) continue
         counters[counter] = mapOf("median_a" to median(a), "median_b" to median(b))
         lines.add("%-26s %10.1f -> %10.1f".format(counter, median(a), median(b)))

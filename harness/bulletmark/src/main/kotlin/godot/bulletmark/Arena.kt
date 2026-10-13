@@ -312,7 +312,7 @@ class Arena : Node2D() {
     fun liveBullets(): Int = live
 
     @Register
-    fun jvmCounters(): Dictionary<String, Long> = Dictionary<String, Long>().also { counters ->
+    fun runtimeCounters(): Dictionary<String, Long> = Dictionary<String, Long>().also { counters ->
         for ((name, value) in JvmCounters.snapshot()) {
             counters[name] = value
         }
