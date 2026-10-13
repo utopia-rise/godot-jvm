@@ -1,0 +1,25 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Godot-JVM Bulletmark"
+config/features=PackedStringArray("4.7")
+run/main_scene="res://runner/Main.tscn"
+
+[display]
+
+window/size/viewport_width=1040
+window/size/viewport_height=652
+window/vsync/vsync_mode=0
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.07, 0.08, 0.1, 1)
