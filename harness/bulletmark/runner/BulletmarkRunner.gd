@@ -11,12 +11,14 @@ const ARENAS := {
 	"gd": "res://gd/Arena.gd",
 }
 const RESULT_MARKER := "BULLETMARK_RESULT:"
-const SCHEMA := 5
+const SCHEMA := 6
+## One frame's budget at 60 fps. A frame longer than this misses a refresh and shows as a stutter: a hitch.
+const HITCH_USEC := 16667
 ## How often the live bullet count is read during the measured frames. Each read is a call into the JVM, so it stays
 ## rare enough not to show in the frame times.
 const LIVE_SAMPLE_INTERVAL := 60
 const RENDER_MODES := ["nodes", "draw"]
-const COMPARED_STATS := ["p50", "p95", "p99", "mean"]
+const COMPARED_STATS := ["p50", "p95", "p99", "p99_9", "mean"]
 const COMPARED_RUNTIME_COUNTERS := ["allocated_bytes_per_frame", "script_calls_per_frame", "gc_count", "gc_time_ms"]
 
 var options := {}
@@ -144,9 +146,10 @@ func _finish() -> void:
 	file.store_string(JSON.stringify(report, "  "))
 	file.close()
 
-	print("frame time us  p50 %d  p95 %d  p99 %d  max %d  mean %.1f" % [
-		frames.p50, frames.p95, frames.p99, frames.max, frames.mean,
+	print("frame time us  p50 %d  p95 %d  p99 %d  p99.9 %d  max %d  mean %.1f" % [
+		frames.p50, frames.p95, frames.p99, frames.p99_9, frames.max, frames.mean,
 	])
+	print("hitches        %d frames over %d us, at measured frames %s" % [frames.hitches, HITCH_USEC, frames.hitch_frames])
 	print("live bullets   %d to %d" % [report.live_bullets.min, report.live_bullets.max])
 	print("game           %s" % JSON.stringify(report.game))
 	_print_runtime(report.runtime)
@@ -286,6 +289,10 @@ func _save_screenshot(at_frame: int) -> void:
 
 
 func _frame_stats(samples: PackedInt64Array) -> Dictionary:
+	var hitch_frames: Array[int] = []
+	for index in samples.size():
+		if samples[index] > HITCH_USEC:
+			hitch_frames.append(index)
 	var sorted := samples.duplicate()
 	sorted.sort()
 	var total := 0
@@ -295,6 +302,9 @@ func _frame_stats(samples: PackedInt64Array) -> Dictionary:
 		"p50": _percentile(sorted, 0.50),
 		"p95": _percentile(sorted, 0.95),
 		"p99": _percentile(sorted, 0.99),
+		"p99_9": _percentile(sorted, 0.999),
+		"hitches": hitch_frames.size(),
+		"hitch_frames": hitch_frames,
 		"min": sorted[0],
 		"max": sorted[sorted.size() - 1],
 		"mean": float(total) / sorted.size(),

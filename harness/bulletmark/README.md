@@ -103,7 +103,9 @@ the same build spawn, hit and kill exactly the same things; only the frame times
 
 The runner discards the warm-up frames, then records the wall time of each measured frame, from one runner call to
 the next: physics, scripts, signals, tweens, timers and the binding's per-frame memory sync included. It reports p50,
-p95, p99, the worst frame and the mean, plus the live bullet count and the game's totals.
+p95, p99, p99.9, the worst frame and the mean, plus the live bullet count and the game's totals. It also counts the
+hitches, frames longer than 16.7 ms, one frame's budget at 60 fps, and lists at which measured frames they happened:
+p50 says how fast a typical frame is, the hitches how often the game would stutter.
 
 It also reads the JVM's own counters at the start and the end of the measured frames:
 
@@ -216,9 +218,9 @@ first, and writes every report and the verdict to `build/ab/results/<time>/`. It
 The verdict compares the two runs of each round with each other, since they ran back to back on the same machine
 state. For p50 and the mean, the change is the median of the rounds' changes. It counts as FASTER or SLOWER only when
 it exceeds the threshold and at least four rounds in five move the same way; above the threshold without that
-agreement it is "not settled", below it "no detectable change". p95 and p99 are reported but never decide. Allocation,
-GC and script calls are compared directly, and the comparison is refused when the two builds used different settings,
-played out differently or made different numbers of script calls.
+agreement it is "not settled", below it "no detectable change". p95, p99, p99.9 and the hitches are reported but
+never decide. Allocation, GC and script calls are compared directly, and the comparison is refused when the two builds
+used different settings, played out differently or made different numbers of script calls.
 
 Pairing matters: in testing, the whole machine ran about 12% slower for two rounds in the middle of a comparison, which
 moved both builds alike. The two comparisons below were run on an earlier version of the scene, with three enemy
@@ -254,22 +256,46 @@ that runs C# first builds the scripts with `./gradlew buildCSharp`.
 
 Two caveats:
 
-- **Editor numbers are not a language comparison.** Every task runs the scene from an editor binary, which adds its own
-  cost to script calls, and not the same cost for each language. On the M4 Pro, p50 in milliseconds:
-
-  | Language | From the editor | Release export |
-  |---|---|---|
-  | Kotlin | 5.5 to 5.6 | 4.64 |
-  | C# | 16.6 to 17.0 | 4.80 |
-  | GDScript | 5.6 | 4.55 |
-
-  The release column is the median of three rounds of all three exports, in rotated order; within a language the
-  rounds spread by up to 0.2 ms, so the three are about level. The exports were made by hand from copies of the project
-  (the C# and GDScript ones without the Godot-JVM addon) and signed ad hoc with `codesign`; no task makes them yet. The
-  Kotlin export reports no allocation or GC counters, because the embedded JRE leaves out `java.management`.
-
-  A run from the editor is useful for checking a port and for comparing two builds in the same language, not for
-  comparing languages.
+- **Editor numbers are not a language comparison.** Every task runs the scene from an editor binary, which adds its
+  own cost to script calls, and not the same cost for each language: on the M4 Pro, p50 from the editor was 5.5 ms for
+  Kotlin, 5.6 ms for GDScript and 16.6 to 17.0 ms for C#, against 4.4 to 4.7 ms for all three from release exports. A
+  run from the editor is useful for checking a port and for comparing two builds in the same language, not for
+  comparing languages; [the snapshot below](#language-snapshot) uses release exports.
 - **The .NET editor crashes on quit.** It also loads the Godot-JVM extension, and with both runtimes in one process
   Godot 4.7.2 exits with a crash after the runner has written its report, whichever language the scene uses. The
   tasks ignore that exit code when the run passed and say so.
+
+### Language snapshot
+
+Measured on 2026-10-13 with the scene at commit `885b21b4b` (Godot-JVM 1.0.0-rc2), Godot 4.7.2, macOS 26.6 on an Apple
+M4 Pro. Each language ran from a release export with its runtime's default settings: the embedded JRE built from
+Corretto 21, .NET 8 as Godot exports it, GDScript as is. The numbers describe this workload on this machine at that
+time; they are a reference point for Godot-JVM's own changes, not a verdict on the other runtimes.
+
+Three rounds of the three exports in rotated order, each run 2,400 warm-up frames then 10,800 measured frames (three
+minutes), headless. Medians in milliseconds:
+
+| Language | p50 | p99 | p99.9 | Worst frame | Hitches over 16.7 ms |
+|---|---|---|---|---|---|
+| Kotlin | 4.43 | 6.08 | 7.15 | 8.1 to 10.0 | 0 |
+| C# | 4.65 | 6.83 | 27.3 | 32.9 to 33.9 | 16 to 18 |
+| GDScript | 4.45 | 6.14 | 7.23 | 8.7 to 11.3 | 0 |
+
+All nine runs played the same game. The typical frame is level across the three: the engine's own physics and scene
+work dominates it. The slowest frames differ. With its default GC settings on this workload, C# paused for 27 to 34 ms
+about every 715 frames, at the same frames in every run, since the game and so its allocation are the same each time;
+its 54 collections took 610 ms in all. Kotlin and GDScript never missed a frame. The Kotlin export reports no GC
+counters, because the embedded JRE leaves out `java.management`, and GDScript has no collector.
+
+No task makes the exports yet. These were made by hand:
+
+1. Build the native library with `scons platform=macos target=template_release`, then in this project
+   `./gradlew syncAddon build -Prelease generateEmbeddedJre`.
+2. Copy the project, add a macOS preset (universal, a bundle identifier) and set
+   `rendering/textures/vram_compression/import_etc2_astc=true`, which a universal export requires. Leave out the
+   Godot-JVM addon, `src/` and `jvm/` for the C# and GDScript exports, and `cs/` for the Kotlin and GDScript ones.
+3. Export with `--headless --export-release <preset>`, the .NET editor for C# and the standard one otherwise.
+4. Sign again with `codesign --force --deep -s - --options runtime --entitlements <file>`, the entitlements granting
+   `com.apple.security.cs.allow-jit` and `com.apple.security.cs.disable-library-validation`: the built-in signer's
+   result is rejected by macOS 26.
+5. Run `<app>/Contents/MacOS/<name> --headless --fixed-fps 60 -- --lang=<kt|cs|gd> --frames=10800 --results-dir=<dir>`.

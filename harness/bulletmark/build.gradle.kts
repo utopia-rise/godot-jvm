@@ -403,9 +403,11 @@ fun abVerdict(
     val threshold = thresholdPercent / 100.0
     val agreementNeeded = Math.ceil(rounds * 0.8).toInt()
     val statistics = mutableMapOf<String, Any?>()
-    for ((stat, decides) in listOf("p50" to true, "mean" to true, "p95" to false, "p99" to false)) {
-        val a = reports.getValue(nameA).map { (it.section("frames_us")[stat] as Number).toDouble() }
-        val b = reports.getValue(nameB).map { (it.section("frames_us")[stat] as Number).toDouble() }
+    for ((stat, decides) in listOf("p50" to true, "mean" to true, "p95" to false, "p99" to false, "p99_9" to false)) {
+        val a = reports.getValue(nameA).mapNotNull { (it.section("frames_us")[stat] as Number?)?.toDouble() }
+        val b = reports.getValue(nameB).mapNotNull { (it.section("frames_us")[stat] as Number?)?.toDouble() }
+        // Reports written before a statistic existed lack it.
+        if (a.size != rounds || b.size != rounds) continue
         val ratios = a.indices.map { b[it] / a[it] }
         val change = median(ratios) - 1.0
         val agreeing = ratios.count { (it - 1.0) * change > 0 }
@@ -429,6 +431,12 @@ fun abVerdict(
     }
 
     val counters = mutableMapOf<String, Any?>()
+    val hitchesA = reports.getValue(nameA).mapNotNull { (it.section("frames_us")["hitches"] as Number?)?.toDouble() }
+    val hitchesB = reports.getValue(nameB).mapNotNull { (it.section("frames_us")["hitches"] as Number?)?.toDouble() }
+    if (hitchesA.isNotEmpty() && hitchesB.isNotEmpty()) {
+        counters["hitches"] = mapOf("median_a" to median(hitchesA), "median_b" to median(hitchesB))
+        lines.add("%-26s %10.1f -> %10.1f".format("hitches", median(hitchesA), median(hitchesB)))
+    }
     for (counter in listOf("allocated_bytes_per_frame", "gc_count", "gc_time_ms")) {
         val a = reports.getValue(nameA).mapNotNull { (it.section("runtime")[counter] as Number?)?.toDouble() }
         val b = reports.getValue(nameB).mapNotNull { (it.section("runtime")[counter] as Number?)?.toDouble() }
