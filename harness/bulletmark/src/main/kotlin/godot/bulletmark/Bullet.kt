@@ -50,8 +50,6 @@ class Bullet : Area2D() {
         if (arena.hits) areaEntered.connectMethod(this, Bullet::onAreaEntered) else monitoring = false
         monitorable = arena.hits
     }
-
-    @Register
     override fun _physicsProcess(delta: Double) {
         ScriptCalls.count++
         if (finished) return

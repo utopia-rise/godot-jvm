@@ -79,8 +79,6 @@ class Drone : Area2D() {
         if (arena.bookkeeping) addToGroup(GROUP)
         if (arena.hits) areaEntered.connectMethod(this, Drone::onAreaEntered) else monitoring = false
     }
-
-    @Register
     override fun _physicsProcess(delta: Double) {
         ScriptCalls.count++
         if (dead) return

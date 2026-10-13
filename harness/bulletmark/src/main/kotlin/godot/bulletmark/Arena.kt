@@ -163,8 +163,6 @@ class Arena : Node2D() {
             spawnDrone(randomMiddleX(), randomY(), original = true)
         }
     }
-
-    @Register
     override fun _physicsProcess(delta: Double) {
         ScriptCalls.count++
         physicsFrame++
@@ -209,8 +207,6 @@ class Arena : Node2D() {
             framesPerSecond.text = "%.0f FPS".format(Engine.getFramesPerSecond())
         }
     }
-
-    @Register
     override fun _draw() {
         ScriptCalls.count++
         for (lane in 0 until LANES) {
