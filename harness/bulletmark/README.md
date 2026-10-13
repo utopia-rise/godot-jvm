@@ -153,7 +153,7 @@ option: it tells `runBulletmark` and `abBulletmark` to start Godot without a win
 | Option | Default | Meaning |
 |---|---|---|
 | `-Plabel=<name>` | `run` | Name of the run, and of its report file |
-| `-Plang=kt` or `cs` | `kt` | The scene's language, see [C#](#c) |
+| `-Plang=kt`, `cs` or `gd` | `kt` | The scene's language, see [Other languages](#other-languages) |
 | `-Pwarmup-frames=N` | 2400 | Frames run before measuring, so the JIT has compiled the hot paths |
 | `-Pframes=N` | 1200 | Measured frames |
 | `-Pseed=N` | 42 | Seed of the arena's random generator |
@@ -232,28 +232,44 @@ classes instead of the drone, and validate the tool rather than describe today's
 The second change removes a few writes from each of the 3,400 or so `position` calls per frame, a few microseconds out
 of five milliseconds, so no detectable change is the expected answer.
 
-## C#
+## Other languages
 
-`cs/` holds a line-for-line C# port of the scene, run with `-Plang=cs`. It makes the same random draws in the same
-order and the same arithmetic, so it plays exactly the same game: the same totals and the same 3,373.9 script calls per
-frame. Comparing a C# run against a Kotlin report with `-Pbaseline` checks that, since the comparison allows a
-different language but refuses a different game.
-
-A C# run needs the .NET build of the Godot editor, found through `GODOT_EDITOR_MONO` or at
-`/Applications/Godot_mono.app`, and the .NET 8 SDK. Every task that runs C# first builds the scripts with
-`./gradlew buildCSharp`.
+The scene also exists in C# (`cs/`) and GDScript (`gd/`), run with `-Plang=cs` or `-Plang=gd`. Each is a line-for-line
+port of the Kotlin scene: the same random draws in the same order and the same arithmetic, so all three play exactly
+the same game, with the same totals and the same 3,373.9 script calls per frame. Comparing a run against a report in
+another language with `-Pbaseline` checks that, since the comparison allows a different language but refuses a
+different game.
 
 ```bash
 ./gradlew runBulletmark -Pheadless -Plabel=kt
 ./gradlew runBulletmark -Pheadless -Plang=cs -Plabel=cs -Pbaseline=results/kt.json
+./gradlew runBulletmark -Pheadless -Plang=gd -Plabel=gd -Pbaseline=results/kt.json
 ```
+
+A GDScript run uses the same editor as a Kotlin one; it reports script calls but no allocation or GC counters, since
+GDScript frees by reference counting. The GDScript classes are named `GdArena`, `GdBullet` and `GdDrone` because
+Godot-JVM registers the Kotlin `Arena`, `Bullet` and `Drone` as global classes. A C# run needs the .NET build of the
+Godot editor, found through `GODOT_EDITOR_MONO` or at `/Applications/Godot_mono.app`, and the .NET 8 SDK; every task
+that runs C# first builds the scripts with `./gradlew buildCSharp`.
 
 Two caveats:
 
-- **Editor numbers are not a language comparison.** Run from the editor, every call into a C# script costs about three
-  times what it costs in an exported game: on the M4 Pro, p50 was 16.6 ms from the .NET editor and 4.9 ms from a
-  release export of the same scene, against 5.5 ms for Kotlin from the editor. A C# run from the editor is useful for
-  checking the port and for comparing two C# builds, not for comparing languages.
+- **Editor numbers are not a language comparison.** Every task runs the scene from an editor binary, which adds its own
+  cost to script calls, and not the same cost for each language. On the M4 Pro, p50 in milliseconds:
+
+  | Language | From the editor | Release export |
+  |---|---|---|
+  | Kotlin | 5.5 to 5.6 | 4.64 |
+  | C# | 16.6 to 17.0 | 4.80 |
+  | GDScript | 5.6 | 4.55 |
+
+  The release column is the median of three rounds of all three exports, in rotated order; within a language the
+  rounds spread by up to 0.2 ms, so the three are about level. The exports were made by hand from copies of the project
+  (the C# and GDScript ones without the Godot-JVM addon) and signed ad hoc with `codesign`; no task makes them yet. The
+  Kotlin export reports no allocation or GC counters, because the embedded JRE leaves out `java.management`.
+
+  A run from the editor is useful for checking a port and for comparing two builds in the same language, not for
+  comparing languages.
 - **The .NET editor crashes on quit.** It also loads the Godot-JVM extension, and with both runtimes in one process
   Godot 4.7.2 exits with a crash after the runner has written its report, whichever language the scene uses. The
   tasks ignore that exit code when the run passed and say so.

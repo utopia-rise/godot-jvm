@@ -8,6 +8,7 @@ extends Node
 const ARENAS := {
 	"kt": "res://src/main/kotlin/godot/bulletmark/Arena.kt",
 	"cs": "res://cs/Arena.cs",
+	"gd": "res://gd/Arena.gd",
 }
 const RESULT_MARKER := "BULLETMARK_RESULT:"
 const SCHEMA := 5
@@ -41,7 +42,11 @@ func _ready() -> void:
 		push_error("Cannot load the %s arena: is this the editor for that language, with the scripts built?" % settings.lang)
 		get_tree().quit(1)
 		return
-	arena = arena_script.new()
+	arena = arena_script.new() if arena_script.can_instantiate() else null
+	if arena == null:
+		push_error("Cannot create the %s arena: its script does not compile." % settings.lang)
+		get_tree().quit(1)
+		return
 	add_child(arena)
 	arena.configure(
 		settings.seed,
@@ -172,7 +177,7 @@ func _runtime_usage(start: Dictionary, end: Dictionary, frames: int) -> Dictiona
 
 func _print_runtime(usage: Dictionary) -> void:
 	if not usage.available:
-		print("runtime        counters unavailable (no java.management); %.1f script calls per frame" % usage.script_calls_per_frame)
+		print("runtime        no allocation or GC counters; %.1f script calls per frame" % usage.script_calls_per_frame)
 		return
 	print("runtime        %.1f KB allocated and %.1f script calls per frame" % [
 		usage.allocated_bytes_per_frame / 1024.0, usage.script_calls_per_frame,

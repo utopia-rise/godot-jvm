@@ -25,7 +25,7 @@ val resultMarker = "BULLETMARK_RESULT:"
 
 // What a snapshot holds: everything Godot reads when it runs the project, and nothing it rebuilds.
 val snapshotEntries = listOf(
-    ".godot", "addons", "jvm", "src", "cs", "runner", "project.godot", "godot_jvm_configuration.json", "Bulletmark.csproj",
+    ".godot", "addons", "jvm", "src", "cs", "gd", "runner", "project.godot", "godot_jvm_configuration.json", "Bulletmark.csproj",
 )
 val abDirectory: File = layout.buildDirectory.dir("ab").get().asFile
 
@@ -225,7 +225,7 @@ tasks {
         doFirst { commandLine(dotnetExecutable().absolutePath, "build", "Bulletmark.csproj", "-nologo", "-v", "quiet") }
     }
 
-    // The language a task runs, -Plang=kt (the default) or -Plang=cs. A C# run needs the .NET editor and its scripts built.
+    // The language a task runs: -Plang=kt (the default), cs or gd. A C# run needs the .NET editor and its scripts built.
     val dotnet = findProperty("lang") == "cs"
 
     register("runBulletmark") {
