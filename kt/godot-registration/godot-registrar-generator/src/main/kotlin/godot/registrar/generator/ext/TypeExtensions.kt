@@ -6,7 +6,6 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.joinToCode
-import godot.api.Resource
 import godot.core.Callable
 import godot.core.Dictionary
 import godot.core.Signal
@@ -137,6 +136,8 @@ import godot.registration.model.types.TYPE_LONG
 import godot.registration.model.types.TYPE_SHORT
 import java.util.concurrent.ConcurrentHashMap
 import java.util.Optional
+import godot.tools.common.constants.GODOT_RESOURCE
+import godot.tools.common.constants.godotApiPackage
 
 /** Everything the registrar needs to know about how a model [Type] maps to Godot. */
 private class TypeMetadata(
@@ -380,8 +381,10 @@ fun Type.isCompatibleList(): Boolean = isSubtypeOf(VariantArray::class.java)
 
 fun Type.isDictionary(): Boolean = isSubtypeOf(Dictionary::class.java)
 
+private const val RESOURCE_FQ_NAME = "$godotApiPackage.$GODOT_RESOURCE"
+
 fun Type.isResource(): Boolean =
-    fqName == requireNotNull(Resource::class.qualifiedName) || baseGodotType()?.fqName == Resource::class.qualifiedName
+    fqName == RESOURCE_FQ_NAME || baseGodotType()?.fqName == RESOURCE_FQ_NAME
 
 private fun Type.registeredOrBaseGodotClassName(context: GeneratorContext): String {
     val baseGodotType = baseGodotType()

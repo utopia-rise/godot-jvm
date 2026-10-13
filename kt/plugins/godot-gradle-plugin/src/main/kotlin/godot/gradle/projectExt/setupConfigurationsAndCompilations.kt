@@ -1,8 +1,6 @@
 package godot.gradle.projectExt
 
 import godot.gradle.GodotLanguage
-import godot.tools.common.BUILD_VERSION
-import godot.tools.common.KOTLIN_COROUTINE_VERSION
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.tasks.SourceSetContainer
@@ -32,36 +30,28 @@ fun Project.setupConfigurationsAndCompilations() {
 
     addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotSplitImplementation)
 
+    configurations.configureEach { configuration ->
+        if (configuration.isCanBeResolved) {
+            configuration.attributes.attribute(GODOT_BUILD_TYPE_ATTRIBUTE, if (isRelease) "release" else "debug")
+        }
+    }
+
     afterEvaluate {
         // Add all consumer-project main compilation dependencies in one place, after the user's
         // `godot { ... }` configuration has had a chance to override extension defaults.
-        dependencies.add("compileOnly", "com.utopia-rise:common:$BUILD_VERSION")
-        dependencies.add("compileOnly", "com.utopia-rise:$godotCoreArtifactName:$BUILD_VERSION")
-        if (!godotJvmExtension.isCustomApiEnabled.get()) {
-            dependencies.add("compileOnly", "com.utopia-rise:$godotApiArtifactName:$BUILD_VERSION")
+        for (module in listOf("core", "extension", "bootstrap")) {
+            dependencies.add("compileOnly", godotLibraryDependency(module))
         }
-        dependencies.add("compileOnly", "com.utopia-rise:$godotExtensionArtifactName:$BUILD_VERSION")
-        dependencies.add("compileOnly", "com.utopia-rise:$godotBootstrapArtifactName:$BUILD_VERSION")
+        if (!godotJvmExtension.isCustomApiEnabled.get()) {
+            dependencies.add("compileOnly", godotLibraryDependency("api"))
+            dependencies.add("bootstrap", godotLibraryDependency("api"))
+        }
         if (isLanguageEnabled(GodotLanguage.SCALA)) {
             dependencies.add("implementation", "org.scala-lang:scala3-library_3:${godotJvmExtension.toolchain.scalaVersion.get()}")
         }
 
         if (godotJvmExtension.isGodotCoroutinesEnabled.get()) {
-            dependencies.add(
-                "implementation",
-                "com.utopia-rise:${godotCoroutineLibraryArtifactName}:$BUILD_VERSION"
-            )
-            dependencies.add(
-                "implementation",
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINE_VERSION"
-            )
-        }
-
-        if (!godotJvmExtension.isLibrary.get()) {
-            dependencies.add(
-                "compileOnly",
-                "com.utopia-rise:godot-registration:$BUILD_VERSION"
-            )
+            dependencies.add("implementation", godotLibraryDependency("coroutine"))
         }
     }
 
@@ -80,12 +70,9 @@ fun Project.setupConfigurationsAndCompilations() {
         val kotlinBuildVersion = resolvedKotlinBuildVersion()
         with(it.dependencies) {
             add(dependencies.create("org.jetbrains.kotlin:kotlin-stdlib:$kotlinBuildVersion"))
-            add(dependencies.create("com.utopia-rise:common:$BUILD_VERSION"))
-            add(dependencies.create("com.utopia-rise:$godotInternalArtifactName:$BUILD_VERSION"))
-            add(dependencies.create("com.utopia-rise:$godotCoreArtifactName:$BUILD_VERSION"))
-            add(dependencies.create("com.utopia-rise:$godotApiArtifactName:$BUILD_VERSION"))
-            add(dependencies.create("com.utopia-rise:$godotBootstrapArtifactName:$BUILD_VERSION"))
-            add(dependencies.create("com.utopia-rise:$godotExtensionArtifactName:$BUILD_VERSION"))
+            for (module in listOf("core", "extension", "bootstrap")) {
+                add(godotLibraryDependency(module))
+            }
             // add reflection explicitly so it's usable in exported projects as well. See: GH-571
             add(dependencies.create("org.jetbrains.kotlin:kotlin-reflect:$kotlinBuildVersion"))
         }

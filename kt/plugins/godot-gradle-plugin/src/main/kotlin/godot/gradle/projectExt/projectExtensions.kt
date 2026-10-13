@@ -2,8 +2,12 @@ package godot.gradle.projectExt
 
 import godot.gradle.GodotExtension
 import godot.gradle.GodotLanguage
+import godot.tools.common.BUILD_VERSION
 import godot.tools.common.constants.Paths
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ExternalModuleDependency
+import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.Directory
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
@@ -31,23 +35,12 @@ val Project.isRelease: Boolean
             )
         }
 
-val Project.godotInternalArtifactName: String
-    get() = "godot-internal-library-${if (isRelease) "release" else "debug"}"
+val GODOT_BUILD_TYPE_ATTRIBUTE: Attribute<String> = Attribute.of("com.utopia-rise.godot.build-type", String::class.java)
 
-val Project.godotCoreArtifactName: String
-    get() = "godot-core-library-${if (isRelease) "release" else "debug"}"
-
-val Project.godotApiArtifactName: String
-    get() = "godot-api-library-${if (isRelease) "release" else "debug"}"
-
-val Project.godotBootstrapArtifactName: String
-    get() = "godot-bootstrap-library-${if (isRelease) "release" else "debug"}"
-
-val Project.godotExtensionArtifactName: String
-    get() = "godot-extension-library-${if (isRelease) "release" else "debug"}"
-
-val Project.godotCoroutineLibraryArtifactName: String
-    get() = "godot-coroutine-library-${if (isRelease) "release" else "debug"}"
+fun Project.godotLibraryDependency(module: String): Dependency =
+    (dependencies.create("com.utopia-rise:godot-library:$BUILD_VERSION") as ExternalModuleDependency).also { dependency ->
+        dependency.capabilities { it.requireCapability("com.utopia-rise:godot-library-$module") }
+    }
 
 // Debug and release artifacts never share a directory, so one cannot be mistaken for the other.
 val Project.variantDirectoryName: String

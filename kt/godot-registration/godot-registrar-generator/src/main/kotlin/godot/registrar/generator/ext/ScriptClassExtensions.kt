@@ -12,6 +12,8 @@ import godot.registration.model.types.GodotClass
 import godot.registration.model.types.ScriptClass
 import godot.registration.model.types.ScriptFamily
 import godot.tools.common.constants.FileExtensions
+import godot.tools.common.constants.GODOT_REF_COUNTED
+import godot.tools.common.constants.godotApiPackage
 
 fun ScriptClass.shouldGenerateGdjFile(settings: Settings): Boolean =
     !isAbstract && sourceProjectName != settings.projectName
@@ -77,7 +79,7 @@ fun ScriptClass.baseGodotClassName(): String =
 
 fun ScriptClass.inheritsRefCounted(): Boolean =
     generateSequence(this as GodotClass?) { godotClass -> godotClass.parent }
-        .any { godotClass -> godotClass.fqName == godot.api.RefCounted::class.java.name }
+        .any { godotClass -> godotClass.fqName == "$godotApiPackage.$GODOT_REF_COUNTED" }
 
 fun ScriptClass.flattenedHierarchy(context: GeneratorContext): List<ScriptFamily> {
     val accumulator = LinkedHashSet<ScriptFamily>()

@@ -19,12 +19,13 @@ gradlePlugin {
             id = "com.utopia-rise.versioninfo"
             implementationClass = "versioninfo.VersionInfoPlugin"
         }
-    }
-    plugins {
-        create("godotPublishPlugin") {
-            id = "com.utopia-rise.godot-publish"
-            displayName = "Gradle plugin for publishing Godot-JVM to Maven Central"
-            implementationClass = "publish.PublishToMavenCentralPlugin"
+        register("mavenCentral") {
+            id = "com.utopia-rise.maven-central"
+            implementationClass = "publish.MavenCentralPlugin"
+        }
+        register("releaseFlavor") {
+            id = "com.utopia-rise.release-flavor"
+            implementationClass = "flavor.ReleaseFlavorPlugin"
         }
     }
 }

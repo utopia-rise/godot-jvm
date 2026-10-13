@@ -1,13 +1,10 @@
 package godot.gradle.tasks.custom_api
 
 import godot.codegen.generateApiOnlyFrom
-import godot.gradle.projectExt.godotApiArtifactName
-import godot.gradle.projectExt.godotCoreArtifactName
-import godot.gradle.projectExt.godotInternalArtifactName
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.godotLibraryDependency
 import godot.gradle.projectExt.kotlinJvmExtension
 import godot.gradle.projectExt.resolvedKotlinBuildVersion
-import godot.tools.common.BUILD_VERSION
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
@@ -20,7 +17,6 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @CacheableTask
 abstract class GenerateCustomGodotApiTask : DefaultTask() {
@@ -53,10 +49,9 @@ fun Project.customApiJarTask(): TaskProvider<Jar> {
         }
         compilation.compileTaskProvider.get().dependsOn(generateTask)
     }
-    addCustomApiDependencies("customGodotApiImplementation")
-    tasks.named(compilation.compileTaskProvider.name, KotlinCompile::class.java) { task ->
-        task.friendPaths.from(compilation.compileDependencyFiles)
-    }
+    dependencies.add("customGodotApiImplementation", "org.jetbrains.kotlin:kotlin-stdlib:${resolvedKotlinBuildVersion()}")
+    dependencies.add("customGodotApiImplementation", godotLibraryDependency("internal"))
+    dependencies.add("customGodotApiImplementation", godotLibraryDependency("core"))
 
     return tasks.register("customGodotApiJar", Jar::class.java) { task ->
         task.group = "godot-jvm-internal"
@@ -69,19 +64,6 @@ fun Project.customApiJarTask(): TaskProvider<Jar> {
             spec.include("godot/api/**", "godot/RegisterEngineTypes*", "godot/MethodCalls*", "META-INF/**")
         }
     }.also { customApiJar ->
-        configurations.named("bootstrap") { configuration ->
-            configuration.exclude(mapOf("group" to "com.utopia-rise", "module" to godotApiArtifactName))
-        }
         dependencies.add("compileOnly", files(customApiJar.flatMap(Jar::getArchiveFile)))
     }
-}
-
-private fun Project.addCustomApiDependencies(configurationName: String) {
-    val kotlinVersion = resolvedKotlinBuildVersion()
-    listOf(
-        "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
-        "com.utopia-rise:common:$BUILD_VERSION",
-        "com.utopia-rise:$godotInternalArtifactName:$BUILD_VERSION",
-        "com.utopia-rise:$godotCoreArtifactName:$BUILD_VERSION",
-    ).forEach { notation -> dependencies.add(configurationName, notation) }
 }

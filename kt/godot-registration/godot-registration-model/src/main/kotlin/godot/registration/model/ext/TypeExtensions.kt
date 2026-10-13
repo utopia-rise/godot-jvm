@@ -19,6 +19,9 @@ import godot.registration.model.types.TYPE_LONG
 import godot.registration.model.types.TYPE_SHORT
 import godot.registration.model.types.Type
 import godot.registration.model.types.TypeKind
+import godot.tools.common.constants.GODOT_NODE
+import godot.tools.common.constants.GODOT_RESOURCE
+import godot.tools.common.constants.godotApiPackage
 
 fun Type.isCoreType(): Boolean = kind == TypeKind.CORE_TYPE
 
@@ -26,7 +29,7 @@ fun Type.isCoreType(): Boolean = kind == TypeKind.CORE_TYPE
 fun Type.isTypedCallback(): Boolean = isCoreType() && Type.findCoreType(fqName) == null
 
 fun Type.isNodeType(): Boolean {
-    return (this as? GodotClass)?.isOrInherits(godot.api.Node::class.java.name) == true
+    return (this as? GodotClass)?.isOrInherits("$godotApiPackage.$GODOT_NODE") == true
 }
 
 fun Type.isEnum(): Boolean = kind == TypeKind.ENUM
@@ -34,7 +37,7 @@ fun Type.isEnum(): Boolean = kind == TypeKind.ENUM
 fun Type.isBitField(): Boolean = kind == TypeKind.BITFIELD && fqName == BitField::class.qualifiedName
 
 fun Type.isResource(): Boolean =
-    (this as? GodotClass)?.isOrInherits(godot.api.Resource::class.java.name) == true
+    (this as? GodotClass)?.isOrInherits("$godotApiPackage.$GODOT_RESOURCE") == true
 
 private fun GodotClass.isOrInherits(targetFqName: String): Boolean {
     var current: GodotClass? = this

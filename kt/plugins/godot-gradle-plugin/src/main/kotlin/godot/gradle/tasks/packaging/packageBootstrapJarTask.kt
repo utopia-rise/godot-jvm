@@ -27,9 +27,6 @@ fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null)
                 dependsOn(customApiJarTask)
                 duplicatesStrategy = DuplicatesStrategy.EXCLUDE
                 from(zipTree(customApiJarTask.flatMap(Jar::getArchiveFile)))
-                dependencies { filter ->
-                    filter.exclude(filter.dependency("com.utopia-rise:godot-api-library(-.*)?:.*"))
-                }
             }
             configurations.clear()
             configurations.add(this@packageBootstrapJarTask.configurations.getByName("bootstrap"))

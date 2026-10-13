@@ -2,7 +2,6 @@ package versioninfo
 
 import org.ajoberstar.grgit.Grgit
 import org.ajoberstar.grgit.Commit
-import org.ajoberstar.grgit.Tag
 import org.ajoberstar.grgit.gradle.GrgitPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
@@ -21,7 +20,6 @@ private lateinit var grgit: Grgit
 private lateinit var godotJvmVersion: String
 private lateinit var godotVersion: String
 private lateinit var kotlinVersion: String
-private lateinit var kotlinCoroutineVersion: String
 private lateinit var iosGraalNativeImageVersion: String
 private var reproducibleVersion = false
 
@@ -33,7 +31,6 @@ class VersionInfoPlugin: Plugin<Project> {
         godotJvmVersion = libs.findVersion("godotJvm").get().requiredVersion
         godotVersion = libs.findVersion("godot").get().requiredVersion
         kotlinVersion = libs.findVersion("kotlin").get().requiredVersion
-        kotlinCoroutineVersion = libs.findVersion("kotlinCoroutine").get().requiredVersion
         iosGraalNativeImageVersion = libs.findVersion("iosGraalNativeImage").get().requiredVersion
         // CI sets this (ORG_GRADLE_PROJECT_reproducibleVersion) so two commits with identical sources produce
         // identical jars and Gradle can reuse cached outputs. Local builds and every publish keep the per-commit
@@ -49,35 +46,26 @@ class VersionInfoPlugin: Plugin<Project> {
     }
 }
 
-// Dev builds (x.y.z-devN) and release candidates (x.y.z-rcN) are pre-releases: they publish under their tag name.
-private val preReleaseTagRegex: Regex
-    get() = Regex("${Regex.escape(godotJvmVersion)}-(dev|rc)[1-9]\\d*")
+private val preReleaseVersionRegex = Regex("""\d+\.\d+\.\d+-(dev|rc)[1-9]\d*""")
 
-// The tag on the current commit, if any. Release builds are tagged; everything else is a snapshot.
-private val tagOnCurrentCommit: Tag?
+private val isVersionTagOnCurrentCommit: Boolean
     get() {
         val currentCommit: Commit = grgit.head()
-        return grgit.tag.list().firstOrNull { tag -> tag.commit.id == currentCommit.id }
+        return grgit.tag.list().any { tag -> tag.commit.id == currentCommit.id && tag.name == godotJvmVersion }
     }
 
 // Getters, not lazy values: the Gradle daemon keeps this class loaded between builds, so a cached value would
 // survive a checkout of another commit and report the previous commit's hash.
 val fullBuildVersion: String
-    get() {
-        val tag = tagOnCurrentCommit
-        return when {
-            tag == null && reproducibleVersion -> "$godotJvmVersion-SNAPSHOT"
-            tag == null -> "$godotJvmVersion-${grgit.head().abbreviatedId}-SNAPSHOT"
-            tag.name.matches(preReleaseTagRegex) -> tag.name
-            else -> godotJvmVersion
-        }
+    get() = when {
+        !isVersionTagOnCurrentCommit && reproducibleVersion -> "$godotJvmVersion-SNAPSHOT"
+        !isVersionTagOnCurrentCommit -> "$godotJvmVersion-${grgit.head().abbreviatedId}-SNAPSHOT"
+        godotJvmVersion.matches(preReleaseVersionRegex) -> "$godotJvmVersion-SNAPSHOT"
+        else -> godotJvmVersion
     }
 
 val isSnapshot: Boolean
-    get() {
-        val tag = tagOnCurrentCommit
-        return tag == null || tag.name.matches(preReleaseTagRegex)
-    }
+    get() = fullBuildVersion.endsWith("-SNAPSHOT")
 
 abstract class GenerateVersionFileTask : DefaultTask() {
     @get:Input
@@ -122,7 +110,6 @@ open class VersionInfoExtension(private val project: Project) {
 
                 const val BUILD_VERSION = "$fullBuildVersion"
                 const val KOTLIN_VERSION = "$kotlinVersion"
-                const val KOTLIN_COROUTINE_VERSION = "$kotlinCoroutineVersion"
 
                 const val IOS_GRAAL_NATIVE_IMAGE_VERSION = "$iosGraalNativeImageVersion"
             """.trimIndent() + "\n",

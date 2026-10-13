@@ -1,6 +1,6 @@
 # CLAUDE.md - godot-registration
 
-Guidance for working inside the `godot-registration` umbrella module. This complements the repo-root
+Guidance for working inside the `godot-registration` directory. This complements the repo-root
 `CLAUDE.md`; read that first for wider project conventions. Keep this file and `README.md` in sync when
 the module shape changes.
 
@@ -10,13 +10,13 @@ the module shape changes.
 uses at runtime. It replaces the older entry-generation layer with a ClassGraph-based pipeline that works
 for Kotlin, Java, and Scala because it reads compiled classes.
 
-The umbrella module shadow-merges three child modules into one self-contained fat jar:
+The directory groups three Gradle modules:
 
 - `godot-class-graph-symbol-processor`
 - `godot-registration-model`
 - `godot-registrar-generator`
 
-The Gradle plugin consumes that fat jar from
+Each is published as its own jar in the `godot-library` GAV; the Gradle plugin depends on them and calls them from
 `plugins/godot-gradle-plugin/.../registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt`.
 
 ## Pipeline
@@ -305,6 +305,6 @@ harness/tests/build/generated/registrar-generation/registration
 - Only properties carry `hints`; class/function/signal metadata lives as direct model fields.
 - In explicit mode, methods require `@Register`. Godot base overrides auto-register only in inferred mode.
 - Do not manually edit generated Godot API classes referenced by this module.
-- Submodules are not published individually; the umbrella module publishes the self-contained shadow jar.
+- Each module ships as its own jar in the `godot-library` GAV. Name Godot API classes as strings (`godotApiPackage` and the `GODOT_*` constants in `tools-common`), never as class literals: the API is not on the Gradle plugin's classpath.
 
 
