@@ -5,7 +5,6 @@ import org.gradle.kotlin.dsl.configure
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.grgit)
-    id("com.utopia-rise.godot-publish")
     id("com.utopia-rise.versioninfo")
 }
 
@@ -28,20 +27,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-publishing {
-    publications {
-        @Suppress("UNUSED_VARIABLE", "unused")
-        val godotCommonGenerator by registering(MavenPublication::class) {
-            pom {
-                name.set(project.name)
-                description.set("Godot common module other libraries.")
-            }
-            artifactId = project.name
-            description = "Godot common module other libraries."
-
-            from(components["java"])
-        }
-    }
 }

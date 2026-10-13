@@ -4,9 +4,8 @@ Tooling that turns compiled user code selected by `@Script`, `@Register`,
 `@Notification`, `@Visible`, and `@Emit` into registrar source. It also
 generates `.gdj` registration files for registered classes supplied by external dependencies.
 
-This directory is an umbrella Gradle module. During development its three child modules are separate jars;
-when published, they are shadow-merged into one self-contained `godot-registration` fat jar consumed by the
-Godot Gradle plugin.
+This directory groups three Gradle modules. Each is published as its own jar in the `godot-library` artifact, whose
+metadata declares their dependencies; the Godot Gradle plugin depends on them.
 
 ## Pipeline
 
@@ -170,8 +169,7 @@ and skips that class instead of failing the whole run.
 From the `kt/` Gradle build:
 
 ```bash
-./gradlew :godot-registration:build
-./gradlew :godot-registration:shadowJar
+./gradlew :godot-class-graph-symbol-processor:build :godot-registration-model:build :godot-registrar-generator:build
 ```
 
 The harness project is a useful end-to-end check for this module:
@@ -180,8 +178,5 @@ The harness project is a useful end-to-end check for this module:
 cd harness/tests
 ./gradlew build
 ```
-
-The thin jar carries the `thin` classifier. The shadow jar is the primary `godot-registration` artifact and
-is published without external POM dependencies because the runtime dependencies are bundled.
 
 

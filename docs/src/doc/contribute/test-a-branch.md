@@ -56,9 +56,7 @@ cd kt
 cd ..
 ```
 
-This builds and publishes the Gradle plugin, registration tools, and both debug and release JVM libraries to **Maven Local**. Your game will resolve these local artifacts in place of a published release.
-
-Use `publishArtifactsToMavenLocal`, rather than `publishToMavenLocal`: the aggregator also publishes the included builds and both library variants that a game needs.
+This builds and publishes the Gradle plugin and the `godot-library` artifact, which holds both the debug and release JVM libraries, to **Maven Local**. Your game will resolve these local artifacts in place of a published release.
 
 After Gradle reports `BUILD SUCCESSFUL`, find the version directory under:
 

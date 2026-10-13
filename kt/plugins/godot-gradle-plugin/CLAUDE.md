@@ -27,7 +27,7 @@ Start with these files, in order:
 
 4. [`src/main/kotlin/godot/gradle/projectExt/setupConfigurationsAndCompilations.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/setupConfigurationsAndCompilations.kt)  
    Defines main source-set dependencies, compiler flags, and the dedicated `bootstrap` configuration.
-   This is also where snapshot-aware runtime artifact coordinates are injected into the consumer project via `godot.tools.common.BUILD_VERSION`.
+   This is also where the `godot-library` dependencies, their capabilities and the build-type attribute are injected into the consumer project (see 1c below).
 
 5. [`src/main/kotlin/godot/gradle/projectExt/configureThirdPartyPlugins.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/configureThirdPartyPlugins.kt)  
    Applies the supporting third-party plugins used by the build, such as Shadow, optional Scala support, and IDEA integration.
@@ -274,6 +274,18 @@ Be careful about which generated constant you use:
 - use `godot.common.GODOT_JVM_VERSION` when you need the stable public binding version without snapshot/build metadata
 
 Using the stable version for published artifact coordinates will break snapshot/local publish resolution. Using the build version where a stable public version is expected can leak commit-specific identifiers into runtime-facing metadata.
+
+### 1c. Adding a Godot-JVM module's dependencies by hand
+
+The consumer project only ever gets capabilities of `com.utopia-rise:godot-library` (`godotLibraryDependency(module)` in `projectExtensions.kt`):
+
+- `core`, `extension` and `bootstrap` on `compileOnly` and `bootstrap`; their variants bring `common`, and `internal` at runtime only
+- `internal` and `core` on `customGodotApiImplementation`, since the generated API compiles against `internal`
+- `api` on `compileOnly` and `bootstrap`, unless `isCustomApiEnabled`, in which case the locally generated API jar replaces it
+- `coroutine` on `implementation` when `isGodotCoroutinesEnabled`
+- `com.utopia-rise.godot.build-type` (`debug`, or `release` when `isRelease`) on every resolvable configuration, which selects the variant
+
+A module's own dependencies, such as kotlinx-coroutines for `coroutine`, come from the variant metadata published with `godot-library`. Never add them here. The same rule applies to the plugin's own build: it depends on the `tools-common`, `api-generator`, `class-graph-symbol-processor`, `registration-model` and `registrar-generator` capabilities, whose variants bring their third-party dependencies and the library modules they use.
 
 ### 2. Moving naming or `.gdj` layout policy back into the scanner
 

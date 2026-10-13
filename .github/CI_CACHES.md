@@ -120,14 +120,16 @@ before resolves `FROM-CACHE` even when the incremental state above does not
 match. Kotlin compile outputs are platform independent, so the entries are
 OS-independent.
 
-`kt/godot-library` compiles differently in release mode (the `DEBUG`
-preprocessor definition flips), so there are two entries,
-`gradle-build-cache-debug` and `gradle-build-cache-release`, and each job
-restores only the one for its flavor. `deploy_jvm.yml` publishes both flavors
-and restores both. The test matrices carry a `release` boolean; when set, every
-Gradle invocation of the job gets `-Prelease`, which the included builds see as
-well. This is what makes the release export jobs test release-compiled
-libraries rather than a release harness on top of debug libraries.
+`internal`, `core` and `api` compile twice, `compileKotlin` for debug and
+`compileReleaseKotlin` for release (the `DEBUG` preprocessor definition flips),
+so there are two entries, `gradle-build-cache-debug` and
+`gradle-build-cache-release`, and each job restores only the one for its
+flavor. `deploy_jvm.yml` publishes both flavors and restores both. The test
+matrices carry a `release` boolean; when set, every Gradle invocation of the
+job gets `-Prelease`, and the Gradle plugin then selects the release variants
+of `godot-library`. This is what makes the release export jobs test
+release-compiled libraries rather than a release harness on top of debug
+libraries.
 
 **Restored by:** `build_jvm.yml` (both jobs set `reproducibleVersion` like the
 test jobs, otherwise their `BUILD_VERSION` differs and nothing matches),

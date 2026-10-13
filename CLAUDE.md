@@ -46,7 +46,7 @@ of upstream bug fixes.
 
 ## Prerequisites
 
-- **JDK 17+** required for building, running, and developing Godot-JVM projects
+- **JDK 17+** required for building, running, and developing Godot-JVM projects. 17 is also the minimum compile toolchain for Java, Kotlin and Scala, both for the Godot-JVM modules (`toolchain-jvm` in `kt/gradle/libs.versions.toml`; the IntelliJ plugin uses 21, as its platform requires) and for user projects (`MINIMUM_JDK_VERSION` in the gradle plugin's `checkVersionCompatibility.kt`)
 - Use **Adoptium/Eclipse Temurin** JDK — Microsoft JDK causes IDE plugin build failures (known issue [microsoft/openjdk#339](https://github.com/microsoft/openjdk/issues/339)). If you must use Microsoft JDK, manually create the `Packages` folder inside `JAVA_HOME`.
 - `JAVA_HOME` must be set
 - Standard Godot build deps: SCons, Python, C++ compiler
@@ -74,12 +74,11 @@ The built library lands directly in `harness/tests/addons/jvm/libs/` (Android bu
 
 ```bash
 cd kt/
-./gradlew build                  # build all subprojects
-./gradlew build -Prelease        # production/release build
+./gradlew build                  # build all subprojects, every library module in both debug and release
 ./gradlew publishArtifactsToMavenLocal  # publish everything a user project needs to mavenLocal
 ```
 
-`publishArtifactsToMavenLocal` (`kt/build.gradle.kts`) is an aggregator that runs five nested Gradle invocations: `common`, `tools-common`, and `api-generator` (included builds, unreachable from the root `publishToMavenLocal`), then the main build twice, once without and once with `-Prelease=true`, because every `godot-library` module names its artifact `-debug` or `-release` from that property. Together they publish every `com.utopia-rise` coordinate the gradle plugin resolves: the plugin and its marker, `common`, `tools-common`, `api-generator`, the `godot-registration` fat jar, and the six `godot-*-library-{debug,release}` jars. A bare `./gradlew publishToMavenLocal` is not enough. The Android plugin AARs are not Maven artifacts and are copied by hand (see `test-a-branch.md`).
+`publishArtifactsToMavenLocal` (`kt/build.gradle.kts`) publishes the two coordinates a user project resolves: the gradle plugin with its marker, and `godot-library`. `godot-library` is a single GAV published with Gradle Module Metadata that keeps one jar per module, each selected by its capability `com.utopia-rise:godot-library-<module>`: `common`, `internal`, `core`, `api`, `extension`, `bootstrap`, `coroutine` (`internal`, `core` and `api` with a debug and a release jar; the others are the same bytes in both builds and publish one jar behind a debug and a release variant, told apart like the rest by the `com.utopia-rise.godot.build-type` attribute), plus `tools-common`, `api-generator`, `class-graph-symbol-processor`, `registration-model` and `registrar-generator` (one jar each). Every module has a `java-api` and a `java-runtime` variant over the same jar, whose dependencies are the module's own `api` and `api` + `implementation` declarations, so `internal` stays off user compile classpaths. Dependencies between modules become capability dependencies on the same GAV, always pinned: a debug or release variant to its own build type, a tool module (single variant, no build type) to `release`, because a plugin classpath carries no build type and the plugin runs with the release library; a dependency on `api` is never published, since a capability cannot be excluded and the custom API replaces it, so the gradle plugin adds `api` itself. The plugin jar holds only the plugin classes and depends on the five tool capabilities, which bring `core`, `internal`, `bootstrap` and `common` (release) but not the API. `internal`, `core` and `api` compile twice in one invocation (`compileKotlin` and `compileReleaseKotlin`, from the `com.utopia-rise.release-flavor` build-logic plugin), so no `-Prelease` pass is needed. The publication, the variants and `generateAPI` live in the root `kt/build.gradle.kts`; `kt/godot-library/` is only a directory for the library modules. The gradle plugin sets the build-type attribute on every resolvable configuration of the user project and requests the capabilities it needs. Both projects apply the `com.utopia-rise.maven-central` build-logic plugin (`MavenCentralPlugin`), which sets the POM metadata Central requires on every publication and configures the Central repository and signing only when the `mavenCentralUsername`, `mavenCentralPassword`, `signingInMemoryKey` and `signingInMemoryKeyPassword` Gradle properties are all set (CI passes them as `ORG_GRADLE_PROJECT_*`). `publishArtifacts` is the remote counterpart: `godot-library`, the plugin and its marker go to Maven Central, and plugin releases also go to the Gradle Plugin Portal. The version comes from `godotJvm` in the version catalog and the tags on the current commit (`fullBuildVersion` in `VersionInfoPlugin`): a commit tagged exactly `x.y.z` is the release `x.y.z`; a commit tagged exactly `x.y.z-devN` or `x.y.z-rcN` becomes `x.y.z-devN-SNAPSHOT` or `x.y.z-rcN-SNAPSHOT`; any other commit is `<godotJvm>-<short hash>-SNAPSHOT`. A version ending in `-SNAPSHOT` is uploaded to `https://central.sonatype.com/repository/maven-snapshots/` instead and skips the Plugin Portal, which rejects snapshots. A snapshot is consumed like a mavenLocal build, with `maven("https://central.sonatype.com/repository/maven-snapshots/")` in both `pluginManagement.repositories` and the project `repositories`. The Android plugin AARs are not Maven artifacts and are copied by hand (see `test-a-branch.md`).
 
 The snapshot version appears in `~/.m2/repository/com/utopia-rise/godot-gradle-plugin/`. The consuming project needs `mavenLocal()` in both `pluginManagement.repositories` (`settings.gradle.kts`) and the project `repositories` block (`build.gradle.kts`); the plugin resolves the libraries from the latter and adds no repository itself.
 
@@ -158,14 +157,14 @@ cd kt/
 - **`godot-library/godot-extension-library/`** — Convenience extensions built on top of the base Godot API (e.g. `connectLambda`).
 - **`godot-library/godot-coroutine-library/`** — Kotlin coroutine support in a Godot context (`GodotDispatchers`, awaiting signals).
 - **`godot-library/godot-bootstrap-library/`** — JVM bootstrapper; initializes and hot-reloads user classes in the editor.
-- **`godot-registration/`** — Umbrella module (the directory is itself the Gradle module, like `godot-library`); shadow-merges the three sub-modules below into the single publishable `godot-registration` fat jar consumed by the gradle plugin and as a standalone tool.
+- **`godot-registration/`** — Directory grouping the three registration modules below (not a Gradle module itself); each is published as its own jar in the `godot-library` GAV.
 - **`godot-registration/godot-class-graph-symbol-processor/`** — Front-end: bytecode processor using ClassGraph (replaced KSP/Mpapt; language-agnostic, supports Kotlin/Java/Scala equally). Reads compiled bytecode and produces model instances. No validation.
 - **`godot-registration/godot-registration-model/`** — The validated IR shared between processor and generator. Owns the registration model and its sanity checks; an instance existing means it is valid.
 - **`godot-registration/godot-registrar-generator/`** — Back-end: consumes models from the processor and generates registration glue code. No validation.
 - **`api-generator/`** — Reads Godot's `api.json`, generates all Kotlin bindings in `godot-api-library/`. Run in CI when Godot API changes.
 - **`plugins/godot-gradle-plugin/`** — Applied to all user Godot-JVM projects; orchestrates compile → symbol processing → registrar generation → JAR packaging.
 - **`plugins/godot-intellij-plugin/`** — IntelliJ IDEA integration (code insight, run configs, templates).
-- **`common/`**, **`tools-common/`** — Shared utilities across subprojects.
+- **`common/`**, **`tools-common/`** — Shared utilities across subprojects; each is published as its own jar in the `godot-library` GAV.
 
 ### Android plugin (`kt/android-plugin/`)
 
@@ -248,6 +247,7 @@ Android always uses ART; iOS always uses native image. The internal `JvmType` is
 
 - **Kotlin version** — The gradle plugin requires a minimum Kotlin version, not an exact one, and applies its default when the project declares none. A higher version is accepted; overriding `toolchain.kotlinVersion` requires applying the Kotlin JVM plugin explicitly with the same version. See `docs/src/doc/reference/gradle-plugin/languages-and-toolchains.md`.
 - **Godot API auto-generation** — `kt/godot-library/godot-api-library/` is fully generated. Any manual edits will be overwritten.
+- **Single-build modules** — `extension`, `bootstrap` and `coroutine` are published once for debug and release builds. They must never read `GodotJvmBuildConfig.DEBUG`, and must not call an inline `core` or `internal` function that does: the inlined debug check would ship in release builds. `VariantArray<T>()` and `Dictionary<K, V>()` are such functions today, which is why `api` keeps two builds.
 - **Template generation** — Editing `.template` files has no effect until the native GDExtension is rebuilt; SCons regenerates `templates.h` as part of the build.
 
 ### GDScript global scope sync commit
@@ -259,6 +259,8 @@ When checking whether the `GD` singleton needs to be synchronized with GDScript 
 ## CI/CD
 
 Workflows in `.github/workflows/`. The canonical Godot version (`GODOT_VERSION`) and JDK version (`JVM_VERSION`) are defined at the top of `trigger_ci.yml` (and mirrored in `trigger_on_tag.yml`). Build matrix: Android, iOS, Linux, macOS, Windows × editor/template_release targets.
+
+`deploy_jvm.yml` (called from `trigger_on_tag.yml`) publishes with one `kt/gradlew -p kt publishArtifacts` step, the remote counterpart of `publishArtifactsToMavenLocal`: `godot-library` and the gradle plugin are signed and uploaded to Maven Central (two releases per version; the deployment is not released automatically, so it is released from the Central Portal), and the plugin also goes to the Gradle Plugin Portal. All three tag kinds run the same pipeline (GitHub release, native builds, Maven publishing); an `x.y.z` tag publishes a true release, while `x.y.z-devN` and `x.y.z-rcN` tags publish the snapshot version to the Central snapshot repository and skip the Plugin Portal (and, as before, the IntelliJ Marketplace and the stable docs). Test jobs build the harness against the local sources through `harness/godot-jvm-builds.settings.gradle.kts`, which substitutes `com.utopia-rise:godot-library` and the plugin with the `kt/` projects, and pass `-Prelease` to the release matrix entries so the plugin selects the release variants. The path-change gate in `trigger_ci.yml` treats `kt/build-logic` as part of both the runtime libraries and the Gradle plugin. Cache layout: `.github/CI_CACHES.md`.
 
 ## Documentation
 

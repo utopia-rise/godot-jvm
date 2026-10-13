@@ -4,7 +4,6 @@ import versioninfo.fullBuildVersion
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.grgit)
-    id("com.utopia-rise.godot-publish")
     id("com.utopia-rise.versioninfo")
 }
 
@@ -23,19 +22,4 @@ kotlin {
 
 dependencies {
     api("com.utopia-rise:common:$fullBuildVersion")
-}
-
-publishing {
-    publications {
-        @Suppress("UNUSED_VARIABLE")
-        val godotToolsCommonGenerator by registering(MavenPublication::class) {
-            pom {
-                name.set(project.name)
-                description.set("Godot common module for all tools.")
-            }
-            artifactId = project.name
-            description = "Godot common module for all tools."
-            from(components.getByName("java"))
-        }
-    }
 }

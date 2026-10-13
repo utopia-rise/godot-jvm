@@ -7,7 +7,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
 }
 
 // Exposed via `api` so consumers of the model (the registrar generator and the symbol processor)

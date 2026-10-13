@@ -3,7 +3,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
 }
 
 val godotVersion = "${libs.versions.godot.get()}.stable"

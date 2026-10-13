@@ -45,6 +45,7 @@ jobs:
             kt/godot-registration
             kt/common
             kt/tools-common
+            kt/build-logic
       - name: CI/CD, Gradle plugin and test harness
         id: ci-cd-tests
         uses: ./.github/actions/detect-path-changes
@@ -52,6 +53,7 @@ jobs:
           paths: |
             .github
             kt/gradle
+            kt/build-logic
             kt/settings.gradle.kts
             kt/build.gradle.kts
             kt/plugins/godot-gradle-plugin

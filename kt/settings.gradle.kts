@@ -41,7 +41,6 @@ includeBuild("api-generator") {
     }
 }
 
-include("godot-library")
 include("android-plugin")
 
 subdir("godot-library") {
@@ -52,8 +51,6 @@ subdir("godot-library") {
     include("godot-extension-library")
     include("godot-coroutine-library")
 }
-
-include("godot-registration")
 
 subdir("godot-registration") {
     include("godot-class-graph-symbol-processor")

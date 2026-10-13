@@ -9,7 +9,7 @@ ideaPluginDefaultIntellijVersion = "2025.1"
 # https://github.com/utopia-rise/ios-graal-native-image/releases
 iosGraalNativeImage = "jdk25"
 
-toolchain-jvm="11"
+toolchain-jvm="17"
 
 shadowJar = "8.3.11" # https://github.com/GradleUp/shadow/releases
 # TODO: bump kotlin poet version once: https://github.com/square/kotlinpoet/issues/1759 is fixed
@@ -38,11 +38,11 @@ kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 jacksonDataBind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDataBind" }
 jacksonDataFormatXml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml", version.ref = "jacksonDataFormatXml" }
 grgit = { module = "org.ajoberstar.grgit:grgit-gradle", version.ref = "grgit" }
+maven-publish = { group = "com.vanniktech", name = "gradle-maven-publish-plugin", version.ref = "maven-publish" }
 ideaSync = { module = "org.jetbrains.gradle.plugin.idea-ext:org.jetbrains.gradle.plugin.idea-ext.gradle.plugin", version.ref = "ideaSync" }
 classGraph = { module = "io.github.classgraph:classgraph", version.ref = "classGraph"}
 slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
-maven-publish = { group = "com.vanniktech", name = "gradle-maven-publish-plugin", version.ref = "maven-publish" } # needed for publishing to new maven central repositories
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
