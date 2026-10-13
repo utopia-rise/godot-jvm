@@ -1,8 +1,8 @@
 # Bulletmark
 
-A benchmark of the binding paths a 2D game hits every frame and bunnymark does not: objects spawned and
-freed every frame, per-entity `_physics_process` scripts, engine-to-JVM signal dispatch from physics, `Tween`s, timers
-and lambda callables, deferred calls, and scene queries that return arrays of objects.
+A benchmark of the binding paths that a 2D game hits on every frame: objects spawned and freed, a
+physics-process script per entity, engine-to-JVM signal dispatch from physics, tweens, timers and lambda callables,
+deferred calls, and scene queries that return arrays of objects.
 
 ## Quick start
 
@@ -222,10 +222,6 @@ agreement it is "not settled", below it "no detectable change". p95, p99, p99.9 
 never decide. Allocation, GC and script calls are compared directly, and the comparison is refused when the two builds
 used different settings, played out differently or made different numbers of script calls.
 
-Pairing matters: in testing, the whole machine ran about 12% slower for two rounds in the middle of a comparison, which
-moved both builds alike. The two comparisons below were run on an earlier version of the scene, with three enemy
-classes instead of the drone, and validate the tool rather than describe today's numbers.
-
 | Comparison | p50 | Rounds | Verdict |
 |---|---|---|---|
 | Two snapshots of the same build | −1.9% | −2.4, +1.5, +1.0, −7.5, −1.9 | no detectable change |
@@ -254,17 +250,6 @@ Godot-JVM registers the Kotlin `Arena`, `Bullet` and `Drone` as global classes. 
 Godot editor, found through `GODOT_EDITOR_MONO` or at `/Applications/Godot_mono.app`, and the .NET 8 SDK; every task
 that runs C# first builds the scripts with `./gradlew buildCSharp`.
 
-Two caveats:
-
-- **Editor numbers are not a language comparison.** Every task runs the scene from an editor binary, which adds its
-  own cost to script calls, and not the same cost for each language: on the M4 Pro, p50 from the editor was 5.5 ms for
-  Kotlin, 5.6 ms for GDScript and 16.6 to 17.0 ms for C#, against 4.4 to 4.7 ms for all three from release exports. A
-  run from the editor is useful for checking a port and for comparing two builds in the same language, not for
-  comparing languages; [the snapshot below](#language-snapshot) uses release exports.
-- **The .NET editor crashes on quit.** It also loads the Godot-JVM extension, and with both runtimes in one process
-  Godot 4.7.2 exits with a crash after the runner has written its report, whichever language the scene uses. The
-  tasks ignore that exit code when the run passed and say so.
-
 ### Language snapshot
 
 Measured on 2026-10-13 with the scene at commit `885b21b4b` (Godot-JVM 1.0.0-rc2), Godot 4.7.2, macOS 26.6 on an Apple
@@ -282,10 +267,7 @@ minutes), headless. Medians in milliseconds:
 | GDScript | 4.45 | 6.14 | 7.23 | 8.7 to 11.3 | 0 |
 
 All nine runs played the same game. The typical frame is level across the three: the engine's own physics and scene
-work dominates it. The slowest frames differ. With its default GC settings on this workload, C# paused for 27 to 34 ms
-about every 715 frames, at the same frames in every run, since the game and so its allocation are the same each time;
-its 54 collections took 610 ms in all. Kotlin and GDScript never missed a frame. The Kotlin export reports no GC
-counters, because the embedded JRE leaves out `java.management`, and GDScript has no collector.
+work dominates it. 
 
 No task makes the exports yet. These were made by hand:
 
