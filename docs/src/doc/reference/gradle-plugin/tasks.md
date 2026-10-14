@@ -41,7 +41,9 @@ Installs the Godot-JVM addon of the plugin's own version in the project's `addon
 ./gradlew installAddon
 ```
 
-The task deletes everything in `addons/jvm/` before extracting the new addon, so local changes to its files are lost. It can run while the Godot editor is open: the editor keeps the previous native library loaded until it restarts, and the files it still holds stay in a hidden `addons/.jvm-previous-<time>/` directory that the next run removes.
+Godot's toolbar runs it as **Sync Addon Version**.
+
+The task deletes everything in `addons/jvm/` before extracting the new addon, so local changes to its files are lost. It can run while the Godot editor is open: the editor keeps the previous native library loaded until it restarts, with a warning toast and a yellow JVM status light until then, and the files it still holds stay in a hidden `addons/.jvm-previous-<time>/` directory that the next run removes.
 
 Every published Godot-JVM version carries the addon, dev and release candidates included. With a Godot-JVM version built from source or taken from JitPack, the task fails without touching `addons/jvm/`.
 

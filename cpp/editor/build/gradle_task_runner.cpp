@@ -76,6 +76,9 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
             args.push_back("generateEmbeddedJreArm64");
             args.push_back("generateEmbeddedJreAmd64");
             break;
+        case Task::SYNC_ADDON_VERSION:
+            args.push_back("installAddon");
+            break;
         default:
             return Error::ERR_INVALID_PARAMETER;
     }

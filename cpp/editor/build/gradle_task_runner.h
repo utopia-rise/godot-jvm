@@ -23,7 +23,8 @@ namespace godot {
             GENERATE_EMBEDDED_JVM,
             GENERATE_EMBEDDED_JVM_ARM64,
             GENERATE_EMBEDDED_JVM_AMD64,
-            GENERATE_EMBEDDED_JVM_UNIVERSAL
+            GENERATE_EMBEDDED_JVM_UNIVERSAL,
+            SYNC_ADDON_VERSION
         };
 
     private:

@@ -66,7 +66,7 @@ Because the addon is bundled, there is nothing to install. Its version matches t
 
 ## Keep the addon in sync
 
-The addon's native libraries and the JVM libraries the Gradle plugin builds with must come from the same Godot-JVM version; Godot-JVM refuses to start with mismatched ones. Whichever option you chose, when you change the plugin version in `build.gradle.kts`, run `./gradlew installAddon` to replace `addons/jvm/` with the matching addon. It deletes the previous addon's files first, and a running Godot editor needs a restart to load the new one.
+The addon's native libraries and the JVM libraries the Gradle plugin builds with must come from the same Godot-JVM version; Godot-JVM refuses to start with mismatched ones. Whichever option you chose, when you change the plugin version in `build.gradle.kts`, run `./gradlew installAddon`, or select **Sync Addon Version** in Godot's toolbar and click **Run Gradle**, to replace `addons/jvm/` with the matching addon. It deletes the previous addon's files first. A running Godot editor keeps the previous native library until it restarts: its JVM status light turns yellow and says so.
 
 ## Check that the addon is loaded
 
