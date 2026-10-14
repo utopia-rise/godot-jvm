@@ -32,3 +32,11 @@ void StringNameBridge::engine_call_operator_string(JNIEnv* p_raw_env, jobject, j
     godot::String string = godot::String(native<godot::StringName>(p_handle));
     transfer->write_ret(string);
 }
+
+jboolean StringNameBridge::engine_call_equals(JNIEnv*, jobject, jlong p_handle, jlong p_other) {
+    return native<godot::StringName>(p_handle) == native<godot::StringName>(p_other);
+}
+
+jint StringNameBridge::engine_call_hash(JNIEnv*, jobject, jlong p_handle) {
+    return static_cast<jint>(native<godot::StringName>(p_handle).hash());
+}

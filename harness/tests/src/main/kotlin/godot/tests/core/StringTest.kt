@@ -3,7 +3,13 @@ package godot.tests.core
 import godot.api.Node
 import godot.annotation.Script
 import godot.annotation.Register
+import godot.core.NodePath
+import godot.core.StringName
+import godot.core.asCachedNodePath
+import godot.core.asCachedStringName
 import godot.core.asStringName
+import godot.core.toGodotName
+import godot.core.toGodotPath
 import godot.core.Vector2
 
 @Script
@@ -94,7 +100,29 @@ class StringTest : Node() {
     @Register
     fun getAsStringName(str: String) = str.asStringName()
 
+    @Register
+    fun stringNamesMatch(first: StringName, second: StringName) =
+        first == second && first.hashCode() == second.hashCode() && hashMapOf(first to true)[second] == true
+
+    @Register
+    fun nodePathsMatch(first: NodePath, second: NodePath) =
+        first == second && first.hashCode() == second.hashCode() && hashMapOf(first to true)[second] == true
+
+    @Register
+    fun cachedStringNameIgnoresGodotName(str: String): String {
+        str.toGodotName()
+        return str.asCachedStringName().toString()
+    }
+
+    @Register
+    fun cachedNodePathIgnoresGodotPath(str: String): String {
+        str.toGodotPath()
+        return str.asCachedNodePath().path
+    }
+
+    @Register
+    fun getNodePathName(path: NodePath, index: Int) = path.getName(index)
+
+    @Register
+    fun getNodePathSubname(path: NodePath, index: Int) = path.getSubname(index)
 }
-
-
-

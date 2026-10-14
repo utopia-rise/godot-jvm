@@ -13,6 +13,8 @@ namespace bridges {
             INIT_NATIVE_METHOD("engine_call_copy_constructor","()J", StringNameBridge::engine_call_copy_constructor)
             INIT_NATIVE_METHOD("engine_call_constructor_string", ("()J"), StringNameBridge::engine_call_constructor_string)
             INIT_NATIVE_METHOD("engine_call_operator_string","(J)V", StringNameBridge::engine_call_operator_string)
+            INIT_NATIVE_METHOD("engine_call_equals","(JJ)Z", StringNameBridge::engine_call_equals)
+            INIT_NATIVE_METHOD("engine_call_hash","(J)I", StringNameBridge::engine_call_hash)
           )
         // clang-format on
 
@@ -22,6 +24,8 @@ namespace bridges {
         static uintptr_t engine_call_constructor_string(JNIEnv* p_raw_env, jobject p_instance);
 
         static void engine_call_operator_string(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static jboolean engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle, jlong p_other);
+        static jint engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
     };
 } // namespace bridges
 

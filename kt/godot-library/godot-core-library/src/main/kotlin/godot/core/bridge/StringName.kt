@@ -8,7 +8,7 @@ import godot.internal.memory.MemoryManager
 import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 import godot.common.util.LRUCache
-import godot.internal.memory.MemoryManager.CACHE_INITIAL_CAPACITY
+import godot.internal.memory.MemoryManager.CACHE_CAPACITY
 import kotlin.reflect.KFunction
 import kotlin.reflect.KProperty
 
@@ -42,6 +42,14 @@ class StringName : NativeCoreType {
         MemoryManager.registerNativeCoreType(this, VariantParser.STRING_NAME)
     }
 
+    override fun equals(other: Any?): Boolean {
+        return this === other || (other is StringName && Bridge.engine_call_equals(ptr, other.ptr))
+    }
+
+    override fun hashCode(): Int {
+        return Bridge.engine_call_hash(ptr)
+    }
+
     override fun toString(): String {
         return VariantBuffer.transfer.callBridge(0, VariantParser.STRING) {
             Bridge.engine_call_operator_string(ptr)
@@ -70,14 +78,18 @@ class StringName : NativeCoreType {
         external fun engine_call_constructor_string(): VoidPtr
 
         external fun engine_call_operator_string(_handle: VoidPtr)
+        external fun engine_call_equals(_handle: VoidPtr, _other: VoidPtr): Boolean
+        external fun engine_call_hash(_handle: VoidPtr): Int
     }
 
     internal companion object{
-        private val stringNameCache = LRUCache<String, StringName>(CACHE_INITIAL_CAPACITY)
+        private val stringNameCache = LRUCache<String, StringName>(CACHE_CAPACITY)
+        private val godotNameCache = LRUCache<String, StringName>(CACHE_CAPACITY)
 
         init {
             MemoryManager.registerCallback(true) {
                 stringNameCache.clear()
+                godotNameCache.clear()
             }
         }
 
@@ -97,8 +109,8 @@ class StringName : NativeCoreType {
          * Take a CamelCase String, cache it and return a snakeCase version of it as a StringName, used internally for methods and property names
          */
         fun getOrCreateGodotName(key: String): StringName {
-            return synchronized(stringNameCache) {
-                stringNameCache.getOrPut(key) {
+            return synchronized(godotNameCache) {
+                godotNameCache.getOrPut(key) {
                     // Cache miss, so create and return new instance.
                     StringName(key.convertToSnakeCase())
                 }

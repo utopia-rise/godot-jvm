@@ -156,7 +156,6 @@
       { "name" : "engine_call_max", "parameterTypes" : ["long"] },
       { "name" : "engine_call_min", "parameterTypes" : ["long"] },
       { "name" : "engine_call_pickRandom", "parameterTypes" : ["long"] },
-      { "name" : "engine_call_popAt", "parameterTypes" : ["long"] },
       { "name" : "engine_call_popBack", "parameterTypes" : ["long"] },
       { "name" : "engine_call_popFront", "parameterTypes" : ["long"] },
       { "name" : "engine_call_pushBack", "parameterTypes" : ["long"] },
@@ -265,7 +264,7 @@
       { "name" : "engine_call_isEmpty", "parameterTypes" : ["long"] },
       { "name" : "engine_call_getConcatenatedNames", "parameterTypes" : ["long"] },
       { "name" : "engine_call_getConcatenatedSubnames", "parameterTypes" : ["long"] },
-      { "name" : "engine_call_equals", "parameterTypes" : ["long"] }
+      { "name" : "engine_call_equals", "parameterTypes" : ["long", "long"] }
     ]
   },
   {
@@ -278,7 +277,9 @@
       { "name" : "engine_call_copy_constructor", "parameterTypes" : [] },
       { "name" : "engine_call_constructor_string", "parameterTypes" : [] },
 
-      { "name" : "engine_call_operator_string", "parameterTypes" : ["long"] }
+      { "name" : "engine_call_operator_string", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_equals", "parameterTypes" : ["long", "long"] },
+      { "name" : "engine_call_hash", "parameterTypes" : ["long"] }
     ]
   },
   {
@@ -290,7 +291,6 @@
       { "name" : "engine_call_constructor", "parameterTypes" : [] },
       { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
       { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
-      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
       { "name" : "engine_call_append", "parameterTypes" : ["long"] },
       { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
       { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
@@ -331,6 +331,7 @@
       { "name" : "engine_call_get_string_from_utf16", "parameterTypes" : ["long"] },
       { "name" : "engine_call_get_string_from_utf32", "parameterTypes" : ["long"] },
       { "name" : "engine_call_get_string_from_utf8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_string_from_wchar", "parameterTypes" : ["long"] },
       { "name" : "engine_call_has", "parameterTypes" : ["long"] },
       { "name" : "engine_call_has_encoded_var", "parameterTypes" : ["long"] },
       { "name" : "engine_call_hex_encode", "parameterTypes" : ["long"] },
@@ -350,7 +351,7 @@
       { "name" : "engine_call_to_float64_array", "parameterTypes" : ["long"] },
       { "name" : "engine_call_to_int32_array", "parameterTypes" : ["long"] },
       { "name" : "engine_call_to_int64_array", "parameterTypes" : ["long"] },
-      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
 
       { "name" : "engine_convert_to_godot", "parameterTypes" : ["byte[]"] },
       { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
