@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Godot-JVM** is a GDExtension-based JVM binding that enables Kotlin, Java, and Scala as scripting languages. It is a hybrid C++/JVM project: the C++ side integrates with Godot through GDExtension, and the Kotlin/Gradle side provides the runtime libraries and tooling for user projects.
 
-The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) and mirrored in `cpp/version.h` (`GODOT_JVM_VERSION`); the two must match, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, and `GODOT_VERSION` in `.github/workflows/trigger_ci.yml` for CI.
+The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) only: `SConstruct` writes it into `cpp/version.h` (`GODOT_JVM_VERSION`) on every build through `generate_version.py`, like `templates.h`, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, and `GODOT_VERSION` in `.github/workflows/trigger_ci.yml` for CI.
 
 ## godot-cpp fork
 

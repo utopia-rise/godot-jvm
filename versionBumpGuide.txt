@@ -1,16 +1,14 @@
 When updating this project's release version, minimum Godot version, or Kotlin version, update these locations:
-- `cpp/version.h`: `GODOT_JVM_VERSION` for the binding version only.
 
 - `godot-cpp`: update the submodule reference if the release also bumps the Godot C++ reference. Follow the `godot-cpp` fork update process in `CLAUDE.md` and update `godot-cpp-divergence.md` with the new revision and explanation.
 
 - `kt/gradle/libs.versions.toml`:
-  - `godotJvm` for the binding version.
+  - `godotJvm` for the binding version. It is the only place to change: SCons writes it into `cpp/version.h` on every build, the jars report it at runtime, and a release tag must equal it or the build fails.
   - `godot` for the minimum supported Godot version. This is not part of the binding version.
   - `kotlin` only if the release intentionally bumps Kotlin too.
   - `kotlinCoroutine` if the release intentionally bumps coroutines too.
   - `androidCompileSdk` and `androidBuildTools` if the preferred Android toolchain defaults/examples should move too.
 - `docs/src/doc/index.md`: in the "Versioning" block, update the Kotlin version text, `Version`, and `Minimum Godot Version`.
-- `config.py`: change the module version string to `jvm-x.x.x`.
 - `README.md`: the documentation links point at a specific published doc version (`https://godot-jvm.dev/en/x.y/`). Update them on a major or minor bump only; a patch release keeps the same documentation version, which is published without the patch number.
 
 Also update the GitHub workflow output variables used by CI/release jobs:
