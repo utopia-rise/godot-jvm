@@ -21,7 +21,7 @@ For each of those workflow files, update:
 - `godot-version` (the minimum supported Godot version)
 - `build-version`
 
-Release tags use the binding version only: `x.y.z` or `x.y.z-devX`, where `X` is a positive integer. When bumping the binding version, also update the tag patterns in `trigger_on_tag.yml`.
+Release tags use the binding version only: `x.y.z`, `x.y.z-devN` or `x.y.z-rcN`, where `N` is a positive integer without leading zeros. Other tags start no release. When bumping the binding version, also update the tag patterns in `trigger_on_tag.yml`.
 
 If you've updated the Kotlin version, ensure the chosen R8 version is compatible with it. Then update the required minimum Android build tool versions by searching for:
 - `android-36`
