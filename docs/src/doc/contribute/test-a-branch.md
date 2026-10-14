@@ -52,18 +52,18 @@ From the **repository root**, run:
 
 ```bash
 cd kt
-./gradlew publishArtifactsToMavenLocal
+./gradlew publishLocal
 cd ..
 ```
 
-This builds and publishes the Gradle plugin and the `godot-library` artifact, which holds both the debug and release JVM libraries, to **Maven Local**. Your game will resolve these local artifacts in place of a published release.
+This builds and publishes the Gradle plugin and the `godot-jvm` artifact, which holds every JVM module in its debug and release builds, to **Maven Local**. Your game will resolve these local artifacts in place of a published release.
 
 After Gradle reports `BUILD SUCCESSFUL`, find the version directory under:
 
 - Linux/macOS: `~/.m2/repository/com/utopia-rise/godot-gradle-plugin/`
 - Windows: `%USERPROFILE%\.m2\repository\com\utopia-rise\godot-gradle-plugin\`
 
-For an untagged commit, the version is `<godotJvm version>-<short commit hash>-SNAPSHOT`. Tagged commits can use a release version instead. Copy the exact version you just published; you will use it in step 6.
+For an untagged commit, the version is `<short commit hash>-SNAPSHOT`. Tagged commits can use a release version instead. Copy the exact version you just published; you will use it in step 6.
 
 ## 5. Build the native side into your game
 

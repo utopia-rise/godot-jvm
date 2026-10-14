@@ -4,7 +4,7 @@ Tooling that turns compiled user code selected by `@Script`, `@Register`,
 `@Notification`, `@Visible`, and `@Emit` into registrar source. It also
 generates `.gdj` registration files for registered classes supplied by external dependencies.
 
-This directory groups three Gradle modules. Each is published as its own jar in the `godot-library` artifact, whose
+This directory groups three Gradle modules. Each is published as its own jar in the `godot-jvm` artifact, whose
 metadata declares their dependencies; the Godot Gradle plugin depends on them.
 
 ## Pipeline

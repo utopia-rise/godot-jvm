@@ -38,7 +38,7 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/gradle-build-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # godot-library compiles every module in both flavors, so both entries of the shared Kotlin build cache apply.
+      # godot-jvm compiles every module in both flavors, so both entries of the shared Kotlin build cache apply.
       - name: Restore Gradle build cache (debug)
         uses: ./.github/actions/gradle-build-cache
         with:
@@ -54,10 +54,10 @@ jobs:
         with:
           mode: restore
 
-      - name: Publish godot-library and the Gradle plugin
+      - name: Publish godot-jvm and the Gradle plugin
         shell: sh
         run: |
-          kt/gradlew -p kt publishArtifacts -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+          kt/gradlew -p kt publishCentral -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
       - name: Build IntelliJ plugin
         shell: sh

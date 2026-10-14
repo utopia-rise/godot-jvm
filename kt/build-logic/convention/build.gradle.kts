@@ -5,6 +5,9 @@ plugins {
 
 kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
+    sourceSets.main {
+        kotlin.srcDir("../../tools-common/src/version/kotlin")
+    }
 }
 
 dependencies {
@@ -22,6 +25,14 @@ gradlePlugin {
         register("mavenCentral") {
             id = "com.utopia-rise.maven-central"
             implementationClass = "publish.MavenCentralPlugin"
+        }
+        register("godotJvmPublication") {
+            id = "com.utopia-rise.godot-jvm-publication"
+            implementationClass = "publish.GodotJvmPublicationPlugin"
+        }
+        register("individualJarsPublication") {
+            id = "com.utopia-rise.individual-jars-publication"
+            implementationClass = "publish.IndividualJarsPublicationPlugin"
         }
         register("releaseFlavor") {
             id = "com.utopia-rise.release-flavor"

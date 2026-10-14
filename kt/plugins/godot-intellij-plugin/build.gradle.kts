@@ -2,8 +2,7 @@ import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
-import versioninfo.fullBuildVersion
-import versioninfo.isSnapshot
+import versioninfo.buildVersion
 
 plugins {
     // Java support
@@ -31,8 +30,6 @@ repositories {
     }
 }
 
-version = fullBuildVersion
-group = "com.utopia-rise"
 
 val intellijVersion: String = project.properties["godot.plugins.intellij.version"]?.toString() ?: libs.versions.ideaPluginDefaultIntellijVersion.get()
 
@@ -41,7 +38,7 @@ extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension> 
 }
 
 dependencies {
-    implementation("com.utopia-rise:tools-common:$fullBuildVersion")
+    implementation("com.utopia-rise:tools-common:${buildVersion.value}")
     implementation(project(":godot-bootstrap-library"))
     implementation(project(":godot-core-library"))
     compileOnly(kotlin("stdlib"))
@@ -102,18 +99,11 @@ tasks {
     }
 
     patchPluginXml {
-        if (isSnapshot) {
-            val projectVersion = project.version as String
-            this.pluginVersion.set(
-                if (projectVersion.endsWith("-SNAPSHOT")) {
-                    "${projectVersion.removeSuffix("-SNAPSHOT")}-IJ$intellijVersion-SNAPSHOT"
-                } else {
-                    "$projectVersion-IJ$intellijVersion"
-                }
-            )
-        } else {
-            this.pluginVersion.set("${project.version}-IJ$intellijVersion")
-        }
+        val version = buildVersion.value
+        pluginVersion.set(
+            if (buildVersion.isSnapshot) "${version.removeSuffix("-SNAPSHOT")}-IJ$intellijVersion-SNAPSHOT"
+            else "$version-IJ$intellijVersion"
+        )
         sinceBuild.set("251.1")
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
@@ -151,7 +141,7 @@ tasks {
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://jetbrains.org/intellij/sdk/docs/tutorials/build_system/deployment.html#specifying-a-release-channel
-        if (isSnapshot) {
+        if (buildVersion.isSnapshot) {
             channels.set(listOf("alpha"))
         } else {
             channels.set(listOf("stable"))

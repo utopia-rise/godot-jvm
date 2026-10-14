@@ -2,7 +2,7 @@ package godot.gradle.tasks.custom_api
 
 import godot.codegen.generateApiOnlyFrom
 import godot.gradle.projectExt.godotJvmExtension
-import godot.gradle.projectExt.godotLibraryDependency
+import godot.gradle.projectExt.godotJvmDependency
 import godot.gradle.projectExt.kotlinJvmExtension
 import godot.gradle.projectExt.resolvedKotlinBuildVersion
 import org.gradle.api.DefaultTask
@@ -50,8 +50,8 @@ fun Project.customApiJarTask(): TaskProvider<Jar> {
         compilation.compileTaskProvider.get().dependsOn(generateTask)
     }
     dependencies.add("customGodotApiImplementation", "org.jetbrains.kotlin:kotlin-stdlib:${resolvedKotlinBuildVersion()}")
-    dependencies.add("customGodotApiImplementation", godotLibraryDependency("internal"))
-    dependencies.add("customGodotApiImplementation", godotLibraryDependency("core"))
+    dependencies.add("customGodotApiImplementation", godotJvmDependency("internal"))
+    dependencies.add("customGodotApiImplementation", godotJvmDependency("core"))
 
     return tasks.register("customGodotApiJar", Jar::class.java) { task ->
         task.group = "godot-jvm-internal"

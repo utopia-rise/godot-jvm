@@ -16,7 +16,7 @@ The directory groups three Gradle modules:
 - `godot-registration-model`
 - `godot-registrar-generator`
 
-Each is published as its own jar in the `godot-library` GAV; the Gradle plugin depends on them and calls them from
+Each is published as its own jar in the `godot-jvm` GAV; the Gradle plugin depends on them and calls them from
 `plugins/godot-gradle-plugin/.../registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt`.
 
 ## Pipeline
@@ -305,6 +305,6 @@ harness/tests/build/generated/registrar-generation/registration
 - Only properties carry `hints`; class/function/signal metadata lives as direct model fields.
 - In explicit mode, methods require `@Register`. Godot base overrides auto-register only in inferred mode.
 - Do not manually edit generated Godot API classes referenced by this module.
-- Each module ships as its own jar in the `godot-library` GAV. Name Godot API classes as strings (`godotApiPackage` and the `GODOT_*` constants in `tools-common`), never as class literals: the API is not on the Gradle plugin's classpath.
+- Each module ships as its own jar in the `godot-jvm` GAV. Name Godot API classes as strings (`godotApiPackage` and the `GODOT_*` constants in `tools-common`), never as class literals: the API is not on the Gradle plugin's classpath.
 
 

@@ -16,7 +16,7 @@ includeBuild("../../kt/api-generator") {
 includeBuild("../../kt") {
     dependencySubstitution {
         substitute(module("com.utopia-rise:godot-gradle-plugin")).using(project(":godot-gradle-plugin"))
-        substitute(module("com.utopia-rise:godot-library")).using(project(":"))
+        substitute(module("com.utopia-rise:godot-jvm")).using(project(":"))
     }
 }
 

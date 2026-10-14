@@ -1,5 +1,5 @@
 import versioninfo.VersionInfoExtension
-import versioninfo.fullBuildVersion
+import versioninfo.buildVersion
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -7,19 +7,17 @@ plugins {
     id("com.utopia-rise.versioninfo")
 }
 
-// the version is not inherited from the root build.gradle.kts as this here is a separate gradle project. Hence, we set it
-// through the godot-dependencies plugin
-version = fullBuildVersion
-group = "com.utopia-rise"
-
 configure<VersionInfoExtension> {
     generateToolsCommonVersionKt()
 }
 
 kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
+    sourceSets.main {
+        kotlin.srcDir("src/version/kotlin")
+    }
 }
 
 dependencies {
-    api("com.utopia-rise:common:$fullBuildVersion")
+    api("com.utopia-rise:common:${buildVersion.value}")
 }

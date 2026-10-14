@@ -37,9 +37,9 @@ val Project.isRelease: Boolean
 
 val GODOT_BUILD_TYPE_ATTRIBUTE: Attribute<String> = Attribute.of("com.utopia-rise.godot.build-type", String::class.java)
 
-fun Project.godotLibraryDependency(module: String): Dependency =
-    (dependencies.create("com.utopia-rise:godot-library:$BUILD_VERSION") as ExternalModuleDependency).also { dependency ->
-        dependency.capabilities { it.requireCapability("com.utopia-rise:godot-library-$module") }
+fun Project.godotJvmDependency(module: String): Dependency =
+    (dependencies.create("com.utopia-rise:godot-jvm:${BUILD_VERSION.value}") as ExternalModuleDependency).also { dependency ->
+        dependency.capabilities { it.requireCapability("com.utopia-rise:godot-jvm-$module") }
     }
 
 // Debug and release artifacts never share a directory, so one cannot be mistaken for the other.
