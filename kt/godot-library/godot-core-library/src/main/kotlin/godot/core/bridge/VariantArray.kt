@@ -691,7 +691,6 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         external fun engine_call_max(_handle: VoidPtr)
         external fun engine_call_min(_handle: VoidPtr)
         external fun engine_call_pickRandom(_handle: VoidPtr)
-        external fun engine_call_popAt(_handle: VoidPtr)
         external fun engine_call_popBack(_handle: VoidPtr)
         external fun engine_call_popFront(_handle: VoidPtr)
         external fun engine_call_pushBack(_handle: VoidPtr)

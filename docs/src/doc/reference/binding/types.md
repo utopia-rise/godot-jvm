@@ -138,6 +138,8 @@ The same write-back rule applies to collection elements: `get`, mutate, then `se
 
 Keep names and paths as ordinary strings while building or passing them around. Converting a `String` to a `StringName` or `NodePath` costs more than using the string itself. When code uses the same name or path repeatedly, convert it once with a cached helper and reuse the result.
 
+`equals` and `hashCode` compare the Godot value, not the JVM object: two `StringName` or two `NodePath` instances holding the same name or path are equal even when they come from different calls, so both types work as keys in JVM maps and sets.
+
 | Operation | Effect |
 |---|---|
 | `asCachedStringName` | Cached interned name; preserves spelling |

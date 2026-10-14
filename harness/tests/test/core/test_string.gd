@@ -104,3 +104,27 @@ func test_string_as_string_name() -> void:
     assert_that(script.get_as_string_name("test1")).override_failure_message("Should return the same StringName instance").is_equal(script.get_as_string_name("test1"))
     assert_that(script.get_as_string_name("test1")).override_failure_message("Should return the different StringName instances").is_not_equal(script.get_as_string_name("test2"))
     script.free()
+
+func test_string_name_identity_is_godot_identity() -> void:
+    var script = StringTest.new()
+    assert_bool(script.string_names_match(&"test1", &"test1")).override_failure_message("Distinct wrappers of the same StringName should be equal and hash alike").is_true()
+    assert_bool(script.string_names_match(&"test1", &"test2")).override_failure_message("Different StringNames should not be equal").is_false()
+    script.free()
+
+func test_node_path_identity_is_godot_identity() -> void:
+    var script = StringTest.new()
+    assert_bool(script.node_paths_match(NodePath("Root/Branch:leaf"), NodePath("Root/Branch:leaf"))).override_failure_message("Distinct wrappers of the same NodePath should be equal and hash alike").is_true()
+    assert_bool(script.node_paths_match(NodePath("Root/Branch:leaf"), NodePath("Root/Other:leaf"))).override_failure_message("Different NodePaths should not be equal").is_false()
+    script.free()
+
+func test_cached_names_and_godot_names_do_not_share_a_slot() -> void:
+    var script = StringTest.new()
+    assert_str(script.cached_string_name_ignores_godot_name("cacheSplitName")).is_equal("cacheSplitName")
+    assert_str(script.cached_node_path_ignores_godot_path("cacheSplitPath")).is_equal("cacheSplitPath")
+    script.free()
+
+func test_node_path_names() -> void:
+    var script = StringTest.new()
+    assert_str(script.get_node_path_name(NodePath("Root/Branch:leaf"), 1)).is_equal("Branch")
+    assert_str(script.get_node_path_subname(NodePath("Root/Branch:leaf"), 0)).is_equal("leaf")
+    script.free()
