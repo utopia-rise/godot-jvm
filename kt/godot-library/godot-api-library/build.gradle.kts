@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import versioninfo.fullBuildVersion
+import versioninfo.buildVersion
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -12,7 +12,7 @@ kotlin {
 }
 
 dependencies {
-    api("com.utopia-rise:common:$fullBuildVersion")
+    api("com.utopia-rise:common:${buildVersion.value}")
     implementation(project(":godot-internal-library"))
     api(project(":godot-core-library"))
 }

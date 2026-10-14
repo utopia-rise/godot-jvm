@@ -1,4 +1,4 @@
-import versioninfo.fullBuildVersion
+import versioninfo.buildVersion
 
 // Not published on its own: bundled into the `godot-registration` fat jar (see ../godot-registration).
 plugins {
@@ -13,7 +13,7 @@ kotlin {
 // Exposed via `api` so consumers of the model (the registrar generator and the symbol processor)
 // get the godot types, KotlinPoet and common utilities the model/checks/ext reference, transitively.
 dependencies {
-    api("com.utopia-rise:tools-common:$fullBuildVersion")
+    api("com.utopia-rise:tools-common:${buildVersion.value}")
     api(project(":godot-bootstrap-library"))
     api(project(":godot-core-library"))
     api(libs.slf4jApi)

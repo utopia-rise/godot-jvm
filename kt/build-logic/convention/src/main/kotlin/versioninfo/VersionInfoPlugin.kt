@@ -1,7 +1,7 @@
 package versioninfo
 
+import godot.tools.common.version.BuildVersion
 import org.ajoberstar.grgit.Grgit
-import org.ajoberstar.grgit.Commit
 import org.ajoberstar.grgit.gradle.GrgitPlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
@@ -38,7 +38,8 @@ class VersionInfoPlugin: Plugin<Project> {
         reproducibleVersion = target.providers.gradleProperty("reproducibleVersion").isPresent
         // Set before any plugin applied after this one: vanniktech's publishToMavenCentral reads the version eagerly
         // to decide whether the Central repository gets credentials, which only the snapshot repository needs.
-        target.version = fullBuildVersion
+        target.version = buildVersion.value
+        target.group = "com.utopia-rise"
 
         target.tasks.withType(AbstractArchiveTask::class.java).configureEach { task ->
             task.isPreserveFileTimestamps = false
@@ -49,26 +50,22 @@ class VersionInfoPlugin: Plugin<Project> {
     }
 }
 
-private val preReleaseVersionRegex = Regex("""\d+\.\d+\.\d+-(dev|rc)[1-9]\d*""")
-
-private val isVersionTagOnCurrentCommit: Boolean
-    get() {
-        val currentCommit: Commit = grgit.head()
-        return grgit.tag.list().any { tag -> tag.commit.id == currentCommit.id && tag.name == godotJvmVersion }
-    }
-
-// Getters, not lazy values: the Gradle daemon keeps this class loaded between builds, so a cached value would
+// A getter, not a lazy value: the Gradle daemon keeps this class loaded between builds, so a cached value would
 // survive a checkout of another commit and report the previous commit's hash.
-val fullBuildVersion: String
-    get() = when {
-        !isVersionTagOnCurrentCommit && reproducibleVersion -> "$godotJvmVersion-SNAPSHOT"
-        !isVersionTagOnCurrentCommit -> "$godotJvmVersion-${grgit.head().abbreviatedId}-SNAPSHOT"
-        godotJvmVersion.matches(preReleaseVersionRegex) -> "$godotJvmVersion-SNAPSHOT"
-        else -> godotJvmVersion
+val buildVersion: BuildVersion
+    get() {
+        val head = grgit.head()
+        val tags = grgit.tag.list()
+            .filter { tag -> tag.commit.id == head.id && tag.name.matches(BuildVersion.VERSION_TAG) }
+            .map { tag -> tag.name }
+        check(tags.size <= 1) { "The commit carries several version tags: ${tags.joinToString()}." }
+        val tag = tags.singleOrNull()
+        // A release must report the version the native library is built with, which mirrors the catalog.
+        check(tag == null || tag == godotJvmVersion) {
+            "The commit is tagged $tag, but the Godot-JVM version in the version catalog is $godotJvmVersion."
+        }
+        return BuildVersion(tag, head.abbreviatedId.takeUnless { reproducibleVersion })
     }
-
-val isSnapshot: Boolean
-    get() = fullBuildVersion.endsWith("-SNAPSHOT")
 
 abstract class GenerateVersionFileTask : DefaultTask() {
     @get:Input
@@ -97,7 +94,6 @@ open class VersionInfoExtension(private val project: Project) {
             content = """
                 package godot.common
 
-                const val GODOT_MODULE_VERSION = "$godotJvmVersion"
                 const val GODOT_VERSION = "$godotVersion"
                 const val GODOT_JVM_VERSION = "$godotJvmVersion"
             """.trimIndent() + "\n",
@@ -105,13 +101,20 @@ open class VersionInfoExtension(private val project: Project) {
     }
 
     fun generateToolsCommonVersionKt() {
+        val build = buildVersion
         registerVersionFileTask(
             taskName = "generateToolsCommonVersionKt",
             packageName = "godot.tools.common",
             content = """
                 package godot.tools.common
 
-                const val BUILD_VERSION = "$fullBuildVersion"
+                import godot.tools.common.version.BuildVersion
+
+                val BUILD_VERSION = BuildVersion(
+                    tag = ${build.tag?.let { "\"$it\"" }},
+                    commitHash = ${build.commitHash?.let { "\"$it\"" }},
+                )
+
                 const val KOTLIN_VERSION = "$kotlinVersion"
 
                 const val IOS_GRAAL_NATIVE_IMAGE_VERSION = "$iosGraalNativeImageVersion"

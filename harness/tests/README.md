@@ -54,4 +54,4 @@ gradlew buildIOS
 gradlew exportIOSDebug
 ```
 
-Use the `Release` tasks together with `-Prelease` for the release build, for example `gradlew -Prelease buildAndroidRelease` followed by `gradlew exportAndroidRelease`. The task selects the release variant; the property additionally makes the included `kt` build compile the Godot libraries in release mode, as a published release does.
+Use the `Release` tasks for the release build, for example `gradlew buildAndroidRelease` followed by `gradlew exportAndroidRelease`. The task selects the release variant, for the harness, its included third-party library and the Godot libraries the included `kt` build compiles.

@@ -15,8 +15,8 @@ The **Build on Run** button sits in the toolbar next to **Run Gradle** and is sa
 | Option | Icon | Builds first |
 |---|---|---|
 | Never (default) | dimmed hammer and wrench | never |
-| When scripts changed | circular arrow | when a script changed since the last build |
-| Always | hammer and wrench | always |
+| When scripts changed | hammer and wrench | when a script changed since the last build |
+| Always | circular arrow | always |
 
 A modifier held while clicking a play button takes priority over the button:
 

@@ -112,10 +112,10 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ build
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
       - name: Export iOS test project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
         timeout-minutes: 30
 
       # Device build only, so no execution: Godot's official simulator template slice is x86_64

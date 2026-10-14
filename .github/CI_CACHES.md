@@ -125,9 +125,9 @@ OS-independent.
 so there are two entries, `gradle-build-cache-debug` and
 `gradle-build-cache-release`, and each job restores only the one for its
 flavor. `deploy_jvm.yml` publishes both flavors and restores both. The test
-matrices carry a `release` boolean; when set, every Gradle invocation of the
-job gets `-Prelease`, and the Gradle plugin then selects the release variants
-of `godot-library`. This is what makes the release export jobs test
+matrices carry a `release` boolean; when set, the job builds with the
+`…Release` tasks, and the Gradle plugin then selects the release variants of
+`godot-jvm`. This is what makes the release export jobs test
 release-compiled libraries rather than a release harness on top of debug
 libraries.
 

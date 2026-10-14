@@ -108,7 +108,7 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ build
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
       - name: Create Android release test key
         run: |
@@ -126,7 +126,7 @@ jobs:
           echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=godot-jvm-tests" >> "$GITHUB_ENV"
 
       - name: Export Android tests
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Enable KVM

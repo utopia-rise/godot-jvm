@@ -13,6 +13,8 @@ static constexpr const char* RES_DIRECTORY = "res://";
 
 static constexpr const char* BUILD_DIRECTORY = "res://build";
 static constexpr const char* JVM_CONFIGURATION_PATH = "res://godot_jvm_configuration.json";
+// Replaced as a whole by the Gradle plugin's installAddon.
+static constexpr const char* ADDON_MANIFEST_FILE = "res://addons/jvm/jvm.gdextension";
 
 // Shared by both variants.
 static constexpr const char* LINUX_EMBEDDED_JRE_ARM_DIRECTORY = JVM_DIRECTORY "jre-arm64-linux";

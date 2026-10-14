@@ -1,10 +1,10 @@
 ---
-description: Install a JDK 17 or newer and download the Godot-JVM addon.
+description: Install a JDK 17 or newer.
 ---
 
 # Install
 
-Install a JDK, then download the addon you will add to your Godot project. See [Compatibility and requirements](compatibility.md) for supported versions and platforms.
+Godot-JVM needs a JDK to build your code and run it in the editor. See [Compatibility and requirements](compatibility.md) for supported versions and platforms. The Godot-JVM addon itself comes with the project you create on the next page.
 
 ## Install a JDK
 
@@ -55,11 +55,3 @@ On macOS, an editor opened from Finder or the Dock does not inherit your shell's
 ```shell
 launchctl setenv JAVA_HOME /path/to/jdk/Contents/Home
 ```
-
-## Download the addon
-
-Download `godot-jvm-addon-<version>.zip` from [GitHub releases](https://github.com/utopia-rise/godot-jvm/releases). Take the latest release unless you have a reason to pin an older one.
-
-The archive contains a single `addons/jvm/` directory: the `jvm.gdextension` manifest that tells Godot how to load the extension, the native library for every supported platform under `libs/`, and the editor icons. Nothing in it needs to be built or configured.
-
-Keep the archive at hand. You will extract it into your Godot project on the next page, once that project exists.
