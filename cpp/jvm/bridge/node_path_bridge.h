@@ -20,11 +20,11 @@ namespace bridges {
             INIT_NATIVE_METHOD("engine_call_getSubname", "(J)V", NodePathBridge::engine_call_getSubname)
             INIT_NATIVE_METHOD("engine_call_getSubnameCount", "(J)V", NodePathBridge::engine_call_getSubnameCount)
             INIT_NATIVE_METHOD("engine_call_isAbsolute", "(J)V", NodePathBridge::engine_call_isAbsolute)
-            INIT_NATIVE_METHOD("engine_call_hash", "(J)V",  NodePathBridge::engine_call_hash)
+            INIT_NATIVE_METHOD("engine_call_hash", "(J)I", NodePathBridge::engine_call_hash)
             INIT_NATIVE_METHOD("engine_call_isEmpty", "(J)V", NodePathBridge::engine_call_isEmpty)
             INIT_NATIVE_METHOD("engine_call_getConcatenatedSubnames", "(J)V", NodePathBridge::engine_call_getConcatenatedSubnames)
             INIT_NATIVE_METHOD("engine_call_getConcatenatedNames", "(J)V", NodePathBridge::engine_call_getConcatenatedNames)
-            INIT_NATIVE_METHOD("engine_call_equals", "(J)V", NodePathBridge::engine_call_equals)
+            INIT_NATIVE_METHOD("engine_call_equals", "(JJ)Z", NodePathBridge::engine_call_equals)
           )
         // clang-format on
 
@@ -40,11 +40,11 @@ namespace bridges {
         static void engine_call_getSubname(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_getSubnameCount(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_isAbsolute(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
-        static void engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static jint engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_isEmpty(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_getConcatenatedNames(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_getConcatenatedSubnames(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
-        static void engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static jboolean engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle, jlong p_other);
     };
 } // namespace bridges
 

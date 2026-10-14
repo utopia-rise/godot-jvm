@@ -8,7 +8,7 @@ import godot.internal.memory.MemoryManager
 import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 import godot.common.util.LRUCache
-import godot.internal.memory.MemoryManager.CACHE_INITIAL_CAPACITY
+import godot.internal.memory.MemoryManager.CACHE_CAPACITY
 import kotlin.reflect.KProperty
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -104,7 +104,7 @@ class NodePath : NativeCoreType {
      * Returns the 32-bit hash value representing the NodePath's contents.
      */
     fun hash(): Int {
-        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
+        return Bridge.engine_call_hash(ptr)
     }
 
     /**
@@ -132,22 +132,15 @@ class NodePath : NativeCoreType {
 
     //UTILITIES
     override fun equals(other: Any?): Boolean {
-        return if (other is NodePath) {
-            return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
-                VariantParser.NODE_PATH.toGodot(other)
-                Bridge.engine_call_equals(ptr)
-            }
-        } else {
-            false
-        }
+        return this === other || (other is NodePath && Bridge.engine_call_equals(ptr, other.ptr))
     }
 
     override fun hashCode(): Int {
-        return ptr.hashCode()
+        return hash()
     }
 
     override fun toString(): String {
-        return "NodePath(${getConcatenatedSubnames()})"
+        return path
     }
 
     @Suppress("FunctionName")
@@ -163,19 +156,21 @@ class NodePath : NativeCoreType {
         external fun engine_call_getSubname(_handle: VoidPtr)
         external fun engine_call_getSubnameCount(_handle: VoidPtr)
         external fun engine_call_isAbsolute(_handle: VoidPtr)
-        external fun engine_call_hash(_handle: VoidPtr)
+        external fun engine_call_hash(_handle: VoidPtr): Int
         external fun engine_call_isEmpty(_handle: VoidPtr)
         external fun engine_call_getConcatenatedNames(_handle: VoidPtr)
         external fun engine_call_getConcatenatedSubnames(_handle: VoidPtr)
-        external fun engine_call_equals(_handle: VoidPtr)
+        external fun engine_call_equals(_handle: VoidPtr, _other: VoidPtr): Boolean
     }
 
     internal companion object{
-        private val nodePathCache = LRUCache<String, NodePath>(CACHE_INITIAL_CAPACITY)
+        private val nodePathCache = LRUCache<String, NodePath>(CACHE_CAPACITY)
+        private val godotPathCache = LRUCache<String, NodePath>(CACHE_CAPACITY)
 
         init {
             MemoryManager.registerCallback(true) {
                 nodePathCache.clear()
+                godotPathCache.clear()
             }
         }
 
@@ -195,8 +190,8 @@ class NodePath : NativeCoreType {
          * Take a CamelCase String, cache it and return a snakeCase version of it as a NodePath.
          */
         fun getOrCreateGodotPath(key: String): NodePath {
-            return synchronized(nodePathCache) {
-                nodePathCache.getOrPut(key) {
+            return synchronized(godotPathCache) {
+                godotPathCache.getOrPut(key) {
                     // Cache miss, so create and return new instance.
                     NodePath(key.convertToSnakeCase())
                 }

@@ -41,7 +41,7 @@ void NodePathBridge::engine_call_getName(JNIEnv* p_raw_env, jobject p_instance, 
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t index;
     transfer->read_args(index);
-    StringName name = native<NodePath>(p_handle).get_name(index);
+    String name(native<NodePath>(p_handle).get_name(index));
     transfer->write_ret(name);
 }
 
@@ -55,7 +55,7 @@ void NodePathBridge::engine_call_getSubname(JNIEnv* p_raw_env, jobject p_instanc
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t index;
     transfer->read_args(index);
-    StringName subname = native<NodePath>(p_handle).get_subname(index);
+    String subname(native<NodePath>(p_handle).get_subname(index));
     transfer->write_ret(subname);
 }
 
@@ -71,10 +71,8 @@ void NodePathBridge::engine_call_isAbsolute(JNIEnv* p_raw_env, jobject p_instanc
     transfer->write_ret(absolute);
 }
 
-void NodePathBridge::engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
-    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    int64_t hash = native<NodePath>(p_handle).hash();
-    transfer->write_ret(hash);
+jint NodePathBridge::engine_call_hash(JNIEnv*, jobject, jlong p_handle) {
+    return static_cast<jint>(native<NodePath>(p_handle).hash());
 }
 
 void NodePathBridge::engine_call_isEmpty(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
@@ -95,10 +93,6 @@ void NodePathBridge::engine_call_getConcatenatedSubnames(JNIEnv* p_raw_env, jobj
     transfer->write_ret(subnames);
 }
 
-void NodePathBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
-    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    NodePath other;
-    transfer->read_args(other);
-    bool equal = native<NodePath>(p_handle) == other;
-    transfer->write_ret(equal);
+jboolean NodePathBridge::engine_call_equals(JNIEnv*, jobject, jlong p_handle, jlong p_other) {
+    return native<NodePath>(p_handle) == native<NodePath>(p_other);
 }

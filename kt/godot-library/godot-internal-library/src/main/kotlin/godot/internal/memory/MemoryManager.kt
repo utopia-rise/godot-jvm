@@ -52,9 +52,9 @@ object MemoryManager {
             .coerceAtMost(size)
     }
 
-    /** Base capacity for caches.*/
-    // TODO: Set the initial capacity from the command line.
-    const val CACHE_INITIAL_CAPACITY = 512
+    /** Maximum number of entries a cache keeps before evicting the least recently used one. */
+    // TODO: Set the capacity from the command line.
+    const val CACHE_CAPACITY = 256
 
     /** Base capacity for several binding containers.*/
     private const val BINDING_INITIAL_CAPACITY = 4096
