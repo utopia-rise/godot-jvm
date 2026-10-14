@@ -66,7 +66,7 @@ void GodotJvmEditor::on_build_on_run_pressed() {
 }
 
 void GodotJvmEditor::update_build_on_run_display() {
-    StringName icon = build_on_run_mode == BUILD_ON_RUN_WHEN_STALE ? SNAME("Reload") : SNAME("Tools");
+    StringName icon = build_on_run_mode == BUILD_ON_RUN_ALWAYS ? SNAME("Reload") : SNAME("Tools");
     build_on_run_button->set_button_icon(
         get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons"))
     );
