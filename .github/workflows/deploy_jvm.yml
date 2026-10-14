@@ -65,8 +65,9 @@ jobs:
           kt/gradlew -p kt :godot-intellij-plugin:buildPlugin
           cp kt/plugins/godot-intellij-plugin/build/distributions/godot-intellij-plugin-*.zip godot-jvm-intellij-plugin-${{ inputs.godot-jvm-version }}.zip
 
+      # Release candidates publish a snapshot to the Marketplace's alpha channel, releases to stable (see the plugin's build script).
       - name: Publish IntelliJ plugin to the Marketplace
-        if: ${{ !contains(inputs.godot-jvm-version, '-dev') && !contains(inputs.godot-jvm-version, '-rc') }}
+        if: ${{ !contains(inputs.godot-jvm-version, '-dev') }}
         shell: sh
         run: |
           kt/gradlew -p kt :godot-intellij-plugin:publishPlugin
