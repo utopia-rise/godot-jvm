@@ -54,10 +54,21 @@ jobs:
         with:
           mode: restore
 
+      # The addon assemble_addon.yml built earlier in this run is published inside godot-jvm too, so the Gradle plugin's
+      # installAddon fetches the native libraries matching its version. Zipped like deploy_godot.yml does.
+      - name: Download addon
+        uses: actions/download-artifact@v7
+        with:
+          name: godot-jvm-addon-${{ inputs.godot-jvm-version }}
+          path: addon
+      - name: Zip addon
+        shell: sh
+        run: cd addon && zip -q -9 -r ../godot-jvm-addon.zip addons
+
       - name: Publish godot-jvm and the Gradle plugin
         shell: sh
         run: |
-          kt/gradlew -p kt publishCentral -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
+          kt/gradlew -p kt publishCentral -PgodotJvmAddon=$PWD/godot-jvm-addon.zip -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
       - name: Build IntelliJ plugin
         shell: sh

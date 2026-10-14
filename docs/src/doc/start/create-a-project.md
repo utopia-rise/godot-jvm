@@ -6,8 +6,8 @@ description: Three ways to set up a Godot-JVM project, from the Godot editor, th
 
 A Godot-JVM project is a regular Godot project with three additions: the addon under `addons/jvm/`, a Gradle build, and source directories for your scripts. There are three ways to get there. Pick one; they all produce the same layout.
 
-- **Godot editor**: you already have a Godot project, new or old, you drop the addon into it, and the editor adds the Gradle build and source directories.
-- **IntelliJ IDEA wizard**: the IDE creates a brand new project, Godot files and Gradle build included, and you add the addon afterwards.
+- **Godot editor**: you add the addon to a Godot project, new or old, from Godot's asset store or a GitHub release, and the editor adds the Gradle build and source directories.
+- **IntelliJ IDEA wizard**: the IDE creates a brand new project, Godot files and Gradle build included, and a Gradle task installs the addon.
 - **Template project**: you clone a complete project that already contains everything, addon included.
 
 ## Option 1: Godot editor
@@ -15,7 +15,12 @@ A Godot-JVM project is a regular Godot project with three additions: the addon u
 Use this when you already have a Godot project, or when you prefer to create a plain Godot project first and add JVM support to it.
 
 1. Create a fresh project in Godot, or open an existing one.
-2. Extract the [addon archive](https://github.com/utopia-rise/godot-jvm/releases) you downloaded at the project's root, preserving its `addons` directory so the manifest sits at `addons/jvm/jvm.gdextension`. Godot picks it up when the project is opened or reloaded.
+2. Add the addon to the project, either way:
+    - from Godot's asset store, where Godot-JVM is published from its 1.0.0 release on: search for Godot-JVM and install it;
+    - from [GitHub releases](https://github.com/utopia-rise/godot-jvm/releases): download `godot-jvm-addon-<version>.zip` and extract it at the project's root, preserving its `addons` directory.
+
+    Either way, the manifest ends up at `addons/jvm/jvm.gdextension`, next to the native library of every supported platform. Godot picks it up when the project is opened or reloaded.
+
 3. Select **Project > Tools > Kotlin/JVM > Generate JVM project**.
 
     ![Godot project generation menu](../assets/img/editor-plugin/generation_menu.png)
@@ -40,7 +45,7 @@ Install the **Godot-JVM** plugin in **Settings > Plugins > Marketplace** (listed
 2. Enter **Name**, **Location**, and **Default Package**, then choose the languages to enable. Kotlin, Java, and Scala are enabled by default.
 3. Leave **Platform Overrides** unchecked for this desktop walkthrough.
 4. Click **Create**.
-5. Extract the [addon archive](https://github.com/utopia-rise/godot-jvm/releases) you downloaded at the new project's root, so it contains `addons/jvm/jvm.gdextension`. The wizard does not download the addon for you.
+5. Run the `installAddon` Gradle task, from the Gradle tool window under **godot-jvm** or with `./gradlew installAddon` at the project's root. It downloads the addon matching the Gradle plugin version and installs it in `addons/jvm/`.
 
 ![New Godot-JVM project dialog](../assets/img/idea-plugin/wizard-1.png)
 
@@ -57,7 +62,11 @@ Use this when you want a complete, ready-to-run project without generating anyth
 2. Rename the project in `project.godot` and adjust the package name in the source directories to match your game.
 3. Open the directory in Godot and in IntelliJ IDEA.
 
-Because the addon is bundled, the template is the only option where you do not extract the archive yourself. The bundled addon version matches the Gradle plugin version in the template's `build.gradle.kts`; keep the two in sync when you upgrade either.
+Because the addon is bundled, there is nothing to install. Its version matches the Gradle plugin version in the template's `build.gradle.kts`.
+
+## Keep the addon in sync
+
+The addon's native libraries and the JVM libraries the Gradle plugin builds with must come from the same Godot-JVM version; Godot-JVM refuses to start with mismatched ones. Whichever option you chose, when you change the plugin version in `build.gradle.kts`, run `./gradlew installAddon` to replace `addons/jvm/` with the matching addon. It deletes the previous addon's files first, and a running Godot editor needs a restart to load the new one.
 
 ## Check that the addon is loaded
 

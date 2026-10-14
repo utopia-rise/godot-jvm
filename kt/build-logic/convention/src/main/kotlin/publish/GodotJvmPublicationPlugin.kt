@@ -33,6 +33,9 @@ import javax.inject.Inject
 const val GODOT_JVM_ARTIFACT_ID = "godot-jvm"
 val BUILD_TYPE_ATTRIBUTE: Attribute<String> = Attribute.of("com.utopia-rise.godot.build-type", String::class.java)
 
+// Must match GODOT_ADDON_CATEGORY in the gradle plugin, which requests the addon with it.
+const val GODOT_ADDON_CATEGORY = "godot-addon"
+
 enum class GodotJvmModuleKind {
     /** Compiled once per build type, each build type with its own jar. */
     FLAVORED,
@@ -119,6 +122,8 @@ abstract class GodotJvmPublicationPlugin @Inject constructor(
             jar.archiveBaseName.set(GODOT_JVM_ARTIFACT_ID)
             jar.archiveClassifier.set(DocsType.JAVADOC)
         })
+
+        target.providers.gradleProperty("godotJvmAddon").orNull?.let { path -> registerAddon(target, component, target.file(path)) }
 
         target.extensions.configure(PublishingExtension::class.java) { publishing ->
             publishing.publications.register("godotJvm", MavenPublication::class.java) { publication ->
@@ -247,6 +252,26 @@ abstract class GodotJvmPublicationPlugin @Inject constructor(
             jar.archiveClassifier.set(classifier)
             jar.from(moduleJar.flatMap { it.elements }.map { jars -> jars.map { jarFile -> project.zipTree(jarFile) } })
             jar.exclude("META-INF/gradle-plugins/**")
+        }
+    }
+
+    /**
+     * The Godot addon zip, `addons/jvm` with the native libraries of every platform. Only a release has all of them, so
+     * it is published only when the `godotJvmAddon` Gradle property points at the zip the release built.
+     */
+    private fun registerAddon(project: Project, component: AdhocComponentWithVariants, archive: File) {
+        val elements = project.configurations.consumable("godotJvmAddonElements") { configuration ->
+            configuration.attributes.attribute(Category.CATEGORY_ATTRIBUTE, project.objects.named(Category::class.java, GODOT_ADDON_CATEGORY))
+            configuration.outgoing.artifact(archive) { artifact ->
+                artifact.classifier = "addon"
+                artifact.extension = "zip"
+                artifact.type = "zip"
+            }
+            configuration.outgoing.capability("${project.group}:$GODOT_JVM_ARTIFACT_ID-addon:${project.version}")
+        }
+        component.addVariantsFromConfiguration(elements.get()) { details ->
+            details.mapToMavenScope("runtime")
+            details.mapToOptional()
         }
     }
 

@@ -2,6 +2,7 @@ package godot.gradle.projectExt
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.tasks.GenerateEmbeddedJreTask
+import godot.gradle.tasks.addon.installAddonTask
 import godot.gradle.tasks.android.CreateDexJarTask
 import godot.gradle.tasks.android.checkAndroidJarAccessibleTask
 import godot.gradle.tasks.android.checkD8ToolAccessibleTask
@@ -119,6 +120,7 @@ fun Project.setupTasks() {
                 return@with
             }
 
+            installAddonTask()
             val checkIgnoredScriptSourcesTask = checkIgnoredScriptSourcesTask()
 
             val classesTask = tasks.named("classes")

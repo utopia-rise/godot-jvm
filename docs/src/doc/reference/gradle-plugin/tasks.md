@@ -33,6 +33,18 @@ Valid for method-body changes. Adding, removing, renaming, or changing the signa
 ./gradlew fastBuild
 ```
 
+## `installAddon`
+
+Installs the Godot-JVM addon of the plugin's own version in the project's `addons/jvm/`, replacing the current one if any, so the native libraries always match the JVM libraries the build uses. The addon is published next to those libraries, in `com.utopia-rise:godot-jvm`, and resolved from the same repositories.
+
+```shell
+./gradlew installAddon
+```
+
+The task deletes everything in `addons/jvm/` before extracting the new addon, so local changes to its files are lost. It can run while the Godot editor is open: the editor keeps the previous native library loaded until it restarts, and the files it still holds stay in a hidden `addons/.jvm-previous-<time>/` directory that the next run removes.
+
+Every published Godot-JVM version carries the addon, dev and release candidates included. With a Godot-JVM version built from source or taken from JitPack, the task fails without touching `addons/jvm/`.
+
 ## Library mode
 
 When [`isLibrary`](packaging-and-tasks.md#islibrary) is true, `build`, `buildRelease`, and `fastBuild` use the ordinary library build. No local registrar or runnable-project packaging is produced. Android, GraalVM, and iOS build targets fail as unavailable in this mode.
