@@ -66,7 +66,7 @@ void GodotJvmEditor::on_build_on_run_pressed() {
 }
 
 void GodotJvmEditor::update_build_on_run_display() {
-    StringName icon = build_on_run_mode == BUILD_ON_RUN_WHEN_STALE ? SNAME("Reload") : SNAME("Tools");
+    StringName icon = build_on_run_mode == BUILD_ON_RUN_ALWAYS ? SNAME("Reload") : SNAME("Tools");
     build_on_run_button->set_button_icon(
         get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons"))
     );
@@ -100,6 +100,7 @@ bool GodotJvmEditor::_build() {
 }
 
 void GodotJvmEditor::on_filesystem_change() {
+    check_addon_replaced();
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
@@ -110,10 +111,26 @@ void GodotJvmEditor::on_filesystem_change() {
     }
 }
 
+void GodotJvmEditor::check_addon_replaced() {
+    if (FileAccess::get_modified_time(ADDON_MANIFEST_FILE) != addon_manifest_time) { addon_outdated = true; }
+}
+
 void GodotJvmEditor::update_jvm_status(bool force) {
     GodotJvm::State state = GodotJvm::get_instance().state;
     bool bootstrap_outdated = GodotJvm::get_instance().bootstrap_outdated;
-    if (!force && displayed_jvm_state == state && displayed_bootstrap_outdated == bootstrap_outdated) { return; }
+    if (!force
+        && displayed_jvm_state == state
+        && displayed_bootstrap_outdated == bootstrap_outdated
+        && displayed_addon_outdated == addon_outdated) {
+        return;
+    }
+
+    if (addon_outdated && !displayed_addon_outdated) {
+        get_editor_interface()->get_editor_toaster()->push_toast(
+            "The Godot-JVM addon changed. Restart the editor to load it (Project > Reload Current Project).",
+            EditorToaster::SEVERITY_WARNING
+        );
+    }
 
     if (bootstrap_outdated && !displayed_bootstrap_outdated) {
         get_editor_interface()->get_editor_toaster()->push_toast(
@@ -124,6 +141,7 @@ void GodotJvmEditor::update_jvm_status(bool force) {
 
     displayed_jvm_state = state;
     displayed_bootstrap_outdated = bootstrap_outdated;
+    displayed_addon_outdated = addon_outdated;
 
     StringName icon;
     String label;
@@ -163,6 +181,10 @@ void GodotJvmEditor::update_jvm_status(bool force) {
     if (bootstrap_outdated) {
         icon = SNAME("StatusWarning");
         label = "Bootstrap modified, restart the editor to load it";
+    }
+    if (addon_outdated) {
+        icon = SNAME("StatusWarning");
+        label = "Addon modified, restart the editor to load it";
     }
 
     jvm_status_light->set_texture(get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons")));
@@ -252,6 +274,7 @@ void GodotJvmEditor::_notification(int notification) {
 #else
             tool_bar_gradle_task_choice->add_item("Generate JRE", GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM);
 #endif
+            tool_bar_gradle_task_choice->add_item("Sync Addon Version", GradleTaskRunner::Task::SYNC_ADDON_VERSION);
             tool_bar_gradle_task_choice->select(GradleTaskRunner::Task::BUILD_DEBUG);
             tool_bar_gradle_task_choice->set_fit_to_longest_item(false);
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_choice);
@@ -279,6 +302,7 @@ void GodotJvmEditor::_notification(int notification) {
             update_build_on_run_display();
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, build_on_run_button);
 
+            addon_manifest_time = FileAccess::get_modified_time(ADDON_MANIFEST_FILE);
             jvm_status_light->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
             jvm_status_light->set_self_modulate(Color(1, 1, 1, 0.5));
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);
@@ -324,6 +348,7 @@ void GodotJvmEditor::_notification(int notification) {
                     int exit_code = GradleTaskRunner::get_instance().finish_task();
                     task_dialog_stop(task_dialog);
                     get_editor_interface()->get_resource_filesystem()->scan_sources();
+                    check_addon_replaced();
                     if (exit_code == 0) {
                         task_dialog_update_state(task_dialog, "Gradle task succeeded.\n");
                         JVM_LOG_INFO("Gradle task succeeded.");

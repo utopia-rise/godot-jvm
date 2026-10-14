@@ -1,12 +1,10 @@
-import versioninfo.fullBuildVersion
+import versioninfo.buildVersion
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     `java-gradle-plugin`
     id("com.utopia-rise.versioninfo")
 }
-
-version = fullBuildVersion
 
 kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
@@ -22,8 +20,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation("com.utopia-rise:common:$fullBuildVersion")
-    implementation("com.utopia-rise:tools-common:$fullBuildVersion")
+    implementation("com.utopia-rise:common:${buildVersion.value}")
+    implementation("com.utopia-rise:tools-common:${buildVersion.value}")
     implementation(libs.kotlinPoet)
     implementation(libs.jacksonDataBind)
     implementation(libs.jacksonDataFormatXml)

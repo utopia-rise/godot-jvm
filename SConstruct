@@ -1,5 +1,6 @@
 import os
 import generate_templates
+import generate_version
 
 # godot-cpp/SConstruct reads its "build_profile" option from the global ARGUMENTS dict (via
 # Variables(customs, ARGUMENTS)). A customs file like "custom.py" won't work here since its path
@@ -23,6 +24,10 @@ java_home = os.environ["JAVA_HOME"]
 
 # Generate templates when building the engine.
 generate_templates.generate_header_from_files("kt/plugins/godot-intellij-plugin/src/main/resources/template", "cpp/editor/project/templates.h")
+
+# The native library refuses jars reporting another Godot-JVM version, so it takes the version from the same catalog
+# entry the jars are built with.
+generate_version.generate_version_header("kt/gradle/libs.versions.toml", "cpp/version.h")
 
 # Add those directory manually, so we can skip the godot_cpp directory when including headers in C++ files
 source_path = [

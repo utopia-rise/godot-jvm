@@ -1,4 +1,4 @@
-import versioninfo.fullBuildVersion
+import versioninfo.buildVersion
 
 // Not published on its own: bundled into the `godot-registration` fat jar (see ../godot-registration).
 plugins {
@@ -11,7 +11,7 @@ kotlin {
 }
 
 dependencies {
-    implementation("com.utopia-rise:tools-common:$fullBuildVersion")
+    implementation("com.utopia-rise:tools-common:${buildVersion.value}")
     implementation(project(":godot-bootstrap-library"))
     implementation(project(":godot-core-library"))
     implementation(project(":godot-registration-model"))

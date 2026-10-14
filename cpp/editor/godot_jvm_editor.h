@@ -46,6 +46,11 @@ namespace godot {
         GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
         bool displayed_bootstrap_outdated = false;
 
+        // The native library cannot be reloaded, so a replaced addon only takes effect once the editor restarts.
+        uint64_t addon_manifest_time = 0;
+        bool addon_outdated = false;
+        bool displayed_addon_outdated = false;
+
         Ref<GodotJvmEditorExportPlugin> export_plugin;
         Ref<JvmStandardSyntaxHighlighter> syntax_highlighter;
 
@@ -58,6 +63,7 @@ namespace godot {
         void on_menu_option_pressed(int option_id);
         void on_generate_project(bool erase_existing);
         void on_filesystem_change();
+        void check_addon_replaced();
         void update_jvm_status(bool force = false);
 
     protected:

@@ -4,9 +4,13 @@ on:
     tags:
       # Any x.y.z release, or a dev / release-candidate pre-release of one. The minor maintenance branch
       # (x.y) is derived from the tag below, so 1.0.1 moves 1.0 and 1.1.0 creates 1.1.
+      # The pre-release number is mandatory and starts at 1, as the build's version tags require (BuildVersion.VERSION_TAG):
+      # a glob `*` would also accept `1.0.0-rc` and start a release the build treats as untagged.
       - '[0-9]+.[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+-dev*'
-      - '[0-9]+.[0-9]+.[0-9]+-rc*'
+      - '[0-9]+.[0-9]+.[0-9]+-dev[1-9]'
+      - '[0-9]+.[0-9]+.[0-9]+-dev[1-9][0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[1-9]'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[1-9][0-9]+'
 
 concurrency:
   group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_on_tag

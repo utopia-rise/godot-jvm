@@ -40,18 +40,18 @@ fun Project.setupConfigurationsAndCompilations() {
         // Add all consumer-project main compilation dependencies in one place, after the user's
         // `godot { ... }` configuration has had a chance to override extension defaults.
         for (module in listOf("core", "extension", "bootstrap")) {
-            dependencies.add("compileOnly", godotLibraryDependency(module))
+            dependencies.add("compileOnly", godotJvmDependency(module))
         }
         if (!godotJvmExtension.isCustomApiEnabled.get()) {
-            dependencies.add("compileOnly", godotLibraryDependency("api"))
-            dependencies.add("bootstrap", godotLibraryDependency("api"))
+            dependencies.add("compileOnly", godotJvmDependency("api"))
+            dependencies.add("bootstrap", godotJvmDependency("api"))
         }
         if (isLanguageEnabled(GodotLanguage.SCALA)) {
             dependencies.add("implementation", "org.scala-lang:scala3-library_3:${godotJvmExtension.toolchain.scalaVersion.get()}")
         }
 
         if (godotJvmExtension.isGodotCoroutinesEnabled.get()) {
-            dependencies.add("implementation", godotLibraryDependency("coroutine"))
+            dependencies.add("implementation", godotJvmDependency("coroutine"))
         }
     }
 
@@ -71,7 +71,7 @@ fun Project.setupConfigurationsAndCompilations() {
         with(it.dependencies) {
             add(dependencies.create("org.jetbrains.kotlin:kotlin-stdlib:$kotlinBuildVersion"))
             for (module in listOf("core", "extension", "bootstrap")) {
-                add(godotLibraryDependency(module))
+                add(godotJvmDependency(module))
             }
             // add reflection explicitly so it's usable in exported projects as well. See: GH-571
             add(dependencies.create("org.jetbrains.kotlin:kotlin-reflect:$kotlinBuildVersion"))

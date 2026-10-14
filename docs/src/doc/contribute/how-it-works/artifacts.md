@@ -1,5 +1,5 @@
 ---
-description: godot-library, godot-bootstrap, usercode.jar, the merged release game.jar and the GraalVM game image, what each one contains, who depends on it and when it is used.
+description: The Godot-JVM library, godot-bootstrap, usercode.jar, the merged release game.jar and the GraalVM game image, what each one contains, who depends on it and when it is used.
 ---
 
 # The build artifacts
@@ -22,7 +22,7 @@ The editor and `template_debug` binaries load the debug variant, `template_relea
 
 ## godot-bootstrap
 
-`godot-bootstrap.jar` bundles `godot-library` (the Godot API bindings, published to Maven Central and compiled against by user code), startup and editor-reloading code, and the project's ordinary `implementation` dependencies. `packageBootstrapJar` builds it from the
+`godot-bootstrap.jar` bundles the Godot-JVM library (the Godot API bindings and the runtime modules, published to Maven Central in `godot-jvm` and compiled against by user code), startup and editor-reloading code, and the project's ordinary `implementation` dependencies. `packageBootstrapJar` builds it from the
 project's runtime classpath configuration, alongside the plugin's own `bootstrap` configuration.
 
 Godot loads this JAR in the editor and includes it in debug exports. User projects do not declare it as a build dependency.

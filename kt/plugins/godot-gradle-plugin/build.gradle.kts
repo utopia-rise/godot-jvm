@@ -37,13 +37,7 @@ dependencies {
 
     for (module in listOf("tools-common", "api-generator", "class-graph-symbol-processor", "registration-model", "registrar-generator")) {
         implementation(project(":")) {
-            capabilities { requireCapability("com.utopia-rise:godot-library-$module") }
+            capabilities { requireCapability("com.utopia-rise:godot-jvm-$module") }
         }
-    }
-}
-
-tasks {
-    build {
-        finalizedBy(publishToMavenLocal)
     }
 }
