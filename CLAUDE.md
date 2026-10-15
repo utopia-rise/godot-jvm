@@ -8,6 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) only: `SConstruct` writes it into `cpp/version.h` (`GODOT_JVM_VERSION`) on every build through `generate_version.py`, like `templates.h`, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, and `GODOT_VERSION` in `.github/workflows/trigger_ci.yml` for CI.
 
+## Specs
+
+[`specs/`](specs/) is the guidance of the project: what Godot-JVM offers its users, and the global rules (runtimes, languages, toolchains, Godot integration) every implementation follows. Those product and technical rules live there, not in this file. Read `specs/CLAUDE.md` before implementing or changing a feature; it explains how the directory works and how to keep it in sync with the code.
+
 ## godot-cpp fork
 
 The `godot-cpp` submodule points at

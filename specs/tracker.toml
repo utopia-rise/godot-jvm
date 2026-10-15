@@ -1,0 +1,184 @@
+# Statuses, dead IDs and file hashes; sorted; one entry per line. Format: specs/TRACKER.md.
+"§" = { hash = "6f9435697539" }
+"A.1" = { hash = "bdadc79ddea6" }
+"A.1.1" = { status = "partial", note = "breaks A.1.R3: a script class whose source language cannot be identified is skipped with a warning instead of failing the build" }
+"A.1.2" = { status = "done" }
+"A.1.3" = { status = "done" }
+"A.1.4" = { status = "done" }
+"A.1.5" = { status = "partial", note = "breaks A.1.R2: name collisions are checked only in the default naming mode" }
+"A.2" = { hash = "9cd421279275" }
+"A.2.1" = { status = "partial", note = "breaks §2, F.2.R3: at most 16 parameters" }
+"A.2.2" = { status = "done" }
+"A.2.3" = { status = "done" }
+"A.2.4" = { status = "done" }
+"A.2.5" = { status = "done" }
+"A.2.6" = { status = "done" }
+"A.2.7" = { status = "done" }
+"A.2.8" = { status = "todo" }
+"A.2.9" = { status = "todo" }
+"A.2.10" = { status = "todo" }
+"A.3" = { hash = "d14253e10edd" }
+"A.3.1" = { status = "done" }
+"A.3.2" = { status = "partial", note = "breaks §2: layer masks, string enums and node type filters have no export annotation yet" }
+"A.3.3" = { status = "done" }
+"A.3.4" = { status = "done" }
+"A.4" = { hash = "104956ae9356" }
+"A.4.1" = { status = "partial", note = "breaks A.4.R2: cancelling a coroutine that awaits a signal leaves its one-shot connection until the signal fires or its object is freed" }
+"A.4.2" = { status = "done" }
+"A.4.3" = { status = "done" }
+"A.4.4" = { status = "done" }
+"A.4.5" = { status = "done" }
+"A.5" = { hash = "74095c3a7a2a" }
+"A.5.1" = { status = "todo", note = "the tool annotation exists but has no effect" }
+"A.5.2" = { status = "todo", note = "listed as a known limitation; depends on A.5.1 and on the editor-only classes missing from B.1.1" }
+"A.6" = { hash = "6a18c7f0c166" }
+"A.6.1" = { status = "done" }
+"A.6.2" = { status = "done" }
+"A.6.3" = { status = "partial", note = "plain Scala 3 enums are not recognized, Scala collections are not accepted where java.util.List is, and primitive type arguments must be boxed" }
+"B.1" = { hash = "18cf7c7720c4" }
+"B.1.1" = { status = "partial", note = "editor-only classes (EditorPlugin, EditorInterface...) are not generated, so editor-time code cannot use them" }
+"B.1.2" = { status = "partial", note = "breaks §2, §5: GD lacks several GDScript global functions, and GD.assert does nothing unless JVM assertions are enabled" }
+"B.1.3" = { status = "done" }
+"B.1.4" = { status = "done" }
+"B.1.5" = { status = "done" }
+"B.2" = { hash = "234056a80a87" }
+"B.2.1" = { status = "done" }
+"B.2.2" = { status = "done" }
+"B.2.3" = { status = "done" }
+"B.2.4" = { status = "done" }
+"B.3" = { hash = "aec5a8f26616" }
+"B.3.1" = { status = "done", note = "calls into objects scripted in GDScript or C# are not exercised by the harness" }
+"B.3.2" = { status = "done" }
+"B.3.3" = { status = "done", note = "custom API generation is not exercised by the harness or CI, and global enums and builtin types stay those of the published core library" }
+"B.4" = { hash = "21078aebd551" }
+"B.4.1" = { status = "done" }
+"B.4.2" = { status = "partial", note = "breaks B.4.R1: several core-type methods are missing or named differently" }
+"B.4.3" = { status = "partial", note = "a change made to a copy is flagged only by the IntelliJ plugin's Kotlin inspection, and elsewhere it silently has no effect" }
+"B.4.4" = { status = "done" }
+"B.4.5" = { status = "partial", note = "breaks §4: plain Scala 3 enums are not recognized; they must extend java.lang.Enum" }
+"B.5" = { hash = "445011f1eddf" }
+"B.5.1" = { status = "partial", note = "copying a VariantArray or Dictionary through its constructor aliases the native container, which is freed once either copy is collected" }
+"B.5.2" = { status = "partial", note = "breaks B.5.R2: collections built from converters are not narrowed to an object class; Dictionary has no typed-key or typed-value queries" }
+"B.5.3" = { status = "done" }
+"B.5.4" = { status = "done" }
+"B.5.5" = { status = "partial", note = "breaks B.1.R4: Array and Dictionary lack several GDScript methods, and Array names reverse invert without listing it in the documentation" }
+"B.6" = { hash = "70e321b4f010" }
+"B.6.1" = { status = "done" }
+"B.6.2" = { status = "done" }
+"B.6.3" = { status = "done" }
+"B.6.4" = { status = "done" }
+"B.7" = { hash = "e15c5ff78142" }
+"B.7.1" = { status = "done", note = "JVM-created threads calling Godot are not exercised by the harness" }
+"B.7.2" = { status = "done" }
+"C.1" = { hash = "bcaefc2013ab" }
+"C.1.1" = { status = "done" }
+"C.1.2" = { status = "done" }
+"C.1.3" = { status = "done" }
+"C.1.4" = { status = "done" }
+"C.1.5" = { status = "todo", note = "script icons and built-in documentation are not shown in the editor" }
+"C.2" = { hash = "80bf3109f089" }
+"C.2.1" = { status = "partial", note = "the Gradle wrapper setting still carries the old product name: kotlin_jvm/gradle/gradle_wrapper_dir" }
+"C.2.2" = { status = "partial", note = "breaks C.2.R2: starting the game while a toolbar Gradle task runs starts a second Gradle build" }
+"C.2.3" = { status = "done" }
+"C.2.4" = { status = "done" }
+"C.2.5" = { status = "done" }
+"C.2.6" = { status = "done" }
+"C.3" = { hash = "67418b5a3a23" }
+"C.3.1" = { status = "partial", note = "the Inspector shows a script's properties only once its class is built" }
+"C.3.2" = { status = "done" }
+"C.3.3" = { status = "partial", note = "the not-built warning asks for a gdj, kt or java file and never mentions Scala" }
+"C.4" = { hash = "608e4f1865d8" }
+"C.4.1" = { status = "done" }
+"C.4.2" = { status = "partial", note = "the no-Java message still reads Godot Kotlin/JVM module, and the JVM failure warning names only Java and Kotlin scripts" }
+"C.4.3" = { status = "done" }
+"C.5" = { hash = "c9fb347dd05d" }
+"C.5.1" = { status = "partial", note = "breaks C.5.R1: an addon from a dev or rc tag generates a project requesting a version published only as a snapshot, and the menu still reads Kotlin/JVM" }
+"C.5.2" = { status = "done" }
+"D.1" = { hash = "7bf9fcec4a09" }
+"D.1.1" = { status = "partial", note = "breaks D.1.R1: iOS builds require GraalVM for JDK 25" }
+"D.1.2" = { status = "done" }
+"D.2" = { hash = "06bc69bc0342" }
+"D.2.1" = { status = "done" }
+"D.2.2" = { status = "partial", note = "a project that does not list its languages, an editor-generated one included, enables all three and ships the Scala runtime library even without Scala sources" }
+"D.2.3" = { status = "done" }
+"D.3" = { hash = "1b99987e2509" }
+"D.3.1" = { status = "done" }
+"D.3.2" = { status = "done" }
+"D.3.3" = { status = "partial", note = "game code cannot reach GodotJvmBuildConfig.DEBUG, which lives in the internal module kept off its compile classpath, so it cannot mark development-only code" }
+"D.3.4" = { status = "done" }
+"D.3.5" = { status = "done" }
+"D.3.6" = { status = "done" }
+"D.3.7" = { status = "partial", note = "breaks D.3.R4: a script source root outside the Godot project directory is skipped without a warning" }
+"D.4" = { hash = "357521a003be" }
+"D.4.1" = { status = "done" }
+"D.4.2" = { status = "done" }
+"D.4.3" = { status = "done" }
+"D.4.4" = { status = "done" }
+"D.4.5" = { status = "done" }
+"D.5" = { hash = "50c5bb9caa36" }
+"D.5.1" = { status = "done" }
+"D.5.2" = { status = "done" }
+"D.5.3" = { status = "partial", note = "a locally built version carries no addon, and a project generated by a development or release-candidate editor or IDE plugin requests a version that does not resolve" }
+"D.6" = { hash = "00885765beb5" }
+"D.6.1" = { status = "done" }
+"D.6.2" = { status = "done" }
+"D.6.3" = { status = "partial", note = "property hint, signal, RPC and callable reference checks exist for Kotlin only" }
+"D.6.4" = { status = "done" }
+"D.6.5" = { status = "done" }
+"D.6.6" = { status = "partial", note = "the IDE has its own registration-mode setting, which game developers match to the build's by hand" }
+"D.7" = { hash = "ba8f8c9e0bd2" }
+"D.7.1" = { status = "partial", note = "breaks D.7.R2: custom JVM arguments open a debugger port in a release export, and the default embedded JRE lacks the debugger agent that debugging an export needs" }
+"D.7.2" = { status = "done" }
+"D.7.3" = { status = "partial", note = "the default embedded JRE lacks the JMX agent module, which game developers add to the JRE's module list by hand" }
+"E.1" = { hash = "58eeece2e586" }
+"E.1.1" = { status = "done" }
+"E.1.2" = { status = "done" }
+"E.1.3" = { status = "done" }
+"E.1.4" = { status = "done" }
+"E.1.5" = { status = "done", note = "untested: CI builds and links the exported Xcode project for devices but never runs it, and the simulator is not supported" }
+"E.1.6" = { status = "done", note = "untested: CI exports and runs the universal app ad-hoc signed, never with a Developer ID or notarization" }
+"E.1.7" = { status = "todo", note = "no arm64 native library is built or shipped for Linux or Windows" }
+"E.2" = { hash = "00abff3baacd" }
+"E.2.1" = { status = "done" }
+"E.2.2" = { status = "done" }
+"E.2.3" = { status = "done" }
+"E.2.4" = { status = "partial", note = "the export dialog warns only for desktop presets; Android and iOS presets show no warning and fail only when exporting" }
+"E.2.5" = { status = "done" }
+"E.3" = { hash = "41ceb5a8f1e7" }
+"E.3.1" = { status = "done", note = "the developer lists the runtime's modules; they are not detected" }
+"E.3.2" = { status = "partial", note = "breaks E.1.R2: a macOS native image is built for the building Mac's architecture only, so a universal or other-architecture preset ships an image that does not start on the other Macs" }
+"E.3.3" = { status = "done" }
+"E.4" = { hash = "b96e3f10247b" }
+"E.4.1" = { status = "done" }
+"E.4.2" = { status = "done" }
+"E.4.3" = { status = "done" }
+"E.4.4" = { status = "done", note = "applies to desktop JVM runs and to native images on desktop and iOS; Android's ART takes no options" }
+"E.5" = { hash = "66572c82734d" }
+"E.5.1" = { status = "todo" }
+"E.5.2" = { status = "todo" }
+"E.5.3" = { status = "todo" }
+"E.5.4" = { status = "todo" }
+"F.1" = { hash = "dfd82a4b112c" }
+"F.1.1" = { status = "partial", note = "behind typed GDScript in BunnymarkScripts on Apple M4; native images, Android and iOS are not measured; see harness/bunnymark/README.md" }
+"F.1.2" = { status = "partial", note = "behind C# in several Bunnymark variants; native images, Android and iOS are not measured; see harness/bunnymark/README.md" }
+"F.2" = { hash = "598c2fe3fa7d" }
+"F.2.1" = { status = "done" }
+"F.2.2" = { status = "partial", note = "entering the JVM from native code is the remaining cost, much of it the W^X switch on macOS Apple Silicon; see harness/bulletmark/README.md" }
+"F.2.3" = { status = "partial", note = "BunnymarkScripts trails C# on both measured machines and typed GDScript on Apple M4; see harness/bunnymark/README.md" }
+"F.2.4" = { status = "done" }
+"F.2.5" = { status = "partial", note = "breaks F.2.R1: returned collections and names, first deliveries of an object and RefCounted script reference changes take a process-wide lock" }
+"F.3" = { hash = "e59bca15b7f5" }
+"F.3.1" = { status = "partial", note = "every math value read from the engine is a new JVM object; see harness/bulletmark/README.md" }
+"F.3.2" = { status = "partial", note = "breaks F.3.R2: a RefCounted script instance is promoted during the call that takes a second reference, and one Godot keeps using is revisited at every synchronization" }
+"F.3.3" = { status = "done", note = "the burst test checks that release completes over several frames, not the length of the frames it runs in" }
+"F.3.4" = { status = "done", note = "no benchmark compares collection churn with GDScript" }
+"F.3.5" = { status = "done", note = "measured on one macOS release export after JIT warm-up, with warm-up, other platforms and native images unmeasured; see harness/bulletmark/README.md" }
+"F.4" = { hash = "e14da5f42e84" }
+"F.4.1" = { status = "partial", note = "breaks F.4.R2: in a release build an engine-call stack too small for the game's nesting is overrun instead of reported" }
+"F.4.2" = { status = "partial", note = "native images start without JIT warm-up, but no benchmark compares their speed or footprint with the JVM" }
+"F.5" = { hash = "fd3044c7da85" }
+"F.5.1" = { status = "done", note = "the release exports for the language comparison are made by hand" }
+"F.5.2" = { status = "done" }
+"F.5.3" = { status = "done" }
+"F.5.4" = { status = "done" }
+"F.5.5" = { status = "partial", note = "results live in the benchmark READMEs under harness/, not in the user documentation" }

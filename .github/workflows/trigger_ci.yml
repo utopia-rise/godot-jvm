@@ -76,6 +76,18 @@ jobs:
             kt/common
             kt/tools-common
 
+  check-specs:
+    name: 📜 Check specs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Godot JVM module.
+        uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate specs directory
+        run: python specs/check_specs.py
+
   build-jvm:
     name: ☕ Build Jvm
     uses: ./.github/workflows/build_jvm.yml
