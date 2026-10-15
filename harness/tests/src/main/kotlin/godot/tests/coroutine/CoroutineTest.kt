@@ -79,6 +79,16 @@ class CoroutineTest : Node() {
         }
     }
 
+    @Visible var cancelledAwaitResumed = false
+
+    @Register
+    fun cancelSignalAwait() {
+        launch {
+            signalWithoutParameter.await()
+            cancelledAwaitResumed = true
+        }.cancel()
+    }
+
     @Register
     fun startCoroutineWithPhysicsFrame() {
         launch(start = CoroutineStart.UNDISPATCHED) {

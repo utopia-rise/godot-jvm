@@ -38,6 +38,8 @@ Coordinate work through issues before starting a substantial change:
 - If the issue is unassigned, comment that you'd like to work on it so a maintainer can assign it to you.
 - If no issue exists, open one using the relevant template and describe the problem or proposed change.
 
+The repository's [`specs/`](https://github.com/utopia-rise/godot-jvm/tree/master/specs) directory describes what Godot-JVM offers its users and the rules every change follows. If your change adds, changes or removes something users can do, update it in the same pull request.
+
 ## Code style
 
 Follow Kotlin's official [coding conventions](https://kotlinlang.org/docs/reference/coding-conventions.html) and configure your IDE accordingly.

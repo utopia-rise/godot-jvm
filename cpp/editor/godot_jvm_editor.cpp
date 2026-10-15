@@ -86,6 +86,13 @@ bool GodotJvmEditor::_build() {
     if (input->is_key_pressed(BUILD_ANYWAY_KEY)) { mode = BUILD_ON_RUN_ALWAYS; }
     if (mode == BUILD_ON_RUN_NEVER) { return true; }
     if (mode == BUILD_ON_RUN_WHEN_STALE && !JvmScriptManager::get_instance()->is_user_code_outdated()) { return true; }
+    if (GradleTaskRunner::get_instance().is_task_started()) {
+        get_editor_interface()->get_editor_toaster()->push_toast(
+            "A Gradle task is running. Run the project again once it has finished.",
+            EditorToaster::SEVERITY_WARNING
+        );
+        return false;
+    }
 
     String log;
     Error error = GradleTaskRunner::get_instance().run_task(GradleTaskRunner::Task::BUILD_DEBUG, log, true);

@@ -12,6 +12,7 @@ namespace bridges {
         INIT_JNI_BINDINGS(
             INIT_NATIVE_METHOD("engine_call_constructor", "()J", VariantArrayBridge::engine_call_constructor)
             INIT_NATIVE_METHOD("engine_call_constructor_typed","()J", VariantArrayBridge::engine_call_constructor_typed)
+            INIT_NATIVE_METHOD("engine_call_copy_constructor","(J)J", VariantArrayBridge::engine_call_copy_constructor)
             INIT_NATIVE_METHOD("engine_call_size","(J)V", VariantArrayBridge::engine_call_size)
             INIT_NATIVE_METHOD("engine_call_clear","(J)V", VariantArrayBridge::engine_call_clear)
             INIT_NATIVE_METHOD("engine_call_isEmpty","(J)V", VariantArrayBridge::engine_call_is_empty)
@@ -62,6 +63,7 @@ namespace bridges {
     public:
         static uintptr_t engine_call_constructor(JNIEnv* p_raw_env, jobject p_instance);
         static uintptr_t engine_call_constructor_typed(JNIEnv* p_raw_env, jobject p_instance);
+        static uintptr_t engine_call_copy_constructor(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
 
         static void engine_call_size(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_clear(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);

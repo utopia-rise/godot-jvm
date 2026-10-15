@@ -34,6 +34,10 @@ uintptr_t VariantArrayBridge::engine_call_constructor_typed(JNIEnv* p_raw_env, j
     return reinterpret_cast<uintptr_t>(ret);
 }
 
+uintptr_t VariantArrayBridge::engine_call_copy_constructor(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(native<godot::Array>(p_handle))));
+}
+
 void VariantArrayBridge::engine_call_size(JNIEnv* p_raw_env, jobject, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t size = native<godot::Array>(p_handle).size();

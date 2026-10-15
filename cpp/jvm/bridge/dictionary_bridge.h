@@ -12,6 +12,7 @@ namespace bridges {
         INIT_JNI_BINDINGS(
             INIT_NATIVE_METHOD("engine_call_constructor", "()J", DictionaryBridge::engine_call_constructor)
             INIT_NATIVE_METHOD("engine_call_constructor_typed","()J", DictionaryBridge::engine_call_constructor_typed)
+            INIT_NATIVE_METHOD("engine_call_copy_constructor","(J)J", DictionaryBridge::engine_call_copy_constructor)
             INIT_NATIVE_METHOD("engine_call_clear", "(J)V", DictionaryBridge::engine_call_clear)
             INIT_NATIVE_METHOD("engine_call_duplicate", "(J)V", DictionaryBridge::engine_call_duplicate)
             INIT_NATIVE_METHOD("engine_call_duplicate_deep", "(J)V", DictionaryBridge::engine_call_duplicate_deep)
@@ -38,6 +39,7 @@ namespace bridges {
     public:
         static uintptr_t engine_call_constructor(JNIEnv* p_raw_env, jobject p_instance);
         static uintptr_t engine_call_constructor_typed(JNIEnv* p_raw_env, jobject p_instance);
+        static uintptr_t engine_call_copy_constructor(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_clear(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_duplicate(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_duplicate_deep(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);

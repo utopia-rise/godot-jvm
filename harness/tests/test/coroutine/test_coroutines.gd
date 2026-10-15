@@ -75,3 +75,14 @@ func test_coroutine_await():
 
     await get_tree().create_timer(1).timeout
     test_script.free()
+
+
+func test_cancelled_signal_await_is_released():
+    var test_script: Node = CoroutineTest.new()
+    add_child(test_script)
+
+    test_script.cancel_signal_await()
+    test_script.signal_without_parameter.emit()
+    assert_bool(test_script.cancelled_await_resumed).override_failure_message("A cancelled signal await must not resume when the signal fires.").is_false()
+
+    test_script.free()

@@ -8,41 +8,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) only: `SConstruct` writes it into `cpp/version.h` (`GODOT_JVM_VERSION`) on every build through `generate_version.py`, like `templates.h`, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, and `GODOT_VERSION` in `.github/workflows/trigger_ci.yml` for CI.
 
+## Specs
+
+[`specs/`](specs/) is the guidance of the project: what Godot-JVM offers its users, and the global rules (runtimes, languages, toolchains, Godot integration) every implementation follows. Those product and technical rules live there, not in this file. Read `specs/CLAUDE.md` before implementing or changing a feature; it explains how the directory works and how to keep it in sync with the code.
+
+## Skills
+
+Recurring procedures are Claude Code skills under `.claude/skills/`: `build-native`, `check-cpp`, `run-harness-tests`, `run-editor-probes`, `test-in-project`, `regenerate-api`, `bump-godot`, `godot-cpp-fork-commit` and `spec-review`. Use them instead of re-deriving the steps from this file.
+
 ## godot-cpp fork
 
-The `godot-cpp` submodule points at
-[`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), branch
-`godot-jvm` (not upstream `godotengine/godot-cpp` directly, and not the
-fork's `master`). This branch customizes godot-cpp's generated-binding
-behavior for Godot-JVM's own object-tracking model — it is not a collection
-of upstream bug fixes.
-
-**Every time a commit is added to `godot-jvm` in the `godot-cpp` fork**:
-
-1. Push the commit to `utopia-rise/godot-cpp` on the `godot-jvm` branch.
-2. Update the submodule pointer in this repo (`git -C godot-cpp` checkout of
-   the new commit, then `git add godot-cpp`).
-3. Append an entry to the fork's own
-   [`godot-cpp-divergence.md`](godot-cpp/godot-cpp-divergence.md), in the same
-   fork commit as the change, with the commit hash and a brief explanation of
-   what it does and why. The log lives in the fork, not in this repo.
-4. Re-read this section — it must stay accurate as the fork evolves (e.g. if
-   the branch is ever rebased onto a newer upstream tag, update the tag
-   named above).
+The `godot-cpp` submodule tracks the `godot-jvm` branch of [`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), not upstream `godotengine/godot-cpp` and not the fork's `master`. The branch adapts godot-cpp's generated bindings to Godot-JVM's object-tracking model; it is not a collection of upstream fixes. Every commit on it follows the `godot-cpp-fork-commit` skill.
 
 ## Engineering Principles
 
-- **Code is documentation** — Names and structure carry the meaning; comment only what the code cannot say, such as a non-obvious invariant, a cross-thread protocol, or an engine quirk being worked around. Never restate the line below.
+### General
+
+These apply to every language in the repository.
+
+- **Code is documentation** — Names and structure carry the meaning, so most code needs no comment at all. Inside a function body, comment only what a reader could not work out quickly from the code itself: a non-obvious invariant, a cross-thread protocol, an engine quirk being worked around. Never restate what the next line does. A short summary on a class is welcome; properties and methods get no comment unless their behavior is genuinely complex.
 - **Avoid needless helpers** — Keep trivial single-use code inline. Extract a helper only when it has multiple call sites or its body is substantial enough to make the caller clearer.
 - **KISS** — Prefer the simplest design that clearly solves the current problem.
 - **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.
 - **DRY** — Keep each piece of knowledge and behavior in one authoritative place.
+
+### C++
+
 - **Lambdas** — Not banned, but use one only when strictly necessary (a callback API) or when the code would be markedly more complex without it. Prefer a plain loop, a file-local function, or a data table over a local lambda that merely groups a few lines.
 - **No anonymous namespaces** — File-local C++ helpers are `static` free functions in the `.cpp` (or private members when they belong to the class); nothing lives in `namespace { }`. `.clang-tidy` is an allowlist, so no check pushes toward anonymous namespaces.
 - **`godot` namespace in `cpp/api/`, `cpp/editor/` and `cpp/engine/`** — Headers wrap their declarations in a `namespace godot { }` block and `.cpp` files start with `using namespace godot;`, so no `godot::` prefixes appear in those directories. A `.cpp` defining free functions reopens the namespace instead, since a using-directive cannot define a namespaced function. The extension's own engine-level code under `cpp/engine/` (`godot_object.h`, `internal.h`, `dynamic_library.h`) lives in the top-level `engine` namespace instead: headers wrap it in `namespace engine { using namespace godot; … }`, and the `.cpp` files start with `using namespace godot;` and define their functions with the `engine::` qualifier. The files in that directory that are verbatim copies of engine sources (`marshalls.h`, `paged_allocator.h`, `ustring.*`) keep the `godot` namespace they were written in. Macro-only headers such as `api/language/names.h` have nothing to wrap, and macro bodies stay fully qualified because they expand at the use site.
 - **Includes** — Every file includes what it uses directly and nothing it does not; do not rely on a header reaching you through another include. When a header only includes something for its `.cpp`, move the include to the `.cpp`. Build `editor`, `template_debug` and `template_release` after touching includes: the three targets compile different `#ifdef` branches.
 - **clang-format** — Run `clang-format -i` (version 20 or newer, the repo `.clang-format` uses recent options) over every `.cpp`, `.h` and `.mm` under `cpp/` except the generated `cpp/editor/project/templates.h`, which carries `// clang-format off`.
-- **C++ initialization** — Use `=` for scalar values and expressions already of the declared type (`int count = 0;`, `String name = get_name();`, `jni::JObject result = wrapped.call_object_method(...);`). Use direct `()` initialization whenever an object is constructed from something of another type, whether its constructor is explicit or implicit: `Type value(expr);`, never `Type value = Type(expr);`. This includes JNI wrappers built from raw handles or from a call returning a different wrapper: `jni::Env env(p_raw_env);`, `jni::JLongArray array(p_raw_array);`, `jni::JString name(wrapped.call_object_method(...));`. Use `()` for constructor calls with several arguments (`Vector3 pos(1, 2, 3);`), `{}` only for arrays, aggregates, `std::initializer_list` parameters, and returned/passed temporary aggregates (`return {ptr, size};`). Member initializer lists use `()`, default member initializers use `=`. Never `Type value{expr};`, never `Type value();`, never `Foo f{};` on a class type (write `Foo f;`); zero PODs with `= {}`.
+- **Initialization** — Use `=` for scalar values and expressions already of the declared type (`int count = 0;`, `String name = get_name();`, `jni::JObject result = wrapped.call_object_method(...);`). Use direct `()` initialization whenever an object is constructed from something of another type, whether its constructor is explicit or implicit: `Type value(expr);`, never `Type value = Type(expr);`. This includes JNI wrappers built from raw handles or from a call returning a different wrapper: `jni::Env env(p_raw_env);`, `jni::JLongArray array(p_raw_array);`, `jni::JString name(wrapped.call_object_method(...));`. Use `()` for constructor calls with several arguments (`Vector3 pos(1, 2, 3);`), `{}` only for arrays, aggregates, `std::initializer_list` parameters, and returned/passed temporary aggregates (`return {ptr, size};`). Member initializer lists use `()`, default member initializers use `=`. Never `Type value{expr};`, never `Type value();`, never `Foo f{};` on a class type (write `Foo f;`); zero PODs with `= {}`.
 
 ## Prerequisites
 
@@ -57,18 +54,7 @@ The project has two independent build systems that must both be built.
 
 ### Native GDExtension (SCons)
 
-Run SCons commands from this repository's root. They build the native GDExtension library. Valid platforms are `linux`, `windows`, `macos`, `android`, and `ios` (godot-cpp naming, not the engine's `linuxbsd`).
-
-```bash
-scons platform=linux target=editor               # Linux editor
-scons platform=windows target=editor             # Windows editor
-scons platform=linux target=template_release     # export template
-scons platform=linux -j$(nproc) debug_symbols=yes dev_build=yes  # debug build (multi-core)
-```
-
-The built library lands directly in `harness/tests/addons/jvm/libs/` (Android builds go to `build/android/`), where the harness project's `.gdextension` manifest picks it up. Nothing needs to be copied after a build.
-
-`dev_build=yes` does **not** change the library's file name. Godot chooses a `.gdextension` entry by matching its own feature tags and an official editor reports no `dev` tag, so a library named `...editor.dev.<arch>` would never be loaded and the project would silently keep running the last ordinary build. A desktop dev build therefore overwrites the ordinary library, as the macOS, iOS and Android branches of `SConstruct` already did. Two consequences: the two variants cannot coexist, and perf figures measured against a dev build are not comparable with ordinary ones (roughly half the speed, with `DEV_ENABLED` assertions on), so rebuild without `dev_build` before benchmarking. `SConstruct` also regenerates `cpp/editor/project/templates.h` from the IntelliJ templates on every build.
+SCons, run from the repository root, builds the native library straight into `harness/tests/addons/jvm/libs/` (Android: `build/android/`). Platforms use godot-cpp naming (`linux`, `windows`, `macos`, `android`, `ios`). Commands, `dev_build` and the other options: `build-native` skill.
 
 ### Kotlin/Gradle
 
@@ -82,41 +68,13 @@ Publishing has three lifecycle tasks in `kt/build.gradle.kts`, one per destinati
 
 The snapshot version appears in `~/.m2/repository/com/utopia-rise/godot-gradle-plugin/`. The consuming project needs `mavenLocal()` in both `pluginManagement.repositories` (`settings.gradle.kts`) and the project `repositories` block (`build.gradle.kts`); the plugin resolves the libraries from the latter and adds no repository itself.
 
-### Template Generation (Python)
-
-`generate_templates.py` converts the `.template` and `.godot_template` files under `kt/plugins/godot-intellij-plugin/src/main/resources/template/` into base64-encoded C++ headers at `cpp/editor/project/templates.h`, split into 8KB chunks to avoid C++ header size limits. `SConstruct` runs it automatically, so editing a template only requires rebuilding the native GDExtension. Run it by hand only to inspect the output:
-
-```bash
-python generate_templates.py
-```
-
 ## Testing
 
 ```bash
-# Kotlin unit tests
-cd kt/ && ./gradlew test
-
-# Integration tests (gdUnit4-based)
-cd harness/tests/
-./gradlew generateEmbeddedJre   # jlink an embedded JRE into the project, once
-./gradlew importResources       # build the harness with the gradle plugin and import resources
-./gradlew runGDTests            # also: runGraalGDTests, runExportedGDTests
+cd kt/ && ./gradlew test   # Kotlin unit tests
 ```
 
-Harness tasks never depend on one another, so run each step as its own invocation, in this order. Combined in one call, Gradle may start the import or the tests before the build has copied the new jars into the project.
-
-`harness/editor-monkey/run.sh --editor <path>` (or `run.bat`; without `--editor`, `GODOT_EDITOR` must be absolute) runs the editor probes: GDScript files under `harness/editor-monkey/probes` that drive the real editor (`-e -s`) through its own controls, edit sources, run the toolbar Gradle tasks and assert on what the editor shows. Use it to monkey-test editor features and jar reloading; add a probe rather than driving the editor by hand. CI runs them on Linux alongside the other platform tests, and `assemble-addon` waits for them.
-
-The `harness/tests/` directory is a full Godot-JVM project driven by the official Godot editor, not a custom binary. Place the editor in `harness/tests/bin` or point `GODOT_EDITOR` at its executable. The Gradle build produces `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar` inside the project itself, and the SCons build drops the native library into `harness/tests/addons/jvm/libs/`, so nothing needs to be copied anywhere before running.
-
-### Testing Changes from a Feature Branch
-
-1. Publish locally (see above)
-2. Add `mavenLocal()` to both repository blocks of the user project and use the exact snapshot version you published (`<short commit hash>-SNAPSHOT`)
-3. Build the GDExtension straight into the project: `scons platform=<p> target=editor target_path=/abs/path/to/project/addons/jvm/libs/`
-4. Open the project with the official Godot editor
-
-Full workflow: `docs/src/doc/contribute/test-a-branch.md`
+`harness/tests/` is a full Godot-JVM project driven by the official Godot editor and built against the repository sources; its gdUnit4 suites are the integration tests (`run-harness-tests` skill). `harness/editor-monkey/` drives the real editor to test editor features and jar reloading (`run-editor-probes` skill); CI runs it on Linux, and `assemble-addon` waits for it. To try a branch in another project, use the `test-in-project` skill.
 
 ### Debugging JVM Code
 
@@ -246,15 +204,7 @@ Android always uses ART; iOS always uses native image. The internal `JvmType` is
 ## Key Gotchas
 
 - **Kotlin version** — The gradle plugin requires a minimum Kotlin version, not an exact one, and applies its default when the project declares none. A higher version is accepted; overriding `toolchain.kotlinVersion` requires applying the Kotlin JVM plugin explicitly with the same version. See `docs/src/doc/reference/gradle-plugin/languages-and-toolchains.md`.
-- **Godot API auto-generation** — `kt/godot-library/godot-api-library/` is fully generated. Any manual edits will be overwritten.
 - **Single-build modules** — `extension`, `bootstrap` and `coroutine` are published once for debug and release builds. They must never read `GodotJvmBuildConfig.DEBUG`, and must not call an inline `core` or `internal` function that does: the inlined debug check would ship in release builds. `VariantArray<T>()` and `Dictionary<K, V>()` are such functions today, which is why `api` keeps two builds.
-- **Template generation** — Editing `.template` files has no effect until the native GDExtension is rebuilt; SCons regenerates `templates.h` as part of the build.
-
-### GDScript global scope sync commit
-
-When checking whether the `GD` singleton needs to be synchronized with GDScript global functions, compare Godot's `@GlobalScope` changes against this baseline:
-
-- Godot `4.7.1-stable`: `a13da4feb8d8aefc283c3763d33a2f170a18d541`
 
 ## CI/CD
 

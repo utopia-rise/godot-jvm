@@ -186,7 +186,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     constructor(other: Dictionary<K, V>) {
         keyVariantConverter = other.keyVariantConverter
         valueVariantConverter = other.valueVariantConverter
-        ptr = other.ptr
+        ptr = Bridge.engine_call_copy_constructor(other.ptr)
         MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
     }
 
@@ -431,6 +431,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     private object Bridge {
         external fun engine_call_constructor(): VoidPtr
         external fun engine_call_constructor_typed(): VoidPtr
+        external fun engine_call_copy_constructor(_handle: VoidPtr): VoidPtr
 
         external fun engine_call_clear(_handle: VoidPtr)
         external fun engine_call_duplicate(_handle: VoidPtr)

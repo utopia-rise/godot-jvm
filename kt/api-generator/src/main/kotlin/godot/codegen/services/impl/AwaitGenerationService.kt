@@ -126,10 +126,12 @@ object AwaitGenerationService : IAwaitGenerationService {
         return this
             .beginControlFlow("return·%M", Coroutines.suspendCancellableCoroutine)
             .addStatement("cont:·%T<%T>·->", Coroutines.cancellableContinuation, returnType)
+            .addStatement("var·pending:·%T<%T>?·=·cont", Coroutines.cancellableContinuation, returnType)
             .addStatement("%M(", Coroutines.promise)
-            .addStatement("{·$lambdaParametersWithType·->·cont.%M($resumeParameters)·},", Coroutines.resume)
-            .addStatement("{·cont.%L()·},", Coroutines.cancel)
+            .addStatement("{·$lambdaParametersWithType·->·pending?.%M($resumeParameters)·},", Coroutines.resume)
+            .addStatement("{·pending?.%L()·},", Coroutines.cancel)
             .addStatement(")")
+            .addStatement("cont.invokeOnCancellation·{·pending·=·null·}")
             .endControlFlow()
     }
 }

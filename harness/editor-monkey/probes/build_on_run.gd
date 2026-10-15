@@ -126,6 +126,11 @@ func setup_phases() -> void:
 			, ""],
 		["start never, script changed", func(): start_game(KEY_NONE), ""],
 		["build anyway click with never, nothing changed", func(): start_game(build_anyway_key()), ""],
+		["build anyway click while a toolbar Gradle task runs", func():
+			run_gradle_task("Build")
+			start_game(build_anyway_key())
+			, ""],
+		["wait for the toolbar Gradle task", func(): pass, "Build"],
 	]
 
 
@@ -178,3 +183,10 @@ func report(_title: String) -> void:
 			expect_start(false, "a start with never after an edit")
 		23:
 			expect_start(true, "the build anyway click takes priority over never")
+		24:
+			expect(last_start_ms < BUILD_MS, "a start while a toolbar task runs does not run a second build (start took %d ms)" % last_start_ms)
+			expect(not EditorInterface.is_playing_scene(), "a start while a toolbar task runs does not start the game")
+			expect(toasts().any(func(t): return "A Gradle task is running" in t), "a start while a toolbar task runs says why")
+			EditorInterface.stop_playing_scene()
+		25:
+			expect(gradle_succeeded(), "the toolbar task finishes")
