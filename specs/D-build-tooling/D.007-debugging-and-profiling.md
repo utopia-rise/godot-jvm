@@ -11,7 +11,7 @@ JVM languages come with mature debuggers and profilers, and users expect to use 
 
 ## Rules
 - **D.7.R1**: Debugging and monitoring are switched on by command-line or configuration settings, never by changing the game's code or build.
-- **D.7.R2**: A release build never opens a debugger port, whatever its configuration says.
+- **D.7.R2**: In a release build, the dedicated debugger settings never open a debugger port.
 - **D.7.R3**: No debugging or monitoring port is opened unless the configuration enables it explicitly.
 
 ## Non-goals
