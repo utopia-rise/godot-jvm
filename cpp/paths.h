@@ -86,7 +86,7 @@ static constexpr const char* IOS_BOOTSTRAP_FILE = "";
 static constexpr const char* IOS_USER_CODE_FILE = "";
 
 #ifdef LINUX_ENABLED
-#ifdef __arm64__
+#ifdef __aarch64__
 static constexpr const char* HOST_EMBEDDED_JRE_DIRECTORY = LINUX_EMBEDDED_JRE_ARM_DIRECTORY;
 #else
 static constexpr const char* HOST_EMBEDDED_JRE_DIRECTORY = LINUX_EMBEDDED_JRE_AMD_DIRECTORY;
@@ -98,7 +98,7 @@ static constexpr const char* GRAAL_NATIVE_IMAGE_FILE = LINUX_GRAAL_NATIVE_IMAGE_
 static constexpr const char* RELATIVE_JVM_LIB_PATH = LINUX_RELATIVE_JVM_LIB_PATH;
 
 #elif WINDOWS_ENABLED
-#ifdef __arm64__
+#if defined(_M_ARM64) || defined(__aarch64__)
 static constexpr const char* HOST_EMBEDDED_JRE_DIRECTORY = WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY;
 #else
 static constexpr const char* HOST_EMBEDDED_JRE_DIRECTORY = WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY;
