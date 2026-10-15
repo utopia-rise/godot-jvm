@@ -83,7 +83,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      */
     constructor(other: VariantArray<T>) {
         this.variantConverter = other.variantConverter
-        this.ptr = other.ptr
+        this.ptr = Bridge.engine_call_copy_constructor(other.ptr)
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
@@ -662,6 +662,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     private object Bridge {
         external fun engine_call_constructor(): VoidPtr
         external fun engine_call_constructor_typed(): VoidPtr
+        external fun engine_call_copy_constructor(_handle: VoidPtr): VoidPtr
 
         external fun engine_call_all(_handle: VoidPtr)
         external fun engine_call_any(_handle: VoidPtr)

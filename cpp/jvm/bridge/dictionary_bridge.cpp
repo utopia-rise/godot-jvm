@@ -66,6 +66,10 @@ uintptr_t DictionaryBridge::engine_call_constructor_typed(JNIEnv* p_raw_env, job
     return reinterpret_cast<uintptr_t>(ret);
 }
 
+uintptr_t DictionaryBridge::engine_call_copy_constructor(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(native<godot::Dictionary>(p_handle))));
+}
+
 void DictionaryBridge::engine_call_clear(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     native<godot::Dictionary>(p_handle).clear();
 }

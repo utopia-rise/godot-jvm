@@ -76,6 +76,8 @@ class CoreTest : Node() {
         "tail",
         null,
     )
+    private val copiedArray = variantArrayOf<Any?>("original")
+    private val copiedDictionary = Dictionary<String, Any?>().apply { this["original"] = true }
     private val mixedDictionaryValue = Dictionary<String, Any?>().apply {
         this["text"] = "alpha"
         this["count"] = 2
@@ -289,6 +291,19 @@ class CoreTest : Node() {
         value.append("from-kotlin")
         return value
     }
+
+    @Register
+    fun dropContainerCopies() {
+        VariantArray(copiedArray).append("from-copy")
+        Dictionary(copiedDictionary)["from-copy"] = true
+        System.gc()
+    }
+
+    @Register
+    fun readCopiedArray() = copiedArray
+
+    @Register
+    fun readCopiedDictionary() = copiedDictionary
 
     @Register
     fun readMixedDictionary() = mixedDictionaryValue

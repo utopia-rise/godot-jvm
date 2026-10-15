@@ -192,3 +192,13 @@ func test_mixed_dictionary_round_trip() -> void:
     var mutated := instance.write_dictionary_flag({"origin": "gdscript"})
     assert_that(mutated["from_kotlin"]).override_failure_message("Dictionary mutations performed on the Kotlin side should be observable back in GDScript").is_equal(true)
     instance.free()
+
+
+func test_copied_containers_outlive_their_copies() -> void:
+    var instance := CoreTest.new()
+    instance.drop_container_copies()
+    for i in 10:
+        await get_tree().process_frame
+    assert_that(instance.read_copied_array()).override_failure_message("A VariantArray copy shares its source's elements, and collecting the copy leaves the source usable").is_equal(["original", "from-copy"])
+    assert_that(instance.read_copied_dictionary()).override_failure_message("A Dictionary copy shares its source's entries, and collecting the copy leaves the source usable").is_equal({"original": true, "from-copy": true})
+    instance.free()
