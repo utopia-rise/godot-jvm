@@ -82,7 +82,7 @@ Use the SceneTree-wide waits for global systems. Use the node-owned waits for a 
 
 ## Signals and flows
 
-For one signal emission, use `await()`. `Signal0.await()` returns `Unit`; `Signal1<P0>.await()` returns `P0`; higher arities return `SignalArgumentsN` with `p0`, `p1`, and subsequent fields, supporting destructuring. Cancelling the signal promise cancels the suspended continuation:
+For one signal emission, use `await()`. `Signal0.await()` returns `Unit`; `Signal1<P0>.await()` returns `P0`; higher arities return `SignalArgumentsN` with `p0`, `p1`, and subsequent fields, supporting destructuring. Cancelling the signal promise cancels the suspended continuation, and cancelling the coroutine releases the wait, so a later emission does nothing:
 
 
 ```kotlin
