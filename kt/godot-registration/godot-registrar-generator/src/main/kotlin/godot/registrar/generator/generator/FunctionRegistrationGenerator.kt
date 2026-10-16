@@ -34,9 +34,9 @@ fun FunSpec.Builder.addNotificationRegistrations(
 
     notificationFunctions.forEach { (notificationClass, registeredFunction) ->
         addStatement(
-            "notification(%L) {·it.%L()·}",
+            "notification(%L) {·it.%N()·}",
             registeredFunction.notification!!,
-            memberName(registeredFunction.name),
+            registeredFunction.name,
         )
     }
 }
@@ -72,7 +72,7 @@ private fun RegisteredFunction.isProcessVirtual(): Boolean =
         && parameters.singleOrNull()?.type?.let { it == Type.doubleType && !it.isNullable } == true
 
 private fun getFunctionTemplateString(registeredFunction: RegisteredFunction) = buildString {
-    append("function(%S, {·obj,·args·->·obj.%L(")
+    append("function(%S, {·obj,·args·->·obj.%N(")
     append(List(registeredFunction.parameters.size) { index -> "args[$index]·as·%T" }.joinToString(",·"))
     append(")·}, rpc(%M, %L, %M, %L), returns(%L, %S)")
     repeat(registeredFunction.parameters.size) {
@@ -87,7 +87,7 @@ private fun getTemplateArgs(
     className: ClassName,
 ): List<Any> = buildList {
     add(registeredFunction.name.convertToSnakeCase())
-    add(memberName(registeredFunction.name))
+    add(registeredFunction.name)
     registeredFunction.parameters.forEach { valueParameter -> add(valueParameter.type.toKotlinTypeName()) }
     add(getRpcModeEnum(registeredFunction))
     add(getRpcCallLocal(registeredFunction))

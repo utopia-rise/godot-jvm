@@ -54,10 +54,10 @@ private fun FunSpec.Builder.registerProperty(
             "Property ${registeredProperty.name} should have a getter when using accessor binding"
         }
         addStatement(
-            "property(%S, {·it.%L()·}, %L, %L, %S, %M, %L, %L)",
+            "property(%S, {·it.%N()·}, %L, %L, %S, %M, %L, %L)",
             registeredProperty.name.convertToSnakeCase(),
-            memberName(registeredProperty.getterName!!),
-            registeredProperty.setterName?.let { CodeBlock.of("{·obj,·value·->·obj.%L(value)·}", memberName(it)) } ?: "null",
+            registeredProperty.getterName!!,
+            registeredProperty.setterName?.let { CodeBlock.of("{·obj,·value·->·obj.%N(value)·}", it) } ?: "null",
             variantConverter,
             typeGodotName,
             propertyHint.typeHint,
@@ -67,12 +67,11 @@ private fun FunSpec.Builder.registerProperty(
         return
     }
 
-    val member = memberName(registeredProperty.name)
     addStatement(
-        "property(%S, {·it.%L·}, %L, %L, %S, %M, %L, %L)",
+        "property(%S, {·it.%N·}, %L, %L, %S, %M, %L, %L)",
         registeredProperty.name.convertToSnakeCase(),
-        member,
-        if (registeredProperty.isMutable) CodeBlock.of("{·obj,·value·->·obj.%L·=·value·}", member) else "null",
+        registeredProperty.name,
+        if (registeredProperty.isMutable) CodeBlock.of("{·obj,·value·->·obj.%N·=·value·}", registeredProperty.name) else "null",
         variantConverter,
         typeGodotName,
         propertyHint.typeHint,
@@ -86,9 +85,6 @@ private fun RegisteredProperty.variantConverter(): CodeBlock {
     return CodeBlock.of("%T.ENUM_LIST(%T.entries.toTypedArray())", VariantCaster::class, enumListHint.enumType.toTypeName())
 }
 
-fun memberName(memberName: String): String =
-    if (memberName.isPlainKotlinIdentifier()) memberName else "`$memberName`"
-
 private fun getPropertyUsage(registeredProperty: RegisteredProperty): CodeBlock {
     val flags = PropertyUsageFlags::class
     return when (registeredProperty.exposure) {
@@ -96,14 +92,4 @@ private fun getPropertyUsage(registeredProperty: RegisteredProperty): CodeBlock 
         PropertyExposure.STORAGE -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE", flags, flags)
         PropertyExposure.EXPORT -> CodeBlock.of("%T.SCRIPT_VARIABLE or %T.STORAGE or %T.EDITOR", flags, flags, flags)
     }
-}
-
-private fun String.isPlainKotlinIdentifier(): Boolean {
-    if (isEmpty()) {
-        return false
-    }
-    if (!(first() == '_' || first().isLetter())) {
-        return false
-    }
-    return drop(1).all { char -> char == '_' || char.isLetterOrDigit() }
 }
