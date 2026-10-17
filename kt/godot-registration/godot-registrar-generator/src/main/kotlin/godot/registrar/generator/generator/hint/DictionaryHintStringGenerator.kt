@@ -1,35 +1,33 @@
 package godot.registrar.generator.generator.hint
 
+import com.squareup.kotlinpoet.CodeBlock
+import godot.registrar.generator.ext.asEnumName
 import godot.registration.model.RegisteredProperty
 import godot.core.PropertyHint as GodotPropertyHint
 
 internal class DictionaryHintStringGenerator(
-    private val keyHintString: String?,
-    private val valueHintString: String?,
+    private val key: HintGenerator?,
+    private val value: HintGenerator?,
     private val isUntyped: Boolean = false,
 ) : HintGenerator {
     constructor(
         registeredProperty: RegisteredProperty,
-        keyHintString: String?,
-        valueHintString: String?,
+        key: HintGenerator?,
+        value: HintGenerator?,
     ) : this(
-        keyHintString = keyHintString,
-        valueHintString = valueHintString,
+        key = key,
+        value = value,
         isUntyped = registeredProperty.type.genericArguments.firstOrNull()?.fqName == Any::class.qualifiedName,
     )
 
-    fun getHintString(): String {
+    override fun generate(): GeneratedPropertyHint {
         if (isUntyped) {
-            return ""
+            return GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, "")
         }
-
-        val subHintString = listOfNotNull(
-            keyHintString,
-            valueHintString,
-        ).joinToString(";")
-
-        return subHintString
+        val pieces = listOfNotNull(key, value)
+            .map { element -> element.generate().hintPieces }
+            .reduceOrNull { joined, element -> joined + CodeBlock.of("%S", ";") + element }
+            .orEmpty()
+        return GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING.asEnumName(), pieces)
     }
-
-    override fun generate(): GeneratedPropertyHint = GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, getHintString())
 }

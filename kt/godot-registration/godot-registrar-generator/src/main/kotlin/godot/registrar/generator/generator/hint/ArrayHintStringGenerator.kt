@@ -1,27 +1,33 @@
 package godot.registrar.generator.generator.hint
 
+import com.squareup.kotlinpoet.CodeBlock
 import godot.core.VariantParser
+import godot.registrar.generator.ext.asEnumName
 import godot.registrar.generator.ext.getAsVariantTypeOrdinal
 import godot.registration.model.RegisteredProperty
 import godot.core.PropertyHint as GodotPropertyHint
 
 internal class ArrayHintStringGenerator(
-    private val elementHintString: String?,
+    private val element: HintGenerator?,
     private val prefix: String = "",
     private val isUntyped: Boolean = false,
 ) : HintGenerator {
     constructor(
         registeredProperty: RegisteredProperty,
-        elementHintString: String?,
+        element: HintGenerator?,
     ) : this(
-        elementHintString = elementHintString,
+        element = element,
         prefix = propertyPrefix(registeredProperty),
         isUntyped = isUntypedProperty(registeredProperty),
     )
 
-    fun getHintString(): String = if (isUntyped) "" else "$prefix${elementHintString.orEmpty()}"
-
-    override fun generate(): GeneratedPropertyHint = GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, getHintString())
+    override fun generate(): GeneratedPropertyHint {
+        if (isUntyped) {
+            return GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, "")
+        }
+        val pieces = listOf(CodeBlock.of("%S", prefix)) + element?.generate()?.hintPieces.orEmpty()
+        return GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING.asEnumName(), pieces)
+    }
 
     companion object {
         private fun propertyPrefix(registeredProperty: RegisteredProperty): String {

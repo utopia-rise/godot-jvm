@@ -8,6 +8,7 @@ import godot.registration.model.RegisteredProperty
 import godot.registration.model.hint.property.EnumFlagHintStringHint
 import godot.registration.model.hint.property.EnumHint
 import godot.registration.model.hint.property.EnumListHintStringHint
+import godot.registration.model.types.Type
 import godot.core.PropertyHint as GodotPropertyHint
 
 class EnumHintStringGenerator(
@@ -31,12 +32,12 @@ class EnumHintStringGenerator(
             return CodeBlock.of("%S", "")
         }
 
-        val helper = if (propertyHintAnnotation is EnumListHintStringHint) {
-            MemberName("godot.registration", "enumListHintString")
-        } else {
-            MemberName("godot.registration", "enumHintString")
-        }
-
-        return CodeBlock.of("%M(enumValues<%T>())", helper, enumType.toTypeName())
+        return enumHintStringCode(enumType, asList = propertyHintAnnotation is EnumListHintStringHint)
     }
+}
+
+/** The runtime call listing an enum's entries, whose labels and Godot values only the enum itself knows. */
+internal fun enumHintStringCode(enumType: Type, asList: Boolean = false): CodeBlock {
+    val helper = MemberName("godot.registration", if (asList) "enumListHintString" else "enumHintString")
+    return CodeBlock.of("%M(enumValues<%T>())", helper, enumType.toTypeName())
 }

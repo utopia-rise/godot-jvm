@@ -158,6 +158,15 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
     _assert_container_hint(property_map, "nav_meshes", "24/17:NavigationMesh")
     _assert_container_hint(property_map, "string_to_int_dictionary", "4:String;2:int")
     _assert_container_hint(property_map, "nav_meshes_dictionary", "4:String;24/17:NavigationMesh")
+    var enum_hint: String = property_map["enum_value"]["hint_string"]
+    _assert_container_hint(property_map, "enum_key_dictionary", "2/2:%s;2:int" % enum_hint)
+    _assert_container_hint(property_map, "enum_value_dictionary", "4:String;2/2:%s" % enum_hint)
+    _assert_container_hint(property_map, "enum_array", "2/2:%s" % enum_hint)
+    assert_that(instance.get("enum_key_dictionary"))\
+        .override_failure_message("An enum-keyed dictionary should expose its keys as the enum's Godot values")\
+        .is_equal({1: 2})
+    assert_that(instance.get("enum_value_dictionary")).is_equal({"second": 1})
+    assert_array(instance.get("enum_array")).contains_exactly([1, 0])
 
 
     _assert_property_hint(property_map, "int_flag_value", PROPERTY_HINT_FLAGS, "Player,Enemy,Npc")
