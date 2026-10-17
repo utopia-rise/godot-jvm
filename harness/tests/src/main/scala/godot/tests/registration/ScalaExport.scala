@@ -249,6 +249,18 @@ class ScalaExport extends Node {
 
   @Export
   @Visible
+  var enumKeyDictionary: Dictionary[ScalaEnum, Integer] = new Dictionary[ScalaEnum, Integer](classOf[ScalaEnum], classOf[Integer])
+
+  @Export
+  @Visible
+  var enumValueDictionary: Dictionary[String, ScalaEnum] = new Dictionary[String, ScalaEnum](classOf[String], classOf[ScalaEnum])
+
+  @Export
+  @Visible
+  var enumArray: VariantArray[ScalaEnum] = new VariantArray[ScalaEnum](classOf[ScalaEnum])
+
+  @Export
+  @Visible
   var packedByteArray: PackedByteArray = new PackedByteArray()
 
   @Export
@@ -300,5 +312,10 @@ class ScalaExport extends Node {
   stringToIntDictionary.set("two", 2)
 
   navMeshesDictionary.set("AwesomeNavmesh", new NavigationMesh())
+
+  enumKeyDictionary.set(ScalaEnum.SCALA_ENUM_2, 2)
+  enumValueDictionary.set("second", ScalaEnum.SCALA_ENUM_2)
+  enumArray.add(ScalaEnum.SCALA_ENUM_2)
+  enumArray.add(ScalaEnum.SCALA_ENUM_1)
 }
 

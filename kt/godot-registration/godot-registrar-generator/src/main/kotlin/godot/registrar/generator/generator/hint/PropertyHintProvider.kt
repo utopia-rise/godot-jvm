@@ -1,7 +1,6 @@
 package godot.registrar.generator.generator.hint
 
 import godot.registrar.generator.GeneratorContext
-import godot.registrar.generator.ext.asEnumName
 import godot.registrar.generator.ext.baseGodotType
 import godot.registrar.generator.ext.getAsVariantTypeOrdinal
 import godot.registrar.generator.ext.getGodotCoreTypeName
@@ -73,15 +72,13 @@ object PropertyHintProvider {
         val generatedHint = when {
             registeredProperty.type.isCompatibleList() -> ArrayHintStringGenerator(
                 registeredProperty = registeredProperty,
-                elementHintString = registeredProperty.type.genericArguments
-                    .firstOrNull()
-                    ?.toContainerElementHintString(context),
+                element = registeredProperty.type.genericArguments.firstOrNull()?.toContainerElement(context),
             )
 
             registeredProperty.type.isDictionary() -> DictionaryHintStringGenerator(
                 registeredProperty = registeredProperty,
-                keyHintString = registeredProperty.type.genericArguments.getOrNull(0)?.toContainerElementHintString(context),
-                valueHintString = registeredProperty.type.genericArguments.getOrNull(1)?.toContainerElementHintString(context),
+                key = registeredProperty.type.genericArguments.getOrNull(0)?.toContainerElement(context),
+                value = registeredProperty.type.genericArguments.getOrNull(1)?.toContainerElement(context),
             )
 
             registeredProperty.type.isNodeType() -> NodeTypeHintStringGenerator(registeredProperty, context)
@@ -118,18 +115,18 @@ object PropertyHintProvider {
         context: GeneratorContext,
     ): HintGenerator = when {
         type.isCompatibleList() -> ArrayHintStringGenerator(
-            elementHintString = type.genericArguments.firstOrNull()?.toContainerElementHintString(context),
+            element = type.genericArguments.firstOrNull()?.toContainerElement(context),
             prefix = type.nestedArrayPrefix(),
             isUntyped = type.firstGenericArgumentIsAny(),
         )
 
         type.isDictionary() -> DictionaryHintStringGenerator(
-            keyHintString = type.genericArguments.getOrNull(0)?.toContainerElementHintString(context),
-            valueHintString = type.genericArguments.getOrNull(1)?.toContainerElementHintString(context),
+            key = type.genericArguments.getOrNull(0)?.toContainerElement(context),
+            value = type.genericArguments.getOrNull(1)?.toContainerElement(context),
             isUntyped = type.firstGenericArgumentIsAny(),
         )
 
-        type.kind == TypeKind.ENUM -> StaticHintGenerator(GodotPropertyHint.ENUM, "")
+        type.kind == TypeKind.ENUM -> StaticHintGenerator(GodotPropertyHint.ENUM, enumHintStringCode(type))
         type.kind == TypeKind.BITFIELD -> StaticHintGenerator(GodotPropertyHint.FLAGS, "")
 
         type.isGodotPrimitive() || type.isCoreType() -> StaticHintGenerator(GodotPropertyHint.NONE, type.getGodotCoreTypeName())
@@ -161,21 +158,8 @@ object PropertyHintProvider {
         else -> StaticHintGenerator(GodotPropertyHint.NONE, "")
     }
 
-    private fun Type.toContainerElementHintString(context: GeneratorContext): String =
-        provide(this, context)
-            .generate()
-            .toContainerElementHintString(getAsVariantTypeOrdinal())
-            .replace("?", "")
-
-    private fun GeneratedPropertyHint.toContainerElementHintString(variantTypeOrdinal: Int): String =
-        if (typeHint == GodotPropertyHint.NONE.asEnumName()) {
-            "$variantTypeOrdinal:${hintString.toLiteralString()}"
-        } else {
-            "$variantTypeOrdinal/${GodotPropertyHint.valueOf(typeHint.simpleName).value}:${hintString.toLiteralString()}"
-        }
-
-    private fun com.squareup.kotlinpoet.CodeBlock.toLiteralString(): String =
-        toString().removePrefix("\"").removeSuffix("\"")
+    private fun Type.toContainerElement(context: GeneratorContext): HintGenerator =
+        ContainerElementHintGenerator(this, provide(this, context))
 
     private fun Type.nestedArrayPrefix(): String {
         val elementType = genericArguments.firstOrNull()

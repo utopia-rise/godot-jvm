@@ -302,6 +302,18 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
+    public Dictionary<JavaExportEnum, Integer> enumKeyDictionary = new Dictionary<>(JavaExportEnum.class, Integer.class);
+
+    @Export
+    @Visible
+    public Dictionary<String, JavaExportEnum> enumValueDictionary = new Dictionary<>(String.class, JavaExportEnum.class);
+
+    @Export
+    @Visible
+    public VariantArray<JavaExportEnum> enumArray = new VariantArray<>(JavaExportEnum.class);
+
+    @Export
+    @Visible
     public PackedByteArray packedByteArray = new PackedByteArray();
 
     @Export
@@ -354,6 +366,11 @@ public class JavaExport extends Node {
         stringToIntDictionary.set("two", 2);
 
         navMeshesDictionary.set("AwesomeNavmesh", new NavigationMesh());
+
+        enumKeyDictionary.set(JavaExportEnum.JAVA_EXPORT_ENUM_2, 2);
+        enumValueDictionary.set("second", JavaExportEnum.JAVA_EXPORT_ENUM_2);
+        enumArray.add(JavaExportEnum.JAVA_EXPORT_ENUM_2);
+        enumArray.add(JavaExportEnum.JAVA_EXPORT_ENUM_1);
     }
 }
 

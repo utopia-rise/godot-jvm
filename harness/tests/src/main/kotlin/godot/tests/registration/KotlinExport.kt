@@ -25,6 +25,7 @@ import godot.core.Basis
 import godot.core.BitField
 import godot.core.Color
 import godot.core.Dictionary
+import godot.core.dictionaryOf
 import godot.core.NodePath
 import godot.core.PackedByteArray
 import godot.core.PackedColorArray
@@ -412,6 +413,18 @@ class KotlinExport : Node() {
     @Export
     @Visible
     var nullableDictionary: Dictionary<String, Any?> = Dictionary()
+
+    @Export
+    @Visible
+    var enumKeyDictionary = dictionaryOf(KotlinExportEnum.ENUM_2 to 2)
+
+    @Export
+    @Visible
+    var enumValueDictionary = dictionaryOf("second" to KotlinExportEnum.ENUM_2)
+
+    @Export
+    @Visible
+    var enumArray = variantArrayOf(KotlinExportEnum.ENUM_2, KotlinExportEnum.ENUM_1)
 
     @Export
     @Visible
