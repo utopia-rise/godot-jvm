@@ -67,6 +67,12 @@ class SignalKotlinTest : Node() {
     @Visible
     var secondaryReconnectTriggered = false
 
+    @Visible
+    var nullableNodeSignalDelivered = false
+
+    @Visible
+    var nullableNodeSignalPayloadWasNull = false
+
     private var reconnectSelfConnector: SignalConnector? = null
 
     private var reconnectSecondaryConnector: SignalConnector? = null
@@ -140,6 +146,24 @@ class SignalKotlinTest : Node() {
     @Register
     fun emitSelfConnectedSignal() {
         selfConnectedSignal.emit()
+    }
+
+    @Emit("node")
+    val nullableNodeSignal by signal1<Node?>()
+
+    @Register
+    fun emitNullableNodeSignal() {
+        nullableNodeSignalDelivered = false
+        nullableNodeSignalPayloadWasNull = false
+        val connector = nullableNodeSignal.connectMethod(this, SignalKotlinTest::onNullableNodeSignal)
+        nullableNodeSignal.emit(null)
+        connector.disconnect()
+    }
+
+    @Register
+    fun onNullableNodeSignal(node: Node?) {
+        nullableNodeSignalDelivered = true
+        nullableNodeSignalPayloadWasNull = node == null
     }
 
     @Emit("maybeText", "node")

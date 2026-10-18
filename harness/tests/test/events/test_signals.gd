@@ -56,6 +56,12 @@ func test_kotlin_signals() -> void:
     assert_that(script.reconnect_signal_deliveries).override_failure_message("Reconnect signal should resume after reconnect").is_equal(2)
     assert_that(script.reconnect_payload_value).override_failure_message("Reconnect signal should update the latest payload after reconnect").is_equal("after-reconnect")
 
+    script.emit_nullable_node_signal()
+    assert_bool(script.nullable_node_signal_delivered).override_failure_message("A signal emitting null should reach a registered handler with a nullable parameter").is_true()
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A registered handler should receive null for a null object argument").is_true()
+    script.on_nullable_node_signal(null)
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A registered function should accept null for a nullable object parameter").is_true()
+
     get_tree().root.remove_child(script)
     script.free()
 
@@ -68,6 +74,12 @@ func test_java_signals() -> void:
     assert_bool(script.lambda_signal_triggered).override_failure_message("Java payload signal should have fired").is_true()
     assert_that(script.payload_string).override_failure_message("Java payload signal should capture the string").is_equal("java-events")
     assert_that(script.payload_int).override_failure_message("Java payload signal should capture the int").is_equal(17)
+
+    script.emit_nullable_node_signal()
+    assert_bool(script.nullable_node_signal_delivered).override_failure_message("A Java signal emitting null should reach a registered handler").is_true()
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A Java registered handler should receive null for a null object argument").is_true()
+    script.on_nullable_node_signal(null)
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A Java registered function should accept null for an object parameter").is_true()
 
     get_tree().root.remove_child(script)
     script.free()
@@ -82,6 +94,12 @@ func test_scala_signals() -> void:
     assert_bool(script.lambda_signal_triggered).override_failure_message("Scala payload signal should have fired").is_true()
     assert_that(script.payload_string).override_failure_message("Scala payload signal should capture the string").is_equal("scala-events")
     assert_that(script.payload_int).override_failure_message("Scala payload signal should capture the int").is_equal(23)
+
+    script.emit_nullable_node_signal()
+    assert_bool(script.nullable_node_signal_delivered).override_failure_message("A Scala signal emitting null should reach a registered handler").is_true()
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A Scala registered handler should receive null for a null object argument").is_true()
+    script.on_nullable_node_signal(null)
+    assert_bool(script.nullable_node_signal_payload_was_null).override_failure_message("A Scala registered function should accept null for an object parameter").is_true()
 
     get_tree().root.remove_child(script)
     script.free()

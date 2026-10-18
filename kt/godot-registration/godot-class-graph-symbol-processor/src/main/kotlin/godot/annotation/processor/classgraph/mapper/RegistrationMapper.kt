@@ -292,10 +292,11 @@ class RegistrationMapper(
 
             fun mapFunction(method: LogicalMethod): RegisteredFunction {
                 val methodInfo = method.methodInfo
+                val language = JvmLanguage.forClass(methodInfo.classInfo)
                 val parameters = methodInfo.parameterInfo.mapIndexed { index, parameter ->
                     ValueParameter(
                         parameter.name ?: "arg$index",
-                        typeMapper.mapParameter(parameter),
+                        typeMapper.mapParameter(parameter).with(isNullable = language.isNullable(parameter)),
                     )
                 }
 

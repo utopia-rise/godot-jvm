@@ -26,6 +26,15 @@ class SignalScalaTest extends Node {
   @Visible
   var payloadInt: Int = Int.MinValue
 
+  @Emit
+  val nullableNodeSignal: Signal1[Node] = Signal1.create(this, "nullableNodeSignal")
+
+  @Visible
+  var nullableNodeSignalDelivered: Boolean = false
+
+  @Visible
+  var nullableNodeSignalPayloadWasNull: Boolean = false
+
   @Register
   override def _ready(): Unit = {
     readySignal.connect(MethodCallable1.create(
@@ -37,8 +46,26 @@ class SignalScalaTest extends Node {
       new MethodStringName2[SignalScalaTest, Void, String, Integer]("on_payload_signal")
     ))
 
+    nullableNodeSignal.connect(MethodCallable1.create(
+      this,
+      new MethodStringName1[SignalScalaTest, Void, Node]("on_nullable_node_signal")
+    ))
+
     readySignal.emit(true)
     payloadSignal.emit("scala-events", 23)
+  }
+
+  @Register
+  def emitNullableNodeSignal(): Unit = {
+    nullableNodeSignalDelivered = false
+    nullableNodeSignalPayloadWasNull = false
+    nullableNodeSignal.emit(null)
+  }
+
+  @Register
+  def onNullableNodeSignal(node: Node): Unit = {
+    nullableNodeSignalDelivered = true
+    nullableNodeSignalPayloadWasNull = node == null
   }
 
   @Register
