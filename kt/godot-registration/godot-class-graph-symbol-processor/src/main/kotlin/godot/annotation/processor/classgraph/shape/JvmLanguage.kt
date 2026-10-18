@@ -5,10 +5,12 @@ import godot.annotation.processor.classgraph.extensions.rawDescriptor
 import godot.annotation.processor.classgraph.extensions.returnRawDescriptor
 import godot.registration.model.RegisteredPropertyBindingKind
 import io.github.classgraph.AnnotationInfo
+import io.github.classgraph.BaseTypeSignature
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.ClassMemberInfo
 import io.github.classgraph.FieldInfo
 import io.github.classgraph.MethodInfo
+import io.github.classgraph.MethodParameterInfo
 
 interface AnnotationHolder {
     val annotations: List<AnnotationInfo>
@@ -251,6 +253,10 @@ abstract class JvmLanguage {
     protected abstract fun propertyAccessorsOf(methodInfo: MethodInfo, classInfo: ClassInfo): List<PropertyAccessor>
 
     /** Chooses how generated Kotlin should reference this logical property. */
+    /** Whether the generated call passes the parameter as nullable. Java and Scala record no nullability, so every reference type is. */
+    open fun isNullable(parameterInfo: MethodParameterInfo): Boolean =
+        parameterInfo.typeSignatureOrTypeDescriptor !is BaseTypeSignature
+
     open fun propertyBindingFor(property: LogicalProperty): RegisteredPropertyBindingKind =
         if (property.getter != null || property.setter != null) {
             RegisteredPropertyBindingKind.ACCESSOR_METHODS

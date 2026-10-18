@@ -32,6 +32,15 @@ public class SignalJavaTest extends Node {
     @Visible
     public int payloadInt = Integer.MIN_VALUE;
 
+    @Emit
+    public final Signal1<Node> nullableNodeSignal = Signal1.create(this, "nullableNodeSignal");
+
+    @Visible
+    public boolean nullableNodeSignalDelivered = false;
+
+    @Visible
+    public boolean nullableNodeSignalPayloadWasNull = false;
+
     @Register
     @Override
     public void _ready() {
@@ -44,8 +53,26 @@ public class SignalJavaTest extends Node {
             new MethodStringName2<SignalJavaTest, Void, String, Integer>("on_payload_signal")
         ));
 
+        nullableNodeSignal.connect(MethodCallable1.create(
+            this,
+            new MethodStringName1<SignalJavaTest, Void, Node>("on_nullable_node_signal")
+        ));
+
         readySignal.emit(true);
         payloadSignal.emit("java-events", 17);
+    }
+
+    @Register
+    public void emitNullableNodeSignal() {
+        nullableNodeSignalDelivered = false;
+        nullableNodeSignalPayloadWasNull = false;
+        nullableNodeSignal.emit(null);
+    }
+
+    @Register
+    public void onNullableNodeSignal(Node node) {
+        nullableNodeSignalDelivered = true;
+        nullableNodeSignalPayloadWasNull = node == null;
     }
 
     @Register

@@ -7,6 +7,7 @@ import io.github.classgraph.AnnotationInfo
 import io.github.classgraph.ClassInfo
 import io.github.classgraph.FieldInfo
 import io.github.classgraph.MethodInfo
+import io.github.classgraph.MethodParameterInfo
 
 class KotlinJvmLanguage : JvmLanguage() {
     /** Kotlin classes are identified from the original source file extension emitted in class debug metadata. */
@@ -66,6 +67,10 @@ class KotlinJvmLanguage : JvmLanguage() {
 
     override fun propertyBindingFor(property: LogicalProperty): RegisteredPropertyBindingKind =
         RegisteredPropertyBindingKind.PROPERTY_REFERENCE
+
+    /** The compiler annotates every nullable parameter; the generated call must match the declared type to compile. */
+    override fun isNullable(parameterInfo: MethodParameterInfo): Boolean =
+        parameterInfo.annotationInfo.containsName("org.jetbrains.annotations.Nullable")
 
     /** Kotlin may place property annotations on synthetic `$annotations` methods rather than the backing field. */
     override fun signalAnnotationsOf(
