@@ -1,7 +1,7 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -26,6 +26,8 @@ fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null)
             if (customApiJarTask != null) {
                 dependsOn(customApiJarTask)
                 duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+                // EXCLUDE drops a duplicate before mergeServiceFiles sees it.
+                filesMatching("META-INF/services/**") { service -> service.duplicatesStrategy = DuplicatesStrategy.INCLUDE }
                 from(zipTree(customApiJarTask.flatMap(Jar::getArchiveFile)))
             }
             configurations.clear()
@@ -33,17 +35,21 @@ fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null)
             configurations.add(this@packageBootstrapJarTask.configurations.getByName(mainSourceSet.runtimeClasspathConfigurationName))
             archiveVersion.set("") // otherwise the version is appended to the name and our export plugin cannot find it anymore
 
-            val godotSplitImplementation =
-                this@packageBootstrapJarTask.configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
-            // godotSplitImplementation jars stay intact next to the bootstrap jar, so the class path entry follows it.
+            val splitDependencies =
+                this@packageBootstrapJarTask.configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
+            // Split dependency jars stay intact next to the bootstrap jar, so the class path entry follows it.
             manifest.attributes[
                 "Class-Path"
             ] = provider {
-                godotSplitImplementation.files
+                splitDependencies.files
                     .filter { file -> file.extension == "jar" }
                     .sortedBy { file -> file.name }
                     .joinToString(" ") { file -> "${Paths.DEPENDENCIES_DIR}/${file.name}" }
             }
+            // Shadow copies the META-INF/versions entries of merged multi-release jars but not their manifest flag.
+            manifest.attributes["Multi-Release"] = "true"
+
+            mergeServiceFiles()
 
             // Bootstrap is loaded reflectively by the native Godot runtime, so Shadow's
             // release minimization incorrectly removes godot.runtime.Bootstrap.

@@ -4,7 +4,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.exception.GraalNativeImageToolNotFountException
 import godot.gradle.ext.existingFileOrNull
 import godot.gradle.ext.resolveExecutable
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.isRelease
 import godot.gradle.projectExt.variantLibsDirectory
@@ -50,7 +50,7 @@ fun Project.createGraalNativeImageTask(
         .graal.additionalResourceConfigurationFiles
         .map { configFiles -> configFiles.joinToString(",") }
     val gameJars = files(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
-    val splitImplementationJars: FileCollection = configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+    val splitDependencyJars: FileCollection = configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
 
     return tasks.register("createGraalNativeImage", Exec::class.java) {
         with(it) {
@@ -64,7 +64,7 @@ fun Project.createGraalNativeImageTask(
             inputs.files(gameJars)
             inputs.dir(graalDirectory)
             outputs.file(libsDirectory.map { directory -> directory.file(sharedLibraryName) })
-            inputs.files(splitImplementationJars)
+            inputs.files(splitDependencyJars)
             inputs.property("graalVmHomeDirectory", graalVmHomeDirectory)
             inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath.orElse(""))
             inputs.property("isGraalNativeImageVerboseEnabled", isVerboseEnabled)
@@ -77,9 +77,9 @@ fun Project.createGraalNativeImageTask(
             doFirst {
                 val libsDir = libsDirectory.get().asFile
 
-                // A native image cannot load jars at runtime, so godotSplitImplementation dependencies are compiled in.
+                // A native image cannot load jars at runtime, so split dependencies are compiled in.
                 val classPath = gameJars.files.toList() +
-                    splitImplementationJars.files
+                    splitDependencyJars.files
                         .filter { file -> file.extension == "jar" }
                         .sortedBy { file -> file.name }
 

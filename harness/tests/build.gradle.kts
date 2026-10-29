@@ -49,6 +49,11 @@ dependencies {
     implementation("joda-time:joda-time:2.10.6") // external dependency to test dependency inclusion in mainCompilation
     godotGameImplementation("org.apache.commons:commons-lang3:3.14.0")
     godotSplitImplementation("commons-io:commons-io:2.15.1")
+    // registers a Jackson Module service from usercode.jar as well
+    godotGameImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1")
+    godotGameRuntimeOnly("org.apache.commons:commons-collections4:4.4")
+    godotSplitRuntimeOnly("commons-codec:commons-codec:1.17.1")
+    implementation("org.apache.logging.log4j:log4j-api:2.25.3") // multi-release jar
 
     implementation("com.godot.tests:third-party-library")
 
@@ -56,6 +61,8 @@ dependencies {
     // reflection test cases: see GH-571
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.1")
+    // registers the same Jackson Module service as jackson-module-kotlin
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.16.1")
 }
 
 

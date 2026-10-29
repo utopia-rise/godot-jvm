@@ -17,7 +17,8 @@ Giving distinct Godot names to same-named classes from different libraries is A.
 - **D.4.R1**: A library's scripts are registered by the project that consumes it, never by the library's own build.
 - **D.4.R2**: The build creates, updates and removes the registration files of dependency scripts, and leaves an existing file where the user moved it.
 - **D.4.R3**: A registration file only points to a compiled class and never changes its code.
-- **D.4.R4**: Every dependency, whatever its packaging, is available to compilation and tests.
+- **D.4.R4**: Every dependency, whatever its packaging, is available to tests, and to compilation unless it is declared runtime-only.
+- **D.4.R5**: A dependency merged into a Godot-JVM JAR loads as it would as an intact JAR: its service registrations and its classes for newer Java versions are kept.
 
 ## Non-goals
 - **D.4.N1**: Godot-JVM does not adapt a library to the restrictions of Android's ART or of native images.

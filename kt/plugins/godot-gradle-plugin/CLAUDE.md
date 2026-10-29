@@ -155,6 +155,7 @@ Defined by:
 
 - built from the dedicated `bootstrap` configuration
 - contains runtime/bootstrap glue code
+- merges service files, so dependencies registering the same `ServiceLoader` service all stay registered
 - does not package user project classes
 
 ### `usercode.jar`
