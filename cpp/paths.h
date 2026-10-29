@@ -17,6 +17,7 @@ static constexpr const char* JVM_CONFIGURATION_PATH = "res://godot_jvm_configura
 static constexpr const char* ADDON_MANIFEST_FILE = "res://addons/jvm/jvm.gdextension";
 
 // Shared by both variants.
+static constexpr const char* SCRIPT_CLASS_INDEX_FILE = JVM_DIRECTORY "script-classes.json";
 static constexpr const char* LINUX_EMBEDDED_JRE_ARM_DIRECTORY = JVM_DIRECTORY "jre-arm64-linux";
 static constexpr const char* LINUX_EMBEDDED_JRE_AMD_DIRECTORY = JVM_DIRECTORY "jre-amd64-linux";
 static constexpr const char* LINUX_RELATIVE_JVM_LIB_PATH = "lib/server/libjvm.so";

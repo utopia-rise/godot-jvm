@@ -1,6 +1,7 @@
 package godot.gradle.projectExt
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import godot.gradle.tasks.ClassGraphGenerateRegistrarFilesTask
 import godot.gradle.tasks.GenerateEmbeddedJreTask
 import godot.gradle.tasks.addon.installAddonTask
 import godot.gradle.tasks.android.CreateDexJarTask
@@ -38,7 +39,7 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.TaskProvider
 
 private data class RegistrarGenerationTasks(
-    val generateRegistrarFilesTask: TaskProvider<out Task>,
+    val generateRegistrarFilesTask: TaskProvider<ClassGraphGenerateRegistrarFilesTask>,
     val updateRegistrationFilesTask: TaskProvider<out Task>,
     val generatedRegistrarJarTask: TaskProvider<Jar>,
 )
@@ -129,6 +130,7 @@ fun Project.setupTasks() {
             val androidPackagingTasks = setupAndroidPackagingTasks(desktopPackagingTasks)
             val nativePackagingTasks = setupNativePackagingTasks(desktopPackagingTasks)
             val copyTasks = setupCopyTasks(
+                registrarGenerationTasks = registrarGenerationTasks,
                 desktopPackagingTasks = desktopPackagingTasks,
                 androidPackagingTasks = androidPackagingTasks,
                 nativePackagingTasks = nativePackagingTasks,
@@ -333,6 +335,7 @@ private fun Project.setupNativePackagingTasks(
 }
 
 private fun Project.setupCopyTasks(
+    registrarGenerationTasks: RegistrarGenerationTasks,
     desktopPackagingTasks: DesktopPackagingTasks,
     androidPackagingTasks: AndroidPackagingTasks,
     nativePackagingTasks: NativePackagingTasks,
@@ -340,6 +343,7 @@ private fun Project.setupCopyTasks(
     val generateGdIgnoreFilesTask = generateGdIgnoreFilesTask()
     val copyDesktopJarsTask = createCopyDesktopJarsTask(
         gameJarTasksByJarName = desktopPackagingTasks.gameJarTasksByJarName,
+        generateRegistrarFilesTask = registrarGenerationTasks.generateRegistrarFilesTask,
     )
     val copyAndroidArtifactsTask = createCopyAndroidArtifactsTask(
         gameDexJarTasksByJarName = androidPackagingTasks.gameDexJarTasksByJarName,

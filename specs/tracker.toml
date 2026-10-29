@@ -138,7 +138,7 @@
 "E.1.5" = { status = "done", note = "untested: CI builds and links the exported Xcode project for devices but never runs it, and the simulator is not supported" }
 "E.1.6" = { status = "done", note = "untested: CI exports and runs the universal app ad-hoc signed, never with a Developer ID or notarization" }
 "E.1.7" = { status = "todo", note = "no arm64 native library is built or shipped for Linux or Windows" }
-"E.2" = { hash = "00abff3baacd" }
+"E.2" = { hash = "74fab053573a" }
 "E.2.1" = { status = "done" }
 "E.2.2" = { status = "done" }
 "E.2.3" = { status = "done" }

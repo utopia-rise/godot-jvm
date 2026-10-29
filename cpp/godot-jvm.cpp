@@ -14,6 +14,9 @@
 #include <classes/dir_access.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
+#ifdef TOOLS_ENABLED
+#include <classes/json.hpp>
+#endif
 #include <classes/os.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
@@ -610,6 +613,25 @@ void GodotJvm::reload_user_code() {
 
 void GodotJvm::mark_bootstrap_outdated() {
     bootstrap_outdated = true;
+}
+
+void GodotJvm::reload_script_class_index() {
+    const String path = String(RES_DIRECTORY) + SCRIPT_CLASS_INDEX_FILE;
+    const uint64_t modified_time = FileAccess::file_exists(path) ? FileAccess::get_modified_time(path) : 0;
+    if (modified_time == script_class_index_time) { return; }
+    script_class_index_time = modified_time;
+
+    HashMap<StringName, IndexedScriptClass> index;
+    Variant json;
+    if (modified_time != 0) { json = JSON::parse_string(FileAccess::get_file_as_string(path)); }
+    if (json.get_type() == Variant::DICTIONARY) {
+        Dictionary classes = json;
+        for (const String fqdn : classes.keys()) {
+            Dictionary entry = classes[fqdn];
+            index[fqdn] = {entry["name"], entry["base"]};
+        }
+    }
+    JvmScriptManager::get_instance()->set_script_class_index(index);
 }
 #endif
 

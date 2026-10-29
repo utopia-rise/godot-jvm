@@ -190,6 +190,19 @@ bool JvmScriptManager::is_user_code_outdated() const {
     return is_source_outdated(latest_source_modified_time)
         || EditorInterface::get_singleton()->get_resource_filesystem()->is_scanning();
 }
+
+void JvmScriptManager::set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index) {
+    script_class_index = p_index;
+    // Godot only asks for the global class of a script whose file changed, and a build leaves the sources untouched.
+    update_all_scripts();
+}
+
+IndexedScriptClass JvmScriptManager::get_indexed_script_class(const JvmScript* p_script) const {
+    const HashMap<StringName, IndexedScriptClass>::ConstIterator entry = script_class_index.find(
+        p_script->last_physical_fqdn
+    );
+    return entry ? entry->value : IndexedScriptClass();
+}
 #endif
 
 Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p_path, const StringName& p_fqdn) {
