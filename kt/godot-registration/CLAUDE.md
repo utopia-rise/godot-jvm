@@ -206,6 +206,7 @@ RegistrarGenerator.generateClassArtifacts(
     logger,
     scriptClasses,
     sourceOutputDir,
+    scriptClassIndexFile,
     registrationOutputDir,
 )
 ```
@@ -215,6 +216,8 @@ The generator writes:
 - Kotlin registrar source under `godot.registrar`.
 - The `META-INF/services/godot.registration.ClassRegistrar` service file.
 - `.gdj` registration files through `RegistrationFileGenerator`.
+- The script class index (`ScriptClassIndexBuilder`): registered name and global class base of every registered class
+  by fqName, which the editor reads when the debug jars are missing.
 
 For one registrar, generation is effective-inherited rather than local-only:
 

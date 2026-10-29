@@ -6,6 +6,13 @@
 #include <classes/weak_ref.hpp>
 
 namespace godot {
+#ifdef TOOLS_ENABLED
+    struct IndexedScriptClass {
+        StringName name;
+        StringName base;
+    };
+#endif
+
     class JvmScriptManager : public Object {
         GDCLASS(JvmScriptManager, Object);
 
@@ -23,6 +30,7 @@ namespace godot {
         HashMap<StringName, String> fqdn_to_source_path;
         uint64_t last_build_time = 0;
         uint64_t latest_source_modified_time = 0;
+        HashMap<StringName, IndexedScriptClass> script_class_index;
         void update_script(JvmScript* p_script, KtClass* p_kotlin_class);
         void replace_virtual_script(JvmScript* p_physical_script, JvmScript* p_virtual_script);
         void update_all_scripts();
@@ -53,6 +61,8 @@ namespace godot {
         bool is_source_outdated(uint64_t p_source_modified_time) const;
         bool is_user_code_outdated() const;
         static void untrack_physical_script(JvmScript* p_script);
+        void set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index);
+        IndexedScriptClass get_indexed_script_class(const JvmScript* p_script) const;
 #endif
     };
 } // namespace godot

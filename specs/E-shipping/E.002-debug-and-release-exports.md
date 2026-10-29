@@ -12,13 +12,14 @@ Producing the debug and release builds with Gradle is D.3.
 - **E.2.1**: An export with debug carries the debug build of the game's JVM code, so that testers run the game with the same checks and debugging aids as in the editor.
 - **E.2.2**: A release export carries a release build of the game's JVM code without debug checks, so that players get the leanest and fastest version of the game.
 - **E.2.3**: Exported games ship the JVM libraries they depend on, including those that must stay intact jars.
-- **E.2.4**: The export dialog warns game developers about a missing build or runtime before they export, and the export fails naming what to build, so that no game ships that cannot start.
+- **E.2.4**: The export dialog warns game developers about a missing build or runtime before they export, and the export reports every missing piece, naming what to build, then fails, so that no game ships that cannot start.
 - **E.2.5**: Game developers ship their game without the source code of its scripts.
 
 ## Rules
 - **E.2.R1**: An export packs the artifacts of its own variant only, never those of the other variant or of another platform.
 - **E.2.R2**: A debug export template loads only the debug build and a release export template only the release build.
 - **E.2.R3**: An exported game carries compiled code only; a script file is exported as a reference to its class.
+- **E.2.R4**: An export needs only the build of its own variant: nothing it packs, the global class names of JVM scripts included, depends on a build of the other variant.
 
 ## Non-goals
 - **E.2.N1**: Exported games do not reload their JVM code.

@@ -14,6 +14,7 @@ import godot.registrar.generator.RegistrationFileIndentation
 import godot.registrar.generator.RegistrationFileLayoutMode
 import godot.registrar.generator.Settings
 import godot.registrar.generator.ext.getRegisteredName
+import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.godotRegistrarBasePackage
 import godot.tools.common.constants.godotRegistrationPackage
 import org.gradle.api.DefaultTask
@@ -21,11 +22,13 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
@@ -65,6 +68,9 @@ abstract class ClassGraphGenerateRegistrarFilesTask : DefaultTask() {
     @get:OutputDirectory
     abstract val generatedRegistrationFilesRootDir: DirectoryProperty
 
+    @get:OutputFile
+    abstract val scriptClassIndexFile: RegularFileProperty
+
     @TaskAction
     fun generate() {
         val outputRoot = generatedSourceRootDir.get().asFile
@@ -100,6 +106,7 @@ abstract class ClassGraphGenerateRegistrarFilesTask : DefaultTask() {
             logger = modelLogger,
             scriptClasses = scriptClasses,
             sourceOutputDir = outputRoot.resolve("main").resolve("kotlin"),
+            scriptClassIndexFile = scriptClassIndexFile.get().asFile,
             registrationOutputDir = generatedRegistrationRoot.takeUnless { disableGdj.get() },
         )
         writeRegistrarServiceFile(outputRoot, registeredClasses, settings)
@@ -151,7 +158,8 @@ fun Project.registrarGenerationGenerateFilesTask(
         ClassGraphGenerateRegistrarFilesTask::class.java
     ) { task ->
         task.group = "godot-jvm-internal"
-        task.description = "Generates registrar sources/resources plus staged .gdj files from compiled user code."
+        task.description =
+            "Generates registrar sources/resources, the script class index and staged .gdj files from compiled user code."
         task.dependsOn(classesTask)
         task.userCodeClassPathRoots.from(mainSourceSet.output.classesDirs)
         task.runtimeClassPathFiles.from(mainSourceSet.compileClasspath)
@@ -166,5 +174,8 @@ fun Project.registrarGenerationGenerateFilesTask(
         task.annotationProcessingMode.convention(godotJvmExtension.registration.annotationProcessingMode)
         task.generatedSourceRootDir.convention(generatedSourceRootDir)
         task.generatedRegistrationFilesRootDir.convention(generatedRegistrationRootDir)
+        task.scriptClassIndexFile.convention(
+            layout.buildDirectory.file("generated/registrar-generation-index/${ArtifactNames.SCRIPT_CLASS_INDEX}")
+        )
     }
 }

@@ -12,6 +12,7 @@ Debug and release artifacts live in separate directories so that neither can be 
 <godot project>/jvm/
   jre-<arch>-<os>/            embedded JRE, shared by both variants
   ios/ios-jdk/                iOS JDK static libraries, shared by both variants
+  script-classes.json         registered name and base of each class, written by every build
   debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>, dependencies/
   release/                    game.<jar|so|dll|dylib|a>, game-dex.jar, dependencies/
 ```
@@ -19,6 +20,8 @@ Debug and release artifacts live in separate directories so that neither can be 
 `build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts write `jvm/release/`. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`.
 
 The editor and `template_debug` binaries load the debug variant, `template_release` binaries the release variant.
+
+`script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor reads it at startup and whenever the filesystem changes, and answers Godot's global class queries from it for a script whose class the editor's JVM did not load. Without the debug build, a release export therefore still packs a global class cache that names every JVM class. It is never exported.
 
 ## godot-bootstrap
 

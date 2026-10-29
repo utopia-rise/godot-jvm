@@ -297,14 +297,6 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
     int runtime = selected_runtime();
 
     PackedStringArray warnings;
-    PackedStringArray missing_editor_jars;
-    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
-        warnings.push_back(vformat(
-            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
-            "before any export.",
-            String(", ").join(missing_editor_jars)
-        ));
-    }
     if (runtime == RUNTIME_JVM) {
         String architecture = get_option("binary_format/architecture");
         bool universal = architecture == "universal";
@@ -323,6 +315,13 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
             ));
         }
         // The export type is unknown here, so both variants are checked.
+        missing.clear();
+        if (any_missing(desktop_jars(true), missing)) {
+            warnings.push_back(vformat(
+                "No debug JVM build at %s. Run the \"Build\" Gradle task before an export with debug.",
+                String(", ").join(missing)
+            ));
+        }
         missing.clear();
         if (any_missing(desktop_jars(false), missing)) {
             warnings.push_back(vformat(
@@ -405,18 +404,9 @@ void GodotJvmEditorExportPlugin::_export_begin(
     exporting_jvm_runtime = runtime == RUNTIME_JVM;
     exporting_debug = p_debug;
 
-    // The editor loads the debug build whatever the export type, so the script classes of the export are only
-    // resolved with it in place.
-    PackedStringArray missing_editor_jars;
-    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
-        report_export_error(vformat(
-            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
-            "before any export.",
-            String(", ").join(missing_editor_jars)
-        ));
-        return;
-    }
-
+    // Missing files do not stop the export, so every one of them is reported; the summary below says the package
+    // is incomplete.
+    bool missing_files = false;
     if (desktop_files != nullptr) {
         if (runtime == RUNTIME_JVM) {
             bool universal = p_features.has("universal");
@@ -438,7 +428,7 @@ void GodotJvmEditorExportPlugin::_export_begin(
                     String(", ").join(missing),
                     p_debug ? "Build" : "Build Release"
                 ));
-                return;
+                missing_files = true;
             }
 
             // Presets give a bare project-relative export path ("./export/game.exe"), which DirAccess::copy()
@@ -459,9 +449,8 @@ void GodotJvmEditorExportPlugin::_export_begin(
                     "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
                     String(", ").join(missing_jres)
                 ));
-                return;
-            }
-            if (!missing_jres.is_empty()) {
+                missing_files = true;
+            } else if (!missing_jres.is_empty()) {
                 get_export_platform()->add_message(
                     EditorExportPlatform::EXPORT_MESSAGE_WARNING,
                     "Godot-JVM",
@@ -487,7 +476,7 @@ void GodotJvmEditorExportPlugin::_export_begin(
                             "the root of your project using jlink for the platform you want to export.",
                             jre_directory
                         ));
-                        return;
+                        missing_files = true;
                     }
                 }
             }
@@ -496,16 +485,17 @@ void GodotJvmEditorExportPlugin::_export_begin(
         if (runtime == RUNTIME_GRAAL) {
             // usercode.(so, dll, dylib) is packed into the pck and extracted to user:// at runtime.
             String native_image = String(RES_DIRECTORY) + desktop_files->native_image_file(p_debug);
-            if (!FileAccess::file_exists(native_image)) {
+            if (FileAccess::file_exists(native_image)) {
+                add_file(native_image, FileAccess::get_file_as_bytes(native_image), false);
+                JVM_LOG_INFO("Exporting %s", native_image);
+            } else {
                 report_export_error(vformat(
                     "Graal native image does not exist at %s! Run the \"%s\" Gradle task before exporting.",
                     native_image,
                     p_debug ? "Build Graal Native Image" : "Build Graal Native Image Release"
                 ));
-                return;
+                missing_files = true;
             }
-            add_file(native_image, FileAccess::get_file_as_bytes(native_image), false);
-            JVM_LOG_INFO("Exporting %s", native_image);
         }
     } else if (p_features.has("ios")) {
         PackedStringArray static_libraries = {
@@ -520,10 +510,11 @@ void GodotJvmEditorExportPlugin::_export_begin(
                 String(", ").join(missing),
                 p_debug ? "Build iOS" : "Build iOS Release"
             ));
-            return;
-        }
-        for (const String& static_library : static_libraries) {
-            add_apple_embedded_platform_project_static_lib(static_library);
+            missing_files = true;
+        } else {
+            for (const String& static_library : static_libraries) {
+                add_apple_embedded_platform_project_static_lib(static_library);
+            }
         }
     } else if (p_features.has("android")) {
         // Godot exports the dex jars itself as regular resources; only their presence has to be checked here.
@@ -534,7 +525,7 @@ void GodotJvmEditorExportPlugin::_export_begin(
                 String(", ").join(missing),
                 p_debug ? "Build Android" : "Build Android Release"
             ));
-            return;
+            missing_files = true;
         }
     } else {
         report_export_error("Godot-JVM doesn't handle this platform");
@@ -582,6 +573,12 @@ void GodotJvmEditorExportPlugin::_export_begin(
     if (os_name == "Android") { values.erase(JVM_ARGUMENTS_JSON_IDENTIFIER); }
     add_file(JVM_CONFIGURATION_PATH, JSON::stringify(values, "    ", true, false).to_utf8_buffer(), false);
 
+    if (missing_files) {
+        report_export_error(
+            "Godot-JVM is missing files for this export (see the errors above). The exported game will not behave "
+            "properly."
+        );
+    }
     JVM_LOG_INFO("Finished Godot-Jvm specific exports.");
 }
 

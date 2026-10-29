@@ -31,4 +31,10 @@ object ArtifactNames {
 
     /** iOS: the GraalVM native image of the variant's jars as a static library. */
     const val IOS_STATIC_LIBRARY = "game.a"
+
+    /**
+     * Under [Paths.GODOT_JVM_DIR], written by both variants: the registered name and base of every registered class,
+     * by fully qualified name. The editor builds Godot's global class cache from it when the debug jars are missing.
+     */
+    const val SCRIPT_CLASS_INDEX = "script-classes.json"
 }

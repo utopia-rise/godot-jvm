@@ -72,7 +72,17 @@ private fun Project.registerCopyGroupTask(
 
 fun Project.createCopyDesktopJarsTask(
     gameJarTasksByJarName: Map<String, TaskProvider<ShadowJar>>,
+    generateRegistrarFilesTask: TaskProvider<ClassGraphGenerateRegistrarFilesTask>,
 ): TaskProvider<Task> {
+    // Shared by both variants: the editor reads it when the debug jars are missing, so a release build writes it too.
+    val copyScriptClassIndexTask = registerCopyTask(
+        name = "copyScriptClassIndex",
+        description = "Internal task! Copies the script class index into the Godot-JVM output directory.",
+        dependsOnTasks = emptyList(),
+        destination = godotJvmDestinationDir(),
+    ) {
+        from(generateRegistrarFilesTask.flatMap { task -> task.scriptClassIndexFile })
+    }
     // Emptied first, as only this task writes there: the jar of a dependency the project dropped would stay and ship.
     val copySplitDependenciesTask = registerCopyTask(
         name = "copySplitDependencies",
@@ -85,8 +95,8 @@ fun Project.createCopyDesktopJarsTask(
     }
     return registerCopyGroupTask(
         name = "copyDesktopJars",
-        description = "Internal task! Copies the desktop jars of this variant into the Godot-JVM output directory.",
-        copyTasks = registerArtifactCopyTasks(gameJarTasksByJarName) + copySplitDependenciesTask,
+        description = "Internal task! Copies the desktop jars of this variant and the script class index into the Godot-JVM output directory.",
+        copyTasks = registerArtifactCopyTasks(gameJarTasksByJarName) + copySplitDependenciesTask + copyScriptClassIndexTask,
     )
 }
 

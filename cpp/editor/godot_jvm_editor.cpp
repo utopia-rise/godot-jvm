@@ -108,6 +108,7 @@ bool GodotJvmEditor::_build() {
 
 void GodotJvmEditor::on_filesystem_change() {
     check_addon_replaced();
+    GodotJvm::get_instance().reload_script_class_index();
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
@@ -310,6 +311,8 @@ void GodotJvmEditor::_notification(int notification) {
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, build_on_run_button);
 
             addon_manifest_time = FileAccess::get_modified_time(ADDON_MANIFEST_FILE);
+            // Before the editor's first scan, which builds the global class cache.
+            GodotJvm::get_instance().reload_script_class_index();
             jvm_status_light->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
             jvm_status_light->set_self_modulate(Color(1, 1, 1, 0.5));
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);

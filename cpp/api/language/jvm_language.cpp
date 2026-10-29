@@ -3,6 +3,10 @@
 #include "api/script/jvm_script.h"
 #include "engine/ustring.h"
 
+#ifdef TOOLS_ENABLED
+#include "api/script/jvm_script_manager.h"
+#endif
+
 #include <classes/resource_loader.hpp>
 #include <classes/script_language_extension.hpp>
 
@@ -38,14 +42,34 @@ String JvmLanguage::_validate_path(const String& p_path) const {
 
 Dictionary JvmLanguage::_get_global_class_name(const String& p_path) const {
     Ref<JvmScript> script = ResourceLoader::get_singleton()->load(p_path);
-    if (script.is_null() || !script->_is_valid()) { return Dictionary(); }
+    if (script.is_null()) { return Dictionary(); }
 
+    StringName name;
+    StringName base_type;
+    bool is_abstract = false;
+    bool is_tool = false;
+    if (script->_is_valid()) {
+        Ref<Script> base_script = script->_get_base_script();
+        name = script->_get_global_name();
+        base_type = base_script.is_valid() ? base_script->get_global_name() : script->_get_instance_base_type();
+        is_abstract = script->_is_abstract();
+        is_tool = script->_is_tool();
+    }
+#ifdef TOOLS_ENABLED
+    else {
+        // Without the debug jars, the index written by every build still gives Godot's global class cache its entries.
+        IndexedScriptClass indexed = JvmScriptManager::get_instance()->get_indexed_script_class(script.ptr());
+        name = indexed.name;
+        base_type = indexed.base;
+    }
+#endif
+
+    // An empty name tells Godot the script declares no global class.
     Dictionary result;
-    Ref<Script> base_script = script->_get_base_script();
-    result["base_type"] = base_script.is_valid() ? base_script->get_global_name() : script->_get_instance_base_type();
-    result["is_abstract"] = script->_is_abstract();
-    result["is_tool"] = script->_is_tool();
-    result["name"] = script->_get_global_name();
+    result["base_type"] = base_type;
+    result["is_abstract"] = is_abstract;
+    result["is_tool"] = is_tool;
+    result["name"] = name;
     return result;
 }
 

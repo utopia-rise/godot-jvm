@@ -114,16 +114,14 @@ jobs:
           mkdir -p "$template_directory"
           mv templates/templates/macos.zip "$template_directory/macos.zip"
 
-      - name: Build the debug jars the editor resolves script classes from
-        if: matrix.release
-        run: harness/tests/gradlew -p harness/tests/ build
-
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
       - name: Build Graal native image
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.graal-build-task }}
 
+      # Release exports have no debug build, so this import builds the global class cache from the script class index
+      # of the release build.
       - name: Import test project
         run: harness/tests/gradlew -p harness/tests/ importResources
         # Longer than the task's own 10 minute wait, so it can terminate a hung

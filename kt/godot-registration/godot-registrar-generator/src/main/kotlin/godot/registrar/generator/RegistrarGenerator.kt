@@ -2,6 +2,7 @@ package godot.registrar.generator
 
 import godot.registrar.generator.builder.RegistrarClassGenerator
 import godot.registrar.generator.builder.RegistrationFileBuilder
+import godot.registrar.generator.builder.ScriptClassIndexBuilder
 import godot.registration.model.logging.Logger
 import godot.registration.model.types.ScriptClass
 import java.io.File
@@ -12,6 +13,7 @@ object RegistrarGenerator {
         logger: Logger,
         scriptClasses: List<ScriptClass>,
         sourceOutputDir: File,
+        scriptClassIndexFile: File,
         registrationOutputDir: File? = null,
     ) {
         val registeredClasses = scriptClasses.filter { scriptClass -> scriptClass.isRegistered }
@@ -21,6 +23,7 @@ object RegistrarGenerator {
             registeredClassesByFqName = registeredClasses.associateBy { scriptClass -> scriptClass.fqName },
         )
         RegistrarClassGenerator(context, sourceOutputDir).generate(registeredClasses)
+        ScriptClassIndexBuilder(settings, scriptClassIndexFile).generate(registeredClasses)
         registrationOutputDir?.let { outputDir ->
             RegistrationFileBuilder(context, settings, outputDir).generate(registeredClasses)
         }
