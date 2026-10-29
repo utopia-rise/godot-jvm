@@ -28,6 +28,7 @@ import godot.gradle.tasks.graal.ios.copyDefaultGraalIOSConfigsTask
 import godot.gradle.tasks.graal.ios.createIOSGraalNativeImageTask
 import godot.gradle.tasks.graal.ios.createIOSStaticLibraryTask
 import godot.gradle.tasks.graal.ios.downloadIOSGraalToolchain
+import godot.tools.common.constants.Paths
 import godot.gradle.tasks.packageBootstrapJarTask
 import godot.gradle.tasks.packageUserCodeJarTask
 import godot.gradle.tasks.packageReleaseJarTask
@@ -36,6 +37,8 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaToolchainService
 
 private data class RegistrarGenerationTasks(
     val generateRegistrarFilesTask: TaskProvider<out Task>,
@@ -98,6 +101,16 @@ fun Project.setupTasks() {
                 task.description = "Generates an embedded $arch macOS jre using jlink"
             }
         }
+    }
+    val toolchainJavaHome = extensions.getByType(JavaToolchainService::class.java)
+        .compilerFor(extensions.getByType(JavaPluginExtension::class.java).toolchain)
+        .map { compiler -> compiler.metadata.installationPath.asFile.absolutePath }
+    tasks.withType(GenerateEmbeddedJreTask::class.java).configureEach { task ->
+        task.javaHome.convention(toolchainJavaHome)
+        task.outputDir.convention(
+            godotJvmExtension.godotProjectDirectory.dir("${Paths.GODOT_JVM_DIR}/jre-${task.targetArch}-${GenerateEmbeddedJreTask.hostOs()}")
+        )
+        task.gradleUserHome.set(gradle.gradleUserHomeDir)
     }
     registerUserFacingBuildTasks()
 
