@@ -100,6 +100,21 @@ dependencies {
 Both configurations are available while compiling and testing, but neither is merged into
 `godot-bootstrap.jar`.
 
+Each has a runtime-only counterpart, `godotGameRuntimeOnly` and `godotSplitRuntimeOnly`, packaged
+the same way but kept off the compile classpath, like Gradle's `runtimeOnly`. Use them for a library
+your code never references directly and that another library finds at runtime, such as a logging
+backend or a JDBC driver:
+
+```kotlin
+dependencies {
+    godotSplitRuntimeOnly("org.xerial:sqlite-jdbc:3.46.0.0")
+}
+```
+
+Multi-release JARs, which carry classes for newer Java versions under `META-INF/versions/`, keep
+working when they are merged into `godot-bootstrap.jar`, `usercode.jar` or `game.jar`. Android
+uses only their base classes, because the dex JAR does not include the versioned ones.
+
 ## Fast builds
 
 The [`fastBuild`](tasks.md#fastbuild) task reuses the previous registration artifacts.

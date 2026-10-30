@@ -2,7 +2,7 @@ package godot.gradle.tasks.android
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
@@ -36,7 +36,7 @@ abstract class CreateDexJarTask : DefaultTask() {
     @get:InputFile
     abstract val inputJar: RegularFileProperty
 
-    // ART cannot load plain jars, so godotSplitImplementation dependencies are dexed together with the program jar.
+    // ART cannot load plain jars, so split dependencies are dexed together with the program jar.
     @get:InputFiles
     abstract val additionalInputJars: ConfigurableFileCollection
 
@@ -182,7 +182,7 @@ private fun Project.registerDexJarTask(
 
             this.inputJar.set(inputJar)
             additionalInputJars.from(
-                configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+                configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
                     .filter { file -> file.extension == "jar" }
             )
             dexJar.set(libsDirectory.map { directory -> directory.file(dexJarName) })

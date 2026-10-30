@@ -1,7 +1,7 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_GAME_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.GradleException
@@ -26,7 +26,7 @@ fun Project.packageUserCodeJarTask(
             destinationDirectory.set(variantLibsDirectory())
             configurations.clear()
             configurations.add(
-                this@packageUserCodeJarTask.configurations.getByName(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
+                this@packageUserCodeJarTask.configurations.getByName(GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION)
             )
 
             dependsOn(userClassesTask)
@@ -53,6 +53,9 @@ fun Project.packageUserCodeJarTask(
                     exclude("META-INF/MANIFEST.MF")
                 }
             }
+
+            // Shadow copies the META-INF/versions entries of merged multi-release jars but not their manifest flag.
+            manifest.attributes["Multi-Release"] = "true"
 
             // merges all service files from all dependencies into on
             // needed so we can loop over and load all registrar files from within Bootstrap.kt

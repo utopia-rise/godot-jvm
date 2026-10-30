@@ -40,7 +40,7 @@ For each concerned spec, against the actual code after the change:
 
 One table, most important first:
 
-| Kind | Spec ID | Finding | Where (file:line) | Suggested fix |
+| Kind | Spec ID | Finding | Where (file:line) | Options (recommended first) |
 |---|---|---|---|---|
 
-Kinds: `breaks rule`, `breaks article`, `against non-goal`, `status`, `missing capability`, `spec edit`, `ID outside specs`, `doc drift`. Suggested fixes are concrete: the tracker line to write, the capability sentence to add, or the code to change. When nothing applies, say "No spec impact" and name the specs you checked.
+Kinds: `breaks rule`, `breaks article`, `against non-goal`, `status`, `missing capability`, `spec edit`, `ID outside specs`, `doc drift`. Options are concrete and name each way to arbitrate the conflict: the code to change, the spec sentence to reword or add, or the tracker line to write (`partial` with a `breaks` note). Mark the one you recommend and why in a few words. The maintainer arbitrates: never apply a spec-side resolution without their decision. When nothing applies, say "No spec impact" and name the specs you checked.

@@ -109,7 +109,7 @@
 "D.3.5" = { status = "done" }
 "D.3.6" = { status = "done" }
 "D.3.7" = { status = "partial", note = "breaks D.3.R4: a script source root outside the Godot project directory is skipped without a warning" }
-"D.4" = { hash = "357521a003be" }
+"D.4" = { hash = "2d87da2ec007" }
 "D.4.1" = { status = "done" }
 "D.4.2" = { status = "done" }
 "D.4.3" = { status = "done" }

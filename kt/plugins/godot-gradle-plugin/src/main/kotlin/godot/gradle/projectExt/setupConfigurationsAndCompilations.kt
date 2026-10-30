@@ -9,6 +9,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 const val GODOT_GAME_IMPLEMENTATION_CONFIGURATION = "godotGameImplementation"
 const val GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION = "godotSplitImplementation"
+const val GODOT_GAME_RUNTIME_ONLY_CONFIGURATION = "godotGameRuntimeOnly"
+const val GODOT_SPLIT_RUNTIME_ONLY_CONFIGURATION = "godotSplitRuntimeOnly"
+const val GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION = "godotGameRuntimeClasspath"
+const val GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION = "godotSplitRuntimeClasspath"
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -27,8 +31,19 @@ const val GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION = "godotSplitImplementation"
 fun Project.setupConfigurationsAndCompilations() {
     val godotGameImplementation = configurations.create(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
     val godotSplitImplementation = configurations.create(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+    val godotGameRuntimeOnly = configurations.create(GODOT_GAME_RUNTIME_ONLY_CONFIGURATION)
+    val godotSplitRuntimeOnly = configurations.create(GODOT_SPLIT_RUNTIME_ONLY_CONFIGURATION)
+    configurations.create(GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION) {
+        it.extendsFrom(godotGameImplementation, godotGameRuntimeOnly)
+    }
+    configurations.create(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION) {
+        it.extendsFrom(godotSplitImplementation, godotSplitRuntimeOnly)
+    }
 
-    addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotSplitImplementation)
+    addGodotDependencyConfigurationsToSourceSets(
+        listOf(godotGameImplementation, godotSplitImplementation),
+        listOf(godotGameRuntimeOnly, godotSplitRuntimeOnly),
+    )
 
     configurations.configureEach { configuration ->
         if (configuration.isCanBeResolved) {
@@ -80,18 +95,16 @@ fun Project.setupConfigurationsAndCompilations() {
 }
 
 private fun Project.addGodotDependencyConfigurationsToSourceSets(
-    godotGameImplementation: Configuration,
-    godotSplitImplementation: Configuration,
+    implementations: List<Configuration>,
+    runtimeOnlys: List<Configuration>,
 ) {
     val sourceSets = extensions.getByType(SourceSetContainer::class.java)
     val main = sourceSets.getByName("main")
-    configurations.getByName(main.compileClasspathConfigurationName)
-        .extendsFrom(godotGameImplementation, godotSplitImplementation)
+    configurations.getByName(main.compileClasspathConfigurationName).extendsFrom(*implementations.toTypedArray())
 
     sourceSets.findByName("test")?.let { test ->
-        configurations.getByName(test.compileClasspathConfigurationName)
-            .extendsFrom(godotGameImplementation, godotSplitImplementation)
+        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(*implementations.toTypedArray())
         configurations.getByName(test.runtimeClasspathConfigurationName)
-            .extendsFrom(godotGameImplementation, godotSplitImplementation)
+            .extendsFrom(*(implementations + runtimeOnlys).toTypedArray())
     }
 }

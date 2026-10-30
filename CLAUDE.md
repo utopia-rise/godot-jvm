@@ -12,6 +12,8 @@ The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) 
 
 [`specs/`](specs/) is the guidance of the project: what Godot-JVM offers its users, and the global rules (runtimes, languages, toolchains, Godot integration) every implementation follows. Those product and technical rules live there, not in this file. Read `specs/CLAUDE.md` before implementing or changing a feature; it explains how the directory works and how to keep it in sync with the code.
 
+Run the `spec-review` skill, unasked, before committing or opening a PR for any change to `cpp/`, `kt/`, `harness/`, `docs/` or `specs/`, including spec edits you made yourself. Report every conflict to the maintainer with the ways to resolve it (change the code, change the spec, or record the gap as `partial` with a `breaks` note) and your recommendation, and wait for their decision: never settle a conflict by editing a spec on your own.
+
 ## Skills
 
 Recurring procedures are Claude Code skills under `.claude/skills/`: `build-native`, `check-cpp`, `run-harness-tests`, `run-editor-probes`, `test-in-project`, `regenerate-api`, `bump-godot`, `godot-cpp-fork-commit` and `spec-review`. Use them instead of re-deriving the steps from this file.
@@ -148,11 +150,11 @@ User writes @Script Kotlin, Java, or Scala code
 | JAR | Contents | Purpose |
 |-----|----------|---------|
 | `jvm/debug/godot-bootstrap.jar` | godot-library + startup/reload code + the project's ordinary `implementation` dependencies | Loaded in the editor and included in debug exports; loads and reloads `usercode.jar` |
-| `jvm/debug/usercode.jar` | user code + generated registrar + `godotGameImplementation` dependencies (shadow) | Reloaded after each build in the editor; bundled in debug exports |
+| `jvm/debug/usercode.jar` | user code + generated registrar + `godotGameImplementation` and `godotGameRuntimeOnly` dependencies (shadow) | Reloaded after each build in the editor; bundled in debug exports |
 | `jvm/release/game.jar` | both JARs merged | Release exports; one class loader, no reloading |
 | `game` (native image) | GraalVM AOT compilation of the variant's JARs | Replaces the JARs; no runtime reloading |
 
-Debug and release artifacts live under `jvm/debug/` and `jvm/release/` (Gradle: `build/libs/<variant>/`) and never overwrite each other; the editor and `template_debug` load the debug variant, `template_release` the release variant (`cpp/paths.h` selects `BOOTSTRAP_FILE`, `USER_CODE_FILE` and `GRAAL_NATIVE_IMAGE_FILE` per `DEBUG_ENABLED`). The export plugin packs exactly the variant matching the export type and reports a missing one. `godotSplitImplementation` dependencies stay as intact JARs under `res://jvm/<variant>/dependencies/` and are added to the JAR's class path. Every build also writes `jvm/script-classes.json` (`ScriptClassIndexBuilder`, copied by `copyScriptClassIndex`), the registered name and base of each class by fully qualified name; the editor reloads it in `GodotJvmEditor::on_filesystem_change` and `JvmLanguage::_get_global_class_name` falls back on it when the JVM has no class for a script, so a release export needs no debug build for its global class cache. The export plugin reports every missing artifact without stopping and ends with one summary error. Details: `docs/src/doc/contribute/how-it-works/artifacts.md`
+Debug and release artifacts live under `jvm/debug/` and `jvm/release/` (Gradle: `build/libs/<variant>/`) and never overwrite each other; the editor and `template_debug` load the debug variant, `template_release` the release variant (`cpp/paths.h` selects `BOOTSTRAP_FILE`, `USER_CODE_FILE` and `GRAAL_NATIVE_IMAGE_FILE` per `DEBUG_ENABLED`). The export plugin packs exactly the variant matching the export type and reports a missing one. `godotSplitImplementation` and `godotSplitRuntimeOnly` dependencies stay as intact JARs under `res://jvm/<variant>/dependencies/` and are added to the JAR's class path. Every build also writes `jvm/script-classes.json` (`ScriptClassIndexBuilder`, copied by `copyScriptClassIndex`), the registered name and base of each class by fully qualified name; the editor reloads it in `GodotJvmEditor::on_filesystem_change` and `JvmLanguage::_get_global_class_name` falls back on it when the JVM has no class for a script, so a release export needs no debug build for its global class cache. The export plugin reports every missing artifact without stopping and ends with one summary error. Details: `docs/src/doc/contribute/how-it-works/artifacts.md`
 
 ### Memory Management
 

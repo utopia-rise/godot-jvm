@@ -2,7 +2,7 @@ package godot.gradle.tasks.android
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.variantDirectoryName
 import org.gradle.api.DefaultTask
@@ -32,7 +32,7 @@ abstract class CreateMainDexFileTask : DefaultTask() {
 
     // Dexed into the bootstrap dex jar, so only resolved against here.
     @get:InputFiles
-    abstract val godotSplitImplementationJars: ConfigurableFileCollection
+    abstract val splitDependencyJars: ConfigurableFileCollection
 
     @get:OutputFile
     abstract val mainDexRulesFile: RegularFileProperty
@@ -58,7 +58,7 @@ abstract class CreateMainDexFileTask : DefaultTask() {
         outputDirectory.mkdirs()
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
         val classpathJars = listOf(bootstrapJar.get().asFile) +
-            godotSplitImplementationJars.files.sortedBy { file -> file.name }
+            splitDependencyJars.files.sortedBy { file -> file.name }
         val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath, userCodeJar.get().asFile.absolutePath) +
             classpathJars.flatMap { file -> listOf("--classpath", file.absolutePath) } +
             listOf(
@@ -119,8 +119,8 @@ fun Project.createMainDexFileTask(
 
             this.userCodeJar.set(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))
             this.bootstrapJar.set(packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile))
-            this.godotSplitImplementationJars.from(
-                configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+            this.splitDependencyJars.from(
+                configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
                     .filter { file -> file.extension == "jar" }
             )
             this.mainDexRulesFile.set(layout.buildDirectory.file("main-dex-rules.proguard"))

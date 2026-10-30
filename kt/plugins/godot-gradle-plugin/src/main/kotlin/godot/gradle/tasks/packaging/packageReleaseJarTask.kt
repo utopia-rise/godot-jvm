@@ -1,7 +1,7 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -17,7 +17,7 @@ fun Project.packageReleaseJarTask(
     packageBootstrapJarTask: TaskProvider<ShadowJar>,
     packageUserCodeJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<ShadowJar> {
-    val godotSplitImplementation = configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+    val splitDependencies = configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
 
     return tasks.register("packageReleaseJar", ShadowJar::class.java) {
         with(it) {
@@ -29,6 +29,8 @@ fun Project.packageReleaseJarTask(
             archiveClassifier.set("")
             destinationDirectory.set(variantLibsDirectory())
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            // EXCLUDE drops a duplicate before mergeServiceFiles sees it.
+            filesMatching("META-INF/services/**") { service -> service.duplicatesStrategy = DuplicatesStrategy.INCLUDE }
 
             dependsOn(packageBootstrapJarTask, packageUserCodeJarTask)
             configurations.clear()
@@ -39,15 +41,17 @@ fun Project.packageReleaseJarTask(
                 copySpec.exclude("META-INF/MANIFEST.MF")
             }
 
-            // godotSplitImplementation jars stay intact next to the release jar, so the class path entry follows it.
+            // Split dependency jars stay intact next to the release jar, so the class path entry follows it.
             manifest.attributes[
                 "Class-Path"
             ] = provider {
-                godotSplitImplementation.files
+                splitDependencies.files
                     .filter { file -> file.extension == "jar" }
                     .sortedBy { file -> file.name }
                     .joinToString(" ") { file -> "${Paths.DEPENDENCIES_DIR}/${file.name}" }
             }
+            // Shadow copies the META-INF/versions entries of merged multi-release jars but not their manifest flag.
+            manifest.attributes["Multi-Release"] = "true"
 
             mergeServiceFiles()
         }

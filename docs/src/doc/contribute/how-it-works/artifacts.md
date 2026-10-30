@@ -62,8 +62,16 @@ dependencies {
 }
 ```
 
-Do not declare the same dependency in more than one of `implementation`, `godotGameImplementation`,
-or `godotSplitImplementation`.
+`godotGameRuntimeOnly` and `godotSplitRuntimeOnly` place a dependency like their `Implementation`
+counterparts but leave it off the compile classpath, as `runtimeOnly` does for `godot-bootstrap.jar`.
+
+Do not declare the same dependency in more than one of `implementation`, `runtimeOnly`,
+`godotGameImplementation`, `godotGameRuntimeOnly`, `godotSplitImplementation` or `godotSplitRuntimeOnly`.
+
+Shadow, which merges the JARs, copies the `META-INF/versions/` classes of multi-release dependencies
+but not the `Multi-Release: true` attribute that makes the JVM use them, so every merged JAR declares
+it in its own manifest. Every merged JAR also merges the `META-INF/services/` files of its inputs, so
+dependencies registering the same service all stay visible to `ServiceLoader`.
 
 ## game (native image)
 
@@ -75,4 +83,4 @@ Native-image mode uses it in place of the JARs. Select it through runtime config
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts the packed JARs to `user://jvm/<variant>/`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotSplitImplementation` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.
+Separate JARs from `godotSplitImplementation` and `godotSplitRuntimeOnly` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.

@@ -1,7 +1,7 @@
 package godot.gradle.tasks.graal.ios
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.isRelease
 import godot.gradle.projectExt.variantLibsDirectory
@@ -39,9 +39,9 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
     @get:InputFiles
     abstract val gameJars: ConfigurableFileCollection
 
-    // A native image cannot load jars at runtime, so godotSplitImplementation dependencies are compiled in as well.
+    // A native image cannot load jars at runtime, so split dependencies are compiled in as well.
     @get:InputFiles
-    abstract val godotSplitImplementationJars: ConfigurableFileCollection
+    abstract val splitDependencyJars: ConfigurableFileCollection
 
     @get:Internal
     abstract val workingDirectory: DirectoryProperty
@@ -123,7 +123,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             add(nativeImageExecutable)
             addAll(listOf(
             "-cp",
-            (gameJars.files + godotSplitImplementationJars.files.sortedBy { file -> file.name })
+            (gameJars.files + splitDependencyJars.files.sortedBy { file -> file.name })
                 .joinToString(":") { file -> file.absolutePath },
             "--no-server",
             "-H:+ExitAfterRelocatableImageWrite",
@@ -220,8 +220,8 @@ fun Project.createIOSGraalNativeImageTask(
             )
             this.gameJars.from(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
             this.workingDirectory.set(libsDirectory)
-            this.godotSplitImplementationJars.from(
-                configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+            this.splitDependencyJars.from(
+                configurations.getByName(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION)
                     .filter { file -> file.extension == "jar" }
             )
             this.graalVmHomeDirectory.set(graalVmHomeDirectory)
