@@ -11,4 +11,4 @@ A team picks its language per script, not per project, and often already has a p
 
 ## Rules
 - **D.2.R1**: A project that chooses no toolchain version gets Godot-JVM's defaults, and a version the project chooses at or above the minimum is used as it is.
-- **D.2.R2**: The chosen JDK version applies to the compilation of every enabled language.
+- **D.2.R2**: The chosen JDK version applies to the compilation of every enabled language and to the embedded Java runtimes the build generates, whatever their architecture.

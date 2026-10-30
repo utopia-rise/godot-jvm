@@ -38,7 +38,7 @@ if not "%~1"=="" (
     shift
     goto collect_probes
 )
-if "%probes%"=="" set "probes=reload rename build_on_run"
+if "%probes%"=="" set "probes=reload rename build_on_run embedded_jre"
 
 cd /d "%here%"
 set status=0

@@ -23,6 +23,7 @@ To open this project in the editor by hand, run `copy_addon.sh` (or `copy_addon.
 - `reload`: project generation, then jar reloading. New defaults, added and removed members, new and deleted scripts (one still used by the open scene), a base class change, a failing build, Fast Build, a build without changes, a bootstrap change, and the saved scene.
 - `rename`: the global class list when a class is renamed in the script editor while its tab is open, and when its file is moved.
 - `build_on_run`: building when the game starts. The Build on Run button cycling between never, when scripts changed and always, Shift+click to build only when a script changed (edited outside the editor or saved in the script editor), Ctrl+click (Cmd+click on macOS) to always build, and a failing build that keeps the game from starting.
+- `embedded_jre`: the toolbar's Generate JRE: a first run, a run with nothing changed that stays up to date, a run over the existing JRE after a module was added, a run after the JRE was deleted by hand, and a run over a leftover empty directory. Each run that executes must leave a JRE made from the project's JDK 17 toolchain.
 
 ## Writing a probe
 

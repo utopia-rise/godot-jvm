@@ -53,16 +53,16 @@ When [`isLibrary`](packaging-and-tasks.md#islibrary) is true, `build`, `buildRel
 
 ## `generateEmbeddedJre`
 
-Runs `jlink` from the selected JDK. Replaces its output directory once its checks passed. The defaults target the host OS and architecture. On macOS, `generateEmbeddedJreArm64` and `generateEmbeddedJreAmd64` target one architecture each, so a universal export can bundle both. For the architecture that is not the host's, the task finds an installed JDK of that architecture and of the same major version as `javaHome`, and jlink assembles that JDK's `jmods` without running it. See [universal macOS exports](../../build/export/desktop.md#universal-macos-exports) for where it looks.
+Runs `jlink` from the project's [Java toolchain](languages-and-toolchains.md#toolchainjavaversion) JDK. Replaces its output directory once its checks passed. The defaults target the host OS and architecture. On macOS, `generateEmbeddedJreArm64` and `generateEmbeddedJreAmd64` target one architecture each, so a universal export can bundle both. For an architecture other than `javaHome`'s, the task finds an installed JDK of that architecture and of the same major version as `javaHome`, and jlink assembles that JDK's `jmods` without running it. See [universal macOS exports](../../build/export/desktop.md#universal-macos-exports) for where it looks.
 
 Task type: `godot.gradle.tasks.GenerateEmbeddedJreTask`. These are task properties, not `godot { }` options; `tasks.withType` applies them to every architecture's task, `tasks.named` to one:
 
 | Property | Default | Effect |
 |---|---|---|
 | `modules` | `java.base`, `java.logging` | JDK modules included in the runtime |
-| `outputDir` | `jvm/jre-<amd64 or arm64>-<windows, linux or macos>` | Runtime directory |
+| `outputDir` | `jvm/jre-<amd64 or arm64>-<windows, linux or macos>` in [`godotProjectDirectory`](registration.md#godotprojectdirectory) | Runtime directory, a directory property: `outputDir = file("…")` |
 | `arguments` | `--strip-debug`, `--no-header-files`, `--no-man-pages` | Additional jlink arguments |
-| `javaHome` | `JAVA_HOME`, falling back to the Gradle JVM's `java.home` | JDK containing `bin/jlink`, and whose modules make up a host-architecture runtime |
+| `javaHome` | The installation of the project's Java toolchain | JDK containing `bin/jlink`, and whose modules make up a runtime of its own architecture |
 
 ```kotlin title="build.gradle.kts"
 import godot.gradle.tasks.GenerateEmbeddedJreTask

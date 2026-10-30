@@ -97,7 +97,7 @@
 "D.1" = { hash = "7bf9fcec4a09" }
 "D.1.1" = { status = "partial", note = "breaks D.1.R1: iOS builds require GraalVM for JDK 25" }
 "D.1.2" = { status = "done" }
-"D.2" = { hash = "06bc69bc0342" }
+"D.2" = { hash = "f9a214837fef" }
 "D.2.1" = { status = "done" }
 "D.2.2" = { status = "partial", note = "a project that does not list its languages, an editor-generated one included, enables all three and ships the Scala runtime library even without Scala sources" }
 "D.2.3" = { status = "done" }

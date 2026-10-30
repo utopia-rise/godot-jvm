@@ -1,8 +1,10 @@
 package godot.gradle.tasks
 
-import godot.tools.common.constants.Paths
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
@@ -10,7 +12,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 
-open class GenerateEmbeddedJreTask @Inject constructor(
+abstract class GenerateEmbeddedJreTask @Inject constructor(
     private val execOperations: ExecOperations,
     @get:Input val targetArch: String,
 ) : DefaultTask() {
@@ -21,11 +23,8 @@ open class GenerateEmbeddedJreTask @Inject constructor(
         "java.logging",
     )
 
-    @Input
-    var outputDir: String = "${Paths.GODOT_JVM_DIR}/jre-$targetArch-${hostOs()}"
-
-    @OutputDirectory
-    fun getJreOutputDirectory(): File = File(outputDir)
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
 
     @Input
     var arguments: Array<String> = arrayOf(
@@ -34,38 +33,42 @@ open class GenerateEmbeddedJreTask @Inject constructor(
         "--no-man-pages"
     )
 
-    @Input
-    var javaHome: String = System.getenv("JAVA_HOME") ?: System.getProperty("java.home")
+    @get:Input
+    abstract val javaHome: Property<String>
+
+    @get:Internal
+    abstract val gradleUserHome: Property<File>
 
     @TaskAction
     fun createJre() {
+        val javaHome = javaHome.get()
+        val outputDir = outputDir.get().asFile
         val jlink = File(javaHome, "bin/jlink${if (hostOs() == "windows") ".exe" else ""}")
         require(jlink.isFile) {
             "Cannot find 'jlink' at '${jlink.absolutePath}'. " +
-                "The configured java home ('$javaHome') must point to a JDK (not a JRE). " +
-                "Set it explicitly via 'tasks.withType<GenerateEmbeddedJreTask> { javaHome = \"/path/to/jdk\" }' " +
-                "or make sure JAVA_HOME points to a JDK."
+                "The java home ('$javaHome') must point to a JDK (not a JRE). It is the project's Java toolchain unless " +
+                "set explicitly via 'tasks.withType<GenerateEmbeddedJreTask> { javaHome = \"/path/to/jdk\" }'."
         }
 
-        val modulePathArguments = if (targetArch == hostArch()) {
+        val modulePathArguments = if (targetArch == (jdkArch(File(javaHome)) ?: hostArch())) {
             emptyArray()
         } else {
             try {
                 arrayOf("--module-path", File(findInstalledJdk(), "jmods").absolutePath)
             } catch (e: IllegalArgumentException) {
-                File(outputDir).takeIf { directory -> directory.list()?.isEmpty() == true }?.delete()
+                outputDir.takeIf { directory -> directory.list()?.isEmpty() == true }?.delete()
                 throw e
             }
         }
 
-        File(outputDir).deleteRecursively()
+        outputDir.deleteRecursively()
 
         execOperations.exec { spec ->
             spec.commandLine(
                 jlink.absolutePath,
                 *modulePathArguments,
                 "--add-modules", modules.joinToString(","),
-                "--output", outputDir,
+                "--output", outputDir.absolutePath,
                 *arguments,
             )
         }
@@ -77,18 +80,18 @@ open class GenerateEmbeddedJreTask @Inject constructor(
     }
 
     private fun findInstalledJdk(): File {
-        val hostJdk = File(javaHome)
+        val hostJdk = File(javaHome.get())
         val majorVersion = jdkMajorVersion(hostJdk)
         val searchDirectories = jdkSearchDirectories()
         val candidates = searchDirectories
             .flatMap { directory -> directory.listFiles()?.toList() ?: emptyList() }
-            .map(::jdkHome)
+            .mapNotNull(::jdkHome)
             .filter { home -> File(home, "jmods").isDirectory && jdkArch(home) == targetArch && jdkMajorVersion(home) == majorVersion }
         require(candidates.isNotEmpty()) {
             "No $targetArch JDK $majorVersion found. Searched: ${searchDirectories.joinToString(", ")}. " +
                 "Download the $targetArch JDK $majorVersion of your vendor and unpack it into one of these " +
                 "directories; jlink only reads it, so it does not need to run on this machine. The JDK running jlink is " +
-                "'$javaHome' (JAVA_HOME)."
+                "'${javaHome.get()}'."
         }
         val sameRelease = candidates.filter { home ->
             releaseProperty(home, "IMPLEMENTOR") == releaseProperty(hostJdk, "IMPLEMENTOR") &&
@@ -99,18 +102,21 @@ open class GenerateEmbeddedJreTask @Inject constructor(
         return jdk
     }
 
-    /** A JDK home for an installation directory entry: the directory itself or its platform-specific nesting. */
-    private fun jdkHome(installation: File): File {
-        return listOf(
-            installation,
-            File(installation, "Contents/Home"),
-            File(installation, "libexec/openjdk.jdk/Contents/Home"),
-        ).firstOrNull { home -> File(home, "release").isFile } ?: installation
+    /**
+     * The JDK home inside an installation directory: the directory itself, its macOS bundle layout, or the same one level
+     * down, where Gradle's provisioned JDKs keep their archive's root directory.
+     */
+    private fun jdkHome(installation: File): File? {
+        return (listOf(installation) + (installation.listFiles(File::isDirectory)?.sorted() ?: emptyList()))
+            .flatMap { directory ->
+                listOf(directory, File(directory, "Contents/Home"), File(directory, "libexec/openjdk.jdk/Contents/Home"))
+            }
+            .firstOrNull { home -> File(home, "release").isFile }
     }
 
     private fun jdkSearchDirectories(): List<File> {
         val userHome = File(System.getProperty("user.home"))
-        val hostInstallation = File(javaHome).let { home ->
+        val hostInstallation = File(javaHome.get()).let { home ->
             when {
                 home.name == "Home" && home.parentFile?.name == "Contents" -> home.parentFile.parentFile
                 else -> home
@@ -135,7 +141,7 @@ open class GenerateEmbeddedJreTask @Inject constructor(
                 System.getenv("ProgramFiles")?.let { programFiles -> File(programFiles, "Zulu") },
             )
         }
-        return (listOf(hostInstallation.parentFile, File(userHome, ".sdkman/candidates/java")) + platformDirectories)
+        return (listOf(hostInstallation.parentFile, gradleUserHome.get().resolve("jdks"), File(userHome, ".sdkman/candidates/java")) + platformDirectories)
             .filterNotNull()
             .filter(File::isDirectory)
             .distinct()

@@ -40,7 +40,7 @@ The export host does not determine which JRE is copied.
 
 Godot's macOS presets default to a **universal** binary, one that runs natively on both Apple Silicon (arm64) and Intel (x86_64) Macs. A JRE is native code too, so a universal export needs two of them: `jvm/jre-arm64-macos` and `jvm/jre-amd64-macos`. No vendor publishes a universal JDK, so each JRE is generated from a JDK of its own architecture.
 
-The second JDK does not need to run on your Mac. `jlink` builds a runtime by unpacking the module files (`jmods`) of the JDK you point it at, so a JDK for the other architecture only needs to be downloaded and unzipped. Install it with the vendor's package installer or place it anywhere on disk; it must be the same major version as the JDK you build with (`JAVA_HOME`).
+The second JDK does not need to run on your Mac. `jlink` builds a runtime by unpacking the module files (`jmods`) of the JDK you point it at, so a JDK for the other architecture only needs to be downloaded and unzipped. Install it with the vendor's package installer or place it anywhere on disk; it must be the same major version as the JDK you build with, the project's [Java toolchain](../../reference/gradle-plugin/languages-and-toolchains.md#toolchainjavaversion).
 
 On macOS the toolbar offers three operations:
 
@@ -50,9 +50,10 @@ On macOS the toolbar offers three operations:
 | **Generate JRE (x86_64)** | `generateEmbeddedJreAmd64` | `jvm/jre-amd64-macos` |
 | **Generate JRE (universal)** | both | both directories |
 
-For the architecture that is not your Mac's, the task looks for an installed JDK of that architecture and of the same major version as your `JAVA_HOME`, preferring the same vendor and release. It searches, in this order:
+For the architecture that is not the toolchain JDK's, the task looks for an installed JDK of that architecture and of the same major version, preferring the same vendor and release. It searches, in this order:
 
-- the directory containing your `JAVA_HOME` JDK, which covers sdkman, asdf, jabba and hand-made layouts
+- the directory containing the toolchain JDK, which covers sdkman, asdf, jabba and hand-made layouts
+- `~/.gradle/jdks`, where Gradle downloads toolchains
 - `~/.sdkman/candidates/java`
 - `/Library/Java/JavaVirtualMachines`, where package installers put JDKs
 - `~/Library/Java/JavaVirtualMachines`, where IntelliJ IDEA downloads JDKs

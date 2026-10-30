@@ -53,6 +53,8 @@ Rules:
 
 - the plugin rejects any value below JDK `17`
 - the value is applied to both the Java toolchain and the Kotlin JVM toolchain
+- the [embedded JRE](tasks.md#generateembeddedjre) is generated from the JDK this toolchain selects
+- the plugin sets only the version: a vendor set in `java { toolchain { vendor.set(...) } }` is kept, and applies to the embedded JRE too
 
 ## `toolchain.kotlinVersion`
 

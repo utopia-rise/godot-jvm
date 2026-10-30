@@ -35,7 +35,7 @@ fi
 
 probes=("$@")
 if [ ${#probes[@]} -eq 0 ]; then
-    probes=(reload rename build_on_run)
+    probes=(reload rename build_on_run embedded_jre)
 fi
 
 cd "$here"
