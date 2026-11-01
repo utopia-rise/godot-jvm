@@ -183,7 +183,7 @@ void JvmScriptManager::record_build_time(uint64_t p_time) {
 }
 
 bool JvmScriptManager::is_source_outdated(uint64_t p_source_modified_time) const {
-    return p_source_modified_time >= last_build_time;
+    return last_build_time == 0 || p_source_modified_time > last_build_time;
 }
 
 bool JvmScriptManager::is_user_code_outdated() const {
