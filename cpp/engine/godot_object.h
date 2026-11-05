@@ -33,7 +33,6 @@
 // would cost a guard-variable check on every single call instead.
 namespace engine {
     using namespace godot;
-    inline GDExtensionMethodBindPtr init_ref_bind = nullptr;
     inline GDExtensionMethodBindPtr reference_bind = nullptr;
     inline GDExtensionMethodBindPtr unreference_bind = nullptr;
     inline GDExtensionMethodBindPtr reference_count_bind = nullptr;
@@ -50,7 +49,6 @@ namespace engine {
     inline GDExtensionPtrConstructor callable_constructor = nullptr;
 
     inline void configure_core() {
-        init_ref_bind = RAW_GODOT_METHOD_BIND("RefCounted", "init_ref", 2240911060);
         reference_bind = RAW_GODOT_METHOD_BIND("RefCounted", "reference", 2240911060);
         unreference_bind = RAW_GODOT_METHOD_BIND("RefCounted", "unreference", 2240911060);
         reference_count_bind = RAW_GODOT_METHOD_BIND("RefCounted", "get_reference_count", 3905245786);
@@ -71,7 +69,6 @@ namespace engine {
         callable_constructor =
             godot::gdextension_interface::variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_CALLABLE, 2);
 
-        ERR_FAIL_NULL_MSG(init_ref_bind, "Failed to resolve RefCounted::init_ref.");
         ERR_FAIL_NULL_MSG(reference_bind, "Failed to resolve RefCounted::reference.");
         ERR_FAIL_NULL_MSG(unreference_bind, "Failed to resolve RefCounted::unreference.");
         ERR_FAIL_NULL_MSG(reference_count_bind, "Failed to resolve RefCounted::get_reference_count.");
@@ -129,22 +126,14 @@ namespace engine {
 
         // GDExtension equivalent of the engine-internal ClassDB::instantiate().
         //
-        // classdb_construct_object2() maps to ClassDB::instantiate_without_postinitialization(), and its contract in
-        // gdextension_interface.h is explicit: "NOTIFICATION_POSTINITIALIZE must be sent after construction."
-        // godot-cpp honours that in memnew() via Wrapped::_postinitialize(); we construct raw objects, so we send it
-        // ourselves. Skipping it leaves anything that sets itself up there half-initialized -- Control subclasses
-        // never build their theme item cache (control.cpp even warns to prefer NOTIFICATION_POSTINITIALIZE for theme
-        // items), so the first resize of a text-drawing control such as Label or Button crashes on it.
-        //
-        // When migrating to classdb_construct_object3 (ClassDB::instantiate_without_postinitialization_with_refcount):
-        //  - keep the notification. That variant also passes p_notify_postinitialize = false; the only thing it adds
-        //    is returning RefCounted instances already at refcount 1.
-        //  - drop the init_ref() call in JvmBindingManager::set_instance_binding(), which exists purely because
-        //    object2 hands back a genuinely-zero refcount. Keeping both would land the object at 2 and leak it.
-        // It is not reachable yet: godot-cpp's vendored gdextension_interface.h does not declare object3 at all, even
-        // though the engine implements it, so there is no gdextension_interface_classdb_construct_object3 to call.
+        // classdb_construct_object3() maps to ClassDB::instantiate_without_postinitialization_with_refcount(): a
+        // RefCounted comes back already at refcount 1, owned by the caller, and its contract in gdextension_interface.h
+        // is explicit: "NOTIFICATION_POSTINITIALIZE must be sent after construction." godot-cpp honours that in
+        // memnew() via Wrapped::_postinitialize(); we construct raw objects, so we send it ourselves. Skipping it
+        // leaves anything that sets itself up there half-initialized -- Control subclasses never build their theme item
+        // cache, so the first resize of a text-drawing control such as Label or Button crashes on it.
         _ALWAYS_INLINE_ static RawObject instantiate(const StringName& p_class_name) {
-            RawObject object = gdextension_interface::classdb_construct_object2(
+            RawObject object = gdextension_interface::classdb_construct_object3(
                 reinterpret_cast<GDExtensionConstStringNamePtr>(p_class_name._native_ptr())
             );
             if (unlikely(object.is_null())) { return RawObject(); }
@@ -296,8 +285,6 @@ namespace engine {
         _ALWAYS_INLINE_ void call_thread_safe(const StringName& p_method, const Args&... p_args) const {
             call_vararg(call_thread_safe_bind, p_method, p_args...);
         }
-
-        _ALWAYS_INLINE_ bool init_ref() const { return internal::_call_native_mb_ret<int8_t>(init_ref_bind, _ptr); }
 
         _ALWAYS_INLINE_ bool reference() const { return internal::_call_native_mb_ret<int8_t>(reference_bind, _ptr); }
 
