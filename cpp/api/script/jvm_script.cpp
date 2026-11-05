@@ -393,8 +393,13 @@ uint64_t JvmScript::get_last_source_modified_time() const {
     return last_source_modified_time;
 }
 
-void JvmScript::set_last_source_modified_time(uint64_t p_time) {
-    last_source_modified_time = p_time;
+const String& JvmScript::get_last_source_hash() const {
+    return last_source_hash;
+}
+
+void JvmScript::set_last_source(uint64_t p_modified_time, const String& p_hash) {
+    last_source_modified_time = p_modified_time;
+    last_source_hash = p_hash;
     update_source_sync_warning();
 }
 

@@ -14,6 +14,7 @@ object RegistrarGenerator {
         scriptClasses: List<ScriptClass>,
         sourceOutputDir: File,
         scriptClassIndexFile: File,
+        sourceHashes: Map<String, String>,
         registrationOutputDir: File? = null,
     ) {
         val registeredClasses = scriptClasses.filter { scriptClass -> scriptClass.isRegistered }
@@ -23,7 +24,7 @@ object RegistrarGenerator {
             registeredClassesByFqName = registeredClasses.associateBy { scriptClass -> scriptClass.fqName },
         )
         RegistrarClassGenerator(context, sourceOutputDir).generate(registeredClasses)
-        ScriptClassIndexBuilder(settings, scriptClassIndexFile).generate(registeredClasses)
+        ScriptClassIndexBuilder(settings, scriptClassIndexFile).generate(registeredClasses, sourceHashes)
         registrationOutputDir?.let { outputDir ->
             RegistrationFileBuilder(context, settings, outputDir).generate(registeredClasses)
         }

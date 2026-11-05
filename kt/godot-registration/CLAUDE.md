@@ -207,6 +207,7 @@ RegistrarGenerator.generateClassArtifacts(
     scriptClasses,
     sourceOutputDir,
     scriptClassIndexFile,
+    sourceHashes,
     registrationOutputDir,
 )
 ```
@@ -217,7 +218,8 @@ The generator writes:
 - The `META-INF/services/godot.registration.ClassRegistrar` service file.
 - `.gdj` registration files through `RegistrationFileGenerator`.
 - The script class index (`ScriptClassIndexBuilder`): registered name and global class base of every registered class
-  by fqName, which the editor reads when the debug jars are missing.
+  by fqName, which the editor reads when the debug jars are missing, and the MD5 of every compiled source by `res://`
+  path, which the editor compares before reporting a source modified since the last build.
 
 For one registrar, generation is effective-inherited rather than local-only:
 

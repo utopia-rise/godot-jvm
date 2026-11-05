@@ -15,16 +15,19 @@ class ScriptClassIndexBuilder(
     private val settings: Settings,
     private val outputFile: File,
 ) {
-    fun generate(registeredClasses: List<ScriptClass>) {
+    fun generate(registeredClasses: List<ScriptClass>, sourceHashes: Map<String, String>) {
         // Registered names, fully qualified names and Godot class names are identifiers, so nothing needs escaping.
-        val entries = registeredClasses
+        val classes = registeredClasses
             .sortedBy { registeredClass -> registeredClass.fqName }
             .joinToString(",\n") { registeredClass ->
                 val base = registeredClass.registeredSupertypes().firstOrNull()?.getRegisteredName(settings)
                     ?: registeredClass.baseGodotClassName()
-                """    "${registeredClass.fqName}": {"name": "${registeredClass.getRegisteredName(settings)}", "base": "$base"}"""
+                """        "${registeredClass.fqName}": {"name": "${registeredClass.getRegisteredName(settings)}", "base": "$base"}"""
             }
+        val sources = sourceHashes.toSortedMap().entries.joinToString(",\n") { (path, hash) ->
+            """        "${path.replace("\\", "\\\\").replace("\"", "\\\"")}": "$hash""""
+        }
         outputFile.parentFile?.mkdirs()
-        outputFile.writeText("{\n$entries\n}\n")
+        outputFile.writeText("{\n    \"classes\": {\n$classes\n    },\n    \"sources\": {\n$sources\n    }\n}\n")
     }
 }

@@ -174,25 +174,35 @@ void JvmScriptManager::update_all_scripts() {
     }
 }
 
-void JvmScriptManager::record_source_modified_time(uint64_t p_time) {
-    latest_source_modified_time = MAX(latest_source_modified_time, p_time);
+void JvmScriptManager::record_source(const String& p_path, uint64_t p_modified_time, const String& p_hash) {
+    source_versions[p_path] = {p_modified_time, p_hash};
 }
 
 void JvmScriptManager::record_build_time(uint64_t p_time) {
     last_build_time = MAX(last_build_time, p_time);
 }
 
-bool JvmScriptManager::is_source_outdated(uint64_t p_source_modified_time) const {
-    return last_build_time == 0 || p_source_modified_time > last_build_time;
+bool JvmScriptManager::is_source_outdated(const String& p_path, uint64_t p_modified_time, const String& p_hash) const {
+    if (last_build_time == 0) { return true; }
+    if (p_modified_time <= last_build_time) { return false; }
+    const HashMap<String, String>::ConstIterator built_hash = source_hashes.find(p_path);
+    return !built_hash || built_hash->value != p_hash;
 }
 
 bool JvmScriptManager::is_user_code_outdated() const {
-    return is_source_outdated(latest_source_modified_time)
-        || EditorInterface::get_singleton()->get_resource_filesystem()->is_scanning();
+    if (EditorInterface::get_singleton()->get_resource_filesystem()->is_scanning()) { return true; }
+    for (const KeyValue<String, SourceVersion>& source : source_versions) {
+        if (is_source_outdated(source.key, source.value.modified_time, source.value.hash)) { return true; }
+    }
+    return false;
 }
 
-void JvmScriptManager::set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index) {
+void JvmScriptManager::set_script_class_index(
+    const HashMap<StringName, IndexedScriptClass>& p_index,
+    const HashMap<String, String>& p_source_hashes
+) {
     script_class_index = p_index;
+    source_hashes = p_source_hashes;
     // Godot only asks for the global class of a script whose file changed, and a build leaves the sources untouched.
     update_all_scripts();
 }

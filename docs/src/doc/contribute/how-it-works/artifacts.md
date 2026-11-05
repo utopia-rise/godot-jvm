@@ -12,7 +12,7 @@ Debug and release artifacts live in separate directories so that neither can be 
 <godot project>/jvm/
   jre-<arch>-<os>/            embedded JRE, shared by both variants
   ios/ios-jdk/                iOS JDK static libraries, shared by both variants
-  script-classes.json         registered name and base of each class, written by every build
+  script-classes.json         registered name and base of each class and the hash of each source, written by every build
   debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>, dependencies/
   release/                    game.<jar|so|dll|dylib|a>, game-dex.jar, dependencies/
 ```
@@ -21,7 +21,9 @@ Debug and release artifacts live in separate directories so that neither can be 
 
 The editor and `template_debug` binaries load the debug variant, `template_release` binaries the release variant.
 
-`script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor reads it at startup and whenever the filesystem changes, and answers Godot's global class queries from it for a script whose class the editor's JVM did not load. Without the debug build, a release export therefore still packs a global class cache that names every JVM class. It is never exported.
+`script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor reads it at startup, whenever the filesystem changes, after each Gradle task it runs and when it gets the focus back, since a build that leaves the jars untouched rewrites only this file, which Godot does not report as a change. It answers Godot's global class queries from it for a script whose class the editor's JVM did not load. Without the debug build, a release export therefore still packs a global class cache that names every JVM class. It is never exported.
+
+A debug build also records in it the MD5 of every Kotlin, Java and Scala source it compiled, by `res://` path, and copies it only once the jars are written. A source newer than `usercode.jar` is reported as modified since the last build, by the node warning and by Build on Run, only when its content differs from that hash: Gradle leaves the jars untouched when no source content changed, so saving a file unchanged, `touch` or switching branches and back would otherwise flag it until the next real change. A release build records no hash, since the editor never loads the release jars, and the editor then compares modification times alone.
 
 ## godot-bootstrap
 

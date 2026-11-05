@@ -78,7 +78,7 @@ fun Project.createCopyDesktopJarsTask(
     val copyScriptClassIndexTask = registerCopyTask(
         name = "copyScriptClassIndex",
         description = "Internal task! Copies the script class index into the Godot-JVM output directory.",
-        dependsOnTasks = emptyList(),
+        dependsOnTasks = gameJarTasksByJarName.values.toList(),
         destination = godotJvmDestinationDir(),
     ) {
         from(generateRegistrarFilesTask.flatMap { task -> task.scriptClassIndexFile })
