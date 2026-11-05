@@ -206,10 +206,6 @@ bool KotlinLanguage::_is_using_templates() {
     return true;
 }
 
-Object* KotlinLanguage::_create_script() const {
-    return memnew(KotlinScript);
-}
-
 bool KotlinLanguage::_handles_global_class_type(const String& p_type) const {
     return p_type == GODOT_KOTLIN_SCRIPT_NAME;
 }

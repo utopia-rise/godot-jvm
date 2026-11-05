@@ -24,8 +24,6 @@ namespace godot {
         PackedStringArray _get_recognized_extensions() const override;
         bool _handles_global_class_type(const String& p_type) const override;
 
-        Object* _create_script() const override;
-
         bool _supports_builtin_mode() const override;
 
         PackedStringArray _get_reserved_words() const override;

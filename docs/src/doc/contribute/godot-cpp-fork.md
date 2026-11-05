@@ -6,6 +6,8 @@ description: Why Godot-JVM tracks a fork of godot-cpp on a dedicated branch, and
 
 The `godot-cpp` submodule tracks the `godot-jvm` branch of [utopia-rise/godot-cpp](https://github.com/utopia-rise/godot-cpp). Use this branch when making changes for Godot-JVM.
 
+The branch is rebased onto upstream godot-cpp releases, currently `10.0.0-stable`. Since version 10, godot-cpp is versioned apart from Godot and bundles the API of each Godot minor it supports. The build selects one with godot-cpp's `api_version` option, which `SConstruct` sets to the major.minor of `godot` in `kt/gradle/libs.versions.toml`; `scons api_version=...` overrides it.
+
 ## Why a fork
 
 Godot-JVM manages its own object bindings. The fork adapts godot-cpp's generated behavior to that ownership model. The later internals chapters explain the object lifecycle in detail.

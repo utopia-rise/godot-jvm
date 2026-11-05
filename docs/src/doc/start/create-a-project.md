@@ -70,7 +70,7 @@ The addon's native libraries and the JVM libraries the Gradle plugin builds with
 
 ## Check that the addon is loaded
 
-Open the project in Godot `4.7.2` or newer, then select **Project > Project Settings > GDExtension**. Confirm that `res://addons/jvm/jvm.gdextension` is listed and enabled.
+Open the project in Godot `4.7` or newer, then select **Project > Project Settings > GDExtension**. Confirm that `res://addons/jvm/jvm.gdextension` is listed and enabled.
 
 ![Installed Godot-JVM GDExtension](../assets/img/gdextension-installed.png)
 

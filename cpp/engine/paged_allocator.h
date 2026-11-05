@@ -32,7 +32,7 @@
 #pragma once
 
 #include <core/error_macros.hpp>
-#include <core/math.hpp>
+#include <core/math_funcs_binary.hpp>
 #include <core/memory.hpp>
 #include <templates/spin_lock.hpp>
 #include <type_traits>
@@ -120,9 +120,9 @@ namespace godot {
         // ever invoked internally right after that invariant is confirmed. Pure local integer
         // math, no interface calls.
         void _configure_unlocked(uint32_t p_page_size) {
-            page_size = nearest_power_of_2_templated(p_page_size);
+            page_size = Math::nearest_power_of_2_templated(p_page_size);
             page_mask = page_size - 1;
-            page_shift = get_shift_from_power_of_2(page_size);
+            page_shift = Math::get_shift_from_power_of_2(page_size);
         }
 
         void _reset(bool p_allow_unfreed) {

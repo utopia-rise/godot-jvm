@@ -11,7 +11,7 @@ concurrency:
 
 env:
   GODOT_JVM_VERSION: &godot_jvm_version ${{ github.sha }}
-  GODOT_VERSION: &godot_version 4.7.2-stable
+  GODOT_VERSION: &godot_version 4.7-stable
   JVM_VERSION: &jvm_version '17'
 
 jobs:

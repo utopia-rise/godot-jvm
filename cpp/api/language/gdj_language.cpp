@@ -109,10 +109,6 @@ bool GdjLanguage::_handles_global_class_type(const String& p_type) const {
     return p_type == GODOT_JVM_SCRIPT_NAME;
 }
 
-Object* GdjLanguage::_create_script() const {
-    return memnew(GdjScript);
-}
-
 bool GdjLanguage::_supports_builtin_mode() const {
     return false;
 }

@@ -22,11 +22,11 @@
         return sname;                                              \
     })()
 
-#define RAW_GODOT_METHOD_BIND(m_class, m_method, m_hash)            \
-    godot::internal::gdextension_interface_classdb_get_method_bind( \
-        godot::StringName(m_class)._native_ptr(),                   \
-        godot::StringName(m_method)._native_ptr(),                  \
-        m_hash                                                      \
+#define RAW_GODOT_METHOD_BIND(m_class, m_method, m_hash)   \
+    godot::gdextension_interface::classdb_get_method_bind( \
+        godot::StringName(m_class)._native_ptr(),          \
+        godot::StringName(m_method)._native_ptr(),         \
+        m_hash                                             \
     )
 
 // Engine entry points the JVM hot path uses, resolved once by configure() into plain globals. Function-local statics
@@ -59,17 +59,17 @@ namespace engine {
         is_class_bind = RAW_GODOT_METHOD_BIND("Object", "is_class", 3927539163);
         set_bind = RAW_GODOT_METHOD_BIND("Object", "set", 3776071444);
         set_script_bind = RAW_GODOT_METHOD_BIND("Object", "set_script", 1114965689);
-        variant_from_object = godot::internal::gdextension_interface_get_variant_from_type_constructor(
+        variant_from_object = godot::gdextension_interface::get_variant_from_type_constructor(
             GDEXTENSION_VARIANT_TYPE_OBJECT
         );
-        object_from_variant = godot::internal::gdextension_interface_get_variant_to_type_constructor(
+        object_from_variant = godot::gdextension_interface::get_variant_to_type_constructor(
             GDEXTENSION_VARIANT_TYPE_OBJECT
         );
         // Index 2 is the (Object, StringName) constructor of each — godot-cpp caches the same one as `constructor_2`.
         signal_constructor =
-            godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_SIGNAL, 2);
+            godot::gdextension_interface::variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_SIGNAL, 2);
         callable_constructor =
-            godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_CALLABLE, 2);
+            godot::gdextension_interface::variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_CALLABLE, 2);
 
         ERR_FAIL_NULL_MSG(init_ref_bind, "Failed to resolve RefCounted::init_ref.");
         ERR_FAIL_NULL_MSG(reference_bind, "Failed to resolve RefCounted::reference.");
@@ -144,7 +144,7 @@ namespace engine {
         // It is not reachable yet: godot-cpp's vendored gdextension_interface.h does not declare object3 at all, even
         // though the engine implements it, so there is no gdextension_interface_classdb_construct_object3 to call.
         _ALWAYS_INLINE_ static RawObject instantiate(const StringName& p_class_name) {
-            RawObject object = internal::gdextension_interface_classdb_construct_object2(
+            RawObject object = gdextension_interface::classdb_construct_object2(
                 reinterpret_cast<GDExtensionConstStringNamePtr>(p_class_name._native_ptr())
             );
             if (unlikely(object.is_null())) { return RawObject(); }
@@ -158,9 +158,7 @@ namespace engine {
         // objects afterwards; their free callback would then point into unmapped extension memory. None of this raw
         // API needs a wrapper.
         _ALWAYS_INLINE_ static RawObject from_instance_id(uint64_t p_instance_id) {
-            return internal::gdextension_interface_object_get_instance_from_id(
-                static_cast<GDObjectInstanceID>(p_instance_id)
-            );
+            return gdextension_interface::object_get_instance_from_id(static_cast<GDObjectInstanceID>(p_instance_id));
         }
 
         // The first half of Variant::operator Object*(), without the wrapper it then builds.
@@ -172,29 +170,27 @@ namespace engine {
 
         _ALWAYS_INLINE_ static uint64_t get_instance_id_from_variant(const Variant& p_variant) {
             if (p_variant.get_type() == Variant::OBJECT) {
-                return internal::gdextension_interface_variant_get_object_instance_id(p_variant._native_ptr());
+                return gdextension_interface::variant_get_object_instance_id(p_variant._native_ptr());
             }
             if (p_variant.get_type() == Variant::INT) { return static_cast<uint64_t>(static_cast<int64_t>(p_variant)); }
             return 0;
         }
 
         _ALWAYS_INLINE_ static RawObject get_singleton(const StringName& p_name) {
-            return internal::gdextension_interface_global_get_singleton(p_name._native_ptr());
+            return gdextension_interface::global_get_singleton(p_name._native_ptr());
         }
 
-        _ALWAYS_INLINE_ void destroy() const { internal::gdextension_interface_object_destroy(_ptr); }
+        _ALWAYS_INLINE_ void destroy() const { gdextension_interface::object_destroy(_ptr); }
 
         // --- identity ------------------------------------------------------------------------------------------
 
-        _ALWAYS_INLINE_ uint64_t get_instance_id() const {
-            return internal::gdextension_interface_object_get_instance_id(_ptr);
-        }
+        _ALWAYS_INLINE_ uint64_t get_instance_id() const { return gdextension_interface::object_get_instance_id(_ptr); }
 
         _ALWAYS_INLINE_ StringName get_class_name() const {
             StringName class_name;
-            internal::gdextension_interface_object_get_class_name(
+            gdextension_interface::object_get_class_name(
                 _ptr,
-                internal::library,
+                gdextension_interface::library,
                 static_cast<GDExtensionUninitializedStringNamePtr>(class_name._native_ptr())
             );
             return class_name;
@@ -236,26 +232,26 @@ namespace engine {
             const GDExtensionScriptInstanceInfo3* p_info,
             GDExtensionScriptInstanceDataPtr p_data
         ) {
-            return internal::gdextension_interface_script_instance_create3(p_info, p_data);
+            return gdextension_interface::script_instance_create3(p_info, p_data);
         }
 
         _ALWAYS_INLINE_ void set_script_instance(GDExtensionScriptInstancePtr p_script_instance) const {
-            internal::gdextension_interface_object_set_script_instance(_ptr, p_script_instance);
+            gdextension_interface::object_set_script_instance(_ptr, p_script_instance);
         }
 
         _ALWAYS_INLINE_ GDExtensionScriptInstanceDataPtr get_script_instance(GodotObject* p_language) const {
-            return internal::gdextension_interface_object_get_script_instance(_ptr, p_language);
+            return gdextension_interface::object_get_script_instance(_ptr, p_language);
         }
 
         _ALWAYS_INLINE_ void* get_instance_binding(
             void* p_token,
             const GDExtensionInstanceBindingCallbacks* p_callbacks
         ) const {
-            return internal::gdextension_interface_object_get_instance_binding(_ptr, p_token, p_callbacks);
+            return gdextension_interface::object_get_instance_binding(_ptr, p_token, p_callbacks);
         }
 
         _ALWAYS_INLINE_ void free_instance_binding(void* p_token) const {
-            internal::gdextension_interface_object_free_instance_binding(_ptr, p_token);
+            gdextension_interface::object_free_instance_binding(_ptr, p_token);
         }
 
         _ALWAYS_INLINE_ void call_method_bind(
@@ -265,14 +261,7 @@ namespace engine {
             GDExtensionVariantPtr r_return,
             GDExtensionCallError* r_error
         ) const {
-            internal::gdextension_interface_object_method_bind_call(
-                p_method_bind,
-                _ptr,
-                p_args,
-                p_arg_count,
-                r_return,
-                r_error
-            );
+            gdextension_interface::object_method_bind_call(p_method_bind, _ptr, p_args, p_arg_count, r_return, r_error);
         }
 
         // The unchecked variant of call_method_bind: arguments and return are the native types the bind declares, not
@@ -282,7 +271,7 @@ namespace engine {
             const GDExtensionConstTypePtr* p_args,
             GDExtensionTypePtr r_return
         ) const {
-            internal::gdextension_interface_object_method_bind_ptrcall(p_method_bind, _ptr, p_args, r_return);
+            gdextension_interface::object_method_bind_ptrcall(p_method_bind, _ptr, p_args, r_return);
         }
 
     private:

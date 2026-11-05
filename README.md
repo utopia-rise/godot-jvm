@@ -28,7 +28,7 @@ Godot-JVM 1.0.0 is production-ready. We welcome suggestions and feedback to keep
 
 ## Install
 
-Use Godot 4.7.2 or newer and JDK 17 or newer. Download the addon archive from the [GitHub releases page](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The resulting layout must contain `addons/jvm/jvm.gdextension`. Open the project with the release's minimum Godot version or newer.
+Use Godot 4.7 or newer and JDK 17 or newer. Download the addon archive from the [GitHub releases page](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The resulting layout must contain `addons/jvm/jvm.gdextension`. Open the project with the release's minimum Godot version or newer.
 
 ## Documentation
 

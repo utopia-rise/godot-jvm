@@ -8,7 +8,7 @@ description: Supported Godot, JDK and language versions, default toolchains, and
 
 | Requirement | Version |
 |---|---|
-| Godot | 4.7.2 or newer |
+| Godot | 4.7 or newer |
 | JDK | 17 or newer |
 | Default Java toolchain | 17 |
 

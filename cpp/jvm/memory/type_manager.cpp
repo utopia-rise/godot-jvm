@@ -68,7 +68,7 @@ uintptr_t TypeManager::get_method_bind_ptr(
     godot::StringName class_name = env.from_jstring(jni::JString(p_class_name));
     godot::StringName method_name = env.from_jstring(jni::JString(p_method_name));
 
-    GDExtensionMethodBindPtr bind = godot::internal::gdextension_interface_classdb_get_method_bind(
+    GDExtensionMethodBindPtr bind = godot::gdextension_interface::classdb_get_method_bind(
         class_name._native_ptr(),
         method_name._native_ptr(),
         hash

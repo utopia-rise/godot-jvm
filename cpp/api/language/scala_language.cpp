@@ -127,10 +127,6 @@ bool ScalaLanguage::_is_using_templates() {
     return true;
 }
 
-Object* ScalaLanguage::_create_script() const {
-    return memnew(ScalaScript);
-}
-
 bool ScalaLanguage::_handles_global_class_type(const String& p_type) const {
     return p_type == GODOT_SCALA_SCRIPT_NAME;
 }

@@ -19,7 +19,7 @@ ARGUMENTS.setdefault("lto", "none" if _is_dev_build else "full")
 target_path = ARGUMENTS.pop("target_path", None)
 target_name = ARGUMENTS.pop("target_name", "godot.jvm")
 
-env = SConscript("godot-cpp/SConstruct")
+env = SConscript("godot-cpp/SConstruct", {"api_version": generate_version.godot_api_version("kt/gradle/libs.versions.toml")})
 java_home = os.environ["JAVA_HOME"]
 
 # Generate templates when building the engine.
