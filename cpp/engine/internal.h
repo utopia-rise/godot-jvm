@@ -11,7 +11,6 @@
 namespace engine {
     using namespace godot;
 
-    void convert_property_to_c(const PropertyInfo& p_source, GDExtensionPropertyInfo* p_dest);
     GDExtensionMethodInfo* create_c_method_list(List<MethodInfo>* p_list_cpp, uint32_t* r_size);
     void free_c_method_list(GDExtensionMethodInfo* p_list, uint32_t p_count);
 

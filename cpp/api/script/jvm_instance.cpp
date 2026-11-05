@@ -257,7 +257,7 @@ GDExtensionBool JvmInstance::validate_property(
         const int arg_count = 1;
         const Variant* args[arg_count] = {&property_arg};
         function->invoke(env, kt_object, args, arg_count, ret_var);
-        engine::convert_property_to_c(PropertyInfo::from_dict(property_arg), p_property);
+        PropertyInfo::from_dict(property_arg)._update(p_property);
         return true;
     }
 
