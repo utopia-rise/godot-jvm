@@ -16,26 +16,12 @@ It is responsible for:
 
 Start with these files, in order:
 
-1. [`src/main/kotlin/godot/gradle/GodotPlugin.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/GodotPlugin.kt)  
-   Plugin entrypoint. Shows the top-level setup sequence and the exported settings model.
-
-2. [`src/main/kotlin/godot/gradle/GodotExtension.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/GodotExtension.kt)  
-   User-facing Gradle configuration. This is where defaults such as `RegisteredNameMode.SIMPLE_NAME` and `RegistrationFileLayoutMode.FLAT` are defined.
-
-3. [`src/main/kotlin/godot/gradle/projectExt/setupTasks.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/setupTasks.kt)  
-   The clearest map of the task workflow. This file is intentionally kept as a readable orchestration script.
-
-4. [`src/main/kotlin/godot/gradle/projectExt/setupConfigurationsAndCompilations.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/setupConfigurationsAndCompilations.kt)  
-   Defines main source-set dependencies, compiler flags, and the dedicated `bootstrap` configuration.
-   This is also where the `godot-jvm` dependencies, their capabilities and the build-type attribute are injected into the consumer project (see 1c below).
-
-5. [`src/main/kotlin/godot/gradle/projectExt/configureThirdPartyPlugins.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/configureThirdPartyPlugins.kt)  
-   Applies the supporting third-party plugins used by the build, such as Shadow, optional Scala support, and IDEA integration.
-
-6. [`src/main/kotlin/godot/gradle/projectExt/checkKotlinVersionCompatibility.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/checkKotlinVersionCompatibility.kt),
-   [`checkJdkVersionCompatibility.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/checkJdkVersionCompatibility.kt),
-   and [`checkScalaVersionCompatibility.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt/checkScalaVersionCompatibility.kt)  
-   Guard the configurable build versions and toolchain defaults exposed through `GodotExtension`.
+1. `src/main/kotlin/godot/gradle/GodotPlugin.kt`: plugin entry point, the top-level setup sequence.
+2. `src/main/kotlin/godot/gradle/GodotExtension.kt`: the user-facing `godot { }` block and its defaults.
+3. `src/main/kotlin/godot/gradle/projectExt/setupTasks.kt`: registers the shared tasks, one pipeline per build type, and joins them only in the tasks you run.
+4. `src/main/kotlin/godot/gradle/projectExt/pipeline.kt`: `registerSharedTasks` and `registerPipeline`, the map of every block.
+5. `src/main/kotlin/godot/gradle/projectExt/setupConfigurationsAndCompilations.kt`: source sets, configurations, the `godot-jvm` dependencies, their capabilities and the build-type attribute (see 1c below).
+6. `src/main/kotlin/godot/gradle/projectExt/configureThirdPartyPlugins.kt` and `checkVersionCompatibility.kt`: Shadow, Scala, IDEA integration, and the toolchain version guards.
 
 ## Mental Model
 
@@ -74,7 +60,7 @@ The first compilation step is the project's regular build:
 - `processResources`
 - `classes`
 
-Then the plugin builds an intermediary `user.jar` from that output and scans the full runtime classpath once.
+Then the shared registration scans the debug classes and their compile classpath once.
 
 The scan processor is intentionally narrow now:
 
@@ -82,11 +68,11 @@ The scan processor is intentionally narrow now:
 - it maps matching classes to `RegisteredClass`
 - it returns `List<RegisteredClass>`
 
-All naming and `.gdj` layout policy lives in the registrar-generation layer and is driven by [`Settings`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/Settings.kt).
+All naming and `.gdj` layout policy lives in the registrar-generation layer and is driven by [`Settings`](../../godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/Settings.kt).
 
 Performance intent:
 
-- scan once from the packaged user artifact plus runtime classpath
+- scan once, from the debug classes plus their compile classpath
 - keep the generation step cacheable from Gradle's point of view
 - keep Android, GraalVM, and iOS export tasks configuration-cache-safe by modeling them as typed tasks with declared inputs and outputs instead of `Project`-capturing `doFirst` / `doLast` actions
 - avoid separate metadata re-scan passes
@@ -94,87 +80,33 @@ Performance intent:
 
 ## Core Workflow
 
-The end-to-end workflow is:
+The task graph has three groups (`docs/src/doc/contribute/how-it-works/gradle-plugin.md` draws it):
 
-1. normal project compilation runs
-2. `packageUserJar` packages the regular `main` source set output into `user.jar`
-3. `registrarGenerationGenerateFiles` scans `user.jar` plus the runtime classpath, builds `RegisteredClass` instances, generates registrar sources/resources, and stages generated `.gdj` files under `build/generated/registrar-generation/registration`
-4. `registrarGenerationIndexExistingRegistrationFiles` scans the configured Godot project root for existing `.gdj` files and writes an index keyed by fqName
-5. `registrarGenerationSyncRegistrationFiles` syncs staged `.gdj` files by updating indexed matches in place, deleting obsolete indexed files, and copying new files into the configured registration directory
-6. `registrarGenerationJar` compiles generated registrar code into its own intermediary jar
-7. `packageBootstrapJar` builds `godot-bootstrap.jar` into `build/libs/<debug|release>/`
-8. `packageUserCodeJar` builds `usercode.jar` next to it, merging in the generated-registrar jar
-9. release builds only: `packageReleaseJar` merges both into `game.jar`
-10. Android and Graal tasks derive export artifacts from the packaged jars of the variant
-11. the copy tasks write everything into `<godotProject>/jvm/<debug|release>/`
+1. **Shared tasks**, registered once by `registerSharedTasks`: `project/` (`generateGdIgnoreFiles`, `checkIgnoredScriptSources`), `api/` (`generateCustomApiSources` once, then per build type the published `api` jar or `packageCustomApiJar[Release]`, chosen by `registerGodotApi`), `registration/` (scan, `.gdj` sync, the one registrar jar, `copyScriptClassIndex` to `jvm/editor/`), `dependencies/` (`syncSplitDependencies` to `jvm/dependencies/`, with the `split-dependencies.txt` list `writeSplitDependencyList` writes for exports), and the tools of `android/`, `graal/` and `ios/`.
+2. **One pipeline per build type**, registered by the same `registerPipeline(buildType, shared)`: `bootstrap/`, `usercode/` (debug: `hashSources` and `copyUserCode`, which copies the hashes and `usercode.jar` together), `game/` (release only), and the platform tasks of `android/`, `graal/` and `ios/`. A pipeline uses nothing of the other build type.
+3. **The tasks you run** (`setupTasks.kt`): `build` runs the debug pipeline and the shared tasks, `fastBuild` only the debug `copyUserCode`, `buildRelease` is `build` plus the release desktop copy, and each platform task is `build` or `buildRelease` plus its platform copy.
 
-When `godot.isLibrary` is `true`, this whole runtime pipeline is skipped after normal JVM compilation and the plain `jar` task becomes the final artifact.
+`BuildType.named` suffixes release task and configuration names with `Release`; `libsDirectory` and `sourceSet` select a build type's directories and source set.
 
-The main split is now:
+Every block has its own package under `tasks/`: task classes (`XxxTask.kt`, typed inputs and outputs, no `Project` access) apart from the file that registers and wires them (`<block>Tasks.kt`). Copies into the Godot project go through `tasks/copy/`: `CopyIntoGodotProjectTask` for files, which rewrites all its files when any changes, and `SyncIntoGodotProjectTask` for directories the plugin owns, overwriting in place and warning when a dropped file is locked.
 
-- scan + generate in `registrarGenerationGenerateFiles`
-- index existing `.gdj` files in `registrarGenerationIndexExistingRegistrationFiles`
-- sync staged `.gdj` files in `registrarGenerationSyncRegistrationFiles`
-- compile generated sources in `registrarGenerationJar`
+When `godot.isLibrary` is `true`, none of this is registered: only the custom API tasks remain and the plain `jar` task is the final artifact.
 
 ## Important Artifacts
 
-### `user.jar`
-
-Defined by:
-[`tasks/packaging/packageUserJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageUserJarTask.kt)
-
-- intermediary artifact
-- built from normal `main` source set output
-- used as the current-project scan root
-- not the final runtime jar
-
-### Generated registrar output
-
-Produced by:
-[`tasks/registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt)
-
-- generated Kotlin registrar sources under `build/generated/registrar-generation`
-- generated service metadata under `build/generated/registrar-generation/resources/META-INF/services`
-- staged `.gdj` files under `build/generated/registrar-generation/registration`
-- `build/.gdignore` is created so Godot does not index generated build output
-
-### `game.jar`
-
-Defined by:
-[`tasks/packaging/packageReleaseJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageReleaseJarTask.kt)
-
-- release builds only (`Project.isRelease`, a whole-invocation flag derived from the tasks requested from the root build, so included builds follow it, or `-Prelease`)
-- `godot-bootstrap.jar` and `usercode.jar` merged with Shadow, service files merged, one class loader at runtime
-- the debug pair is never produced in a release invocation because the release runtime libraries are on the classpath then
-
-### `bootstrap.jar`
-
-Defined by:
-[`tasks/packaging/packageBootstrapJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageBootstrapJarTask.kt)
-
-- built from the dedicated `bootstrap` configuration
-- contains runtime/bootstrap glue code
-- merges service files, so dependencies registering the same `ServiceLoader` service all stay registered
-- does not package user project classes
-
-### `usercode.jar`
-
-Defined by:
-[`tasks/packaging/packageUserCodeJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageUserCodeJarTask.kt)
-
-- final packaged runtime jar
-- built from `shadowJar`
-- merges in the generated-registrar jar
-- merges service files so runtime `ServiceLoader` discovery works
+- **Generated registrar output** (`tasks/registration/`): registrar sources under `build/generated/registrar-generation`, service metadata under its `resources/META-INF/services`, staged `.gdj` files under its `registration/`, and the class index under `build/generated/registrar-generation-index/`.
+- **`godot-bootstrap.jar`** (`tasks/bootstrap/`): the `bootstrap` configuration and the runtime classpath, service files merged, no user classes; its `Class-Path` lists the split jars as `../dependencies/`.
+- **`usercode.jar`** (`tasks/usercode/`): `packageUserCodeJar` (`packageUserCodeJarRelease`), the user classes, the registrar jar and the `godotGame*` dependencies, service files merged. The Shadow plugin's own `shadowJar` is disabled.
+- **`game.jar`** (`tasks/game/`): release only, both release jars merged with Shadow, one class loader at runtime.
+- **`jvm/editor/`**: `script-classes.json` and `source-hashes.json`, read by the editor only, reloaded with the debug `usercode.jar`.
 
 ## Settings That Matter
 
 The shared registrar-generation settings now live in:
 
-- [`Settings.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/Settings.kt)
-- [`RegisteredNameMode.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/RegisteredNameMode.kt)
-- [`RegistrationFileLayoutMode.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/RegistrationFileLayoutMode.kt)
+- [`Settings.kt`](../../godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/Settings.kt)
+- [`RegisteredNameMode.kt`](../../godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/RegisteredNameMode.kt)
+- [`RegistrationFileLayoutMode.kt`](../../godot-registration/godot-registrar-generator/src/main/kotlin/godot/registrar/generator/settings/RegistrationFileLayoutMode.kt)
 
 Important behavior:
 
@@ -199,60 +131,6 @@ Important behavior:
 - newly created files from external projects go under `<registrationBaseDir>/<sourceProjectName>/...`
 - hierarchical mode only changes the package subpath inside that project directory
 
-## Core Directories
-
-### [`src/main/kotlin/godot/gradle/projectExt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/projectExt)
-
-Project-level setup.
-
-- `setupConfigurationsAndCompilations.kt`: dependencies, compiler flags, bootstrap configuration
-- `setupTasks.kt`: workflow order and task graph
-- `configureThirdPartyPlugins.kt`: Shadow, optional Scala support, IDEA integration
-- `checkJdkVersionCompatibility.kt`: applies and validates the Java/Kotlin toolchain version
-- `checkKotlinVersionCompatibility.kt`: applies and validates the Kotlin Gradle plugin version
-- `checkScalaVersionCompatibility.kt`: validates the configured Scala language version
-- `versionComparison.kt`: shared semantic-ish version comparison helper for Kotlin and Scala guards
-
-### [`src/main/kotlin/godot/gradle/tasks/registrar_generation`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation)
-
-Registrar-generation and generated-artifact pipeline.
-
-Important files:
-
-- [`ClassGraphGenerateRegistrarFilesTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt)  
-  Cacheable task that packages scan settings, calls the scan processor, generates registrar files, and stages `.gdj` files.
-
-- [`ClassGraphIndexExistingRegistrationFilesTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation/ClassGraphIndexExistingRegistrationFilesTask.kt)  
-  Cacheable task that scans the configured Godot project and records the current `.gdj` ownership map by fqName.
-
-- [`ClassGraphUpdateRegistrationFilesTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation/ClassGraphUpdateRegistrationFilesTask.kt)  
-  Applies staged `.gdj` files by updating existing project files in place, deleting obsolete indexed files, and copying new ones into the registration directory.
-
-- [`classGraphGeneratedRegistrarJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/registrar_generation/classGraphGeneratedRegistrarJarTask.kt)  
-  Compiles generated registrar sources into a reusable jar.
-
-### [`src/main/kotlin/godot/gradle/tasks/packaging`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging)
-
-Jar packaging and copy tasks.
-
-- `packageUserJarTask.kt`
-- `packageBootstrapJarTask.kt`
-- `packageUserCodeJarTask.kt`
-- `copyJarsTask.kt`
-- `generateGdIgnoreFilesTask.kt`
-
-### [`src/main/kotlin/godot/gradle/tasks/android`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/android)
-
-Android export pipeline built from `godot-bootstrap.jar` and `usercode.jar`, or from `game.jar` in release builds.
-
-### [`src/main/kotlin/godot/gradle/tasks/graal`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/graal)
-
-GraalVM and iOS export pipeline built from the packaged jars.
-
-### [`src/main/kotlin/godot/gradle/tasks/lifecycle`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/lifecycle)
-
-User-facing lifecycle wiring such as build, clean, and IDEA sync follow-up tasks.
-
 ## What Is Easy To Get Wrong
 
 ### 1. Adding a separate compile pipeline
@@ -261,11 +139,10 @@ Do not casually add a second dedicated scan compilation path.
 
 Design intent:
 
-- compile user code once via the normal project pipeline
-- package that output into `user.jar`
-- scan that artifact plus the runtime classpath once
+- compile user code once per build type via the normal project pipeline
+- scan the debug classes plus their compile classpath once
 
-If you add a second compilation path, make sure you actually want to pay the extra build cost.
+If you add a second compilation path, make sure you actually want to pay the extra build cost. The `release` source set is the one exception: release user code must be compiled against the release libraries, but it is never scanned; both build types share the registrar output of the debug scan.
 
 ### 1b. Mixing up stable version constants and publish coordinates
 
@@ -280,11 +157,11 @@ Using the Godot-JVM version for published artifact coordinates will break snapsh
 
 The consumer project only ever gets capabilities of `com.utopia-rise:godot-jvm` (`godotJvmDependency(module)` in `projectExtensions.kt`):
 
-- `core`, `extension` and `bootstrap` on `compileOnly` and `bootstrap`; their variants bring `common`, and `internal` at runtime only
-- `internal` and `core` on `customGodotApiImplementation`, since the generated API compiles against `internal`
-- `api` on `compileOnly` and `bootstrap`, unless `isCustomApiEnabled`, in which case the locally generated API jar replaces it
+- `core`, `extension` and `bootstrap` on `compileOnly` and `bootstrap`/`bootstrapRelease`; their variants bring `common`, and `internal` at runtime only
+- `internal` and `core` on `customApiImplementation` and `customApiReleaseImplementation`, since the generated API compiles against `internal`
+- `api` on `godotApi`/`godotApiRelease`, which the source set's compile classpath and the bootstrap configuration of the same build type extend, added by `registerGodotApi` in `tasks/api/`, unless `isCustomApiEnabled`, in which case the locally generated API jar of that build type replaces it
 - `coroutine` on `implementation` when `isGodotCoroutinesEnabled`
-- `com.utopia-rise.godot.build-type` (`debug`, or `release` when `isRelease`) on every resolvable configuration, which selects the variant
+- `com.utopia-rise.godot.build-type` `debug` on every resolvable configuration, `release` on the release source set's classpaths and the plugin's release configurations, which selects the variant
 
 A module's own dependencies, such as kotlinx-coroutines for `coroutine`, come from the variant metadata published with `godot-jvm`. Never add them here. The same rule applies to the plugin's own build: it depends on the `tools-common`, `api-generator`, `class-graph-symbol-processor`, `registration-model` and `registrar-generator` capabilities, whose variants bring their third-party dependencies and the library modules they use.
 
@@ -326,7 +203,7 @@ That is now the important ownership signal for:
 
 ### 6. Accidentally defeating task caching
 
-`registrarGenerationGenerateFiles` is intentionally modeled as a cacheable generation step.
+`generateRegistrars` is intentionally modeled as a cacheable generation step.
 
 Be careful when changing:
 
@@ -360,7 +237,7 @@ When you change export tasks, think in terms of exact file boundaries and exact 
 
 Prefer the smallest verification step that proves the change.
 
-Useful commands from the monorepo root (`D:\Godot\Module\kotlin\modules\kotlin_jvm`):
+Useful commands from `kt/`:
 
 ```powershell
 .\gradlew.bat :godot-gradle-plugin:compileKotlin
@@ -372,9 +249,9 @@ When you touch Android, GraalVM, or iOS export tasks, also verify configuration-
 
 ```powershell
 cd D:\Godot\projects\godot-kotlin-3d-demo
-.\gradlew.bat createMainDexFile --no-daemon --configuration-cache
-.\gradlew.bat createGraalNativeImage --no-daemon --configuration-cache
-.\gradlew.bat createIOSStaticLibrary --no-daemon --configuration-cache
+.\gradlew.bat dexUserCode --no-daemon --configuration-cache
+.\gradlew.bat compileNativeImage --no-daemon --configuration-cache
+.\gradlew.bat packageIOSStaticLibrary --no-daemon --configuration-cache
 ```
 
 The Android and Graal commands should finish with `Configuration cache entry stored.`.
@@ -393,7 +270,7 @@ For registrar-generation changes, verify the task pipeline explicitly from a har
 
 ```powershell
 cd D:\Godot\Module\kotlin\modules\kotlin_jvm\harness\tests
-.\gradlew.bat packageUserJar registrarGenerationGenerateFiles registrarGenerationIndexExistingRegistrationFiles registrarGenerationSyncRegistrationFiles registrarGenerationJar --rerun-tasks --no-build-cache
+.\gradlew.bat packageUserJar generateRegistrars indexGdjFiles syncGdjFiles packageRegistrarJar --rerun-tasks --no-build-cache
 ```
 
 When you are touching `.gdj` logic, also inspect the registration directory afterward rather than trusting task success alone.

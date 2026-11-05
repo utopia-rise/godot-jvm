@@ -19,7 +19,7 @@ Producing the debug and release builds with Gradle is D.3.
 - **E.2.R1**: An export packs the artifacts of its own variant only, never those of the other variant or of another platform.
 - **E.2.R2**: A debug export template loads only the debug build and a release export template only the release build.
 - **E.2.R3**: An exported game carries compiled code only; a script file is exported as a reference to its class.
-- **E.2.R4**: An export needs only the build of its own variant: nothing it packs, the global class names of JVM scripts included, depends on a build of the other variant.
+- **E.2.R4**: A release build depends on the debug build: it always builds the debug variant first, so that a release export finds everything it packs, the global class names of JVM scripts included.
 
 ## Non-goals
 - **E.2.N1**: Exported games do not reload their JVM code.

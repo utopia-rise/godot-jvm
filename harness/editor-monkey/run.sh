@@ -35,14 +35,14 @@ fi
 
 probes=("$@")
 if [ ${#probes[@]} -eq 0 ]; then
-    probes=(reload rename build_on_run embedded_jre)
+    probes=(reload rename build_on_run build_model embedded_jre)
 fi
 
 cd "$here"
 status=0
 for probe in "${probes[@]}"; do
     # Back to a bare Godot project: only the addon stays, the probe generates the JVM project from the editor.
-    rm -rf .godot .gradle .kotlin build jvm gdj src addons gradle gradlew gradlew.bat build.gradle.kts settings.gradle.kts gradle.properties .gitattributes godot_jvm_configuration.json main.tscn
+    rm -rf .godot .gradle .kotlin build jvm gdj src scripts addons gradle gradlew gradlew.bat build.gradle.kts settings.gradle.kts gradle.properties .gitattributes godot_jvm_configuration.json main.tscn
     "$here/copy_addon.sh"
 
     log="$probe.log"

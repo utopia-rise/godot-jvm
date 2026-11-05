@@ -13,6 +13,8 @@
 #include <classes/editor_interface.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
+#include <classes/json.hpp>
+#include <variant/dictionary.hpp>
 #include <variant/utility_functions.hpp>
 
 using namespace godot;
@@ -101,7 +103,6 @@ void JvmScriptManager::update_script(JvmScript* p_script, KtClass* p_kotlin_clas
 
 void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 #ifdef TOOLS_ENABLED
-    record_build_time(FileAccess::get_modified_time(String(RES_DIRECTORY).path_join(USER_CODE_FILE)));
     registered_name_to_script.clear();
     fqdn_to_class_index.clear();
 
@@ -174,27 +175,17 @@ void JvmScriptManager::update_all_scripts() {
     }
 }
 
-void JvmScriptManager::record_source_modified_time(uint64_t p_time) {
-    latest_source_modified_time = MAX(latest_source_modified_time, p_time);
-}
-
-void JvmScriptManager::record_build_time(uint64_t p_time) {
-    last_build_time = MAX(last_build_time, p_time);
-}
-
-bool JvmScriptManager::is_source_outdated(uint64_t p_source_modified_time) const {
-    return last_build_time == 0 || p_source_modified_time > last_build_time;
-}
-
-bool JvmScriptManager::is_user_code_outdated() const {
-    return is_source_outdated(latest_source_modified_time)
-        || EditorInterface::get_singleton()->get_resource_filesystem()->is_scanning();
-}
-
-void JvmScriptManager::set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index) {
-    script_class_index = p_index;
-    // Godot only asks for the global class of a script whose file changed, and a build leaves the sources untouched.
-    update_all_scripts();
+void JvmScriptManager::load_script_class_index() {
+    script_class_index.clear();
+    const String path = String(RES_DIRECTORY) + SCRIPT_CLASS_INDEX_FILE;
+    Variant json = FileAccess::file_exists(path) ? JSON::parse_string(FileAccess::get_file_as_string(path)) : Variant();
+    if (json.get_type() == Variant::DICTIONARY) {
+        Dictionary classes = json;
+        for (const String fqdn : classes.keys()) {
+            Dictionary entry = classes[fqdn];
+            script_class_index[fqdn] = {entry["name"], entry["base"]};
+        }
+    }
 }
 
 IndexedScriptClass JvmScriptManager::get_indexed_script_class(const JvmScript* p_script) const {

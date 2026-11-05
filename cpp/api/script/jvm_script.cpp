@@ -389,15 +389,6 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
     }
 }
 
-uint64_t JvmScript::get_last_source_modified_time() const {
-    return last_source_modified_time;
-}
-
-void JvmScript::set_last_source_modified_time(uint64_t p_time) {
-    last_source_modified_time = p_time;
-    update_source_sync_warning();
-}
-
 void JvmScript::update_source_sync_warning() {
     for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
         engine::RawObject owner = placeholder->owner;

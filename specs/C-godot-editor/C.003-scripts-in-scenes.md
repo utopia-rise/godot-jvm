@@ -14,3 +14,4 @@ Which properties are exported and how the Inspector shows them is A.3.
 ## Rules
 - **C.3.R1**: A node never loses the values set on its script because the class is missing, not built yet or stale.
 - **C.3.R2**: A saved scene stores only the property values that differ from the defaults of the class.
+- **C.3.R3**: A script counts as modified since the last build only when its content differs from the sources the code the editor runs was built from.

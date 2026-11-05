@@ -165,6 +165,7 @@ nav:
       - How it works:
           - Where to start: contribute/how-it-works/index.md
           - The three build artifacts: contribute/how-it-works/artifacts.md
+          - The Gradle plugin: contribute/how-it-works/gradle-plugin.md
           - Memory management: contribute/how-it-works/memory-management.md
           - The JNI shared buffers: contribute/how-it-works/shared-buffer.md
           - Registration pipeline: contribute/how-it-works/registration-pipeline.md

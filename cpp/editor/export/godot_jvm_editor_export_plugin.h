@@ -4,6 +4,7 @@
 #include <classes/editor_export_platform.hpp>
 #include <classes/editor_export_plugin.hpp>
 #include <templates/hash_map.hpp>
+#include <variant/packed_string_array.hpp>
 
 namespace godot {
     class GodotJvmEditorExportPlugin : public EditorExportPlugin {
@@ -47,6 +48,7 @@ namespace godot {
         // Set by _export_begin for the current export, since _export_file is only given the export features.
         bool exporting_jvm_runtime = true;
         bool exporting_debug = true;
+        PackedStringArray exported_dependencies;
 
         int selected_runtime() const;
         void report_export_error(const String& p_message) const;

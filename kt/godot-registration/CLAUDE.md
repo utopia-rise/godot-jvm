@@ -17,7 +17,7 @@ The directory groups three Gradle modules:
 - `godot-registrar-generator`
 
 Each is published as its own jar in the `godot-jvm` GAV; the Gradle plugin depends on them and calls them from
-`plugins/godot-gradle-plugin/.../registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt`.
+`plugins/godot-gradle-plugin/.../registration/ClassGraphGenerateRegistrarFilesTask.kt`.
 
 ## Pipeline
 

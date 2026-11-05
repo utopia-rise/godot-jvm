@@ -45,6 +45,7 @@ namespace godot {
 
         GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
         bool displayed_bootstrap_outdated = false;
+        bool displayed_roots_added = false;
 
         // The native library cannot be reloaded, so a replaced addon only takes effect once the editor restarts.
         uint64_t addon_manifest_time = 0;

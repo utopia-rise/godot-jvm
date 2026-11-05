@@ -272,7 +272,7 @@ work dominates it.
 No task makes the exports yet. These were made by hand:
 
 1. Build the native library with `scons platform=macos target=template_release`, then in this project
-   `./gradlew syncAddon build -Prelease generateEmbeddedJre`.
+   `./gradlew syncAddon buildRelease generateEmbeddedJre`.
 2. Copy the project, add a macOS preset (universal, a bundle identifier) and set
    `rendering/textures/vram_compression/import_etc2_astc=true`, which a universal export requires. Leave out the
    Godot-JVM addon, `src/` and `jvm/` for the C# and GDScript exports, and `cs/` for the Kotlin and GDScript ones.

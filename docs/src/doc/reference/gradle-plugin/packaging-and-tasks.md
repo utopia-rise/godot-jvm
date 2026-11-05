@@ -31,7 +31,7 @@ When enabled, the plugin generates and compiles a local binding jar, compiles us
 
 Generation covers engine classes and the runtime classes of GDExtensions. Editor-only classes, from the engine or from a GDExtension, are not generated, as with the published API library.
 
-Custom generation only produces the API-layer classes. The maintained core types and helpers, including `Object`, `RefCounted`, signals, callables, connectors, and coroutine support, remain the published versions. `generateCustomGodotApi`, its compilation, and `customGodotApiJar` use declared Gradle inputs and outputs. An unchanged `api.json` is therefore up to date and can be restored from the Gradle build cache. `packageBootstrapJar` also remains up to date while its binding jar and other inputs are unchanged.
+Custom generation only produces the API-layer classes. The maintained core types and helpers, including `Object`, `RefCounted`, signals, callables, connectors, and coroutine support, remain the published versions. `generateCustomApiSources`, its compilation, and `packageCustomApiJar` use declared Gradle inputs and outputs. An unchanged `api.json` is therefore up to date and can be restored from the Gradle build cache. `packageBootstrapJar` also remains up to date while its binding jar and other inputs are unchanged.
 
 This consumer task is separate from the API generator plugin's existing `generateAPI` task used by Godot-JVM maintainers to regenerate the published libraries.
 
@@ -91,11 +91,13 @@ dependencies {
 - `godotGameImplementation` merges the dependency into `usercode.jar` (into `game.jar` in release
   builds). Use it when the library must load user-code classes or be recreated with editor reloads.
 - `godotSplitImplementation` preserves the dependency as a separate JAR in
-  `res://jvm/<variant>/dependencies/`, on the class path of `godot-bootstrap.jar` (of `game.jar` in
+  `res://jvm/dependencies/`, shared by both build types, on the class path of `godot-bootstrap.jar` (of `game.jar` in
   release builds), so it is loaded once like `implementation` dependencies and a change to it needs an
   editor restart. Use it for signed JARs or libraries that cannot be merged safely.
-  Only desktop JVM runs keep the JAR intact: native images compile it into `game` and Android dexes
-  it into the dex JAR, because neither runtime can load a JAR.
+  Only desktop JVM exports keep the JAR intact. Android dexes it into `godot-bootstrap-dex.jar`
+  (`game-dex.jar` in release builds), and native images, iOS included, compile it into the image,
+  because neither runtime can load a JAR: on those platforms the dependency behaves like an
+  `implementation` one and a JAR signature is not kept.
 
 Both configurations are available while compiling and testing, but neither is merged into
 `godot-bootstrap.jar`.

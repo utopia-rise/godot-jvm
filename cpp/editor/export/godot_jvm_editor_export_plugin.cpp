@@ -172,10 +172,6 @@ static PackedStringArray android_jars(const bool p_debug) {
     return {String(RES_DIRECTORY) + ANDROID_RELEASE_USER_CODE_FILE};
 }
 
-static String dependencies_directory(const bool p_debug) {
-    return String(RES_DIRECTORY) + (p_debug ? DEBUG_DEPENDENCIES_DIRECTORY : RELEASE_DEPENDENCIES_DIRECTORY);
-}
-
 static String ios_archive(const bool p_debug) {
     return String(RES_DIRECTORY)
          + (p_debug ? IOS_DEBUG_GRAAL_NATIVE_IMAGE_ARCHIVE : IOS_RELEASE_GRAAL_NATIVE_IMAGE_ARCHIVE);
@@ -403,6 +399,13 @@ void GodotJvmEditorExportPlugin::_export_begin(
     // Read back by _export_file, which is only given the export features.
     exporting_jvm_runtime = runtime == RUNTIME_JVM;
     exporting_debug = p_debug;
+    exported_dependencies.clear();
+    const String dependency_list = String(RES_DIRECTORY) + SPLIT_DEPENDENCY_LIST_FILE;
+    if (FileAccess::file_exists(dependency_list)) {
+        for (const String& jar : FileAccess::get_file_as_string(dependency_list).split("\n", false)) {
+            exported_dependencies.push_back(String(RES_DIRECTORY) + DEPENDENCIES_DIRECTORY + jar.strip_edges());
+        }
+    }
 
     // Missing files do not stop the export, so every one of them is reported; the summary below says the package
     // is incomplete.
@@ -599,11 +602,11 @@ void GodotJvmEditorExportPlugin::_export_file(
     excluded = excluded || (android && p_path == "res://addons/jvm/jvm.gdextension");
     if (!excluded && p_path.begins_with(String(RES_DIRECTORY) + JVM_DIRECTORY)) {
         // res://jvm/ holds the artifacts of every platform and variant: desktop and Android jars, native images
-        // and embedded JREs. JVM exports need the runtime jars of the exported variant and, on desktop, its intact
-        // dependency jars; the native image is added explicitly by _export_begin and everything else must
-        // stay out.
+        // and embedded JREs. JVM exports need the runtime jars of the exported variant and, on desktop, the intact
+        // dependency jars the build lists; the native image is added explicitly by _export_begin and everything else,
+        // that list included, must stay out.
         PackedStringArray jars = android ? android_jars(exporting_debug) : desktop_jars(exporting_debug);
-        const bool dependency_jar = !android && p_path.begins_with(dependencies_directory(exporting_debug));
+        const bool dependency_jar = !android && exported_dependencies.has(p_path);
         excluded = p_features.has("ios") || !exporting_jvm_runtime || (!dependency_jar && !jars.has(p_path));
     }
     if (excluded) {

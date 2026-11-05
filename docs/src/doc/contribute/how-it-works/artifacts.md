@@ -6,22 +6,27 @@ description: The Godot-JVM library, godot-bootstrap, usercode.jar, the merged re
 
 The build separates the bindings, bootstrap runtime, and user code. Release builds merge them into one JAR, and GraalVM combines them into a native artifact for ahead-of-time execution.
 
-Debug and release artifacts live in separate directories so that neither can be mistaken for the other:
+Debug and release artifacts live in separate directories so that neither can be mistaken for the other, next to the few files both share:
 
 ```
 <godot project>/jvm/
   jre-<arch>-<os>/            embedded JRE, shared by both variants
   ios/ios-jdk/                iOS JDK static libraries, shared by both variants
-  script-classes.json         registered name and base of each class, written by every build
-  debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>, dependencies/
-  release/                    game.<jar|so|dll|dylib|a>, game-dex.jar, dependencies/
+  dependencies/               split dependency jars, shared by both variants, and split-dependencies.txt
+  editor/                     script-classes.json and source-hashes.json, read by the editor only
+  debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>
+  release/                    game.<jar|so|dll|dylib|a>, game-dex.jar
 ```
 
-`build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts write `jvm/release/`. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`.
+`build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts run `build`, then write `jvm/release/`. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`. [The Gradle plugin](gradle-plugin.md) describes the tasks.
 
 The editor and `template_debug` binaries load the debug variant, `template_release` binaries the release variant.
 
-`script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor reads it at startup and whenever the filesystem changes, and answers Godot's global class queries from it for a script whose class the editor's JVM did not load. Without the debug build, a release export therefore still packs a global class cache that names every JVM class. It is never exported.
+`jvm/editor/script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor answers Godot's global class queries from it for a script whose class its JVM did not load, so the global class cache an export packs names every JVM class. It is never exported.
+
+`jvm/editor/source-hashes.json` lists the source directories of the debug build inside the Godot project, and the MD5 of every Kotlin, Java and Scala source in them, by `res://` path. One task copies it together with `jvm/debug/usercode.jar`, and any source change rewrites both, comment-only changes included, so the hashes always describe the jar the editor runs. The editor reads both files only when it loads `usercode.jar`, at startup and on every reload, and the class index is copied before the jar so that the reload finds it current. Neither file is ever exported.
+
+The editor hashes each source under those directories when it loads or saves it, and reports a source as modified since the last build, by the node warning and by Build on Run, when that hash differs from the build's or the build has none. A source the build hashed and Godot's file index no longer lists counts as modified, since its class is still in the jar; a source the editor loaded that neither the build nor the index lists any more is forgotten. Files outside the build's source directories, such as tests, never count, and a source directory added to the Gradle build counts from the first build that compiles it. The editor did not hash the sources it had already loaded from such a directory, so when a reload brings a directory the previous hashes did not list, it asks for a restart with a toast and a yellow JVM status light. It does not when it started without any source hashes, as on a project never built. Modification times are never compared.
 
 ## godot-bootstrap
 
@@ -38,7 +43,7 @@ The `usercode.jar` is built when you build your code. It is a shadow JAR contain
 
 ## game.jar
 
-Release builds do not ship the pair. `packageReleaseJar` merges `godot-bootstrap.jar` and `usercode.jar` into a single `game.jar`, which the runtime loads through one class loader. There is nothing to reload, which a release build never needs.
+Release builds do not ship the pair. `packageGameJar` merges `godot-bootstrap.jar` and `usercode.jar` into a single `game.jar`, which the runtime loads through one class loader. There is nothing to reload, which a release build never needs.
 
 ## Dependency placement
 
@@ -53,8 +58,9 @@ dependencies {
 ```
 
 Use `godotSplitImplementation` when a dependency must remain an intact JAR, such as a signed
-JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/dependencies/` and adds them to the
-class path of `godot-bootstrap.jar` or `game.jar`:
+JAR. The plugin copies its resolved JARs to `res://jvm/dependencies/`, shared by both variants, and adds them to the
+class path of `godot-bootstrap.jar` or `game.jar`. Only desktop JVM builds keep them intact: Android dexes them into
+`godot-bootstrap-dex.jar` or `game-dex.jar`, and native images, iOS included, compile them in:
 
 ```kotlin
 dependencies {
@@ -83,4 +89,6 @@ Native-image mode uses it in place of the JARs. Select it through runtime config
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts the packed JARs to `user://jvm/<variant>/`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotSplitImplementation` and `godotSplitRuntimeOnly` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.
+Exports pack only the split JARs that `res://jvm/dependencies/split-dependencies.txt` names, one file name per line, never the list itself. On Windows the open editor keeps a JAR its class path loaded, so a dependency dropped from the build can stay in the directory until the split dependencies change again; nothing loads it and the list leaves it out of every export.
+
+Separate JARs from `godotSplitImplementation` and `godotSplitRuntimeOnly` are also copied from `res://jvm/dependencies/` to `user://jvm/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.

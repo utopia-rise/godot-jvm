@@ -13,8 +13,11 @@ object Paths {
     /** Under [GODOT_JVM_DIR]: the artifacts of release builds, loaded by release exports. */
     const val RELEASE_VARIANT_DIR = "release"
 
-    /** Under a variant directory: the `godotSplitImplementation` and `godotSplitRuntimeOnly` dependencies as intact jars, listed in the jar manifest class path. */
+    /** Under [GODOT_JVM_DIR]: the `godotSplitImplementation` and `godotSplitRuntimeOnly` dependencies as intact jars, shared by both variants and listed in their jar manifest class path. */
     const val DEPENDENCIES_DIR = "dependencies"
+
+    /** Under [GODOT_JVM_DIR]: the files only the editor reads, reloaded with the debug user code jar. */
+    const val EDITOR_DIR = "editor"
 
     /** Under [GODOT_JVM_DIR]: the iOS files shared by both variants. */
     const val IOS_DIR = "ios"

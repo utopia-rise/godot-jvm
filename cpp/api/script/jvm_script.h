@@ -90,14 +90,11 @@ namespace godot {
         mutable HashSet<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
         mutable HashMap<StringName, Variant> exported_members_default_value_cache;
         StringName last_physical_fqdn;
-        uint64_t last_source_modified_time = 0;
         mutable bool export_dirty_flag = true;
 
         void move_placeholders_to(JvmScript* p_script);
 
     public:
-        uint64_t get_last_source_modified_time() const;
-        void set_last_source_modified_time(uint64_t p_time);
         void update_source_sync_warning();
 
         String _get_class_icon_path() const override;

@@ -4,7 +4,7 @@ The runtime of a game is configured in one project file, which each export prese
 
 Some settings are not code: whether a desktop game runs as a native image, how the JVM is debugged or monitored, the size of the buffers shared with Godot, extra runtime arguments. They live in `godot_jvm_configuration.json` at the root of the project, so that every run and every export starts from the same values. An export preset adjusts them for one kind of build, a launch argument adjusts them for one run, and a player never has to see any of it.
 
-Validating and repairing the configuration file in the editor is C.5, what the debugging settings enable is D.7, and what the memory settings trade is F.4.
+Validating and repairing the configuration file in the editor is C.5, what the debugging settings enable is G.2, and what the memory settings trade is F.4.
 
 ## Capabilities
 - **E.4.1**: Game developers configure the runtime of their game in one file of the project, from which every run and every export of the game starts.

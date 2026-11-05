@@ -1,6 +1,6 @@
 #include "godot_jvm_editor.h"
 
-#include "api/script/jvm_script_manager.h"
+#include "api/script/jvm_source_manager.h"
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
@@ -85,7 +85,7 @@ bool GodotJvmEditor::_build() {
     if (input->is_key_pressed(KEY_SHIFT)) { mode = BUILD_ON_RUN_WHEN_STALE; }
     if (input->is_key_pressed(BUILD_ANYWAY_KEY)) { mode = BUILD_ON_RUN_ALWAYS; }
     if (mode == BUILD_ON_RUN_NEVER) { return true; }
-    if (mode == BUILD_ON_RUN_WHEN_STALE && !JvmScriptManager::get_instance()->is_user_code_outdated()) { return true; }
+    if (mode == BUILD_ON_RUN_WHEN_STALE && !JvmSourceManager::get_instance().is_user_code_outdated()) { return true; }
     if (GradleTaskRunner::get_instance().is_task_started()) {
         get_editor_interface()->get_editor_toaster()->push_toast(
             "A Gradle task is running. Run the project again once it has finished.",
@@ -108,7 +108,6 @@ bool GodotJvmEditor::_build() {
 
 void GodotJvmEditor::on_filesystem_change() {
     check_addon_replaced();
-    GodotJvm::get_instance().reload_script_class_index();
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
@@ -126,9 +125,11 @@ void GodotJvmEditor::check_addon_replaced() {
 void GodotJvmEditor::update_jvm_status(bool force) {
     GodotJvm::State state = GodotJvm::get_instance().state;
     bool bootstrap_outdated = GodotJvm::get_instance().bootstrap_outdated;
+    bool roots_added = JvmSourceManager::get_instance().were_roots_added();
     if (!force
         && displayed_jvm_state == state
         && displayed_bootstrap_outdated == bootstrap_outdated
+        && displayed_roots_added == roots_added
         && displayed_addon_outdated == addon_outdated) {
         return;
     }
@@ -147,8 +148,17 @@ void GodotJvmEditor::update_jvm_status(bool force) {
         );
     }
 
+    if (roots_added && !displayed_roots_added) {
+        get_editor_interface()->get_editor_toaster()->push_toast(
+            "The build has new source directories. Restart the editor so it tracks changes to the scripts it already "
+            "loaded from them (Project > Reload Current Project).",
+            EditorToaster::SEVERITY_WARNING
+        );
+    }
+
     displayed_jvm_state = state;
     displayed_bootstrap_outdated = bootstrap_outdated;
+    displayed_roots_added = roots_added;
     displayed_addon_outdated = addon_outdated;
 
     StringName icon;
@@ -186,6 +196,10 @@ void GodotJvmEditor::update_jvm_status(bool force) {
             return;
     }
 
+    if (roots_added) {
+        icon = SNAME("StatusWarning");
+        label = "Source directories added, restart the editor to track them";
+    }
     if (bootstrap_outdated) {
         icon = SNAME("StatusWarning");
         label = "Bootstrap modified, restart the editor to load it";
@@ -311,8 +325,6 @@ void GodotJvmEditor::_notification(int notification) {
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, build_on_run_button);
 
             addon_manifest_time = FileAccess::get_modified_time(ADDON_MANIFEST_FILE);
-            // Before the editor's first scan, which builds the global class cache.
-            GodotJvm::get_instance().reload_script_class_index();
             jvm_status_light->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
             jvm_status_light->set_self_modulate(Color(1, 1, 1, 0.5));
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);
