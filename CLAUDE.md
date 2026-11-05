@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Godot-JVM** is a GDExtension-based JVM binding that enables Kotlin, Java, and Scala as scripting languages. It is a hybrid C++/JVM project: the C++ side integrates with Godot through GDExtension, and the Kotlin/Gradle side provides the runtime libraries and tooling for user projects.
 
-The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) only: `SConstruct` writes it into `cpp/version.h` (`GODOT_JVM_VERSION`) on every build through `generate_version.py`, like `templates.h`, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, and `GODOT_VERSION` in `.github/workflows/trigger_ci.yml` for CI.
+The Godot-JVM version is defined in `kt/gradle/libs.versions.toml` (`godotJvm`) only: `SConstruct` writes it into `cpp/version.h` (`GODOT_JVM_VERSION`) on every build through `generate_version.py`, like `templates.h`, and the native library refuses jars reporting another one. It is distinct from the build version that published artifacts carry (see Kotlin/Gradle below). The targeted Godot version is `godot` in the same toml, the first release of the supported minor, which Godot names without a patch number (`4.7`): every later patch of that minor is supported. `SConstruct` passes it to godot-cpp as `api_version`, the Android plugin resolves Godot's `4.7.0.stable` Maven artifact from it, and CI tests with that same release, `GODOT_VERSION` (`4.7-stable`) in `.github/workflows/trigger_ci.yml`.
 
 ## Specs
 
@@ -20,7 +20,7 @@ Recurring procedures are Claude Code skills under `.claude/skills/`: `build-nati
 
 ## godot-cpp fork
 
-The `godot-cpp` submodule tracks the `godot-jvm` branch of [`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), not upstream `godotengine/godot-cpp` and not the fork's `master`. The branch adapts godot-cpp's generated bindings to Godot-JVM's object-tracking model; it is not a collection of upstream fixes. Every commit on it follows the `godot-cpp-fork-commit` skill.
+The `godot-cpp` submodule tracks the `godot-jvm` branch of [`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), not upstream `godotengine/godot-cpp` and not the fork's `master`. The branch adapts godot-cpp's generated bindings to Godot-JVM's object-tracking model; it is not a collection of upstream fixes. It sits on an upstream godot-cpp release (`10.0.0-stable`), which is versioned apart from Godot and bundles the API of every Godot minor it supports; the build picks one with `api_version`. Every commit on it follows the `godot-cpp-fork-commit` skill.
 
 ## Engineering Principles
 

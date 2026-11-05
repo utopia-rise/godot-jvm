@@ -131,10 +131,6 @@ bool JavaLanguage::_is_using_templates() {
     return true;
 }
 
-Object* JavaLanguage::_create_script() const {
-    return memnew(JavaScript);
-}
-
 bool JavaLanguage::_handles_global_class_type(const String& p_type) const {
     return p_type == GODOT_JAVA_SCRIPT_NAME;
 }

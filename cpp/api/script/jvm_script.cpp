@@ -380,7 +380,7 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
     for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : current_placeholders) {
         if (!placeholder->owner) { continue; }
 
-        HashMap<StringName, Variant> values = placeholder->values;
+        HashMap<StringName, Variant> values(placeholder->values);
         engine::RawObject owner = placeholder->owner;
         owner.set_script(Variant(Ref<Script>(p_script)));
         for (const KeyValue<StringName, Variant>& value : values) {

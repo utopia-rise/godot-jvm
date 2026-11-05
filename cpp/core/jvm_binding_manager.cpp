@@ -42,14 +42,7 @@ JvmBinding* JvmBindingManager::bind_created(GodotObject* p_object) {
         engine::RawObject(p_object).get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
     );
 
-    if (binding->get_object_id().is_ref_counted()) {
-        // p_object was just constructed via RawObject::instantiate(), so its refcount is genuinely 0 here — init_ref()
-        // (not reference()) is required: reference() refuses to increment a true-zero, never-initialized count (it's
-        // meant for objects that already... Must be dropped if RawObject::instantiate() ever moves to
-        // classdb_construct_object3, which returns RefCounted instances already at refcount 1 — see the note there.
-        engine::RawObject(p_object).init_ref();
-        binding->record_delivery();
-    }
+    if (binding->get_object_id().is_ref_counted()) { binding->record_delivery(); }
 
     return binding;
 }

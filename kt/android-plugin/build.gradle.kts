@@ -6,7 +6,7 @@ kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
 }
 
-val godotVersion = "${libs.versions.godot.get()}.stable"
+val godotVersion = libs.versions.godot.get().let { if (it.count { char -> char == '.' } == 1) "$it.0.stable" else "$it.stable" }
 val nativeLibrariesDir = providers.gradleProperty("nativeLibrariesDir")
     .map(::file)
     .orElse(file("../../build/android"))

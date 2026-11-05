@@ -4,21 +4,12 @@
 
 using namespace godot;
 
-void engine::convert_property_to_c(const PropertyInfo& p_source, GDExtensionPropertyInfo* p_dest) {
-    p_dest->type = static_cast<GDExtensionVariantType>(p_source.type);
-    p_dest->name = p_source.name._native_ptr();
-    p_dest->hint = p_source.hint;
-    p_dest->hint_string = p_source.hint_string._native_ptr();
-    p_dest->class_name = p_source.class_name._native_ptr();
-    p_dest->usage = p_source.usage;
-}
-
 static GDExtensionPropertyInfo* create_c_property_list(const LocalVector<PropertyInfo>& plist_cpp) {
     const uint32_t plist_size = plist_cpp.size();
     auto* plist = reinterpret_cast<GDExtensionPropertyInfo*>(memalloc(sizeof(GDExtensionPropertyInfo) * plist_size));
     uint32_t i = 0;
     for (const PropertyInfo& E : plist_cpp) {
-        engine::convert_property_to_c(E, &plist[i]);
+        plist[i] = E._to_gdextension();
         ++i;
     }
     return plist;
@@ -54,14 +45,7 @@ GDExtensionMethodInfo* engine::create_c_method_list(List<MethodInfo>* p_list_cpp
     uint32_t i = 0;
     for (const MethodInfo& E : *p_list_cpp) {
         c_list[i].name = E.name._native_ptr();
-        c_list[i].return_value = GDExtensionPropertyInfo {
-            .type = static_cast<GDExtensionVariantType>(E.return_val.type),
-            .name = E.return_val.name._native_ptr(),
-            .class_name = E.return_val.class_name._native_ptr(),
-            .hint = E.return_val.hint,
-            .hint_string = E.return_val.hint_string._native_ptr(),
-            .usage = E.return_val.usage
-        };
+        c_list[i].return_value = E.return_val._to_gdextension();
         c_list[i].flags = E.flags;
         c_list[i].id = E.id;
         c_list[i].argument_count = E.arguments.size(), c_list[i].arguments = create_c_property_list(E.arguments);
