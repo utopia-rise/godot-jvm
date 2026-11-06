@@ -8,6 +8,8 @@ import godot.common.util.CMP_EPSILON
 import godot.common.util.RealT
 import godot.common.util.isEqualApprox
 import godot.common.util.toRealT
+import godot.internal.logging.GodotLogging
+import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.math.abs
 
 class Plane(
@@ -29,6 +31,24 @@ class Plane(
         get() = Vector3(_normal)
         set(value) {
             _normal = Vector3(value)
+        }
+
+    var x: RealT
+        get() = _normal.x
+        set(value) {
+            _normal.x = value
+        }
+
+    var y: RealT
+        get() = _normal.y
+        set(value) {
+            _normal.y = value
+        }
+
+    var z: RealT
+        get() = _normal.z
+        set(value) {
+            _normal.z = value
         }
 
     @CoreTypeHelper
@@ -89,15 +109,7 @@ class Plane(
     /**
      * Returns true if [point] is inside the plane. Comparison uses a custom minimum [tolerance] threshold.
      */
-    fun hasPoint(point: Vector3, tolerance: Float = 1e-05f) = abs(normal.dot(point) - d) <= tolerance
-
-    /**
-     * Returns true if point is inside the plane (by a very minimum epsilon threshold).
-     */
-    fun hasPoint(point: Vector3, epsilon: RealT): Boolean {
-        val dist = abs(_normal.dot(point) - d)
-        return dist <= epsilon
-    }
+    fun hasPoint(point: Vector3, tolerance: RealT = CMP_EPSILON) = abs(_normal.dot(point) - d) <= tolerance
 
     /**
      * Returns the intersection point of the three planes b, c and this plane.
@@ -111,15 +123,13 @@ class Plane(
 
         val denom = normal0.cross(normal1).dot(normal2)
 
-        if (abs(denom) <= CMP_EPSILON) {
+        if (abs(denom) < CMP_EPSILON) {
             return null
         }
 
-        val result: Vector3?
-        result = (normal1.cross(normal2) * plane0.d) +
+        return ((normal1.cross(normal2) * plane0.d) +
             (normal2.cross(normal0) * plane1.d) +
-            (normal0.cross(normal1) * plane2.d) / denom
-        return result
+            (normal0.cross(normal1) * plane2.d)) / denom
     }
 
     /**
@@ -129,7 +139,7 @@ class Plane(
     fun intersectsRay(from: Vector3, dir: Vector3): Vector3? {
         val den = _normal.dot(dir)
 
-        if (abs(den) <= CMP_EPSILON) {
+        if (abs(den) < CMP_EPSILON) {
             return null
         }
 
@@ -150,7 +160,7 @@ class Plane(
         val segment = p_begin - p_end
         val den = _normal.dot(segment)
 
-        if (abs(den) <= CMP_EPSILON) {
+        if (abs(den) < CMP_EPSILON) {
             return null
         }
 
@@ -173,7 +183,7 @@ class Plane(
     /**
      * Returns `true` if this plane is finite, by calling @GlobalScope.is_finite on each component.
      */
-    fun isFinite() = normal.isFinite() && d.isFinite()
+    fun isFinite() = _normal.isFinite() && d.isFinite()
 
     /**
      * Returns true if point is located above the plane.
@@ -186,14 +196,21 @@ class Plane(
      * Returns a copy of the plane, normalized.
      */
     fun normalized(): Plane {
-        val p = this
-        p.normalize()
-        return p
+        return Plane(this).also { it.normalize() }
     }
 
     internal fun normalize() {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!isFinite()) {
+                GodotLogging.warning("Plane cannot be normalized, the distance and the normal must be finite. Making (0, 0, 0, 0) as a fallback.")
+                this._normal = Vector3()
+                this.d = 0.0
+                return
+            }
+        }
+
         val l = _normal.length()
-        if (l.isEqualApprox(0.0)) {
+        if (l == 0.0) {
             this._normal = Vector3()
             this.d = 0.0
             return
@@ -209,6 +226,10 @@ class Plane(
         return point - _normal * distanceTo(point)
     }
 
+    operator fun unaryPlus() = Plane(this)
+
+    operator fun unaryMinus() = Plane(-_normal, -d)
+
     override fun toString(): String {
         return "Plane(normal=$_normal, d=$d)"
     }
@@ -220,7 +241,7 @@ class Plane(
 
     override fun hashCode(): Int {
         var result = _normal.hashCode()
-        result = 31 * result + d.hashCode()
+        result = 31 * result + (d + 0.0).hashCode()
         return result
     }
 }
