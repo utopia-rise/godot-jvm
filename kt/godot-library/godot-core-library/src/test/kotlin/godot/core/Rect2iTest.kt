@@ -144,4 +144,18 @@ class TestRect2i {
         checkTrue(Rect2i(0, 100, 1280, 720).merge(Rect2i(1200, 700, 100, 100)) == Rect2i(0, 100, 1300, 720))
         checkTrue(Rect2i(0, 100, 1280, 720).merge(Rect2i(-4000, -4000, 100, 100)) == Rect2i(-4000, -4000, 5280, 4820))
     }
+
+    @Test
+    fun `Negative Size Still Computes`() {
+        val negative = Rect2i(0, 100, -10, 20)
+        val positive = Rect2i(0, 100, 1280, 720)
+
+        checkFalse(negative.intersects(positive))
+        checkFalse(positive.intersects(negative))
+        checkTrue(negative.encloses(Rect2i(negative)))
+        checkFalse(positive.encloses(Rect2i(0, 100, -10, 800)))
+        checkFalse(negative.hasPoint(Vector2i(0, 100)))
+        checkTrue(positive.merge(negative) == positive)
+        checkTrue(negative.expand(Vector2i(5, 150)) == Rect2i(0, 100, 5, 50))
+    }
 }
