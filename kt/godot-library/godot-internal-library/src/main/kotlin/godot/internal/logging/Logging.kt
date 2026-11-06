@@ -22,9 +22,23 @@ private enum class PrintColor(baseCode: Int) {
 }
 
 object GodotLogging {
-    fun info(message: String) = GodotPrint.print("Godot-JVM: $message")
-    fun warning(message: String) = GodotPrint.pushWarning("Godot-JVM: $message")
-    fun error(message: String) = GodotPrint.printErr("Godot-JVM: $message")
+    fun info(message: String) = try {
+        GodotPrint.print("Godot-JVM: $message")
+    } catch (_: UnsatisfiedLinkError) {
+        JVMLogging.info(message)
+    }
+
+    fun warning(message: String) = try {
+        GodotPrint.pushWarning("Godot-JVM: $message")
+    } catch (_: UnsatisfiedLinkError) {
+        JVMLogging.warning(message)
+    }
+
+    fun error(message: String) = try {
+        GodotPrint.printErr("Godot-JVM: $message")
+    } catch (_: UnsatisfiedLinkError) {
+        JVMLogging.error(message)
+    }
 }
 
 object JVMLogging {
