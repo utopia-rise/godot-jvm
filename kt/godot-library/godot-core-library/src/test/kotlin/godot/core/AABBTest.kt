@@ -403,4 +403,48 @@ class TestAABB {
         checkFalseMessage(AABB(infinite, infinite).isFinite()) { "AABB with two components infinite should not be finite." }
     }
 
+    @Test
+    fun `Ray origin inside returns the origin`() {
+        val aabb = AABB(Vector3(), Vector3(2, 2, 2))
+        val from = Vector3(1, 1, 1)
+        val hit = aabb.intersectsRay(from, Vector3(0, 1, 0))!!
+        checkMessage(hit == Vector3(1, 1, 1)) { "intersectsRay() from inside should return the ray origin, not the backtracked point." }
+        checkMessage(hit !== from) { "intersectsRay() should not return its argument." }
+    }
+
+    @Test
+    fun `Invalid endpoint index returns the fallback`() {
+        val aabb = AABB(Vector3(-1.5, 2.0, -2.5), Vector3(4.0, 5.0, 6.0))
+        checkMessage(aabb.getEndpoint(8) == Vector3()) { "getEndpoint() with index 8 should return Vector3()." }
+        checkMessage(aabb.getEndpoint(-1) == Vector3()) { "getEndpoint() with index -1 should return Vector3()." }
+    }
+
+    @Test
+    fun `Negative size still computes the normal result`() {
+        val negative = AABB(Vector3(0, 0, 0), Vector3(-1, 1, 1))
+        val unit = AABB(Vector3(0, 0, 0), Vector3(1, 1, 1))
+
+        checkFalseMessage(negative.hasPoint(Vector3(-0.5, 0.5, 0.5))) { "hasPoint() should still return its normal result." }
+        checkFalseMessage(negative.intersects(unit)) { "intersects() should still return its normal result." }
+        checkFalseMessage(negative.encloses(unit)) { "encloses() should still return its normal result." }
+        checkMessage(negative.intersection(unit) == AABB()) { "intersection() should still return its normal result." }
+        checkMessage(negative.merge(unit) == unit) { "merge() should still return its normal result." }
+        checkMessage(
+            negative.expand(Vector3(2.0, 0.5, 0.5)) == AABB(Vector3(0, 0, 0), Vector3(2, 1, 1))
+        ) { "expand() should still return its normal result." }
+        checkMessage(
+            negative.intersectsRay(Vector3(-5.0, 0.5, 0.5), Vector3(1, 0, 0)) == Vector3(0.0, 0.5, 0.5)
+        ) { "intersectsRay() should still return its normal result." }
+        checkMessage(
+            negative.intersectsSegment(Vector3(-5.0, 0.5, 0.5), Vector3(5.0, 0.5, 0.5)) == null
+        ) { "intersectsSegment() should still return its normal result." }
+    }
+
+    @Test
+    fun `Longest and shortest axis index`() {
+        val aabb = AABB(Vector3(-1.5, 2.0, -2.5), Vector3(4.0, 5.0, 6.0))
+        checkMessage(aabb.getLongestAxisIndex() == 2) { "get_longest_axis_index() should return 2." }
+        checkMessage(aabb.getShortestAxisIndex() == 0) { "get_shortest_axis_index() should return 0." }
+    }
+
 }
