@@ -5,9 +5,11 @@ package godot.core
 import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
 import godot.common.util.RealT
+import godot.internal.logging.GodotLogging
+import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.math.abs
-import kotlin.math.acos
 import kotlin.math.atan
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.tan
@@ -42,19 +44,19 @@ class Projection(
     constructor(tranform: Transform3D) : this(
         Vector4(
             tranform.basis.x.x,
-            tranform.basis.y.x,
-            tranform.basis.z.x,
-            0
-        ),
-        Vector4(
             tranform.basis.x.y,
-            tranform.basis.y.y,
-            tranform.basis.z.y,
+            tranform.basis.x.z,
             0
         ),
         Vector4(
-            tranform.basis.x.z,
+            tranform.basis.y.x,
+            tranform.basis.y.y,
             tranform.basis.y.z,
+            0
+        ),
+        Vector4(
+            tranform.basis.z.x,
+            tranform.basis.z.y,
             tranform.basis.z.z,
             0
         ),
@@ -86,14 +88,6 @@ class Projection(
             _y.w + _y.x,
             _z.w + _z.x,
             _w.w + _w.x
-        )
-
-    private val _rightPlane: Plane
-        get() = Plane(
-            _x.w - _x.x,
-            _y.w - _y.x,
-            _z.w - _z.x,
-            -_w.w + _w.x
         )
 
     private val _topPlane: Plane
@@ -253,10 +247,10 @@ class Projection(
      */
     operator fun set(n: Int, vector: Vector4) {
         when (n) {
-            0 -> _x = vector
-            1 -> _y = vector
-            2 -> _z = vector
-            3 -> _w = vector
+            0 -> _x = Vector4(vector)
+            1 -> _y = Vector4(vector)
+            2 -> _z = Vector4(vector)
+            3 -> _w = Vector4(vector)
             else -> throw IndexOutOfBoundsException()
         }
     }
@@ -268,7 +262,7 @@ class Projection(
      * The determinant can be used to calculate the invertibility of a matrix or solve linear systems of equations
      * involving the matrix, among other applications.
      */
-    fun determinant() = (
+    fun determinant(): RealT = (
         _x.w * _y.z * _z.y * _w.x - _x.z * _y.w * _z.y * _w.x -
             _x.w * _y.y * _z.z * _w.x + _x.y * _y.w * _z.z * _w.x +
             _x.z * _y.y * _z.w * _w.x - _x.y * _y.z * _z.w * _w.x -
@@ -281,7 +275,7 @@ class Projection(
             _x.z * _y.y * _z.x * _w.w + _x.y * _y.z * _z.x * _w.w +
             _x.z * _y.x * _z.y * _w.w - _x.x * _y.z * _z.y * _w.w -
             _x.y * _y.x * _z.z * _w.w + _x.x * _y.y * _z.z * _w.w
-        ).toFloat()
+        )
 
     @Suppress("MemberVisibilityCanBePrivate")
     fun setIdentity() {
@@ -317,7 +311,7 @@ class Projection(
         _w.w = 1.0
     }
 
-    fun setDepthCorrection(flipY: Boolean) {
+    fun setDepthCorrection(flipY: Boolean = true, reverseZ: Boolean = true, remapZ: Boolean = true) {
         _x.x = 1.0
         _x.y = 0.0
         _x.z = 0.0
@@ -328,11 +322,11 @@ class Projection(
         _y.w = 0.0
         _z.x = 0.0
         _z.y = 0.0
-        _z.z = 0.5
+        _z.z = if (remapZ) (if (reverseZ) -0.5 else 0.5) else (if (reverseZ) -1.0 else 1.0)
         _z.w = 0.0
         _w.x = 0.0
         _w.y = 0.0
-        _w.z = 0.5
+        _w.z = if (remapZ) 0.5 else 0.0
         _w.w = 1.0
     }
 
@@ -355,7 +349,7 @@ class Projection(
         _w.w = 1.0
     }
 
-    fun setPerspective(pFovyDegrees: RealT, aspect: RealT, zNear: RealT, zFar: RealT, flipFov: Boolean) {
+    fun setPerspective(pFovyDegrees: RealT, aspect: RealT, zNear: RealT, zFar: RealT, flipFov: Boolean = false) {
         val fovyDegrees = if (flipFov) getFovy(pFovyDegrees, 1.0 / aspect) else pFovyDegrees
 
         val radians = Math.toRadians(fovyDegrees / 2.0)
@@ -479,7 +473,7 @@ class Projection(
         _w.w = 1.0
     }
 
-    fun setOrthogonal(pSize: RealT, pAspect: RealT, pZnear: RealT, pZfar: RealT, pFlipFov: Boolean) {
+    fun setOrthogonal(pSize: RealT, pAspect: RealT, pZnear: RealT, pZfar: RealT, pFlipFov: Boolean = false) {
         val size = if (!pFlipFov) {
             pSize * pAspect
         } else {
@@ -490,9 +484,20 @@ class Projection(
     }
 
     fun setFrustrum(left: RealT, right: RealT, bottom: RealT, top: RealT, near: RealT, far: RealT) {
-        if (right <= left) throw IllegalArgumentException("right <= left")
-        if (top <= bottom) throw IllegalArgumentException("top <= bottom")
-        if (far <= near) throw IllegalArgumentException("far <= near")
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (right <= left) {
+                GodotLogging.error("Cannot set a frustum with right <= left.")
+                return
+            }
+            if (top <= bottom) {
+                GodotLogging.error("Cannot set a frustum with top <= bottom.")
+                return
+            }
+            if (far <= near) {
+                GodotLogging.error("Cannot set a frustum with far <= near.")
+                return
+            }
+        }
 
         val x = 2 * near / (right - left)
         val y = 2 * near / (top - bottom)
@@ -518,7 +523,7 @@ class Projection(
         _w.w = 0.0
     }
 
-    fun setFrustrum(pSize: RealT, aspect: RealT, offset: Vector2, near: RealT, far: RealT, flipFov: Boolean) {
+    fun setFrustrum(pSize: RealT, aspect: RealT, offset: Vector2, near: RealT, far: RealT, flipFov: Boolean = false) {
         val size = if (!flipFov) {
             pSize * aspect
         } else {
@@ -609,61 +614,35 @@ class Projection(
      * Returns the distance for this Projection beyond which positions are clipped.
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    fun getZFar(): RealT {
-        val newPlane = _farPlane
-
-        newPlane.normal = -newPlane.normal
-        newPlane.normalize()
-
-        return newPlane.d
-    }
+    fun getZFar(): RealT = (_w.w - _w.z) / (_z.w - _z.z)
 
     /**
      * Returns the distance for this Projection before which positions are clipped.
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    fun getZNear(): RealT {
-        val newPlane = Plane(
-            _x.w + _x.z,
-            _y.w + _y.z,
-            _z.w + _z.z,
-            -_w.w - _w.z
-        )
-
-        newPlane.normalize()
-        return newPlane.d
-    }
+    fun getZNear(): RealT = (_w.w + _w.z) / (_z.w + _z.z)
 
     /**
      * Returns the X:Y aspect ratio of this Projection's viewport.
      */
-    fun getAspect(): RealT {
-        val vpHe = getViewportHalfExtents()
-        return vpHe.x / vpHe.y
-    }
+    fun getAspect(): RealT = _y.y / _x.x
 
     /**
      * Returns the horizontal field of view of the projection (in degrees).
      */
-    fun getFov(): RealT {
-        val rightPlane = _rightPlane
-        rightPlane.normalize()
-
-        return if (_z.x == 0.0 && _z.y == 0.0) {
-            Math.toDegrees(acos(abs(rightPlane.normal.x))) * 2.0
-        } else {
-            val leftPlane = _leftPlane
-            leftPlane.normalize()
-
-            Math.toDegrees(acos(abs(leftPlane.normal.x))) + Math.toDegrees(acos(abs(rightPlane.normal.x)))
-        }
+    fun getFov(): RealT = if (_z.x == 0.0) {
+        Math.toDegrees(2 * atan2(1.0, _x.x))
+    } else {
+        val right = atan2(_z.x + 1, _x.x)
+        val left = atan2(_z.x - 1, _x.x)
+        Math.toDegrees(right - left)
     }
 
     /**
      * Returns `true` if this Projection performs an orthogonal projection.
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    fun isOrthogonal() = _w.w == 1.0
+    fun isOrthogonal() = _z.w == 0.0
 
     @Suppress("MemberVisibilityCanBePrivate")
     fun getProjectionPlanes(pTransform: Transform3D): Array<Plane> {
@@ -735,7 +714,13 @@ class Projection(
             val b = planes[intersections[i][1].ordinal]
             val c = planes[intersections[i][2].ordinal]
 
-            val point = a.intersect3(b, c) ?: return null
+            val point = a.intersect3(b, c)
+            if (point == null) {
+                if (GodotJvmBuildConfig.DEBUG) {
+                    GodotLogging.error("Cannot get the endpoints of a Projection whose planes do not intersect.")
+                }
+                return null
+            }
 
             pTransform.xform(point)
         }
@@ -744,55 +729,18 @@ class Projection(
     /**
      * Returns the dimensions of the viewport plane that this Projection projects positions onto, divided by two.
      */
-    @Suppress("MemberVisibilityCanBePrivate", "DuplicatedCode")
+    @Suppress("MemberVisibilityCanBePrivate")
     fun getViewportHalfExtents(): Vector2 {
-
-        ////--- Near Plane ---///////
-        val nearPlane = Plane(
-            _x.w + _x.z,
-            _y.w + _y.z,
-            _z.w + _z.z,
-            -_w.w - _w.z
-        )
-        nearPlane.normalize()
-
-        ///////--- Right Plane ---///////
-        val rightPlane = _rightPlane
-        rightPlane.normalize()
-
-        val topPlane = _topPlane
-        topPlane.normalize()
-
-        val res = nearPlane.intersect3(rightPlane, topPlane)
-
-        return if (res == null) Vector2() else Vector2(res.x, res.y)
+        val w = -getZNear() * _z.w + _w.w
+        return Vector2(w / _x.x, w / _y.y)
     }
 
     /**
      * Returns the dimensions of the far clipping plane of the projection, divided by two.
      */
-    @Suppress("DuplicatedCode")
     fun getFarPlaneHalfExtents(): Vector2 {
-
-        ////--- Far Plane ---///////
-        val farPlane = Plane(
-            _x.w - _x.z,
-            _y.w - _y.z,
-            _z.w - _z.z,
-            -_w.w + _w.z
-        )
-        farPlane.normalize()
-
-        ///////--- Right Plane ---///////
-        val rightPlane = _rightPlane
-        rightPlane.normalize()
-
-        val topPlane = _topPlane
-        topPlane.normalize()
-
-        val res = farPlane.intersect3(rightPlane, topPlane)
-
-        return if (res == null) Vector2() else Vector2(res.x, res.y)
+        val w = -getZFar() * _z.w + _w.w
+        return Vector2(w / _x.x, w / _y.y)
     }
 
     private fun invert() {
@@ -808,16 +756,16 @@ class Projection(
         var swap1 = Vector4()
         var swap2 = Vector4()
 
-        var r01 = Vector4(this._x)
+        var r01 = Vector4(_x.x, _y.x, _z.x, _w.x)
         var r02 = Vector4(1.0, 0.0, 0.0, 0.0)
 
-        var r11 = Vector4(this._y)
+        var r11 = Vector4(_x.y, _y.y, _z.y, _w.y)
         var r12 = Vector4(0.0, 1.0, 0.0, 0.0)
 
-        var r21 = Vector4(this._z)
+        var r21 = Vector4(_x.z, _y.z, _z.z, _w.z)
         var r22 = Vector4(0.0, 0.0, 1.0, 0.0)
 
-        var r31 = Vector4(this._w)
+        var r31 = Vector4(_x.w, _y.w, _z.w, _w.w)
         var r32 = Vector4(0.0, 0.0, 0.0, 1.0)
 
 
@@ -848,7 +796,12 @@ class Projection(
             r02 = swap2
         }
 
-        check(r01.x != 0.0)
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (r01.x == 0.0) {
+                GodotLogging.error("Cannot invert a singular Projection.")
+                return
+            }
+        }
 
         /* eliminate first variable     */
         m1 = r11.x / r01.x
@@ -908,7 +861,12 @@ class Projection(
             r11 = swap1
             r12 = swap2
         }
-        check(r11.y != 0.0)
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (r11.y == 0.0) {
+                GodotLogging.error("Cannot invert a singular Projection.")
+                return
+            }
+        }
 
         /* eliminate second variable */
         m2 = r21.y / r11.y
@@ -947,7 +905,12 @@ class Projection(
             r21 = swap1
             r22 = swap2
         }
-        check(r21.z != 0.0)
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (r21.z == 0.0) {
+                GodotLogging.error("Cannot invert a singular Projection.")
+                return
+            }
+        }
 
         /* eliminate third variable */
         m3 = r31.z / r21.z
@@ -958,7 +921,12 @@ class Projection(
         r32.w -= m3 * r22.w
 
         /* last check */
-        check(r31.w != 0.0)
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (r31.w == 0.0) {
+                GodotLogging.error("Cannot invert a singular Projection.")
+                return
+            }
+        }
 
         s = 1.0 / r31.w /* now back substitute row 3 */
         r32.x *= s
@@ -1003,20 +971,20 @@ class Projection(
         r02.w = s * (r02.w - r12.w * m0)
 
         _x.x = r02.x
-        _x.y = r02.y
-        _x.z = r02.z
-        _x.w = r02.w
-        _y.x = r12.x
+        _x.y = r12.x
+        _x.z = r22.x
+        _x.w = r32.x
+        _y.x = r02.y
         _y.y = r12.y
-        _y.z = r12.z
-        _y.w = r12.w
-        _z.x = r22.x
-        _z.y = r22.y
+        _y.z = r22.y
+        _y.w = r32.y
+        _z.x = r02.z
+        _z.y = r12.z
         _z.z = r22.z
-        _z.w = r22.w
-        _w.x = r32.x
-        _w.y = r32.y
-        _w.z = r32.z
+        _z.w = r32.z
+        _w.x = r02.w
+        _w.y = r12.w
+        _w.z = r22.w
         _w.w = r32.w
     }
 
@@ -1104,8 +1072,8 @@ class Projection(
      * Returns the number of pixels with the given pixel width displayed per meter, after this Projection is applied.
      */
     fun getPixelPerMeter(pixelWidth: Int): Int {
-        val result = xform(Vector3(1, 0, -1))
-        return ((result.x * 0.5 + 0.5) * pixelWidth).toInt()
+        val width = 2 * (-getZNear() * _z.w + _w.w) / _x.x
+        return (pixelWidth / width).toInt()
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -1118,13 +1086,7 @@ class Projection(
     /**
      * Returns the factor by which the visible level of detail is scaled by this Projection.
      */
-    fun getLodMultiplier() = if (isOrthogonal()) {
-        getViewportHalfExtents().x
-    } else {
-        val zNear = getZNear()
-        val width = getViewportHalfExtents().x * 2.0
-        1.0 / (zNear / width)
-    }
+    fun getLodMultiplier(): RealT = 2 / _x.x
 
     /**
      * Returns a Projection that applies the combined transformations of this Projection and `right`.
@@ -1146,6 +1108,11 @@ class Projection(
     }
 
     /**
+     * Projects (multiplies) the given [Vector4] by this Projection matrix.
+     */
+    operator fun times(vector: Vector4): Vector4 = xform(vector)
+
+    /**
      * Returns `true` if the projections are equal.
      *
      * Note: Due to floating-point precision errors, this may return `false`, even if the projections are virtually equal.
@@ -1164,27 +1131,14 @@ class Projection(
         return result
     }
 
-    fun toTransform3D(): Transform3D {
-        val transform = Transform3D()
-
-        transform.basis._x.x = _x.x
-        transform.basis._y.x = _x.y
-        transform.basis._z.x = _x.z
-
-        transform.basis._x.y = _y.x
-        transform.basis._y.y = _y.y
-        transform.basis._z.y = _y.z
-
-        transform.basis._x.z = _z.x
-        transform.basis._y.z = _z.y
-        transform.basis._z.z = _z.z
-
-        transform.origin.x = _w.x
-        transform.origin.y = _w.y
-        transform.origin.z = _w.z
-
-        return transform
-    }
+    fun toTransform3D() = Transform3D(
+        Basis(
+            _x.x, _y.x, _z.x,
+            _x.y, _y.y, _z.y,
+            _x.z, _y.z, _z.z
+        ),
+        Vector3(_w.x, _w.y, _w.z)
+    )
 
     override fun toString() = buildString {
         append("[X: ")
@@ -1223,6 +1177,12 @@ class Projection(
     }
 
     companion object {
+        val IDENTITY: Projection
+            get() = Projection()
+
+        val ZERO: Projection
+            get() = Projection(Vector4(), Vector4(), Vector4(), Vector4())
+
         /**
          * Creates a new `Projection` that projects positions from a depth range of -1 to 1 to one that ranges from
          * 0 to 1, and flips the projected positions vertically, according to flip_y.
@@ -1315,7 +1275,7 @@ class Projection(
          *
          * flipFov determines whether the projection's field of view is flipped over its diagonal.
          */
-        fun createOrthogonalAspect(pSize: RealT, pAspect: RealT, pZnear: RealT, pZfar: RealT, pFlipFov: Boolean) =
+        fun createOrthogonalAspect(pSize: RealT, pAspect: RealT, pZnear: RealT, pZfar: RealT, pFlipFov: Boolean = false) =
             Projection().also {
                 it.setOrthogonal(pSize, pAspect, pZnear, pZfar, pFlipFov)
             }
@@ -1340,7 +1300,7 @@ class Projection(
             offset: Vector2,
             near: RealT,
             far: RealT,
-            flipFov: Boolean
+            flipFov: Boolean = false
         ) = Projection().also {
             it.setFrustrum(pSize, aspect, offset, near, far, flipFov)
         }
