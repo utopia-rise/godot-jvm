@@ -2,7 +2,9 @@
 
 package godot.core
 
+import godot.common.util.RealT
 import godot.common.util.snapped
+import godot.common.util.toRealT
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -51,6 +53,10 @@ class Vector2i(
             get() = Vector2i(0, -1)
         val DOWN: Vector2i
             get() = Vector2i(0, 1)
+        val MIN: Vector2i
+            get() = Vector2i(Int.MIN_VALUE, Int.MIN_VALUE)
+        val MAX: Vector2i
+            get() = Vector2i(Int.MAX_VALUE, Int.MAX_VALUE)
     }
 
     //CONSTRUCTOR
@@ -72,19 +78,29 @@ class Vector2i(
     /**
      * Returns the ratio of x to y.
      */
-    fun aspect() = this.x / this.y
+    fun aspect(): RealT = this.x.toRealT() / this.y
 
     /**
      * Returns a new vector with all components clamped between the components of min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clamp(min: Vector2i, max: Vector2i) = Vector2i(x.coerceIn(min.x, max.x), y.coerceIn(min.y, max.y))
+    fun clamp(min: Vector2i, max: Vector2i) = Vector2i(
+        if (x < min.x) min.x else if (x > max.x) max.x else x,
+        if (y < min.y) min.y else if (y > max.y) max.y else y,
+    )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampi(min: Int, max: Int) = Vector2i(x.coerceIn(min, max), y.coerceIn(min, max))
+    fun clampi(min: Int, max: Int) = Vector2i(
+        if (x < min) min else if (x > max) max else x,
+        if (y < min) min else if (y > max) max else y,
+    )
+
+    fun distanceTo(to: Vector2i) = (to - this).length()
+
+    fun distanceSquaredTo(to: Vector2i) = (to - this).lengthSquared()
 
 
     /**
@@ -96,7 +112,7 @@ class Vector2i(
      * Returns the vector’s length squared.
      * Prefer this method over length if you need to sort vectors or need the squared length for some formula.
      */
-    fun lengthSquared() = x * x + y * y
+    fun lengthSquared(): Long = x.toLong() * x + y.toLong() * y
 
 
     /**
@@ -200,27 +216,29 @@ class Vector2i(
 
     operator fun plus(v: Vector2i) = Vector2i(x + v.x, y + v.y)
     operator fun plus(scalar: Int) = Vector2i(x + scalar, y + scalar)
-    operator fun plus(scalar: Long) = Vector2i(x + scalar, y + scalar)
-    operator fun plus(scalar: Float) = Vector2i(x + scalar, y + scalar)
-    operator fun plus(scalar: Double) = Vector2i(x + scalar, y + scalar)
+    operator fun plus(scalar: Long) = plus(scalar.toInt())
+    operator fun plus(scalar: Float) = plus(scalar.toInt())
+    operator fun plus(scalar: Double) = plus(scalar.toInt())
 
     operator fun minus(v: Vector2i) = Vector2i(x - v.x, y - v.y)
     operator fun minus(scalar: Int) = Vector2i(x - scalar, y - scalar)
-    operator fun minus(scalar: Long) = Vector2i(x - scalar, y - scalar)
-    operator fun minus(scalar: Float) = Vector2i(x - scalar, y - scalar)
-    operator fun minus(scalar: Double) = Vector2i(x - scalar, y - scalar)
+    operator fun minus(scalar: Long) = minus(scalar.toInt())
+    operator fun minus(scalar: Float) = minus(scalar.toInt())
+    operator fun minus(scalar: Double) = minus(scalar.toInt())
 
     operator fun times(v1: Vector2i) = Vector2i(x * v1.x, y * v1.y)
     operator fun times(scalar: Int) = Vector2i(x * scalar, y * scalar)
-    operator fun times(scalar: Long) = Vector2i(x * scalar, y * scalar)
-    operator fun times(scalar: Float) = Vector2i(x * scalar, y * scalar)
-    operator fun times(scalar: Double) = Vector2i(x * scalar, y * scalar)
+    operator fun times(scalar: Long) = times(scalar.toInt())
+    operator fun times(scalar: Float) = times(scalar.toDouble())
+    operator fun times(scalar: Double) = Vector2(x * scalar, y * scalar)
 
     operator fun div(v1: Vector2i) = Vector2i(x / v1.x, y / v1.y)
     operator fun div(scalar: Int) = Vector2i(x / scalar, y / scalar)
-    operator fun div(scalar: Long) = Vector2i(x / scalar, y / scalar)
-    operator fun div(scalar: Float) = Vector2i(x / scalar, y / scalar)
-    operator fun div(scalar: Double) = Vector2i(x / scalar, y / scalar)
+    operator fun div(scalar: Long) = div(scalar.toInt())
+    operator fun div(scalar: Float) = div(scalar.toDouble())
+    operator fun div(scalar: Double) = Vector2(x / scalar, y / scalar)
+
+    operator fun unaryPlus() = Vector2i(x, y)
 
     operator fun unaryMinus() = Vector2i(-x, -y)
 
@@ -255,3 +273,11 @@ class Vector2i(
         return "($x, $y)"
     }
 }
+
+operator fun Int.times(vector: Vector2i) = vector * this
+
+operator fun Long.times(vector: Vector2i) = vector * this
+
+operator fun Float.times(vector: Vector2i) = vector * this
+
+operator fun Double.times(vector: Vector2i) = vector * this
