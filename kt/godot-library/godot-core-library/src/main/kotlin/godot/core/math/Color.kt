@@ -6,12 +6,12 @@ import godot.common.util.RealT
 import godot.common.util.isEqualApprox
 import godot.common.util.lerp
 import godot.common.util.toRealT
+import godot.internal.logging.GodotLogging
+import kotlincompile.definitions.GodotJvmBuildConfig
+import kotlin.math.abs
 import kotlin.math.floor
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.pow
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
+import kotlin.math.truncate
 
 class Color : Comparable<Color>, CoreType {
 
@@ -22,32 +22,32 @@ class Color : Comparable<Color>, CoreType {
 
     //PROPERTIES
     var r8: Int
-        get() = (r * 255).roundToInt()
+        get() = toChannel8(r)
         set(value) {
-            r = value.toRealT() / 255f
+            r = (value.coerceIn(0, 255) / 255.0f).toDouble()
         }
     var g8: Int
-        get() = (g * 255).roundToInt()
+        get() = toChannel8(g)
         set(value) {
-            g = value.toRealT() / 255f
+            g = (value.coerceIn(0, 255) / 255.0f).toDouble()
         }
     var b8: Int
-        get() = (b * 255).roundToInt()
+        get() = toChannel8(b)
         set(value) {
-            b = value.toRealT() / 255f
+            b = (value.coerceIn(0, 255) / 255.0f).toDouble()
         }
     var a8: Int
-        get() = (a * 255).roundToInt()
+        get() = toChannel8(a)
         set(value) {
-            a = value.toRealT() / 255f
+            a = (value.coerceIn(0, 255) / 255.0f).toDouble()
         }
 
     var h: RealT
         get() {
-            var min: RealT = min(r, g)
-            min = min(min, b)
-            var max: RealT = max(r, g)
-            max = max(max, b)
+            var min: RealT = if (r < g) r else g
+            min = if (min < b) min else b
+            var max: RealT = if (r > g) r else g
+            max = if (max > b) max else b
 
             val delta = max - min
 
@@ -72,10 +72,10 @@ class Color : Comparable<Color>, CoreType {
         }
     var s: RealT
         get() {
-            var min: RealT = min(r, g)
-            min = min(min, b)
-            var max: RealT = max(r, g)
-            max = max(max, b)
+            var min: RealT = if (r < g) r else g
+            min = if (min < b) min else b
+            var max: RealT = if (r > g) r else g
+            max = if (max > b) max else b
 
             val delta = max - min
 
@@ -86,8 +86,8 @@ class Color : Comparable<Color>, CoreType {
         }
     var v: RealT
         get() {
-            var max: RealT = max(r, g)
-            max = max(max, b)
+            var max: RealT = if (r > g) r else g
+            max = if (max > b) max else b
             return max.toRealT()
         }
         set(value) {
@@ -95,7 +95,6 @@ class Color : Comparable<Color>, CoreType {
         }
 
     private fun setHSV(h: RealT, s: RealT, v: RealT, alpha: RealT) {
-        val i = floor(h).toInt()
         val f: RealT
         val p = v * (1 - s)
         val q: RealT
@@ -113,6 +112,7 @@ class Color : Comparable<Color>, CoreType {
         var h2 = h * 6.0
         h2 = h2.rem(6.0)
 
+        val i = floor(h2).toInt()
         f = h2 - i
         q = v * (1 - s * f)
         t = v * (1 - s * (1 - f))
@@ -164,297 +164,297 @@ class Color : Comparable<Color>, CoreType {
 
     companion object {
         inline val aliceBlue: Color
-            get() = Color(0.941176, 0.972549, 1, 1)
+            get() = hex(0xF0F8FFFFu)
         inline val antiqueWhite: Color
-            get() = Color(0.980392, 0.921569, 0.843137, 1)
+            get() = hex(0xFAEBD7FFu)
         inline val aqua: Color
-            get() = Color(0, 1, 1, 1)
+            get() = hex(0x00FFFFFFu)
         inline val aquamarine: Color
-            get() = Color(0.498039, 1, 0.831373, 1)
+            get() = hex(0x7FFFD4FFu)
         inline val azure: Color
-            get() = Color(0.941176, 1, 1, 1)
+            get() = hex(0xF0FFFFFFu)
         inline val beige: Color
-            get() = Color(0.960784, 0.960784, 0.862745, 1)
+            get() = hex(0xF5F5DCFFu)
         inline val bisque: Color
-            get() = Color(1, 0.894118, 0.768627, 1)
+            get() = hex(0xFFE4C4FFu)
         inline val black: Color
-            get() = Color(0, 0, 0, 1)
+            get() = hex(0x000000FFu)
         inline val blanchedAlmond: Color
-            get() = Color(1, 0.921569, 0.803922, 1)
+            get() = hex(0xFFEBCDFFu)
         inline val blue: Color
-            get() = Color(0, 0, 1, 1)
+            get() = hex(0x0000FFFFu)
         inline val blueViolet: Color
-            get() = Color(0.541176, 0.168627, 0.886275, 1)
+            get() = hex(0x8A2BE2FFu)
         inline val brown: Color
-            get() = Color(0.647059, 0.164706, 0.164706, 1)
+            get() = hex(0xA52A2AFFu)
         inline val burlywood: Color
-            get() = Color(0.870588, 0.721569, 0.529412, 1)
+            get() = hex(0xDEB887FFu)
         inline val cadetBlue: Color
-            get() = Color(0.372549, 0.619608, 0.627451, 1)
+            get() = hex(0x5F9EA0FFu)
         inline val chartreuse: Color
-            get() = Color(0.498039, 1, 0, 1)
+            get() = hex(0x7FFF00FFu)
         inline val chocolate: Color
-            get() = Color(0.823529, 0.411765, 0.117647, 1)
+            get() = hex(0xD2691EFFu)
         inline val coral: Color
-            get() = Color(1, 0.498039, 0.313726, 1)
+            get() = hex(0xFF7F50FFu)
         inline val cornflowerBlue: Color
-            get() = Color(0.392157, 0.584314, 0.929412, 1)
+            get() = hex(0x6495EDFFu)
         inline val cornsilk: Color
-            get() = Color(1, 0.972549, 0.862745, 1)
+            get() = hex(0xFFF8DCFFu)
         inline val crimson: Color
-            get() = Color(0.862745, 0.0784314, 0.235294, 1)
+            get() = hex(0xDC143CFFu)
         inline val cyan: Color
-            get() = Color(0, 1, 1, 1)
+            get() = hex(0x00FFFFFFu)
         inline val darkBlue: Color
-            get() = Color(0, 0, 0.545098, 1)
+            get() = hex(0x00008BFFu)
         inline val darkCyan: Color
-            get() = Color(0, 0.545098, 0.545098, 1)
+            get() = hex(0x008B8BFFu)
         inline val darkGoldenrod: Color
-            get() = Color(0.721569, 0.52549, 0.0431373, 1)
+            get() = hex(0xB8860BFFu)
         inline val darkGray: Color
-            get() = Color(0.662745, 0.662745, 0.662745, 1)
+            get() = hex(0xA9A9A9FFu)
         inline val darkGreen: Color
-            get() = Color(0, 0.392157, 0, 1)
+            get() = hex(0x006400FFu)
         inline val darkKhaki: Color
-            get() = Color(0.741176, 0.717647, 0.419608, 1)
+            get() = hex(0xBDB76BFFu)
         inline val darkMagenta: Color
-            get() = Color(0.545098, 0, 0.545098, 1)
+            get() = hex(0x8B008BFFu)
         inline val darkOliveGreen: Color
-            get() = Color(0.333333, 0.419608, 0.184314, 1)
+            get() = hex(0x556B2FFFu)
         inline val darkorange: Color
-            get() = Color(1, 0.54902, 0, 1)
+            get() = hex(0xFF8C00FFu)
         inline val darkOrchid: Color
-            get() = Color(0.6, 0.196078, 0.8, 1)
+            get() = hex(0x9932CCFFu)
         inline val darkRed: Color
-            get() = Color(0.545098, 0, 0, 1)
+            get() = hex(0x8B0000FFu)
         inline val darkSalmon: Color
-            get() = Color(0.913725, 0.588235, 0.478431, 1)
+            get() = hex(0xE9967AFFu)
         inline val darkSeaGreen: Color
-            get() = Color(0.560784, 0.737255, 0.560784, 1)
+            get() = hex(0x8FBC8FFFu)
         inline val darkSlateBlue: Color
-            get() = Color(0.282353, 0.239216, 0.545098, 1)
+            get() = hex(0x483D8BFFu)
         inline val darkSlateGray: Color
-            get() = Color(0.184314, 0.309804, 0.309804, 1)
+            get() = hex(0x2F4F4FFFu)
         inline val darkTurquoise: Color
-            get() = Color(0, 0.807843, 0.819608, 1)
+            get() = hex(0x00CED1FFu)
         inline val darkViolet: Color
-            get() = Color(0.580392, 0, 0.827451, 1)
+            get() = hex(0x9400D3FFu)
         inline val deepPink: Color
-            get() = Color(1, 0.0784314, 0.576471, 1)
+            get() = hex(0xFF1493FFu)
         inline val deepSkyBlue: Color
-            get() = Color(0, 0.74902, 1, 1)
+            get() = hex(0x00BFFFFFu)
         inline val dimGray: Color
-            get() = Color(0.411765, 0.411765, 0.411765, 1)
+            get() = hex(0x696969FFu)
         inline val dodgerBlue: Color
-            get() = Color(0.117647, 0.564706, 1, 1)
+            get() = hex(0x1E90FFFFu)
         inline val firebrick: Color
-            get() = Color(0.698039, 0.133333, 0.133333, 1)
+            get() = hex(0xB22222FFu)
         inline val floralWhite: Color
-            get() = Color(1, 0.980392, 0.941176, 1)
+            get() = hex(0xFFFAF0FFu)
         inline val forestGreen: Color
-            get() = Color(0.133333, 0.545098, 0.133333, 1)
+            get() = hex(0x228B22FFu)
         inline val fuchsia: Color
-            get() = Color(1.00, 0.00, 1.00)
+            get() = hex(0xFF00FFFFu)
         inline val gainsboro: Color
-            get() = Color(0.862745, 0.862745, 0.862745, 1)
+            get() = hex(0xDCDCDCFFu)
         inline val ghostWhite: Color
-            get() = Color(0.972549, 0.972549, 1, 1)
+            get() = hex(0xF8F8FFFFu)
         inline val gold: Color
-            get() = Color(1, 0.843137, 0, 1)
+            get() = hex(0xFFD700FFu)
         inline val goldenrod: Color
-            get() = Color(0.854902, 0.647059, 0.12549, 1)
+            get() = hex(0xDAA520FFu)
         inline val gray: Color
-            get() = Color(0.745098, 0.745098, 0.745098, 1)
+            get() = hex(0xBEBEBEFFu)
         inline val green: Color
-            get() = Color(0.00, 1.00, 0.00)
+            get() = hex(0x00FF00FFu)
         inline val greenYellow: Color
-            get() = Color(0.678431, 1, 0.184314, 1)
+            get() = hex(0xADFF2FFFu)
         inline val honeydew: Color
-            get() = Color(0.941176, 1, 0.941176, 1)
+            get() = hex(0xF0FFF0FFu)
         inline val hotPink: Color
-            get() = Color(1, 0.411765, 0.705882, 1)
+            get() = hex(0xFF69B4FFu)
         inline val indianRed: Color
-            get() = Color(0.803922, 0.360784, 0.360784, 1)
+            get() = hex(0xCD5C5CFFu)
         inline val indigo: Color
-            get() = Color(0.294118, 0, 0.509804, 1)
+            get() = hex(0x4B0082FFu)
         inline val ivory: Color
-            get() = Color(1, 1, 0.941176, 1)
+            get() = hex(0xFFFFF0FFu)
         inline val khaki: Color
-            get() = Color(0.941176, 0.901961, 0.54902, 1)
+            get() = hex(0xF0E68CFFu)
         inline val lavender: Color
-            get() = Color(0.901961, 0.901961, 0.980392, 1)
+            get() = hex(0xE6E6FAFFu)
         inline val lavenderBlush: Color
-            get() = Color(1, 0.941176, 0.960784, 1)
+            get() = hex(0xFFF0F5FFu)
         inline val lawnGreen: Color
-            get() = Color(0.486275, 0.988235, 0, 1)
+            get() = hex(0x7CFC00FFu)
         inline val lemonChiffon: Color
-            get() = Color(1, 0.980392, 0.803922, 1)
+            get() = hex(0xFFFACDFFu)
         inline val lightBlue: Color
-            get() = Color(0.678431, 0.847059, 0.901961, 1)
+            get() = hex(0xADD8E6FFu)
         inline val lightCoral: Color
-            get() = Color(0.941176, 0.501961, 0.501961, 1)
+            get() = hex(0xF08080FFu)
         inline val lightCyan: Color
-            get() = Color(0.878431, 1, 1, 1)
+            get() = hex(0xE0FFFFFFu)
         inline val lightGoldenrod: Color
-            get() = Color(0.980392, 0.980392, 0.823529, 1)
+            get() = hex(0xFAFAD2FFu)
         inline val lightGray: Color
-            get() = Color(0.827451, 0.827451, 0.827451, 1)
+            get() = hex(0xD3D3D3FFu)
         inline val lightGreen: Color
-            get() = Color(0.564706, 0.933333, 0.564706, 1)
+            get() = hex(0x90EE90FFu)
         inline val lightPink: Color
-            get() = Color(1, 0.713726, 0.756863, 1)
+            get() = hex(0xFFB6C1FFu)
         inline val lightSalmon: Color
-            get() = Color(1, 0.627451, 0.478431, 1)
+            get() = hex(0xFFA07AFFu)
         inline val lightSeaGreen: Color
-            get() = Color(0.12549, 0.698039, 0.666667, 1)
+            get() = hex(0x20B2AAFFu)
         inline val lightSkyBlue: Color
-            get() = Color(0.529412, 0.807843, 0.980392, 1)
+            get() = hex(0x87CEFAFFu)
         inline val lightSlateGray: Color
-            get() = Color(0.466667, 0.533333, 0.6, 1)
+            get() = hex(0x778899FFu)
         inline val lightSteelBlue: Color
-            get() = Color(0.690196, 0.768627, 0.870588, 1)
+            get() = hex(0xB0C4DEFFu)
         inline val lightYellow: Color
-            get() = Color(1, 1, 0.878431, 1)
+            get() = hex(0xFFFFE0FFu)
         inline val lime: Color
-            get() = Color(0, 1, 0, 1)
+            get() = hex(0x00FF00FFu)
         inline val limeGreen: Color
-            get() = Color(0.196078, 0.803922, 0.196078, 1)
+            get() = hex(0x32CD32FFu)
         inline val linen: Color
-            get() = Color(0.980392, 0.941176, 0.901961, 1)
+            get() = hex(0xFAF0E6FFu)
         inline val magenta: Color
-            get() = Color(1.00, 0.00, 1.00)
+            get() = hex(0xFF00FFFFu)
         inline val maroon: Color
-            get() = Color(0.690196, 0.188235, 0.376471, 1)
+            get() = hex(0xB03060FFu)
         inline val mediumAquamarine: Color
-            get() = Color(0.4, 0.803922, 0.666667, 1)
+            get() = hex(0x66CDAAFFu)
         inline val mediumBlue: Color
-            get() = Color(0, 0, 0.803922, 1)
+            get() = hex(0x0000CDFFu)
         inline val mediumOrchid: Color
-            get() = Color(0.729412, 0.333333, 0.827451, 1)
+            get() = hex(0xBA55D3FFu)
         inline val mediumPurple: Color
-            get() = Color(0.576471, 0.439216, 0.858824, 1)
+            get() = hex(0x9370DBFFu)
         inline val mediumSeaGreen: Color
-            get() = Color(0.235294, 0.701961, 0.443137, 1)
+            get() = hex(0x3CB371FFu)
         inline val mediumSlateBlue: Color
-            get() = Color(0.482353, 0.407843, 0.933333, 1)
+            get() = hex(0x7B68EEFFu)
         inline val mediumSpringGreen: Color
-            get() = Color(0, 0.980392, 0.603922, 1)
+            get() = hex(0x00FA9AFFu)
         inline val mediumTurquoise: Color
-            get() = Color(0.282353, 0.819608, 0.8, 1)
+            get() = hex(0x48D1CCFFu)
         inline val mediumVioletRed: Color
-            get() = Color(0.780392, 0.0823529, 0.521569, 1)
+            get() = hex(0xC71585FFu)
         inline val midnightBlue: Color
-            get() = Color(0.0980392, 0.0980392, 0.439216, 1)
+            get() = hex(0x191970FFu)
         inline val mintCream: Color
-            get() = Color(0.960784, 1, 0.980392, 1)
+            get() = hex(0xF5FFFAFFu)
         inline val mistyRose: Color
-            get() = Color(1, 0.894118, 0.882353, 1)
+            get() = hex(0xFFE4E1FFu)
         inline val moccasin: Color
-            get() = Color(1, 0.894118, 0.709804, 1)
+            get() = hex(0xFFE4B5FFu)
         inline val navajoWhite: Color
-            get() = Color(1, 0.870588, 0.678431, 1)
+            get() = hex(0xFFDEADFFu)
         inline val navyBlue: Color
-            get() = Color(0, 0, 0.501961, 1)
+            get() = hex(0x000080FFu)
         inline val oldLace: Color
-            get() = Color(0.992157, 0.960784, 0.901961, 1)
+            get() = hex(0xFDF5E6FFu)
         inline val olive: Color
-            get() = Color(0.501961, 0.501961, 0, 1)
+            get() = hex(0x808000FFu)
         inline val oliveDrab: Color
-            get() = Color(0.419608, 0.556863, 0.137255, 1)
+            get() = hex(0x6B8E23FFu)
         inline val orange: Color
-            get() = Color(1, 0.647059, 0, 1)
+            get() = hex(0xFFA500FFu)
         inline val orangeRed: Color
-            get() = Color(1, 0.270588, 0, 1)
+            get() = hex(0xFF4500FFu)
         inline val orchid: Color
-            get() = Color(0.854902, 0.439216, 0.839216, 1)
+            get() = hex(0xDA70D6FFu)
         inline val paleGoldenrod: Color
-            get() = Color(0.933333, 0.909804, 0.666667, 1)
+            get() = hex(0xEEE8AAFFu)
         inline val paleGreen: Color
-            get() = Color(0.596078, 0.984314, 0.596078, 1)
+            get() = hex(0x98FB98FFu)
         inline val paleTurquoise: Color
-            get() = Color(0.686275, 0.933333, 0.933333, 1)
+            get() = hex(0xAFEEEEFFu)
         inline val paleVioletRed: Color
-            get() = Color(0.858824, 0.439216, 0.576471, 1)
+            get() = hex(0xDB7093FFu)
         inline val papayaWhip: Color
-            get() = Color(1, 0.937255, 0.835294, 1)
+            get() = hex(0xFFEFD5FFu)
         inline val peachPuff: Color
-            get() = Color(1, 0.854902, 0.72549, 1)
+            get() = hex(0xFFDAB9FFu)
         inline val peru: Color
-            get() = Color(0.803922, 0.521569, 0.247059, 1)
+            get() = hex(0xCD853FFFu)
         inline val pink: Color
-            get() = Color(1, 0.752941, 0.796078, 1)
+            get() = hex(0xFFC0CBFFu)
         inline val plum: Color
-            get() = Color(0.866667, 0.627451, 0.866667, 1)
+            get() = hex(0xDDA0DDFFu)
         inline val powderBlue: Color
-            get() = Color(0.690196, 0.878431, 0.901961, 1)
+            get() = hex(0xB0E0E6FFu)
         inline val purple: Color
-            get() = Color(0.627451, 0.12549, 0.941176, 1)
+            get() = hex(0xA020F0FFu)
         inline val rebeccaPurple: Color
-            get() = Color(0.4, 0.2, 0.6, 1)
+            get() = hex(0x663399FFu)
         inline val red: Color
-            get() = Color(1.00, 0.00, 0.00)
+            get() = hex(0xFF0000FFu)
         inline val rosyBrown: Color
-            get() = Color(0.737255, 0.560784, 0.560784, 1)
+            get() = hex(0xBC8F8FFFu)
         inline val royalBlue: Color
-            get() = Color(0.254902, 0.411765, 0.882353, 1)
+            get() = hex(0x4169E1FFu)
         inline val saddleBrown: Color
-            get() = Color(0.545098, 0.270588, 0.0745098, 1)
+            get() = hex(0x8B4513FFu)
         inline val salmon: Color
-            get() = Color(0.980392, 0.501961, 0.447059, 1)
+            get() = hex(0xFA8072FFu)
         inline val sandyBrown: Color
-            get() = Color(0.956863, 0.643137, 0.376471, 1)
+            get() = hex(0xF4A460FFu)
         inline val seaGreen: Color
-            get() = Color(0.180392, 0.545098, 0.341176, 1)
+            get() = hex(0x2E8B57FFu)
         inline val seashell: Color
-            get() = Color(1, 0.960784, 0.933333, 1)
+            get() = hex(0xFFF5EEFFu)
         inline val sienna: Color
-            get() = Color(0.627451, 0.321569, 0.176471, 1)
+            get() = hex(0xA0522DFFu)
         inline val silver: Color
-            get() = Color(0.752941, 0.752941, 0.752941, 1)
+            get() = hex(0xC0C0C0FFu)
         inline val skyBlue: Color
-            get() = Color(0.529412, 0.807843, 0.921569, 1)
+            get() = hex(0x87CEEBFFu)
         inline val slateBlue: Color
-            get() = Color(0.415686, 0.352941, 0.803922, 1)
+            get() = hex(0x6A5ACDFFu)
         inline val slateGray: Color
-            get() = Color(0.439216, 0.501961, 0.564706, 1)
+            get() = hex(0x708090FFu)
         inline val snow: Color
-            get() = Color(1, 0.980392, 0.980392, 1)
+            get() = hex(0xFFFAFAFFu)
         inline val springGreen: Color
-            get() = Color(0, 1, 0.498039, 1)
+            get() = hex(0x00FF7FFFu)
         inline val steelBlue: Color
-            get() = Color(0.27451, 0.509804, 0.705882, 1)
+            get() = hex(0x4682B4FFu)
         inline val tan: Color
-            get() = Color(0.823529, 0.705882, 0.54902, 1)
+            get() = hex(0xD2B48CFFu)
         inline val teal: Color
-            get() = Color(0, 0.501961, 0.501961, 1)
+            get() = hex(0x008080FFu)
         inline val thistle: Color
-            get() = Color(0.847059, 0.74902, 0.847059, 1)
+            get() = hex(0xD8BFD8FFu)
         inline val tomato: Color
-            get() = Color(1, 0.388235, 0.278431, 1)
+            get() = hex(0xFF6347FFu)
         inline val transparent: Color
-            get() = Color(1, 1, 1, 0)
+            get() = hex(0xFFFFFF00u)
         inline val turquoise: Color
-            get() = Color(0.25098, 0.878431, 0.815686, 1)
+            get() = hex(0x40E0D0FFu)
         inline val violet: Color
-            get() = Color(0.933333, 0.509804, 0.933333, 1)
+            get() = hex(0xEE82EEFFu)
         inline val webGray: Color
-            get() = Color(0.501961, 0.501961, 0.501961, 1)
+            get() = hex(0x808080FFu)
         inline val webGreen: Color
-            get() = Color(0, 0.501961, 0, 1)
+            get() = hex(0x008000FFu)
         inline val webMaroon: Color
-            get() = Color(0.501961, 0, 0, 1)
+            get() = hex(0x800000FFu)
         inline val webPurple: Color
-            get() = Color(0.501961, 0, 0.501961, 1)
+            get() = hex(0x800080FFu)
         inline val wheat: Color
-            get() = Color(0.960784, 0.870588, 0.701961, 1)
+            get() = hex(0xF5DEB3FFu)
         inline val white: Color
-            get() = Color(1.00, 1.00, 1.00)
+            get() = hex(0xFFFFFFFFu)
         inline val whiteSmoke: Color
-            get() = Color(0.960784, 0.960784, 0.960784, 1)
+            get() = hex(0xF5F5F5FFu)
         inline val yellow: Color
-            get() = Color(1.00, 1.00, 0.00)
+            get() = hex(0xFFFF00FFu)
         inline val yellowGreen: Color
-            get() = Color(0.603922, 0.803922, 0.196078, 1)
+            get() = hex(0x9ACD32FFu)
 
         internal fun parseCol(p_str: String, p_ofs: Int): RealT {
             var ig = 0.0
@@ -487,41 +487,20 @@ class Color : Comparable<Color>, CoreType {
         /**
          * Constructs a color from an HSV profile. h, s, and v are values between 0 and 1.
          */
-        fun fromHsv(h: RealT, s: RealT, v: RealT, a: RealT): Color {
-            if (s == 0.0) {
-                // Achromatic (gray)
-                return Color(v, v, v)
-            }
-
-            var h2 = h * 6.0f
-            h2 = h2.rem(6)
-
-            val i = h2.toInt()
-            val f = h2 - i
-
-            val p = v * (1.0f - s)
-            val q = v * (1.0f - s * f)
-            val t = v * (1.0f - s * (1.0f - f))
-
-            return when (i) {
-                0 -> Color(v, t, p, a)
-                1 -> Color(q, v, p, a)
-                2 -> Color(p, v, t, a)
-                3 -> Color(p, q, v, a)
-                4 -> Color(t, p, v, a)
-                5 -> Color(v, p, q, a)
-                else -> Color(0.0, 0.0, 0.0, a)
-            }
+        fun fromHsv(h: RealT, s: RealT, v: RealT, a: RealT = 1.0): Color {
+            val color = Color()
+            color.setHSV(h, s, v, a)
+            return color
         }
 
         /**
          * Decodes a Color from a RGBE9995 format integer. See Image.FORMAT_RGBE9995.
          */
-        fun fromRgbd9995(rgbe: Int): Color {
+        fun fromRgbe9995(rgbe: Int): Color {
             val r = rgbe and 0x1ff
             val g = (rgbe shr 9) and 0x1ff
             val b = (rgbe shr 18) and 0x1ff
-            val e = (rgbe shr 27)
+            val e = (rgbe ushr 27)
             val m = 2.0.pow(e - 15.0 - 9.0)
 
             val rd = r * m
@@ -545,20 +524,18 @@ class Color : Comparable<Color>, CoreType {
             return Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
         }
 
+        fun fromRgba8(r8: Int, g8: Int, b8: Int, a8: Int = 255): Color = fromRgba(r8, g8, b8, a8)
+
         /**
          * Creates a Color from the given string, which can be either an HTML color code or a named color
          * (case-insensitive). Returns default if the color cannot be inferred from the string.
          */
-        private fun fromString(str: String, default: Color): Color {
-            val color = if (htmlIsValid(str)) {
-                html(str)
-            } else {
-                named(str)
+        fun fromString(str: String, default: Color): Color {
+            if (htmlIsValid(str)) {
+                return html(str)
             }
-            if (color == Color()) {
-                return Color(default)
-            }
-            return color
+            val idx = findNamedColor(str)
+            return if (idx == -1) Color(default) else Color(namedColors[idx].second)
         }
 
         //Color construction helpers
@@ -582,6 +559,9 @@ class Color : Comparable<Color>, CoreType {
                 }
 
                 else -> {
+                    if (GodotJvmBuildConfig.DEBUG) {
+                        GodotLogging.error("Invalid color code: $from.")
+                    }
                     return Color()
                 }
             }
@@ -607,28 +587,33 @@ class Color : Comparable<Color>, CoreType {
                 }
             }
 
+            if (GodotJvmBuildConfig.DEBUG && (r < 0.0f || g < 0.0f || b < 0.0f || a < 0.0f)) {
+                GodotLogging.error("Invalid color code: $from.")
+                return Color()
+            }
+
             return Color(r, g, b, a)
         }
 
         fun hex(from: UInt): Color {
-            val a = (from and 0xFFu).toFloat() / 255.0
+            val a = ((from and 0xFFu).toFloat() / 255.0f).toDouble()
             var hex = from shr 8
-            val b = (hex and 0xFFu).toFloat() / 255.0
+            val b = ((hex and 0xFFu).toFloat() / 255.0f).toDouble()
             hex = hex shr 8
-            val g = (hex and 0xFFu).toFloat() / 255.0
+            val g = ((hex and 0xFFu).toFloat() / 255.0f).toDouble()
             hex = hex shr 8
-            val r = (hex and 0xFFu).toFloat() / 255.0
+            val r = ((hex and 0xFFu).toFloat() / 255.0f).toDouble()
             return Color(r, g, b, a)
         }
 
         fun hex64(from: ULong): Color {
-            val a = (from and 0xFFFFu).toFloat() / 65535.0
+            val a = ((from and 0xFFFFu).toFloat() / 65535.0f).toDouble()
             var hex = from shr 16
-            val b = (hex and 0xFFFFu).toFloat() / 65535.0
+            val b = ((hex and 0xFFFFu).toFloat() / 65535.0f).toDouble()
             hex = hex shr 16
-            val g = (hex and 0xFFFFu).toFloat() / 65535.0
+            val g = ((hex and 0xFFFFu).toFloat() / 65535.0f).toDouble()
             hex = hex shr 16
-            val r = (hex and 0xFFFFu).toFloat() / 65535.0
+            val r = ((hex and 0xFFFFu).toFloat() / 65535.0f).toDouble()
             return Color(r, g, b, a)
         }
 
@@ -805,11 +790,14 @@ class Color : Comparable<Color>, CoreType {
             return -1
         }
 
-        val namedColorCount = namedColors.size
+        val namedColorCount = namedColors.size - 1
 
         internal fun named(name: String): Color {
             val idx: Int = findNamedColor(name)
             return if (idx == -1) {
+                if (GodotJvmBuildConfig.DEBUG) {
+                    GodotLogging.error("Invalid color name: $name.")
+                }
                 Color()
             } else Color(namedColors[idx].second)
         }
@@ -863,9 +851,9 @@ class Color : Comparable<Color>, CoreType {
             return true
         }
 
-        operator fun invoke(code: String) = fromString(code, Color())
+        operator fun invoke(code: String) = if (htmlIsValid(code)) html(code) else named(code)
 
-        operator fun invoke(code: String, a: RealT) = fromString(code, Color()).also { it.a = a }
+        operator fun invoke(code: String, a: RealT) = invoke(code).also { it.a = a }
     }
 
     //CONSTRUCTOR
@@ -904,6 +892,7 @@ class Color : Comparable<Color>, CoreType {
     fun blend(over: Color): Color {
         val res = Color()
         val sa = 1.0 - over.a
+        res.a = a * sa + over.a
         if (res.a == 0.0) {
             return Color(0.0, 0.0, 0.0, 0.0)
         } else {
@@ -919,10 +908,10 @@ class Color : Comparable<Color>, CoreType {
      * each component.
      */
     fun clamp(min: Color = Color(0, 0, 0, 0), max: Color = Color(1, 1, 1, 1)) = Color(
-        r.coerceIn(min.r, max.r),
-        g.coerceIn(min.g, max.g),
-        b.coerceIn(min.b, max.b),
-        a.coerceIn(min.a, max.a),
+        clampComponent(r, min.r, max.r),
+        clampComponent(g, min.g, max.g),
+        clampComponent(b, min.b, max.b),
+        clampComponent(a, min.a, max.a),
     )
 
     /**
@@ -1036,9 +1025,9 @@ class Color : Comparable<Color>, CoreType {
      * color space. See also srgb_to_linear which performs the opposite operation.
      */
     fun linearToSrgb() = Color(
-        if (r < 0.0031308f) 12.92f * r else (1.0f + 0.055f) * r.pow(1.0 / 2.4) - 0.055,
-        if (g < 0.0031308f) 12.92f * g else (1.0f + 0.055f) * g.pow(1.0 / 2.4) - 0.055,
-        if (b < 0.0031308f) 12.92f * b else (1.0f + 0.055f) * b.pow(1.0 / 2.4) - 0.055,
+        if (r < 0.0031308f) 12.92f * r else (1.0 + 0.055) * r.pow((1.0f / 2.4f).toDouble()) - 0.055,
+        if (g < 0.0031308f) 12.92f * g else (1.0 + 0.055) * g.pow((1.0f / 2.4f).toDouble()) - 0.055,
+        if (b < 0.0031308f) 12.92f * b else (1.0 + 0.055) * b.pow((1.0f / 2.4f).toDouble()) - 0.055,
         a
     )
 
@@ -1047,9 +1036,9 @@ class Color : Comparable<Color>, CoreType {
      * sRGB color space. See also linear_to_srgb which performs the opposite operation.
      */
     fun srgbToLinear() = Color(
-        if (r < 0.04045f) r * (1.0f / 12.92f) else ((r + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4),
-        if (g < 0.04045f) g * (1.0f / 12.92f) else ((g + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4),
-        if (b < 0.04045f) b * (1.0f / 12.92f) else ((b + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4),
+        if (r < 0.04045f) r * (1.0f / 12.92f) else ((r + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4f.toDouble()),
+        if (g < 0.04045f) g * (1.0f / 12.92f) else ((g + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4f.toDouble()),
+        if (b < 0.04045f) b * (1.0f / 12.92f) else ((b + 0.055) * (1.0 / (1.0 + 0.055))).pow(2.4f.toDouble()),
         a
     )
 
@@ -1057,7 +1046,7 @@ class Color : Comparable<Color>, CoreType {
      * Returns the color’s 32-bit integer in ABGR format (each byte represents a component of the ABGR profile).
      * ABGR is the reversed version of the default format.
      */
-    fun toABGR32(): Int = toByteColorCode(a, b, g, r, ColorByte.BITS32).toInt()
+    fun toABGR32(): Long = toByteColorCode(a, b, g, r, ColorByte.BITS32)
 
     /**
      * Returns the color’s 64-bit integer in ABGR format (each word represents a component of the ABGR profile).
@@ -1069,7 +1058,7 @@ class Color : Comparable<Color>, CoreType {
      * Returns the color’s 32-bit integer in ARGB format (each byte represents a component of the ARGB profile).
      * ARGB is more compatible with DirectX.
      */
-    fun toARGB32(): Int = toByteColorCode(a, r, g, b, ColorByte.BITS32).toInt()
+    fun toARGB32(): Long = toByteColorCode(a, r, g, b, ColorByte.BITS32)
 
     /**
      * Returns the color’s 64-bit integer in ARGB format (each word represents a component of the ARGB profile).
@@ -1081,7 +1070,7 @@ class Color : Comparable<Color>, CoreType {
      * Returns the color’s 32-bit integer in RGBA format (each byte represents a component of the RGBA profile).
      * RGBA is Godot’s default format.
      */
-    fun toRGBA32(): Int = toByteColorCode(r, g, b, a, ColorByte.BITS32).toInt()
+    fun toRGBA32(): Long = toByteColorCode(r, g, b, a, ColorByte.BITS32)
 
     /**
     Returns the color’s 64-bit integer in RGBA format (each word represents a component of the RGBA profile).
@@ -1091,20 +1080,16 @@ class Color : Comparable<Color>, CoreType {
 
     private fun toByteColorCode(first: RealT, second: RealT, third: RealT, fourth: RealT, colorByte: ColorByte): Long {
         val size = colorByte.size
-        val shift = colorByte.shift
-        var c: Long = (first * size).roundToLong()
-        c = c shl shift
-        c = c or (second * size).roundToLong()
-        c = c shl shift
-        c = c or (third * size).roundToLong()
-        c = c shl shift
-        c = c or (fourth * size).roundToLong()
-
+        val mask = size.toLong()
+        var c = 0L
+        for (channel in doubleArrayOf(first, second, third, fourth)) {
+            c = (c shl colorByte.shift) or (roundHalfAway(channel * size).toLong() and mask)
+        }
         return c
     }
 
     /**
-     * Returns the color’s HTML hexadecimal color string in ARGB format (ex: ff34f822).
+     * Returns the color’s HTML hexadecimal color string in RGBA format (ex: 34f822ff).
      * Setting with_alpha to false excludes alpha from the hexadecimal string.
      */
     fun toHtml(alpha: Boolean = true): String {
@@ -1113,14 +1098,13 @@ class Color : Comparable<Color>, CoreType {
         txt += toHex(g)
         txt += toHex(b)
         if (alpha) {
-            txt = toHex(a) + txt
+            txt += toHex(a)
         }
         return txt
     }
 
     private fun toHex(value: RealT): String {
-        var v = (value * 255.0).toInt()
-        v = v.coerceIn(0, 255)
+        var v = toChannel8(value)
         var ret = ""
 
         for (i in 0..1) {
@@ -1146,6 +1130,24 @@ class Color : Comparable<Color>, CoreType {
         else -> false
     }
 
+    operator fun get(n: Int): RealT = when (n) {
+        0 -> r
+        1 -> g
+        2 -> b
+        3 -> a
+        else -> throw IndexOutOfBoundsException()
+    }
+
+    operator fun set(n: Int, f: RealT) = when (n) {
+        0 -> r = f
+        1 -> g = f
+        2 -> b = f
+        3 -> a = f
+        else -> throw IndexOutOfBoundsException()
+    }
+
+    operator fun unaryPlus() = Color(this)
+
     operator fun unaryMinus() = Color(1.0 - r, 1.0 - g, 1.0 - b, 1.0 - a)
 
     operator fun plus(c: Color) = Color(r + c.r, g + c.g, b + c.b, a + c.a)
@@ -1164,6 +1166,8 @@ class Color : Comparable<Color>, CoreType {
     operator fun div(c: Color) = Color(r / c.r, g / c.g, b / c.b, a / c.a)
     operator fun div(scalar: Float) = Color(r / scalar, g / scalar, b / scalar, a / scalar)
     operator fun div(scalar: Double) = Color(r / scalar, g / scalar, b / scalar, a / scalar)
+    operator fun times(scalar: Int) = Color(r * scalar, g * scalar, b * scalar, a * scalar)
+    operator fun div(scalar: Int) = Color(r / scalar, g / scalar, b / scalar, a / scalar)
 
     override fun compareTo(other: Color): Int {
         return when {
@@ -1193,10 +1197,25 @@ class Color : Comparable<Color>, CoreType {
     }
 
     override fun hashCode(): Int {
-        var result = r.hashCode()
-        result = 31 * result + g.hashCode()
-        result = 31 * result + b.hashCode()
-        result = 31 * result + a.hashCode()
+        var result = (r + 0.0).hashCode()
+        result = 31 * result + (g + 0.0).hashCode()
+        result = 31 * result + (b + 0.0).hashCode()
+        result = 31 * result + (a + 0.0).hashCode()
         return result
     }
 }
+
+operator fun Int.times(color: Color) = color * this
+
+operator fun Double.times(color: Color) = color * this
+
+operator fun Float.times(color: Color) = color * this
+
+private fun roundHalfAway(value: RealT): RealT {
+    val t = truncate(value)
+    return if (abs(value - t) >= 0.5) t + (if (value < 0.0) -1.0 else 1.0) else t
+}
+
+private fun clampComponent(value: RealT, min: RealT, max: RealT): RealT = if (value < min) min else if (value > max) max else value
+
+private fun toChannel8(value: RealT): Int = clampComponent(roundHalfAway(value * 255.0), 0.0, 255.0).toInt()
