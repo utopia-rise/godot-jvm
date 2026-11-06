@@ -236,4 +236,133 @@ class TestVector4 {
             }
         }
     }
+
+    @Test
+    fun `Minimum is component wise`() {
+        checkTrue(Vector4(1, 2, 3, 4).min(Vector4(4, 3, 2, 1)) == Vector4(1, 2, 2, 1))
+        checkTrue(Vector4(1, 2, 3, 4).max(Vector4(4, 3, 2, 1)) == Vector4(4, 3, 3, 4))
+    }
+
+    @Test
+    fun `Snap rounds to the step`() {
+        val vector = Vector4(1.2, 2.7, -0.4, 3.1)
+        val expected = Vector4(1.0, 2.5, -0.5, 3.0)
+        checkTrue(vector.snappedf(0.5) == expected)
+        checkTrue(Vector4(vector).also { it.snap(0.5) } == expected)
+        checkTrue(Vector4(vector).also { it.snap(0.0) } == vector)
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Vector4(1, 2, 3, 4)
+        val b = Vector4(4, -5, 6, 7)
+        val aCopy = Vector4(a)
+        val bCopy = Vector4(b)
+
+        val operations = listOf<() -> Any>(
+            { a + b },
+            { a - b },
+            { a * b },
+            { a / b },
+            { a * 2.0 },
+            { -a },
+            { a.normalized() },
+            { a.abs() },
+            { a.min(b) },
+            { a.max(b) },
+            { a.lerp(b, 0.5) },
+            { a.inverse() },
+            { a.snapped(Vector4(2, 2, 2, 2)) },
+            { a.snappedf(2.0) },
+            { a.directionTo(b) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+    @Test
+    fun `isNormalized uses squared length with unit epsilon`() {
+        checkTrue(Vector4(0.0, 0.0, 0.0, 1.0004).isNormalized())
+        checkFalse(Vector4(0.0, 0.0, 0.0, 1.002).isNormalized())
+    }
+
+    @Test
+    fun `clamp does not throw when min is greater than max`() {
+        val clamped = Vector4(5.0, -5.0, 0.5, 2.0).clamp(Vector4(3.0, 3.0, 3.0, 3.0), Vector4(1.0, 1.0, 1.0, 1.0))
+        checkTrue(clamped == Vector4(1.0, 3.0, 3.0, 3.0))
+        checkTrue(Vector4(5.0, -5.0, 0.5, 2.0).clampf(3.0, 1.0) == Vector4(1.0, 3.0, 3.0, 3.0))
+    }
+
+    @Test
+    fun `round rounds halves away from zero`() {
+        checkTrue(Vector4(0.5, 2.5, -1.5, -2.5).round() == Vector4(1.0, 3.0, -2.0, -3.0))
+        checkTrue(Vector4(0.4, -0.4, 1.6, -1.6).round() == Vector4(0.0, 0.0, 2.0, -2.0))
+    }
+
+    @Test
+    fun `snap with a tiny step still snaps`() {
+        val vector = Vector4(3.3e-6, 0.0, 0.0, 0.0)
+        vector.snap(1e-6)
+        checkTrue(vector.x == 3.0 * 1e-6)
+    }
+
+    @Test
+    fun `isEqualApprox takes the tolerance from this vector`() {
+        checkTrue(!Vector4(1e6, 0.0, 0.0, 0.0).isEqualApprox(Vector4(1000010.00005, 0.0, 0.0, 0.0)))
+        checkTrue(Vector4(1000010.00005, 0.0, 0.0, 0.0).isEqualApprox(Vector4(1e6, 0.0, 0.0, 0.0)))
+    }
+
+    @Test
+    fun `hashCode ignores the sign of zero`() {
+        checkTrue(Vector4(0.0, 0.0, 0.0, 0.0) == Vector4(-0.0, 0.0, 0.0, 0.0))
+        checkTrue(Vector4(0.0, 0.0, 0.0, 0.0).hashCode() == Vector4(-0.0, 0.0, 0.0, 0.0).hashCode())
+        checkTrue(Vector4(1.0, 0.0, 2.0, 0.0).hashCode() == Vector4(1.0, -0.0, 2.0, -0.0).hashCode())
+    }
+
+    @Test
+    fun `unaryPlus returns an equal copy`() {
+        val v = Vector4(1.0, -2.0, 3.0, -4.0)
+        val copy = +v
+        checkTrue(copy == v)
+        checkTrue(copy !== v)
+    }
+
+    @Test
+    fun `times projection transforms by the transpose`() {
+        val projection = Projection(
+            Vector4(1.0, 2.0, 3.0, 4.0),
+            Vector4(5.0, 6.0, 7.0, 8.0),
+            Vector4(9.0, 10.0, 11.0, 12.0),
+            Vector4(13.0, 14.0, 15.0, 16.0)
+        )
+        checkTrue(Vector4(1.0, 0.0, -1.0, 2.0) * projection == Vector4(6.0, 14.0, 22.0, 30.0))
+    }
+
+    @Test
+    fun `axis index follows the C++ comparisons`() {
+        val equal = Vector4(2.0, 2.0, 2.0, 2.0)
+        checkTrue(equal.maxAxis() == Vector4.Axis.X)
+        checkTrue(equal.minAxis() == Vector4.Axis.W)
+        checkTrue(Vector4(Double.NaN, 1.0, 2.0, 3.0).maxAxis() == Vector4.Axis.X)
+        checkTrue(Vector4(Double.NaN, 1.0, 2.0, 3.0).minAxis() == Vector4.Axis.X)
+        checkTrue(Vector4(1.0, Double.NaN, 5.0, 5.0).maxAxis() == Vector4.Axis.Z)
+        checkTrue(Vector4(1.0, Double.NaN, 5.0, 5.0).minAxis() == Vector4.Axis.X)
+        checkTrue(Vector4(5.0, Double.NaN, 5.0, 5.0).minAxis() == Vector4.Axis.W)
+    }
+
+    @Test
+    fun `normalized falls back to zero for non finite components`() {
+        checkTrue(Vector4(Double.NaN, 0.0, 0.0, 0.0).normalized() == Vector4(0.0, 0.0, 0.0, 0.0))
+        checkTrue(Vector4(0.0, Double.POSITIVE_INFINITY, 0.0, 1.0).normalized() == Vector4(0.0, 0.0, 0.0, 0.0))
+    }
+
+    @Test
+    fun `isZeroApprox uses the absolute epsilon`() {
+        checkTrue(Vector4(1e-6, -1e-6, 0.0, 1e-6).isZeroApprox())
+        checkFalse(Vector4(1e-5, 0.0, 0.0, 0.0).isZeroApprox())
+        checkFalse(Vector4(0.0, 0.0, 0.0, 2.0).isZeroApprox())
+    }
 }

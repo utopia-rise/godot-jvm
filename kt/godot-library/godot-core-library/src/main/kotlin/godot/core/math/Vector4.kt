@@ -2,7 +2,9 @@
 
 package godot.core
 
+import godot.common.util.CMP_EPSILON
 import godot.common.util.RealT
+import godot.common.util.UNIT_EPSILON
 import godot.common.util.cubicInterpolateInTime
 import godot.common.util.fposmod
 import godot.common.util.isEqualApprox
@@ -13,11 +15,11 @@ import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.round
-import kotlin.math.sign
 import kotlin.math.sqrt
+import kotlin.math.truncate
+import kotlin.math.sign
+import godot.common.util.clampValue
+import godot.common.util.roundValue
 
 class Vector4(
     var x: RealT,
@@ -87,17 +89,17 @@ class Vector4(
      * @GlobalScope.clamp on each component.
      */
     fun clamp(min: Vector4, max: Vector4) = Vector4(
-        x.coerceIn(min.x, max.x),
-        y.coerceIn(min.y, max.y),
-        z.coerceIn(min.z, max.z),
-        w.coerceIn(min.w, max.w)
+        clampValue(x, min.x, max.x),
+        clampValue(y, min.y, max.y),
+        clampValue(z, min.z, max.z),
+        clampValue(w, min.w, max.w)
     )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampf(min: RealT, max: RealT) = Vector4(x.coerceIn(min, max), y.coerceIn(min, max), z.coerceIn(min, max), w.coerceIn(min, max))
+    fun clampf(min: RealT, max: RealT) = Vector4(clampValue(x, min, max), clampValue(y, min, max), clampValue(z, min, max), clampValue(w, min, max))
 
     /**
      * Performs a cubic interpolation between vectors pre_a, a, b, post_b (a is current), by the given amount t.
@@ -215,7 +217,7 @@ class Vector4(
      * Returns true if this vector and v are approximately equal, by running isEqualApprox on each component.
      */
     fun isEqualApprox(other: Vector4): Boolean {
-        return other.x.isEqualApprox(x) && other.y.isEqualApprox(y) && other.z.isEqualApprox(z) && other.w.isEqualApprox(w)
+        return x.isEqualApprox(other.x) && y.isEqualApprox(other.y) && z.isEqualApprox(other.z) && w.isEqualApprox(other.w)
     }
 
     /**
@@ -227,13 +229,13 @@ class Vector4(
      * Returns true if the vector is normalized.
      */
     fun isNormalized(): Boolean {
-        return this.length().isEqualApprox(1.0)
+        return lengthSquared().isEqualApprox(1.0, UNIT_EPSILON)
     }
 
     /**
      * Returns true if this vector's values are approximately zero
      */
-    fun isZeroApprox() = isEqualApprox(ZERO)
+    fun isZeroApprox() = abs(x) < CMP_EPSILON && abs(y) < CMP_EPSILON && abs(z) < CMP_EPSILON && abs(w) < CMP_EPSILON
 
     /**
      * Returns the vector’s length.
@@ -263,7 +265,7 @@ class Vector4(
     /**
      * Returns the component-wise maximum of this and with.
      */
-    fun max(with: Vector4) = Vector4(max(x, with.x), max(y, with.y), max(z, with.z), max(w, with.w))
+    fun max(with: Vector4) = Vector4(maxOf(x, with.x), maxOf(y, with.y), maxOf(z, with.z), maxOf(w, with.w))
 
     /**
      * Returns the axis of the vector's highest value. See AXIS_* constants.
@@ -274,11 +276,10 @@ class Vector4(
         var maxValue = x
         for (i in 1 until 4) {
             val axisValue = this[i]
-            if (axisValue <= maxValue) {
-                continue
+            if (axisValue > maxValue) {
+                maxIndex = i
+                maxValue = axisValue
             }
-            maxIndex = i
-            maxValue = axisValue
         }
         return Axis.from(maxIndex.toLong())
     }
@@ -286,12 +287,12 @@ class Vector4(
     /**
      * Returns the component-wise maximum of this and with.
      */
-    fun maxf(with: RealT) = Vector4(max(x, with), max(y, with), max(z, with), max(w, with))
+    fun maxf(with: RealT) = Vector4(maxOf(x, with), maxOf(y, with), maxOf(z, with), maxOf(w, with))
 
     /**
      * Returns the component-wise minimum of this and with.
      */
-    fun min(with: Vector4) = Vector4(min(x, with.x), min(y, with.y), min(z, with.z), max(w, with.w))
+    fun min(with: Vector4) = Vector4(minOf(x, with.x), minOf(y, with.y), minOf(z, with.z), minOf(w, with.w))
 
     /**
      * Returns the axis of the vector’s smallest value. See AXIS_* constants.
@@ -301,11 +302,10 @@ class Vector4(
         var minValue = x
         for (i in 1 until 4) {
             val axisValue = this[i]
-            if (axisValue > minValue) {
-                continue
+            if (axisValue <= minValue) {
+                minIndex = i
+                minValue = axisValue
             }
-            minIndex = i
-            minValue = axisValue
         }
         return Axis.from(minIndex.toLong())
     }
@@ -313,7 +313,7 @@ class Vector4(
     /**
      * Returns the component-wise minimum of this and with.
      */
-    fun minf(with: RealT) = Vector4(min(x, with), min(y, with), min(z, with), min(w, with))
+    fun minf(with: RealT) = Vector4(minOf(x, with), minOf(y, with), minOf(z, with), minOf(w, with))
 
     /**
      * Returns the vector scaled to unit length. Equivalent to v / v.length().
@@ -326,8 +326,8 @@ class Vector4(
 
     internal fun normalize() {
         if (GodotJvmBuildConfig.DEBUG) {
-            if((!isFinite())) {
-                GodotLogging.warning("Vector2 cannot be normalized, the elements must be finite. Making (0, 0, 0, 0) as a fallback.")
+            if (!isFinite()) {
+                GodotLogging.warning("Vector4 cannot be normalized, the elements must be finite. Making (0, 0, 0, 0) as a fallback.")
                 x = 0.0
                 y = 0.0
                 z = 0.0
@@ -365,7 +365,7 @@ class Vector4(
      * Returns the vector with all components rounded to the nearest integer, with halfway cases rounded away from zero.
      */
     fun round(): Vector4 {
-        return Vector4(round(x), round(y), round(z), round(w))
+        return Vector4(roundValue(x), roundValue(y), roundValue(z), roundValue(w))
     }
 
     /**
@@ -399,7 +399,7 @@ class Vector4(
     fun snappedf(step: RealT) = Vector4(snapped(x, step), snapped(y, step), snapped(z, step), snapped(w, step))
 
     internal fun snap(vecal: RealT) {
-        if (vecal.isEqualApprox(0.0)) {
+        if (vecal != 0.0) {
             x = (floor(x / vecal + 0.5) * vecal)
             y = (floor(y / vecal + 0.5) * vecal)
             z = (floor(z / vecal + 0.5) * vecal)
@@ -465,6 +465,9 @@ class Vector4(
     operator fun div(scalar: Double) = Vector4(x / scalar, y / scalar, z / scalar, w / scalar)
 
     operator fun unaryMinus() = Vector4(-x, -y, -z, -w)
+    operator fun unaryPlus() = Vector4(this)
+
+    operator fun times(projection: Projection): Vector4 = projection.xformInv(this)
 
     override fun equals(other: Any?): Boolean = when (other) {
         is Vector4 -> (x == other.x && y == other.y && z == other.z && w == other.w)
@@ -505,7 +508,11 @@ class Vector4(
     }
 
     override fun hashCode(): Int {
-        return this.toString().hashCode()
+        var h = (x + 0.0).hashCode()
+        h = 31 * h + (y + 0.0).hashCode()
+        h = 31 * h + (z + 0.0).hashCode()
+        h = 31 * h + (w + 0.0).hashCode()
+        return h
     }
 }
 
