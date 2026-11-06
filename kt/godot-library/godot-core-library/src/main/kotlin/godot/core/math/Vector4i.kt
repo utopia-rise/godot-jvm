@@ -39,6 +39,10 @@ class Vector4i(
             get() = Vector4i(0, 0, 0, 0)
         val ONE: Vector4i
             get() = Vector4i(1, 1, 1, 1)
+        val MIN: Vector4i
+            get() = Vector4i(Int.MIN_VALUE, Int.MIN_VALUE, Int.MIN_VALUE, Int.MIN_VALUE)
+        val MAX: Vector4i
+            get() = Vector4i(Int.MAX_VALUE, Int.MAX_VALUE, Int.MAX_VALUE, Int.MAX_VALUE)
     }
 
 
@@ -68,17 +72,19 @@ class Vector4i(
      * @GlobalScope.clamp on each component.
      */
     fun clamp(min: Vector4i, max: Vector4i) = Vector4i(
-        x.coerceIn(min.x, max.x),
-        y.coerceIn(min.y, max.y),
-        z.coerceIn(min.z, max.z),
-        w.coerceIn(min.w, max.w)
+        clampComponent(x, min.x, max.x),
+        clampComponent(y, min.y, max.y),
+        clampComponent(z, min.z, max.z),
+        clampComponent(w, min.w, max.w)
     )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampi(min: Int, max: Int) = Vector4i(x.coerceIn(min, max), y.coerceIn(min, max), z.coerceIn(min, max), w.coerceIn(min, max))
+    fun clampi(min: Int, max: Int) = Vector4i(clampComponent(x, min, max), clampComponent(y, min, max), clampComponent(z, min, max), clampComponent(w, min, max))
+
+    private fun clampComponent(value: Int, min: Int, max: Int) = if (value < min) min else if (value > max) max else value
 
     /**
      * Returns the vector’s length.
@@ -87,11 +93,15 @@ class Vector4i(
         return sqrt(lengthSquared().toDouble())
     }
 
+    fun distanceTo(to: Vector4i) = (to - this).length()
+
+    fun distanceSquaredTo(to: Vector4i) = (to - this).lengthSquared()
+
     /**
      * Returns the vector’s length squared.
      * Prefer this function over length if you need to sort vectors or need the squared length for some formula.
      */
-    fun lengthSquared() = x * (x) + y * (y) + z * (z) + w * (w)
+    fun lengthSquared() = x.toLong() * x + y.toLong() * y + z.toLong() * z + w.toLong() * w
 
     /**
      * Returns the component-wise maximum of this and with.
@@ -146,7 +156,7 @@ class Vector4i(
     /**
      * Returns the component-wise minimum of this and with.
      */
-    fun mini(with: Int) = Vector3i(min(x, with), min(y, with), min(z, with))
+    fun mini(with: Int) = Vector4i(min(x, with), min(y, with), min(z, with), min(w, with))
 
     /**
      * Returns the vector with each component set to one or negative one, depending on the signs of the components.
@@ -234,28 +244,29 @@ class Vector4i(
 
     operator fun plus(vec: Vector4i) = Vector4i(x + vec.x, y + vec.y, z + vec.z, w + vec.w)
     operator fun plus(scalar: Int) = Vector4i(x + scalar, y + scalar, z + scalar, w + scalar)
-    operator fun plus(scalar: Long) = Vector4i(x + scalar, y + scalar, z + scalar, w + scalar)
-    operator fun plus(scalar: Float) = Vector4i(x + scalar, y + scalar, z + scalar, w + scalar)
-    operator fun plus(scalar: Double) = Vector4i(x + scalar, y + scalar, z + scalar, w + scalar)
+    operator fun plus(scalar: Long) = plus(scalar.toInt())
+    operator fun plus(scalar: Float) = plus(scalar.toInt())
+    operator fun plus(scalar: Double) = plus(scalar.toInt())
 
     operator fun minus(vec: Vector4i) = Vector4i(x - vec.x, y - vec.y, z - vec.z, w - vec.w)
     operator fun minus(scalar: Int) = Vector4i(x - scalar, y - scalar, z - scalar, w - scalar)
-    operator fun minus(scalar: Long) = Vector4i(x - scalar, y - scalar, z - scalar, w - scalar)
-    operator fun minus(scalar: Float) = Vector4i(x - scalar, y - scalar, z - scalar, w - scalar)
-    operator fun minus(scalar: Double) = Vector4i(x - scalar, y - scalar, z - scalar, w - scalar)
+    operator fun minus(scalar: Long) = minus(scalar.toInt())
+    operator fun minus(scalar: Float) = minus(scalar.toInt())
+    operator fun minus(scalar: Double) = minus(scalar.toInt())
 
     operator fun times(vec: Vector4i) = Vector4i(x * vec.x, y * vec.y, z * vec.z, w * vec.w)
     operator fun times(scalar: Int) = Vector4i(x * scalar, y * scalar, z * scalar, w * scalar)
-    operator fun times(scalar: Long) = Vector4i(x * scalar, y * scalar, z * scalar, w * scalar)
-    operator fun times(scalar: Float) = Vector4i(x * scalar, y * scalar, z * scalar, w * scalar)
-    operator fun times(scalar: Double) = Vector4i(x * scalar, y * scalar, z * scalar, w * scalar)
+    operator fun times(scalar: Long) = times(scalar.toInt())
+    operator fun times(scalar: Float) = times(scalar.toDouble())
+    operator fun times(scalar: Double) = Vector4(x * scalar, y * scalar, z * scalar, w * scalar)
 
     operator fun div(vec: Vector4i) = Vector4i(x / vec.x, y / vec.y, z / vec.z, w / vec.w)
     operator fun div(scalar: Int) = Vector4i(x / scalar, y / scalar, z / scalar, w / scalar)
-    operator fun div(scalar: Long) = Vector4i(x / scalar, y / scalar, z / scalar, w / scalar)
-    operator fun div(scalar: Float) = Vector4i(x / scalar, y / scalar, z / scalar, w / scalar)
-    operator fun div(scalar: Double) = Vector4i(x / scalar, y / scalar, z / scalar, w / scalar)
+    operator fun div(scalar: Long) = div(scalar.toInt())
+    operator fun div(scalar: Float) = div(scalar.toDouble())
+    operator fun div(scalar: Double) = Vector4(x / scalar, y / scalar, z / scalar, w / scalar)
 
+    operator fun unaryPlus() = Vector4i(this)
     operator fun unaryMinus() = Vector4i(-x, -y, -z, -w)
 
     override fun equals(other: Any?): Boolean = when (other) {
@@ -297,7 +308,11 @@ class Vector4i(
     }
 
     override fun hashCode(): Int {
-        return this.toString().hashCode()
+        var h = x
+        h = 31 * h + y
+        h = 31 * h + z
+        h = 31 * h + w
+        return h
     }
 }
 
