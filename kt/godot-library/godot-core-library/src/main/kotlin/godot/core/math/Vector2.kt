@@ -13,6 +13,7 @@ import godot.common.util.isZeroApprox
 import godot.common.util.lerp
 import godot.common.util.snapped
 import godot.common.util.toRealT
+import godot.common.util.UNIT_EPSILON
 import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.math.abs
@@ -20,14 +21,12 @@ import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.floor
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.round
-import kotlin.math.sign
 import kotlin.math.sin
 import kotlin.math.sqrt
+import kotlin.math.truncate
+import kotlin.math.sign
+import godot.common.util.roundValue
 
-@Suppress("MemberVisibilityCanBePrivate")
 class Vector2(
     var x: RealT,
     var y: RealT
@@ -62,6 +61,8 @@ class Vector2(
             get() = Vector2(0, -1)
         val DOWN: Vector2
             get() = Vector2(0, 1)
+
+        fun fromAngle(angle: RealT) = Vector2(cos(angle), sin(angle))
     }
 
 
@@ -159,13 +160,19 @@ class Vector2(
      * Returns a new vector with all components clamped between the components of min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clamp(min: Vector2, max: Vector2) = Vector2(x.coerceIn(min.x, max.x), y.coerceIn(min.y, max.y))
+    fun clamp(min: Vector2, max: Vector2) = Vector2(
+        if (x < min.x) min.x else if (x > max.x) max.x else x,
+        if (y < min.y) min.y else if (y > max.y) max.y else y
+    )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampf(min: RealT, max: RealT) = Vector2(x.coerceIn(min, max), y.coerceIn(min, max))
+    fun clampf(min: RealT, max: RealT) = Vector2(
+        if (x < min) min else if (x > max) max else x,
+        if (y < min) min else if (y > max) max else y
+    )
 
     /**
      * Returns the 2 dimensional analog of the cross product with the given vector.
@@ -267,16 +274,10 @@ class Vector2(
     }
 
     /**
-     * Creates a unit Vector2 rotated to the given angle in radians. This is equivalent to doing
-     * Vector2(cos(angle), sin(angle)) or Vector2.RIGHT.rotated(angle).
-     */
-    fun fromAngle(angle: RealT) = Vector2(cos(angle), sin(angle))
-
-    /**
      * Returns true if this vector and v are approximately equal, by running isEqualApprox on each component.
      */
     fun isEqualApprox(other: Vector2): Boolean {
-        return other.x.isEqualApprox(x) && other.y.isEqualApprox(y)
+        return x.isEqualApprox(other.x) && y.isEqualApprox(other.y)
     }
 
     /**
@@ -288,13 +289,13 @@ class Vector2(
      * Returns true if the vector is normalized.
      */
     fun isNormalized(): Boolean {
-        return this.length().isEqualApprox(1.0)
+        return lengthSquared().isEqualApprox(1.0, UNIT_EPSILON)
     }
 
     /**
      * Returns true if this vector's values are approximately zero
      */
-    fun isZeroApprox() = isEqualApprox(Vector2.ZERO)
+    fun isZeroApprox() = abs(x) < CMP_EPSILON && abs(y) < CMP_EPSILON
 
     /**
      * Returns the vector’s length.
@@ -337,7 +338,7 @@ class Vector2(
     /**
      * Returns the component-wise maximum of this and with, equivalent to `Vector2(maxf(x, with.x), maxf(y, with.y))`.
      */
-    fun max(with: Vector2) = Vector2(max(x, with.x), max(y, with.y))
+    fun max(with: Vector2) = Vector2(if (x > with.x) x else with.x, if (y > with.y) y else with.y)
 
     /**
      * Returns the axis of the vector's highest value. See AXIS_* constants. If all components are equal,
@@ -348,12 +349,12 @@ class Vector2(
     /**
      * Returns the component-wise maximum of this and with, equivalent to `Vector2(maxf(x, with), maxf(y, with))`.
      */
-    fun maxf(with: RealT) = Vector2(max(x, with), max(y, with))
+    fun maxf(with: RealT) = Vector2(if (x > with) x else with, if (y > with) y else with)
 
     /**
      * Returns the component-wise minimum of this and with, equivalent to `Vector2(minf(x, with.x), minf(y, with.y))`.
      */
-    fun min(with: Vector2) = Vector2(min(x, with.x), min(y, with.y))
+    fun min(with: Vector2) = Vector2(if (x < with.x) x else with.x, if (y < with.y) y else with.y)
 
     /**
      * Returns the axis of the vector's lowest value. See AXIS_* constants. If all components are equal,
@@ -364,7 +365,7 @@ class Vector2(
     /**
      * Returns the component-wise minimum of this and with, equivalent to `Vector2(minf(x, with), minf(y, with))`.
      */
-    fun minf(with: RealT) = Vector2(min(x, with), min(y, with))
+    fun minf(with: RealT) = Vector2(if (x < with) x else with, if (y < with) y else with)
 
     /**
      * Moves the vector toward to by the fixed delta amount.
@@ -373,7 +374,7 @@ class Vector2(
         val vd = to - this
         val len = vd.length()
         return if (len <= delta || len < CMP_EPSILON)
-            to
+            Vector2(to)
         else
             this + vd / len * delta
     }
@@ -390,7 +391,7 @@ class Vector2(
 
     internal fun normalize() {
         if (GodotJvmBuildConfig.DEBUG) {
-            if((!isFinite())) {
+            if (!isFinite()) {
                 GodotLogging.warning("Vector2 cannot be normalized, the elements must be finite. Making (0, 0) as a fallback.")
                 x = 0.0
                 y = 0.0
@@ -441,8 +442,9 @@ class Vector2(
      */
     fun reflect(normal: Vector2): Vector2 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(normal.isNormalized()) {
-                "The normal Vector3 must be normalized. But got $normal"
+            if (!normal.isNormalized()) {
+                GodotLogging.error("The normal Vector2 $normal must be normalized.")
+                return Vector2()
             }
         }
         return 2.0 * normal * dot(normal) - this;
@@ -452,53 +454,39 @@ class Vector2(
      * Returns the vector rotated by phi radians.
      */
     fun rotated(by: RealT): Vector2 {
-        var v = Vector2(0.0, 0.0)
-        v.rotate(this.angle() + by)
-        v *= length()
-        return v
-    }
-
-    internal fun rotate(radians: RealT) {
-        x = cos(radians)
-        y = sin(radians)
+        val sine = sin(by)
+        val cosi = cos(by)
+        return Vector2(x * cosi - y * sine, x * sine + y * cosi)
     }
 
     /**
      * Returns the result of rotating this vector toward [to], by increment [delta] (in radians).
-     * Passing a negative [delta] will rotate toward the opposite of [to].
+     * Passing a negative [delta] will rotate away from [to].
      * This method supports vectors of different length, with the same behavior as [slerp].
      * If the vectors are colinear, this method behaves like [moveToward]. If [to] has a length of zero, this method behaves like [lerp].
      */
     fun rotateToward(to: Vector2, delta: RealT): Vector2 {
-        val unsignedDelta: RealT
-        val unsignedTo: Vector2
-
-        if (delta < 0.0) {
-            unsignedDelta = -delta
-            unsignedTo = -to
-        } else {
-            unsignedDelta = delta
-            unsignedTo = to
-        }
-
         val angle = abs(angleTo(to))
 
-        if (angle < unsignedDelta) {
-            if (unsignedTo.lengthSquared().isZeroApprox()) {
-                // Prevent locking up when to is (0, 0).
-                return lerp(unsignedTo, unsignedDelta)
+        if (delta >= 0.0 && angle <= delta) {
+            if (to.lengthSquared().isZeroApprox()) {
+                return lerp(to, delta)
             }
-            return moveToward(unsignedTo, unsignedDelta * unsignedTo.length())
+            return moveToward(to, delta * to.length())
         }
 
-        return slerp(unsignedTo, unsignedDelta / angle)
+        if (angle == 0.0) {
+            return Vector2(this)
+        }
+
+        return slerp(to, delta / angle)
     }
 
     /**
      * Returns the vector with all components rounded to the nearest integer, with halfway cases rounded away from zero.
      */
     fun round(): Vector2 {
-        return Vector2(round(x), round(y))
+        return Vector2(roundValue(x), roundValue(y))
     }
 
     /**
@@ -534,8 +522,9 @@ class Vector2(
      */
     fun slide(normal: Vector2): Vector2 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(normal.isNormalized()) {
-                "The normal Vector3 must be normalized. But got $normal"
+            if (!normal.isNormalized()) {
+                GodotLogging.error("The normal Vector2 $normal must be normalized.")
+                return Vector2()
             }
         }
         return this - normal * dot(normal);
@@ -608,32 +597,30 @@ class Vector2(
     operator fun div(scalar: Float) = Vector2(x / scalar, y / scalar)
     operator fun div(scalar: Double) = Vector2(x / scalar, y / scalar)
 
+    operator fun unaryPlus() = Vector2(this)
     operator fun unaryMinus() = Vector2(-x, -y)
 
     fun toVector2i() = Vector2i(x.toInt(), y.toInt())
 
     override fun equals(other: Any?): Boolean = when (other) {
-        is Vector2 -> (x.isEqualApprox(other.x) && y.isEqualApprox(other.y))
+        is Vector2 -> x == other.x && y == other.y
         else -> false
     }
 
     override fun compareTo(other: Vector2): Int =
-        if (x.isEqualApprox(other.x)) {
+        if (x == other.x) {
             when {
                 y < other.y -> -1
-                y.isEqualApprox(other.y) -> 0
+                y == other.y -> 0
                 else -> 1
             }
         } else {
-            when {
-                x < other.x -> -1
-                else -> 1
-            }
+            if (x < other.x) -1 else 1
         }
 
     override fun hashCode(): Int {
-        var result = x.hashCode()
-        result = 31 * result + y.hashCode()
+        var result = (x + 0.0).hashCode()
+        result = 31 * result + (y + 0.0).hashCode()
         return result
     }
 
