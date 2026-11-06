@@ -9,14 +9,15 @@ import godot.common.util.isEqualApprox
 import godot.common.util.lerpAngle
 import godot.common.util.toRealT
 import godot.core.times
+import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.collections.toList
 import kotlin.math.PI
 import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.cos
-import kotlin.math.sign
 import kotlin.math.sin
+import kotlin.math.sign
 
 class Transform2D(
     p_x: Vector2,
@@ -139,7 +140,10 @@ class Transform2D(
     internal fun affineInvert() {
         val det = determinant()
         if (GodotJvmBuildConfig.DEBUG) {
-            require(!det.isEqualApprox(0.0)) { "Determinant is 0!" }
+            if (det == 0.0) {
+                GodotLogging.error("Condition \"det == 0\" is true.")
+                return
+            }
         }
         val idet = 1.0 / det
 
@@ -152,7 +156,7 @@ class Transform2D(
         _origin = basisXform(-_origin)
     }
 
-    private fun determinant(): RealT {
+    fun determinant(): RealT {
         return _x.x * _y.y - _x.y * _y.x
     }
 
@@ -177,8 +181,7 @@ class Transform2D(
      * Returns the scale.
      */
     fun getScale(): Vector2 {
-        val detSign: RealT = if (determinant() > 0.0) 1.0 else -1.0
-        return detSign * Vector2(_x.length(), _y.length())
+        return Vector2(_x.length(), sign(determinant()) * _y.length())
     }
 
     /**
@@ -186,7 +189,7 @@ class Transform2D(
      */
     fun getSkew(): RealT {
         val det = determinant();
-        return acos(x.normalized().dot(det.sign * y.normalized())) - PI * 0.5f;
+        return acos(x.normalized().dot(sign(det) * y.normalized()).coerceIn(-1.0, 1.0)) - PI * 0.5f;
     }
 
     /**
@@ -199,6 +202,14 @@ class Transform2D(
             lerpAngle(getSkew(), transform.getSkew(), weight),
             origin.lerp(transform.origin, weight)
         );
+    }
+
+    /**
+     * Returns a copy of the transform rotated to face the given target position.
+     */
+    fun lookingAt(target: Vector2 = Vector2()): Transform2D {
+        val targetPosition = affineInverse().xform(target)
+        return Transform2D(getRotation() + (targetPosition * getScale()).angle(), _origin)
     }
 
     /**
@@ -238,9 +249,9 @@ class Transform2D(
      * Returns true if this transform and transform are approximately equal, by calling is_equal_approx on each component.
      */
     fun isEqualApprox(transform: Transform2D): Boolean {
-        return transform._x.isEqualApprox(_x)
-            && transform._y.isEqualApprox(_y)
-            && transform._origin.isEqualApprox(_origin)
+        return _x.isEqualApprox(transform._x)
+            && _y.isEqualApprox(transform._y)
+            && _origin.isEqualApprox(transform._origin)
     }
 
     /**
@@ -322,7 +333,7 @@ class Transform2D(
 
     internal fun setSkew(angle: RealT) {
         val det = determinant();
-        _y = det.sign * _x.rotated((PI * 0.5f + angle)).normalized() * _y.length();
+        _y = sign(det) * _x.rotated((PI * 0.5f + angle)).normalized() * _y.length();
     }
 
     /**
@@ -449,9 +460,9 @@ class Transform2D(
 
 
     operator fun get(index: Int) = when (index) {
-        0 -> _x
-        1 -> _y
-        2 -> _origin
+        0 -> Vector2(_x)
+        1 -> Vector2(_y)
+        2 -> Vector2(_origin)
         else -> throw IndexOutOfBoundsException()
     }
 }
