@@ -27,7 +27,7 @@ const val NEPER2DB = 8.6858896380650365530225783783321
 const val DB2NEPER = 1.0 / NEPER2DB
 
 val Double.signbit: Boolean
-    get() = sign < 0
+    get() = toRawBits() < 0L
 
 /**
  * Because of float precision, it's hard to obtain two perfectly equal real numbers.
@@ -61,9 +61,9 @@ inline fun RealT.isZeroApprox() = abs(this) < CMP_EPSILON
 fun RealT.fposmod(b: RealT): RealT {
     val value = this.rem(b)
     if ((value < 0 && b > 0) || (value > 0 && b < 0)) {
-        return value + b;
+        return value + b + 0.0
     }
-    return value
+    return value + 0.0
 }
 
 fun Long.posmod(b: Long): Long {
