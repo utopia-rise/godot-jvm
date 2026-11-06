@@ -381,4 +381,187 @@ class TestVector3 {
         }
     }
 
+    @Test
+    fun `Move toward returns a copy`() {
+        val from = Vector3(1, 2, 3)
+        val to = Vector3(4, 5, 6)
+
+        val reached = from.moveToward(to, 100.0)
+        checkTrue(reached == to)
+        checkTrue(reached !== to)
+        reached.x = 99.0
+        checkTrue(to == Vector3(4, 5, 6))
+
+        val same = from.moveToward(from, 1.0)
+        checkTrue(same !== from)
+
+        val partial = from.moveToward(to, 1.0)
+        checkTrue((partial - from).length().isEqualApprox(1.0))
+    }
+
+    @Test
+    fun `Rotate toward returns a copy`() {
+        val from = Vector3(1, 0, 0)
+        val to = Vector3(0, 1, 0)
+        val reached = from.rotateToward(to, 100.0)
+        checkTrue(reached.isEqualApprox(to))
+        reached.x = 99.0
+        checkTrue(to == Vector3(0, 1, 0))
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Vector3(1, 2, 3)
+        val b = Vector3(4, -5, 6)
+        val aCopy = Vector3(a)
+        val bCopy = Vector3(b)
+
+        val operations = listOf<() -> Any>(
+            { a + b },
+            { a - b },
+            { a * b },
+            { a / b },
+            { a * 2.0 },
+            { -a },
+            { a.cross(b) },
+            { a.normalized() },
+            { a.abs() },
+            { a.lerp(b, 0.5) },
+            { a.slerp(b, 0.5) },
+            { a.limitLength(1.0) },
+            { a.project(b) },
+            { a.reflect(b.normalized()) },
+            { a.slide(b.normalized()) },
+            { a.bounce(b.normalized()) },
+            { a.rotated(Vector3(0, 1, 0), 1.0) },
+            { a.snapped(Vector3(2, 2, 2)) },
+            { a.snappedf(2.0) },
+            { a.directionTo(b) },
+            { a.moveToward(b, 1.0) },
+            { a.moveToward(b, 100.0) },
+            { a.rotateToward(b, 0.1) },
+            { a.rotateToward(b, 100.0) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+    @Test
+    fun `octahedronDecode clamps the negated z`() {
+        checkTrue(Vector3.octahedronDecode(Vector2(0, 0)).isEqualApprox(Vector3(0, 0, -1)))
+        checkTrue(Vector3(0, 0, 0).octahedronDecode(Vector2(0, 0)).isEqualApprox(Vector3(0, 0, -1)))
+    }
+
+    @Test
+    fun `clamp does not throw when min is greater than max`() {
+        checkTrue(Vector3(5, 5, 5).clamp(Vector3(10, 10, 10), Vector3(0, 0, 0)) == Vector3(10, 10, 10))
+        checkTrue(Vector3(5, 5, 5).clampf(10.0, 0.0) == Vector3(10, 10, 10))
+    }
+
+    @Test
+    fun `round rounds halfway cases away from zero`() {
+        checkTrue(Vector3(0.5, -0.5, 2.5).round() == Vector3(1, -1, 3))
+    }
+
+    @Test
+    fun `isNormalized compares the squared length with UNIT_EPSILON`() {
+        checkTrue(Vector3(1.0004, 0.0, 0.0).isNormalized())
+        checkFalse(Vector3(1.0006, 0.0, 0.0).isNormalized())
+    }
+
+    @Test
+    fun `isEqualApprox scales the tolerance by this vector`() {
+        checkFalse(Vector3(1000.0, 0.0, 0.0).isEqualApprox(Vector3(1000.01000005, 0.0, 0.0)))
+        checkTrue(Vector3(1000.01000005, 0.0, 0.0).isEqualApprox(Vector3(1000.0, 0.0, 0.0)))
+    }
+
+    @Test
+    fun `outer fills the rows of the basis`() {
+        val basis = Vector3(1, 2, 3).outer(Vector3(4, 5, 6))
+        checkTrue(basis[0] == Vector3(4, 8, 12))
+        checkTrue(basis[1] == Vector3(5, 10, 15))
+        checkTrue(basis[2] == Vector3(6, 12, 18))
+    }
+
+    @Test
+    fun `rotateToward with a negative delta rotates away from the target`() {
+        val result = Vector3(1, 0, 0).rotateToward(Vector3(0, 1, 0), -TAU / 8.0)
+        checkTrue(result.isEqualApprox(Vector3(SQRT12, -SQRT12, 0)))
+    }
+
+    @Test
+    fun `rotateToward with a zero delta and colinear vectors does not return NaN`() {
+        checkTrue(Vector3(1, 0, 0).rotateToward(Vector3(1, 0, 0), 0.0) == Vector3(1, 0, 0))
+    }
+
+    @Test
+    fun `Model constants`() {
+        checkTrue(Vector3.MODEL_LEFT == Vector3(1, 0, 0))
+        checkTrue(Vector3.MODEL_RIGHT == Vector3(-1, 0, 0))
+        checkTrue(Vector3.MODEL_TOP == Vector3(0, 1, 0))
+        checkTrue(Vector3.MODEL_BOTTOM == Vector3(0, -1, 0))
+        checkTrue(Vector3.MODEL_FRONT == Vector3(0, 0, 1))
+        checkTrue(Vector3.MODEL_REAR == Vector3(0, 0, -1))
+    }
+
+    @Test
+    fun `unaryPlus returns an equal copy`() {
+        val v = Vector3(1, -2, 3)
+        val result = +v
+        checkTrue(result == v)
+        checkTrue(result !== v)
+    }
+
+    @Test
+    fun `hashCode is equal for negative and positive zero`() {
+        checkTrue(Vector3(0.0, 0.0, 0.0) == Vector3(-0.0, 0.0, 0.0))
+        checkTrue(Vector3(0.0, 0.0, 0.0).hashCode() == Vector3(-0.0, 0.0, 0.0).hashCode())
+        checkTrue(Vector3(1.0, 0.0, 0.0).hashCode() == Vector3(1.0, -0.0, -0.0).hashCode())
+    }
+
+    @Test
+    fun `getAnyPerpendicular returns zero for a near zero vector`() {
+        checkTrue(Vector3(1e-6, 0, 0).getAnyPerpendicular() == Vector3(0, 0, 0))
+    }
+
+    @Test
+    fun `isZeroApprox uses an absolute tolerance`() {
+        checkTrue(Vector3(1e-6, -1e-6, 0).isZeroApprox())
+        checkFalse(Vector3(1e-5, 0, 0).isZeroApprox())
+        checkFalse(Vector3(0, 0, -1e-5).isZeroApprox())
+        checkFalse(Vector3(2.0, 0, 0).isZeroApprox())
+    }
+
+    @Test
+    fun `hashCode is consistent with equals`() {
+        checkTrue(Vector3(1.5, -2.5, 3.5).hashCode() == Vector3(1.5, -2.5, 3.5).hashCode())
+        checkTrue(Vector3(0.0, 0.0, -0.0).hashCode() == Vector3(0.0, 0.0, 0.0).hashCode())
+        checkTrue(Vector3(1, 2, 3).hashCode() != Vector3(3, 2, 1).hashCode())
+    }
+
+    @Test
+    fun `reflect slide and bounce return zero for a non normalized normal`() {
+        val v = Vector3(1, 2, 3)
+        val normal = Vector3(0, 2, 0)
+        checkTrue(v.reflect(normal) == Vector3())
+        checkTrue(v.slide(normal) == Vector3())
+        checkTrue(v.bounce(normal) == Vector3())
+    }
+
+    @Test
+    fun `rotated with a non normalized axis returns an unchanged copy`() {
+        val v = Vector3(1, 2, 3)
+        val result = v.rotated(Vector3(0, 2, 0), 1.0)
+        checkTrue(result == v)
+        checkTrue(result !== v)
+    }
+
+    @Test
+    fun `normalized returns zero for non finite components`() {
+        checkTrue(Vector3(Double.NaN, 0.0, 0.0).normalized() == Vector3(0, 0, 0))
+        checkTrue(Vector3(0.0, Double.POSITIVE_INFINITY, 1.0).normalized() == Vector3(0, 0, 0))
+    }
 }
