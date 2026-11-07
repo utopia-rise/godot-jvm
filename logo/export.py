@@ -1,10 +1,10 @@
 """Regenerate every logo asset. Usage: python export.py
 
 1. From logo-reference.svg into highres/: SVG copies with a fixed declared size, the PNG
-   sizes, and the outlined 1024px logo. From language/*.svg (CC0 simple-icons marks): 512px
+   sizes, and the thin and thick outlined 1024px logos. From language/*.svg (CC0 simple-icons marks): 512px
    PNGs. pixel/ holds the hand-drawn 32 and 64px pixel-art logos and is not generated.
    This step needs Inkscape. Without it the committed PNGs are kept and only step 2 runs.
-2. The Godot Asset Store images in store/ (1920x1080, 16:9) from highres/logo-1024.png and
+2. The Ko-fi cover (1200x400, 3:1) and Godot Asset Store images in store/ (1920x1080, 16:9) from highres/logo-1024-thin-outline.png and
    the language PNGs. Needs the Rubik Bold and Source Sans Pro Semibold fonts (both OFL, on
    Google Fonts), either installed or in the directory named by GODOT_JVM_FONT_DIR.
 
@@ -36,17 +36,15 @@ LANGUAGE_PNG_SIZE = 512
 LANGUAGES = (('kotlin', 'Kotlin'), ('java', 'Java'), ('scala', 'Scala'))
 
 # Store image layout. Both images share it so the mascot lands at the same spot in each.
-# The mascot is as large as the canvas allows while keeping the smoke tip inside, which is why
-# HEAD_Y sits a little below the canvas center. TEXT_Y nudges the text column down for optical
-# balance: a mathematically centered column reads top-heavy next to the low-slung head.
+# Leave room around the complete mascot and the text on both store surfaces.
 CANVAS_W, CANVAS_H = 1920, 1080
-LOGO_HEIGHT = 860
-LOGO_TEXT_GAP = 120
-HEAD_Y = 565
-TEXT_Y = 25
+LOGO_HEIGHT = 710
+LOGO_TEXT_GAP = 105
+HEAD_Y = 540
+TEXT_Y = 0
 WEBP_MAX_BYTES = 600 * 1024
-TITLE_COLOR = (246, 247, 255, 255)
-SUBTITLE_COLOR = (222, 226, 248, 255)
+TITLE_COLOR = (252, 249, 249, 255)
+SUBTITLE_COLOR = (231, 222, 226, 255)
 TITLE_FONT = 'Rubik-Bold.ttf'
 TEXT_FONT = 'SourceSansPro-Semibold.ttf'
 
@@ -144,20 +142,22 @@ def render_svgs(inkscape):
     for size in PNG_SIZES:
         master.resize((size, size), Image.Resampling.LANCZOS).save(HIGHRES / f'logo-{size}.png')
 
-    # The outlined version is reserved for surfaces where the indigo silhouette needs extra
-    # contrast, such as the documentation header. Inset the logo so the outline fits the canvas.
-    inset_size = MASTER_SIZE - 64
-    inset = master.resize((inset_size, inset_size), Image.Resampling.LANCZOS)
-    padded = Image.new('RGBA', master.size)
-    padded.alpha_composite(inset, (32, 32))
-    outline = Image.new('RGBA', padded.size, '#EAF6FF')
-    outline.putalpha(padded.getchannel('A').filter(ImageFilter.MaxFilter(25)))
-    outline.alpha_composite(padded)
-    outline.resize((1024, 1024), Image.Resampling.LANCZOS).save(HIGHRES / 'logo-1024-outline.png')
+    # The source SVG contains the official silhouette; only its stroke changes.
+    for name, width, color in (('thin', '12', '#bdb9ba'), ('thick', '64', '#fff')):
+        variant = ElementTree.parse(REFERENCE_SVG)
+        outline = variant.getroot().find("{http://www.w3.org/2000/svg}path[@id='outline']")
+        outline.set('stroke-width', width)
+        outline.set('stroke', color)
+        variant_svg = DIRECTORY / 'logo-outline-render.svg'
+        try:
+            variant.write(variant_svg, encoding='utf-8', xml_declaration=True)
+            inkscape_export(inkscape, variant_svg, HIGHRES / f'logo-1024-{name}-outline.png', 1024)
+        finally:
+            variant_svg.unlink(missing_ok=True)
 
     for name, _ in LANGUAGES:
         inkscape_export(inkscape, LANGUAGE / f'{name}.svg', LANGUAGE / f'{name}.png', LANGUAGE_PNG_SIZE)
-    print(f'Rendered highres/ logo SVGs {SVG_SIZES}, PNGs {PNG_SIZES} and the outlined 1024, and language/ PNGs')
+    print(f'Rendered highres/ logo SVGs {SVG_SIZES}, PNGs {PNG_SIZES} and thin/thick outlined 1024, and language/ PNGs')
 
 
 # ------------------------------------------------------------------ 2. store images
@@ -187,15 +187,15 @@ def badge_row(fnt, height=100, icon_box=50, gap=20, pad_x=36, icon_gap=20):
         badge = Image.new('RGBA', (width, height), (0, 0, 0, 0))
         draw = ImageDraw.Draw(badge)
         draw.rounded_rectangle((0, 0, width - 1, height - 1), radius=height // 2,
-                               fill=(130, 100, 240, 42), outline=(165, 140, 255, 170), width=3)
+                               fill=(231, 130, 139, 24), outline=(221, 167, 175, 140), width=3)
         badge.alpha_composite(white, (pad_x + (icon_box - white.width) // 2, (height - white.height) // 2))
-        draw.text((pad_x + icon_box + icon_gap, height / 2 + 2), label, font=fnt, fill=(244, 245, 255, 255), anchor='lm')
+        draw.text((pad_x + icon_box + icon_gap, height / 2 + 2), label, font=fnt, fill=(250, 245, 246, 255), anchor='lm')
         row.alpha_composite(badge, (x, 0))
         x += width + gap
     return row.crop((0, 0, x - gap, height))
 
 def background(accent_x, accent_y, accent_radius=640):
-    top, bottom = (18, 14, 48), (8, 6, 24)
+    top, bottom = (48, 39, 50), (23, 20, 29)
     bg = Image.new('RGB', (CANVAS_W, CANVAS_H))
     draw = ImageDraw.Draw(bg)
     for y in range(CANVAS_H):
@@ -203,21 +203,28 @@ def background(accent_x, accent_y, accent_radius=640):
         draw.line((0, y, CANVAS_W, y), fill=tuple(int(top[i] * (1 - t) + bottom[i] * t) for i in range(3)))
     bg = bg.convert('RGBA')
 
-    # indigo-blue glow behind the mascot
+    # A soft silver halo lifts the dark mascot from the background; red echoes Duke.
     glow = Image.new('RGBA', (CANVAS_W, CANVAS_H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(glow)
     r = accent_radius
-    draw.ellipse((accent_x - r, accent_y - r, accent_x + r, accent_y + r), fill=(70, 55, 210, 255))
-    draw.ellipse((accent_x - r * 0.5, accent_y - r * 0.1, accent_x + r * 0.8, accent_y + r), fill=(0, 110, 200, 190))
+    draw.ellipse((accent_x - r, accent_y - r, accent_x + r, accent_y + r), fill=(165, 152, 155, 180))
+    draw.ellipse((accent_x - r * 0.5, accent_y - r * 0.1, accent_x + r * 0.8, accent_y + r), fill=(220, 28, 64, 220))
     glow = glow.filter(ImageFilter.GaussianBlur(240))
     glow.putalpha(glow.getchannel('A').point([a // 2 for a in range(256)]))
     bg.alpha_composite(glow)
+
+    # A restrained violet accent nods to Kotlin without overpowering Duke's red.
+    violet = Image.new('RGBA', (CANVAS_W, CANVAS_H), (0, 0, 0, 0))
+    ImageDraw.Draw(violet).ellipse((CANVAS_W - 700, -550, CANVAS_W + 500, 650),
+                                    fill=(107, 67, 174, 120))
+    violet = violet.filter(ImageFilter.GaussianBlur(260))
+    bg.alpha_composite(violet)
 
     # vignette
     vignette = Image.new('L', (CANVAS_W, CANVAS_H), 0)
     ImageDraw.Draw(vignette).ellipse((-CANVAS_W * 0.5, -CANVAS_H * 0.9, CANVAS_W * 1.5, CANVAS_H * 1.9), fill=255)
     vignette = vignette.filter(ImageFilter.GaussianBlur(320))
-    dark = Image.new('RGBA', (CANVAS_W, CANVAS_H), (4, 3, 14, 255))
+    dark = Image.new('RGBA', (CANVAS_W, CANVAS_H), (16, 12, 17, 255))
     dark.putalpha(vignette.point([(255 - v) // 2 for v in range(256)]))
     bg.alpha_composite(dark)
 
@@ -228,29 +235,12 @@ def background(accent_x, accent_y, accent_radius=640):
     bg.alpha_composite(grain)
     return bg
 
-def head_center_fraction(logo):
-    """Vertical center of the mascot's head as a fraction of the logo height. The smoke above
-    the cup is thin, so the head starts at the first row whose opaque span is wide (the cup rim)."""
-    alpha = logo.getchannel('A').point([255 if v > 40 else 0 for v in range(256)])
-    for y in range(logo.height):
-        box = alpha.crop((0, y, logo.width, y + 1)).getbbox()
-        if box and box[2] - box[0] > logo.width * 0.3:
-            return (y + logo.height) / 2 / logo.height
-    sys.exit('Could not locate the mascot head in highres/logo-1024.png')
-
-def paste_logo(bg, logo, head_center, x, y):
-    """Paste the logo so the mascot's head (ignoring the smoke) is centered on (x, y)."""
+def paste_logo(bg, logo, x, y):
+    """Center the cropped mascot on (x, y)."""
     logo = logo.resize((int(logo.width * LOGO_HEIGHT / logo.height), LOGO_HEIGHT), Image.Resampling.LANCZOS)
-    y -= int((head_center - 0.5) * LOGO_HEIGHT)
-    shadow = Image.new('RGBA', (logo.width + 200, logo.height + 200), (0, 0, 0, 0))
-    tint = Image.new('RGBA', logo.size, (5, 3, 20, 190))
-    tint.putalpha(logo.getchannel('A'))
-    shadow.alpha_composite(tint, (100, 130))
-    shadow = shadow.filter(ImageFilter.GaussianBlur(40))
-    bg.alpha_composite(shadow, (x - shadow.width // 2, y - shadow.height // 2))
     bg.alpha_composite(logo, (x - logo.width // 2, y - logo.height // 2))
 
-def compose(logo, head_center, rows, text_width, name):
+def compose(logo, rows, text_width, name):
     """Mascot on the left, a column of centered rows on the right, the pair centered on the canvas.
     `rows` holds (gap above, layer) pairs; `text_width` is the column width, shared between images
     so the mascot lands at the same spot in each."""
@@ -259,7 +249,7 @@ def compose(logo, head_center, rows, text_width, name):
     start = (CANVAS_W - (logo_width + LOGO_TEXT_GAP + text_width)) // 2
     logo_x = start + logo_width // 2
     bg = background(logo_x, HEAD_Y)
-    paste_logo(bg, logo, head_center, logo_x, HEAD_Y)
+    paste_logo(bg, logo, logo_x, HEAD_Y)
     text_x = start + logo_width + LOGO_TEXT_GAP + text_width // 2
     y = CANVAS_H // 2 - text_height // 2 + TEXT_Y
     for gap, layer in rows:
@@ -277,7 +267,7 @@ def compose(logo, head_center, rows, text_width, name):
     print(f'Rendered store/{webp.name} ({webp.stat().st_size // 1024} KB at quality {quality})')
 
 def render_store_images():
-    logo_path = HIGHRES / 'logo-1024.png'
+    logo_path = HIGHRES / 'logo-1024-thin-outline.png'
     missing = [p for p in [logo_path] + [LANGUAGE / f'{name}.png' for name, _ in LANGUAGES] if not p.is_file()]
     if missing:
         sys.exit('Missing rendered PNGs: ' + ', '.join(str(p) for p in missing)
@@ -285,21 +275,41 @@ def render_store_images():
     with Image.open(logo_path) as image:
         logo = image.convert('RGBA')
     logo = logo.crop(logo.getbbox())
-    head_center = head_center_fraction(logo)
 
-    # The column is about 955px wide at most; every row below is sized to that budget. The store
-    # shows the thumbnail at roughly 365px wide with the asset name printed under it, so the
-    # language line matters more than the title there. The featured image is shown at about
-    # 1075px next to a panel that already carries the name and description, so its column
-    # is scaled up to fill the height instead.
-    thumbnail = [(0, text_layer('Godot-JVM', font(TITLE_FONT, 160), TITLE_COLOR, tracking=-0.04)),
-                 (60, text_layer('Kotlin · Java · Scala', font(TEXT_FONT, 110), SUBTITLE_COLOR, tracking=0.02))]
-    featured = [(0, text_layer('Godot-JVM', font(TITLE_FONT, 176), TITLE_COLOR, tracking=-0.04)),
-                (70, text_layer('Write your Godot game logic on the JVM', font(TEXT_FONT, 54), SUBTITLE_COLOR, tracking=0.01)),
-                (60, badge_row(font(TEXT_FONT, 58), height=120, icon_box=60, pad_x=42))]
+    # The store thumbnail is shown small, so its language line is larger than the featured tagline.
+    thumbnail = [(0, text_layer('Godot-JVM', font(TITLE_FONT, 140), TITLE_COLOR, tracking=-0.04)),
+                 (60, text_layer('Kotlin · Java · Scala', font(TEXT_FONT, 88), SUBTITLE_COLOR, tracking=0.02))]
+    featured = [(0, text_layer('Godot-JVM', font(TITLE_FONT, 140), TITLE_COLOR, tracking=-0.04)),
+                (70, text_layer('Write your Godot game logic on the JVM', font(TEXT_FONT, 42), SUBTITLE_COLOR, tracking=0.01)),
+                (60, badge_row(font(TEXT_FONT, 48), height=100, icon_box=50, pad_x=36))]
     text_width = max(layer.width for _, layer in thumbnail + featured)
-    compose(logo, head_center, thumbnail, text_width, 'store-thumbnail')
-    compose(logo, head_center, featured, text_width, 'featured-image')
+    compose(logo, thumbnail, text_width, 'store-thumbnail')
+    compose(logo, featured, text_width, 'featured-image')
+
+
+def render_kofi_cover():
+    """Compose a 3:1 cover with room around the entire mascot."""
+    with Image.open(HIGHRES / 'logo-1024-thin-outline.png') as image:
+        logo = image.convert('RGBA')
+    logo = logo.crop(logo.getbbox())
+    logo.thumbnail((300, 300), Image.Resampling.LANCZOS)
+    bg = background(400, 540).resize((1200, 400), Image.Resampling.LANCZOS)
+    bg.alpha_composite(logo, (235 - logo.width // 2, 195 - logo.height // 2))
+
+    rows = [
+        text_layer('Godot-JVM', font(TITLE_FONT, 92), TITLE_COLOR, tracking=-0.04),
+        text_layer('Write your Godot game logic on the JVM', font(TEXT_FONT, 30), SUBTITLE_COLOR, tracking=0.01),
+        badge_row(font(TEXT_FONT, 30), height=62, icon_box=30, gap=12, pad_x=22, icon_gap=12),
+    ]
+    # Keep the title below Ko-fi’s cover controls, with margins around the profile avatar.
+    y = 96
+    for row, gap in zip(rows, (24, 26, 0)):
+        bg.alpha_composite(row, (760 - row.width // 2, y))
+        y += row.height + gap
+    path = DIRECTORY / 'kofi' / 'kofi-banner.png'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    bg.convert('RGB').save(path, optimize=True)
+    print(f'Rendered {path.name} ({path.stat().st_size // 1024} KB)')
 
 
 if __name__ == '__main__':
@@ -313,3 +323,4 @@ if __name__ == '__main__':
     else:
         print(f'Inkscape not found, keeping the committed PNGs. To regenerate them, {inkscape_install_hint()}.')
     render_store_images()
+    render_kofi_cover()
