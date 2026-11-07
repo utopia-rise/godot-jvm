@@ -225,5 +225,76 @@ class TestTransform2D {
             Transform2D(Vector2(SQRT12, SQRT12), Vector2(0, 1), Vector2()).isConformal()
         ) { "Transform2D with the X axis skewed 45 degrees should not be conformal." }
     }
-}
 
+    @Test
+    fun `getScale only signs the y component for a flipped basis`() {
+        val scale = Transform2D(Vector2(2, 0), Vector2(0, -3), Vector2()).getScale()
+        checkMessage(scale == Vector2(2, -3)) { "Scale of a flipped basis should be (2, -3) but was $scale." }
+    }
+
+    @Test
+    fun `getScale of a degenerate basis has a zero y component`() {
+        val scale = Transform2D(Vector2(2, 0), Vector2(4, 0), Vector2()).getScale()
+        checkMessage(scale == Vector2(2, 0)) { "Scale of a zero determinant basis should be (2, 0) but was $scale." }
+    }
+
+    @Test
+    fun `isEqualApprox tolerance depends on the receiver`() {
+        val a = Transform2D(Vector2(1, 0), Vector2(0, 1), Vector2(1000000.0, 0))
+        val b = Transform2D(Vector2(1, 0), Vector2(0, 1), Vector2(1000010.00005, 0))
+        checkFalseMessage(a.isEqualApprox(b)) { "Tolerance should come from the receiver origin." }
+    }
+
+    @Test
+    fun `get returns copies`() {
+        val t = createDummyTransform()
+        t[0].x = 100.0
+        t[1].x = 100.0
+        t[2].x = 100.0
+        checkMessage(t == createDummyTransform()) { "Mutating a vector returned by get should not change the transform." }
+    }
+
+    @Test
+    fun `lookingAt rotates towards the target`() {
+        val t = Transform2D(0.0, Vector2(1, 1)).lookingAt(Vector2(1, 3))
+        val expected = Transform2D(Vector2(0, 1), Vector2(-1, 0), Vector2(1, 1))
+        checkMessage(t.isEqualApprox(expected)) { "lookingAt should face (1, 3) but was $t." }
+    }
+
+    @Test
+    fun `affineInverse accepts a small non zero determinant`() {
+        val inverse = Transform2D().scaled(Vector2(0.002, 0.002)).affineInverse()
+        checkMessage(inverse.getScale().isEqualApprox(Vector2(500, 500))) { "affineInverse scale should be 500 but was ${inverse.getScale()}." }
+    }
+
+    @Test
+    fun `affineInverse of a singular transform returns an unchanged copy in debug`() {
+        val singular = Transform2D(Vector2(2, 0), Vector2(4, 0), Vector2(5, 6))
+        val inverse = singular.affineInverse()
+        checkMessage(inverse == Transform2D(Vector2(2, 0), Vector2(4, 0), Vector2(5, 6))) { "affineInverse of a zero determinant transform should be unchanged but was $inverse." }
+        checkMessage(inverse !== singular) { "affineInverse should return a copy." }
+    }
+
+    @Test
+    fun `lookingAt of a singular transform does not throw in debug`() {
+        Transform2D(Vector2(2, 0), Vector2(4, 0), Vector2()).lookingAt(Vector2(1, 1))
+    }
+
+    @Test
+    fun `determinant is x cross y`() {
+        checkMessage(createDummyTransform().determinant().isEqualApprox(-2.0)) { "determinant of (1, 2), (3, 4) should be -2." }
+        checkMessage(identity().determinant().isEqualApprox(1.0)) { "determinant of identity should be 1." }
+    }
+
+    @Test
+    fun `getSkew clamps acos when the unit dot rounds above one`() {
+        val skew = Transform2D(Vector2(0.3, 0.9), Vector2(0.3, 0.9000000000000002), Vector2()).getSkew()
+        checkMessage(skew == -PI * 0.5) { "getSkew should be -PI/2 but was $skew." }
+    }
+
+    @Test
+    fun `lookingAt defaults to the origin of the coordinate system`() {
+        val t = Transform2D(0.3, Vector2(1, 1))
+        checkMessage(t.lookingAt() == t.lookingAt(Vector2())) { "lookingAt() should equal lookingAt(Vector2())." }
+    }
+}

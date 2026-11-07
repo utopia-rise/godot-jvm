@@ -4,7 +4,6 @@ package godot.core
 
 import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
-import godot.common.util.CMP_EPSILON
 import godot.common.util.RealT
 import godot.common.util.UNIT_EPSILON
 import godot.common.util.isEqualApprox
@@ -58,35 +57,6 @@ class Basis() : CoreType {
         val FLIP_Z: Basis
             get() = Basis(1, 0, 0, 0, 1, 0, 0, 0, -1)
 
-        //used internally by a few methods
-        private val orthoBases: Array<Basis> =
-            arrayOf(
-                Basis(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0),
-                Basis(0.0, -1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0),
-                Basis(-1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0),
-                Basis(0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0),
-                Basis(1.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0),
-                Basis(0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0),
-                Basis(-1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0),
-                Basis(0.0, 0.0, -1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0),
-                Basis(1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0),
-                Basis(0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, -1.0),
-                Basis(-1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -1.0),
-                Basis(0.0, -1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, -1.0),
-                Basis(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.0, 0.0),
-                Basis(0.0, 0.0, -1.0, 1.0, 0.0, 0.0, 0.0, -1.0, 0.0),
-                Basis(-1.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, -1.0, 0.0),
-                Basis(0.0, 0.0, 1.0, -1.0, 0.0, 0.0, 0.0, -1.0, 0.0),
-                Basis(0.0, 0.0, 1.0, 0.0, 1.0, 0.0, -1.0, 0.0, 0.0),
-                Basis(0.0, -1.0, 0.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0),
-                Basis(0.0, 0.0, -1.0, 0.0, -1.0, 0.0, -1.0, 0.0, 0.0),
-                Basis(0.0, 1.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0, 0.0),
-                Basis(0.0, 0.0, 1.0, 0.0, -1.0, 0.0, 1.0, 0.0, 0.0),
-                Basis(0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0),
-                Basis(0.0, 0.0, -1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0),
-                Basis(0.0, -1.0, 0.0, 0.0, 0.0, -1.0, 1.0, 0.0, 0.0)
-            )
-
         /**
          * Constructs a pure rotation Basis matrix from Euler angles in the specified Euler rotation order. By default, use YXZ order (most common). See the EulerOrder enum for possible values.
          */
@@ -109,11 +79,13 @@ class Basis() : CoreType {
          */
         fun lookingAt(target: Vector3, up: Vector3 = Vector3(0, 1, 0), useModelFront: Boolean = false): Basis {
             if (GodotJvmBuildConfig.DEBUG) {
-                require(!target.isZeroApprox()) {
-                    "The target vector can't be zero."
+                if (target.isZeroApprox()) {
+                    GodotLogging.error("The target vector can't be zero.")
+                    return Basis()
                 }
-                require(!up.isZeroApprox()) {
-                    "The up vector can't be zero."
+                if (up.isZeroApprox()) {
+                    GodotLogging.error("The up vector can't be zero.")
+                    return Basis()
                 }
             }
             val vZ: Vector3 = if (!useModelFront) {
@@ -126,7 +98,7 @@ class Basis() : CoreType {
             if (GodotJvmBuildConfig.DEBUG) {
                 if (vX.isZeroApprox()) {
                     GodotLogging.warning("Target and up vectors are colinear. This is not advised as it may cause unwanted rotation around local Z axis.")
-                    vX = up.getAnyPerpendicular(); // Vectors are almost parallel.
+                    vX = up.getAnyPerpendicular()
                 }
             }
 
@@ -205,7 +177,10 @@ class Basis() : CoreType {
     constructor(axis: Vector3, angle: RealT) : this() {
         // Rotation matrix from axis and angle, see https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle
         if (GodotJvmBuildConfig.DEBUG) {
-            require(axis.isNormalized()) { "The axis Vector3 $axis must be normalized." }
+            if (!axis.isNormalized()) {
+                GodotLogging.error("The axis Vector3 $axis must be normalized.")
+                return
+            }
         }
 
         val axiSq = Vector3(axis.x * axis.x, axis.y * axis.y, axis.z * axis.z)
@@ -501,38 +476,25 @@ class Basis() : CoreType {
     }
 
     /**
+     * Returns true if the basis vectors are orthonormal (orthogonal and normalized), so it has no scale, skew, or shear.
+     */
+    fun isOrthonormal(): Boolean {
+        val x = getColumn(0)
+        val y = getColumn(1)
+        val z = getColumn(2)
+        return x.lengthSquared().isEqualApprox(1.0)
+            && y.lengthSquared().isEqualApprox(1.0)
+            && z.lengthSquared().isEqualApprox(1.0)
+            && x.dot(y).isZeroApprox()
+            && x.dot(z).isZeroApprox()
+            && y.dot(z).isZeroApprox()
+    }
+
+    /**
      * Returns true if the basis is a pure rotation matrix, so it has no scale, skew, shear, or flip.
      */
     internal fun isRotation(): Boolean =
         isConformal() && determinant().isEqualApprox(1.0, UNIT_EPSILON)
-
-    /**
-     * This function considers a discretization of rotations into 24 points on unit sphere,
-     * lying along the vectors (x,y,z) with each component being either -1,0 or 1,
-     * and returns the index of the point best representing the orientation of the object.
-     * It is mainly used by the grid map editor. For further details, refer to Godot source code.
-     */
-    fun getOrthogonalIndex(): Int {
-        val orth = this
-        for (i in 0..2) {
-            for (j in 0..2) {
-                var v = orth._get(i)[j]
-                v = when {
-                    v > 0.5 -> 1.0
-                    v < -0.5 -> -1.0
-                    else -> 0.0
-                }
-                orth._get(i)[j] = v
-            }
-        }
-
-        for (i in 0..23) {
-            if (orthoBases[i] == orth) {
-                return i
-            }
-        }
-        return 0
-    }
 
     /**
      *
@@ -561,7 +523,8 @@ class Basis() : CoreType {
         // As a cheap workaround until then, to ensure that R is a proper rotation matrix with determinant +1
         // (such that it can be represented by a Quat or Euler angles), we absorb the sign flip into the scaling matrix.
         // As such, it works in conjuction with getRotation().
-        val detSign: RealT = if (determinant() > 0) 1.0 else -1.0
+        val det = determinant()
+        val detSign: RealT = if (det > 0) 1.0 else if (det < 0) -1.0 else 0.0
         return detSign * Vector3(
             Vector3(this._x.x, this._y.x, this._z.x).length(),
             Vector3(this._x.y, this._y.y, this._z.y).length(),
@@ -587,7 +550,10 @@ class Basis() : CoreType {
         val det: RealT = this._x.x * co1 + this._x.y * co2 + this._x.z * co3
 
         if (GodotJvmBuildConfig.DEBUG) {
-            require(det != 0.0) { "Determinant is zero!" }
+            if (det == 0.0) {
+                GodotLogging.error("Condition \"det == 0\" is true.")
+                return
+            }
         }
 
         val s = 1.0 / det
@@ -600,7 +566,10 @@ class Basis() : CoreType {
 
     fun getQuaternion(): Quaternion {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(isRotation()) { "Basis must be normalized in order to be casted to a Quaternion. Use get_rotation_quat() or call orthonormalized() instead." }
+            if (!isRotation()) {
+                GodotLogging.error("Basis $this must be normalized in order to be casted to a Quaternion. Use get_rotation_quaternion() or call orthonormalized() if the Basis contains linearly independent vectors.")
+                return Quaternion()
+            }
         }
         val trace = this._x.x + this._y.y + this._z.z
         val temp: DoubleArray
@@ -640,20 +609,13 @@ class Basis() : CoreType {
      *
      */
     @JvmOverloads
-    fun isEqualApprox(a: Basis, epsilon: RealT = CMP_EPSILON): Boolean {
-        if (!this._x.x.isEqualApprox(a._x.x, epsilon)) return false
-        if (!this._x.y.isEqualApprox(a._x.y, epsilon)) return false
-        if (!this._x.z.isEqualApprox(a._x.z, epsilon)) return false
-
-        if (!this._y.x.isEqualApprox(a._y.x, epsilon)) return false
-        if (!this._y.y.isEqualApprox(a._y.y, epsilon)) return false
-        if (!this._y.z.isEqualApprox(a._y.z, epsilon)) return false
-
-        if (!this._z.x.isEqualApprox(a._z.x, epsilon)) return false
-        if (!this._z.y.isEqualApprox(a._z.y, epsilon)) return false
-        if (!this._z.z.isEqualApprox(a._z.z, epsilon)) return false
-
-        return true
+    fun isEqualApprox(a: Basis, epsilon: RealT? = null): Boolean {
+        if (epsilon == null) {
+            return _x.isEqualApprox(a._x) && _y.isEqualApprox(a._y) && _z.isEqualApprox(a._z)
+        }
+        return _x.x.isEqualApprox(a._x.x, epsilon) && _x.y.isEqualApprox(a._x.y, epsilon) && _x.z.isEqualApprox(a._x.z, epsilon) &&
+            _y.x.isEqualApprox(a._y.x, epsilon) && _y.y.isEqualApprox(a._y.y, epsilon) && _y.z.isEqualApprox(a._y.z, epsilon) &&
+            _z.x.isEqualApprox(a._z.x, epsilon) && _z.y.isEqualApprox(a._z.y, epsilon) && _z.z.isEqualApprox(a._z.z, epsilon)
     }
 
     /**
@@ -672,10 +634,6 @@ class Basis() : CoreType {
     }
 
     internal fun orthonormalize() {
-        if (GodotJvmBuildConfig.DEBUG) {
-            require(!determinant().isEqualApprox(0.0)) { "Determinant is zero!" }
-        }
-
         val x = getColumn(0)
         var y = getColumn(1)
         var z = getColumn(2)
@@ -747,8 +705,12 @@ class Basis() : CoreType {
     /**
      * Introduce an additional scaling specified by the given 3D scaling factor.
      */
-    internal fun scaledLocal(scale: Vector3): Basis {
-        return Basis(this) * fromScale(scale)
+    fun scaledLocal(scale: Vector3): Basis {
+        val b = Basis(this)
+        b._x = b._x * scale
+        b._y = b._y * scale
+        b._z = b._z * scale
+        return b
     }
 
     internal fun scale(scale: Vector3) {
@@ -794,26 +756,9 @@ class Basis() : CoreType {
     }
 
     /**
-     *
-     */
-    fun setOrthogonalIndex(index: Int) {
-        if (GodotJvmBuildConfig.DEBUG) {
-            require(index < 24) { "Index must be less than 24!" }
-        }
-        val ret = orthoBases[index]
-        this._x = ret._x
-        this._y = ret._y
-        this._z = ret._z
-    }
-
-    /**
      * Assuming that the matrix is a proper rotation matrix, slerp performs a spherical-linear interpolation with another rotation matrix.
      */
     fun slerp(b: Basis, t: RealT): Basis {
-        if (GodotJvmBuildConfig.DEBUG) {
-            require(isRotation()) { "Basis is not a rotation!" }
-        }
-
         val from = Quaternion(this)
         val to = Quaternion(b)
 
@@ -892,15 +837,6 @@ class Basis() : CoreType {
         }
     }
 
-    internal fun _set(n: Int, f: Vector3) {
-        when (n) {
-            0 -> _x = f
-            1 -> _y = f
-            2 -> _z = f
-            else -> throw IndexOutOfBoundsException()
-        }
-    }
-
     fun set(
         xx: RealT,
         xy: RealT,
@@ -955,9 +891,9 @@ class Basis() : CoreType {
     }
 
     operator fun times(scalar: Double) = Basis().also {
-        it._x = this._x / scalar
-        it._y = this._y / scalar
-        it._z = this._z / scalar
+        it._x = this._x * scalar
+        it._y = this._y * scalar
+        it._z = this._z * scalar
     }
 
     operator fun div(scalar: Int) = Basis().also {

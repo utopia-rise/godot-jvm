@@ -3,8 +3,11 @@
 package godot.core
 
 import godot.common.util.TAU
+import godot.common.util.fposmod
+import godot.common.util.signbit
 import godot.common.util.isEqualApprox
 import org.junit.Test
+import kotlin.math.sqrt
 
 class TestQuaternion {
 
@@ -436,5 +439,193 @@ class TestQuaternion {
         checkFalseMessage(Quaternion(x, x, 2.0, x).isFinite()) { "Quaternion with three components infinite should not be finite." }
         checkFalseMessage(Quaternion(x, x, x, 3.0).isFinite()) { "Quaternion with three components infinite should not be finite." }
         checkFalseMessage(Quaternion(x, x, x, x).isFinite()) { "Quaternion with four components infinite should not be finite." }
+    }
+
+    @Test
+    fun `Inverse is the conjugate`() {
+        val quaternion = Quaternion(Vector3(1, 2, 3).normalized(), 0.8)
+        val inverse = quaternion.inverse()
+        checkTrue(inverse.x == -quaternion.x)
+        checkTrue(inverse.y == -quaternion.y)
+        checkTrue(inverse.z == -quaternion.z)
+        checkTrue(inverse.w == quaternion.w)
+        checkTrue((quaternion * inverse).isEqualApprox(Quaternion()))
+    }
+
+    @Test
+    fun `Slerpni and rotate toward return copies`() {
+        val quaternion = Quaternion(Vector3(1, 2, 3).normalized(), 0.8)
+        val copy = Quaternion(quaternion)
+
+        val same = quaternion.slerpni(Quaternion(quaternion), 0.5)
+        checkTrue(same !== quaternion)
+        same.x = 99.0
+        checkTrue(quaternion == copy)
+
+        val target = Quaternion(Vector3(0, 1, 0), 0.4)
+        val targetCopy = Quaternion(target)
+        val reached = quaternion.rotateToward(target, 100.0)
+        checkTrue(reached.isEqualApprox(target))
+        reached.x = 99.0
+        checkTrue(target == targetCopy)
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Quaternion(Vector3(1, 2, 3).normalized(), 0.8)
+        val b = Quaternion(Vector3(0, 1, 0), 0.4)
+        val aCopy = Quaternion(a)
+        val bCopy = Quaternion(b)
+
+        val operations = listOf<() -> Any>(
+            { a + b },
+            { a - b },
+            { a * b },
+            { a * 2.0 },
+            { a / 2.0 },
+            { -a },
+            { a.inverse() },
+            { a.normalized() },
+            { a.slerp(b, 0.5) },
+            { a.slerpni(b, 0.5) },
+            { a.slerpni(a, 0.5) },
+            { a.rotateToward(b, 0.1) },
+            { a.rotateToward(b, 100.0) },
+            { a.rotateToward(b, -0.1) },
+            { a.xform(Vector3(1, 2, 3)) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+    @Test
+    fun `Rotate toward turns by a constant angle`() {
+        val from = Quaternion(Vector3(1, 2, 3).normalized(), 0.8)
+        val to = Quaternion(Vector3(0, 1, 0), 0.4)
+        val angle = from.angleTo(to)
+
+        val closer = from.rotateToward(to, 0.1)
+        checkTrue(from.angleTo(closer).isEqualApprox(0.1))
+        checkTrue(closer.angleTo(to).isEqualApprox(angle - 0.1))
+        checkTrue(closer.isNormalized())
+
+        val further = from.rotateToward(to, -0.1)
+        checkTrue(from.angleTo(further).isEqualApprox(0.1))
+        checkTrue(further.angleTo(to).isEqualApprox(angle + 0.1))
+        checkTrue(further.isNormalized())
+
+        checkTrue(from.rotateToward(to, angle).isEqualApprox(to))
+        checkTrue(from.rotateToward(to, angle + 1.0).isEqualApprox(to))
+    }
+
+    @Test
+    fun `Rotate toward handles a zero delta and identical orientations`() {
+        val from = Quaternion(Vector3(1, 2, 3).normalized(), 0.8)
+        val to = Quaternion(Vector3(0, 1, 0), 0.4)
+
+        checkTrue(from.rotateToward(to, 0.0).isEqualApprox(from))
+        checkTrue(from.rotateToward(Quaternion(from), 0.0).isEqualApprox(from))
+        checkTrue(from.rotateToward(Quaternion(from), 0.5).isEqualApprox(from))
+        checkTrue(from.rotateToward(Quaternion(from), -0.5).isEqualApprox(from))
+    }
+
+    @Test
+    fun `isNormalized uses the unit epsilon`() {
+        checkTrue(Quaternion(0.0, 0.0, 0.0, 1.0004).isNormalized())
+        checkTrue(!Quaternion(0.0, 0.0, 0.0, 1.0006).isNormalized())
+    }
+
+    @Test
+    fun `Division multiplies by the reciprocal`() {
+        val q = Quaternion(49.0, 0.0, 0.0, 0.0) / 49.0
+
+        checkTrue(q.x == 49.0 * (1.0 / 49.0))
+        checkTrue((Quaternion(2.0, 4.0, 6.0, 8.0) / 2).isEqualApprox(Quaternion(1.0, 2.0, 3.0, 4.0)))
+    }
+
+    @Test
+    fun `Index operators and unary plus`() {
+        val q = Quaternion(1.0, 2.0, 3.0, 4.0)
+        q[2] = 9.0
+
+        checkTrue(q[0] == 1.0 && q[1] == 2.0 && q[2] == 9.0 && q[3] == 4.0)
+        val plus = +q
+        checkTrue(plus == q)
+        plus.x = 5.0
+        checkTrue(q.x == 1.0)
+    }
+
+    @Test
+    fun `hashCode matches equals for signed zero`() {
+        checkTrue(Quaternion(0.0, 0.0, 0.0, 1.0) == Quaternion(-0.0, -0.0, -0.0, 1.0))
+        checkTrue(Quaternion(0.0, 0.0, 0.0, 1.0).hashCode() == Quaternion(-0.0, -0.0, -0.0, 1.0).hashCode())
+    }
+
+    @Test
+    fun `signbit is true for negative zero and fposmod normalizes it`() {
+        checkTrue((-0.0).signbit)
+        checkTrue(!(0.0).signbit)
+        checkTrue(!(-1.0).fposmod(1.0).signbit)
+        checkTrue((-4.0).fposmod(2.0).toRawBits() == 0L)
+    }
+
+    @Test
+    fun `getAngle clamps w like Math acos`() {
+        checkTrue(Quaternion(0.0, 0.0, 0.0, 1.0000001).getAngle() == 0.0)
+        checkTrue(Quaternion(0.0, 0.0, 0.0, -1.0000001).getAngle() == 2 * Math.PI)
+    }
+
+    @Test
+    fun `log of w slightly above one is zero`() {
+        val l = Quaternion(0.0, 0.0, 0.0, 1.0000001).log()
+        checkTrue(l.x == 0.0 && l.y == 0.0 && l.z == 0.0 && l.w == 0.0)
+    }
+
+    @Test
+    fun `isEqualApprox tolerance scales with the receiver`() {
+        val a = Quaternion(100000.0, 0.0, 0.0, 1.0)
+        val b = Quaternion(100001.0, 0.0, 0.0, 1.0)
+        checkFalse(a.isEqualApprox(b))
+        checkTrue(b.isEqualApprox(a))
+    }
+
+    @Test
+    fun `slerpni early out uses the float threshold widened to double`() {
+        val from = Quaternion()
+        val w = 0.99989999
+        val to = Quaternion(sqrt(1.0 - w * w), 0.0, 0.0, w)
+        checkTrue(from.dot(to) < 0.9999)
+        checkTrue(from.dot(to) > 0.9999f.toDouble())
+
+        val result = from.slerpni(to, 0.5)
+        checkTrue(result !== from)
+        checkTrue(result == from)
+    }
+
+    @Test
+    fun `Debug checks fall back like the C++ error paths`() {
+        val unnormalized = Quaternion(1.0, 2.0, 3.0, 4.0)
+        val unnormalizedCopy = Quaternion(unnormalized)
+        val normalized = Quaternion(Vector3(0, 1, 0), 0.4)
+        val v = Vector3(1, 2, 3)
+
+        checkTrue(unnormalized.inverse() == Quaternion())
+        checkTrue(unnormalized.getEuler() == Vector3(0, 0, 0))
+        checkTrue(unnormalized.xform(v) == v)
+        checkTrue(unnormalized.slerp(normalized, 0.5) == Quaternion())
+        checkTrue(normalized.slerp(unnormalized, 0.5) == Quaternion())
+        checkTrue(unnormalized.slerpni(normalized, 0.5) == Quaternion())
+        checkTrue(normalized.slerpni(unnormalized, 0.5) == Quaternion())
+        checkTrue(unnormalized.sphericalCubicInterpolate(normalized, normalized, normalized, 0.5) == Quaternion())
+        checkTrue(normalized.sphericalCubicInterpolate(unnormalized, normalized, normalized, 0.5) == Quaternion())
+        checkTrue(unnormalized.sphericalCubicInterpolateInTime(normalized, normalized, normalized, 0.5, 1.0, 0.0, 2.0) == Quaternion())
+        checkTrue(normalized.sphericalCubicInterpolateInTime(unnormalized, normalized, normalized, 0.5, 1.0, 0.0, 2.0) == Quaternion())
+        checkTrue(Quaternion(Vector3(0, 2, 0), 0.4) == Quaternion())
+        checkTrue(Quaternion(Vector3(0, 0, 0), Vector3(0, 1, 0)) == Quaternion())
+        checkTrue(Quaternion(Vector3(0, 1, 0), Vector3(0, 0, 0)) == Quaternion())
+        checkTrue(unnormalized == unnormalizedCopy)
     }
 }

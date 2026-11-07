@@ -196,5 +196,71 @@ class TestRect2 {
         checkFalse(Rect2(x, infinite).isFinite())
         checkFalse(Rect2(infinite, infinite).isFinite())
     }
-}
 
+    @Test
+    fun `Encloses accepts rects sharing an edge`() {
+        val rect = Rect2(0.0, 0.0, 10.0, 10.0)
+        checkTrue(rect.encloses(Rect2(0.0, 0.0, 10.0, 10.0)))
+        checkTrue(rect.encloses(Rect2(5.0, 5.0, 5.0, 5.0)))
+        checkTrue(rect.encloses(Rect2(0.0, 5.0, 10.0, 5.0)))
+        checkFalse(rect.encloses(Rect2(5.0, 5.0, 5.1, 5.0)))
+        checkFalse(rect.encloses(Rect2(5.0, 5.0, 5.0, 5.1)))
+        checkFalse(rect.encloses(Rect2(-0.1, 0.0, 5.0, 5.0)))
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Rect2(1.0, 2.0, -3.0, 4.0)
+        val b = Rect2(0.0, 1.0, 5.0, 6.0)
+        val aCopy = Rect2(a)
+        val bCopy = Rect2(b)
+
+        val operations = listOf<() -> Any>(
+            { a.abs() },
+            { a.expand(Vector2(10, 10)) },
+            { a.grow(1.0) },
+            { a.growIndividual(1.0, 2.0, 3.0, 4.0) },
+            { a.merge(b) },
+            { a.intersection(b) },
+            { a.getCenter() },
+            { a.getSupport(Vector2(1, 1)) },
+            { a.encloses(b) },
+            { a.intersects(b) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+    @Test
+    fun `isEqualApprox uses the receiver for the relative tolerance`() {
+        val larger = Rect2(100001.00001, 0.0, 0.0, 0.0)
+        val smaller = Rect2(100000.0, 0.0, 0.0, 0.0)
+        checkTrue(larger.isEqualApprox(smaller))
+        checkFalse(smaller.isEqualApprox(larger))
+    }
+
+    @Test
+    fun `Merge and intersection follow the C++ min and max operand order`() {
+        val merged = Rect2(0.0, 0.0, 1.0, 1.0).merge(Rect2(-0.0, 0.0, 1.0, 1.0))
+        checkTrue(1.0 / merged.position.x > 0.0)
+
+        val intersected = Rect2(0.0, 0.0, 1.0, 1.0).intersection(Rect2(-0.0, 0.0, 1.0, 1.0))
+        checkTrue(1.0 / intersected.position.x > 0.0)
+    }
+
+    @Test
+    fun `Negative size still computes after the debug error`() {
+        val negative = Rect2(0.0, 0.0, -10.0, 10.0)
+        val positive = Rect2(-5.0, 0.0, 10.0, 10.0)
+
+        checkFalse(negative.intersects(positive))
+        checkFalse(negative.intersects(positive, true))
+        checkFalse(negative.encloses(positive))
+        checkFalse(negative.hasPoint(Vector2(-5.0, 5.0)))
+        checkTrue(negative.expand(Vector2(5.0, 5.0)) == Rect2(0.0, 0.0, 5.0, 10.0))
+        checkTrue(negative.merge(positive) == Rect2(-5.0, 0.0, 10.0, 10.0))
+    }
+}

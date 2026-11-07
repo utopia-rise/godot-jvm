@@ -96,10 +96,16 @@ class TestVector2 {
         checkMessage(moveTowardResult == Vector2(4, 0)) { "Vector2 move_toward should work as expected." }
 
         checkMessage(
+            Vector2(1, 0).rotateToward(
+                Vector2(0, 1),
+                PI * 0.25
+            ).isEqualApprox(Vector2(SQRT12, SQRT12))
+        ) { "Vector2 rotate_toward should work as expected." }
+        checkMessage(
             Vector2(0, 1).rotateToward(
-                Vector2(0, -1),
-                PI * 0.5
-            ).isEqualApprox(Vector2(1, 0))
+                Vector2(1, 0),
+                PI * 0.25
+            ).isEqualApprox(Vector2(SQRT12, SQRT12))
         ) { "Vector2 rotate_toward should work as expected." }
 
         checkMessage(
@@ -328,5 +334,202 @@ class TestVector2 {
                 checkFalseMessage(Vector2(x, y).isFinite()) { "Vector2 with two components infinite should not be finite." }
             }
         }
+    }
+
+    @Test
+    fun `Move toward returns a copy`() {
+        val from = Vector2(1, 2)
+        val to = Vector2(4, 5)
+
+        val reached = from.moveToward(to, 100.0)
+        checkTrue(reached == to)
+        checkTrue(reached !== to)
+        reached.x = 99.0
+        checkTrue(to == Vector2(4, 5))
+
+        val same = from.moveToward(from, 1.0)
+        checkTrue(same !== from)
+
+        val partial = from.moveToward(to, 1.0)
+        checkTrue((partial - from).length().isEqualApprox(1.0))
+    }
+
+    @Test
+    fun `Rotate toward returns a copy`() {
+        val from = Vector2(1, 0)
+        val to = Vector2(0, 1)
+        val reached = from.rotateToward(to, 100.0)
+        checkTrue(reached.isEqualApprox(to))
+        reached.x = 99.0
+        checkTrue(to == Vector2(0, 1))
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Vector2(1, 2)
+        val b = Vector2(4, -5)
+        val aCopy = Vector2(a)
+        val bCopy = Vector2(b)
+
+        val operations = listOf<() -> Any>(
+            { a + b },
+            { a - b },
+            { a * b },
+            { a / b },
+            { a * 2.0 },
+            { -a },
+            { a.normalized() },
+            { a.abs() },
+            { a.lerp(b, 0.5) },
+            { a.slerp(b, 0.5) },
+            { a.limitLength(1.0) },
+            { a.project(b) },
+            { a.reflect(b.normalized()) },
+            { a.slide(b.normalized()) },
+            { a.bounce(b.normalized()) },
+            { a.rotated(1.0) },
+            { a.snapped(Vector2(2, 2)) },
+            { a.snappedf(2.0) },
+            { a.directionTo(b) },
+            { a.moveToward(b, 1.0) },
+            { a.moveToward(b, 100.0) },
+            { a.rotateToward(b, 0.1) },
+            { a.rotateToward(b, 100.0) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+    @Test
+    fun `round rounds halfway cases away from zero`() {
+        val rounded = Vector2(2.5, -2.5).round()
+        checkTrue(rounded.x == 3.0)
+        checkTrue(rounded.y == -3.0)
+    }
+
+    @Test
+    fun `isNormalized tolerates 0_001 on the squared length`() {
+        checkTrue(Vector2(1.0004, 0.0).isNormalized())
+    }
+
+    @Test
+    fun `clamp does not throw when min is greater than max`() {
+        val clamped = Vector2(5.0, 5.0).clamp(Vector2(3.0, 3.0), Vector2(1.0, 1.0))
+        checkTrue(clamped.x == 1.0)
+        checkTrue(clamped.y == 1.0)
+        val clampedf = Vector2(5.0, 5.0).clampf(3.0, 1.0)
+        checkTrue(clampedf.x == 1.0)
+        checkTrue(clampedf.y == 1.0)
+    }
+
+    @Test
+    fun `round is exact for values next to half and for large odd integers`() {
+        val rounded = Vector2(0.49999999999999994, 4503599627370497.0).round()
+        checkTrue(rounded.x == 0.0)
+        checkTrue(rounded.y == 4503599627370497.0)
+    }
+
+    @Test
+    fun `isZeroApprox compares each absolute component to CMP_EPSILON`() {
+        checkTrue(Vector2(1e-6, 1e-6).isZeroApprox())
+        checkTrue(Vector2(-1e-6, 1e-6).isZeroApprox())
+        checkTrue(!Vector2(1e-5, 0.0).isZeroApprox())
+        checkTrue(!Vector2(0.0, 1e-5).isZeroApprox())
+        checkTrue(!Vector2(2.0, 0.0).isZeroApprox())
+        checkTrue(!Vector2(0.0, -2.0).isZeroApprox())
+    }
+
+    @Test
+    fun `fromAngle is static`() {
+        checkTrue(Vector2.fromAngle(PI / 2.0).isEqualApprox(Vector2(0.0, 1.0)))
+    }
+
+    @Test
+    fun `isEqualApprox uses the receiver for the relative tolerance`() {
+        checkTrue(!Vector2(1000000.0, 0.0).isEqualApprox(Vector2(1000010.000005, 0.0)))
+    }
+
+    @Test
+    fun `rotateToward with a zero delta on identical vectors returns the vector`() {
+        val result = Vector2(1.0, 0.0).rotateToward(Vector2(1.0, 0.0), 0.0)
+        checkTrue(result.isEqualApprox(Vector2(1.0, 0.0)))
+    }
+
+    @Test
+    fun `rotateToward with a negative delta rotates away from the target`() {
+        val result = Vector2(1.0, 0.0).rotateToward(Vector2(0.0, 1.0), -PI)
+        checkTrue(result.isEqualApprox(Vector2(-1.0, 0.0)))
+    }
+
+    @Test
+    fun `unaryPlus returns an equal copy`() {
+        val v = Vector2(1.0, -2.0)
+        val plus = +v
+        checkTrue(plus == v && plus !== v)
+        plus.x = 5.0
+        checkTrue(v.x == 1.0)
+    }
+
+    @Test
+    fun `hashCode ignores the sign of zero`() {
+        checkTrue(Vector2(0.0, 0.0).hashCode() == Vector2(-0.0, 0.0).hashCode())
+        checkTrue(Vector2(0.0, 0.0).hashCode() == Vector2(0.0, -0.0).hashCode())
+    }
+
+    @Test
+    fun `equals is exact`() {
+        checkTrue(Vector2(1.0, 0.0) != Vector2(1.000001, 0.0))
+        checkTrue(Vector2(1.0, 0.0) != Vector2(1.0, 0.000001))
+        checkTrue(Vector2(1.0, 2.0) == Vector2(1.0, 2.0))
+        checkTrue(Vector2(0.0, 0.0) == Vector2(-0.0, 0.0))
+    }
+
+    @Test
+    fun `equal vectors have equal hash codes`() {
+        checkTrue(Vector2(1.5, -2.25).hashCode() == Vector2(1.5, -2.25).hashCode())
+        checkTrue(Vector2(0.0, 3.0).hashCode() == Vector2(-0.0, 3.0).hashCode())
+    }
+
+    @Test
+    fun `reflect slide and bounce return zero for a non normalized normal in debug`() {
+        val v = Vector2(1, 1)
+        val bad = Vector2(2, 0)
+        checkTrue(v.reflect(bad) == Vector2())
+        checkTrue(v.slide(bad) == Vector2())
+        checkTrue(v.bounce(bad) == Vector2())
+        checkTrue(v == Vector2(1, 1))
+        checkTrue(bad == Vector2(2, 0))
+    }
+
+    @Test
+    fun `normalize falls back to zero for non finite components in debug`() {
+        checkTrue(Vector2(Double.NaN, 1.0).normalized() == Vector2())
+        checkTrue(Vector2(Double.POSITIVE_INFINITY, 1.0).directionTo(Vector2()) == Vector2())
+    }
+
+    @Test
+    fun `compareTo follows the C++ comparison operators`() {
+        val a = Vector2(1.0, 5.0)
+        val sameX = Vector2(1.0, 6.0)
+        val greaterX = Vector2(2.0, 0.0)
+
+        checkTrue(a < sameX)
+        checkTrue(a <= sameX)
+        checkTrue(sameX > a)
+        checkTrue(sameX >= a)
+        checkTrue(a < greaterX)
+        checkTrue(greaterX > a)
+        checkTrue(a <= Vector2(1.0, 5.0))
+        checkTrue(a >= Vector2(1.0, 5.0))
+        checkTrue(a.compareTo(Vector2(1.0, 5.0)) == 0)
+        checkTrue(a.compareTo(sameX) == -1)
+        checkTrue(sameX.compareTo(a) == 1)
+        checkTrue(greaterX.compareTo(a) == 1)
+        checkTrue(a.compareTo(greaterX) == -1)
+        checkTrue(Vector2(1.0, 0.0) < Vector2(1.000001, -5.0))
+        checkTrue(Vector2(1.000001, 0.0) > Vector2(1.0, 5.0))
     }
 }

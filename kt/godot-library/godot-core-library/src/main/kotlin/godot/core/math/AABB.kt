@@ -5,6 +5,7 @@ package godot.core
 import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
 import godot.common.util.RealT
+import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
 
 class AABB(
@@ -90,6 +91,11 @@ class AABB(
      * Returns true if this AABB completely encloses another one.
      */
     fun encloses(other: AABB): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0 || other._size.x < 0 || other._size.y < 0 || other._size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         val srcMin = _position
         val srcMax = _position + _size
         val dstMin = other._position
@@ -112,6 +118,11 @@ class AABB(
     }
 
     internal fun expandTo(vector: Vector3) {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         val begin = _position
         val end = _position + _size
 
@@ -157,7 +168,12 @@ class AABB(
             5 -> Vector3(_position.x + _size.x, _position.y, _position.z + _size.z)
             6 -> Vector3(_position.x + _size.x, _position.y + _size.y, _position.z)
             7 -> Vector3(_position.x + _size.x, _position.y + _size.y, _position.z + _size.z)
-            else -> Vector3()
+            else -> {
+                if (GodotJvmBuildConfig.DEBUG) {
+                    GodotLogging.error("Method/function failed. Returning: Vector3()")
+                }
+                Vector3()
+            }
         }
     }
 
@@ -198,6 +214,8 @@ class AABB(
 
         return Vector3.Axis.from(axis)
     }
+
+    fun getLongestAxisIndex() = getLongestAxis().ordinal
 
     /**
      *  Returns the scalar length of the longest axis of the AABB.
@@ -251,6 +269,8 @@ class AABB(
 
         return Vector3.Axis.from(axis)
     }
+
+    fun getShortestAxisIndex() = getShortestAxis().ordinal
 
     /**
      * Gets the position of the 8 endpoints of the AABB in space.
@@ -314,6 +334,11 @@ class AABB(
      * Returns true if the AABB contains a point.
      */
     fun hasPoint(point: Vector3): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         return when {
             point.x < _position.x -> false
             point.y < _position.y -> false
@@ -344,6 +369,11 @@ class AABB(
      * Returns the intersection between two AABB. An empty AABB (size 0,0,0) is returned on failure.
      */
     fun intersection(other: AABB): AABB {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0 || other._size.x < 0 || other._size.y < 0 || other._size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         val srcMin = _position
         val srcMax = _position + _size
         val dstMin = other._position
@@ -380,6 +410,11 @@ class AABB(
      * Returns true if the AABB overlaps with another.
      */
     fun intersects(other: AABB): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0 || other._size.x < 0 || other._size.y < 0 || other._size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         return when {
             _position.x >= (other._position.x + other._size.x) -> false
             (_position.x + _size.x) <= other._position.x -> false
@@ -426,8 +461,8 @@ class AABB(
      */
     fun intersectsRay(from: Vector3, dir: Vector3): Vector3? {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(size.x >= 0 && size.y >= 0 && size.z >= 0) {
-                "AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size."
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
             }
         }
 
@@ -467,6 +502,10 @@ class AABB(
             }
         }
 
+        if (tmin < 0) {
+            return Vector3(from)
+        }
+
         val ret = from + dir * tmin;
 
         // Prevent float error by making sure the point is exactly
@@ -486,6 +525,11 @@ class AABB(
      * The segment begins at from and ends at to.
      */
     fun intersectsSegment(from: Vector3, to: Vector3): Vector3? {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         var min = 0.0
         var max = 1.0
 
@@ -546,6 +590,11 @@ class AABB(
     }
 
     internal fun mergeWith(other: AABB) {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || _size.z < 0 || other._size.x < 0 || other._size.y < 0 || other._size.z < 0) {
+                GodotLogging.error("AABB size is negative, this is not supported. Use AABB.abs() to get an AABB with a positive size.")
+            }
+        }
         val beg1 = _position
         val beg2 = other._position
         val end1 = _position + _size

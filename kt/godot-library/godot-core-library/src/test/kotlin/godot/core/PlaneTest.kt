@@ -2,6 +2,8 @@
 
 package godot.core
 
+import godot.common.util.CMP_EPSILON
+import godot.common.util.isEqualApprox
 import org.junit.Test
 
 class TestPlane {
@@ -115,5 +117,140 @@ class TestPlane {
         checkFalseMessage(Plane(x, infiniteY).isFinite()) { "Plane with one component infinite should not be finite." }
         checkFalseMessage(Plane(infiniteVec, y).isFinite()) { "Plane with one component infinite should not be finite." }
         checkFalseMessage(Plane(infiniteVec, infiniteY).isFinite()) { "Plane with two components infinite should not be finite." }
+    }
+
+    @Test
+    fun `Normalized returns a copy`() {
+        val plane = Plane(Vector3(1, 2, 3), 4.0)
+        val copy = Plane(plane)
+
+        val normalized = plane.normalized()
+        checkTrue(normalized !== plane)
+        checkTrue(plane == copy)
+        checkTrue(normalized.normal.isNormalized())
+        checkTrue(normalized.normal.isEqualApprox(copy.normal.normalized()))
+        checkTrue(normalized.d.isEqualApprox(copy.d / copy.normal.length()))
+
+        normalized.d = 100.0
+        checkTrue(plane == copy)
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val plane = Plane(Vector3(1, 2, 3), 4.0)
+        val other = Plane(Vector3(0, 2, 0), 4.0)
+        val third = Plane(Vector3(0, 0, 2), 6.0)
+        val copy = Plane(plane)
+        val otherCopy = Plane(other)
+        val thirdCopy = Plane(third)
+
+        val operations = listOf<() -> Any?>(
+            { plane.normalized() },
+            { plane.intersect3(other, third) },
+            { plane.distanceTo(Vector3(1, 2, 3)) },
+            { plane.project(Vector3(1, 2, 3)) },
+            { plane.getCenter() },
+            { plane.isPointOver(Vector3(1, 2, 3)) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(plane == copy)
+            checkTrue(other == otherCopy)
+            checkTrue(third == thirdCopy)
+        }
+    }
+
+    @Test
+    fun `Intersection of three planes`() {
+        val x = Plane(Vector3(2, 0, 0), 2.0)
+        val y = Plane(Vector3(0, 2, 0), 4.0)
+        val z = Plane(Vector3(0, 0, 2), 6.0)
+
+        val point = x.intersect3(y, z)
+        checkTrue(point != null)
+        checkTrue(point!!.isEqualApprox(Vector3(1, 2, 3)))
+
+        checkTrue(x.intersect3(x, z) == null)
+    }
+
+    @Test
+    fun `Intersect3 accepts a denominator equal to the epsilon`() {
+        val a = Plane(Vector3(1, 0, 0), 1.0)
+        val b = Plane(Vector3(0, 1, 0), 1.0)
+        val c = Plane(Vector3(0.0, 0.0, CMP_EPSILON), 1.0)
+
+        checkTrue(a.intersect3(b, c) != null)
+    }
+
+    @Test
+    fun `IntersectsRay accepts a denominator equal to the epsilon`() {
+        val plane = Plane(Vector3(0, 0, 1), 0.0)
+
+        checkTrue(plane.intersectsRay(Vector3(0, 0, -1), Vector3(1.0, 0.0, CMP_EPSILON)) != null)
+    }
+
+    @Test
+    fun `IntersectsSegment accepts a denominator equal to the epsilon`() {
+        val plane = Plane(Vector3(0, 0, 1), 0.0)
+
+        checkTrue(plane.intersectsSegment(Vector3(1.0, 0.0, CMP_EPSILON), Vector3(0, 0, 0)) != null)
+    }
+
+    @Test
+    fun `Normalize keeps a tiny nonzero normal`() {
+        val plane = Plane(Vector3(1e-6, 0.0, 0.0), 1e-6)
+        plane.normalize()
+
+        checkTrue(plane.isEqualApprox(Plane(1, 0, 0, 1)))
+    }
+
+    @Test
+    fun `Normalized falls back to a zero plane when not finite`() {
+        val nanNormal = Plane(Vector3(Double.NaN, Double.NaN, Double.NaN), 0.0)
+        val nanDistance = Plane(Vector3(1, 0, 0), Double.NaN)
+
+        checkTrue(nanNormal.normalized() == Plane(Vector3(0, 0, 0), 0.0))
+        checkTrue(nanDistance.normalized() == Plane(Vector3(0, 0, 0), 0.0))
+    }
+
+    @Test
+    fun `Components and unary minus`() {
+        val plane = Plane(1.0, 2.0, 3.0, 4.0)
+        plane.x = 5.0
+        plane.y = 6.0
+        plane.z = 7.0
+
+        checkTrue(plane == Plane(5.0, 6.0, 7.0, 4.0))
+        checkTrue(-plane == Plane(-5.0, -6.0, -7.0, -4.0))
+        checkTrue(plane == Plane(5.0, 6.0, 7.0, 4.0))
+    }
+
+    @Test
+    fun `HasPoint default tolerance is exactly CMP_EPSILON`() {
+        val plane = Plane(Vector3(0, 0, 1), 0.0)
+
+        checkTrue(plane.hasPoint(Vector3(0.0, 0.0, CMP_EPSILON)))
+        checkTrue(!plane.hasPoint(Vector3(0.0, 0.0, 1.000000005e-5)))
+        checkTrue(plane.hasPoint(Vector3(0.0, 0.0, 1.000000005e-5), 2e-5))
+    }
+
+    @Test
+    fun `Unary plus returns an equal copy`() {
+        val plane = Plane(1.0, 2.0, 3.0, 4.0)
+        val result = +plane
+
+        checkTrue(result == plane)
+        checkTrue(result !== plane)
+        result.x = 9.0
+        checkTrue(plane.x == 1.0)
+    }
+
+    @Test
+    fun `Equal planes with signed zero distance have equal hash codes`() {
+        val positive = Plane(Vector3(1, 0, 0), 0.0)
+        val negative = Plane(Vector3(1, 0, 0), -0.0)
+
+        checkTrue(positive == negative)
+        checkTrue(positive.hashCode() == negative.hashCode())
     }
 }

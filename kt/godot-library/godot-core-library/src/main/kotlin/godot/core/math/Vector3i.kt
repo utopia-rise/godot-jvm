@@ -30,6 +30,10 @@ class Vector3i(
     }
 
     companion object {
+        val MIN: Vector3i
+            get() = Vector3i(Int.MIN_VALUE, Int.MIN_VALUE, Int.MIN_VALUE)
+        val MAX: Vector3i
+            get() = Vector3i(Int.MAX_VALUE, Int.MAX_VALUE, Int.MAX_VALUE)
         val ZERO: Vector3i
             get() = Vector3i(0, 0, 0)
         val ONE: Vector3i
@@ -71,31 +75,39 @@ class Vector3i(
      * @GlobalScope.clamp on each component.
      */
     fun clamp(min: Vector3i, max: Vector3i) = Vector3i(
-        x.coerceIn(min.x, max.x),
-        y.coerceIn(min.y, max.y),
-        z.coerceIn(min.z, max.z)
+        if (x < min.x) min.x else if (x > max.x) max.x else x,
+        if (y < min.y) min.y else if (y > max.y) max.y else y,
+        if (z < min.z) min.z else if (z > max.z) max.z else z
     )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampi(min: Int, max: Int) = Vector3i(x.coerceIn(min, max), y.coerceIn(min, max), z.coerceIn(min, max))
+    fun clampi(min: Int, max: Int) = Vector3i(
+        if (x < min) min else if (x > max) max else x,
+        if (y < min) min else if (y > max) max else y,
+        if (z < min) min else if (z > max) max else z
+    )
 
     /**
      * Returns the vector’s length.
      */
     fun length(): RealT {
-        return sqrt(lengthSquared())
+        return sqrt(lengthSquared().toDouble())
     }
 
     /**
      * Returns the vector’s length squared.
      * Prefer this function over length if you need to sort vectors or need the squared length for some formula.
      */
-    fun lengthSquared(): RealT {
-        return (x * x + y * y + z * z).toDouble()
+    fun lengthSquared(): Long {
+        return x.toLong() * x + y.toLong() * y + z.toLong() * z
     }
+
+    fun distanceTo(to: Vector3i): RealT = (to - this).length()
+
+    fun distanceSquaredTo(to: Vector3i): Long = (to - this).lengthSquared()
 
     /**
      * Returns the component-wise maximum of this and with, equivalent to `Vector3i(maxi(x, with.x), maxi(y, with.y), maxi(z, with.z))`.
@@ -229,27 +241,29 @@ class Vector3i(
 
     operator fun plus(vec: Vector3i) = Vector3i(x + vec.x, y + vec.y, z + vec.z)
     operator fun plus(scalar: Int) = Vector3i(x + scalar, y + scalar, z + scalar)
-    operator fun plus(scalar: Long) = Vector3i(x + scalar, y + scalar, z + scalar)
-    operator fun plus(scalar: Float) = Vector3i(x + scalar, y + scalar, z + scalar)
-    operator fun plus(scalar: Double) = Vector3i(x + scalar, y + scalar, z + scalar)
+    operator fun plus(scalar: Long) = plus(scalar.toInt())
+    operator fun plus(scalar: Float) = plus(scalar.toInt())
+    operator fun plus(scalar: Double) = plus(scalar.toInt())
 
     operator fun minus(vec: Vector3i) = Vector3i(x - vec.x, y - vec.y, z - vec.z)
     operator fun minus(scalar: Int) = Vector3i(x - scalar, y - scalar, z - scalar)
-    operator fun minus(scalar: Long) = Vector3i(x - scalar, y - scalar, z - scalar)
-    operator fun minus(scalar: Float) = Vector3i(x - scalar, y - scalar, z - scalar)
-    operator fun minus(scalar: Double) = Vector3i(x - scalar, y - scalar, z - scalar)
+    operator fun minus(scalar: Long) = minus(scalar.toInt())
+    operator fun minus(scalar: Float) = minus(scalar.toInt())
+    operator fun minus(scalar: Double) = minus(scalar.toInt())
 
     operator fun times(vec: Vector3i) = Vector3i(x * vec.x, y * vec.y, z * vec.z)
     operator fun times(scalar: Int) = Vector3i(x * scalar, y * scalar, z * scalar)
-    operator fun times(scalar: Long) = Vector3i(x * scalar, y * scalar, z * scalar)
-    operator fun times(scalar: Float) = Vector3i(x * scalar, y * scalar, z * scalar)
-    operator fun times(scalar: Double) = Vector3i(x * scalar, y * scalar, z * scalar)
+    operator fun times(scalar: Long) = times(scalar.toInt())
+    operator fun times(scalar: Float) = times(scalar.toDouble())
+    operator fun times(scalar: Double) = Vector3(x * scalar, y * scalar, z * scalar)
 
     operator fun div(vec: Vector3i) = Vector3i(x / vec.x, y / vec.y, z / vec.z)
     operator fun div(scalar: Int) = Vector3i(x / scalar, y / scalar, z / scalar)
-    operator fun div(scalar: Long) = Vector3i(x / scalar, y / scalar, z / scalar)
-    operator fun div(scalar: Float) = Vector3i(x / scalar, y / scalar, z / scalar)
-    operator fun div(scalar: Double) = Vector3i(x / scalar, y / scalar, z / scalar)
+    operator fun div(scalar: Long) = div(scalar.toInt())
+    operator fun div(scalar: Float) = div(scalar.toDouble())
+    operator fun div(scalar: Double) = Vector3(x / scalar, y / scalar, z / scalar)
+
+    operator fun unaryPlus() = Vector3i(x, y, z)
 
     operator fun unaryMinus() = Vector3i(-x, -y, -z)
 
@@ -285,6 +299,14 @@ class Vector3i(
     }
 
     override fun hashCode(): Int {
-        return this.toString().hashCode()
+        var h = x
+        h = 31 * h + y
+        h = 31 * h + z
+        return h
     }
 }
+
+operator fun Int.times(vector: Vector3i) = vector * this
+operator fun Long.times(vector: Vector3i) = vector * this
+operator fun Float.times(vector: Vector3i) = vector * this
+operator fun Double.times(vector: Vector3i) = vector * this

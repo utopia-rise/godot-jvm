@@ -6,6 +6,7 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.math.sign
+import kotlin.math.truncate
 
 
 //Taken from core/math/math_defs.h
@@ -26,7 +27,7 @@ const val NEPER2DB = 8.6858896380650365530225783783321
 const val DB2NEPER = 1.0 / NEPER2DB
 
 val Double.signbit: Boolean
-    get() = sign < 0
+    get() = toRawBits() < 0L
 
 /**
  * Because of float precision, it's hard to obtain two perfectly equal real numbers.
@@ -41,7 +42,7 @@ fun RealT.isEqualApprox(to: RealT, epsilon: RealT = CMP_EPSILON): Boolean {
 }
 
 fun RealT.isEqualApprox(to: RealT): Boolean {
-    //taken from https://github.com/godotengine/godot/blob/d8066aa6a4afb12ffddcec71bd7e051dcd04f3e1/core/math/math_funcs.h#L315
+    //taken from https://github.com/godotengine/godot/blob/5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88/core/math/math_funcs.h#L528
 
     // Check for exact equality first, required to handle "infinity" values.
     if (this == to) {
@@ -60,9 +61,9 @@ inline fun RealT.isZeroApprox() = abs(this) < CMP_EPSILON
 fun RealT.fposmod(b: RealT): RealT {
     val value = this.rem(b)
     if ((value < 0 && b > 0) || (value > 0 && b < 0)) {
-        return value + b;
+        return value + b + 0.0
     }
-    return value
+    return value + 0.0
 }
 
 fun Long.posmod(b: Long): Long {
@@ -185,4 +186,13 @@ fun cubicInterpolateInTime(
     val b1 = lerp(a1, a2, if (toT - preT == 0.0) 0.0 else (t - preT) / (toT - preT))
     val b2 = lerp(a2, a3, if (postT == 0.0) 1.0 else t / postT)
     return lerp(b1, b2, if (toT == 0.0) 0.5 else t / toT)
+}
+
+// kotlin's coerceIn throws when min > max; Godot's CLAMP does not and returns min or max by its ternary order.
+fun clampValue(value: RealT, min: RealT, max: RealT) = if (value < min) min else if (value > max) max else value
+
+// kotlin.math.round rounds ties to even and Math.round rounds them up; Godot's std::round rounds them away from zero.
+fun roundValue(value: RealT): RealT {
+    val truncated = truncate(value)
+    return if (abs(value - truncated) >= 0.5) truncated + sign(value) else truncated
 }

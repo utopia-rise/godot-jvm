@@ -4,6 +4,7 @@ package godot.core
 
 import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
+import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
 import kotlin.math.max
 import kotlin.math.min
@@ -130,9 +131,16 @@ class Rect2i(
      * Returns `true` if this [Rect2i] completely encloses another one.
      */
 
-    fun encloses(rect: Rect2i) = (rect._position.x >= _position.x) && (rect._position.y >= _position.y) &&
-        ((rect._position.x + rect._size.x) <= (_position.x + _size.x)) &&
-        ((rect._position.y + rect._size.y) <= (_position.y + _size.y))
+    fun encloses(rect: Rect2i): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || rect._size.x < 0 || rect._size.y < 0) {
+                GodotLogging.error("Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size.")
+            }
+        }
+        return (rect._position.x >= _position.x) && (rect._position.y >= _position.y) &&
+            ((rect._position.x + rect._size.x) <= (_position.x + _size.x)) &&
+            ((rect._position.y + rect._size.y) <= (_position.y + _size.y))
+    }
 
     /**
      * Returns a copy of this [Rect2i] expanded so that the borders align with the given point.
@@ -142,6 +150,11 @@ class Rect2i(
     }
 
     private fun expandTo(p_vector: Point2i) {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0) {
+                GodotLogging.error("Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size.")
+            }
+        }
         val begin = Point2i(_position)
         val end = _position + _size
 
@@ -222,6 +235,11 @@ class Rect2i(
      */
 
     fun hasPoint(point: Point2i): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0) {
+                GodotLogging.error("Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size.")
+            }
+        }
         if (point.x < _position.x) {
             return false
         }
@@ -267,8 +285,8 @@ class Rect2i(
      */
     fun intersects(rect: Rect2i): Boolean {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(!(size.x < 0 || size.y < 0 || rect.size.x < 0 || rect.size.y < 0)) {
-                "Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size."
+            if (_size.x < 0 || _size.y < 0 || rect._size.x < 0 || rect._size.y < 0) {
+                GodotLogging.error("Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size.")
             }
         }
         if (_position.x >= (rect._position.x + rect._size.width)) {
@@ -292,6 +310,11 @@ class Rect2i(
      */
 
     fun merge(rect: Rect2i): Rect2i {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || rect._size.x < 0 || rect._size.y < 0) {
+                GodotLogging.error("Rect2i size is negative, this is not supported. Use Rect2i.abs() to get a Rect2i with a positive size.")
+            }
+        }
         val newRect = Rect2i()
 
         newRect._position.x = min(rect._position.x, _position.x)

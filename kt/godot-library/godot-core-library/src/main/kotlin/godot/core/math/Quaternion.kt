@@ -6,6 +6,7 @@ import godot.core.EulerOrder
 import godot.common.util.CMP_EPSILON
 import godot.common.util.RealT
 import godot.common.util.SHORTEST_ARC_DOT_THRESHOLD
+import godot.common.util.UNIT_EPSILON
 import godot.common.util.cubicInterpolate
 import godot.common.util.cubicInterpolateInTime
 import godot.common.util.isEqualApprox
@@ -68,6 +69,13 @@ class Quaternion(
         this(x.toRealT(), y.toRealT(), z.toRealT(), w.toRealT())
 
     constructor(axis: Vector3, angle: RealT) : this() {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!axis.isNormalized()) {
+                GodotLogging.error("The axis Vector3 $axis must be normalized.")
+                return
+            }
+        }
+
         val d: RealT = axis.length()
         if (d == 0.0) {
             set(0.0, 0.0, 0.0, 0.0)
@@ -81,7 +89,10 @@ class Quaternion(
 
     constructor(v0: Vector3, v1: Vector3) : this() {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(!(v0.isZeroApprox() || v1.isZeroApprox())) { "The vectors must not be zero." }
+            if (v0.isZeroApprox() || v1.isZeroApprox()) {
+                GodotLogging.error("The vectors must not be zero.")
+                return
+            }
         }
 
         val n0 = v0.normalized();
@@ -118,7 +129,7 @@ class Quaternion(
      * Note: The magnitude of the floating-point error for this method is abnormally high, so methods such as
      * [isZeroApprox] will not work reliably.
      */
-    fun angleTo(to: Quaternion): Double {
+    fun angleTo(to: Quaternion): RealT {
         val d = dot(to)
         return acos((d * d * 2 - 1).coerceIn(-1.0, 1.0))
     }
@@ -140,7 +151,7 @@ class Quaternion(
         return Quaternion(srcV, theta)
     }
 
-    fun getAngle() = 2 * acos(w)
+    fun getAngle() = 2 * acos(w.coerceIn(-1.0, 1.0))
 
     fun getAxis(): Vector3 {
         if (abs(w) > 1 - CMP_EPSILON) {
@@ -157,8 +168,9 @@ class Quaternion(
      */
     fun getEuler(order: EulerOrder = EulerOrder.YXZ): Vector3 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(isNormalized()) {
-                "The quaternion must be normalized."
+            if (!isNormalized()) {
+                GodotLogging.error("The quaternion $this must be normalized.")
+                return Vector3(0, 0, 0)
             }
         }
         return Basis(this).getEuler(order)
@@ -168,17 +180,23 @@ class Quaternion(
      * Returns the inverse of the quaternion.
      */
     fun inverse(): Quaternion {
-        return Quaternion(-x, -y, -z, -w)
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!isNormalized()) {
+                GodotLogging.error("The quaternion $this must be normalized.")
+                return Quaternion()
+            }
+        }
+        return Quaternion(-x, -y, -z, w)
     }
 
     /**
      * Returns true if this quaterion and quat are approximately equal, by running isEqualApprox on each component.
      */
     fun isEqualApprox(other: Quaternion): Boolean {
-        return other.x.isEqualApprox(x)
-            && other.y.isEqualApprox(y)
-            && other.z.isEqualApprox(z)
-            && other.w.isEqualApprox(w)
+        return x.isEqualApprox(other.x)
+            && y.isEqualApprox(other.y)
+            && z.isEqualApprox(other.z)
+            && w.isEqualApprox(other.w)
     }
 
     /**
@@ -190,7 +208,7 @@ class Quaternion(
      * Returns whether the quaternion is normalized or not.
      */
     fun isNormalized(): Boolean {
-        return abs(lengthSquared() - 1.0) < CMP_EPSILON
+        return lengthSquared().isEqualApprox(1.0, UNIT_EPSILON)
     }
 
     /**
@@ -216,41 +234,45 @@ class Quaternion(
      * Returns a copy of the quaternion, normalized to unit length.
      */
     fun normalized(): Quaternion {
-        return this / this.length()
+        return this / length()
     }
 
     internal fun normalize() {
-        val l = this.length()
-        x /= l
-        y /= l
-        z /= l
-        w /= l
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!isFinite()) {
+                GodotLogging.warning("Quaternion cannot be normalized, the elements must be finite. Making (0, 0, 0, 1) as a fallback.")
+                x = 0.0
+                y = 0.0
+                z = 0.0
+                w = 1.0
+                return
+            }
+        }
+
+        val r = 1 / length()
+        x *= r
+        y *= r
+        z *= r
+        w *= r
     }
 
     /**
-     * Returns the result of rotating toward [to] by [delta] (in radians). Passing a negative [delta] will rotate toward the inverse of [to].
+     * Returns the result of rotating toward [to] by [delta] (in radians). Passing a negative [delta] will rotate away from [to].
      *
      * **Note:** Both quaternions must be normalized.
      */
     fun rotateToward(to: Quaternion, delta: Double): Quaternion {
-        val unsignedDelta: RealT
-        val unsignedTo: Quaternion
+        val angle = angleTo(to)
 
-        if (delta < 0.0) {
-            unsignedDelta = -delta
-            unsignedTo = to.inverse()
-        } else {
-            unsignedDelta = delta
-            unsignedTo = to
+        if (delta >= 0.0 && angle <= delta) {
+            return Quaternion(to)
         }
 
-        val angle = angleTo(unsignedTo)
-
-        return if (angle < unsignedDelta) {
-            unsignedTo
-        } else {
-            slerp(unsignedTo, unsignedDelta / angle)
+        if (angle == 0.0) {
+            return Quaternion(this)
         }
+
+        return slerp(to, delta / angle)
     }
 
     /**
@@ -276,6 +298,16 @@ class Quaternion(
      * Performs a spherical-linear interpolation with another quaternion.
      */
     fun slerp(q: Quaternion, t: RealT): Quaternion {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!isNormalized()) {
+                GodotLogging.error("The start quaternion $this must be normalized.")
+                return Quaternion()
+            }
+            if (!q.isNormalized()) {
+                GodotLogging.error("The end quaternion $q must be normalized.")
+                return Quaternion()
+            }
+        }
         val to1 = Quaternion()
         val omega: RealT
         var cosom: RealT
@@ -323,10 +355,20 @@ class Quaternion(
      * Performs a spherical-linear interpolation with another quaterion without checking if the rotation path is not bigger than 90°.
      */
     fun slerpni(q: Quaternion, t: RealT): Quaternion {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!isNormalized()) {
+                GodotLogging.error("The start quaternion $this must be normalized.")
+                return Quaternion()
+            }
+            if (!q.isNormalized()) {
+                GodotLogging.error("The end quaternion $q must be normalized.")
+                return Quaternion()
+            }
+        }
         val from = this
         val dot: RealT = from.dot(q)
 
-        if (abs(dot) > 0.9999) return from
+        if (abs(dot) > 0.9999f.toDouble()) return Quaternion(from)
 
         val theta = acos(dot)
         val sinT = 1.0 / sin(theta)
@@ -347,11 +389,13 @@ class Quaternion(
      */
     fun sphericalCubicInterpolate(b: Quaternion, preA: Quaternion, postB: Quaternion, weight: RealT): Quaternion {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(isNormalized()) {
-                "The start quaternion must be normalized."
+            if (!isNormalized()) {
+                GodotLogging.error("The start quaternion $this must be normalized.")
+                return Quaternion()
             }
-            require(b.isNormalized()) {
-                "The end quaternion must be normalized."
+            if (!b.isNormalized()) {
+                GodotLogging.error("The end quaternion $b must be normalized.")
+                return Quaternion()
             }
         }
 
@@ -417,11 +461,13 @@ class Quaternion(
         p_post_b_t: RealT
     ): Quaternion {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(isNormalized()) {
-                "The start quaternion must be normalized."
+            if (!isNormalized()) {
+                GodotLogging.error("The start quaternion $this must be normalized.")
+                return Quaternion()
             }
-            require(p_b.isNormalized()) {
-                "The end quaternion must be normalized."
+            if (!p_b.isNormalized()) {
+                GodotLogging.error("The end quaternion $p_b must be normalized.")
+                return Quaternion()
             }
         }
 
@@ -479,8 +525,9 @@ class Quaternion(
 
     internal fun xform(v: Vector3): Vector3 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(isNormalized()) {
-                "The quaternion must be normalized."
+            if (!isNormalized()) {
+                GodotLogging.error("The quaternion $this must be normalized.")
+                return v
             }
         }
 
@@ -512,7 +559,30 @@ class Quaternion(
     operator fun times(scalar: Float) = Quaternion(x * scalar, y * scalar, z * scalar, w * scalar)
     operator fun times(scalar: Double) = Quaternion(x * scalar, y * scalar, z * scalar, w * scalar)
 
-    operator fun div(f: RealT) = Quaternion(x / f, y / f, z / f, w / f)
+    operator fun div(f: RealT): Quaternion {
+        val r = 1 / f
+        return Quaternion(x * r, y * r, z * r, w * r)
+    }
+
+    operator fun div(f: Int) = div(f.toRealT())
+
+    operator fun unaryPlus() = Quaternion(this)
+
+    operator fun get(n: Int): RealT = when (n) {
+        0 -> x
+        1 -> y
+        2 -> z
+        3 -> w
+        else -> throw IndexOutOfBoundsException()
+    }
+
+    operator fun set(n: Int, f: RealT): Unit = when (n) {
+        0 -> x = f
+        1 -> y = f
+        2 -> z = f
+        3 -> w = f
+        else -> throw IndexOutOfBoundsException()
+    }
 
     operator fun unaryMinus() = Quaternion(-this.x, -this.y, -this.z, -this.w)
 
@@ -526,10 +596,10 @@ class Quaternion(
     }
 
     override fun hashCode(): Int {
-        var result = x.hashCode()
-        result = 31 * result + y.hashCode()
-        result = 31 * result + z.hashCode()
-        result = 31 * result + w.hashCode()
+        var result = (x + 0.0).hashCode()
+        result = 31 * result + (y + 0.0).hashCode()
+        result = 31 * result + (z + 0.0).hashCode()
+        result = 31 * result + (w + 0.0).hashCode()
         return result
     }
 

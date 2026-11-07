@@ -6,6 +6,7 @@ import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
 import godot.common.util.RealT
 import godot.core.times
+import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
 
 class Transform3D(
@@ -93,6 +94,16 @@ class Transform3D(
     constructor(from: Quaternion) :
         this(Basis(from))
 
+    constructor(from: Projection) :
+        this(
+            Basis(
+                Vector3(from.x.x, from.x.y, from.x.z),
+                Vector3(from.y.x, from.y.y, from.y.z),
+                Vector3(from.z.x, from.z.y, from.z.z)
+            ),
+            Vector3(from.w.x, from.w.y, from.w.z)
+        )
+
     //API
     /**
      * Returns the inverse of the transform, under the assumption that the transformation is composed of rotation, scaling and translation.
@@ -113,19 +124,17 @@ class Transform3D(
      */
     fun interpolateWith(transform3D: Transform3D, c: RealT): Transform3D {
         val srcScale = _basis.getScale()
-        val srcRot = Quaternion(_basis)
+        val srcRot = _basis.getRotationQuaternion()
         val srcLoc = _origin
 
         val dstScale = transform3D._basis.getScale()
-        val dstRot = Quaternion(transform3D._basis)
+        val dstRot = transform3D._basis.getRotationQuaternion()
         val dstLoc = transform3D._origin
 
-        val dst = Transform3D()
-        dst._basis = Basis(srcRot.slerp(dstRot, c))
-        dst._basis.scale(srcScale.lerp(dstScale, c))
-        dst._origin = srcLoc.lerp(dstLoc, c)
-
-        return dst
+        return Transform3D(
+            Basis(srcRot.slerp(dstRot, c).normalized()) * Basis.fromScale(srcScale.lerp(dstScale, c)),
+            srcLoc.lerp(dstLoc, c)
+        )
     }
 
     /**
@@ -146,7 +155,7 @@ class Transform3D(
      * Returns true if this transform and transform are approximately equal, by calling is_equal_approx on each component.
      */
     fun isEqualApprox(transform3D: Transform3D): Boolean {
-        return transform3D._basis.isEqualApprox(this._basis) && transform3D._origin.isEqualApprox(this._origin)
+        return _basis.isEqualApprox(transform3D._basis) && _origin.isEqualApprox(transform3D._origin)
     }
 
     /**
@@ -160,15 +169,22 @@ class Transform3D(
      * If [useModelFront] is true, the +Z axis (asset front) is treated as forward (implies +X is left) and points toward the [target] position. By default, the -Z axis (camera forward) is treated as forward (implies +X is right).
      */
     fun lookingAt(target: Vector3, up: Vector3 = Vector3.UP, useModelFront: Boolean = false): Transform3D {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_origin.isEqualApprox(target)) {
+                GodotLogging.error("The transform's origin and target can't be equal.")
+                return Transform3D()
+            }
+        }
         val t = Transform3D(this._basis, this._origin)
-        t.setLookAt(_origin, target, up, useModelFront)
+        t._basis = Basis.lookingAt(target - _origin, up, useModelFront)
         return t
     }
 
     internal fun setLookAt(eye: Vector3, target: Vector3, up: Vector3, useModelFront: Boolean) {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(!eye.isEqualApprox(target)) {
-                "The eye and target vectors can't be equal."
+            if (eye.isEqualApprox(target)) {
+                GodotLogging.error("The eye and target vectors can't be equal.")
+                return
             }
         }
         _basis = Basis.lookingAt(target - eye, up, useModelFront);
@@ -279,35 +295,43 @@ class Transform3D(
      * Transforms the given AABB by this transform.
      */
     internal fun xform(aabb: AABB): AABB {
-        val x = _basis._x * aabb._size.x
-        val y = _basis._y * aabb._size.y
-        val z = _basis._z * aabb._size.z
-        val pos = xform(aabb._position)
-
-        val newAabb = AABB()
-        newAabb._position = pos
-        newAabb.expandTo(pos + x)
-        newAabb.expandTo(pos + y)
-        newAabb.expandTo(pos + z)
-        newAabb.expandTo(pos + x + y)
-        newAabb.expandTo(pos + x + z)
-        newAabb.expandTo(pos + y + z)
-        newAabb.expandTo(pos + x + y + z)
-        return newAabb
+        val min = doubleArrayOf(aabb._position.x, aabb._position.y, aabb._position.z)
+        val max = doubleArrayOf(
+            aabb._position.x + aabb._size.x,
+            aabb._position.y + aabb._size.y,
+            aabb._position.z + aabb._size.z
+        )
+        val rows = arrayOf(_basis._x, _basis._y, _basis._z)
+        val origin = doubleArrayOf(_origin.x, _origin.y, _origin.z)
+        val tmin = DoubleArray(3)
+        val tmax = DoubleArray(3)
+        for (i in 0..2) {
+            tmin[i] = origin[i]
+            tmax[i] = origin[i]
+            val row = doubleArrayOf(rows[i].x, rows[i].y, rows[i].z)
+            for (j in 0..2) {
+                val e = row[j] * min[j]
+                val f = row[j] * max[j]
+                if (e < f) {
+                    tmin[i] += e
+                    tmax[i] += f
+                } else {
+                    tmin[i] += f
+                    tmax[i] += e
+                }
+            }
+        }
+        val position = Vector3(tmin[0], tmin[1], tmin[2])
+        return AABB(position, Vector3(tmax[0], tmax[1], tmax[2]) - position)
     }
 
     /**
      * Transforms the given Plane by this transform.
      */
     internal fun xform(plane: Plane): Plane {
-        var point = plane._normal * plane.d
-        var pointDir = point + plane._normal
-        point = xform(point)
-        pointDir = xform(pointDir)
-
-        val normal = pointDir - point
+        val point = xform(plane._normal * plane.d)
+        val normal = _basis.inverse().transposed().xform(plane._normal)
         normal.normalize()
-
         return Plane(normal, normal.dot(point))
     }
 
@@ -327,14 +351,9 @@ class Transform3D(
      * Inverse-transforms the given Plane by this transform.
      */
     internal fun xformInv(plane: Plane): Plane {
-        var point = plane._normal * plane.d
-        var pointDir = point + plane._normal
-        point = xformInv(point)
-        pointDir = xformInv(pointDir)
-
-        val normal = pointDir - point
+        val point = affineInverse().xform(plane._normal * plane.d)
+        val normal = _basis.transposed().xform(plane._normal)
         normal.normalize()
-
         return Plane(normal, normal.dot(point))
     }
 
@@ -385,10 +404,7 @@ class Transform3D(
 
 
     operator fun times(transform3D: Transform3D): Transform3D {
-        val t = this
-        t._origin = xform(transform3D._origin)
-        t._basis *= transform3D._basis
-        return t
+        return Transform3D(_basis * transform3D._basis, xform(transform3D._origin))
     }
 
     operator fun times(other: PackedVector3Array): PackedVector3Array {
@@ -399,6 +415,7 @@ class Transform3D(
 
     operator fun times(other: AABB) = this.xform(other)
     operator fun times(other: Vector3) = this.xform(other)
+    operator fun times(plane: Plane): Plane = xform(plane)
 
     operator fun times(other: Int) = Transform3D(other * _basis, other * _origin)
     operator fun times(other: Long) = Transform3D(other * _basis, other * _origin)
@@ -413,6 +430,7 @@ class Transform3D(
 
 operator fun Vector3.times(other: Transform3D) = other.xformInv(this)
 operator fun AABB.times(other: Transform3D) = other.xformInv(this)
+operator fun Plane.times(other: Transform3D): Plane = other.xformInv(this)
 operator fun PackedVector3Array.times(other: Transform3D): PackedVector3Array {
     val newPackedArray = PackedVector3Array()
     toList().onEach { newPackedArray.pushBack(other.xformInv(it)) }

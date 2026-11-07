@@ -3,6 +3,7 @@
 package godot.core
 
 import godot.common.util.CMP_EPSILON
+import godot.common.util.UNIT_EPSILON
 import godot.common.util.RealT
 import godot.common.util.bezierDerivative
 import godot.common.util.bezierInterpolate
@@ -19,11 +20,15 @@ import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.round
-import kotlin.math.sign
 import kotlin.math.sqrt
+import kotlin.math.truncate
+import kotlin.math.sign
+import godot.common.util.clampValue
+
+private fun roundHalfAwayFromZero(value: RealT): RealT {
+    val truncated = truncate(value)
+    return if (abs(value - truncated) >= 0.5) truncated + sign(value) else truncated
+}
 
 class Vector3(
     var x: RealT,
@@ -66,11 +71,23 @@ class Vector3(
             get() = Vector3(0, 0, -1)
         val BACK: Vector3
             get() = Vector3(0, 0, 1)
+        val MODEL_LEFT: Vector3
+            get() = Vector3(1, 0, 0)
+        val MODEL_RIGHT: Vector3
+            get() = Vector3(-1, 0, 0)
+        val MODEL_TOP: Vector3
+            get() = Vector3(0, 1, 0)
+        val MODEL_BOTTOM: Vector3
+            get() = Vector3(0, -1, 0)
+        val MODEL_FRONT: Vector3
+            get() = Vector3(0, 0, 1)
+        val MODEL_REAR: Vector3
+            get() = Vector3(0, 0, -1)
 
         fun octahedronDecode(uv: Vector2): Vector3 {
             val f = Vector2(uv.x * 2.0f - 1.0f, uv.y * 2.0f - 1.0f)
             val n = Vector3(f.x, f.y, 1.0f - abs(f.x) - abs(f.y))
-            val t = -n.z.coerceIn(0.0, 1.0)
+            val t = clampValue(-n.z, 0.0, 1.0)
             n.x += if (n.x >= 0) -t else t
             n.y += if (n.y >= 0) -t else t
             return n.normalized()
@@ -155,16 +172,16 @@ class Vector3(
      * @GlobalScope.clamp on each component.
      */
     fun clamp(min: Vector3, max: Vector3) = Vector3(
-        x.coerceIn(min.x, max.x),
-        y.coerceIn(min.y, max.y),
-        z.coerceIn(min.z, max.z)
+        clampValue(x, min.x, max.x),
+        clampValue(y, min.y, max.y),
+        clampValue(z, min.z, max.z)
     )
 
     /**
      * Returns a new vector with all components clamped between the min and max, by running
      * @GlobalScope.clamp on each component.
      */
-    fun clampf(min: RealT, max: RealT) = Vector3(x.coerceIn(min, max), y.coerceIn(min, max), z.coerceIn(min, max))
+    fun clampf(min: RealT, max: RealT) = Vector3(clampValue(x, min, max), clampValue(y, min, max), clampValue(z, min, max))
 
     /**
      * Returns the cross product with b.
@@ -305,13 +322,13 @@ class Vector3(
      * Returns true if this vector and v are approximately equal, by running isEqualApprox on each component.
      */
     fun isEqualApprox(other: Vector3): Boolean {
-        return other.x.isEqualApprox(x) && other.y.isEqualApprox(y) && other.z.isEqualApprox(z)
+        return x.isEqualApprox(other.x) && y.isEqualApprox(other.y) && z.isEqualApprox(other.z)
     }
 
     /**
      * Returns true if this vector's values are approximately zero
      */
-    fun isZeroApprox() = isEqualApprox(ZERO)
+    fun isZeroApprox() = abs(x) < CMP_EPSILON && abs(y) < CMP_EPSILON && abs(z) < CMP_EPSILON
 
     /**
      * Returns true if this vector is finite, by calling @GlobalScope.is_finite on each component.
@@ -322,7 +339,7 @@ class Vector3(
      * Returns true if the vector is normalized.
      */
     fun isNormalized(): Boolean {
-        return this.length().isEqualApprox(1.0)
+        return lengthSquared().isEqualApprox(1.0, UNIT_EPSILON)
     }
 
     /**
@@ -367,7 +384,7 @@ class Vector3(
     /**
      * Returns the component-wise maximum of this and with.
      */
-    fun max(with: Vector3) = Vector3(max(x, with.x), max(y, with.y), max(z, with.z))
+    fun max(with: Vector3) = Vector3(maxOf(x, with.x), maxOf(y, with.y), maxOf(z, with.z))
 
     /**
      * Returns the axis of the vector's highest value. See AXIS_* constants.
@@ -390,12 +407,12 @@ class Vector3(
     /**
      * Returns the component-wise maximum of this and with, equivalent to `Vector3(maxf(x, with.x), maxf(y, with.y), maxf(z, with.z)).`.
      */
-    fun maxf(with: RealT) = Vector3(max(x, with), max(y, with), max(z, with))
+    fun maxf(with: RealT) = Vector3(maxOf(x, with), maxOf(y, with), maxOf(z, with))
 
     /**
      * Returns the component-wise minimum of this and with, equivalent to `Vector3(maxf(x, with), maxf(y, with), maxf(z, with))`.
      */
-    fun min(with: Vector3) = Vector3(min(x, with.x), min(y, with.y), min(z, with.z))
+    fun min(with: Vector3) = Vector3(minOf(x, with.x), minOf(y, with.y), minOf(z, with.z))
 
     /**
      * Returns the axis of the vector’s smallest value. See AXIS_* constants.
@@ -417,7 +434,7 @@ class Vector3(
     /**
      * Returns the component-wise minimum of this and with, equivalent to `Vector3(minf(x, with.x), minf(y, with.y), minf(z, with.z))`.
      */
-    fun minf(with: RealT) = Vector3(min(x, with), min(y, with), min(z, with))
+    fun minf(with: RealT) = Vector3(minOf(x, with), minOf(y, with), minOf(z, with))
 
     /**
      * Moves the vector toward to by the fixed delta amount.
@@ -426,7 +443,7 @@ class Vector3(
         val vd = to - this
         val len = vd.length()
         return if (len <= delta || len < CMP_EPSILON) {
-            to
+            Vector3(to)
         } else {
             this + vd / len * delta
         }
@@ -443,8 +460,8 @@ class Vector3(
 
     internal fun normalize() {
         if (GodotJvmBuildConfig.DEBUG) {
-            if((!isFinite())) {
-                GodotLogging.warning("Vector2 cannot be normalized, the elements must be finite. Making (0, 0, 0) as a fallback.")
+            if (!isFinite()) {
+                GodotLogging.warning("Vector3 cannot be normalized, the elements must be finite. Making (0, 0, 0) as a fallback.")
                 x = 0.0
                 y = 0.0
                 z = 0.0
@@ -471,7 +488,7 @@ class Vector3(
     fun octahedronDecode(uv: Vector2): Vector3 {
         val f = Vector2(uv.x * 2.0f - 1.0f, uv.y * 2.0f - 1.0f)
         val n = Vector3(f.x, f.y, 1.0f - abs(f.x) - abs(f.y))
-        val t = -n.z.coerceIn(0.0, 1.0)
+        val t = clampValue(-n.z, 0.0, 1.0)
         n.x += (if (n.x >= 0) -t else t).toDouble()
         n.y += (if (n.y >= 0) -t else t).toDouble()
         return n.normalized()
@@ -497,9 +514,9 @@ class Vector3(
      * Returns the outer product with b.
      */
     fun outer(b: Vector3) = Basis(
-        Vector3(x * b.x, x * b.y, x * b.z),
-        Vector3(y * b.x, y * b.y, y * b.z),
-        Vector3(z * b.x, z * b.y, z * b.z)
+        x * b.x, x * b.y, x * b.z,
+        y * b.x, y * b.y, y * b.z,
+        z * b.x, z * b.y, z * b.z
     )
 
     /**
@@ -528,8 +545,9 @@ class Vector3(
      */
     fun reflect(normal: Vector3): Vector3 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(normal.isNormalized()) {
-                "The normal Vector3 must be normalized. But got $normal"
+            if (!normal.isNormalized()) {
+                GodotLogging.error("The normal Vector3 $normal must be normalized.")
+                return Vector3()
             }
         }
         return 2.0 * normal * this.dot(normal) - this
@@ -539,15 +557,18 @@ class Vector3(
      * Rotates the vector around a given axis by phi radians. The axis must be a normalized vector.
      */
     fun rotated(axis: Vector3, phi: RealT): Vector3 {
-        if (GodotJvmBuildConfig.DEBUG) {
-            require(axis.isNormalized()) { "Axis not normalized!" }
-        }
         val v = Vector3(this)
         v.rotate(axis, phi)
         return v
     }
 
     internal fun rotate(axis: Vector3, phi: RealT) {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (!axis.isNormalized()) {
+                GodotLogging.error("The axis Vector3 $axis must be normalized.")
+                return
+            }
+        }
         val ret = Basis(axis, phi).xform(this)
         this.x = ret.x
         this.y = ret.y
@@ -556,40 +577,32 @@ class Vector3(
 
     /**
      * Returns the result of rotating this vector toward [to], by increment [delta] (in radians).
-     * Passing a negative [delta] will rotate toward the opposite of [to].
+     * Passing a negative [delta] will rotate away from [to].
      * This method supports vectors of different length, with the same behavior as [slerp].
      * If the vectors are colinear, this method behaves like [moveToward]. If [to] has a length of zero, this method behaves like [lerp].
      */
     fun rotateToward(to: Vector3, delta: RealT): Vector3 {
-        val unsignedDelta: RealT
-        val unsignedTo: Vector3
+        val angle = angleTo(to)
 
-        if (delta < 0.0) {
-            unsignedDelta = -delta
-            unsignedTo = -to
-        } else {
-            unsignedDelta = delta
-            unsignedTo = to
-        }
-
-        val angle = abs(angleTo(to))
-
-        if (angle < unsignedDelta) {
-            if (unsignedTo.lengthSquared().isZeroApprox()) {
-                // Prevent locking up when to is (0, 0).
-                return lerp(unsignedTo, unsignedDelta)
+        if (delta >= 0.0 && angle <= delta) {
+            if (to.lengthSquared().isZeroApprox()) {
+                return lerp(to, delta)
             }
-            return moveToward(unsignedTo, unsignedDelta * unsignedTo.length())
+            return moveToward(to, delta * to.length())
         }
 
-        return slerp(unsignedTo, unsignedDelta / angle)
+        if (angle == 0.0) {
+            return Vector3(this)
+        }
+
+        return slerp(to, delta / angle)
     }
 
     /**
      * Returns the vector with all components rounded to the nearest integer, with halfway cases rounded away from zero.
      */
     fun round(): Vector3 {
-        return Vector3(round(x), round(y), round(z))
+        return Vector3(roundHalfAwayFromZero(x), roundHalfAwayFromZero(y), roundHalfAwayFromZero(z))
     }
 
     /**
@@ -647,8 +660,9 @@ class Vector3(
      */
     fun slide(normal: Vector3): Vector3 {
         if (GodotJvmBuildConfig.DEBUG) {
-            require(normal.isNormalized()) {
-                "The normal Vector3 must be normalized."
+            if (!normal.isNormalized()) {
+                GodotLogging.error("The normal Vector3 $normal must be normalized.")
+                return Vector3()
             }
         }
         return this - normal * dot(normal);
@@ -729,6 +743,7 @@ class Vector3(
     operator fun div(scalar: Float) = Vector3(x / scalar, y / scalar, z / scalar)
     operator fun div(scalar: Double) = Vector3(x / scalar, y / scalar, z / scalar)
 
+    operator fun unaryPlus() = Vector3(this)
     operator fun unaryMinus() = Vector3(-x, -y, -z)
 
     override fun equals(other: Any?): Boolean = when (other) {
@@ -761,7 +776,10 @@ class Vector3(
     }
 
     override fun hashCode(): Int {
-        return this.toString().hashCode()
+        var h = (x + 0.0).hashCode()
+        h = 31 * h + (y + 0.0).hashCode()
+        h = 31 * h + (z + 0.0).hashCode()
+        return h
     }
 }
 

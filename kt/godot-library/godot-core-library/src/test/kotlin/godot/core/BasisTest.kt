@@ -245,12 +245,12 @@ class TestBasis {
         ) { "Basis with only rotation should be orthogonal." }
 
         checkMessage(
-            Basis.fromEuler(Vector3(-1, -1, -1)).isOrthogonal()
+            Basis.fromScale(Vector3(-1, -1, -1)).isOrthogonal()
         )
         { "Basis with only a flip should be orthogonal." }
 
         checkMessage(
-            Basis.fromEuler(Vector3(1.2, 3.4, 5.6)).isOrthogonal()
+            Basis.fromScale(Vector3(1.2, 3.4, 5.6)).isOrthogonal()
         )
         { "Basis with only scale should be orthogonal." }
 
@@ -319,5 +319,127 @@ class TestBasis {
         checkFalseMessage(
             Basis(0, 0, 0, 0, 0, 0, 0, 0, 0).isRotation()
         ) { "Edge case: Basis with all zeroes should return false for is_rotation, because it is not just a rotation (has a scale of 0)." }
+    }
+
+    @Test
+    fun `Operations do not modify their operands`() {
+        val a = Basis(Vector3(1, 2, 3).normalized(), 0.7)
+        val b = Basis(Vector3(0, 1, 0), 0.5).scaled(Vector3(1, 2, 3))
+        val aCopy = Basis(a)
+        val bCopy = Basis(b)
+
+        val operations = listOf<() -> Any>(
+            { a * b },
+            { a + b },
+            { a - b },
+            { a * 2.0 },
+            { a / 2.0 },
+            { a.inverse() },
+            { a.transposed() },
+            { a.orthonormalized() },
+            { a.scaled(Vector3(1, 2, 3)) },
+            { a.scaledLocal(Vector3(1, 2, 3)) },
+            { a.rotated(Vector3(0, 1, 0), 1.0) },
+            { a.xform(Vector3(1, 2, 3)) },
+            { a.xformInv(Vector3(1, 2, 3)) },
+            { a.slerp(b.orthonormalized(), 0.5) },
+        )
+        operations.forEach {
+            it()
+            checkTrue(a == aCopy)
+            checkTrue(b == bCopy)
+        }
+    }
+
+
+
+    @Test
+    fun `Scalar multiplication and division`() {
+        val basis = Basis(Vector3(1, 2, 3), Vector3(4, 5, 6), Vector3(7, 8, 9))
+        checkTrue(basis * 2.0 == basis + basis)
+        checkTrue(2.0 * basis == basis + basis)
+        checkTrue(basis * 2.0 / 2.0 == basis)
+    }
+
+    @Test
+    fun `getScale of a singular basis is zero`() {
+        val scale = Basis(1, 0, 0, 0, 2, 0, 0, 0, 0).getScale()
+        checkMessage(scale == Vector3(0, 0, 0)) { "getScale() returned $scale, expected (0, 0, 0)" }
+    }
+
+    @Test
+    fun `isOrthonormal matches C++`() {
+        checkTrue(Basis.IDENTITY.isOrthonormal())
+        checkTrue(Basis.fromEuler(Vector3(0.3, 0.5, 0.7)).isOrthonormal())
+        checkFalse(Basis.fromScale(Vector3(2, 1, 1)).isOrthonormal())
+        checkFalse(Basis(1, 1, 0, 0, 1, 0, 0, 0, 1).isOrthonormal())
+    }
+
+    @Test
+    fun `isEqualApprox tolerance is relative`() {
+        val base = Basis(1000, 0, 0, 0, 1, 0, 0, 0, 1)
+        checkTrue(base.isEqualApprox(Basis(1000.005, 0, 0, 0, 1, 0, 0, 0, 1)))
+        checkFalse(base.isEqualApprox(Basis(1000.011, 0, 0, 0, 1, 0, 0, 0, 1)))
+        checkFalse(Basis.IDENTITY.isEqualApprox(Basis(1.00002, 0, 0, 0, 1, 0, 0, 0, 1)))
+    }
+
+    @Test
+    fun `orthonormalized of a small uniform scale is identity`() {
+        val small = Basis.fromScale(Vector3(0.01, 0.01, 0.01))
+        checkTrue(small.orthonormalized().isEqualApprox(Basis.IDENTITY))
+
+        val q = small.getRotationQuaternion()
+        checkTrue(q.x == 0.0 && q.y == 0.0 && q.z == 0.0 && q.w == 1.0)
+    }
+
+    @Test
+    fun `scaledLocal scales each element by the component of its column`() {
+        val flipped = Basis.IDENTITY.scaledLocal(Vector3(-1, 1, 1))
+        checkTrue(flipped._x.x == -1.0)
+        checkTrue(1.0 / flipped._y.x < 0.0)
+        checkTrue(flipped._y.y == 1.0 && flipped._z.z == 1.0)
+
+        val basis = Basis(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        checkTrue(basis.scaledLocal(Vector3(2, 3, 4)) == Basis(2, 6, 12, 8, 15, 24, 14, 24, 36))
+        checkTrue(basis == Basis(1, 2, 3, 4, 5, 6, 7, 8, 9))
+    }
+
+    @Test
+    fun `lookingAt with a zero target or up returns identity`() {
+        checkTrue(Basis.lookingAt(Vector3(0, 0, 0)) == Basis.IDENTITY)
+        checkTrue(Basis.lookingAt(Vector3(1, 2, 3), Vector3(0, 0, 0)) == Basis.IDENTITY)
+    }
+
+    @Test
+    fun `lookingAt with colinear target and up returns a valid basis`() {
+        val basis = Basis.lookingAt(Vector3(0, 1, 0), Vector3(0, 1, 0))
+        checkTrue(basis.isOrthonormal())
+        checkTrue(basis.getColumn(2).isEqualApprox(Vector3(0, -1, 0)))
+    }
+
+    @Test
+    fun `invert of a singular basis leaves it unchanged`() {
+        val singular = Basis(1, 0, 0, 0, 1, 0, 0, 0, 0)
+        val copy = Basis(singular)
+        singular.invert()
+        checkTrue(singular == copy)
+        checkTrue(copy.inverse() == copy)
+    }
+
+    @Test
+    fun `axis angle constructor with a non normalized axis returns identity`() {
+        checkTrue(Basis(Vector3(0, 2, 0), 0.5) == Basis.IDENTITY)
+    }
+
+    @Test
+    fun `getQuaternion of a non rotation returns identity`() {
+        val q = Basis.fromScale(Vector3(2, 2, 2)).getQuaternion()
+        checkTrue(q.x == 0.0 && q.y == 0.0 && q.z == 0.0 && q.w == 1.0)
+    }
+
+    @Test
+    fun `slerp of a non rotation does not throw and uses the identity fallback`() {
+        val result = Basis.fromScale(Vector3(2, 2, 2)).slerp(Basis.IDENTITY, 0.5)
+        checkTrue(result.isEqualApprox(Basis.fromScale(Vector3(1.5, 1.5, 1.5))))
     }
 }

@@ -5,8 +5,8 @@ package godot.core
 import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
 import godot.common.util.RealT
-import kotlin.math.max
-import kotlin.math.min
+import godot.internal.logging.GodotLogging
+import kotlincompile.definitions.GodotJvmBuildConfig
 
 private typealias Point2 = Vector2
 private typealias Size2 = Vector2
@@ -129,9 +129,15 @@ class Rect2(
      * Returns true if this Rect2 completely encloses another one.
      */
     fun encloses(b: Rect2): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || b._size.x < 0 || b._size.y < 0) {
+                GodotLogging.error("Rect2 size is negative, this is not supported. Use Rect2.abs() to get a Rect2 with a positive size.")
+            }
+        }
+
         return (b._position.x >= _position.x) && (b._position.y >= _position.y) &&
-            ((b._position.x + b._size.x) < (_position.x + _size.x)) &&
-            ((b._position.y + b._size.y) < (_position.y + _size.y))
+            ((b._position.x + b._size.x) <= (_position.x + _size.x)) &&
+            ((b._position.y + b._size.y) <= (_position.y + _size.y))
     }
 
     /**
@@ -145,6 +151,12 @@ class Rect2(
 
 
     internal fun expandTo(vector: Vector2) {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0) {
+                GodotLogging.error("Rect2 size is negative, this is not supported. Use Rect2.abs() to get a Rect2 with a positive size.")
+            }
+        }
+
         val begin = Vector2(_position)
         val end = _position + _size
 
@@ -239,6 +251,12 @@ class Rect2(
      * Returns true if the Rect2 contains a point.
      */
     fun hasPoint(point: Vector2): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0) {
+                GodotLogging.error("Rect2 size is negative, this is not supported. Use Rect2.abs() to get a Rect2 with a positive size.")
+            }
+        }
+
         return when {
             point.x < _position.x -> false
             point.y < _position.y -> false
@@ -260,14 +278,12 @@ class Rect2(
             return Rect2()
         }
 
-        ret._position.x = max(rect._position.x, _position.x)
-        ret._position.y = max(rect._position.y, _position.y)
+        ret._position = rect._position.max(_position)
 
         val rectEnd: Point2 = rect._position + rect._size
         val end = _position + _size
 
-        ret._size.x = min(rectEnd.x, end.x) - ret._position.x
-        ret._size.y = min(rectEnd.y, end.y) - ret._position.y
+        ret._size = rectEnd.min(end) - ret._position
 
         return ret
     }
@@ -278,6 +294,12 @@ class Rect2(
      */
     @JvmOverloads
     fun intersects(b: Rect2, includeBorders: Boolean = false): Boolean {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || b._size.x < 0 || b._size.y < 0) {
+                GodotLogging.error("Rect2 size is negative, this is not supported. Use Rect2.abs() to get a Rect2 with a positive size.")
+            }
+        }
+
         if (includeBorders) {
             return when {
                 _position.x > (b._position.x + b._size.x) -> false
@@ -301,7 +323,7 @@ class Rect2(
      * Returns true if this Rect2 and rect are approximately equal, by calling is_equal_approx on each component.
      */
     fun isEqualApprox(b: Rect2): Boolean {
-        return b._position.isEqualApprox(this._position) && b._size.isEqualApprox(this._size)
+        return _position.isEqualApprox(b._position) && _size.isEqualApprox(b._size)
     }
 
     /**
@@ -315,13 +337,18 @@ class Rect2(
      * Returns a larger Rect2 that contains this Rect2 and b.
      */
     fun merge(rect: Rect2): Rect2 {
+        if (GodotJvmBuildConfig.DEBUG) {
+            if (_size.x < 0 || _size.y < 0 || rect._size.x < 0 || rect._size.y < 0) {
+                GodotLogging.error("Rect2 size is negative, this is not supported. Use Rect2.abs() to get a Rect2 with a positive size.")
+            }
+        }
+
         val newRect = Rect2()
 
-        newRect._position.x = min(rect._position.x, _position.x)
-        newRect._position.y = min(rect._position.y, _position.y)
+        newRect._position = rect._position.min(_position)
 
-        newRect._size.x = max(rect._position.x + rect._size.x, _position.x + _size.x)
-        newRect._size.y = max(rect._position.y + rect._size.y, _position.y + _size.y)
+        newRect._size = (rect._position + rect._size).max(_position + _size)
+
 
         newRect._size = newRect._size - newRect._position // Make relative again.
 
