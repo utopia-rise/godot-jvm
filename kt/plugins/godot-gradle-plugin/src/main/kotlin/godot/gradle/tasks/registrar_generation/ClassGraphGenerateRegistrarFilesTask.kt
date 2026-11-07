@@ -4,6 +4,7 @@ import godot.annotation.processor.classgraph.AnnotationProcessingMode
 import godot.annotation.processor.classgraph.ClassGraphProcessor
 import godot.annotation.processor.classgraph.ProcessorSettings
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.isRelease
 import godot.registration.model.ModelCheck
 import godot.registration.model.checks.ChecksFailedException
 import godot.registration.model.logging.LoggerWrapper
@@ -27,12 +28,17 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
+import java.security.MessageDigest
 
 private const val registrarServiceName = "$godotRegistrationPackage.ClassRegistrar"
 
@@ -61,6 +67,13 @@ abstract class ClassGraphGenerateRegistrarFilesTask : DefaultTask() {
 
     @get:Input
     abstract val annotationProcessingMode: Property<AnnotationProcessingMode>
+
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.ABSOLUTE)
+    abstract val hashedSourceFiles: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val godotProjectDirectory: DirectoryProperty
 
     @get:OutputDirectory
     abstract val generatedSourceRootDir: DirectoryProperty
@@ -107,9 +120,19 @@ abstract class ClassGraphGenerateRegistrarFilesTask : DefaultTask() {
             scriptClasses = scriptClasses,
             sourceOutputDir = outputRoot.resolve("main").resolve("kotlin"),
             scriptClassIndexFile = scriptClassIndexFile.get().asFile,
+            sourceHashes = hashSourceFiles(),
             registrationOutputDir = generatedRegistrationRoot.takeUnless { disableGdj.get() },
         )
         writeRegistrarServiceFile(outputRoot, registeredClasses, settings)
+    }
+
+    private fun hashSourceFiles(): Map<String, String> {
+        val godotProjectDir = godotProjectDirectory.get().asFile
+        return hashedSourceFiles.files.associate { sourceFile ->
+            val hash = MessageDigest.getInstance("MD5").digest(sourceFile.readBytes())
+            "res://${sourceFile.relativeTo(godotProjectDir).invariantSeparatorsPath}" to
+                hash.joinToString("") { byte -> "%02x".format(byte) }
+        }
     }
 
     private fun validateRegisteredClasses(
@@ -172,6 +195,12 @@ fun Project.registrarGenerationGenerateFilesTask(
         task.registrationFileIndentation.convention(godotJvmExtension.registration.gdjFilesIndentation)
         task.disableGdj.convention(godotJvmExtension.registration.disableGdj)
         task.annotationProcessingMode.convention(godotJvmExtension.registration.annotationProcessingMode)
+        if (!isRelease) {
+            task.hashedSourceFiles.from(
+                mainSourceSet.allSource.matching { filter -> filter.include("**/*.kt", "**/*.java", "**/*.scala") }
+            )
+        }
+        task.godotProjectDirectory.convention(godotJvmExtension.godotProjectDirectory)
         task.generatedSourceRootDir.convention(generatedSourceRootDir)
         task.generatedRegistrationFilesRootDir.convention(generatedRegistrationRootDir)
         task.scriptClassIndexFile.convention(

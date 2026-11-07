@@ -287,7 +287,13 @@ void JvmPlaceHolderInstance::call(
                 "gdj/kt/java file."
             );
             *result = packed;
-        } else if (JvmScriptManager::get_instance()->is_source_outdated(script_ref->get_last_source_modified_time())) {
+        } else if (
+            JvmScriptManager::get_instance()->is_source_outdated(
+                script_ref->get_path(),
+                script_ref->get_last_source_modified_time(),
+                script_ref->get_last_source_hash()
+            )
+        ) {
             PackedStringArray packed = PackedStringArray();
             packed.append("This script has been modified since the last time you built your project.");
             *result = packed;

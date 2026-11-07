@@ -59,22 +59,18 @@ Variant JvmResourceFormatLoader::_load(const String& p_path, const String&, bool
     String source_code;
     const Error read_error = read_source_script_file(p_path, source_code);
     if (read_error != OK) { return (int64_t) read_error; }
-#ifdef TOOLS_ENABLED
-    const uint64_t modified_time = FileAccess::get_modified_time(p_path);
-    JvmScriptManager::get_instance()->record_source_modified_time(modified_time);
-#endif
 
     const StringName fqdn = parse_source_script_fqname(source_code, p_path);
     Ref<JvmScript> script = JvmScriptManager::get_instance()->create_and_bind_physical_script(p_path, fqdn);
-    if (script.is_valid()) {
-        script->set_source_code(source_code);
 #ifdef TOOLS_ENABLED
-        script->set_last_source_modified_time(modified_time);
-        JvmScriptManager::get_instance()->update_physical_script(script.ptr(), fqdn);
+    const uint64_t modified_time = FileAccess::get_modified_time(p_path);
+    const String hash = FileAccess::get_md5(p_path);
+    JvmScriptManager::get_instance()->record_source(p_path, modified_time, hash);
+    if (script.is_valid()) { script->set_last_source(modified_time, hash); }
 #endif
-    } else {
-        return (int64_t) ERR_UNAVAILABLE;
-    }
+    if (script.is_null()) { return (int64_t) ERR_UNAVAILABLE; }
+
+    script->set_source_code(source_code);
     return script;
 }
 

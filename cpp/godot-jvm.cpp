@@ -622,16 +622,22 @@ void GodotJvm::reload_script_class_index() {
     script_class_index_time = modified_time;
 
     HashMap<StringName, IndexedScriptClass> index;
+    HashMap<String, String> source_hashes;
     Variant json;
     if (modified_time != 0) { json = JSON::parse_string(FileAccess::get_file_as_string(path)); }
     if (json.get_type() == Variant::DICTIONARY) {
-        Dictionary classes = json;
+        Dictionary root = json;
+        Dictionary classes = root.get("classes", Dictionary());
         for (const String fqdn : classes.keys()) {
             Dictionary entry = classes[fqdn];
             index[fqdn] = {entry["name"], entry["base"]};
         }
+        Dictionary sources = root.get("sources", Dictionary());
+        for (const String source_path : sources.keys()) {
+            source_hashes[source_path] = sources[source_path];
+        }
     }
-    JvmScriptManager::get_instance()->set_script_class_index(index);
+    JvmScriptManager::get_instance()->set_script_class_index(index, source_hashes);
 }
 #endif
 

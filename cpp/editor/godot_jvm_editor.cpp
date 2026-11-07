@@ -98,6 +98,7 @@ bool GodotJvmEditor::_build() {
     Error error = GradleTaskRunner::get_instance().run_task(GradleTaskRunner::Task::BUILD_DEBUG, log, true);
     print_line(log);
     get_editor_interface()->get_resource_filesystem()->scan_sources();
+    GodotJvm::get_instance().reload_script_class_index();
     if (error == OK) { return true; }
 
     task_dialog_make_appear(task_dialog);
@@ -358,6 +359,7 @@ void GodotJvmEditor::_notification(int notification) {
                     int exit_code = GradleTaskRunner::get_instance().finish_task();
                     task_dialog_stop(task_dialog);
                     get_editor_interface()->get_resource_filesystem()->scan_sources();
+                    GodotJvm::get_instance().reload_script_class_index();
                     check_addon_replaced();
                     if (exit_code == 0) {
                         task_dialog_update_state(task_dialog, "Gradle task succeeded.\n");
@@ -371,6 +373,10 @@ void GodotJvmEditor::_notification(int notification) {
                     }
                 }
             }
+            break;
+
+        case NOTIFICATION_APPLICATION_FOCUS_IN:
+            GodotJvm::get_instance().reload_script_class_index();
             break;
 
         case NOTIFICATION_EXIT_TREE:

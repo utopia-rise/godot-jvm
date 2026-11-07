@@ -11,6 +11,11 @@ namespace godot {
         StringName name;
         StringName base;
     };
+
+    struct SourceVersion {
+        uint64_t modified_time;
+        String hash;
+    };
 #endif
 
     class JvmScriptManager : public Object {
@@ -29,8 +34,9 @@ namespace godot {
         HashMap<StringName, int> fqdn_to_class_index;
         HashMap<StringName, String> fqdn_to_source_path;
         uint64_t last_build_time = 0;
-        uint64_t latest_source_modified_time = 0;
+        HashMap<String, SourceVersion> source_versions;
         HashMap<StringName, IndexedScriptClass> script_class_index;
+        HashMap<String, String> source_hashes;
         void update_script(JvmScript* p_script, KtClass* p_kotlin_class);
         void replace_virtual_script(JvmScript* p_physical_script, JvmScript* p_virtual_script);
         void update_all_scripts();
@@ -56,12 +62,15 @@ namespace godot {
 
 #ifdef TOOLS_ENABLED
         void update_physical_script(JvmScript* p_script, const StringName& p_fqdn);
-        void record_source_modified_time(uint64_t p_time);
+        void record_source(const String& p_path, uint64_t p_modified_time, const String& p_hash);
         void record_build_time(uint64_t p_time);
-        bool is_source_outdated(uint64_t p_source_modified_time) const;
+        bool is_source_outdated(const String& p_path, uint64_t p_modified_time, const String& p_hash) const;
         bool is_user_code_outdated() const;
         static void untrack_physical_script(JvmScript* p_script);
-        void set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index);
+        void set_script_class_index(
+            const HashMap<StringName, IndexedScriptClass>& p_index,
+            const HashMap<String, String>& p_source_hashes
+        );
         IndexedScriptClass get_indexed_script_class(const JvmScript* p_script) const;
 #endif
     };
