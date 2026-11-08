@@ -6,6 +6,8 @@
 #include "jvm/memory/type_manager.h"
 #include "jvm/memory/variant_buffer.h"
 
+#include <variant/utility_functions.hpp>
+
 using namespace bridges;
 
 uintptr_t VariantArrayBridge::engine_call_constructor(JNIEnv* p_raw_env, jobject p_instance) {
@@ -78,7 +80,8 @@ void VariantArrayBridge::engine_call_resize(JNIEnv* p_raw_env, jobject, jlong p_
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t size;
     transfer->read_args(size);
-    native<godot::Array>(p_handle).resize(size);
+    int64_t error = native<godot::Array>(p_handle).resize(size);
+    transfer->write_ret(error);
 }
 
 void VariantArrayBridge::engine_call_shuffle(JNIEnv*, jobject, jlong p_handle) {
@@ -183,7 +186,8 @@ void VariantArrayBridge::engine_call_insert(JNIEnv* p_raw_env, jobject, jlong p_
     int64_t position;
     godot::Variant value;
     transfer->read_args(position, value);
-    native<godot::Array>(p_handle).insert(position, value);
+    int64_t error = native<godot::Array>(p_handle).insert(position, value);
+    transfer->write_ret(error);
 }
 
 void VariantArrayBridge::engine_call_max(JNIEnv* p_raw_env, jobject, jlong p_handle) {
@@ -249,14 +253,22 @@ void VariantArrayBridge::engine_call_operator_set(JNIEnv* p_raw_env, jobject, jl
     int64_t index;
     godot::Variant value;
     transfer->read_args(index, value);
-    native<godot::Array>(p_handle).operator[](index) = value;
+    godot::Array& array = native<godot::Array>(p_handle);
+#ifdef DEBUG_ENABLED
+    if (!is_index_in_bounds(p_raw_env, index, array.size())) { return; }
+#endif
+    array.set(index, value);
 }
 
 void VariantArrayBridge::engine_call_operator_get(JNIEnv* p_raw_env, jobject, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t index;
     transfer->read_args(index);
-    godot::Variant element = native<godot::Array>(p_handle).get(index);
+    godot::Array& array = native<godot::Array>(p_handle);
+#ifdef DEBUG_ENABLED
+    if (!is_index_in_bounds(p_raw_env, index, array.size())) { return; }
+#endif
+    godot::Variant element = array.get(index);
     transfer->write_ret(element);
 }
 
@@ -322,12 +334,6 @@ void VariantArrayBridge::engine_call_isReadOnly(JNIEnv* p_raw_env, jobject, jlon
     transfer->write_ret(read_only);
 }
 
-void VariantArrayBridge::engine_call_isTyped(JNIEnv* p_raw_env, jobject, jlong p_handle) {
-    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    bool typed = native<godot::Array>(p_handle).is_typed();
-    transfer->write_ret(typed);
-}
-
 void VariantArrayBridge::engine_call_map(JNIEnv* p_raw_env, jobject, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     godot::Callable method;
@@ -349,4 +355,86 @@ void VariantArrayBridge::engine_call_reduce(JNIEnv* p_raw_env, jobject, jlong p_
     transfer->read_args(method, accum);
     godot::Variant accumulated = native<godot::Array>(p_handle).reduce(method, accum);
     transfer->write_ret(accumulated);
+}
+
+void VariantArrayBridge::engine_call_assign(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Array array;
+    transfer->read_args(array);
+    native<godot::Array>(p_handle).assign(array);
+}
+
+void VariantArrayBridge::engine_call_assign_packed(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Variant packed;
+    transfer->read_args(packed);
+    native<godot::Array>(p_handle).assign(godot::UtilityFunctions::type_convert(packed, godot::Variant::ARRAY));
+}
+
+void VariantArrayBridge::engine_call_compare(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Array other;
+    transfer->read_args(other);
+    const godot::Array& array = native<godot::Array>(p_handle);
+    int64_t comparison = 0;
+    if (array < other) {
+        comparison = -1;
+    } else if (array > other) {
+        comparison = 1;
+    }
+    transfer->write_ret(comparison);
+}
+
+void VariantArrayBridge::engine_call_equals(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Array other;
+    transfer->read_args(other);
+    bool equal = native<godot::Array>(p_handle) == other;
+    transfer->write_ret(equal);
+}
+
+void VariantArrayBridge::engine_call_find_custom(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Callable method;
+    int64_t from;
+    transfer->read_args(method, from);
+    int64_t index = native<godot::Array>(p_handle).find_custom(method, from);
+    transfer->write_ret(index);
+}
+
+void VariantArrayBridge::engine_call_is_same_typed(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Array array;
+    transfer->read_args(array);
+    bool same = native<godot::Array>(p_handle).is_same_typed(array);
+    transfer->write_ret(same);
+}
+
+void VariantArrayBridge::engine_call_make_read_only(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    native<godot::Array>(p_handle).make_read_only();
+}
+
+void VariantArrayBridge::engine_call_operator_plus(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Array other;
+    transfer->read_args(other);
+    godot::Array concatenated = native<godot::Array>(p_handle) + other;
+    transfer->write_ret(concatenated);
+}
+
+void VariantArrayBridge::engine_call_pop_at(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    int64_t position;
+    transfer->read_args(position);
+    godot::Variant element = native<godot::Array>(p_handle).pop_at(position);
+    transfer->write_ret(element);
+}
+
+void VariantArrayBridge::engine_call_rfind_custom(JNIEnv* p_raw_env, jobject, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Callable method;
+    int64_t from;
+    transfer->read_args(method, from);
+    int64_t index = native<godot::Array>(p_handle).rfind_custom(method, from);
+    transfer->write_ret(index);
 }

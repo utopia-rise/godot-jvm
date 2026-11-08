@@ -70,6 +70,13 @@ uintptr_t DictionaryBridge::engine_call_copy_constructor(JNIEnv* p_raw_env, jobj
     return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(native<godot::Dictionary>(p_handle))));
 }
 
+void DictionaryBridge::engine_call_assign(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    transfer->read_args(dictionary);
+    native<godot::Dictionary>(p_handle).assign(dictionary);
+}
+
 void DictionaryBridge::engine_call_clear(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     native<godot::Dictionary>(p_handle).clear();
 }
@@ -100,7 +107,8 @@ void DictionaryBridge::engine_call_erase(JNIEnv* p_raw_env, jobject p_instance, 
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     godot::Variant key;
     transfer->read_args(key);
-    native<godot::Dictionary>(p_handle).erase(key);
+    bool erased = native<godot::Dictionary>(p_handle).erase(key);
+    transfer->write_ret(erased);
 }
 
 void DictionaryBridge::engine_call_find_key(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
@@ -118,6 +126,39 @@ void DictionaryBridge::engine_call_get(JNIEnv* p_raw_env, jobject p_instance, jl
     transfer->read_args(key, default_value);
     godot::Variant value = native<godot::Dictionary>(p_handle).get(key, default_value);
     transfer->write_ret(value);
+}
+
+void DictionaryBridge::engine_call_get_or_add(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Variant key;
+    godot::Variant default_value;
+    transfer->read_args(key, default_value);
+    godot::Variant value = native<godot::Dictionary>(p_handle).get_or_add(key, default_value);
+    transfer->write_ret(value);
+}
+
+void DictionaryBridge::engine_call_get_typed_key_class_name(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::StringName class_name = native<godot::Dictionary>(p_handle).get_typed_key_class_name();
+    transfer->write_ret(class_name);
+}
+
+void DictionaryBridge::engine_call_get_typed_value_class_name(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::StringName class_name = native<godot::Dictionary>(p_handle).get_typed_value_class_name();
+    transfer->write_ret(class_name);
+}
+
+void DictionaryBridge::engine_call_get_typed_key_script(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Variant script = native<godot::Dictionary>(p_handle).get_typed_key_script();
+    transfer->write_ret(script);
+}
+
+void DictionaryBridge::engine_call_get_typed_value_script(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Variant script = native<godot::Dictionary>(p_handle).get_typed_value_script();
+    transfer->write_ret(script);
 }
 
 void DictionaryBridge::engine_call_has(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
@@ -148,6 +189,30 @@ void DictionaryBridge::engine_call_is_read_only(JNIEnv* p_raw_env, jobject p_ins
     transfer->write_ret(read_only);
 }
 
+void DictionaryBridge::engine_call_is_same_typed(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    transfer->read_args(dictionary);
+    bool same = native<godot::Dictionary>(p_handle).is_same_typed(dictionary);
+    transfer->write_ret(same);
+}
+
+void DictionaryBridge::engine_call_is_same_typed_key(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    transfer->read_args(dictionary);
+    bool same = native<godot::Dictionary>(p_handle).is_same_typed_key(dictionary);
+    transfer->write_ret(same);
+}
+
+void DictionaryBridge::engine_call_is_same_typed_value(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    transfer->read_args(dictionary);
+    bool same = native<godot::Dictionary>(p_handle).is_same_typed_value(dictionary);
+    transfer->write_ret(same);
+}
+
 void DictionaryBridge::engine_call_keys(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     godot::Array keys = native<godot::Dictionary>(p_handle).keys();
@@ -166,6 +231,24 @@ void DictionaryBridge::engine_call_merge(JNIEnv* p_raw_env, jobject p_instance, 
     native<godot::Dictionary>(p_handle).merge(dictionary, overwrite);
 }
 
+void DictionaryBridge::engine_call_merged(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    bool overwrite;
+    transfer->read_args(dictionary, overwrite);
+    godot::Dictionary merged = native<godot::Dictionary>(p_handle).merged(dictionary, overwrite);
+    transfer->write_ret(merged);
+}
+
+void DictionaryBridge::engine_call_recursive_equal(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
+    godot::Dictionary dictionary;
+    int64_t recursion_count;
+    transfer->read_args(dictionary, recursion_count);
+    bool equal = native<godot::Dictionary>(p_handle).recursive_equal(dictionary, recursion_count);
+    transfer->write_ret(equal);
+}
+
 void DictionaryBridge::engine_call_size(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     int64_t size = native<godot::Dictionary>(p_handle).size();
@@ -182,12 +265,13 @@ void DictionaryBridge::engine_call_values(JNIEnv* p_raw_env, jobject p_instance,
     transfer->write_ret(values);
 }
 
-void DictionaryBridge::engine_call_operator_set(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
+void DictionaryBridge::engine_call_set(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     godot::Variant key;
     godot::Variant value;
     transfer->read_args(key, value);
-    native<godot::Dictionary>(p_handle).operator[](key) = value;
+    bool stored = native<godot::Dictionary>(p_handle).set(key, value);
+    transfer->write_ret(stored);
 }
 
 void DictionaryBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {

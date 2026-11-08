@@ -16,3 +16,8 @@ Godot 4 also types its containers. A typed array or dictionary created on the JV
 ## Rules
 - **B.5.R1**: A Godot array or dictionary is never silently copied when it crosses between Godot and the JVM; only an explicit duplicate makes a copy.
 - **B.5.R2**: A typed collection created on the JVM carries the same element type on the Godot side.
+
+## Non-goals
+- **B.5.N1**: A negative index does not count from the end of an array or a packed array, unlike GDScript's `[]` operator.
+  - Why: JVM collections treat a negative index as out of range, and JVM code reaches the last element through the size; Godot-JVM keeps the JVM's meaning, as §3 allows for the JVM's own idioms.
+  - Reopen if: a JVM language gains negative indexing in its standard collections.

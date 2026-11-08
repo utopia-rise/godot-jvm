@@ -144,6 +144,8 @@ val number: Long = mode.getValue()
 | Godot symbol | JVM symbol |
 |---|---|
 | `Array` | `VariantArray` |
+| `Array(from: PackedByteArray)` and the other packed-array constructors | `VariantArray(packed)` in Kotlin, `VariantArray.invoke(packed)` in Java and Scala |
+| `Array` methods taking a `Callable` (`all`, `any`, `filter`, `map`, `reduce`, `find_custom`, `rfind_custom`, `sort_custom`, `bsearch_custom`) | A typed `Callable1` or `Callable2` parameter; the version taking a plain `Callable` has the `Unsafe` suffix, such as `allUnsafe` |
 | Packed-array conversion to another packed type | `toPackedXArray` / `toPackedByteArray` |
 | `Error.ERR_PARAMETER_RANGE_ERROR` | `Error.PARAMETER_RANGE` |
 | `MethodFlags.METHOD_FLAG_NORMAL` | `MethodFlags.NORMAL` |

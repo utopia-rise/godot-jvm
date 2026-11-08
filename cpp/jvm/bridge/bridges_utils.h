@@ -5,6 +5,9 @@
 #include "jvm/jni/wrapper.h"
 #include "logging.h"
 
+#include <core/defs.hpp>
+#include <cstdint>
+
 // clang-format off
 //
 // godot-cpp exposes several builtin vararg methods (Callable::call, call_deferred, bind, rpc, rpc_id, ...) only as
@@ -77,6 +80,19 @@ namespace bridges {
     static T* native_or_null(jlong p_handle) {
         return reinterpret_cast<T*>(static_cast<uintptr_t>(p_handle));
     }
+
+#ifdef DEBUG_ENABLED
+    void initialize_exception_classes(jni::Env& p_env);
+    void finalize_exception_classes(jni::Env& p_env);
+
+    void throw_index_out_of_bounds(JNIEnv* p_raw_env, int64_t p_index, int64_t p_size);
+
+    inline bool is_index_in_bounds(JNIEnv* p_raw_env, int64_t p_index, int64_t p_size) {
+        if (likely(static_cast<uint64_t>(p_index) < static_cast<uint64_t>(p_size))) { return true; }
+        throw_index_out_of_bounds(p_raw_env, p_index, p_size);
+        return false;
+    }
+#endif
 } // namespace bridges
 
 #endif // GODOT_JVM_BRIDGES_UTILS_H

@@ -1,6 +1,7 @@
 #include "jvm_manager.h"
 
 #include "engine/dynamic_library.h"
+#include "jvm/bridge/bridges_utils.h"
 #include "jvm/bridge/callable_bridge.h"
 #include "jvm/bridge/dictionary_bridge.h"
 #include "jvm/bridge/godot_print_bridge.h"
@@ -150,12 +151,18 @@ bool JvmManager::initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loa
             && bridges::PackedVector4ArrayBridge::initialize(p_env, class_loader);
 
     jni::Env::set_exception_handler(&bridges::GodotPrintBridge::print_exception_stacktrace);
+#ifdef DEBUG_ENABLED
+    bridges::initialize_exception_classes(p_env);
+#endif
 
     return ret;
 }
 
 void JvmManager::finalize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loader) {
     jni::Env::set_exception_handler(nullptr);
+#ifdef DEBUG_ENABLED
+    bridges::finalize_exception_classes(p_env);
+#endif
 
     VariantBuffer::finalize(p_env, class_loader);
     ValueBuffer::finalize(p_env, class_loader);

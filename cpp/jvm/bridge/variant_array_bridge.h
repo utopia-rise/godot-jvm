@@ -53,10 +53,19 @@ namespace bridges {
             INIT_NATIVE_METHOD("engine_call_getTypedClassName","(J)V", VariantArrayBridge::engine_call_getTypedClassName)
             INIT_NATIVE_METHOD("engine_call_getTypedScript","(J)V", VariantArrayBridge::engine_call_getTypedScript)
             INIT_NATIVE_METHOD("engine_call_isReadOnly","(J)V", VariantArrayBridge::engine_call_isReadOnly)
-            INIT_NATIVE_METHOD("engine_call_isTyped","(J)V", VariantArrayBridge::engine_call_isTyped)
             INIT_NATIVE_METHOD("engine_call_map","(J)V", VariantArrayBridge::engine_call_map)
             INIT_NATIVE_METHOD("engine_call_pickRandom","(J)V", VariantArrayBridge::engine_call_pickRandom)
             INIT_NATIVE_METHOD("engine_call_reduce","(J)V", VariantArrayBridge::engine_call_reduce)
+            INIT_NATIVE_METHOD("engine_call_assign","(J)V", VariantArrayBridge::engine_call_assign)
+            INIT_NATIVE_METHOD("engine_call_assign_packed","(J)V", VariantArrayBridge::engine_call_assign_packed)
+            INIT_NATIVE_METHOD("engine_call_compare","(J)V", VariantArrayBridge::engine_call_compare)
+            INIT_NATIVE_METHOD("engine_call_equals","(J)V", VariantArrayBridge::engine_call_equals)
+            INIT_NATIVE_METHOD("engine_call_find_custom","(J)V", VariantArrayBridge::engine_call_find_custom)
+            INIT_NATIVE_METHOD("engine_call_is_same_typed","(J)V", VariantArrayBridge::engine_call_is_same_typed)
+            INIT_NATIVE_METHOD("engine_call_make_read_only","(J)V", VariantArrayBridge::engine_call_make_read_only)
+            INIT_NATIVE_METHOD("engine_call_operator_plus","(J)V", VariantArrayBridge::engine_call_operator_plus)
+            INIT_NATIVE_METHOD("engine_call_pop_at","(J)V", VariantArrayBridge::engine_call_pop_at)
+            INIT_NATIVE_METHOD("engine_call_rfind_custom","(J)V", VariantArrayBridge::engine_call_rfind_custom)
           )
         // clang-format on
 
@@ -105,10 +114,19 @@ namespace bridges {
         static void engine_call_getTypedClassName(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_getTypedScript(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_isReadOnly(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
-        static void engine_call_isTyped(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_map(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_pickRandom(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
         static void engine_call_reduce(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_assign(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_assign_packed(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_compare(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_find_custom(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_is_same_typed(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_make_read_only(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_operator_plus(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_pop_at(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_rfind_custom(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle);
     };
 
 } // namespace bridges

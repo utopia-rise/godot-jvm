@@ -92,7 +92,7 @@ Use the same class names from `godot.core` in each language:
 
 Core value types read from Godot properties are copies. Mutating the copy affects the property only after assignment back. `VariantArray` and `Dictionary` share container storage with Godot, but reading a value-type element still returns a copy.
 
-Reading a missing key with `dictionary[key]` returns null and leaves the dictionary unchanged, as `Map.get` does; GDScript reports an error instead.
+Reading a missing key with `dictionary[key]` returns null and leaves the dictionary unchanged, as `Map.get` does; GDScript reports an error instead. Accessors that Godot answers with nil on an empty array, such as `front`, `back`, `popBack` and `max`, return null. A negative index is out of range, as in JVM collections: `array[-1]` does not return the last element as it does in GDScript. In debug builds, reading or writing an out-of-range index of a `VariantArray` or a packed array throws `IndexOutOfBoundsException`; release builds do not check the index, so such an access is undefined behavior, as in C++.
 
 /// tab | Kotlin
 

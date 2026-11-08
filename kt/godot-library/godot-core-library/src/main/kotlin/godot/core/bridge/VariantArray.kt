@@ -18,6 +18,14 @@ import kotlincompile.definitions.GodotJvmBuildConfig
 @Suppress("unused", "UNCHECKED_CAST")
 class VariantArray<T> : NativeCoreType, MutableCollection<T> {
 
+    /**
+     * Returns the number of elements in the array.
+     */
+    override val size: Int
+        get() {
+            return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_size(ptr) }.toInt()
+        }
+
     internal var variantConverter: VariantConverter<T>
 
     @PublishedApi
@@ -68,16 +76,6 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
-//########################PUBLIC###############################
-    //PROPERTIES
-    /**
-     * Returns the number of elements in the array.
-     */
-    override val size: Int
-        get() {
-            return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_size(ptr) }.toInt()
-        }
-
     /**
      * Create a shallow copy of the Array
      */
@@ -87,159 +85,45 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
-    //COMMON API
-    override fun add(element: T): Boolean {
-        append(element)
-        return true
-    }
-
-    override fun addAll(elements: Collection<T>): Boolean {
-        elements.forEach {
-            append(it)
-        }
-        return true
-    }
-
     /**
-     * Clears the array. This is equivalent to using resize with a size of 0.
-     */
-    override fun clear() {
-        Bridge.engine_call_clear(ptr)
-    }
-
-    /**
-     * Returns true if the array is empty.
-     */
-    override fun isEmpty(): Boolean {
-        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
-    }
-
-    /**
-     * Returns true if the array is read-only.
-     */
-    fun isReadOnly(): Boolean {
-        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isReadOnly(ptr) }
-    }
-
-    /**
-     * Returns `true` if the array is typed. Typed arrays can only store elements of their associated type and provide
-     * type safety for the [get] operator.
-     */
-    fun isTyped(): Boolean {
-        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isTyped(ptr) }
-    }
-
-    /**
-     * Returns a hashed integer value representing the array contents.
-     */
-    fun hash(): Int {
-        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
-    }
-
-    /**
-     * Reverses the order of the elements in the array.
-     */
-    fun invert() {
-        Bridge.engine_call_reverse(ptr)
-    }
-
-    override fun remove(element: T): Boolean {
-        if (has(element)) {
-            erase(element)
-            return true
-        }
-
-        return false
-    }
-
-    /**
-     * Removes an element from the array by index.
-     */
-    fun removeAt(position: Int) {
-        VariantBuffer.transfer.writeArgs(1) {
-            VariantParser.LONG.write(position.toLong())
-        }
-        Bridge.engine_call_removeAt(ptr)
-    }
-
-    override fun removeAll(elements: Collection<T>): Boolean {
-        var ret = false
-        elements.forEach {
-            ret = remove(it) || ret
-        }
-        return ret
-    }
-
-    /**
-     * Resizes the array to contain a different number of elements.
-     * If the array size is smaller, elements are cleared, if bigger, new elements are null.
-     */
-    fun resize(size: Int) {
-        VariantBuffer.transfer.writeArgs(1) {
-            VariantParser.LONG.write(size.toLong())
-        }
-        Bridge.engine_call_resize(ptr)
-    }
-
-    override fun retainAll(elements: Collection<T>): Boolean {
-        var ret = false
-        val iter = this.iterator()
-        while (iter.hasNext()) {
-            val value = iter.next()
-            if (value !in elements) {
-                iter.remove()
-                ret = true
-            }
-        }
-        return ret
-    }
-
-    /**
-     * Shuffles the array such that the items will have a random order.
-     * This method uses the global random number generator common to methods such as @randi.
-     * Call @randomize to ensure that a new seed will be used each time if you want non-reproducible shuffling.
-     */
-    fun shuffle() {
-        Bridge.engine_call_shuffle(ptr)
-    }
-
-
-    /**
-     * Sorts the array.
-     */
-    fun sort() {
-        Bridge.engine_call_sort(ptr)
-    }
-
-    /**
-     * Sorts the array using a custom method. The arguments are an object that holds the method and the name of such method.
-     * The custom method receives two arguments (a pair of elements from the array) and must return either true or false.
-     */
-    fun sortCustom(obj: KtObject, func: String) {
-        VariantBuffer.transfer.writeArgs(2) {
-            VariantParser.OBJECT.toGodot(obj)
-            VariantParser.STRING.toGodot(func)
-        }
-        Bridge.engine_call_sortCustom(ptr)
-    }
-
-    //API
-
-    /**
-     * Calls the provided [Callable] on each element in the array and returns `true` if the Callable returns `true` for
+     * Calls the given [Callable] on each element in the array and returns `true` if the [Callable] returns `true` for
      * all elements in the array. If the [Callable] returns `false` for one array element or more, this method returns
      * `false`.
      *
-     * The callable's method should take one Variant parameter (the current array element) and return a boolean value.
+     * The method should take one parameter (the current array element) and return a `Boolean`.
      *
      * See also [any], [filter], [map] and [reduce].
      *
-     * **Note**: Unlike relying on the size of an array returned by [filter], this method will return as early as possible
-     * to improve performance (especially with large arrays).
+     * **Note**: Unlike relying on the size of an array returned by [filter], this method will return as early as
+     * possible to improve performance (especially with large arrays).
      *
      * **Note**: For an empty array, this method always returns `true`.
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `all`.
      */
-    fun all(callable: Callable): Boolean {
+    fun all(method: Callable1<Boolean, T>) = allUnsafe(method)
+
+    /**
+     * Calls the given [Callable] on each element in the array and returns `true` if the [Callable] returns `true` for
+     * all elements in the array. If the [Callable] returns `false` for one array element or more, this method returns
+     * `false`.
+     *
+     * The method should take one parameter (the current array element) and return a `Boolean`.
+     *
+     * See also [any], [filter], [map] and [reduce].
+     *
+     * **Note**: Unlike relying on the size of an array returned by [filter], this method will return as early as
+     * possible to improve performance (especially with large arrays).
+     *
+     * **Note**: For an empty array, this method always returns `true`.
+     *
+     * **Performance**: Godot calls [callable] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `all`.
+     */
+    fun allUnsafe(callable: Callable): Boolean {
         return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
             VariantParser.CALLABLE.toGodot(callable)
             Bridge.engine_call_all(ptr)
@@ -247,20 +131,44 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
-     * Calls the provided [Callable] on each element in the array and returns `true` if the Callable returns `true` for
+     * Calls the given [Callable] on each element in the array and returns `true` if the [Callable] returns `true` for
      * one or more elements in the array. If the [Callable] returns `false` for all elements in the array, this method
      * returns `false`.
      *
-     * The callable's method should take one Variant parameter (the current array element) and return a boolean value.
+     * The method should take one parameter (the current array element) and return a `Boolean`.
      *
      * See also [all], [filter], [map] and [reduce].
      *
-     * Note: Unlike relying on the size of an array returned by filter, this method will return as early as possible to
-     * improve performance (especially with large arrays).
+     * **Note**: Unlike relying on the size of an array returned by [filter], this method will return as early as
+     * possible to improve performance (especially with large arrays).
      *
-     * Note: For an empty array, this method always returns `false`.
+     * **Note**: For an empty array, this method always returns `false`.
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `any`.
      */
-    fun any(callable: Callable): Boolean {
+    fun any(method: Callable1<Boolean, T>) = anyUnsafe(method)
+
+    /**
+     * Calls the given [Callable] on each element in the array and returns `true` if the [Callable] returns `true` for
+     * one or more elements in the array. If the [Callable] returns `false` for all elements in the array, this method
+     * returns `false`.
+     *
+     * The method should take one parameter (the current array element) and return a `Boolean`.
+     *
+     * See also [all], [filter], [map] and [reduce].
+     *
+     * **Note**: Unlike relying on the size of an array returned by [filter], this method will return as early as
+     * possible to improve performance (especially with large arrays).
+     *
+     * **Note**: For an empty array, this method always returns `false`.
+     *
+     * **Performance**: Godot calls [callable] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `any`.
+     */
+    fun anyUnsafe(callable: Callable): Boolean {
         return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
             VariantParser.CALLABLE.toGodot(callable)
             Bridge.engine_call_any(ptr)
@@ -287,11 +195,18 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         Bridge.engine_call_appendArray(ptr)
     }
 
+    fun assign(array: VariantArray<*>) {
+        VariantBuffer.transfer.writeArgs(1) {
+            VariantParser.ARRAY.toGodot(array)
+        }
+        Bridge.engine_call_assign(ptr)
+    }
+
     /**
      * Returns the last element of the array. Prints an error and returns `null` if the array is empty.
      */
-    fun back(): T {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_back(ptr) } as T
+    fun back(): T? {
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_back(ptr) }
     }
 
     /**
@@ -310,21 +225,52 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
-     * Finds the index of an existing value (or the insertion index that maintains sorting order, if the value is not yet present in the array) using binary search and a custom comparison method.
-     * Optionally, a before specifier can be passed.
-     * If false, the returned index comes after all existing entries of the value in the array.
-     * The custom method receives two arguments (an element from the array and the value searched for) and must return true if the first argument is less than the second, and return false otherwise.
-     * Note: Calling bsearch on an unsorted array results in unexpected behavior.
+     * Returns the index of [value] in the sorted array. If it cannot be found, returns where [value] should be inserted
+     * to keep the array sorted (using [func] for the comparisons). The algorithm used is binary search.
+     *
+     * Similar to [sortCustom], [func] is called as many times as necessary, receiving one array element and [value] as
+     * arguments. The function should return `true` if the array element should be behind [value], otherwise it should
+     * return `false`.
+     *
+     * If [before] is `true` (as by default), the returned index comes before all existing elements equal to [value] in
+     * the array.
+     *
+     * **Note**: Calling [bsearchCustom] on an unsorted array will result in unexpected behavior. Use [sortCustom] with
+     * [func] before calling this method.
      */
     @JvmOverloads
-    fun bsearchCustom(value: T, obj: KtObject, func: String, before: Boolean = true): Int {
-        return VariantBuffer.transfer.callBridge(4, VariantParser.LONG) {
+    fun bsearchCustom(value: T, func: Callable2<Boolean, T, T>, before: Boolean = true) =
+        bsearchCustomUnsafe(value, func, before)
+
+    /**
+     * Returns the index of [value] in the sorted array. If it cannot be found, returns where [value] should be inserted
+     * to keep the array sorted (using [func] for the comparisons). The algorithm used is binary search.
+     *
+     * Similar to [sortCustom], [func] is called as many times as necessary, receiving one array element and [value] as
+     * arguments. The function should return `true` if the array element should be behind [value], otherwise it should
+     * return `false`.
+     *
+     * If [before] is `true` (as by default), the returned index comes before all existing elements equal to [value] in
+     * the array.
+     *
+     * **Note**: Calling [bsearchCustom] on an unsorted array will result in unexpected behavior. Use [sortCustom] with
+     * [func] before calling this method.
+     */
+    @JvmOverloads
+    fun bsearchCustomUnsafe(value: T, func: Callable, before: Boolean = true): Int {
+        return VariantBuffer.transfer.callBridge(3, VariantParser.LONG) {
             variantConverter.toGodot(value)
-            VariantParser.OBJECT.toGodot(obj)
-            VariantParser.STRING.toGodot(func)
+            VariantParser.CALLABLE.toGodot(func)
             VariantParser.BOOL.write(before)
             Bridge.engine_call_bsearchCustom(ptr)
         }.toInt()
+    }
+
+    /**
+     * Clears the array. This is equivalent to using resize with a size of 0.
+     */
+    override fun clear() {
+        Bridge.engine_call_clear(ptr)
     }
 
     /**
@@ -337,14 +283,14 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         }.toInt()
     }
 
-
     /**
      * Returns a copy of the array.
      * If deep is true, a deep copy is performed:
      * all nested arrays and dictionaries are duplicated and will not be shared with the original array.
      * If false, a shallow copy is made and references to the original nested arrays and dictionaries are kept, so that modifying a sub-array or dictionary in the copy will also impact those referenced in the source array.
      */
-    fun duplicate(deep: Boolean): VariantArray<T> {
+    @JvmOverloads
+    fun duplicate(deep: Boolean = false): VariantArray<T> {
         return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
             VariantParser.BOOL.write(deep)
             Bridge.engine_call_duplicate(ptr)
@@ -357,7 +303,8 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Duplicates this array, deeply, like duplicate()(true), with extra control over how subresources are handled.
      * deepSubresourceMode must be one of the values from DeepDuplicateMode. By default, only internal resources will be duplicated (recursively).
     */
-    fun duplicateDeep(deepSubresourceMode: DeepDuplicateMode): VariantArray<T> {
+    @JvmOverloads
+    fun duplicateDeep(deepSubresourceMode: DeepDuplicateMode = DeepDuplicateMode.INTERNAL): VariantArray<T> {
         return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
             VariantParser.LONG.write(deepSubresourceMode.value)
             Bridge.engine_call_duplicate_deep(ptr)
@@ -391,14 +338,32 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
-     * Calls the provided [Callable] on each element in the array and returns a new array with the elements for which
-     * the method returned `true`.
+     * Calls the given [Callable] on each element in the array and returns a new, filtered array.
      *
-     * The callable's method should take one Variant parameter (the current array element) and return a boolean value.
+     * The method receives one of the array elements as an argument, and should return `true` to add the element to the
+     * filtered array, or `false` to exclude it.
      *
      * See also [any], [all], [map] and [reduce].
+     *
+     * **Performance**: Godot calls [method] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as
+     * `filter`.
      */
-    fun filter(callable: Callable): VariantArray<T> {
+    fun filter(method: Callable1<Boolean, T>) = filterUnsafe(method)
+
+    /**
+     * Calls the given [Callable] on each element in the array and returns a new, filtered array.
+     *
+     * The method receives one of the array elements as an argument, and should return `true` to add the element to the
+     * filtered array, or `false` to exclude it.
+     *
+     * See also [any], [all], [map] and [reduce].
+     *
+     * **Performance**: Godot calls [callable] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as
+     * `filter`.
+     */
+    fun filterUnsafe(callable: Callable): VariantArray<T> {
         return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
             VariantParser.CALLABLE.toGodot(callable)
             Bridge.engine_call_filter(ptr)
@@ -411,7 +376,8 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Searches the array for a value and returns its index or -1 if not found.
      * Optionally, the initial search index can be passed.
      */
-    fun find(what: T, from: Int): Int {
+    @JvmOverloads
+    fun find(what: T, from: Int = 0): Int {
         return VariantBuffer.transfer.callBridge(2, VariantParser.LONG) {
             variantConverter.toGodot(what)
             VariantParser.LONG.write(from.toLong())
@@ -420,10 +386,53 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
+     * Returns the index of the first element in the array that causes [method] to return `true`, or -1 if there are
+     * none. The search's start can be specified with [from], continuing to the end of the array.
+     *
+     * [method] is a callable that takes an element of the array, and returns a `Boolean`.
+     *
+     * **Note**: If you just want to know whether the array contains anything that satisfies [method], use [any].
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `indexOfFirst`.
+     */
+    @JvmOverloads
+    fun findCustom(method: Callable1<Boolean, T>, from: Int = 0) = findCustomUnsafe(method, from)
+
+    /**
+     * Returns the index of the first element in the array that causes [method] to return `true`, or -1 if there are
+     * none. The search's start can be specified with [from], continuing to the end of the array.
+     *
+     * [method] is a callable that takes an element of the array, and returns a `Boolean`.
+     *
+     * **Note**: If you just want to know whether the array contains anything that satisfies [method], use [any].
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `indexOfFirst`.
+     */
+    @JvmOverloads
+    fun findCustomUnsafe(method: Callable, from: Int = 0): Int {
+        return VariantBuffer.transfer.callBridge(2, VariantParser.LONG) {
+            VariantParser.CALLABLE.toGodot(method)
+            VariantParser.LONG.write(from.toLong())
+            Bridge.engine_call_find_custom(ptr)
+        }.toInt()
+    }
+
+    /**
      * Returns the first element of the array, or null if the array is empty.
      */
     fun front(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_front(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_front(ptr) }
+    }
+
+    operator fun get(idx: Int): T {
+        return VariantBuffer.transfer.callBridge(1, variantConverter) {
+            VariantParser.LONG.write(idx.toLong())
+            Bridge.engine_call_operator_get(ptr)
+        } as T
     }
 
     /**
@@ -441,8 +450,8 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     /**
      * Returns the script associated with a typed array tied to a class name.
      */
-    fun getTypedScript(): Any {
-        return VariantBuffer.transfer.callBridge(VariantCaster.ANY) { Bridge.engine_call_getTypedScript(ptr) } as Any
+    fun getTypedScript(): Any? {
+        return VariantBuffer.transfer.callBridge(VariantCaster.ANY) { Bridge.engine_call_getTypedScript(ptr) }
     }
 
     /**
@@ -456,24 +465,80 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
-     * Inserts a new element at a given position in the array.
-     * The position must be valid, or at the end of the array (pos == size()).
+     * Returns a hashed integer value representing the array contents.
      */
-    fun insert(position: Int, value: T) {
-        VariantBuffer.transfer.writeArgs(2) {
-            VariantParser.LONG.write(position.toLong())
-            variantConverter.toGodot(value)
-        }
-        Bridge.engine_call_insert(ptr)
+    fun hash(): Int {
+        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
     }
 
     /**
-     * Calls the provided [Callable] for each element in the array and returns a new array filled with values returned
-     * by the method.
-     *
-     * The callable's method should take one Variant parameter (the current array element) and can return any Variant.
+     * Inserts a new element at a given position in the array.
+     * The position must be valid, or at the end of the array (pos == size()).
      */
-    fun map(callable: Callable): VariantArray<Any?> {
+    fun insert(position: Int, value: T): Error {
+        return Error.from(VariantBuffer.transfer.callBridge(2, VariantParser.LONG) {
+            VariantParser.LONG.write(position.toLong())
+            variantConverter.toGodot(value)
+            Bridge.engine_call_insert(ptr)
+        })
+    }
+
+    /**
+     * Returns true if the array is empty.
+     */
+    override fun isEmpty(): Boolean {
+        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
+    }
+
+    /**
+     * Returns true if the array is read-only.
+     */
+    fun isReadOnly(): Boolean {
+        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isReadOnly(ptr) }
+    }
+
+    fun isSameTyped(array: VariantArray<*>): Boolean {
+        return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
+            VariantParser.ARRAY.toGodot(array)
+            Bridge.engine_call_is_same_typed(ptr)
+        }
+    }
+
+    /**
+     * Returns `true` if the array is typed. Typed arrays can only store elements of their associated type and provide
+     * type safety for the [get] operator.
+     */
+    fun isTyped() = variantConverter.id != VariantParser.NIL.id
+
+    fun makeReadOnly() {
+        Bridge.engine_call_make_read_only(ptr)
+    }
+
+    /**
+     * Calls the given [Callable] for each element in the array and returns a new array filled with values returned by
+     * the method.
+     *
+     * The method should take one parameter (the current array element) and can return any Variant.
+     *
+     * See also [filter], [reduce], [any] and [all].
+     *
+     * **Performance**: Godot calls [method] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as `map`.
+     */
+    fun map(method: Callable1<*, T>) = mapUnsafe(method)
+
+    /**
+     * Calls the given [Callable] for each element in the array and returns a new array filled with values returned by
+     * the method.
+     *
+     * The method should take one parameter (the current array element) and can return any Variant.
+     *
+     * See also [filter], [reduce], [any] and [all].
+     *
+     * **Performance**: Godot calls [callable] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as `map`.
+     */
+    fun mapUnsafe(callable: Callable): VariantArray<Any?> {
         return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
             VariantParser.CALLABLE.toGodot(callable)
             Bridge.engine_call_map(ptr)
@@ -487,7 +552,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If the elements can't be compared, null is returned.
      */
     fun max(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_max(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_max(ptr) }
     }
 
     /**
@@ -495,14 +560,21 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If the elements can't be compared, null is returned.
      */
     fun min(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_min(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_min(ptr) }
     }
 
     /**
      * Returns a random value from the target array.
      */
     fun pickRandom(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_pickRandom(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_pickRandom(ptr) }
+    }
+
+    fun popAt(position: Int): T? {
+        return VariantBuffer.transfer.callBridge(1, variantConverter.toNullable()) {
+            VariantParser.LONG.write(position.toLong())
+            Bridge.engine_call_pop_at(ptr)
+        }
     }
 
     /**
@@ -510,7 +582,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns null if the array is empty.
      */
     fun popBack(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_popBack(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_popBack(ptr) }
     }
 
     /**
@@ -518,7 +590,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns null if the array is empty.
      */
     fun popFront(): T? {
-        return VariantBuffer.transfer.callBridge(variantConverter) { Bridge.engine_call_popFront(ptr) } as T?
+        return VariantBuffer.transfer.callBridge(variantConverter.toNullable()) { Bridge.engine_call_popFront(ptr) }
     }
 
     /**
@@ -541,7 +613,34 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         Bridge.engine_call_pushFront(ptr)
     }
 
-    fun reduce(callable: Callable, accum: Any?): Any? {
+    /**
+     * Calls the given [Callable] for each element in array, accumulates the result in [accum], then returns it.
+     *
+     * The method takes two arguments: the current value of [accum] and the current array element. If [accum] is `null`,
+     * the iteration will start from the second element, with the first one used as initial value of [accum].
+     *
+     * See also [map], [filter], [any], and [all].
+     *
+     * **Performance**: Godot calls [method] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as
+     * `fold`.
+     */
+    fun <A> reduce(method: Callable2<A, A, T>, accum: A): A = reduceUnsafe(method, accum) as A
+
+    /**
+     * Calls the given [Callable] for each element in array, accumulates the result in [accum], then returns it.
+     *
+     * The method takes two arguments: the current value of [accum] and the current array element. If [accum] is `null`,
+     * the iteration will start from the second element, with the first one used as initial value of [accum].
+     *
+     * See also [map], [filter], [any], and [all].
+     *
+     * **Performance**: Godot calls [callable] once per element. When it is a JVM lambda or method, every call crosses
+     * from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such as
+     * `fold`.
+     */
+    @JvmOverloads
+    fun reduceUnsafe(callable: Callable, accum: Any? = null): Any? {
         return VariantBuffer.transfer.callBridge(2, VariantCaster.ANY) {
             VariantParser.CALLABLE.toGodot(callable)
             VariantCaster.ANY.toGodot(accum)
@@ -550,16 +649,92 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     /**
+     * Removes an element from the array by index.
+     */
+    fun removeAt(position: Int) {
+        VariantBuffer.transfer.writeArgs(1) {
+            VariantParser.LONG.write(position.toLong())
+        }
+        Bridge.engine_call_removeAt(ptr)
+    }
+
+    /**
+     * Resizes the array to contain a different number of elements.
+     * If the array size is smaller, elements are cleared, if bigger, new elements are null.
+     */
+    fun resize(size: Int): Error {
+        return Error.from(VariantBuffer.transfer.callBridge(1, VariantParser.LONG) {
+            VariantParser.LONG.write(size.toLong())
+            Bridge.engine_call_resize(ptr)
+        })
+    }
+
+    /**
+     * Reverses the order of the elements in the array.
+     */
+    fun reverse() {
+        Bridge.engine_call_reverse(ptr)
+    }
+
+    /**
      * Searches the array in reverse order.
      * Optionally, a start search index can be passed.
      * If negative, the start index is considered relative to the end of the array.
      */
-    fun rfind(what: T, from: Int): Int {
+    @JvmOverloads
+    fun rfind(what: T, from: Int = -1): Int {
         return VariantBuffer.transfer.callBridge(2, VariantParser.LONG) {
             variantConverter.toGodot(what)
             VariantParser.LONG.write(from.toLong())
             Bridge.engine_call_rfind(ptr)
         }.toInt()
+    }
+
+    /**
+     * Returns the index of the last element of the array that causes [method] to return `true`, or -1 if there are
+     * none. The search's start can be specified with [from], continuing to the beginning of the array. This method is
+     * the reverse of [findCustom].
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `indexOfLast`.
+     */
+    @JvmOverloads
+    fun rfindCustom(method: Callable1<Boolean, T>, from: Int = -1) = rfindCustomUnsafe(method, from)
+
+    /**
+     * Returns the index of the last element of the array that causes [method] to return `true`, or -1 if there are
+     * none. The search's start can be specified with [from], continuing to the beginning of the array. This method is
+     * the reverse of [findCustom].
+     *
+     * **Performance**: Godot calls [method] up to once per element. When it is a JVM lambda or method, every call
+     * crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language, such
+     * as `indexOfLast`.
+     */
+    @JvmOverloads
+    fun rfindCustomUnsafe(method: Callable, from: Int = -1): Int {
+        return VariantBuffer.transfer.callBridge(2, VariantParser.LONG) {
+            VariantParser.CALLABLE.toGodot(method)
+            VariantParser.LONG.write(from.toLong())
+            Bridge.engine_call_rfind_custom(ptr)
+        }.toInt()
+    }
+
+    operator fun set(idx: Int, data: T) {
+        VariantBuffer.transfer.writeArgs(2) {
+            VariantParser.LONG.write(idx.toLong())
+            variantConverter.toGodot(data)
+        }
+        Bridge.engine_call_operator_set(ptr)
+    }
+
+    /**
+     * Shuffles the array such that the items will have a random order.
+     * This method uses the global random number generator common to methods such as @randi.
+     * Call @randomize to ensure that a new seed will be used each time if you want non-reproducible shuffling.
+     */
+    fun shuffle() {
+        Bridge.engine_call_shuffle(ptr)
     }
 
     /**
@@ -573,7 +748,8 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      *
      * If deep is `true`, each element will be copied by value rather than by reference.
      */
-    fun slice(begin: Int, end: Int, step: Int, deep: Boolean): VariantArray<T> {
+    @JvmOverloads
+    fun slice(begin: Int, end: Int = Int.MAX_VALUE, step: Int = 1, deep: Boolean = false): VariantArray<T> {
         return (VariantBuffer.transfer.callBridge(4, VariantParser.ARRAY) {
             VariantParser.LONG.write(begin.toLong())
             VariantParser.LONG.write(end.toLong())
@@ -585,14 +761,130 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         }
     }
 
+    /**
+     * Sorts the array.
+     */
+    fun sort() {
+        Bridge.engine_call_sort(ptr)
+    }
 
-    //UTILITIES
-    operator fun set(idx: Int, data: T) {
-        VariantBuffer.transfer.writeArgs(2) {
-            VariantParser.LONG.write(idx.toLong())
-            variantConverter.toGodot(data)
+    /**
+     * Sorts the array using a custom [Callable].
+     *
+     * [func] is called as many times as necessary, receiving two array elements as arguments. The function should
+     * return `true` if the first element should be moved before the second one, otherwise it should return `false`.
+     *
+     * **Note**: The sorting algorithm used is not stable. This means that values considered equal may have their order
+     * changed when calling this method.
+     *
+     * **Note**: You should not randomize the return value of [func], as the heapsort algorithm expects a consistent
+     * result. Randomizing the return value will result in unexpected behavior.
+     *
+     * **Performance**: Godot calls [func] about n log n times for n elements. When it is a JVM lambda or method, every
+     * call crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language,
+     * such as `sortedWith`.
+     */
+    fun sortCustom(func: Callable2<Boolean, T, T>) = sortCustomUnsafe(func)
+
+    /**
+     * Sorts the array using a custom [Callable].
+     *
+     * [func] is called as many times as necessary, receiving two array elements as arguments. The function should
+     * return `true` if the first element should be moved before the second one, otherwise it should return `false`.
+     *
+     * **Note**: The sorting algorithm used is not stable. This means that values considered equal may have their order
+     * changed when calling this method.
+     *
+     * **Note**: You should not randomize the return value of [func], as the heapsort algorithm expects a consistent
+     * result. Randomizing the return value will result in unexpected behavior.
+     *
+     * **Performance**: Godot calls [func] about n log n times for n elements. When it is a JVM lambda or method, every
+     * call crosses from C++ into the JVM, which is slow: on large arrays, prefer the collection API of your language,
+     * such as `sortedWith`.
+     */
+    fun sortCustomUnsafe(func: Callable) {
+        VariantBuffer.transfer.writeArgs(1) {
+            VariantParser.CALLABLE.toGodot(func)
         }
-        Bridge.engine_call_operator_set(ptr)
+        Bridge.engine_call_sortCustom(ptr)
+    }
+
+    override fun add(element: T): Boolean {
+        append(element)
+        return true
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean {
+        elements.forEach {
+            append(it)
+        }
+        return true
+    }
+
+    override operator fun contains(element: T) = has(element)
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+        elements.forEach {
+            if (!has(it)) return false
+        }
+        return true
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is VariantArray<*>) {
+            return false
+        }
+        return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
+            VariantParser.ARRAY.toGodot(other)
+            Bridge.engine_call_equals(ptr)
+        }
+    }
+
+    override fun hashCode(): Int = hash()
+
+    override fun iterator(): MutableIterator<T> {
+        return IndexedIterator(this::size, this::get, this::removeAt)
+    }
+
+    override fun remove(element: T): Boolean {
+        if (has(element)) {
+            erase(element)
+            return true
+        }
+
+        return false
+    }
+
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var ret = false
+        elements.forEach {
+            ret = remove(it) || ret
+        }
+        return ret
+    }
+
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var ret = false
+        val iter = this.iterator()
+        while (iter.hasNext()) {
+            val value = iter.next()
+            if (value !in elements) {
+                iter.remove()
+                ret = true
+            }
+        }
+        return ret
+    }
+
+    override fun toString(): String {
+        return "Array(${size})"
+    }
+
+    private fun assignPacked(packed: NativeCoreType, parser: VariantParser<*>) = apply {
+        VariantBuffer.transfer.writeArgs(1) {
+            parser.toGodot(this, packed)
+        }
+        Bridge.engine_call_assign_packed(ptr)
     }
 
     @CoreTypeHelper
@@ -611,52 +903,25 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         }
     }
 
-    operator fun get(idx: Int): T {
-        return VariantBuffer.transfer.callBridge(1, variantConverter) {
-            VariantParser.LONG.write(idx.toLong())
-            Bridge.engine_call_operator_get(ptr)
-        } as T
+    operator fun compareTo(other: VariantArray<T>): Int {
+        return VariantBuffer.transfer.callBridge(1, VariantParser.LONG) {
+            VariantParser.ARRAY.toGodot(other)
+            Bridge.engine_call_compare(ptr)
+        }.toInt()
     }
 
     operator fun plus(other: T) {
         this.append(other)
     }
 
-    override operator fun contains(element: T) = has(element)
-
-    override fun containsAll(elements: Collection<T>): Boolean {
-        elements.forEach {
-            if (!has(it)) return false
-        }
-        return true
-    }
-
-    override fun iterator(): MutableIterator<T> {
-        return IndexedIterator(this::size, this::get, this::removeAt)
-    }
-
-    /**
-     * WARNING: no equals function is available in the Gdnative API for this Coretype.
-     * This methods implementation works but is not the fastest one.
-     */
-    override fun equals(other: Any?): Boolean {
-        return if (other is VariantArray<*>) {
-            val list1 = this.toList()
-            val list2 = other.toList()
-            list1 == list2
-        } else {
-            false
+    operator fun plus(other: VariantArray<T>): VariantArray<T> {
+        return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
+            VariantParser.ARRAY.toGodot(other)
+            Bridge.engine_call_operator_plus(ptr)
+        } as VariantArray<T>).also {
+            it.variantConverter = variantConverter
         }
     }
-
-    override fun hashCode(): Int {
-        return ptr.hashCode()
-    }
-
-    override fun toString(): String {
-        return "Array(${size})"
-    }
-
 
     @Suppress("FunctionName")
     private object Bridge {
@@ -668,17 +933,22 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         external fun engine_call_any(_handle: VoidPtr)
         external fun engine_call_append(_handle: VoidPtr)
         external fun engine_call_appendArray(_handle: VoidPtr)
+        external fun engine_call_assign(_handle: VoidPtr)
+        external fun engine_call_assign_packed(_handle: VoidPtr)
         external fun engine_call_back(_handle: VoidPtr)
         external fun engine_call_bsearch(_handle: VoidPtr)
         external fun engine_call_bsearchCustom(_handle: VoidPtr)
         external fun engine_call_clear(_handle: VoidPtr)
+        external fun engine_call_compare(_handle: VoidPtr)
         external fun engine_call_count(_handle: VoidPtr)
         external fun engine_call_duplicate(_handle: VoidPtr)
         external fun engine_call_duplicate_deep(_handle: VoidPtr)
+        external fun engine_call_equals(_handle: VoidPtr)
         external fun engine_call_erase(_handle: VoidPtr)
         external fun engine_call_fill(_handle: VoidPtr)
         external fun engine_call_filter(_handle: VoidPtr)
         external fun engine_call_find(_handle: VoidPtr)
+        external fun engine_call_find_custom(_handle: VoidPtr)
         external fun engine_call_front(_handle: VoidPtr)
         external fun engine_call_getTypedClassName(_handle: VoidPtr)
         external fun engine_call_getTypedScript(_handle: VoidPtr)
@@ -687,13 +957,18 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         external fun engine_call_insert(_handle: VoidPtr)
         external fun engine_call_isEmpty(_handle: VoidPtr)
         external fun engine_call_isReadOnly(_handle: VoidPtr)
-        external fun engine_call_isTyped(_handle: VoidPtr)
+        external fun engine_call_is_same_typed(_handle: VoidPtr)
+        external fun engine_call_make_read_only(_handle: VoidPtr)
         external fun engine_call_map(_handle: VoidPtr)
         external fun engine_call_max(_handle: VoidPtr)
         external fun engine_call_min(_handle: VoidPtr)
+        external fun engine_call_operator_get(_handle: VoidPtr)
+        external fun engine_call_operator_plus(_handle: VoidPtr)
+        external fun engine_call_operator_set(_handle: VoidPtr)
         external fun engine_call_pickRandom(_handle: VoidPtr)
         external fun engine_call_popBack(_handle: VoidPtr)
         external fun engine_call_popFront(_handle: VoidPtr)
+        external fun engine_call_pop_at(_handle: VoidPtr)
         external fun engine_call_pushBack(_handle: VoidPtr)
         external fun engine_call_pushFront(_handle: VoidPtr)
         external fun engine_call_reduce(_handle: VoidPtr)
@@ -701,13 +976,12 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         external fun engine_call_resize(_handle: VoidPtr)
         external fun engine_call_reverse(_handle: VoidPtr)
         external fun engine_call_rfind(_handle: VoidPtr)
+        external fun engine_call_rfind_custom(_handle: VoidPtr)
         external fun engine_call_shuffle(_handle: VoidPtr)
         external fun engine_call_size(_handle: VoidPtr)
         external fun engine_call_slice(_handle: VoidPtr)
         external fun engine_call_sort(_handle: VoidPtr)
         external fun engine_call_sortCustom(_handle: VoidPtr)
-        external fun engine_call_operator_set(_handle: VoidPtr)
-        external fun engine_call_operator_get(_handle: VoidPtr)
     }
 
     companion object {
@@ -720,6 +994,36 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
             }
             return VariantArray(T::class.java)
         }
+
+        @JvmStatic
+        operator fun invoke(from: PackedByteArray) = VariantArray(VariantCaster.BYTE).assignPacked(from, VariantParser.PACKED_BYTE_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedInt32Array) = VariantArray(VariantCaster.INT).assignPacked(from, VariantParser.PACKED_INT_32_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedInt64Array) = VariantArray(VariantParser.LONG).assignPacked(from, VariantParser.PACKED_INT_64_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedFloat32Array) = VariantArray(VariantCaster.FLOAT).assignPacked(from, VariantParser.PACKED_FLOAT_32_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedFloat64Array) = VariantArray(VariantParser.DOUBLE).assignPacked(from, VariantParser.PACKED_FLOAT_64_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedStringArray) = VariantArray(VariantParser.STRING).assignPacked(from, VariantParser.PACKED_STRING_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedVector2Array) = VariantArray(VariantParser.VECTOR2).assignPacked(from, VariantParser.PACKED_VECTOR2_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedVector3Array) = VariantArray(VariantParser.VECTOR3).assignPacked(from, VariantParser.PACKED_VECTOR3_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedColorArray) = VariantArray(VariantParser.COLOR).assignPacked(from, VariantParser.PACKED_COLOR_ARRAY)
+
+        @JvmStatic
+        operator fun invoke(from: PackedVector4Array) = VariantArray(VariantParser.VECTOR4).assignPacked(from, VariantParser.PACKED_VECTOR4_ARRAY)
     }
 }
 

@@ -20,3 +20,4 @@ Declaring the members of a script class and overriding engine callbacks such as 
 - **B.1.R2**: What is thread-safe in Godot is thread-safe from the JVM, and nothing more is promised.
 - **B.1.R3**: Desktop games run on a JVM or as a native image, Android games on ART and iOS games as a native image.
 - **B.1.R4**: A Godot name is changed beyond the naming convention only when a JVM language forbids it or the generated API would clash with itself, and every such change is listed in the user documentation.
+  - Except: where the JVM adds a typed form of a method taking a callable or a signal, the untyped form keeps Godot's name with the `Unsafe` suffix, so that the two read apart.
