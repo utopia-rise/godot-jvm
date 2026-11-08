@@ -238,7 +238,6 @@
       { "name" : "engine_call_merge", "parameterTypes" : ["long"] },
       { "name" : "engine_call_size", "parameterTypes" : ["long"] },
       { "name" : "engine_call_values", "parameterTypes" : ["long"] },
-      { "name" : "engine_call_operator_get", "parameterTypes" : ["long"] },
       { "name" : "engine_call_operator_set", "parameterTypes" : ["long"] },
       { "name" : "engine_call_equals", "parameterTypes" : ["long"] }
     ]

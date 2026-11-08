@@ -692,6 +692,9 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
     data object ANY : VariantCaster<Any?>(VariantParser.NIL) {
         override fun toKotlin(buffer: ByteBuffer): Any? {
             val expectedType = buffer.variantType
+            if (expectedType == VariantParser.NIL.id) {
+                return null
+            }
             return VariantTable.entries[expectedType].toUnsafeKotlin(buffer)
         }
 
@@ -703,6 +706,30 @@ sealed class VariantCaster<out T>(val coreVariant: VariantParser<*>) : VariantCo
                 any == null -> VariantParser.NIL.toGodot(buffer, null)
                 else -> throw UnsupportedOperationException("Can't convert type ${any::class} to Variant")
             }
+        }
+    }
+}
+
+fun <T> VariantConverter<T>.toNullable(): VariantConverter<T?> = NullableConverter(this)
+
+internal class NullableConverter<T>(private val converter: VariantConverter<T>) : VariantConverter<T?> {
+    override val id: Int
+        get() = converter.id
+
+    override fun toKotlin(buffer: ByteBuffer): T? {
+        val start = buffer.position()
+        if (buffer.variantType == VariantParser.NIL.id) {
+            return null
+        }
+        buffer.position(start)
+        return converter.toKotlin(buffer)
+    }
+
+    override fun toGodot(buffer: ByteBuffer, any: Any?) {
+        if (any == null) {
+            VariantParser.NIL.toGodot(buffer, null)
+        } else {
+            converter.toGodot(buffer, any)
         }
     }
 }

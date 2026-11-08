@@ -154,22 +154,20 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
             }
 
             override operator fun contains(element: MutableMap.MutableEntry<K, V>): Boolean {
-                val value = get(element.key, null)
-                return value == element.value
+                return get(element.key) == element.value
             }
 
             override operator fun iterator(): MapIterator<K, V> {
                 return MapIterator(
                     this@Dictionary.keys.iterator(),
-                    this@Dictionary::get,
+                    { this@Dictionary.getValue(it) },
                     this@Dictionary::set,
                     this@Dictionary::erase
                 )
             }
 
             override fun remove(element: MutableMap.MutableEntry<K, V>): Boolean {
-                val value = get(element.key, null)
-                if (value == element.value) {
+                if (get(element.key) == element.value) {
                     this@Dictionary.remove(element.key)
                     return true
                 }
@@ -262,12 +260,12 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * If the key does not exist, the method returns the value of the optional default argument, or null if it is omitted.
      */
     fun get(key: K, default: V?): V? {
-        @Suppress("UNCHECKED_CAST")
-        return VariantBuffer.transfer.callBridge(2, valueVariantConverter) {
+        val nullableValueConverter = valueVariantConverter.toNullable()
+        return VariantBuffer.transfer.callBridge(2, nullableValueConverter) {
             keyVariantConverter.toGodot(key)
-            valueVariantConverter.toGodot(default)
+            nullableValueConverter.toGodot(default)
             Bridge.engine_call_get(ptr)
-        } as V?
+        }
     }
 
     /**
@@ -339,7 +337,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     }
 
     override fun put(key: K, value: V): V? {
-        val ret = if (has(key)) get(key) else null
+        val ret = get(key)
         set(key, value)
         return ret
     }
@@ -351,7 +349,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     }
 
     override fun remove(key: K): V? {
-        val ret = get(key, null)
+        val ret = get(key)
         erase(key)
         return ret
     }
@@ -374,17 +372,11 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
 
     //UTILITIES
-    override operator fun get(key: K): V {
-        @Suppress("UNCHECKED_CAST")
-        return VariantBuffer.transfer.callBridge(1, valueVariantConverter) {
-            keyVariantConverter.toGodot(key)
-            Bridge.engine_call_operator_get(ptr)
-        } as V
-    }
+    override operator fun get(key: K): V? = get(key, null)
 
     @CoreTypeHelper
     inline fun <R> mutate(key: K, block: (V) -> R): R {
-        val localCopy = this[key]
+        val localCopy = getValue(key)
         val ret = block(localCopy)
         this[key] = localCopy
         return ret
@@ -450,7 +442,6 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         external fun engine_call_size(_handle: VoidPtr)
         external fun engine_call_sort(_handle: VoidPtr)
         external fun engine_call_values(_handle: VoidPtr)
-        external fun engine_call_operator_get(_handle: VoidPtr)
         external fun engine_call_operator_set(_handle: VoidPtr)
         external fun engine_call_equals(_handle: VoidPtr)
     }

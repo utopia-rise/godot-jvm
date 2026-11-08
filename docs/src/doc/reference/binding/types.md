@@ -92,6 +92,8 @@ Use the same class names from `godot.core` in each language:
 
 Core value types read from Godot properties are copies. Mutating the copy affects the property only after assignment back. `VariantArray` and `Dictionary` share container storage with Godot, but reading a value-type element still returns a copy.
 
+Reading a missing key with `dictionary[key]` returns null and leaves the dictionary unchanged, as `Map.get` does; GDScript reports an error instead.
+
 /// tab | Kotlin
 
 ```kotlin

@@ -182,14 +182,6 @@ void DictionaryBridge::engine_call_values(JNIEnv* p_raw_env, jobject p_instance,
     transfer->write_ret(values);
 }
 
-void DictionaryBridge::engine_call_operator_get(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
-    VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    godot::Variant key;
-    transfer->read_args(key);
-    godot::Variant value = native<godot::Dictionary>(p_handle).operator[](key);
-    transfer->write_ret(value);
-}
-
 void DictionaryBridge::engine_call_operator_set(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     godot::Variant key;
