@@ -138,6 +138,28 @@ class CollectionsTest : Node() {
     }
 
     @Register
+    fun containerOperators(): VariantArray<Any?> {
+        val array = variantArrayOf(0L, 1L, 2L, 3L, 4L, 5L)
+        val appended = array + 6L
+        val extended = variantArrayOf(1L).also { it += variantArrayOf(2L, 3L) }
+        val withoutFirstTwo = variantArrayOf(1L, 2L, 3L, 2L) - 2L
+        val elementOperators = variantArrayOf(1L, 2L).also {
+            it += 3L
+            it -= 1L
+        }
+        val dictionary = dictionaryOf("a" to 1L, "b" to 2L)
+        val merged = dictionary + dictionaryOf("b" to 20L, "c" to 3L)
+        val withPair = dictionary + ("d" to 4L)
+        val withoutKey = dictionary - "a"
+        val mergedInPlace = dictionaryOf("a" to 1L).also { it += dictionaryOf("a" to 10L, "b" to 2L) }
+        return variantArrayOf(
+            array.size, appended, appended.isTyped(), extended, withoutFirstTwo, elementOperators,
+            array[1..3], array[1..<3], array[0..5 step 2], array[4 downTo 0], array[IntRange.EMPTY], array[4 downTo 0 step 2],
+            dictionary, merged, withPair, withoutKey, mergedInPlace,
+        )
+    }
+
+    @Register
     fun arraysFromPackedArrays(): VariantArray<Any?> {
         val bytes = VariantArray(PackedByteArray(byteArrayOf(1, 2)))
         val ints = VariantArray(PackedInt32Array(intArrayOf(3, 4)))

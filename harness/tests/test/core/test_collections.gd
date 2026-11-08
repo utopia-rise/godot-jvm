@@ -112,6 +112,17 @@ func test_array_operations() -> void:
     instance.free()
 
 
+func test_container_operators() -> void:
+    var instance := CollectionsTest.new()
+
+    assert_that(instance.container_operators()).is_equal([
+        6, [0, 1, 2, 3, 4, 5, 6], true, [1, 2, 3], [1, 3, 2], [2, 3],
+        [1, 2, 3], [1, 2], [0, 2, 4], [4, 3, 2, 1, 0], [], [4, 2, 0],
+        {"a": 1, "b": 2}, {"a": 1, "b": 20, "c": 3}, {"a": 1, "b": 2, "d": 4}, {"b": 2}, {"a": 10, "b": 2},
+    ])
+    instance.free()
+
+
 func test_arrays_from_packed_arrays_are_typed() -> void:
     var instance := CollectionsTest.new()
     var result: Array = instance.arrays_from_packed_arrays()

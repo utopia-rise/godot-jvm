@@ -489,6 +489,14 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
     operator fun contains(key: K): Boolean = has(key)
 
+    operator fun minus(key: K): Dictionary<K, V> = duplicate().also { it.erase(key) }
+
+    operator fun plus(dictionary: Dictionary<K, V>): Dictionary<K, V> = merged(dictionary, true)
+
+    operator fun plus(pair: Pair<K, V>): Dictionary<K, V> = duplicate().also { it[pair.first] = pair.second }
+
+    operator fun plusAssign(dictionary: Dictionary<K, V>) = merge(dictionary, true)
+
     @Suppress("FunctionName")
     private object Bridge {
         external fun engine_call_constructor(): VoidPtr

@@ -14,7 +14,6 @@ import godot.core.bridge.DeepDuplicateMode
 import godot.internal.reflection.TypeManager
 import kotlincompile.definitions.GodotJvmBuildConfig
 
-
 @Suppress("unused", "UNCHECKED_CAST")
 class VariantArray<T> : NativeCoreType, MutableCollection<T> {
 
@@ -910,9 +909,29 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
         }.toInt()
     }
 
-    operator fun plus(other: T) {
-        this.append(other)
+    operator fun get(indices: IntProgression): VariantArray<T> {
+        if (indices.isEmpty()) {
+            return slice(0, 0)
+        }
+        if (GodotJvmBuildConfig.DEBUG) {
+            val size = size
+            if (indices.first !in 0..<size || indices.last !in 0..<size) {
+                throw IndexOutOfBoundsException("Range $indices out of bounds for length $size")
+            }
+        }
+        val end = when {
+            indices.step > 0 -> indices.last + 1
+            indices.last == 0 -> Int.MIN_VALUE
+            else -> indices.last - 1
+        }
+        return slice(indices.first, end, indices.step)
     }
+
+    operator fun minus(element: T): VariantArray<T> = duplicate().also { it.erase(element) }
+
+    operator fun minusAssign(element: T) = erase(element)
+
+    operator fun plus(other: T): VariantArray<T> = duplicate().also { it.append(other) }
 
     operator fun plus(other: VariantArray<T>): VariantArray<T> {
         return (VariantBuffer.transfer.callBridge(1, VariantParser.ARRAY) {
@@ -922,6 +941,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
             it.variantConverter = variantConverter
         }
     }
+
+    operator fun plusAssign(element: T) = append(element)
+
+    operator fun plusAssign(other: VariantArray<T>) = appendArray(other)
 
     @Suppress("FunctionName")
     private object Bridge {
