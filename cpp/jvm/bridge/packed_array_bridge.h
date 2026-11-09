@@ -280,7 +280,11 @@ namespace bridges {
         VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
         int64_t index;
         transfer->read_args(index);
-        T element = native<PackedType>(p_handle).operator[](index);
+        PackedType& array = native<PackedType>(p_handle);
+#ifdef DEBUG_ENABLED
+        if (!is_index_in_bounds(p_raw_env, index, array.size())) { return; }
+#endif
+        T element = array[index];
         transfer->write_ret(element);
     }
 
@@ -354,7 +358,11 @@ namespace bridges {
         int64_t index;
         T value;
         transfer->read_args(index, value);
-        native<PackedType>(p_handle).set(index, value);
+        PackedType& array = native<PackedType>(p_handle);
+#ifdef DEBUG_ENABLED
+        if (!is_index_in_bounds(p_raw_env, index, array.size())) { return; }
+#endif
+        array.set(index, value);
     }
 
     template<class Derived, class T, const char* fq_name>

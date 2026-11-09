@@ -35,7 +35,7 @@
 "A.6.1" = { status = "done" }
 "A.6.2" = { status = "done" }
 "A.6.3" = { status = "partial", note = "plain Scala 3 enums are not recognized, Scala collections are not accepted where java.util.List is, and primitive type arguments must be boxed" }
-"B.1" = { hash = "18cf7c7720c4" }
+"B.1" = { hash = "4bc1ee3ae739" }
 "B.1.1" = { status = "partial", note = "editor-only classes (EditorPlugin, EditorInterface...) are not generated, so editor-time code cannot use them" }
 "B.1.2" = { status = "partial", note = "breaks §2, §5: GD lacks several GDScript global functions, and GD.assert does nothing unless JVM assertions are enabled" }
 "B.1.3" = { status = "done" }
@@ -56,12 +56,12 @@
 "B.4.3" = { status = "partial", note = "a change made to a copy is flagged only by the IntelliJ plugin's Kotlin inspection, and elsewhere it silently has no effect" }
 "B.4.4" = { status = "done" }
 "B.4.5" = { status = "partial", note = "breaks §4: plain Scala 3 enums are not recognized; they must extend java.lang.Enum" }
-"B.5" = { hash = "445011f1eddf" }
+"B.5" = { hash = "d15cb7f28409" }
 "B.5.1" = { status = "done" }
-"B.5.2" = { status = "partial", note = "breaks B.5.R2: collections built from converters are not narrowed to an object class; Dictionary has no typed-key or typed-value queries" }
+"B.5.2" = { status = "done" }
 "B.5.3" = { status = "done" }
 "B.5.4" = { status = "done" }
-"B.5.5" = { status = "partial", note = "breaks B.1.R4: Array and Dictionary lack several GDScript methods, and Array names reverse invert without listing it in the documentation" }
+"B.5.5" = { status = "done" }
 "B.6" = { hash = "70e321b4f010" }
 "B.6.1" = { status = "done" }
 "B.6.2" = { status = "done" }

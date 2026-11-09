@@ -204,6 +204,10 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
 }
 
 tasks {
+    withType<ScalaCompile>().configureEach {
+        scalaCompileOptions.isForce = true
+    }
+
     register("importResources") {
         group = "verification"
         description = "Imports the Godot project. Requires build first."

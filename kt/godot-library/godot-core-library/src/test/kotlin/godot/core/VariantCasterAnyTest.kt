@@ -82,6 +82,15 @@ class VariantCasterAnyTest {
     }
 
     @Test
+    fun nilIsReadAsNull() {
+        val buffer = ByteBuffer.allocate(16)
+        VariantCaster.ANY.toGodot(buffer, null)
+        buffer.rewind()
+        assertEquals(null, VariantCaster.ANY.toKotlin(buffer))
+        assertEquals(8, buffer.position())
+    }
+
+    @Test
     fun narrowIntegralTypesAreWrittenAsLongs() {
         assertEquals(7L, writeAsVariantAndReadLong(7.toShort()))
         assertEquals(65L, writeAsVariantAndReadLong('A'))
