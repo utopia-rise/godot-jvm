@@ -1,7 +1,6 @@
 extends GdUnitTestSuite
 
-# Names below resolve through the global class cache only, never through a script path. Release exports in CI are made
-# without a debug build, so they check the cache built from the script class index.
+# Names below resolve through the global class cache only, never through a script path.
 
 func test_instantiate_jvm_class_by_name() -> void:
     var child: ClassInheritanceChild = ClassInheritanceChild.new()

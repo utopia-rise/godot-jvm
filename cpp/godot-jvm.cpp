@@ -1,4 +1,5 @@
 #include "api/script/jvm_script_manager.h"
+#include "api/script/jvm_source_manager.h"
 #include "engine/dynamic_library.h"
 #include "godot_jvm.h"
 #include "jvm/jni/env.h"
@@ -14,9 +15,6 @@
 #include <classes/dir_access.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
-#ifdef TOOLS_ENABLED
-#include <classes/json.hpp>
-#endif
 #include <classes/os.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
@@ -452,6 +450,12 @@ bool GodotJvm::initialize_core_library() {
 }
 
 bool GodotJvm::load_user_code() {
+#ifdef TOOLS_ENABLED
+    if (Engine::get_singleton()->is_editor_hint()) {
+        JvmSourceManager::get_instance().load_build_hashes();
+        JvmScriptManager::get_instance()->load_script_class_index();
+    }
+#endif
     jni::Env& env = jni::Jvm::current_env();
     if (user_configuration.vm_type == jni::JvmType::GRAAL_NATIVE_IMAGE) {
         bootstrap->init_native_image(env);
@@ -613,25 +617,6 @@ void GodotJvm::reload_user_code() {
 
 void GodotJvm::mark_bootstrap_outdated() {
     bootstrap_outdated = true;
-}
-
-void GodotJvm::reload_script_class_index() {
-    const String path = String(RES_DIRECTORY) + SCRIPT_CLASS_INDEX_FILE;
-    const uint64_t modified_time = FileAccess::file_exists(path) ? FileAccess::get_modified_time(path) : 0;
-    if (modified_time == script_class_index_time) { return; }
-    script_class_index_time = modified_time;
-
-    HashMap<StringName, IndexedScriptClass> index;
-    Variant json;
-    if (modified_time != 0) { json = JSON::parse_string(FileAccess::get_file_as_string(path)); }
-    if (json.get_type() == Variant::DICTIONARY) {
-        Dictionary classes = json;
-        for (const String fqdn : classes.keys()) {
-            Dictionary entry = classes[fqdn];
-            index[fqdn] = {entry["name"], entry["base"]};
-        }
-    }
-    JvmScriptManager::get_instance()->set_script_class_index(index);
 }
 #endif
 

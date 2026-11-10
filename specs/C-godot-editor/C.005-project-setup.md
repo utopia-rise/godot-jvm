@@ -4,7 +4,7 @@ The editor turns any Godot project into a Godot-JVM project and maintains its ru
 
 Installing the addon from the asset library or a release archive is the Godot way to add a feature to a project. From there, the editor provides the rest: the Gradle build, a first script and a valid runtime configuration file. Generating a project is a one-time action; regenerating later is allowed and may overwrite generated files when asked to.
 
-What a project needs before it builds is D.1, creating a project from the IntelliJ IDEA wizard is D.6, installing or updating the addon to match the build is D.5, and what the runtime configuration settings mean is E.4.
+What a project needs before it builds is D.1, creating a project from the IntelliJ IDEA wizard is G.1, installing or updating the addon to match the build is D.5, and what the runtime configuration settings mean is E.4.
 
 ## Capabilities
 - **C.5.1**: Game developers add JVM support to a new or existing Godot project from the editor's menu, Gradle build, wrapper, version control files and a first script included, and later repair it by adding only what is missing, so that writing scripts in any JVM language needs no other tool.

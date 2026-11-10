@@ -47,7 +47,6 @@ namespace godot {
         godot::Ref<JavaArchive> bootstrap_archive;
         godot::Ref<JavaArchive> user_code_archive;
         bool bootstrap_outdated = false;
-        uint64_t script_class_index_time = 0;
 #endif
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
         engine::RawObject callable_middleman;
@@ -99,7 +98,6 @@ namespace godot {
 #ifdef TOOLS_ENABLED
         void reload_user_code();
         void mark_bootstrap_outdated();
-        void reload_script_class_index();
 #endif
 
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved

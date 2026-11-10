@@ -83,7 +83,7 @@
 "C.2.4" = { status = "done" }
 "C.2.5" = { status = "done" }
 "C.2.6" = { status = "done" }
-"C.3" = { hash = "67418b5a3a23" }
+"C.3" = { hash = "401a2074f93b" }
 "C.3.1" = { status = "partial", note = "the Inspector shows a script's properties only once its class is built" }
 "C.3.2" = { status = "done" }
 "C.3.3" = { status = "partial", note = "the not-built warning asks for a gdj, kt or java file and never mentions Scala" }
@@ -101,7 +101,7 @@
 "D.2.1" = { status = "done" }
 "D.2.2" = { status = "partial", note = "a project that does not list its languages, an editor-generated one included, enables all three and ships the Scala runtime library even without Scala sources" }
 "D.2.3" = { status = "done" }
-"D.3" = { hash = "1b99987e2509" }
+"D.3" = { hash = "02b78844089e" }
 "D.3.1" = { status = "done" }
 "D.3.2" = { status = "done" }
 "D.3.3" = { status = "partial", note = "game code cannot reach GodotJvmBuildConfig.DEBUG, which lives in the internal module kept off its compile classpath, so it cannot mark development-only code" }
@@ -119,17 +119,8 @@
 "D.5.1" = { status = "done" }
 "D.5.2" = { status = "done" }
 "D.5.3" = { status = "partial", note = "a locally built version carries no addon, and a pre-release project needs the snapshot repository added by hand" }
-"D.6" = { hash = "00885765beb5" }
-"D.6.1" = { status = "done" }
-"D.6.2" = { status = "done" }
-"D.6.3" = { status = "partial", note = "property hint, signal, RPC and callable reference checks exist for Kotlin only" }
-"D.6.4" = { status = "done" }
-"D.6.5" = { status = "done" }
-"D.6.6" = { status = "partial", note = "the IDE has its own registration-mode setting, which game developers match to the build's by hand" }
-"D.7" = { hash = "78c75c3fdb04" }
-"D.7.1" = { status = "partial", note = "the default embedded JRE lacks the debugger agent that debugging an export needs" }
-"D.7.2" = { status = "done" }
-"D.7.3" = { status = "partial", note = "the default embedded JRE lacks the JMX agent module, which game developers add to the JRE's module list by hand" }
+"D.6" = { status = "abandoned" }
+"D.7" = { status = "abandoned" }
 "E.1" = { hash = "58eeece2e586" }
 "E.1.1" = { status = "done" }
 "E.1.2" = { status = "done" }
@@ -138,7 +129,7 @@
 "E.1.5" = { status = "done", note = "untested: CI builds and links the exported Xcode project for devices but never runs it, and the simulator is not supported" }
 "E.1.6" = { status = "done", note = "untested: CI exports and runs the universal app ad-hoc signed, never with a Developer ID or notarization" }
 "E.1.7" = { status = "todo", note = "no arm64 native library is built or shipped for Linux or Windows" }
-"E.2" = { hash = "74fab053573a" }
+"E.2" = { hash = "37dc27d475a5" }
 "E.2.1" = { status = "done" }
 "E.2.2" = { status = "done" }
 "E.2.3" = { status = "done" }
@@ -182,3 +173,14 @@
 "F.5.3" = { status = "done" }
 "F.5.4" = { status = "done" }
 "F.5.5" = { status = "partial", note = "results live in the benchmark READMEs under harness/, not in the user documentation" }
+"G.1" = { hash = "1d35cde4a549" }
+"G.1.1" = { status = "done" }
+"G.1.2" = { status = "done" }
+"G.1.3" = { status = "partial", note = "property hint, signal, RPC and callable reference checks exist for Kotlin only" }
+"G.1.4" = { status = "done" }
+"G.1.5" = { status = "done" }
+"G.1.6" = { status = "partial", note = "the IDE has its own registration-mode setting, which game developers match to the build's by hand" }
+"G.2" = { hash = "fd7c69f43692" }
+"G.2.1" = { status = "partial", note = "the default embedded JRE lacks the debugger agent that debugging an export needs" }
+"G.2.2" = { status = "done" }
+"G.2.3" = { status = "partial", note = "the default embedded JRE lacks the JMX agent module, which game developers add to the JRE's module list by hand" }

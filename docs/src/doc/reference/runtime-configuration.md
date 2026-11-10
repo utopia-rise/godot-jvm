@@ -207,12 +207,12 @@ Only platform-relevant settings are packed into the exported JSON. The game's co
 override the packaged values.
 
 An export with debug packs the debug variant from `res://jvm/debug/`, a release export packs the release variant
-from `res://jvm/release/`, and never both:
+from `res://jvm/release/`, never both, and both pack the shared split JARs:
 
 - `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar`, or `jvm/release/game.jar` (on Android
   `godot-bootstrap-dex.jar` and `usercode-dex.jar`, or `game-dex.jar`)
 - `jvm/<variant>/game.so`, `game.dll`, or `game.dylib` for native-image exports
-- `jvm/<variant>/dependencies/` with the intact JARs declared through `godotSplitImplementation` or `godotSplitRuntimeOnly`
+- for desktop JVM exports, the intact JARs of `jvm/dependencies/` that `split-dependencies.txt` names, declared through `godotSplitImplementation` or `godotSplitRuntimeOnly`
 
 A `template_debug` binary loads the debug variant and a `template_release` binary the release variant, so an
 export always finds the variant it packed. The embedded JRE is not packed; the export places it next to the

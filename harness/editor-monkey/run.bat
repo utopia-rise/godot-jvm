@@ -38,13 +38,13 @@ if not "%~1"=="" (
     shift
     goto collect_probes
 )
-if "%probes%"=="" set "probes=reload rename build_on_run embedded_jre"
+if "%probes%"=="" set "probes=reload rename build_on_run build_model embedded_jre"
 
 cd /d "%here%"
 set status=0
 for %%p in (%probes%) do (
     rem Back to a bare Godot project: only the addon stays, the probe generates the JVM project from the editor.
-    for %%d in (.godot .gradle .kotlin build jvm gdj src addons gradle) do if exist "%%d" rmdir /s /q "%%d"
+    for %%d in (.godot .gradle .kotlin build jvm gdj src scripts addons gradle) do if exist "%%d" rmdir /s /q "%%d"
     for %%f in (gradlew gradlew.bat build.gradle.kts settings.gradle.kts gradle.properties .gitattributes godot_jvm_configuration.json main.tscn) do if exist "%%f" del /q "%%f"
     call "%here%\copy_addon.bat"
 

@@ -1,12 +1,10 @@
 #include "gradle_task_runner.h"
 
-#include "api/script/jvm_script_manager.h"
 #include "editor/strings.h"
 #include "logging.h"
 
 #include <classes/os.hpp>
 #include <classes/project_settings.hpp>
-#include <classes/time.hpp>
 
 using namespace godot;
 
@@ -84,8 +82,6 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
     }
 
     String gradlew_path = get_gradlew_path();
-    task = task_id;
-    task_start_time = static_cast<uint64_t>(Time::get_singleton()->get_unix_time_from_system());
 
     if (blocking) {
         Array output;
@@ -95,7 +91,6 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
         }
         if (exit_code == -1) { return Error::ERR_CANT_CREATE; }
         if (exit_code != 0) { return Error::FAILED; }
-        record_debug_build();
         return Error::OK;
     }
 
@@ -123,13 +118,8 @@ bool GradleTaskRunner::is_task_running() {
 
 int GradleTaskRunner::finish_task() {
     int exit_code = OS::get_singleton()->get_process_exit_code(pid);
-    if (exit_code == 0) { record_debug_build(); }
     reset();
     return exit_code;
-}
-
-void GradleTaskRunner::record_debug_build() const {
-    if (task == Task::BUILD_DEBUG) { JvmScriptManager::get_instance()->record_build_time(task_start_time); }
 }
 
 void GradleTaskRunner::get_task_output(String& log, String& error) {

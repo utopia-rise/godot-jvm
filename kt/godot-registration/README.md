@@ -17,7 +17,7 @@ compiled user bytecode
 ```
 
 The Gradle plugin task
-`plugins/godot-gradle-plugin/.../registrar_generation/ClassGraphGenerateRegistrarFilesTask.kt`
+`plugins/godot-gradle-plugin/.../registration/ClassGraphGenerateRegistrarFilesTask.kt`
 orchestrates the whole flow.
 
 1. `ClassGraphProcessor.process(runtimeClassPathFiles, ProcessorSettings)` returns `List<ScriptClass>`.

@@ -10,7 +10,8 @@ namespace godot {
     constexpr const char* build_on_run_tooltip =
         "Click to switch between never, when scripts changed and always.\n\n"
         "Shift+click a play button to build first only when scripts changed, whatever this option is.\n"
-        "%s+click a play button to always build first, whatever this option is.";
+        "%s+click a play button to always build first, whatever this option is.\n\n"
+        "Only the Kotlin, Java and Scala sources the last build compiled count as scripts.";
 
     constexpr const char* VERSION_TEMPLATE = "GODOT_JVM_VERSION";
     constexpr const char* PROJECT_NAME_TEMPLATE = "PROJECT_NAME";

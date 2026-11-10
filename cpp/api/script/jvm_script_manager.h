@@ -28,8 +28,6 @@ namespace godot {
 #ifdef TOOLS_ENABLED
         HashMap<StringName, int> fqdn_to_class_index;
         HashMap<StringName, String> fqdn_to_source_path;
-        uint64_t last_build_time = 0;
-        uint64_t latest_source_modified_time = 0;
         HashMap<StringName, IndexedScriptClass> script_class_index;
         void update_script(JvmScript* p_script, KtClass* p_kotlin_class);
         void replace_virtual_script(JvmScript* p_physical_script, JvmScript* p_virtual_script);
@@ -56,12 +54,8 @@ namespace godot {
 
 #ifdef TOOLS_ENABLED
         void update_physical_script(JvmScript* p_script, const StringName& p_fqdn);
-        void record_source_modified_time(uint64_t p_time);
-        void record_build_time(uint64_t p_time);
-        bool is_source_outdated(uint64_t p_source_modified_time) const;
-        bool is_user_code_outdated() const;
         static void untrack_physical_script(JvmScript* p_script);
-        void set_script_class_index(const HashMap<StringName, IndexedScriptClass>& p_index);
+        void load_script_class_index();
         IndexedScriptClass get_indexed_script_class(const JvmScript* p_script) const;
 #endif
     };

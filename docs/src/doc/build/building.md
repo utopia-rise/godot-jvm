@@ -25,7 +25,7 @@ A modifier held while clicking a play button takes priority over the button:
 | **Shift**+click a play button | when a script changed since the last build |
 | **Ctrl**+click a play button (**Cmd**+click on macOS) | always |
 
-A script counts as changed when its file is not older than the last build: the one the editor loaded `jvm/debug/usercode.jar` from, or the last **Build** started from the editor. The node warning about a script modified since the last build follows the same rule. Editing another file, such as `build.gradle.kts`, does not count: **Ctrl**+click or **Run Gradle** builds in that case. When the editor cannot tell yet, for example while it is still scanning the project files, it builds.
+A script counts as changed when its content differs from what the last debug build compiled, or when it was deleted since. Saving a file unchanged or reverting an edit therefore builds nothing, while a comment-only change builds once. Only the Kotlin, Java and Scala files of the source directories the last build compiled count, and only where Godot sees them: tests, sources outside the Godot project and directories with a `.gdignore` file are never checked, and a source directory newly added to the Gradle build counts once a build has compiled it. Scripts the editor had already loaded from that directory before the build count only after an editor restart, which the JVM status light asks for. The node warning about a script modified since the last build follows the same rule. Editing another file, such as `build.gradle.kts`, does not count: **Ctrl**+click or **Run Gradle** builds in that case. When the editor cannot tell yet, for example while it is still scanning the project files, it builds.
 
 The build blocks the editor until Gradle finishes. If it fails, the game does not start and the Gradle output opens in a window.
 
@@ -39,9 +39,9 @@ Native images cannot reload code. Rebuild and restart to apply changes.
 
 ## Release builds
 
-Select **Build Release** and click **Run Gradle** for distribution. **Build** writes the debug JARs into `jvm/debug/`; **Build Release** merges them into a single `jvm/release/game.jar` built against the release runtime libraries. The two directories never overwrite each other, and the editor keeps using the debug JARs. A release export packs `jvm/release/`, an export with debug packs `jvm/debug/`, see [Export your game](export/index.md).
+Select **Build Release** and click **Run Gradle** for distribution. **Build** writes the debug JARs into `jvm/debug/`; **Build Release** runs **Build** first, then merges a second compilation of your code against the release runtime libraries into a single `jvm/release/game.jar`. The two directories never overwrite each other, and the editor keeps using the debug JARs. A release export packs `jvm/release/`, an export with debug packs `jvm/debug/`, see [Export your game](export/index.md).
 
-The equivalent IntelliJ Gradle tasks are `build`, `fastBuild`, and `buildRelease`. The `build` task also accepts `-Prelease`.
+The equivalent IntelliJ Gradle tasks are `build`, `fastBuild`, and `buildRelease`.
 
 If the wrapper is outside the Godot project, set **Project > Project Settings > Kotlin Jvm > Gradle > Gradle Wrapper Dir** to its directory.
 

@@ -11,23 +11,23 @@ Run through the project's Gradle wrapper. The names below are identical for Kotl
 | Task | Output/effect | Required inputs |
 |---|---|---|
 | `build` | `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar`; normal Gradle build/check lifecycle | Configured JVM toolchain |
-| `buildRelease` | `jvm/release/game.jar`, the two JARs merged into one | Same as `build` |
+| `buildRelease` | `build`, then `jvm/release/game.jar`, the two JARs merged into one | Same as `build` |
 | `buildAndroid` | The debug JARs and `jvm/debug/godot-bootstrap-dex.jar` plus `usercode-dex.jar` | Android d8 and platform SDK |
 | `buildAndroidRelease` | `jvm/release/game-dex.jar` | Same as `buildAndroid` |
 | `buildGraalNativeImage` | The debug JARs and `jvm/debug/game.<so, dll or dylib>` | GraalVM and native compiler |
 | `buildGraalNativeImageRelease` | `jvm/release/game.<so, dll or dylib>` | Same as `buildGraalNativeImage` |
 | `buildIOS` | `jvm/debug/game.a` and the shared `jvm/ios/ios-jdk/` | iOS native-image toolchain |
-| `buildIOSRelease` | `jvm/release/game.a` | Same as `buildIOS` |
+| `buildIOSRelease` | `jvm/release/game.a` and the shared `jvm/ios/ios-jdk/` | Same as `buildIOS` |
 
-Release tasks select the release runtime libraries and write into `jvm/release/`; debug tasks write into `jvm/debug/`. The two directories never overwrite each other, so both variants can be kept built. `build -Prelease` also selects release mode and then produces only the release artifacts. Platform configuration keys are listed under [Export options](export-targets.md).
+Release tasks compile the project a second time against the release runtime libraries and write into `jvm/release/`; debug tasks write into `jvm/debug/`. Every release task runs `build` first, which costs only up-to-date checks when the debug build is current, so the editor always runs the code a release was built from. The two directories never overwrite each other, and each build type keeps its own compiled classes, so switching between them recompiles nothing. Platform configuration keys are listed under [Export options](export-targets.md).
 
-Every `godotSplitImplementation` and `godotSplitRuntimeOnly` JAR is copied intact into `jvm/<variant>/dependencies/`. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package from the variant matching the export type.
+Every `godotSplitImplementation` and `godotSplitRuntimeOnly` JAR is copied intact into `jvm/dependencies/`, shared by both build types, for desktop JVM exports; Android and native-image builds dex or compile them into their own artifacts instead. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package from the variant matching the export type.
 
 ## `fastBuild`
 
-Recompiles project code and rebuilds the desktop debug JARs while reusing the previous registrar output. Requires an earlier successful full build. No class scan, registrar generation, or `.gdj` synchronization runs. It fails in release mode, which never reuses debug output.
+Recompiles project code and rebuilds `jvm/debug/usercode.jar` while reusing the previous registrar output. Requires an earlier successful full build. No class scan, registrar generation, or `.gdj` synchronization runs, and `godot-bootstrap.jar` is left as it is.
 
-Valid for method-body changes. Adding, removing, renaming, or changing the signature of a registered class/member requires a normal build. `fastBuild` does not enable native-image hot reloading.
+Run it on its own: combined with another build task in one Gradle invocation, it fails, since that task would reuse the same stale registrars. Valid for method-body changes. Adding, removing, renaming, or changing the signature of a registered class/member requires a normal build. `fastBuild` does not enable native-image hot reloading.
 
 ```shell
 ./gradlew fastBuild
@@ -49,7 +49,7 @@ Every published Godot-JVM version carries the addon, dev and release candidates 
 
 ## Library mode
 
-When [`isLibrary`](packaging-and-tasks.md#islibrary) is true, `build`, `buildRelease`, and `fastBuild` use the ordinary library build. No local registrar or runnable-project packaging is produced. Android, GraalVM, and iOS build targets fail as unavailable in this mode.
+When [`isLibrary`](packaging-and-tasks.md#islibrary) is true, `build`, `buildRelease`, and `fastBuild` use the ordinary library build. No local registrar or runnable-project packaging is produced, and the library is compiled once, against the debug runtime libraries. Android, GraalVM, and iOS build targets fail as unavailable in this mode.
 
 ## `generateEmbeddedJre`
 
@@ -80,4 +80,4 @@ Runs the standard Gradle clean lifecycle and recreates the ignore files required
 
 ## Custom API tasks
 
-With [`isCustomApiEnabled`](packaging-and-tasks.md#custom-godot-api-bindings), `generateCustomGodotApi`, the custom API compilation, and `customGodotApiJar` produce local bindings from `api.json`. They use declared inputs and outputs for up-to-date checks and the Gradle build cache. The maintainer task `generateAPI` remains separate.
+With [`isCustomApiEnabled`](packaging-and-tasks.md#custom-godot-api-bindings), `generateCustomApiSources`, the custom API compilations, `packageCustomApiJar` and `packageCustomApiJarRelease` produce local bindings from `api.json`. They use declared inputs and outputs for up-to-date checks and the Gradle build cache. The maintainer task `generateAPI` remains separate.

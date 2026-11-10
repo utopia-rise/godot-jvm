@@ -16,8 +16,15 @@ static constexpr const char* JVM_CONFIGURATION_PATH = "res://godot_jvm_configura
 // Replaced as a whole by the Gradle plugin's installAddon.
 static constexpr const char* ADDON_MANIFEST_FILE = "res://addons/jvm/jvm.gdextension";
 
+// Read by the editor only, reloaded with the debug user code archive.
+#define JVM_EDITOR_DIRECTORY JVM_DIRECTORY "editor/"
+static constexpr const char* SCRIPT_CLASS_INDEX_FILE = JVM_EDITOR_DIRECTORY "script-classes.json";
+static constexpr const char* SOURCE_HASHES_FILE = JVM_EDITOR_DIRECTORY "source-hashes.json";
+
 // Shared by both variants.
-static constexpr const char* SCRIPT_CLASS_INDEX_FILE = JVM_DIRECTORY "script-classes.json";
+#define JVM_DEPENDENCIES_DIRECTORY JVM_DIRECTORY "dependencies/"
+static constexpr const char* DEPENDENCIES_DIRECTORY = JVM_DEPENDENCIES_DIRECTORY;
+static constexpr const char* SPLIT_DEPENDENCY_LIST_FILE = JVM_DEPENDENCIES_DIRECTORY "split-dependencies.txt";
 static constexpr const char* LINUX_EMBEDDED_JRE_ARM_DIRECTORY = JVM_DIRECTORY "jre-arm64-linux";
 static constexpr const char* LINUX_EMBEDDED_JRE_AMD_DIRECTORY = JVM_DIRECTORY "jre-amd64-linux";
 static constexpr const char* LINUX_RELATIVE_JVM_LIB_PATH = "lib/server/libjvm.so";
@@ -41,8 +48,6 @@ static constexpr const char* IOS_JVM_STATIC_LIBRARY = JVM_DIRECTORY "ios/ios-jdk
 static constexpr const char* DESKTOP_DEBUG_BOOTSTRAP_FILE = JVM_DEBUG_DIRECTORY "godot-bootstrap.jar";
 static constexpr const char* DESKTOP_DEBUG_USER_CODE_FILE = JVM_DEBUG_DIRECTORY "usercode.jar";
 static constexpr const char* DESKTOP_RELEASE_USER_CODE_FILE = JVM_RELEASE_DIRECTORY "game.jar";
-static constexpr const char* DEBUG_DEPENDENCIES_DIRECTORY = JVM_DEBUG_DIRECTORY "dependencies/";
-static constexpr const char* RELEASE_DEPENDENCIES_DIRECTORY = JVM_RELEASE_DIRECTORY "dependencies/";
 
 static constexpr const char* LINUX_DEBUG_GRAAL_NATIVE_IMAGE_FILE = JVM_DEBUG_DIRECTORY "game.so";
 static constexpr const char* LINUX_RELEASE_GRAAL_NATIVE_IMAGE_FILE = JVM_RELEASE_DIRECTORY "game.so";
@@ -63,7 +68,6 @@ static constexpr const char* IOS_RELEASE_GRAAL_NATIVE_IMAGE_ARCHIVE = JVM_RELEAS
 #ifdef DEBUG_ENABLED
 static constexpr const char* DESKTOP_BOOTSTRAP_FILE = DESKTOP_DEBUG_BOOTSTRAP_FILE;
 static constexpr const char* DESKTOP_USER_CODE_FILE = DESKTOP_DEBUG_USER_CODE_FILE;
-static constexpr const char* DEPENDENCIES_DIRECTORY = DEBUG_DEPENDENCIES_DIRECTORY;
 static constexpr const char* LINUX_GRAAL_NATIVE_IMAGE_FILE = LINUX_DEBUG_GRAAL_NATIVE_IMAGE_FILE;
 static constexpr const char* WINDOWS_GRAAL_NATIVE_IMAGE_FILE = WINDOWS_DEBUG_GRAAL_NATIVE_IMAGE_FILE;
 static constexpr const char* MACOS_GRAAL_NATIVE_IMAGE_FILE = MACOS_DEBUG_GRAAL_NATIVE_IMAGE_FILE;
@@ -73,7 +77,6 @@ static constexpr const char* ANDROID_USER_CODE_FILE = ANDROID_DEBUG_USER_CODE_FI
 // The merged release archive is both the bootstrap and the user code archive.
 static constexpr const char* DESKTOP_BOOTSTRAP_FILE = DESKTOP_RELEASE_USER_CODE_FILE;
 static constexpr const char* DESKTOP_USER_CODE_FILE = DESKTOP_RELEASE_USER_CODE_FILE;
-static constexpr const char* DEPENDENCIES_DIRECTORY = RELEASE_DEPENDENCIES_DIRECTORY;
 static constexpr const char* LINUX_GRAAL_NATIVE_IMAGE_FILE = LINUX_RELEASE_GRAAL_NATIVE_IMAGE_FILE;
 static constexpr const char* WINDOWS_GRAAL_NATIVE_IMAGE_FILE = WINDOWS_RELEASE_GRAAL_NATIVE_IMAGE_FILE;
 static constexpr const char* MACOS_GRAAL_NATIVE_IMAGE_FILE = MACOS_RELEASE_GRAAL_NATIVE_IMAGE_FILE;

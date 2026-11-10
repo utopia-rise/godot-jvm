@@ -5,7 +5,7 @@
 #include "engine/godot_object.h"
 #include "engine/internal.h"
 #include "jvm_script.h"
-#include "jvm_script_manager.h"
+#include "jvm_source_manager.h"
 
 #include <templates/hash_set.hpp>
 
@@ -287,7 +287,7 @@ void JvmPlaceHolderInstance::call(
                 "gdj/kt/java file."
             );
             *result = packed;
-        } else if (JvmScriptManager::get_instance()->is_source_outdated(script_ref->get_last_source_modified_time())) {
+        } else if (JvmSourceManager::get_instance().is_source_outdated(script_ref->get_path())) {
             PackedStringArray packed = PackedStringArray();
             packed.append("This script has been modified since the last time you built your project.");
             *result = packed;

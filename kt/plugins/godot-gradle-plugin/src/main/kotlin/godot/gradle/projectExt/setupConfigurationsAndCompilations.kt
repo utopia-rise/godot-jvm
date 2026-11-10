@@ -2,7 +2,8 @@ package godot.gradle.projectExt
 
 import godot.gradle.GodotLanguage
 import org.gradle.api.Project
-import org.gradle.api.artifacts.Configuration
+import org.gradle.api.plugins.scala.ScalaBasePlugin
+import org.gradle.api.tasks.ScalaSourceDirectorySet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -13,53 +14,67 @@ const val GODOT_GAME_RUNTIME_ONLY_CONFIGURATION = "godotGameRuntimeOnly"
 const val GODOT_SPLIT_RUNTIME_ONLY_CONFIGURATION = "godotSplitRuntimeOnly"
 const val GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION = "godotGameRuntimeClasspath"
 const val GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION = "godotSplitRuntimeClasspath"
+const val GODOT_API_CONFIGURATION = "godotApi"
+const val BOOTSTRAP_CONFIGURATION = "bootstrap"
 
-/**
- * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
- *
- * ## Overview
- * General overview of what this plugin sets up around the user's regular project compilation:
- * - Configures the normal `main` source set dependencies so Kotlin, Java, and Scala user code compile against the
- *   Godot-JVM libraries and Scala runtime.
- * - Configures compiler flags that the registrar-generation scan relies on, such as parameter metadata for Java and Kotlin.
- * - Creates a dedicated `bootstrap` configuration used to build `bootstrap.jar`, which contains the glue code for the
- *   `cpp -> jvm -> cpp` communication but no user project classes.
- * - The user's normal compiled output is later packaged into an intermediary `user.jar`, then used by registrar generation to
- *   produce generated registrar sources and `.gdj` files, then merged into the final `usercode.jar`.
- * - At runtime, the module uses `godot-bootstrap.jar` together with `usercode.jar`.
- */
+private val BOOTSTRAP_MODULES = listOf("core", "extension", "bootstrap")
+
 fun Project.setupConfigurationsAndCompilations() {
     val godotGameImplementation = configurations.create(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
     val godotSplitImplementation = configurations.create(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
     val godotGameRuntimeOnly = configurations.create(GODOT_GAME_RUNTIME_ONLY_CONFIGURATION)
     val godotSplitRuntimeOnly = configurations.create(GODOT_SPLIT_RUNTIME_ONLY_CONFIGURATION)
-    configurations.create(GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION) {
-        it.extendsFrom(godotGameImplementation, godotGameRuntimeOnly)
+
+    extensions.getByType(SourceSetContainer::class.java).findByName("test")?.let { test ->
+        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(godotGameImplementation, godotSplitImplementation)
+        configurations.getByName(test.runtimeClasspathConfigurationName)
+            .extendsFrom(godotGameImplementation, godotSplitImplementation, godotGameRuntimeOnly, godotSplitRuntimeOnly)
     }
+
+    configurations.configureEach { configuration ->
+        if (configuration.isCanBeResolved) {
+            configuration.attributes.attribute(GODOT_BUILD_TYPE_ATTRIBUTE, BuildType.DEBUG.id)
+        }
+    }
+
     configurations.create(GODOT_SPLIT_RUNTIME_CLASSPATH_CONFIGURATION) {
         it.extendsFrom(godotSplitImplementation, godotSplitRuntimeOnly)
     }
 
-    addGodotDependencyConfigurationsToSourceSets(
-        listOf(godotGameImplementation, godotSplitImplementation),
-        listOf(godotGameRuntimeOnly, godotSplitRuntimeOnly),
-    )
+    if (BuildType.RELEASE in buildTypes) {
+        createReleaseSourceSet()
+    }
 
-    configurations.configureEach { configuration ->
-        if (configuration.isCanBeResolved) {
-            configuration.attributes.attribute(GODOT_BUILD_TYPE_ATTRIBUTE, if (isRelease) "release" else "debug")
+    val kotlinBuildVersion = resolvedKotlinBuildVersion()
+    for (buildType in buildTypes) {
+        val sourceSet = sourceSet(buildType)
+        val godotApi = configurations.create(buildType.named(GODOT_API_CONFIGURATION))
+        val compileClasspath = configurations.getByName(sourceSet.compileClasspathConfigurationName) {
+            it.extendsFrom(godotGameImplementation, godotSplitImplementation, godotApi)
+        }
+        val gameRuntimeClasspath = configurations.create(buildType.named(GODOT_GAME_RUNTIME_CLASSPATH_CONFIGURATION)) {
+            it.extendsFrom(godotGameImplementation, godotGameRuntimeOnly)
+        }
+        val bootstrap = configurations.create(buildType.named(BOOTSTRAP_CONFIGURATION)) {
+            it.extendsFrom(godotApi)
+            with(it.dependencies) {
+                add(dependencies.create("org.jetbrains.kotlin:kotlin-stdlib:$kotlinBuildVersion"))
+                for (module in BOOTSTRAP_MODULES) {
+                    add(godotJvmDependency(module))
+                }
+                // add reflection explicitly so it's usable in exported projects as well. See: GH-571
+                add(dependencies.create("org.jetbrains.kotlin:kotlin-reflect:$kotlinBuildVersion"))
+            }
+        }
+        val runtimeClasspath = configurations.getByName(sourceSet.runtimeClasspathConfigurationName)
+        for (configuration in listOf(compileClasspath, runtimeClasspath, gameRuntimeClasspath, bootstrap)) {
+            configuration.attributes.attribute(GODOT_BUILD_TYPE_ATTRIBUTE, buildType.id)
         }
     }
 
     afterEvaluate {
-        // Add all consumer-project main compilation dependencies in one place, after the user's
-        // `godot { ... }` configuration has had a chance to override extension defaults.
-        for (module in listOf("core", "extension", "bootstrap")) {
+        for (module in BOOTSTRAP_MODULES) {
             dependencies.add("compileOnly", godotJvmDependency(module))
-        }
-        if (!godotJvmExtension.isCustomApiEnabled.get()) {
-            dependencies.add("compileOnly", godotJvmDependency("api"))
-            dependencies.add("bootstrap", godotJvmDependency("api"))
         }
         if (isLanguageEnabled(GodotLanguage.SCALA)) {
             dependencies.add("implementation", "org.scala-lang:scala3-library_3:${godotJvmExtension.toolchain.scalaVersion.get()}")
@@ -79,32 +94,28 @@ fun Project.setupConfigurationsAndCompilations() {
             javaParameters.set(true)
         }
     }
-
-    //bootstrap configuration containing all glue code but no user code
-    configurations.create("bootstrap") {
-        val kotlinBuildVersion = resolvedKotlinBuildVersion()
-        with(it.dependencies) {
-            add(dependencies.create("org.jetbrains.kotlin:kotlin-stdlib:$kotlinBuildVersion"))
-            for (module in listOf("core", "extension", "bootstrap")) {
-                add(godotJvmDependency(module))
-            }
-            // add reflection explicitly so it's usable in exported projects as well. See: GH-571
-            add(dependencies.create("org.jetbrains.kotlin:kotlin-reflect:$kotlinBuildVersion"))
-        }
-    }
 }
 
-private fun Project.addGodotDependencyConfigurationsToSourceSets(
-    implementations: List<Configuration>,
-    runtimeOnlys: List<Configuration>,
-) {
-    val sourceSets = extensions.getByType(SourceSetContainer::class.java)
-    val main = sourceSets.getByName("main")
-    configurations.getByName(main.compileClasspathConfigurationName).extendsFrom(*implementations.toTypedArray())
-
-    sourceSets.findByName("test")?.let { test ->
-        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(*implementations.toTypedArray())
-        configurations.getByName(test.runtimeClasspathConfigurationName)
-            .extendsFrom(*(implementations + runtimeOnlys).toTypedArray())
+private fun Project.createReleaseSourceSet() {
+    val main = sourceSet(BuildType.DEBUG)
+    val release = extensions.getByType(SourceSetContainer::class.java).create(BuildType.RELEASE.sourceSetName) { release ->
+        release.java.setSrcDirs(listOf(provider { main.java.srcDirs }))
+        release.resources.setSrcDirs(listOf(provider { main.resources.srcDirs }))
+    }
+    kotlinJvmExtension.sourceSets.getByName(release.name).kotlin.setSrcDirs(
+        listOf(provider { kotlinJvmExtension.sourceSets.getByName(main.name).kotlin.srcDirs })
+    )
+    plugins.withType(ScalaBasePlugin::class.java) {
+        release.extensions.getByType(ScalaSourceDirectorySet::class.java).setSrcDirs(
+            listOf(provider { main.extensions.getByType(ScalaSourceDirectorySet::class.java).srcDirs })
+        )
+    }
+    for ((releaseConfiguration, mainConfiguration) in listOf(
+        release.implementationConfigurationName to main.implementationConfigurationName,
+        release.compileOnlyConfigurationName to main.compileOnlyConfigurationName,
+        release.runtimeOnlyConfigurationName to main.runtimeOnlyConfigurationName,
+        release.annotationProcessorConfigurationName to main.annotationProcessorConfigurationName,
+    )) {
+        configurations.getByName(releaseConfiguration).extendsFrom(configurations.getByName(mainConfiguration))
     }
 }

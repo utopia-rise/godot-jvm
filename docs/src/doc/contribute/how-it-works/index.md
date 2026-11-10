@@ -76,14 +76,16 @@ flowchart LR
 1. **[The build artifacts](artifacts.md)**: what `godot-bootstrap.jar`, `usercode.jar`, the release
    `game.jar` and the GraalVM native-image `game` output each contain, when each one is used, and how
    debug and release artifacts are kept apart.
-2. **[Memory management](memory-management.md)**: how Godot's object bindings and the JVM garbage
+2. **[The Gradle plugin](gradle-plugin.md)**: the shared tasks, the debug and release pipelines
+   the same code registers, the tasks you run that join them, and what every task does.
+3. **[Memory management](memory-management.md)**: how Godot's object bindings and the JVM garbage
    collector are reconciled, and why `RefCounted` script instances need a weak JNI reference.
-3. **[The JNI shared buffers](shared-buffer.md)**: the two per-thread buffers used to exchange call arguments and return values, why one is rewound and the other stacked, and how values are encoded.
-4. **[Registration pipeline](registration-pipeline.md)**: how annotated Kotlin, Java, and Scala
+4. **[The JNI shared buffers](shared-buffer.md)**: the two per-thread buffers used to exchange call arguments and return values, why one is rewound and the other stacked, and how values are encoded.
+5. **[Registration pipeline](registration-pipeline.md)**: how annotated Kotlin, Java, and Scala
    code becomes classes and members Godot knows about.
-5. **[Registrar generation](registrar-generation.md)**: how the bytecode processor and the
+6. **[Registrar generation](registrar-generation.md)**: how the bytecode processor and the
    registrar generator turn a validated model into registration glue code.
-6. **[Signals and callables](signals-and-callables.md)**: the handwritten runtime layer
+7. **[Signals and callables](signals-and-callables.md)**: the handwritten runtime layer
    underneath signals and callables, and the generated typed arity families above it.
-7. **[JAR and script reloading](jar-and-script-reloading.md)**: how the editor reconciles script
+8. **[JAR and script reloading](jar-and-script-reloading.md)**: how the editor reconciles script
    resources with classes from the project JAR after a rebuild.
