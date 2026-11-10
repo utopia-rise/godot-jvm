@@ -16,7 +16,7 @@ Use this when you already have a Godot project, or when you prefer to create a p
 
 1. Create a fresh project in Godot, or open an existing one.
 2. Add the addon to the project, either way:
-    - from Godot's asset store, where Godot-JVM is published from its 1.0.0 release on: search for Godot-JVM and install it;
+    - from Godot's asset store: search for Godot-JVM and install it;
     - from [GitHub releases](https://github.com/utopia-rise/godot-jvm/releases): download `godot-jvm-addon-<version>.zip` and extract it at the project's root, preserving its `addons` directory.
 
     Either way, the manifest ends up at `addons/jvm/jvm.gdextension`, next to the native library of every supported platform. Godot picks it up when the project is opened or reloaded.
@@ -39,7 +39,7 @@ Use this when you already have a Godot project, or when you prefer to create a p
 
 Use this when you want to start a brand new project from your IDE. The wizard generates the Godot project files, the Gradle build, and the source directories in one step, so there is nothing to create in Godot first.
 
-Install the **Godot-JVM** plugin in **Settings > Plugins > Marketplace** (listed under its previous name, Godot Kotlin/Jvm, until the 1.0.0 plugin release). Restart the IDE if prompted.
+Install the **Godot-JVM** plugin in **Settings > Plugins > Marketplace**. Restart the IDE if prompted.
 
 1. Choose **New Project > Godot-JVM**.
 2. Enter **Name**, **Location**, and **Default Package**, then choose the languages to enable. Kotlin, Java, and Scala are enabled by default.

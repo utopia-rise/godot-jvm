@@ -24,7 +24,7 @@ Distribute desktop games as JARs with an embedded JRE, so players do not need to
 
 ## Status
 
-Godot-JVM 1.0.0 is production-ready. We welcome suggestions and feedback to keep improving the project and its API.
+Godot-JVM is production-ready. We welcome suggestions and feedback to keep improving the project and its API.
 
 ## Install
 
