@@ -13,7 +13,7 @@ description: Build Godot games in Kotlin, Java, or Scala with the Godot-JVM GDEx
 
 Godot-JVM brings Kotlin, Java, and Scala to the Godot engine. It is a GDExtension addon that embeds a JVM in the editor and in your exported games, so you write gameplay code in the language and tooling you already trust while keeping the official editor, scenes, and asset pipeline exactly as they are.
 
-Godot-JVM 1.0.0 is production-ready and released under the MIT license. Begin with [Start here](start/index.md) to install the addon, create a project, run your first script, and export a build.
+Godot-JVM is production-ready and released under the MIT license. Begin with [Start here](start/index.md) to install the addon, create a project, run your first script, and export a build.
 
 ## Why Godot-JVM
 
