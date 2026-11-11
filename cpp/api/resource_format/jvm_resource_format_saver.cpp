@@ -4,7 +4,6 @@
 #include "api/language/names.h"
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
-#include "api/script/jvm_source_manager.h"
 #include "api/script/source_script_parser.h"
 #include "logging.h"
 
@@ -65,8 +64,7 @@ Error JvmResourceFormatSaver::_save(const Ref<Resource>& p_resource, const Strin
     if (is_source_script) {
         const StringName fqdn = parse_source_script_fqname(source_code, p_path);
         JvmScriptManager::get_instance()->update_physical_script(jvm_script.ptr(), fqdn);
-        JvmSourceManager::get_instance().record_source(p_path);
-        jvm_script->update_source_sync_warning();
+        jvm_script->record_source_hash(p_path);
     }
 #endif
 

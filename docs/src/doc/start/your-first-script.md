@@ -98,7 +98,7 @@ Your scripts are compiled by Gradle, and you can start that build from wherever 
 
     ![Build button](../assets/img/editor-plugin/build_button.png)
 
-    Godot can also build when you start the game. The **Build on Run** button next to **Run Gradle** sets what the play buttons, F5, and F6 do, and each click moves to the next option: never (dimmed hammer and wrench, the default), when a script changed since the last build (hammer and wrench), and always (circular arrow). **Shift**+click a play button to build first only when a script changed, or **Ctrl**+click (**Cmd**+click on macOS) to always build first; both take priority over the button. If that build fails, the game does not start and the Gradle output opens in a window. The button's tooltip shows the current option and these shortcuts.
+    Godot can also build when you start the game. The **Build on Run** button next to **Run Gradle** switches between never (dimmed hammer and wrench, the default) and always (hammer and wrench in the accent color) building first when the play buttons, F5, or F6 start the game. **Ctrl**+click (**Cmd**+click on macOS) a play button to build first whatever the option is. If that build fails, the game does not start and the Gradle output opens in a window.
 
 - **From IntelliJ IDEA.** The IDE already manages Gradle for you: run the `build` task from the Gradle panel, or bind it to a run configuration.
 

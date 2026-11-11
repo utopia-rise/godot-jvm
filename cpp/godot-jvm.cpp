@@ -1,5 +1,4 @@
 #include "api/script/jvm_script_manager.h"
-#include "api/script/jvm_source_manager.h"
 #include "engine/dynamic_library.h"
 #include "godot_jvm.h"
 #include "jvm/jni/env.h"
@@ -452,8 +451,8 @@ bool GodotJvm::initialize_core_library() {
 bool GodotJvm::load_user_code() {
 #ifdef TOOLS_ENABLED
     if (Engine::get_singleton()->is_editor_hint()) {
-        JvmSourceManager::get_instance().load_build_hashes();
         JvmScriptManager::get_instance()->load_script_class_index();
+        JvmScriptManager::get_instance()->load_source_hashes();
     }
 #endif
     jni::Env& env = jni::Jvm::current_env();

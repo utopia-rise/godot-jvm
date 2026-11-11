@@ -8,7 +8,7 @@ What the Gradle tasks do and how the build is configured is category D, and taki
 
 ## Capabilities
 - **C.2.1**: The editor toolbar runs the project's main Gradle tasks, from the ordinary build to release, mobile and native-image builds and the embedded runtime, and shows their output, so that building and preparing an export need no terminal.
-- **C.2.2**: The editor builds before starting the game, always or only when a script changed since the last build, so that the game never runs stale code.
+- **C.2.2**: The editor can build before every start of the game, and shows when scripts changed since the last build, so that the game never runs stale code unnoticed.
 - **C.2.3**: The editor loads the new code after a successful build, whether it started from the editor, an IDE or a terminal, without being restarted.
 - **C.2.4**: After a reload, the Inspector, the script members and the class lists reflect added, removed and changed members, base classes and scripts.
 - **C.2.5**: Values set on nodes survive a reload, while values never touched follow the new defaults of their classes, so that rebuilding never undoes scene work.

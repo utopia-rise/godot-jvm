@@ -1,19 +1,14 @@
 extends "common.gd"
 
-# Building when the game starts: the Build on Run button cycling between never, when scripts changed and always,
-# and the Shift+click (build when a script changed) and Ctrl+click or Cmd+click (always build) play buttons, which
-# take priority over the button. A start that builds blocks the editor for the whole Gradle run, so its duration
-# tells whether it built.
+# Building when the game starts: the Build on Run button switching between never and always, the Ctrl+click or
+# Cmd+click play buttons that always build first, and the toolbar warning next to the button that shows when scripts
+# changed since the last build. A start that builds blocks the editor for the whole Gradle run, so its duration tells
+# whether it built.
 
 const PLAYER := "res://src/main/kotlin/game/Player.kt"
-const PLAYER_COPY := "res://src/main/kotlin/game/PlayerCopy.kt"
 const ENEMY := "res://src/main/kotlin/game/Enemy.kt"
 const MAIN := "res://main.tscn"
 const BUILD_MS := 500
-
-const NEVER := 0
-const WHEN_CHANGED := 1
-const ALWAYS := 2
 
 var last_start_ms := 0
 
@@ -50,19 +45,23 @@ func edit_player_outside(speed: int) -> void:
 	EditorInterface.get_resource_filesystem().scan_sources()
 
 
-func delete_outside(path: String) -> void:
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
-	EditorInterface.get_resource_filesystem().scan_sources()
-
-
 func speed_in_editor() -> String:
 	return (load(PLAYER) as Script).source_code.get_slice("speed: Int = ", 1).get_slice("\n", 0)
 
 
-func expect_modified_warning(shown: bool, description: String) -> void:
+func scripts_changed_warning() -> TextureRect:
+	for node in root.find_children("*", "TextureRect", true, false):
+		if (node as TextureRect).tooltip_text == "Scripts changed since the last build":
+			return node
+	return null
+
+
+func expect_changed(shown: bool, description: String) -> void:
 	var warnings: PackedStringArray = EditorInterface.get_edited_scene_root().call("_get_configuration_warnings")
 	var modified: bool = Array(warnings).any(func(w): return "modified since" in w)
 	expect(modified == shown, "%s: the node %s the modified warning" % [description, "shows" if modified else "does not show"])
+	var toolbar := scripts_changed_warning().visible
+	expect(toolbar == shown, "%s: the toolbar %s the scripts changed warning" % [description, "shows" if toolbar else "does not show"])
 
 
 func run_gradle_outside(task: String) -> int:
@@ -91,12 +90,10 @@ func build_on_run_button() -> Button:
 	return null
 
 
-func build_on_run_saved() -> int:
-	return EditorInterface.get_editor_settings().get_project_metadata("godot_jvm", "build_on_run", NEVER)
-
-
-func expect_build_on_run(mode: int, label: String) -> void:
-	expect(build_on_run_saved() == mode, "Build on Run saved as %d, expected %d" % [build_on_run_saved(), mode])
+func expect_build_on_run(always: bool) -> void:
+	var saved: bool = EditorInterface.get_editor_settings().get_project_metadata("godot_jvm", "build_on_run", false)
+	expect(saved == always, "Build on Run saved as %s, expected %s" % [saved, always])
+	var label := "always" if always else "never"
 	var tooltip := build_on_run_button().tooltip_text
 	expect(tooltip.begins_with("Build on Run: " + label), "Build on Run tooltip starts with '%s'" % tooltip.get_slice("\n", 0))
 
@@ -121,29 +118,22 @@ func setup_phases() -> void:
 			ResourceSaver.save(packed, MAIN)
 			EditorInterface.open_scene_from_path(MAIN)
 			, ""],
-		["start, nothing changed", func(): start_game(KEY_NONE), ""],
-		["Shift+click, nothing changed", func(): start_game(KEY_SHIFT), ""],
+		["start never, nothing changed", func(): start_game(KEY_NONE), ""],
 		["build anyway click, nothing changed", func(): start_game(build_anyway_key()), ""],
-		["edit Player.kt outside the editor", func(): edit_player_outside(2), ""],
-		["start without modifier, script changed", func(): start_game(KEY_NONE), ""],
-		["Shift+click, script changed", func(): start_game(KEY_SHIFT), ""],
-		["Shift+click, built just before", func(): start_game(KEY_SHIFT), ""],
-		["rewrite Player.kt outside the editor with the same content", func(): edit_player_outside(2), ""],
-		["Shift+click, same content", func(): start_game(KEY_SHIFT), ""],
-		["Shift+click again, same content", func(): start_game(KEY_SHIFT), ""],
-		["click Build on Run: when scripts changed", func(): build_on_run_button().pressed.emit(), ""],
+		["open Player.kt in the script editor", func(): EditorInterface.edit_script(load(PLAYER)), ""],
 		["edit Player.kt in the script editor and save", func():
-			EditorInterface.edit_script(load(PLAYER))
 			OS.delay_msec(1100)
-			edit_open_script("speed: Int = 2", "speed: Int = 3")
+			edit_open_script("speed: Int = 1", "speed: Int = 3")
 			, ""],
-		["start when scripts changed, script changed", func(): start_game(KEY_NONE), ""],
-		["start when scripts changed, nothing changed", func(): start_game(KEY_NONE), ""],
+		["close the script editor", func(): close_current_script(), ""],
+		["edit Player.kt outside the editor", func(): edit_player_outside(2), ""],
+		["start never, script changed", func(): start_game(KEY_NONE), ""],
+		["build anyway click, script changed", func(): start_game(build_anyway_key()), ""],
 		["click Build on Run: always", func(): build_on_run_button().pressed.emit(), ""],
 		["start always, nothing changed", func(): start_game(KEY_NONE), ""],
-		["Shift+click with always, nothing changed", func(): start_game(KEY_SHIFT), ""],
+		["edit Player.kt outside the editor again", func(): edit_player_outside(3), ""],
+		["start always, script changed", func(): start_game(KEY_NONE), ""],
 		["break Player.kt", func():
-			close_current_script()
 			OS.delay_msec(1100)
 			write(PLAYER, player_source(4).replace("var speed: Int = 4", "var speed: Int ="))
 			EditorInterface.get_resource_filesystem().scan_sources()
@@ -154,8 +144,7 @@ func setup_phases() -> void:
 			edit_player_outside(5)
 			build_on_run_button().pressed.emit()
 			, ""],
-		["start never, script changed", func(): start_game(KEY_NONE), ""],
-		["build anyway click with never, nothing changed", func(): start_game(build_anyway_key()), ""],
+		["start never after a failed build, script changed", func(): start_game(KEY_NONE), ""],
 		["build anyway click while a toolbar Gradle task runs", func():
 			run_gradle_task("Build")
 			start_game(build_anyway_key())
@@ -166,29 +155,24 @@ func setup_phases() -> void:
 			edit_player_outside(6)
 			edit_player_outside(5)
 			, ""],
-		["Shift+click, edit reverted", func(): start_game(KEY_SHIFT), ""],
 		["add a comment to Player.kt outside the editor", func():
 			OS.delay_msec(1100)
 			write(PLAYER, player_source(5) + "// comment\n")
 			EditorInterface.get_resource_filesystem().scan_sources()
 			, ""],
-		["Shift+click, comment added", func(): start_game(KEY_SHIFT), ""],
-		["Shift+click after building the comment", func(): start_game(KEY_SHIFT), ""],
-		["edit Player.kt in the script editor and save", func():
+		["build the comment", func(): pass, "Build"],
+		["open Player.kt in the script editor again", func():
+			find_dialog("Gradle Task Runner").hide()
 			EditorInterface.edit_script(load(PLAYER))
+			, ""],
+		["edit Player.kt again in the script editor and save", func():
 			OS.delay_msec(1100)
 			edit_open_script("speed: Int = 5", "speed: Int = 6")
 			, ""],
-		["Shift+click, edited in the script editor", func(): start_game(KEY_SHIFT), ""],
-		["edit Player.kt again in the script editor and save", func():
-			OS.delay_msec(1100)
-			edit_open_script("speed: Int = 6", "speed: Int = 7")
-			, ""],
 		["edit Player.kt back to the built content in the script editor and save", func():
 			OS.delay_msec(1100)
-			edit_open_script("speed: Int = 7", "speed: Int = 6")
+			edit_open_script("speed: Int = 6", "speed: Int = 5")
 			, ""],
-		["Shift+click, saved back to the built content", func(): start_game(KEY_SHIFT), ""],
 		["add a comment to Player.kt and build from a terminal", func():
 			close_current_script()
 			OS.delay_msec(1100)
@@ -197,7 +181,11 @@ func setup_phases() -> void:
 			expect(run_gradle_outside("build") == 0, "the terminal build succeeds")
 			root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN)
 			, ""],
-		["Shift+click after a comment built from a terminal", func(): start_game(KEY_SHIFT), ""],
+		["rewrite Player.kt outside the editor with the same content", func():
+			OS.delay_msec(1100)
+			write(PLAYER, FileAccess.get_file_as_string(PLAYER))
+			EditorInterface.get_resource_filesystem().scan_sources()
+			, ""],
 		["add Enemy.kt and run a release build", func():
 			write(ENEMY, "package game\n\nimport godot.annotation.Script\nimport godot.api.Node\n\n@Script\nclass Enemy : Node()\n")
 			EditorInterface.get_resource_filesystem().scan_sources()
@@ -206,21 +194,6 @@ func setup_phases() -> void:
 			find_dialog("Gradle Task Runner").hide()
 			EditorInterface.get_resource_filesystem().scan()
 			, ""],
-		["Shift+click after a release build", func(): start_game(KEY_SHIFT), ""],
-		["copy Player.kt outside the editor", func():
-			OS.delay_msec(1100)
-			write(PLAYER_COPY, FileAccess.get_file_as_string(PLAYER))
-			EditorInterface.get_resource_filesystem().scan_sources()
-			, ""],
-		["Shift+click with a class declared twice", func(): start_game(KEY_SHIFT), ""],
-		["delete PlayerCopy.kt outside the editor", func():
-			find_dialog("Gradle Task Runner").hide()
-			delete_outside(PLAYER_COPY)
-			, ""],
-		["Shift+click after deleting a file no build compiled", func(): start_game(KEY_SHIFT), ""],
-		["delete Enemy.kt outside the editor", func(): delete_outside(ENEMY), ""],
-		["Shift+click after deleting a file the last build compiled", func(): start_game(KEY_SHIFT), ""],
-		["Shift+click after the build that dropped it", func(): start_game(KEY_SHIFT), ""],
 		["touch Player.kt without changing it and build from a terminal", func():
 			OS.delay_msec(1100)
 			write(PLAYER, FileAccess.get_file_as_string(PLAYER))
@@ -228,114 +201,82 @@ func setup_phases() -> void:
 			expect(run_gradle_outside("build") == 0, "the terminal build after a touch succeeds")
 			root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN)
 			, ""],
-		["Shift+click after a touched script built from a terminal", func(): start_game(KEY_SHIFT), ""],
 	]
 
 
-func report(_title: String) -> void:
-	match phase_index:
-		0:
+func report(title: String) -> void:
+	match title:
+		"first build":
 			expect(gradle_succeeded(), "first build succeeds")
-		1:
+		"scene with Player":
 			expect(build_on_run_button() != null, "the toolbar has a Build on Run button")
-			expect_build_on_run(NEVER, "never")
-		2:
-			expect_start(false, "a plain start with nothing changed")
-		3:
-			expect_start(false, "Shift+click with nothing changed")
-		4:
+			expect(scripts_changed_warning() != null, "the toolbar has a scripts changed warning")
+			expect_build_on_run(false)
+			expect_changed(false, "right after the first build")
+		"start never, nothing changed":
+			expect_start(false, "a start with never and nothing changed")
+		"build anyway click, nothing changed":
 			expect_start(true, "the build anyway click with nothing changed")
-		5:
+		"edit Player.kt outside the editor":
 			expect(speed_in_editor() == "2", "the editor reloads Player.kt edited outside: speed %s" % speed_in_editor())
-			expect_modified_warning(true, "after an outside edit")
-		6:
-			expect_start(false, "a plain start after an outside edit with never")
-		7:
-			expect_start(true, "Shift+click after an outside edit")
-		8:
-			expect_start(false, "Shift+click right after that build")
-			expect_modified_warning(false, "after that build")
-		9:
-			expect_modified_warning(false, "after rewriting a script with the same content")
-		10:
-			expect_start(false, "Shift+click after rewriting a script with the same content")
-		11:
-			expect_start(false, "Shift+click again after rewriting a script with the same content")
-		12:
-			expect_build_on_run(WHEN_CHANGED, "when scripts changed")
-		14:
-			expect_start(true, "a start with when scripts changed after an edit saved in the script editor")
-		15:
-			expect_start(false, "a start with when scripts changed with nothing changed")
-		16:
-			expect_build_on_run(ALWAYS, "always")
-		17:
-			expect_start(true, "a start with always with nothing changed")
-		18:
-			expect_start(false, "Shift+click takes priority over always")
-		20:
+			expect_changed(true, "after an outside edit")
+		"start never, script changed":
+			expect_start(false, "a start with never after an outside edit")
+		"build anyway click, script changed":
+			expect_start(true, "the build anyway click after an outside edit")
+		"click Build on Run: always":
+			expect_build_on_run(true)
+			expect_changed(false, "after the build anyway click")
+		"rewrite Player.kt outside the editor with the same content":
+			expect_changed(false, "after rewriting a script with the same content")
+		"start always, nothing changed":
+			expect_start(true, "a start with always and nothing changed")
+		"edit Player.kt in the script editor and save":
+			expect(speed_in_editor() == "3", "the script editor saves Player.kt: speed %s" % speed_in_editor())
+			expect_changed(true, "after an edit saved in the script editor")
+		"edit Player.kt outside the editor again":
+			expect_changed(true, "after another outside edit")
+		"edit Player.kt again in the script editor and save":
+			expect(speed_in_editor() == "6", "the script editor saves Player.kt again: speed %s" % speed_in_editor())
+			expect_changed(true, "after another edit saved in the script editor")
+		"start always, script changed":
+			expect_start(true, "a start with always after an edit saved in the script editor")
+		"start always, compile error":
 			expect(not EditorInterface.is_playing_scene(), "a failed build does not start the game")
 			var dialog := find_dialog("Gradle Task Runner")
 			expect(dialog != null and dialog.visible, "a failed build opens the Gradle window")
 			expect("Gradle task failed." in gradle_task_dialog_text(), "the Gradle window shows the failure")
 			EditorInterface.stop_playing_scene()
-		21:
-			expect_build_on_run(NEVER, "never")
-		22:
+		"fix Player.kt and click Build on Run: never":
+			expect_build_on_run(false)
+		"start never after a failed build, script changed":
 			expect_start(false, "a start with never after an edit")
-		23:
-			expect_start(true, "the build anyway click takes priority over never")
-		24:
+			expect_changed(true, "after a failed build")
+		"build anyway click while a toolbar Gradle task runs":
 			expect(last_start_ms < BUILD_MS, "a start while a toolbar task runs does not run a second build (start took %d ms)" % last_start_ms)
 			expect(not EditorInterface.is_playing_scene(), "a start while a toolbar task runs does not start the game")
 			expect(toasts().any(func(t): return "A Gradle task is running" in t), "a start while a toolbar task runs says why")
 			EditorInterface.stop_playing_scene()
-		25:
+		"wait for the toolbar Gradle task":
 			expect(gradle_succeeded(), "the toolbar task finishes")
-		26:
+			expect_changed(false, "after the toolbar build")
+		"edit Player.kt outside the editor and revert it":
 			expect(speed_in_editor() == "5", "the editor reloads Player.kt reverted outside: speed %s" % speed_in_editor())
-			expect_modified_warning(false, "after an outside edit reverted to the built content")
-		27:
-			expect_start(false, "Shift+click after an outside edit reverted to the built content")
-		28:
-			expect_modified_warning(true, "after a comment added outside")
-		29:
-			expect_start(true, "Shift+click after a comment added outside")
-		30:
-			expect_start(false, "Shift+click after building a comment")
-			expect_modified_warning(false, "after building a comment")
-		31:
-			expect_modified_warning(true, "after an edit saved in the script editor")
-		32:
-			expect_start(true, "Shift+click after an edit saved in the script editor")
-		33:
-			expect_modified_warning(true, "after another edit saved in the script editor")
-		34:
-			expect_modified_warning(false, "after saving the built content back in the script editor")
-		35:
-			expect_start(false, "Shift+click after saving the built content back in the script editor")
-		36:
-			expect_modified_warning(false, "after a comment built from a terminal, once the editor gets the focus back")
-		37:
-			expect_start(false, "Shift+click after a comment built from a terminal")
-		38:
+			expect_changed(false, "after an outside edit reverted to the built content")
+		"add a comment to Player.kt outside the editor":
+			expect_changed(true, "after a comment added outside")
+		"build the comment":
+			expect(gradle_succeeded(), "the build of a comment succeeds")
+			expect_changed(false, "after building a comment")
+		"edit Player.kt back to the built content in the script editor and save":
+			expect_changed(false, "after saving the built content back in the script editor")
+		"add a comment to Player.kt and build from a terminal":
+			expect_changed(false, "after a comment built from a terminal, once the editor gets the focus back")
+		"add Enemy.kt and run a release build":
 			expect(gradle_succeeded(), "the release build succeeds")
-			expect_modified_warning(false, "after a release build, which builds the debug jars first")
-		39:
+			expect_changed(false, "after a release build, which builds the debug jars first")
+		"rescan the project":
 			expect(global_classes().has("Enemy"), "a release build names Enemy in the global classes: %s" % [global_classes().keys()])
-		40:
-			expect_start(false, "Shift+click after a release build, which builds the debug jars first")
-		42:
-			expect(not EditorInterface.is_playing_scene(), "Shift+click builds a class declared twice and does not start the game")
-			expect("Gradle task failed." in gradle_task_dialog_text(), "the Gradle window shows the failure of a class declared twice")
-			EditorInterface.stop_playing_scene()
-		44:
-			expect_start(false, "Shift+click after deleting a file no build compiled")
-		46:
-			expect_start(true, "Shift+click after deleting a file the last build compiled")
-		47:
-			expect_start(false, "Shift+click after the build that dropped the deleted file")
-		48:
-			expect_modified_warning(false, "after touching a script and building from a terminal")
-		49:
-			expect_start(false, "Shift+click after touching a script and building from a terminal")
+			expect_changed(false, "after a rescan")
+		"touch Player.kt without changing it and build from a terminal":
+			expect_changed(false, "after touching a script and building from a terminal")

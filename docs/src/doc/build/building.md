@@ -10,22 +10,16 @@ In Godot, select **Build** in the toolbar drop-down and click **Run Gradle**. Ru
 
 ## Build when the game starts
 
-The **Build on Run** button sits in the toolbar next to **Run Gradle** and is saved per project, in the editor's own data rather than in `project.godot`. Each click moves to the next option, which decides what the play buttons, F5, and F6 do:
+The **Build on Run** button sits in the toolbar next to **Run Gradle** and is saved per project, in the editor's own data rather than in `project.godot`. A click switches between its two options, which decide what the play buttons, F5, and F6 do:
 
 | Option | Icon | Builds first |
 |---|---|---|
 | Never (default) | dimmed hammer and wrench | never |
-| When scripts changed | hammer and wrench | when a script changed since the last build |
-| Always | circular arrow | always |
+| Always | hammer and wrench in the accent color | always |
 
-A modifier held while clicking a play button takes priority over the button:
+**Ctrl**+click a play button (**Cmd**+click on macOS) to build first whatever the option is.
 
-| Click | Builds first |
-|---|---|
-| **Shift**+click a play button | when a script changed since the last build |
-| **Ctrl**+click a play button (**Cmd**+click on macOS) | always |
-
-A script counts as changed when its content differs from what the last debug build compiled, or when it was deleted since. Saving a file unchanged or reverting an edit therefore builds nothing, while a comment-only change builds once. Only the Kotlin, Java and Scala files of the source directories the last build compiled count, and only where Godot sees them: tests, sources outside the Godot project and directories with a `.gdignore` file are never checked, and a source directory newly added to the Gradle build counts once a build has compiled it. Scripts the editor had already loaded from that directory before the build count only after an editor restart, which the JVM status light asks for. The node warning about a script modified since the last build follows the same rule. Editing another file, such as `build.gradle.kts`, does not count: **Ctrl**+click or **Run Gradle** builds in that case. When the editor cannot tell yet, for example while it is still scanning the project files, it builds.
+A node whose script changed since the last build shows a configuration warning. A script counts as changed when its content differs from what the last debug build compiled: saving a file unchanged or reverting an edit clears the warning, while a comment-only change shows it until the next build.
 
 The build blocks the editor until Gradle finishes. If it fails, the game does not start and the Gradle output opens in a window.
 

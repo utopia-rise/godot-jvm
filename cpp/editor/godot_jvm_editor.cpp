@@ -1,6 +1,5 @@
 #include "godot_jvm_editor.h"
 
-#include "api/script/jvm_source_manager.h"
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
@@ -56,36 +55,28 @@ void GodotJvmEditor::on_gradle_task_pressed() {
 }
 
 void GodotJvmEditor::on_build_on_run_pressed() {
-    build_on_run_mode = (build_on_run_mode + 1) % BUILD_ON_RUN_MODE_COUNT;
+    build_on_run = !build_on_run;
     get_editor_interface()->get_editor_settings()->set_project_metadata(
         BUILD_ON_RUN_METADATA_SECTION,
         BUILD_ON_RUN_METADATA_KEY,
-        build_on_run_mode
+        build_on_run
     );
     update_build_on_run_display();
 }
 
 void GodotJvmEditor::update_build_on_run_display() {
-    StringName icon = build_on_run_mode == BUILD_ON_RUN_ALWAYS ? SNAME("Reload") : SNAME("Tools");
-    build_on_run_button->set_button_icon(
-        get_editor_interface()->get_editor_theme()->get_icon(icon, SNAME("EditorIcons"))
-    );
-    build_on_run_button->set_self_modulate(Color(1, 1, 1, build_on_run_mode == BUILD_ON_RUN_NEVER ? 0.35 : 1));
+    Color lit = get_editor_interface()->get_editor_theme()->get_color(SNAME("accent_color"), SNAME("Editor"));
+    build_on_run_button->set_self_modulate(build_on_run ? lit : Color(1, 1, 1, 0.35));
     build_on_run_button->set_tooltip_text(
         String("Build on Run: ")
-        + build_on_run_mode_names[build_on_run_mode]
+        + (build_on_run ? "always" : "never")
         + "\n\n"
         + vformat(build_on_run_tooltip, BUILD_ANYWAY_KEY_NAME)
     );
 }
 
 bool GodotJvmEditor::_build() {
-    Input* input = Input::get_singleton();
-    int mode = build_on_run_mode;
-    if (input->is_key_pressed(KEY_SHIFT)) { mode = BUILD_ON_RUN_WHEN_STALE; }
-    if (input->is_key_pressed(BUILD_ANYWAY_KEY)) { mode = BUILD_ON_RUN_ALWAYS; }
-    if (mode == BUILD_ON_RUN_NEVER) { return true; }
-    if (mode == BUILD_ON_RUN_WHEN_STALE && !JvmSourceManager::get_instance().is_user_code_outdated()) { return true; }
+    if (!build_on_run && !Input::get_singleton()->is_key_pressed(BUILD_ANYWAY_KEY)) { return true; }
     if (GradleTaskRunner::get_instance().is_task_started()) {
         get_editor_interface()->get_editor_toaster()->push_toast(
             "A Gradle task is running. Run the project again once it has finished.",
@@ -125,11 +116,9 @@ void GodotJvmEditor::check_addon_replaced() {
 void GodotJvmEditor::update_jvm_status(bool force) {
     GodotJvm::State state = GodotJvm::get_instance().state;
     bool bootstrap_outdated = GodotJvm::get_instance().bootstrap_outdated;
-    bool roots_added = JvmSourceManager::get_instance().were_roots_added();
     if (!force
         && displayed_jvm_state == state
         && displayed_bootstrap_outdated == bootstrap_outdated
-        && displayed_roots_added == roots_added
         && displayed_addon_outdated == addon_outdated) {
         return;
     }
@@ -148,17 +137,8 @@ void GodotJvmEditor::update_jvm_status(bool force) {
         );
     }
 
-    if (roots_added && !displayed_roots_added) {
-        get_editor_interface()->get_editor_toaster()->push_toast(
-            "The build has new source directories. Restart the editor so it tracks changes to the scripts it already "
-            "loaded from them (Project > Reload Current Project).",
-            EditorToaster::SEVERITY_WARNING
-        );
-    }
-
     displayed_jvm_state = state;
     displayed_bootstrap_outdated = bootstrap_outdated;
-    displayed_roots_added = roots_added;
     displayed_addon_outdated = addon_outdated;
 
     StringName icon;
@@ -196,10 +176,6 @@ void GodotJvmEditor::update_jvm_status(bool force) {
             return;
     }
 
-    if (roots_added) {
-        icon = SNAME("StatusWarning");
-        label = "Source directories added, restart the editor to track them";
-    }
     if (bootstrap_outdated) {
         icon = SNAME("StatusWarning");
         label = "Bootstrap modified, restart the editor to load it";
@@ -220,7 +196,7 @@ void GodotJvmEditor::_notification(int notification) {
     ProjectSettings* project_settings = ProjectSettings::get_singleton();
 
     switch (notification) {
-        case NOTIFICATION_ENTER_TREE:
+        case NOTIFICATION_ENTER_TREE: {
             editor_scale = get_editor_interface()->get_editor_scale();
             task_dialog = create_task_dialog(editor_scale);
 
@@ -301,7 +277,21 @@ void GodotJvmEditor::_notification(int notification) {
             tool_bar_gradle_task_choice->set_fit_to_longest_item(false);
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_choice);
 
+            Ref<Theme> editor_theme = get_editor_interface()->get_editor_theme();
+            tool_bar_gradle_task_button->add_theme_stylebox_override(
+                SNAME("normal"),
+                editor_theme->get_stylebox(SNAME("tab_selected"), SNAME("TabContainer"))
+            );
+            tool_bar_gradle_task_button->add_theme_stylebox_override(
+                SNAME("hover"),
+                editor_theme->get_stylebox(SNAME("tab_hovered"), SNAME("TabContainer"))
+            );
+            tool_bar_gradle_task_button->add_theme_color_override(
+                SNAME("font_color"),
+                editor_theme->get_color(SNAME("font_selected_color"), SNAME("TabContainer"))
+            );
             tool_bar_gradle_task_button->set_text("Run Gradle");
+            tool_bar_gradle_task_button->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
             tool_bar_gradle_task_button->set_tooltip_text("Run the selected Gradle task");
             tool_bar_gradle_task_button->set_focus_mode(Control::FOCUS_NONE);
             tool_bar_gradle_task_button->connect(
@@ -310,15 +300,13 @@ void GodotJvmEditor::_notification(int notification) {
             );
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_button);
 
-            build_on_run_mode = get_editor_interface()->get_editor_settings()->get_project_metadata(
+            build_on_run = get_editor_interface()->get_editor_settings()->get_project_metadata(
                 BUILD_ON_RUN_METADATA_SECTION,
                 BUILD_ON_RUN_METADATA_KEY,
-                BUILD_ON_RUN_NEVER
+                false
             );
-            if (build_on_run_mode < 0 || build_on_run_mode >= BUILD_ON_RUN_MODE_COUNT) {
-                build_on_run_mode = BUILD_ON_RUN_NEVER;
-            }
             build_on_run_button->set_flat(true);
+            build_on_run_button->set_button_icon(editor_theme->get_icon(SNAME("Tools"), SNAME("EditorIcons")));
             build_on_run_button->set_focus_mode(Control::FOCUS_NONE);
             build_on_run_button->connect(SNAME("pressed"), callable_mp(this, &GodotJvmEditor::on_build_on_run_pressed));
             update_build_on_run_display();
@@ -349,6 +337,7 @@ void GodotJvmEditor::_notification(int notification) {
             get_editor_interface()->get_script_editor()->register_syntax_highlighter(syntax_highlighter);
 
             break;
+        }
 
         case NOTIFICATION_PROCESS:
             update_jvm_status();

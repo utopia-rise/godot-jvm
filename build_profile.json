@@ -57,6 +57,7 @@
     "VScrollBar",
     "RichTextLabel",
     "TextEdit",
+    "StyleBox",
     "TextureRect",
     "Texture2D",
     "Theme",
