@@ -1,9 +1,8 @@
 extends "common.gd"
 
 # Building when the game starts: the Build on Run button switching between never and always, the Ctrl+click or
-# Cmd+click play buttons that always build first, and the toolbar warning next to the button that shows when scripts
-# changed since the last build. A start that builds blocks the editor for the whole Gradle run, so its duration tells
-# whether it built.
+# Cmd+click play buttons that always build first, and the node warning about a script modified since the last build. A
+# start that builds blocks the editor for the whole Gradle run, so its duration tells whether it built.
 
 const PLAYER := "res://src/main/kotlin/game/Player.kt"
 const ENEMY := "res://src/main/kotlin/game/Enemy.kt"
@@ -39,29 +38,25 @@ func start_game(modifier: Key) -> void:
 		hold(modifier, false)
 
 
-func edit_player_outside(speed: int) -> void:
+func write_outside(path: String, content: String) -> void:
 	OS.delay_msec(1100)
-	write(PLAYER, player_source(speed))
+	write(path, content)
 	EditorInterface.get_resource_filesystem().scan_sources()
+	root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN)
+
+
+func edit_player_outside(speed: int) -> void:
+	write_outside(PLAYER, player_source(speed))
 
 
 func speed_in_editor() -> String:
 	return (load(PLAYER) as Script).source_code.get_slice("speed: Int = ", 1).get_slice("\n", 0)
 
 
-func scripts_changed_warning() -> TextureRect:
-	for node in root.find_children("*", "TextureRect", true, false):
-		if (node as TextureRect).tooltip_text == "Scripts changed since the last build":
-			return node
-	return null
-
-
 func expect_changed(shown: bool, description: String) -> void:
 	var warnings: PackedStringArray = EditorInterface.get_edited_scene_root().call("_get_configuration_warnings")
 	var modified: bool = Array(warnings).any(func(w): return "modified since" in w)
 	expect(modified == shown, "%s: the node %s the modified warning" % [description, "shows" if modified else "does not show"])
-	var toolbar := scripts_changed_warning().visible
-	expect(toolbar == shown, "%s: the toolbar %s the scripts changed warning" % [description, "shows" if toolbar else "does not show"])
 
 
 func run_gradle_outside(task: String) -> int:
@@ -120,23 +115,20 @@ func setup_phases() -> void:
 			, ""],
 		["start never, nothing changed", func(): start_game(KEY_NONE), ""],
 		["build anyway click, nothing changed", func(): start_game(build_anyway_key()), ""],
-		["open Player.kt in the script editor", func(): EditorInterface.edit_script(load(PLAYER)), ""],
-		["edit Player.kt in the script editor and save", func():
-			OS.delay_msec(1100)
-			edit_open_script("speed: Int = 1", "speed: Int = 3")
-			, ""],
-		["close the script editor", func(): close_current_script(), ""],
 		["edit Player.kt outside the editor", func(): edit_player_outside(2), ""],
 		["start never, script changed", func(): start_game(KEY_NONE), ""],
 		["build anyway click, script changed", func(): start_game(build_anyway_key()), ""],
 		["click Build on Run: always", func(): build_on_run_button().pressed.emit(), ""],
 		["start always, nothing changed", func(): start_game(KEY_NONE), ""],
-		["edit Player.kt outside the editor again", func(): edit_player_outside(3), ""],
+		["open Player.kt in the script editor", func(): EditorInterface.edit_script(load(PLAYER)), ""],
+		["edit Player.kt in the script editor and save", func():
+			OS.delay_msec(1100)
+			edit_open_script("speed: Int = 2", "speed: Int = 3")
+			, ""],
 		["start always, script changed", func(): start_game(KEY_NONE), ""],
 		["break Player.kt", func():
-			OS.delay_msec(1100)
-			write(PLAYER, player_source(4).replace("var speed: Int = 4", "var speed: Int ="))
-			EditorInterface.get_resource_filesystem().scan_sources()
+			close_current_script()
+			write_outside(PLAYER, player_source(4).replace("var speed: Int = 4", "var speed: Int ="))
 			, ""],
 		["start always, compile error", func(): start_game(KEY_NONE), ""],
 		["fix Player.kt and click Build on Run: never", func():
@@ -156,9 +148,7 @@ func setup_phases() -> void:
 			edit_player_outside(5)
 			, ""],
 		["add a comment to Player.kt outside the editor", func():
-			OS.delay_msec(1100)
-			write(PLAYER, player_source(5) + "// comment\n")
-			EditorInterface.get_resource_filesystem().scan_sources()
+			write_outside(PLAYER, player_source(5) + "// comment\n")
 			, ""],
 		["build the comment", func(): pass, "Build"],
 		["open Player.kt in the script editor again", func():
@@ -169,9 +159,15 @@ func setup_phases() -> void:
 			OS.delay_msec(1100)
 			edit_open_script("speed: Int = 5", "speed: Int = 6")
 			, ""],
+		["build the script editor edit", func(): pass, "Build"],
+		["edit Player.kt a third time in the script editor and save", func():
+			find_dialog("Gradle Task Runner").hide()
+			OS.delay_msec(1100)
+			edit_open_script("speed: Int = 6", "speed: Int = 7")
+			, ""],
 		["edit Player.kt back to the built content in the script editor and save", func():
 			OS.delay_msec(1100)
-			edit_open_script("speed: Int = 6", "speed: Int = 5")
+			edit_open_script("speed: Int = 7", "speed: Int = 6")
 			, ""],
 		["add a comment to Player.kt and build from a terminal", func():
 			close_current_script()
@@ -182,9 +178,7 @@ func setup_phases() -> void:
 			root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN)
 			, ""],
 		["rewrite Player.kt outside the editor with the same content", func():
-			OS.delay_msec(1100)
-			write(PLAYER, FileAccess.get_file_as_string(PLAYER))
-			EditorInterface.get_resource_filesystem().scan_sources()
+			write_outside(PLAYER, FileAccess.get_file_as_string(PLAYER))
 			, ""],
 		["add Enemy.kt and run a release build", func():
 			write(ENEMY, "package game\n\nimport godot.annotation.Script\nimport godot.api.Node\n\n@Script\nclass Enemy : Node()\n")
@@ -210,7 +204,6 @@ func report(title: String) -> void:
 			expect(gradle_succeeded(), "first build succeeds")
 		"scene with Player":
 			expect(build_on_run_button() != null, "the toolbar has a Build on Run button")
-			expect(scripts_changed_warning() != null, "the toolbar has a scripts changed warning")
 			expect_build_on_run(false)
 			expect_changed(false, "right after the first build")
 		"start never, nothing changed":
@@ -234,8 +227,6 @@ func report(title: String) -> void:
 		"edit Player.kt in the script editor and save":
 			expect(speed_in_editor() == "3", "the script editor saves Player.kt: speed %s" % speed_in_editor())
 			expect_changed(true, "after an edit saved in the script editor")
-		"edit Player.kt outside the editor again":
-			expect_changed(true, "after another outside edit")
 		"edit Player.kt again in the script editor and save":
 			expect(speed_in_editor() == "6", "the script editor saves Player.kt again: speed %s" % speed_in_editor())
 			expect_changed(true, "after another edit saved in the script editor")
@@ -268,6 +259,11 @@ func report(title: String) -> void:
 		"build the comment":
 			expect(gradle_succeeded(), "the build of a comment succeeds")
 			expect_changed(false, "after building a comment")
+		"build the script editor edit":
+			expect(gradle_succeeded(), "the build of a script editor edit succeeds")
+			expect_changed(false, "after building an edit saved in the script editor")
+		"edit Player.kt a third time in the script editor and save":
+			expect_changed(true, "after a third edit saved in the script editor")
 		"edit Player.kt back to the built content in the script editor and save":
 			expect_changed(false, "after saving the built content back in the script editor")
 		"add a comment to Player.kt and build from a terminal":
