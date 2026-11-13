@@ -450,10 +450,7 @@ bool GodotJvm::initialize_core_library() {
 
 bool GodotJvm::load_user_code() {
 #ifdef TOOLS_ENABLED
-    if (Engine::get_singleton()->is_editor_hint()) {
-        JvmScriptManager::get_instance()->load_script_class_index();
-        JvmScriptManager::get_instance()->load_source_hashes();
-    }
+    if (Engine::get_singleton()->is_editor_hint()) { JvmScriptManager::get_instance()->load_source_hashes(); }
 #endif
     jni::Env& env = jni::Jvm::current_env();
     if (user_configuration.vm_type == jni::JvmType::GRAAL_NATIVE_IMAGE) {

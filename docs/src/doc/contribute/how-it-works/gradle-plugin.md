@@ -41,7 +41,7 @@ A task is shared when its output does not depend on the build type:
 
 ## Files the editor reads
 
-`jvm/editor/` holds what only the editor reads: the class index and `source-hashes.json`, the MD5 of every source the debug `usercode.jar` was compiled from. Godot does not index the directory, and an export never packs it. The editor reads both files whenever it loads `jvm/debug/usercode.jar`, never on its own. `copyUserCode` writes the hashes and the jar in one task, and any change rewrites both, so the hashes always describe the jar the editor runs.
+`jvm/editor/` holds what only the editor reads: `source-hashes.json`, the MD5 of every source the debug `usercode.jar` was compiled from. Godot does not index the directory, and an export never packs it. The editor reads it whenever it loads `jvm/debug/usercode.jar`, never on its own. `copyUserCode` writes the hashes and the jar in one task, and any change rewrites both, so the hashes always describe the jar the editor runs.
 
 ## Tasks you run
 
@@ -85,11 +85,10 @@ A task name ending in `Release` is the release counterpart of the task without t
 
 | Task | Does |
 |---|---|
-| `generateRegistrars` | Scans the debug classes and their classpath, then generates the registrar sources, their service file, the staged `.gdj` files and the class index. Skipped by `fastBuild`. |
+| `generateRegistrars` | Scans the debug classes and their classpath, then generates the registrar sources, their service file, the staged `.gdj` files. Skipped by `fastBuild`. |
 | `indexGdjFiles` | Indexes the `.gdj` files already in the Godot project, wherever the user moved them. |
 | `syncGdjFiles` | Updates the indexed `.gdj` files in place, removes the obsolete ones and adds the new ones to the registration directory. |
 | `packageRegistrarJar` | Packs the registrars, compiled once by `compileRegistrarsKotlin`, into the jar both `usercode.jar` builds include. |
-| `copyScriptClassIndex` | Copies the class index to `jvm/editor/script-classes.json`, before `copyUserCode` writes the jar whose reload reads it. |
 
 ### `dependencies/`
 

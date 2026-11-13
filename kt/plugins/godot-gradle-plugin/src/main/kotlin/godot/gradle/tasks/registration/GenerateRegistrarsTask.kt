@@ -18,13 +18,11 @@ import godot.tools.common.constants.godotRegistrationPackage
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
@@ -61,9 +59,6 @@ abstract class GenerateRegistrarsTask : DefaultTask() {
 
     @get:OutputDirectory
     abstract val generatedRegistrationFilesRootDir: DirectoryProperty
-
-    @get:OutputFile
-    abstract val scriptClassIndexFile: RegularFileProperty
 
     @TaskAction
     fun generate() {
@@ -102,7 +97,6 @@ abstract class GenerateRegistrarsTask : DefaultTask() {
             logger = modelLogger,
             scriptClasses = scriptClasses,
             sourceOutputDir = outputRoot.resolve("main").resolve("kotlin"),
-            scriptClassIndexFile = scriptClassIndexFile.get().asFile,
             registrationOutputDir = generatedRegistrationRoot.takeUnless { disableGdj.get() },
         )
         writeRegistrarServiceFile(outputRoot, registeredClasses, settings)

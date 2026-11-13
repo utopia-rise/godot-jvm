@@ -12,7 +12,6 @@ const BUILD_FILE := "res://build.gradle.kts"
 const BOOTSTRAP := "res://jvm/debug/godot-bootstrap.jar"
 const USER_CODE := "res://jvm/debug/usercode.jar"
 const GAME := "res://jvm/release/game.jar"
-const INDEX := "res://jvm/editor/script-classes.json"
 const HASHES := "res://jvm/editor/source-hashes.json"
 const SPLIT_JAR := "res://jvm/dependencies/commons-io-2.15.1.jar"
 const SPLIT_LIST := "res://jvm/dependencies/split-dependencies.txt"
@@ -109,7 +108,7 @@ func setup_phases() -> void:
 			packed.pack(player)
 			ResourceSaver.save(packed, MAIN)
 			EditorInterface.open_scene_from_path(MAIN)
-			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES, SPLIT_JAR])
+			remember([BOOTSTRAP, USER_CODE, HASHES, SPLIT_JAR])
 			OS.delay_msec(1100)
 			, ""],
 		["Build Release after an unchanged debug build", func(): pass, "Build Release"],
@@ -120,19 +119,19 @@ func setup_phases() -> void:
 			, "Build Release"],
 		["add a member to Player, then Build Release", func():
 			hide_gradle_dialog()
-			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES, GAME])
+			remember([BOOTSTRAP, USER_CODE, HASHES, GAME])
 			edit_player("    @Export\n    var health: Int = 10\n", "", true)
 			write(ENEMY, "package game\n\nimport godot.annotation.Script\nimport godot.api.Node\n\n@Script\nclass Enemy : Node()\n")
 			EditorInterface.get_resource_filesystem().scan_sources()
 			, "Build Release"],
 		["change a method body, then Fast Build", func():
 			hide_gradle_dialog()
-			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES, GAME])
+			remember([BOOTSTRAP, USER_CODE, HASHES, GAME])
 			edit_player("    @Export\n    var health: Int = 10\n", "println(\"fast\")", true)
 			, "Fast Build"],
 		["add a comment, then Build", func():
 			hide_gradle_dialog()
-			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES])
+			remember([BOOTSTRAP, USER_CODE, HASHES])
 			OS.delay_msec(1100)
 			write(PLAYER, FileAccess.get_file_as_string(PLAYER) + "// comment\n")
 			EditorInterface.get_resource_filesystem().scan_sources()
@@ -161,7 +160,7 @@ func setup_phases() -> void:
 			, "Build"],
 		["delete jvm/editor/ and jvm/release/, then Build Release", func():
 			hide_gradle_dialog()
-			for path in [INDEX, HASHES, GAME]:
+			for path in [HASHES, GAME]:
 				DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 			, "Build Release"],
 	]
@@ -171,14 +170,13 @@ func report(_title: String) -> void:
 	match phase_index:
 		0:
 			expect(gradle_succeeded(), "the first build succeeds")
-			for path in [BOOTSTRAP, USER_CODE, INDEX, HASHES, SPLIT_JAR, "res://jvm/editor/.gdignore"]:
+			for path in [BOOTSTRAP, USER_CODE, HASHES, SPLIT_JAR, "res://jvm/editor/.gdignore"]:
 				expect(FileAccess.file_exists(path), "the first build writes " + path)
-			for path in ["res://jvm/script-classes.json", "res://jvm/debug/dependencies", "res://jvm/release"]:
+			for path in ["res://jvm/debug/dependencies", "res://jvm/release"]:
 				expect(not FileAccess.file_exists(path) and not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)), "a debug build writes nothing at " + path)
 			expect(not zip_files(USER_CODE).has("source-hashes.json"), "usercode.jar carries no source hashes")
 			expect(class_path(BOOTSTRAP) == "../dependencies/commons-io-2.15.1.jar", "the bootstrap Class-Path lists the shared split jar: '%s'" % class_path(BOOTSTRAP))
 			expect(FileAccess.get_file_as_string(SPLIT_LIST) == "commons-io-2.15.1.jar\n", "the split dependency list names the shared jar: '%s'" % FileAccess.get_file_as_string(SPLIT_LIST))
-			expect(FileAccess.get_file_as_string(INDEX).contains("game.Player"), "the class index lists game.Player")
 			expect(built_hash(PLAYER) == FileAccess.get_md5(PLAYER), "the source hashes list Player.kt as built")
 			expect(EditorInterface.get_resource_filesystem().get_filesystem_path("res://jvm/editor") == null, "Godot does not index jvm/editor/")
 			expect_classes({"HelloGodot": "Node", "Player": "Node"})
@@ -194,7 +192,7 @@ func report(_title: String) -> void:
 			expect(game_files.has("game/Player.class"), "game.jar holds the user classes")
 			expect(game_files.has("META-INF/services/godot.registration.ClassRegistrar"), "game.jar holds the registrar service file")
 			expect(not game_files.has("source-hashes.json"), "game.jar carries no source hashes")
-			for path in [BOOTSTRAP, USER_CODE, INDEX, HASHES, SPLIT_JAR]:
+			for path in [BOOTSTRAP, USER_CODE, HASHES, SPLIT_JAR]:
 				expect_rewritten(path, false, "a release build after an unchanged debug build")
 			expect(not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path("res://jvm/release/dependencies")), "a release build writes no jvm/release/dependencies/")
 			expect_status_ready("after a release build that rewrites no debug jar")
@@ -210,7 +208,6 @@ func report(_title: String) -> void:
 			expect_rewritten(BOOTSTRAP, false, "a release build after adding a member")
 			expect(built_hash(PLAYER) == FileAccess.get_md5(PLAYER), "the hashes a release build writes describe Player.kt as built")
 			expect_modified_warning(false, "after a release build of an edit")
-			expect(FileAccess.get_file_as_string(INDEX).contains("game.Enemy"), "a release build adds game.Enemy to the class index")
 			expect(global_classes().has("Enemy"), "a release build names Enemy in the global classes: %s" % [global_classes().keys()])
 			expect(built_hash(ENEMY) == FileAccess.get_md5(ENEMY), "the hashes a release build writes list Enemy.kt as built")
 			expect_status_ready("after a release build of an edit")
@@ -218,7 +215,7 @@ func report(_title: String) -> void:
 			expect(gradle_succeeded(), "Fast Build succeeds")
 			expect_rewritten(USER_CODE, true, "Fast Build")
 			expect_rewritten(HASHES, true, "Fast Build")
-			for path in [BOOTSTRAP, INDEX, GAME]:
+			for path in [BOOTSTRAP, GAME]:
 				expect_rewritten(path, false, "Fast Build")
 			expect_modified_warning(false, "after Fast Build")
 		6:
@@ -247,6 +244,6 @@ func report(_title: String) -> void:
 			expect("Bootstrap modified" in jvm_status(), "a changed bootstrap asks for a restart: " + jvm_status())
 		11:
 			expect(gradle_succeeded(), "Build Release after deleting its outputs succeeds")
-			for path in [INDEX, HASHES, GAME]:
+			for path in [HASHES, GAME]:
 				expect(FileAccess.file_exists(path), "Build Release writes back " + path)
 			expect(built_hash(PLAYER) == FileAccess.get_md5(PLAYER), "the rewritten hashes describe Player.kt as built")
