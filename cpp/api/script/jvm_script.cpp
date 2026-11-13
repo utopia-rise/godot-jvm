@@ -16,6 +16,10 @@
 #include <core/object.hpp>
 #include <utility>
 
+#ifdef TOOLS_ENABLED
+#include <classes/file_access.hpp>
+#endif
+
 using namespace godot;
 
 Variant JvmScript::_new() {
@@ -387,6 +391,11 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
             owner.set(value.key, value.value);
         }
     }
+}
+
+void JvmScript::record_source_hash(const String& p_path) {
+    source_hash = FileAccess::get_md5(p_path);
+    update_source_sync_warning();
 }
 
 void JvmScript::update_source_sync_warning() {

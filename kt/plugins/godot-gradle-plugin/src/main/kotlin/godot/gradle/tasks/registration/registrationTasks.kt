@@ -45,10 +45,9 @@ fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
 
     val syncRegistrationFiles = if (godotJvmExtension.registration.disableGdj.get()) null else registerRegistrationFileSync(generate, fastBuild)
 
-    val generatedSources = generate.flatMap(GenerateRegistrarsTask::generatedSourceRootDir)
     val compilation = kotlinJvmExtension.target.compilations.create("registrars") { compilation ->
         compilation.defaultSourceSet {
-            kotlin.srcDir(generatedSources.map { root -> root.dir("main/kotlin") })
+            kotlin.srcDir(generate.flatMap { task -> task.generatedSourceRootDir.dir("main/kotlin") })
         }
         val mainCompilation = kotlinJvmExtension.target.compilations.getByName("main")
         compilation.compileDependencyFiles += mainCompilation.compileDependencyFiles
@@ -63,7 +62,7 @@ fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
         task.archiveVersion.set("")
         task.archiveClassifier.set("")
         task.from(compilation.output.allOutputs)
-        task.from(generatedSources.map { root -> root.dir("resources") })
+        task.from(generate.flatMap { generateTask -> generateTask.generatedSourceRootDir.dir("resources") })
         task.onlyIf { !fastBuild }
     }
 

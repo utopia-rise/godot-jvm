@@ -9,7 +9,6 @@ import godot.gradle.projectExt.registerGodotJar
 import godot.gradle.projectExt.sourceSet
 import godot.gradle.tasks.copy.CopyIntoGodotProjectTask
 import godot.gradle.tasks.copy.registerCopyIntoGodotProject
-import godot.gradle.tasks.project.scriptSourceRoots
 import godot.gradle.tasks.registration.RegistrationTasks
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -18,7 +17,6 @@ import org.gradle.api.Project
 import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
-import java.io.File
 import javax.inject.Inject
 
 class UserCodeTasks(
@@ -62,7 +60,6 @@ fun Project.registerUserCodeTasks(buildType: BuildType, registration: Registrati
         task.group = "godot-jvm-internal"
         task.description = "Hashes the sources of the debug build so the editor can tell which ones changed since."
         task.sourceFiles.from(sourceSet(BuildType.DEBUG).allSource.matching { filter -> filter.include("**/*.kt", "**/*.java", "**/*.scala") })
-        task.sourceRootPaths.set(scriptSourceRoots().map(File::getAbsolutePath))
         task.godotProjectDirPath.set(godotJvmExtension.godotProjectDirectory.map { directory -> directory.asFile.absolutePath })
         task.sourceHashesFile.set(layout.buildDirectory.file("generated/source-hashes/${ArtifactNames.SOURCE_HASHES}"))
     }

@@ -76,7 +76,7 @@
 "C.1.3" = { status = "done" }
 "C.1.4" = { status = "done" }
 "C.1.5" = { status = "todo", note = "script icons and built-in documentation are not shown in the editor" }
-"C.2" = { hash = "80bf3109f089" }
+"C.2" = { hash = "2c6323261f4e" }
 "C.2.1" = { status = "partial", note = "the Gradle wrapper setting still carries the old product name: kotlin_jvm/gradle/gradle_wrapper_dir" }
 "C.2.2" = { status = "done" }
 "C.2.3" = { status = "done" }

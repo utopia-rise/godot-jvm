@@ -3,7 +3,6 @@
 #include "api/language/names.h"
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
-#include "api/script/jvm_source_manager.h"
 #include "api/script/source_script_parser.h"
 #include "engine/ustring.h"
 #include "hash.h"
@@ -64,8 +63,7 @@ Variant JvmResourceFormatLoader::_load(const String& p_path, const String&, bool
     const StringName fqdn = parse_source_script_fqname(source_code, p_path);
     Ref<JvmScript> script = JvmScriptManager::get_instance()->create_and_bind_physical_script(p_path, fqdn);
 #ifdef TOOLS_ENABLED
-    JvmSourceManager::get_instance().record_source(p_path);
-    if (script.is_valid()) { script->update_source_sync_warning(); }
+    if (script.is_valid()) { script->record_source_hash(p_path); }
 #endif
     if (script.is_null()) { return (int64_t) ERR_UNAVAILABLE; }
 

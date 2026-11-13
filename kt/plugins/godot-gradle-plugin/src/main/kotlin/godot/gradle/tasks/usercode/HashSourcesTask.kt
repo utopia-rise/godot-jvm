@@ -1,11 +1,9 @@
 package godot.gradle.tasks.usercode
 
 import godot.gradle.tasks.project.isInside
-import godot.gradle.tasks.project.shadowingGdIgnore
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -24,9 +22,6 @@ abstract class HashSourcesTask : DefaultTask() {
     abstract val sourceFiles: ConfigurableFileCollection
 
     @get:Input
-    abstract val sourceRootPaths: ListProperty<String>
-
-    @get:Input
     abstract val godotProjectDirPath: Property<String>
 
     @get:OutputFile
@@ -35,20 +30,16 @@ abstract class HashSourcesTask : DefaultTask() {
     @TaskAction
     fun hash() {
         val godotProjectDir = File(godotProjectDirPath.get())
-        val roots = sourceRootPaths.get()
-            .map(::File)
-            .filter { root -> root.isInside(godotProjectDir) && root.shadowingGdIgnore(godotProjectDir) == null }
-        val sources = sourceFiles.files
-            .filter { sourceFile -> roots.any(sourceFile::isInside) }
+        val sourceEntries = sourceFiles.files
+            .filter { sourceFile -> sourceFile.isInside(godotProjectDir) }
             .associate { sourceFile ->
                 val hash = MessageDigest.getInstance("MD5").digest(sourceFile.readBytes())
                 sourceFile.resPath(godotProjectDir) to hash.joinToString("") { byte -> "%02x".format(byte) }
             }
             .toSortedMap()
-
-        val rootEntries = roots.map { root -> "\"${root.resPath(godotProjectDir)}/\"" }.sorted().joinToString(", ")
-        val sourceEntries = sources.entries.joinToString(",\n") { (path, hash) -> """        "$path": "$hash"""" }
-        sourceHashesFile.get().asFile.writeText("{\n    \"roots\": [$rootEntries],\n    \"sources\": {\n$sourceEntries\n    }\n}\n")
+            .entries
+            .joinToString(",\n") { (path, hash) -> """    "$path": "$hash"""" }
+        sourceHashesFile.get().asFile.writeText("{\n$sourceEntries\n}\n")
     }
 
     private fun File.resPath(godotProjectDir: File): String =

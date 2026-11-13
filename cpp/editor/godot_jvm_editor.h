@@ -22,13 +22,6 @@ namespace godot {
             GENERATE_PROJECT
         };
 
-        enum BuildOnRunMode {
-            BUILD_ON_RUN_NEVER,
-            BUILD_ON_RUN_WHEN_STALE,
-            BUILD_ON_RUN_ALWAYS,
-            BUILD_ON_RUN_MODE_COUNT
-        };
-
         PopupMenu* tool_pop_menu;
         // Built in NOTIFICATION_ENTER_TREE, not the constructor: it reads editor_scale below, which is only populated
         // once this plugin has actually entered the tree — constructing it any earlier crashes.
@@ -41,11 +34,10 @@ namespace godot {
         Button* tool_bar_gradle_task_button;
         OptionButton* tool_bar_gradle_task_choice;
         Button* build_on_run_button;
-        int build_on_run_mode = BUILD_ON_RUN_NEVER;
+        bool build_on_run = false;
 
         GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
         bool displayed_bootstrap_outdated = false;
-        bool displayed_roots_added = false;
 
         // The native library cannot be reloaded, so a replaced addon only takes effect once the editor restarts.
         uint64_t addon_manifest_time = 0;

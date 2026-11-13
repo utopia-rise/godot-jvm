@@ -21,7 +21,6 @@ const SOURCE_DIRECTORY := "\nsourceSets.named(\"main\") { java.srcDir(\"scripts\
 const SPLIT_DEPENDENCY := "\ndependencies {\n    godotSplitImplementation(\"commons-io:commons-io:2.15.1\")\n}\n"
 
 var times := {}
-var last_start_ms := 0
 
 
 func player_source(extra: String, body: String, uses_split: bool) -> String:
@@ -70,12 +69,7 @@ func built_hash(path: String) -> String:
 	var json = JSON.parse_string(FileAccess.get_file_as_string(HASHES))
 	if typeof(json) != TYPE_DICTIONARY:
 		return "<no hashes>"
-	return String((json["sources"] as Dictionary).get(path, "<missing>"))
-
-
-func built_roots() -> Array:
-	var json = JSON.parse_string(FileAccess.get_file_as_string(HASHES))
-	return json["roots"] if typeof(json) == TYPE_DICTIONARY else []
+	return String((json as Dictionary).get(path, "<missing>"))
 
 
 func expect_modified_warning(shown: bool, description: String) -> void:
@@ -92,26 +86,6 @@ func edit_player(extra: String, body: String, uses_split: bool) -> void:
 	OS.delay_msec(1100)
 	write(PLAYER, player_source(extra, body, uses_split))
 	EditorInterface.get_resource_filesystem().scan_sources()
-
-
-func shift_click_play() -> void:
-	var event := InputEventKey.new()
-	event.keycode = KEY_SHIFT
-	event.pressed = true
-	Input.parse_input_event(event)
-	Input.flush_buffered_events()
-	var start := Time.get_ticks_msec()
-	EditorInterface.play_custom_scene(MAIN)
-	last_start_ms = Time.get_ticks_msec() - start
-	event.pressed = false
-	Input.parse_input_event(event)
-	Input.flush_buffered_events()
-
-
-func expect_started_without_build(description: String) -> void:
-	expect(last_start_ms < 500, "%s: Shift+click does not build (start took %d ms)" % [description, last_start_ms])
-	expect(EditorInterface.is_playing_scene(), description + ": the game is running")
-	EditorInterface.stop_playing_scene()
 
 
 func hide_gradle_dialog() -> void:
@@ -151,19 +125,11 @@ func setup_phases() -> void:
 			write(ENEMY, "package game\n\nimport godot.annotation.Script\nimport godot.api.Node\n\n@Script\nclass Enemy : Node()\n")
 			EditorInterface.get_resource_filesystem().scan_sources()
 			, "Build Release"],
-		["Shift+click after a release build of an edit", func():
-			hide_gradle_dialog()
-			shift_click_play()
-			, ""],
 		["change a method body, then Fast Build", func():
 			hide_gradle_dialog()
 			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES, GAME])
 			edit_player("    @Export\n    var health: Int = 10\n", "println(\"fast\")", true)
 			, "Fast Build"],
-		["Shift+click after Fast Build", func():
-			hide_gradle_dialog()
-			shift_click_play()
-			, ""],
 		["add a comment, then Build", func():
 			hide_gradle_dialog()
 			remember([BOOTSTRAP, USER_CODE, INDEX, HASHES])
@@ -175,7 +141,7 @@ func setup_phases() -> void:
 			hide_gradle_dialog()
 			edit_player("    @Export\n    var health: Int = 11\n", "println(\"fast\")", true)
 			var json: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(HASHES))
-			(json["sources"] as Dictionary)[PLAYER] = FileAccess.get_md5(PLAYER)
+			json[PLAYER] = FileAccess.get_md5(PLAYER)
 			write(HASHES, JSON.stringify(json, "    "))
 			root.propagate_notification(NOTIFICATION_APPLICATION_FOCUS_IN)
 			, ""],
@@ -249,43 +215,37 @@ func report(_title: String) -> void:
 			expect(built_hash(ENEMY) == FileAccess.get_md5(ENEMY), "the hashes a release build writes list Enemy.kt as built")
 			expect_status_ready("after a release build of an edit")
 		5:
-			expect_started_without_build("after a release build of an edit")
-		6:
 			expect(gradle_succeeded(), "Fast Build succeeds")
 			expect_rewritten(USER_CODE, true, "Fast Build")
 			expect_rewritten(HASHES, true, "Fast Build")
 			for path in [BOOTSTRAP, INDEX, GAME]:
 				expect_rewritten(path, false, "Fast Build")
 			expect_modified_warning(false, "after Fast Build")
-		7:
-			expect_started_without_build("after Fast Build")
-		8:
+		6:
 			expect(gradle_succeeded(), "a build after a comment succeeds")
 			expect_rewritten(USER_CODE, true, "a build after a comment-only change")
 			expect_rewritten(HASHES, true, "a build after a comment-only change")
 			expect_rewritten(BOOTSTRAP, false, "a build after a comment-only change")
 			expect_modified_warning(false, "after building a comment")
-		9:
+		7:
 			expect_modified_warning(true, "after hashes rewritten by hand, which the editor reads only with the user code jar")
-		10:
+		8:
 			expect(gradle_succeeded(), "the build after the hand-written hashes succeeds")
 			expect_modified_warning(false, "after the build that reloads the user code jar")
 			expect(script_members(load(PLAYER))["props"].has("health"), "Player still has health after the build")
-		11:
+		9:
 			expect(gradle_succeeded(), "a build with a new source directory succeeds")
 			expect(built_hash(EXTRA) == FileAccess.get_md5(EXTRA), "the source hashes list Extra.kt from the new directory")
-			expect("Source directories added" in jvm_status(), "a new source directory asks for a restart: " + jvm_status())
-		12:
+			expect_status_ready("after a build that adds a source directory a loaded script comes from, which asks for no restart")
+		10:
 			expect(gradle_succeeded(), "a build without the split dependency succeeds")
 			expect(not FileAccess.file_exists(SPLIT_JAR) or OS.has_feature("windows"), "a dropped split dependency leaves jvm/dependencies/, unless the open Windows editor keeps it")
 			expect(class_path(BOOTSTRAP) == "", "the bootstrap Class-Path is empty without split dependencies: '%s'" % class_path(BOOTSTRAP))
 			expect(FileAccess.get_file_as_string(SPLIT_LIST) == "", "the split dependency list is empty without split dependencies, even when the editor keeps the jar: '%s'" % FileAccess.get_file_as_string(SPLIT_LIST))
 			expect_rewritten(BOOTSTRAP, true, "a build after dropping a split dependency")
 			expect(built_hash(EXTRA) == "<missing>", "the source hashes drop Extra.kt once its directory leaves the build")
-			expect(not built_roots().has("res://scripts/"), "the source hashes drop a directory removed from the build: %s" % [built_roots()])
-			expect(built_roots().has("res://src/main/kotlin/"), "the source hashes keep the main source directory: %s" % [built_roots()])
 			expect("Bootstrap modified" in jvm_status(), "a changed bootstrap asks for a restart: " + jvm_status())
-		13:
+		11:
 			expect(gradle_succeeded(), "Build Release after deleting its outputs succeeds")
 			for path in [INDEX, HASHES, GAME]:
 				expect(FileAccess.file_exists(path), "Build Release writes back " + path)

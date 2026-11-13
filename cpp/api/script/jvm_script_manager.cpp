@@ -194,6 +194,23 @@ IndexedScriptClass JvmScriptManager::get_indexed_script_class(const JvmScript* p
     );
     return entry ? entry->value : IndexedScriptClass();
 }
+
+void JvmScriptManager::load_source_hashes() {
+    built_source_hashes.clear();
+    const String path = String(RES_DIRECTORY) + SOURCE_HASHES_FILE;
+    Variant json = FileAccess::file_exists(path) ? JSON::parse_string(FileAccess::get_file_as_string(path)) : Variant();
+    if (json.get_type() == Variant::DICTIONARY) {
+        Dictionary hashes = json;
+        for (const String source_path : hashes.keys()) {
+            built_source_hashes[source_path] = hashes[source_path];
+        }
+    }
+}
+
+bool JvmScriptManager::is_modified_since_build(const JvmScript* p_script) const {
+    const HashMap<String, String>::ConstIterator built_hash = built_source_hashes.find(p_script->get_path());
+    return built_hash && built_hash->value != p_script->source_hash;
+}
 #endif
 
 Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p_path, const StringName& p_fqdn) {
