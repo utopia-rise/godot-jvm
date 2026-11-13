@@ -175,26 +175,6 @@ void JvmScriptManager::update_all_scripts() {
     }
 }
 
-void JvmScriptManager::load_script_class_index() {
-    script_class_index.clear();
-    const String path = String(RES_DIRECTORY) + SCRIPT_CLASS_INDEX_FILE;
-    Variant json = FileAccess::file_exists(path) ? JSON::parse_string(FileAccess::get_file_as_string(path)) : Variant();
-    if (json.get_type() == Variant::DICTIONARY) {
-        Dictionary classes = json;
-        for (const String fqdn : classes.keys()) {
-            Dictionary entry = classes[fqdn];
-            script_class_index[fqdn] = {entry["name"], entry["base"]};
-        }
-    }
-}
-
-IndexedScriptClass JvmScriptManager::get_indexed_script_class(const JvmScript* p_script) const {
-    const HashMap<StringName, IndexedScriptClass>::ConstIterator entry = script_class_index.find(
-        p_script->last_physical_fqdn
-    );
-    return entry ? entry->value : IndexedScriptClass();
-}
-
 void JvmScriptManager::load_source_hashes() {
     built_source_hashes.clear();
     const String path = String(RES_DIRECTORY) + SOURCE_HASHES_FILE;

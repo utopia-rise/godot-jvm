@@ -56,7 +56,7 @@ private fun Project.wireEntryTasks(shared: SharedTasks, pipelines: Map<BuildType
     val projectTasks = listOf(shared.project.generateGdIgnoreFiles, shared.project.checkIgnoredScriptSources)
     val debug = pipelines.getValue(BuildType.DEBUG)
     val build = tasks.named("build") { task ->
-        task.dependsOn(projectTasks, shared.registration.copyScriptClassIndex, shared.syncSplitDependencies, debug.desktop)
+        task.dependsOn(projectTasks, shared.syncSplitDependencies, debug.desktop)
         shared.registration.syncRegistrationFiles?.let { sync -> task.dependsOn(sync) }
     }
     tasks.named("fastBuild") { task -> task.dependsOn(projectTasks, listOfNotNull(debug.copyUserCode)) }

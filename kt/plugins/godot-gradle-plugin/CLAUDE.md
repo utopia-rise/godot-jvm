@@ -82,7 +82,7 @@ Performance intent:
 
 The task graph has three groups (`docs/src/doc/contribute/how-it-works/gradle-plugin.md` draws it):
 
-1. **Shared tasks**, registered once by `registerSharedTasks`: `project/` (`generateGdIgnoreFiles`, `checkIgnoredScriptSources`), `api/` (`generateCustomApiSources` once, then per build type the published `api` jar or `packageCustomApiJar[Release]`, chosen by `registerGodotApi`), `registration/` (scan, `.gdj` sync, the one registrar jar, `copyScriptClassIndex` to `jvm/editor/`), `dependencies/` (`syncSplitDependencies` to `jvm/dependencies/`, with the `split-dependencies.txt` list `writeSplitDependencyList` writes for exports), and the tools of `android/`, `graal/` and `ios/`.
+1. **Shared tasks**, registered once by `registerSharedTasks`: `project/` (`generateGdIgnoreFiles`, `checkIgnoredScriptSources`), `api/` (`generateCustomApiSources` once, then per build type the published `api` jar or `packageCustomApiJar[Release]`, chosen by `registerGodotApi`), `registration/` (scan, `.gdj` sync, the one registrar jar), `dependencies/` (`syncSplitDependencies` to `jvm/dependencies/`, with the `split-dependencies.txt` list `writeSplitDependencyList` writes for exports), and the tools of `android/`, `graal/` and `ios/`.
 2. **One pipeline per build type**, registered by the same `registerPipeline(buildType, shared)`: `bootstrap/`, `usercode/` (debug: `hashSources` and `copyUserCode`, which copies the hashes and `usercode.jar` together), `game/` (release only), and the platform tasks of `android/`, `graal/` and `ios/`. A pipeline uses nothing of the other build type.
 3. **The tasks you run** (`setupTasks.kt`): `build` runs the debug pipeline and the shared tasks, `fastBuild` only the debug `copyUserCode`, `buildRelease` is `build` plus the release desktop copy, and each platform task is `build` or `buildRelease` plus its platform copy.
 
@@ -94,11 +94,11 @@ When `godot.isLibrary` is `true`, none of this is registered: only the custom AP
 
 ## Important Artifacts
 
-- **Generated registrar output** (`tasks/registration/`): registrar sources under `build/generated/registrar-generation`, service metadata under its `resources/META-INF/services`, staged `.gdj` files under its `registration/`, and the class index under `build/generated/registrar-generation-index/`.
+- **Generated registrar output** (`tasks/registration/`): registrar sources under `build/generated/registrar-generation`, service metadata under its `resources/META-INF/services`, and staged `.gdj` files under its `registration/`.
 - **`godot-bootstrap.jar`** (`tasks/bootstrap/`): the `bootstrap` configuration and the runtime classpath, service files merged, no user classes; its `Class-Path` lists the split jars as `../dependencies/`.
 - **`usercode.jar`** (`tasks/usercode/`): `packageUserCodeJar` (`packageUserCodeJarRelease`), the user classes, the registrar jar and the `godotGame*` dependencies, service files merged. The Shadow plugin's own `shadowJar` is disabled.
 - **`game.jar`** (`tasks/game/`): release only, both release jars merged with Shadow, one class loader at runtime.
-- **`jvm/editor/`**: `script-classes.json` and `source-hashes.json`, read by the editor only, reloaded with the debug `usercode.jar`.
+- **`jvm/editor/`**: `source-hashes.json`, read by the editor only, reloaded with the debug `usercode.jar`.
 
 ## Settings That Matter
 

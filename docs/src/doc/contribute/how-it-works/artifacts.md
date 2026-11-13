@@ -13,18 +13,16 @@ Debug and release artifacts live in separate directories so that neither can be 
   jre-<arch>-<os>/            embedded JRE, shared by both variants
   ios/ios-jdk/                iOS JDK static libraries, shared by both variants
   dependencies/               split dependency jars, shared by both variants, and split-dependencies.txt
-  editor/                     script-classes.json and source-hashes.json, read by the editor only
+  editor/                     source-hashes.json, read by the editor only
   debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>
   release/                    game.<jar|so|dll|dylib|a>, game-dex.jar
 ```
 
-`build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts run `build`, then write `jvm/release/`. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`. [The Gradle plugin](gradle-plugin.md) describes the tasks.
+`build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts run `build`, then write `jvm/release/`. The editor always loads the debug jars, a release export included, and names the global classes of JVM scripts from them. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`. [The Gradle plugin](gradle-plugin.md) describes the tasks.
 
 The editor and `template_debug` binaries load the debug variant, `template_release` binaries the release variant.
 
-`jvm/editor/script-classes.json` maps the fully qualified name of each registered class to its registered name and base: its nearest registered parent, or else its Godot base class. The editor answers Godot's global class queries from it for a script whose class its JVM did not load, so the global class cache an export packs names every JVM class. It is never exported.
-
-`jvm/editor/source-hashes.json` maps the `res://` path of every Kotlin, Java and Scala source of the debug build inside the Godot project to its MD5. One task copies it together with `jvm/debug/usercode.jar`, and any source change rewrites both, comment-only changes included, so the hashes always describe the jar the editor runs. The editor reads both files only when it loads `usercode.jar`, at startup and on every reload, and the class index is copied before the jar so that the reload finds it current. Neither file is ever exported.
+`jvm/editor/source-hashes.json` maps the `res://` path of every Kotlin, Java and Scala source of the debug build inside the Godot project to its MD5. One task copies it together with `jvm/debug/usercode.jar`, and any source change rewrites both, comment-only changes included, so the hashes always describe the jar the editor runs. The editor reads it only when it loads `usercode.jar`, at startup and on every reload. It is never exported.
 
 Each script records the MD5 of its file when the editor loads or saves it, and counts as modified since the last build, for the warning of its nodes, when the build has a hash for its path and that hash differs. A script the build has no hash for, such as a test or a source no build compiled yet, never counts as modified; when its class is missing from the jar, its nodes warn that the script cannot be found instead. Modification times are never compared.
 

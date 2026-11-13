@@ -137,8 +137,6 @@ jobs:
       - name: Build Graal native image
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.graal-build-task }}
 
-      # Release exports have no debug build, so this import builds the global class cache from the script class index
-      # of the release build.
       - name: Import test project
         run: harness/tests/gradlew -p harness/tests/ importResources
         # Longer than the task's own 10 minute wait, so it can terminate a hung

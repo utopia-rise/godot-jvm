@@ -73,9 +73,6 @@ fun Project.registerUserCodeTasks(buildType: BuildType, registration: Registrati
         userCodeJar.flatMap(ShadowJar::getArchiveFile) to
             godotJvmDirectory.resolve(buildType.id).resolve(ArtifactNames.Debug.USER_CODE_JAR),
     )
-    copyUserCode.configure { task ->
-        task.mustRunAfter(registration.copyScriptClassIndex)
-        registration.syncRegistrationFiles?.let { sync -> task.mustRunAfter(sync) }
-    }
+    registration.syncRegistrationFiles?.let { sync -> copyUserCode.configure { task -> task.mustRunAfter(sync) } }
     return UserCodeTasks(userCodeJar, copyUserCode)
 }

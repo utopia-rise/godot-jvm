@@ -1,14 +1,10 @@
 package godot.gradle.tasks.registration
 
 import godot.gradle.projectExt.BuildType
-import godot.gradle.projectExt.godotJvmDirectory
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.kotlinJvmExtension
 import godot.gradle.projectExt.requireConfiguredGodotProjectDirectory
 import godot.gradle.projectExt.sourceSet
-import godot.gradle.tasks.copy.CopyIntoGodotProjectTask
-import godot.gradle.tasks.copy.registerCopyIntoGodotProject
-import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.FileExtensions
 import godot.tools.common.constants.Paths
 import org.gradle.api.Project
@@ -19,7 +15,6 @@ import org.gradle.api.tasks.bundling.Jar
 class RegistrationTasks(
     val registrarJar: TaskProvider<Jar>,
     val syncRegistrationFiles: TaskProvider<out Task>?,
-    val copyScriptClassIndex: TaskProvider<CopyIntoGodotProjectTask>,
 )
 
 fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
@@ -27,7 +22,7 @@ fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
 
     val generate = tasks.register("generateRegistrars", GenerateRegistrarsTask::class.java) { task ->
         task.group = "godot-jvm-internal"
-        task.description = "Scans the debug classes and generates registrar sources, the script class index and staged .gdj files."
+        task.description = "Scans the debug classes and generates registrar sources and staged .gdj files."
         task.userCodeClassPathRoots.from(debugSourceSet.output.classesDirs)
         task.runtimeClassPathFiles.from(debugSourceSet.compileClasspath)
         task.runtimeClassPathFiles.from(debugSourceSet.output.classesDirs)
@@ -39,7 +34,6 @@ fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
         task.annotationProcessingMode.set(godotJvmExtension.registration.annotationProcessingMode)
         task.generatedSourceRootDir.set(layout.buildDirectory.dir("generated/registrar-generation"))
         task.generatedRegistrationFilesRootDir.set(layout.buildDirectory.dir("generated/registrar-generation/registration"))
-        task.scriptClassIndexFile.set(layout.buildDirectory.file("generated/registrar-generation-index/${ArtifactNames.SCRIPT_CLASS_INDEX}"))
         task.onlyIf { !fastBuild }
     }
 
@@ -66,14 +60,7 @@ fun Project.registerRegistrationTasks(fastBuild: Boolean): RegistrationTasks {
         task.onlyIf { !fastBuild }
     }
 
-    val copyScriptClassIndex = registerCopyIntoGodotProject(
-        name = "copyScriptClassIndex",
-        description = "Copies the script class index into the editor directory of the Godot project.",
-        generate.flatMap(GenerateRegistrarsTask::scriptClassIndexFile) to
-            godotJvmDirectory().resolve(Paths.EDITOR_DIR).resolve(ArtifactNames.SCRIPT_CLASS_INDEX),
-    )
-
-    return RegistrationTasks(registrarJar, syncRegistrationFiles, copyScriptClassIndex)
+    return RegistrationTasks(registrarJar, syncRegistrationFiles)
 }
 
 private fun Project.registerRegistrationFileSync(

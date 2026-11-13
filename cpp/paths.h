@@ -18,7 +18,6 @@ static constexpr const char* ADDON_MANIFEST_FILE = "res://addons/jvm/jvm.gdexten
 
 // Read by the editor only, reloaded with the debug user code archive.
 #define JVM_EDITOR_DIRECTORY JVM_DIRECTORY "editor/"
-static constexpr const char* SCRIPT_CLASS_INDEX_FILE = JVM_EDITOR_DIRECTORY "script-classes.json";
 static constexpr const char* SOURCE_HASHES_FILE = JVM_EDITOR_DIRECTORY "source-hashes.json";
 
 // Shared by both variants.

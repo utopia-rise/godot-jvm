@@ -32,15 +32,9 @@ object ArtifactNames {
     /** iOS: the GraalVM native image of the variant's jars as a static library. */
     const val IOS_STATIC_LIBRARY = "game.a"
 
-    /**
-     * Under [Paths.EDITOR_DIR]: the registered name and base of every registered class, by fully qualified name. The editor
-     * answers Godot's global class queries from it when its JVM has no class for a script.
-     */
-    const val SCRIPT_CLASS_INDEX = "script-classes.json"
-
     /** Under [Paths.DEPENDENCIES_DIR]: the file names of the split dependency jars the build uses, one per line, the only ones an export packs. */
     const val SPLIT_DEPENDENCY_LIST = "split-dependencies.txt"
 
-    /** Under [Paths.EDITOR_DIR], copied with [Debug.USER_CODE_JAR]: its source directories and the MD5 of every source in them, by `res://` path. */
+    /** Under [Paths.EDITOR_DIR], copied with [Debug.USER_CODE_JAR]: the MD5 of every source it was built from inside the Godot project, by `res://` path. */
     const val SOURCE_HASHES = "source-hashes.json"
 }

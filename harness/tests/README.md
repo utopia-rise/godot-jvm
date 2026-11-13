@@ -4,7 +4,7 @@
 
 Test and export tasks are deliberately dependency-free. They only run or export the files already present in the test project; they never build, import, create a native image, or create a JRE. Run every prerequisite explicitly, in order.
 
-Debug tasks write `jvm/debug/`, release tasks write `jvm/release/`; an export with debug packs the former, a release export the latter. Every release task runs `build` first, so the editor always has the debug jars and `jvm/editor/` it builds the global class cache from, and `test_global_class_names.gd` checks that cache in each export.
+Debug tasks write `jvm/debug/`, release tasks write `jvm/release/`; an export with debug packs the former, a release export the latter. Every release task runs `build` first, so the editor always has the debug jars it builds the global class cache from, and `test_global_class_names.gd` checks that cache in each export.
 
 For JVM tests in the editor:
 
